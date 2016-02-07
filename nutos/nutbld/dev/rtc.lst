@@ -1,0 +1,243 @@
+GAS LISTING /tmp/ccfCzNyY.s 			page 1
+
+
+   1               		.file	"rtc.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.NutRegisterRtc,"ax",@progbits
+   9               	.global	NutRegisterRtc
+  10               		.type	NutRegisterRtc, @function
+  11               	NutRegisterRtc:
+  12               	/* prologue: function */
+  13               	/* frame size = 0 */
+  14               	/* stack size = 0 */
+  15               	.L__stack_usage = 0
+  16 0000 9093 0000 		sts reg_rtc+1,r25
+  17 0004 8093 0000 		sts reg_rtc,r24
+  18 0008 0097      		sbiw r24,0
+  19 000a 01F4      		brne .L2
+  20               	.L4:
+  21 000c 80E0      		ldi r24,0
+  22 000e 90E0      		ldi r25,0
+  23 0010 0895      		ret
+  24               	.L2:
+  25 0012 DC01      		movw r26,r24
+  26 0014 1296      		adiw r26,2
+  27 0016 ED91      		ld r30,X+
+  28 0018 FC91      		ld r31,X
+  29 001a 1397      		sbiw r26,2+1
+  30 001c 3097      		sbiw r30,0
+  31 001e 01F0      		breq .L4
+  32 0020 1995      		eicall
+  33 0022 892B      		or r24,r25
+  34 0024 01F0      		breq .L4
+  35 0026 1092 0000 		sts reg_rtc+1,__zero_reg__
+  36 002a 1092 0000 		sts reg_rtc,__zero_reg__
+  37 002e 8FEF      		ldi r24,lo8(-1)
+  38 0030 9FEF      		ldi r25,lo8(-1)
+  39 0032 0895      		ret
+  40               		.size	NutRegisterRtc, .-NutRegisterRtc
+  41               		.section	.text.NutRtcGetTime,"ax",@progbits
+  42               	.global	NutRtcGetTime
+  43               		.type	NutRtcGetTime, @function
+  44               	NutRtcGetTime:
+  45               	/* prologue: function */
+  46               	/* frame size = 0 */
+  47               	/* stack size = 0 */
+  48               	.L__stack_usage = 0
+  49 0000 A091 0000 		lds r26,reg_rtc
+  50 0004 B091 0000 		lds r27,reg_rtc+1
+  51 0008 1097      		sbiw r26,0
+  52 000a 01F0      		breq .L13
+  53 000c 1496      		adiw r26,4
+  54 000e ED91      		ld r30,X+
+  55 0010 FC91      		ld r31,X
+  56 0012 1597      		sbiw r26,4+1
+  57 0014 3097      		sbiw r30,0
+GAS LISTING /tmp/ccfCzNyY.s 			page 2
+
+
+  58 0016 01F0      		breq .L13
+  59 0018 0097      		sbiw r24,0
+  60 001a 01F0      		breq .L13
+  61 001c BC01      		movw r22,r24
+  62 001e CD01      		movw r24,r26
+  63 0020 1994      		eijmp
+  64               	.L13:
+  65 0022 8FEF      		ldi r24,lo8(-1)
+  66 0024 9FEF      		ldi r25,lo8(-1)
+  67 0026 0895      		ret
+  68               		.size	NutRtcGetTime, .-NutRtcGetTime
+  69               		.section	.text.NutRtcSetTime,"ax",@progbits
+  70               	.global	NutRtcSetTime
+  71               		.type	NutRtcSetTime, @function
+  72               	NutRtcSetTime:
+  73               	/* prologue: function */
+  74               	/* frame size = 0 */
+  75               	/* stack size = 0 */
+  76               	.L__stack_usage = 0
+  77 0000 A091 0000 		lds r26,reg_rtc
+  78 0004 B091 0000 		lds r27,reg_rtc+1
+  79 0008 1097      		sbiw r26,0
+  80 000a 01F0      		breq .L21
+  81 000c 1696      		adiw r26,6
+  82 000e ED91      		ld r30,X+
+  83 0010 FC91      		ld r31,X
+  84 0012 1797      		sbiw r26,6+1
+  85 0014 3097      		sbiw r30,0
+  86 0016 01F0      		breq .L21
+  87 0018 0097      		sbiw r24,0
+  88 001a 01F0      		breq .L21
+  89 001c BC01      		movw r22,r24
+  90 001e CD01      		movw r24,r26
+  91 0020 1994      		eijmp
+  92               	.L21:
+  93 0022 8FEF      		ldi r24,lo8(-1)
+  94 0024 9FEF      		ldi r25,lo8(-1)
+  95 0026 0895      		ret
+  96               		.size	NutRtcSetTime, .-NutRtcSetTime
+  97               		.section	.text.NutRtcGetAlarm,"ax",@progbits
+  98               	.global	NutRtcGetAlarm
+  99               		.type	NutRtcGetAlarm, @function
+ 100               	NutRtcGetAlarm:
+ 101               	/* prologue: function */
+ 102               	/* frame size = 0 */
+ 103               	/* stack size = 0 */
+ 104               	.L__stack_usage = 0
+ 105 0000 9A01      		movw r18,r20
+ 106 0002 A091 0000 		lds r26,reg_rtc
+ 107 0006 B091 0000 		lds r27,reg_rtc+1
+ 108 000a 1097      		sbiw r26,0
+ 109 000c 01F0      		breq .L29
+ 110 000e 1896      		adiw r26,8
+ 111 0010 ED91      		ld r30,X+
+ 112 0012 FC91      		ld r31,X
+ 113 0014 1997      		sbiw r26,8+1
+ 114 0016 3097      		sbiw r30,0
+GAS LISTING /tmp/ccfCzNyY.s 			page 3
+
+
+ 115 0018 01F0      		breq .L29
+ 116 001a AB01      		movw r20,r22
+ 117 001c BC01      		movw r22,r24
+ 118 001e CD01      		movw r24,r26
+ 119 0020 1994      		eijmp
+ 120               	.L29:
+ 121 0022 8FEF      		ldi r24,lo8(-1)
+ 122 0024 9FEF      		ldi r25,lo8(-1)
+ 123 0026 0895      		ret
+ 124               		.size	NutRtcGetAlarm, .-NutRtcGetAlarm
+ 125               		.section	.text.NutRtcSetAlarm,"ax",@progbits
+ 126               	.global	NutRtcSetAlarm
+ 127               		.type	NutRtcSetAlarm, @function
+ 128               	NutRtcSetAlarm:
+ 129               	/* prologue: function */
+ 130               	/* frame size = 0 */
+ 131               	/* stack size = 0 */
+ 132               	.L__stack_usage = 0
+ 133 0000 9A01      		movw r18,r20
+ 134 0002 A091 0000 		lds r26,reg_rtc
+ 135 0006 B091 0000 		lds r27,reg_rtc+1
+ 136 000a 1097      		sbiw r26,0
+ 137 000c 01F0      		breq .L35
+ 138 000e 1A96      		adiw r26,10
+ 139 0010 ED91      		ld r30,X+
+ 140 0012 FC91      		ld r31,X
+ 141 0014 1B97      		sbiw r26,10+1
+ 142 0016 3097      		sbiw r30,0
+ 143 0018 01F0      		breq .L35
+ 144 001a AB01      		movw r20,r22
+ 145 001c BC01      		movw r22,r24
+ 146 001e CD01      		movw r24,r26
+ 147 0020 1994      		eijmp
+ 148               	.L35:
+ 149 0022 8FEF      		ldi r24,lo8(-1)
+ 150 0024 9FEF      		ldi r25,lo8(-1)
+ 151 0026 0895      		ret
+ 152               		.size	NutRtcSetAlarm, .-NutRtcSetAlarm
+ 153               		.section	.text.NutRtcGetStatus,"ax",@progbits
+ 154               	.global	NutRtcGetStatus
+ 155               		.type	NutRtcGetStatus, @function
+ 156               	NutRtcGetStatus:
+ 157               	/* prologue: function */
+ 158               	/* frame size = 0 */
+ 159               	/* stack size = 0 */
+ 160               	.L__stack_usage = 0
+ 161 0000 A091 0000 		lds r26,reg_rtc
+ 162 0004 B091 0000 		lds r27,reg_rtc+1
+ 163 0008 1097      		sbiw r26,0
+ 164 000a 01F0      		breq .L41
+ 165 000c 1C96      		adiw r26,12
+ 166 000e ED91      		ld r30,X+
+ 167 0010 FC91      		ld r31,X
+ 168 0012 1D97      		sbiw r26,12+1
+ 169 0014 3097      		sbiw r30,0
+ 170 0016 01F0      		breq .L41
+ 171 0018 BC01      		movw r22,r24
+GAS LISTING /tmp/ccfCzNyY.s 			page 4
+
+
+ 172 001a CD01      		movw r24,r26
+ 173 001c 1994      		eijmp
+ 174               	.L41:
+ 175 001e 8FEF      		ldi r24,lo8(-1)
+ 176 0020 9FEF      		ldi r25,lo8(-1)
+ 177 0022 0895      		ret
+ 178               		.size	NutRtcGetStatus, .-NutRtcGetStatus
+ 179               		.section	.text.NutRtcClearStatus,"ax",@progbits
+ 180               	.global	NutRtcClearStatus
+ 181               		.type	NutRtcClearStatus, @function
+ 182               	NutRtcClearStatus:
+ 183               	/* prologue: function */
+ 184               	/* frame size = 0 */
+ 185               	/* stack size = 0 */
+ 186               	.L__stack_usage = 0
+ 187 0000 AB01      		movw r20,r22
+ 188 0002 BC01      		movw r22,r24
+ 189 0004 8091 0000 		lds r24,reg_rtc
+ 190 0008 9091 0000 		lds r25,reg_rtc+1
+ 191 000c 0097      		sbiw r24,0
+ 192 000e 01F0      		breq .L47
+ 193 0010 DC01      		movw r26,r24
+ 194 0012 1E96      		adiw r26,14
+ 195 0014 ED91      		ld r30,X+
+ 196 0016 FC91      		ld r31,X
+ 197 0018 1F97      		sbiw r26,14+1
+ 198 001a 3097      		sbiw r30,0
+ 199 001c 01F0      		breq .L47
+ 200 001e 1994      		eijmp
+ 201               	.L47:
+ 202 0020 8FEF      		ldi r24,lo8(-1)
+ 203 0022 9FEF      		ldi r25,lo8(-1)
+ 204 0024 0895      		ret
+ 205               		.size	NutRtcClearStatus, .-NutRtcClearStatus
+ 206               		.local	reg_rtc
+ 207               		.comm	reg_rtc,2,1
+ 208               		.ident	"GCC: (GNU) 5.3.0"
+ 209               	.global __do_clear_bss
+GAS LISTING /tmp/ccfCzNyY.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 rtc.c
+     /tmp/ccfCzNyY.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccfCzNyY.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccfCzNyY.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccfCzNyY.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccfCzNyY.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccfCzNyY.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccfCzNyY.s:11     .text.NutRegisterRtc:0000000000000000 NutRegisterRtc
+                             .bss:0000000000000000 reg_rtc
+     /tmp/ccfCzNyY.s:44     .text.NutRtcGetTime:0000000000000000 NutRtcGetTime
+     /tmp/ccfCzNyY.s:72     .text.NutRtcSetTime:0000000000000000 NutRtcSetTime
+     /tmp/ccfCzNyY.s:100    .text.NutRtcGetAlarm:0000000000000000 NutRtcGetAlarm
+     /tmp/ccfCzNyY.s:128    .text.NutRtcSetAlarm:0000000000000000 NutRtcSetAlarm
+     /tmp/ccfCzNyY.s:156    .text.NutRtcGetStatus:0000000000000000 NutRtcGetStatus
+     /tmp/ccfCzNyY.s:182    .text.NutRtcClearStatus:0000000000000000 NutRtcClearStatus
+
+UNDEFINED SYMBOLS
+__do_clear_bss

@@ -1,0 +1,575 @@
+GAS LISTING /tmp/ccWVm5Do.s 			page 1
+
+
+   1               		.file	"httpu.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.HttpuSessionCreate,"ax",@progbits
+   9               	.global	HttpuSessionCreate
+  10               		.type	HttpuSessionCreate, @function
+  11               	HttpuSessionCreate:
+  12 0000 EF92      		push r14
+  13 0002 FF92      		push r15
+  14 0004 0F93      		push r16
+  15 0006 1F93      		push r17
+  16 0008 CF93      		push r28
+  17 000a DF93      		push r29
+  18 000c 1F92      		push __zero_reg__
+  19 000e 1F92      		push __zero_reg__
+  20 0010 CDB7      		in r28,__SP_L__
+  21 0012 DEB7      		in r29,__SP_H__
+  22               	/* prologue: function */
+  23               	/* frame size = 2 */
+  24               	/* stack size = 8 */
+  25               	.L__stack_usage = 8
+  26 0014 7C01      		movw r14,r24
+  27 0016 68E4      		ldi r22,lo8(72)
+  28 0018 74E0      		ldi r23,lo8(4)
+  29 001a 81E0      		ldi r24,lo8(1)
+  30 001c 90E0      		ldi r25,0
+  31 001e 0E94 0000 		call calloc
+  32 0022 8C01      		movw r16,r24
+  33 0024 892B      		or r24,r25
+  34 0026 01F0      		breq .L2
+  35 0028 C701      		movw r24,r14
+  36 002a 0E94 0000 		call NutUdpCreateSocket
+  37 002e F801      		movw r30,r16
+  38 0030 9183      		std Z+1,r25
+  39 0032 8083      		st Z,r24
+  40 0034 0097      		sbiw r24,0
+  41 0036 01F4      		brne .L3
+  42 0038 C801      		movw r24,r16
+  43 003a 0E94 0000 		call free
+  44 003e 00E0      		ldi r16,0
+  45 0040 10E0      		ldi r17,0
+  46 0042 00C0      		rjmp .L2
+  47               	.L3:
+  48 0044 28EF      		ldi r18,lo8(-8)
+  49 0046 33E0      		ldi r19,lo8(3)
+  50 0048 3A83      		std Y+2,r19
+  51 004a 2983      		std Y+1,r18
+  52 004c 22E0      		ldi r18,lo8(2)
+  53 004e 30E0      		ldi r19,0
+  54 0050 AE01      		movw r20,r28
+  55 0052 4F5F      		subi r20,-1
+  56 0054 5F4F      		sbci r21,-1
+  57 0056 62E0      		ldi r22,lo8(2)
+GAS LISTING /tmp/ccWVm5Do.s 			page 2
+
+
+  58 0058 70E1      		ldi r23,lo8(16)
+  59 005a 0E94 0000 		call NutUdpSetSockOpt
+  60               	.L2:
+  61 005e C801      		movw r24,r16
+  62               	/* epilogue start */
+  63 0060 0F90      		pop __tmp_reg__
+  64 0062 0F90      		pop __tmp_reg__
+  65 0064 DF91      		pop r29
+  66 0066 CF91      		pop r28
+  67 0068 1F91      		pop r17
+  68 006a 0F91      		pop r16
+  69 006c FF90      		pop r15
+  70 006e EF90      		pop r14
+  71 0070 0895      		ret
+  72               		.size	HttpuSessionCreate, .-HttpuSessionCreate
+  73               		.section	.text.HttpuSessionDestroy,"ax",@progbits
+  74               	.global	HttpuSessionDestroy
+  75               		.type	HttpuSessionDestroy, @function
+  76               	HttpuSessionDestroy:
+  77 0000 CF93      		push r28
+  78 0002 DF93      		push r29
+  79               	/* prologue: function */
+  80               	/* frame size = 0 */
+  81               	/* stack size = 2 */
+  82               	.L__stack_usage = 2
+  83 0004 EC01      		movw r28,r24
+  84 0006 8881      		ld r24,Y
+  85 0008 9981      		ldd r25,Y+1
+  86 000a 0E94 0000 		call NutUdpDestroySocket
+  87 000e CE01      		movw r24,r28
+  88               	/* epilogue start */
+  89 0010 DF91      		pop r29
+  90 0012 CF91      		pop r28
+  91 0014 0C94 0000 		jmp free
+  92               		.size	HttpuSessionDestroy, .-HttpuSessionDestroy
+  93               		.section	.text.HttpuReceive,"ax",@progbits
+  94               	.global	HttpuReceive
+  95               		.type	HttpuReceive, @function
+  96               	HttpuReceive:
+  97 0000 8F92      		push r8
+  98 0002 9F92      		push r9
+  99 0004 AF92      		push r10
+ 100 0006 BF92      		push r11
+ 101 0008 CF92      		push r12
+ 102 000a DF92      		push r13
+ 103 000c EF92      		push r14
+ 104 000e FF92      		push r15
+ 105 0010 0F93      		push r16
+ 106 0012 1F93      		push r17
+ 107 0014 CF93      		push r28
+ 108 0016 DF93      		push r29
+ 109               	/* prologue: function */
+ 110               	/* frame size = 0 */
+ 111               	/* stack size = 12 */
+ 112               	.L__stack_usage = 12
+ 113 0018 5C01      		movw r10,r24
+ 114 001a 6A01      		movw r12,r20
+GAS LISTING /tmp/ccWVm5Do.s 			page 3
+
+
+ 115 001c 7B01      		movw r14,r22
+ 116 001e EC01      		movw r28,r24
+ 117 0020 C95F      		subi r28,-7
+ 118 0022 DD4F      		sbci r29,-3
+ 119 0024 AC01      		movw r20,r24
+ 120 0026 4A5F      		subi r20,-6
+ 121 0028 5F4F      		sbci r21,-1
+ 122 002a BC01      		movw r22,r24
+ 123 002c 6E5F      		subi r22,-2
+ 124 002e 7F4F      		sbci r23,-1
+ 125 0030 0CEF      		ldi r16,lo8(-4)
+ 126 0032 11E0      		ldi r17,lo8(1)
+ 127 0034 9E01      		movw r18,r28
+ 128 0036 DC01      		movw r26,r24
+ 129 0038 8D91      		ld r24,X+
+ 130 003a 9C91      		ld r25,X
+ 131 003c 0E94 0000 		call NutUdpReceiveFrom
+ 132 0040 7501      		movw r14,r10
+ 133 0042 B4E0      		ldi r27,4
+ 134 0044 EB0E      		add r14,r27
+ 135 0046 FB1E      		adc r15,r27
+ 136 0048 F701      		movw r30,r14
+ 137 004a 9183      		std Z+1,r25
+ 138 004c 8083      		st Z,r24
+ 139 004e 97FD      		sbrc r25,7
+ 140 0050 00C0      		rjmp .L10
+ 141 0052 FE01      		movw r30,r28
+ 142 0054 E80F      		add r30,r24
+ 143 0056 F91F      		adc r31,r25
+ 144 0058 1082      		st Z,__zero_reg__
+ 145 005a 6501      		movw r12,r10
+ 146 005c F8ED      		ldi r31,-40
+ 147 005e CF1A      		sub r12,r31
+ 148 0060 FBEF      		ldi r31,-5
+ 149 0062 DF0A      		sbc r13,r31
+ 150 0064 00E0      		ldi r16,0
+ 151 0066 10E0      		ldi r17,0
+ 152               	.L11:
+ 153 0068 8881      		ld r24,Y
+ 154 006a 8823      		tst r24
+ 155 006c 01F0      		breq .L12
+ 156 006e 6DE0      		ldi r22,lo8(13)
+ 157 0070 70E0      		ldi r23,0
+ 158 0072 CE01      		movw r24,r28
+ 159 0074 0E94 0000 		call strchr
+ 160 0078 0097      		sbiw r24,0
+ 161 007a 01F0      		breq .L12
+ 162 007c DC01      		movw r26,r24
+ 163 007e 1C92      		st X,__zero_reg__
+ 164 0080 1196      		adiw r26,1
+ 165 0082 2C91      		ld r18,X
+ 166 0084 4C01      		movw r8,r24
+ 167 0086 2A30      		cpi r18,lo8(10)
+ 168 0088 01F0      		breq .L13
+ 169 008a BFEF      		ldi r27,-1
+ 170 008c 8B1A      		sub r8,r27
+ 171 008e 9B0A      		sbc r9,r27
+GAS LISTING /tmp/ccWVm5Do.s 			page 4
+
+
+ 172 0090 00C0      		rjmp .L14
+ 173               	.L13:
+ 174 0092 E2E0      		ldi r30,2
+ 175 0094 8E0E      		add r8,r30
+ 176 0096 911C      		adc r9,__zero_reg__
+ 177               	.L14:
+ 178 0098 0115      		cp r16,__zero_reg__
+ 179 009a 1105      		cpc r17,__zero_reg__
+ 180 009c 01F0      		breq .L16
+ 181 009e 6AE3      		ldi r22,lo8(58)
+ 182 00a0 70E0      		ldi r23,0
+ 183 00a2 CE01      		movw r24,r28
+ 184 00a4 0E94 0000 		call strchr
+ 185 00a8 0097      		sbiw r24,0
+ 186 00aa 01F0      		breq .L12
+ 187 00ac DC01      		movw r26,r24
+ 188 00ae 1C92      		st X,__zero_reg__
+ 189 00b0 F601      		movw r30,r12
+ 190 00b2 B097      		sbiw r30,32
+ 191 00b4 D183      		std Z+1,r29
+ 192 00b6 C083      		st Z,r28
+ 193 00b8 EC01      		movw r28,r24
+ 194 00ba 2196      		adiw r28,1
+ 195               	.L16:
+ 196 00bc FE01      		movw r30,r28
+ 197 00be 2196      		adiw r28,1
+ 198 00c0 8081      		ld r24,Z
+ 199 00c2 8032      		cpi r24,lo8(32)
+ 200 00c4 01F0      		breq .L16
+ 201 00c6 D601      		movw r26,r12
+ 202 00c8 ED93      		st X+,r30
+ 203 00ca FD93      		st X+,r31
+ 204 00cc 6D01      		movw r12,r26
+ 205 00ce 0F5F      		subi r16,-1
+ 206 00d0 1F4F      		sbci r17,-1
+ 207 00d2 0031      		cpi r16,16
+ 208 00d4 1105      		cpc r17,__zero_reg__
+ 209 00d6 01F0      		breq .L12
+ 210 00d8 E401      		movw r28,r8
+ 211 00da 00C0      		rjmp .L11
+ 212               	.L12:
+ 213 00dc F501      		movw r30,r10
+ 214 00de EA5F      		subi r30,-6
+ 215 00e0 FB4F      		sbci r31,-5
+ 216 00e2 1183      		std Z+1,r17
+ 217 00e4 0083      		st Z,r16
+ 218               	.L10:
+ 219 00e6 F701      		movw r30,r14
+ 220 00e8 8081      		ld r24,Z
+ 221 00ea 9181      		ldd r25,Z+1
+ 222               	/* epilogue start */
+ 223 00ec DF91      		pop r29
+ 224 00ee CF91      		pop r28
+ 225 00f0 1F91      		pop r17
+ 226 00f2 0F91      		pop r16
+ 227 00f4 FF90      		pop r15
+ 228 00f6 EF90      		pop r14
+GAS LISTING /tmp/ccWVm5Do.s 			page 5
+
+
+ 229 00f8 DF90      		pop r13
+ 230 00fa CF90      		pop r12
+ 231 00fc BF90      		pop r11
+ 232 00fe AF90      		pop r10
+ 233 0100 9F90      		pop r9
+ 234 0102 8F90      		pop r8
+ 235 0104 0895      		ret
+ 236               		.size	HttpuReceive, .-HttpuReceive
+ 237               		.section	.rodata.str1.1,"aMS",@progbits,1
+ 238               	.LC0:
+ 239 0000 00        		.string	""
+ 240               		.section	.text.HttpuGetHeader,"ax",@progbits
+ 241               	.global	HttpuGetHeader
+ 242               		.type	HttpuGetHeader, @function
+ 243               	HttpuGetHeader:
+ 244 0000 AF92      		push r10
+ 245 0002 BF92      		push r11
+ 246 0004 CF92      		push r12
+ 247 0006 DF92      		push r13
+ 248 0008 EF92      		push r14
+ 249 000a FF92      		push r15
+ 250 000c 0F93      		push r16
+ 251 000e 1F93      		push r17
+ 252 0010 CF93      		push r28
+ 253 0012 DF93      		push r29
+ 254               	/* prologue: function */
+ 255               	/* frame size = 0 */
+ 256               	/* stack size = 10 */
+ 257               	.L__stack_usage = 10
+ 258 0014 7C01      		movw r14,r24
+ 259 0016 6B01      		movw r12,r22
+ 260 0018 FC01      		movw r30,r24
+ 261 001a A190      		ld r10,Z+
+ 262 001c B190      		ld r11,Z+
+ 263 001e 8F01      		movw r16,r30
+ 264 0020 C0E0      		ldi r28,0
+ 265 0022 D0E0      		ldi r29,0
+ 266               	.L33:
+ 267 0024 CA15      		cp r28,r10
+ 268 0026 DB05      		cpc r29,r11
+ 269 0028 04F4      		brge .L41
+ 270 002a C114      		cp r12,__zero_reg__
+ 271 002c D104      		cpc r13,__zero_reg__
+ 272 002e 01F4      		brne .L34
+ 273               	.L36:
+ 274 0030 6196      		adiw r28,17
+ 275 0032 CC0F      		lsl r28
+ 276 0034 DD1F      		rol r29
+ 277 0036 CE0D      		add r28,r14
+ 278 0038 DF1D      		adc r29,r15
+ 279 003a 8881      		ld r24,Y
+ 280 003c 9981      		ldd r25,Y+1
+ 281 003e 00C0      		rjmp .L35
+ 282               	.L34:
+ 283 0040 B601      		movw r22,r12
+ 284 0042 F801      		movw r30,r16
+ 285 0044 8191      		ld r24,Z+
+GAS LISTING /tmp/ccWVm5Do.s 			page 6
+
+
+ 286 0046 9191      		ld r25,Z+
+ 287 0048 8F01      		movw r16,r30
+ 288 004a 0E94 0000 		call strcasecmp
+ 289 004e 892B      		or r24,r25
+ 290 0050 01F0      		breq .L36
+ 291 0052 2196      		adiw r28,1
+ 292 0054 00C0      		rjmp .L33
+ 293               	.L41:
+ 294 0056 80E0      		ldi r24,lo8(.LC0)
+ 295 0058 90E0      		ldi r25,hi8(.LC0)
+ 296               	.L35:
+ 297               	/* epilogue start */
+ 298 005a DF91      		pop r29
+ 299 005c CF91      		pop r28
+ 300 005e 1F91      		pop r17
+ 301 0060 0F91      		pop r16
+ 302 0062 FF90      		pop r15
+ 303 0064 EF90      		pop r14
+ 304 0066 DF90      		pop r13
+ 305 0068 CF90      		pop r12
+ 306 006a BF90      		pop r11
+ 307 006c AF90      		pop r10
+ 308 006e 0895      		ret
+ 309               		.size	HttpuGetHeader, .-HttpuGetHeader
+ 310               		.section	.text.HttpuAddHeader,"ax",@progbits
+ 311               	.global	HttpuAddHeader
+ 312               		.type	HttpuAddHeader, @function
+ 313               	HttpuAddHeader:
+ 314 0000 CF92      		push r12
+ 315 0002 DF92      		push r13
+ 316 0004 EF92      		push r14
+ 317 0006 FF92      		push r15
+ 318 0008 0F93      		push r16
+ 319 000a 1F93      		push r17
+ 320 000c CF93      		push r28
+ 321 000e DF93      		push r29
+ 322 0010 CDB7      		in r28,__SP_L__
+ 323 0012 DEB7      		in r29,__SP_H__
+ 324               	/* prologue: function */
+ 325               	/* frame size = 0 */
+ 326               	/* stack size = 8 */
+ 327               	.L__stack_usage = 8
+ 328 0014 0C85      		ldd r16,Y+12
+ 329 0016 1D85      		ldd r17,Y+13
+ 330 0018 6E85      		ldd r22,Y+14
+ 331 001a 7F85      		ldd r23,Y+15
+ 332 001c 6115      		cp r22,__zero_reg__
+ 333 001e 7105      		cpc r23,__zero_reg__
+ 334 0020 01F0      		breq .L43
+ 335 0022 FB01      		movw r30,r22
+ 336               		0:
+ 337 0024 0190      		ld __tmp_reg__,Z+
+ 338 0026 0020      		tst __tmp_reg__
+ 339 0028 01F4      		brne 0b
+ 340 002a 3197      		sbiw r30,1
+ 341 002c 7F01      		movw r14,r30
+ 342 002e E61A      		sub r14,r22
+GAS LISTING /tmp/ccWVm5Do.s 			page 7
+
+
+ 343 0030 F70A      		sbc r15,r23
+ 344 0032 F801      		movw r30,r16
+ 345 0034 EB5F      		subi r30,-5
+ 346 0036 FD4F      		sbci r31,-3
+ 347 0038 C080      		ld r12,Z
+ 348 003a D180      		ldd r13,Z+1
+ 349 003c C601      		movw r24,r12
+ 350 003e 0896      		adiw r24,8
+ 351 0040 A701      		movw r20,r14
+ 352 0042 800F      		add r24,r16
+ 353 0044 911F      		adc r25,r17
+ 354 0046 0E94 0000 		call memcpy
+ 355 004a C701      		movw r24,r14
+ 356 004c 8C0D      		add r24,r12
+ 357 004e 9D1D      		adc r25,r13
+ 358 0050 F801      		movw r30,r16
+ 359 0052 E80F      		add r30,r24
+ 360 0054 F91F      		adc r31,r25
+ 361 0056 2AE3      		ldi r18,lo8(58)
+ 362 0058 2087      		std Z+8,r18
+ 363 005a 0296      		adiw r24,2
+ 364 005c 20E2      		ldi r18,lo8(32)
+ 365 005e 2187      		std Z+9,r18
+ 366 0060 00C0      		rjmp .L44
+ 367               	.L43:
+ 368 0062 F801      		movw r30,r16
+ 369 0064 3896      		adiw r30,8
+ 370 0066 8FEF      		ldi r24,lo8(-1)
+ 371 0068 91E0      		ldi r25,lo8(1)
+ 372 006a DF01      		movw r26,r30
+ 373 006c 9C01      		movw r18,r24
+ 374               		0:
+ 375 006e 1D92      		st X+,__zero_reg__
+ 376 0070 2150      		subi r18,1
+ 377 0072 3040      		sbci r19,0
+ 378 0074 01F4      		brne 0b
+ 379 0076 80E0      		ldi r24,0
+ 380 0078 90E0      		ldi r25,0
+ 381               	.L44:
+ 382 007a 7E01      		movw r14,r28
+ 383 007c 30E1      		ldi r19,16
+ 384 007e E30E      		add r14,r19
+ 385 0080 F11C      		adc r15,__zero_reg__
+ 386               	.L46:
+ 387 0082 F701      		movw r30,r14
+ 388 0084 6081      		ld r22,Z
+ 389 0086 7181      		ldd r23,Z+1
+ 390 0088 B2E0      		ldi r27,2
+ 391 008a EB0E      		add r14,r27
+ 392 008c F11C      		adc r15,__zero_reg__
+ 393 008e 6115      		cp r22,__zero_reg__
+ 394 0090 7105      		cpc r23,__zero_reg__
+ 395 0092 01F0      		breq .L47
+ 396 0094 FB01      		movw r30,r22
+ 397               		0:
+ 398 0096 0190      		ld __tmp_reg__,Z+
+ 399 0098 0020      		tst __tmp_reg__
+GAS LISTING /tmp/ccWVm5Do.s 			page 8
+
+
+ 400 009a 01F4      		brne 0b
+ 401 009c 3197      		sbiw r30,1
+ 402 009e AF01      		movw r20,r30
+ 403 00a0 461B      		sub r20,r22
+ 404 00a2 570B      		sbc r21,r23
+ 405 00a4 01F0      		breq .L46
+ 406 00a6 6C01      		movw r12,r24
+ 407 00a8 C40E      		add r12,r20
+ 408 00aa D51E      		adc r13,r21
+ 409 00ac 9601      		movw r18,r12
+ 410 00ae 2C5F      		subi r18,-4
+ 411 00b0 3F4F      		sbci r19,-1
+ 412 00b2 2E3F      		cpi r18,-2
+ 413 00b4 3140      		sbci r19,1
+ 414 00b6 00F4      		brsh .L50
+ 415 00b8 0896      		adiw r24,8
+ 416 00ba 800F      		add r24,r16
+ 417 00bc 911F      		adc r25,r17
+ 418 00be 0E94 0000 		call memcpy
+ 419 00c2 C601      		movw r24,r12
+ 420 00c4 00C0      		rjmp .L46
+ 421               	.L50:
+ 422 00c6 8FEF      		ldi r24,lo8(-1)
+ 423 00c8 9FEF      		ldi r25,lo8(-1)
+ 424               	.L47:
+ 425 00ca 97FD      		sbrc r25,7
+ 426 00cc 00C0      		rjmp .L49
+ 427 00ce D801      		movw r26,r16
+ 428 00d0 A80F      		add r26,r24
+ 429 00d2 B91F      		adc r27,r25
+ 430 00d4 3DE0      		ldi r19,lo8(13)
+ 431 00d6 1896      		adiw r26,8
+ 432 00d8 3C93      		st X,r19
+ 433 00da 1897      		sbiw r26,8
+ 434 00dc 0296      		adiw r24,2
+ 435 00de 2AE0      		ldi r18,lo8(10)
+ 436 00e0 1996      		adiw r26,9
+ 437 00e2 2C93      		st X,r18
+ 438 00e4 1997      		sbiw r26,9
+ 439 00e6 F801      		movw r30,r16
+ 440 00e8 EB5F      		subi r30,-5
+ 441 00ea FD4F      		sbci r31,-3
+ 442 00ec 9183      		std Z+1,r25
+ 443 00ee 8083      		st Z,r24
+ 444 00f0 F801      		movw r30,r16
+ 445 00f2 E80F      		add r30,r24
+ 446 00f4 F91F      		adc r31,r25
+ 447 00f6 3087      		std Z+8,r19
+ 448 00f8 1B96      		adiw r26,11
+ 449 00fa 2C93      		st X,r18
+ 450               	.L49:
+ 451               	/* epilogue start */
+ 452 00fc DF91      		pop r29
+ 453 00fe CF91      		pop r28
+ 454 0100 1F91      		pop r17
+ 455 0102 0F91      		pop r16
+ 456 0104 FF90      		pop r15
+GAS LISTING /tmp/ccWVm5Do.s 			page 9
+
+
+ 457 0106 EF90      		pop r14
+ 458 0108 DF90      		pop r13
+ 459 010a CF90      		pop r12
+ 460 010c 0895      		ret
+ 461               		.size	HttpuAddHeader, .-HttpuAddHeader
+ 462               		.section	.text.HttpuSend,"ax",@progbits
+ 463               	.global	HttpuSend
+ 464               		.type	HttpuSend, @function
+ 465               	HttpuSend:
+ 466 0000 EF92      		push r14
+ 467 0002 FF92      		push r15
+ 468 0004 0F93      		push r16
+ 469 0006 1F93      		push r17
+ 470               	/* prologue: function */
+ 471               	/* frame size = 0 */
+ 472               	/* stack size = 4 */
+ 473               	.L__stack_usage = 4
+ 474 0008 FC01      		movw r30,r24
+ 475 000a EB5F      		subi r30,-5
+ 476 000c FD4F      		sbci r31,-3
+ 477 000e E080      		ld r14,Z
+ 478 0010 F180      		ldd r15,Z+1
+ 479 0012 E2E0      		ldi r30,2
+ 480 0014 EE0E      		add r14,r30
+ 481 0016 F11C      		adc r15,__zero_reg__
+ 482 0018 8C01      		movw r16,r24
+ 483 001a 085F      		subi r16,-8
+ 484 001c 1F4F      		sbci r17,-1
+ 485 001e FC01      		movw r30,r24
+ 486 0020 8081      		ld r24,Z
+ 487 0022 9181      		ldd r25,Z+1
+ 488 0024 0E94 0000 		call NutUdpSendTo
+ 489               	/* epilogue start */
+ 490 0028 1F91      		pop r17
+ 491 002a 0F91      		pop r16
+ 492 002c FF90      		pop r15
+ 493 002e EF90      		pop r14
+ 494 0030 0895      		ret
+ 495               		.size	HttpuSend, .-HttpuSend
+ 496               		.section	.text.HttpuRespond,"ax",@progbits
+ 497               	.global	HttpuRespond
+ 498               		.type	HttpuRespond, @function
+ 499               	HttpuRespond:
+ 500               	/* prologue: function */
+ 501               	/* frame size = 0 */
+ 502               	/* stack size = 0 */
+ 503               	.L__stack_usage = 0
+ 504 0000 FC01      		movw r30,r24
+ 505 0002 2681      		ldd r18,Z+6
+ 506 0004 3781      		ldd r19,Z+7
+ 507 0006 4281      		ldd r20,Z+2
+ 508 0008 5381      		ldd r21,Z+3
+ 509 000a 6481      		ldd r22,Z+4
+ 510 000c 7581      		ldd r23,Z+5
+ 511 000e 0C94 0000 		jmp HttpuSend
+ 512               		.size	HttpuRespond, .-HttpuRespond
+ 513               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccWVm5Do.s 			page 10
+
+
+ 514               	.global __do_copy_data
+GAS LISTING /tmp/ccWVm5Do.s 			page 11
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 httpu.c
+     /tmp/ccWVm5Do.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccWVm5Do.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccWVm5Do.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccWVm5Do.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccWVm5Do.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccWVm5Do.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccWVm5Do.s:11     .text.HttpuSessionCreate:0000000000000000 HttpuSessionCreate
+     /tmp/ccWVm5Do.s:76     .text.HttpuSessionDestroy:0000000000000000 HttpuSessionDestroy
+     /tmp/ccWVm5Do.s:96     .text.HttpuReceive:0000000000000000 HttpuReceive
+     /tmp/ccWVm5Do.s:243    .text.HttpuGetHeader:0000000000000000 HttpuGetHeader
+     /tmp/ccWVm5Do.s:313    .text.HttpuAddHeader:0000000000000000 HttpuAddHeader
+     /tmp/ccWVm5Do.s:465    .text.HttpuSend:0000000000000000 HttpuSend
+     /tmp/ccWVm5Do.s:499    .text.HttpuRespond:0000000000000000 HttpuRespond
+
+UNDEFINED SYMBOLS
+calloc
+NutUdpCreateSocket
+free
+NutUdpSetSockOpt
+NutUdpDestroySocket
+NutUdpReceiveFrom
+strchr
+strcasecmp
+memcpy
+NutUdpSendTo
+__do_copy_data

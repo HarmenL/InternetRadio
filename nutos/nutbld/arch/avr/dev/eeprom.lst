@@ -1,0 +1,63 @@
+GAS LISTING /tmp/ccKwy1wf.s 			page 1
+
+
+   1               		.file	"eeprom.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.OnChipNvMemLoad,"ax",@progbits
+   9               	.global	OnChipNvMemLoad
+  10               		.type	OnChipNvMemLoad, @function
+  11               	OnChipNvMemLoad:
+  12               	/* prologue: function */
+  13               	/* frame size = 0 */
+  14               	/* stack size = 0 */
+  15               	.L__stack_usage = 0
+  16 0000 9C01      		movw r18,r24
+  17 0002 CB01      		movw r24,r22
+  18 0004 B901      		movw r22,r18
+  19 0006 0E94 0000 		call eeprom_read_block
+  20 000a 80E0      		ldi r24,0
+  21 000c 90E0      		ldi r25,0
+  22 000e 0895      		ret
+  23               		.size	OnChipNvMemLoad, .-OnChipNvMemLoad
+  24               		.section	.text.OnChipNvMemSave,"ax",@progbits
+  25               	.global	OnChipNvMemSave
+  26               		.type	OnChipNvMemSave, @function
+  27               	OnChipNvMemSave:
+  28               	/* prologue: function */
+  29               	/* frame size = 0 */
+  30               	/* stack size = 0 */
+  31               	.L__stack_usage = 0
+  32 0000 9C01      		movw r18,r24
+  33 0002 CB01      		movw r24,r22
+  34               	.L3:
+  35 0004 F999      		sbic 0x1f,1
+  36 0006 00C0      		rjmp .L3
+  37 0008 B901      		movw r22,r18
+  38 000a 0E94 0000 		call eeprom_update_block
+  39 000e 80E0      		ldi r24,0
+  40 0010 90E0      		ldi r25,0
+  41 0012 0895      		ret
+  42               		.size	OnChipNvMemSave, .-OnChipNvMemSave
+  43               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccKwy1wf.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 eeprom.c
+     /tmp/ccKwy1wf.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccKwy1wf.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccKwy1wf.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccKwy1wf.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccKwy1wf.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccKwy1wf.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccKwy1wf.s:11     .text.OnChipNvMemLoad:0000000000000000 OnChipNvMemLoad
+     /tmp/ccKwy1wf.s:27     .text.OnChipNvMemSave:0000000000000000 OnChipNvMemSave
+
+UNDEFINED SYMBOLS
+eeprom_read_block
+eeprom_update_block

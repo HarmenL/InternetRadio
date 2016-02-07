@@ -1,0 +1,123 @@
+GAS LISTING /tmp/ccR2oSJ5.s 			page 1
+
+
+   1               		.file	"tell.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text._tell,"ax",@progbits
+   9               	.global	_tell
+  10               		.type	_tell, @function
+  11               	_tell:
+  12 0000 CF93      		push r28
+  13 0002 DF93      		push r29
+  14 0004 CDB7      		in r28,__SP_L__
+  15 0006 DEB7      		in r29,__SP_H__
+  16 0008 2A97      		sbiw r28,10
+  17 000a 0FB6      		in __tmp_reg__,__SREG__
+  18 000c F894      		cli
+  19 000e DEBF      		out __SP_H__,r29
+  20 0010 0FBE      		out __SREG__,__tmp_reg__
+  21 0012 CDBF      		out __SP_L__,r28
+  22               	/* prologue: function */
+  23               	/* frame size = 10 */
+  24               	/* stack size = 12 */
+  25               	.L__stack_usage = 12
+  26 0014 1F82      		std Y+7,__zero_reg__
+  27 0016 1886      		std Y+8,__zero_reg__
+  28 0018 1986      		std Y+9,__zero_reg__
+  29 001a 1A86      		std Y+10,__zero_reg__
+  30 001c 8830      		cpi r24,8
+  31 001e 9105      		cpc r25,__zero_reg__
+  32 0020 00F0      		brlo .L2
+  33               	.L4:
+  34 0022 89E0      		ldi r24,lo8(9)
+  35 0024 90E0      		ldi r25,0
+  36 0026 00C0      		rjmp .L15
+  37               	.L2:
+  38 0028 880F      		lsl r24
+  39 002a 991F      		rol r25
+  40 002c FC01      		movw r30,r24
+  41 002e E050      		subi r30,lo8(-(__fds))
+  42 0030 F040      		sbci r31,hi8(-(__fds))
+  43 0032 0190      		ld __tmp_reg__,Z+
+  44 0034 F081      		ld r31,Z
+  45 0036 E02D      		mov r30,__tmp_reg__
+  46 0038 3097      		sbiw r30,0
+  47 003a 01F0      		breq .L4
+  48 003c FA83      		std Y+2,r31
+  49 003e E983      		std Y+1,r30
+  50 0040 CE01      		movw r24,r28
+  51 0042 0796      		adiw r24,7
+  52 0044 9C83      		std Y+4,r25
+  53 0046 8B83      		std Y+3,r24
+  54 0048 81E0      		ldi r24,lo8(1)
+  55 004a 90E0      		ldi r25,0
+  56 004c 9E83      		std Y+6,r25
+  57 004e 8D83      		std Y+5,r24
+GAS LISTING /tmp/ccR2oSJ5.s 			page 2
+
+
+  58 0050 8081      		ld r24,Z
+  59 0052 9181      		ldd r25,Z+1
+  60 0054 0097      		sbiw r24,0
+  61 0056 01F0      		breq .L5
+  62 0058 DC01      		movw r26,r24
+  63 005a 5596      		adiw r26,21
+  64 005c ED91      		ld r30,X+
+  65 005e FC91      		ld r31,X
+  66 0060 5697      		sbiw r26,21+1
+  67 0062 AE01      		movw r20,r28
+  68 0064 4F5F      		subi r20,-1
+  69 0066 5F4F      		sbci r21,-1
+  70 0068 63E2      		ldi r22,lo8(35)
+  71 006a 71E1      		ldi r23,lo8(17)
+  72 006c 1995      		eicall
+  73 006e 892B      		or r24,r25
+  74 0070 01F0      		breq .L5
+  75 0072 6F81      		ldd r22,Y+7
+  76 0074 7885      		ldd r23,Y+8
+  77 0076 8985      		ldd r24,Y+9
+  78 0078 9A85      		ldd r25,Y+10
+  79 007a 00C0      		rjmp .L3
+  80               	.L5:
+  81 007c 86E1      		ldi r24,lo8(22)
+  82 007e 90E0      		ldi r25,0
+  83               	.L15:
+  84 0080 9093 0000 		sts errno+1,r25
+  85 0084 8093 0000 		sts errno,r24
+  86 0088 6FEF      		ldi r22,lo8(-1)
+  87 008a 7FEF      		ldi r23,lo8(-1)
+  88 008c CB01      		movw r24,r22
+  89               	.L3:
+  90               	/* epilogue start */
+  91 008e 2A96      		adiw r28,10
+  92 0090 0FB6      		in __tmp_reg__,__SREG__
+  93 0092 F894      		cli
+  94 0094 DEBF      		out __SP_H__,r29
+  95 0096 0FBE      		out __SREG__,__tmp_reg__
+  96 0098 CDBF      		out __SP_L__,r28
+  97 009a DF91      		pop r29
+  98 009c CF91      		pop r28
+  99 009e 0895      		ret
+ 100               		.size	_tell, .-_tell
+ 101               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccR2oSJ5.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 tell.c
+     /tmp/ccR2oSJ5.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccR2oSJ5.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccR2oSJ5.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccR2oSJ5.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccR2oSJ5.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccR2oSJ5.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccR2oSJ5.s:11     .text._tell:0000000000000000 _tell
+
+UNDEFINED SYMBOLS
+__fds
+errno

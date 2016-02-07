@@ -1,0 +1,58 @@
+GAS LISTING /tmp/ccGLbwNr.s 			page 1
+
+
+   1               		.file	"version.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.NutVersion,"ax",@progbits
+   9               	.global	NutVersion
+  10               		.type	NutVersion, @function
+  11               	NutVersion:
+  12               	/* prologue: function */
+  13               	/* frame size = 0 */
+  14               	/* stack size = 0 */
+  15               	.L__stack_usage = 0
+  16 0000 60E0      		ldi r22,0
+  17 0002 74E0      		ldi r23,lo8(4)
+  18 0004 82E0      		ldi r24,lo8(2)
+  19 0006 95E0      		ldi r25,lo8(5)
+  20 0008 0895      		ret
+  21               		.size	NutVersion, .-NutVersion
+  22               		.section	.rodata.str1.1,"aMS",@progbits,1
+  23               	.LC0:
+  24 0000 352E 322E 		.string	"5.2.4.0"
+  24      342E 3000 
+  25               		.section	.text.NutVersionString,"ax",@progbits
+  26               	.global	NutVersionString
+  27               		.type	NutVersionString, @function
+  28               	NutVersionString:
+  29               	/* prologue: function */
+  30               	/* frame size = 0 */
+  31               	/* stack size = 0 */
+  32               	.L__stack_usage = 0
+  33 0000 80E0      		ldi r24,lo8(.LC0)
+  34 0002 90E0      		ldi r25,hi8(.LC0)
+  35 0004 0895      		ret
+  36               		.size	NutVersionString, .-NutVersionString
+  37               		.ident	"GCC: (GNU) 5.3.0"
+  38               	.global __do_copy_data
+GAS LISTING /tmp/ccGLbwNr.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 version.c
+     /tmp/ccGLbwNr.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccGLbwNr.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccGLbwNr.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccGLbwNr.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccGLbwNr.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccGLbwNr.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccGLbwNr.s:11     .text.NutVersion:0000000000000000 NutVersion
+     /tmp/ccGLbwNr.s:28     .text.NutVersionString:0000000000000000 NutVersionString
+
+UNDEFINED SYMBOLS
+__do_copy_data

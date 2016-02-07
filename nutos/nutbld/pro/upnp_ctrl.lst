@@ -1,0 +1,1803 @@
+GAS LISTING /tmp/cc00cB6E.s 			page 1
+
+
+   1               		.file	"upnp_ctrl.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.GetXmlNode,"ax",@progbits
+   9               		.type	GetXmlNode, @function
+  10               	GetXmlNode:
+  11 0000 0F93      		push r16
+  12 0002 1F93      		push r17
+  13 0004 CF93      		push r28
+  14 0006 DF93      		push r29
+  15               	/* prologue: function */
+  16               	/* frame size = 0 */
+  17               	/* stack size = 4 */
+  18               	.L__stack_usage = 4
+  19 0008 EC01      		movw r28,r24
+  20 000a 8B01      		movw r16,r22
+  21               	.L2:
+  22 000c 2097      		sbiw r28,0
+  23 000e 01F0      		breq .L3
+  24 0010 B801      		movw r22,r16
+  25 0012 8E81      		ldd r24,Y+6
+  26 0014 9F81      		ldd r25,Y+7
+  27 0016 0E94 0000 		call strcasecmp
+  28 001a 892B      		or r24,r25
+  29 001c 01F0      		breq .L3
+  30 001e 0990      		ld __tmp_reg__,Y+
+  31 0020 D881      		ld r29,Y
+  32 0022 C02D      		mov r28,__tmp_reg__
+  33 0024 00C0      		rjmp .L2
+  34               	.L3:
+  35 0026 CE01      		movw r24,r28
+  36               	/* epilogue start */
+  37 0028 DF91      		pop r29
+  38 002a CF91      		pop r28
+  39 002c 1F91      		pop r17
+  40 002e 0F91      		pop r16
+  41 0030 0895      		ret
+  42               		.size	GetXmlNode, .-GetXmlNode
+  43               		.section	.text.DuplicateXmlNodeContent,"ax",@progbits
+  44               		.type	DuplicateXmlNodeContent, @function
+  45               	DuplicateXmlNodeContent:
+  46               	/* prologue: function */
+  47               	/* frame size = 0 */
+  48               	/* stack size = 0 */
+  49               	.L__stack_usage = 0
+  50 0000 0E94 0000 		call GetXmlNode
+  51 0004 0097      		sbiw r24,0
+  52 0006 01F0      		breq .L10
+  53 0008 FC01      		movw r30,r24
+  54 000a 8085      		ldd r24,Z+8
+  55 000c 9185      		ldd r25,Z+9
+  56 000e 0097      		sbiw r24,0
+  57 0010 01F0      		breq .L10
+GAS LISTING /tmp/cc00cB6E.s 			page 2
+
+
+  58 0012 0C94 0000 		jmp strdup
+  59               	.L10:
+  60 0016 80E0      		ldi r24,0
+  61 0018 90E0      		ldi r25,0
+  62 001a 0895      		ret
+  63               		.size	DuplicateXmlNodeContent, .-DuplicateXmlNodeContent
+  64               		.section	.text.CallObservers,"ax",@progbits
+  65               		.type	CallObservers, @function
+  66               	CallObservers:
+  67 0000 FF92      		push r15
+  68 0002 0F93      		push r16
+  69 0004 1F93      		push r17
+  70 0006 CF93      		push r28
+  71 0008 DF93      		push r29
+  72               	/* prologue: function */
+  73               	/* frame size = 0 */
+  74               	/* stack size = 5 */
+  75               	.L__stack_usage = 5
+  76 000a 8C01      		movw r16,r24
+  77 000c F62E      		mov r15,r22
+  78 000e C091 0000 		lds r28,upnp_observer_root
+  79 0012 D091 0000 		lds r29,upnp_observer_root+1
+  80               	.L17:
+  81 0016 2097      		sbiw r28,0
+  82 0018 01F0      		breq .L23
+  83 001a 6A81      		ldd r22,Y+2
+  84 001c 7B81      		ldd r23,Y+3
+  85 001e F801      		movw r30,r16
+  86 0020 8481      		ldd r24,Z+4
+  87 0022 9581      		ldd r25,Z+5
+  88 0024 0E94 0000 		call strcmp
+  89 0028 892B      		or r24,r25
+  90 002a 01F4      		brne .L22
+  91 002c 6C81      		ldd r22,Y+4
+  92 002e 7D81      		ldd r23,Y+5
+  93 0030 F801      		movw r30,r16
+  94 0032 8681      		ldd r24,Z+6
+  95 0034 9781      		ldd r25,Z+7
+  96 0036 0E94 0000 		call strcmp
+  97 003a 892B      		or r24,r25
+  98 003c 01F4      		brne .L22
+  99 003e EE81      		ldd r30,Y+6
+ 100 0040 FF81      		ldd r31,Y+7
+ 101 0042 6F2D      		mov r22,r15
+ 102 0044 C801      		movw r24,r16
+ 103 0046 1995      		eicall
+ 104 0048 00C0      		rjmp .L18
+ 105               	.L22:
+ 106 004a 80E0      		ldi r24,0
+ 107 004c 90E0      		ldi r25,0
+ 108               	.L18:
+ 109 004e 0990      		ld __tmp_reg__,Y+
+ 110 0050 D881      		ld r29,Y
+ 111 0052 C02D      		mov r28,__tmp_reg__
+ 112 0054 0097      		sbiw r24,0
+ 113 0056 01F0      		breq .L17
+ 114 0058 00C0      		rjmp .L19
+GAS LISTING /tmp/cc00cB6E.s 			page 3
+
+
+ 115               	.L23:
+ 116 005a 80E0      		ldi r24,0
+ 117 005c 90E0      		ldi r25,0
+ 118               	.L19:
+ 119               	/* epilogue start */
+ 120 005e DF91      		pop r29
+ 121 0060 CF91      		pop r28
+ 122 0062 1F91      		pop r17
+ 123 0064 0F91      		pop r16
+ 124 0066 FF90      		pop r15
+ 125 0068 0895      		ret
+ 126               		.size	CallObservers, .-CallObservers
+ 127               		.section	.rodata.str1.1,"aMS",@progbits,1
+ 128               	.LC0:
+ 129 0000 6874 7470 		.string	"http://"
+ 129      3A2F 2F00 
+ 130               	.LC1:
+ 131 0008 4745 5420 		.string	"GET "
+ 131      00
+ 132               	.LC2:
+ 133 000d 2F25 7320 		.string	"/%s HTTP/1.1\r\n"
+ 133      4854 5450 
+ 133      2F31 2E31 
+ 133      0D0A 00
+ 134               	.LC3:
+ 135 001c 486F 7374 		.string	"Host: %s\r\n"
+ 135      3A20 2573 
+ 135      0D0A 00
+ 136               	.LC4:
+ 137 0027 436F 6E6E 		.string	"Connection: close\r\n\r\n"
+ 137      6563 7469 
+ 137      6F6E 3A20 
+ 137      636C 6F73 
+ 137      650D 0A0D 
+ 138               		.section	.text.RequestXmlTree.constprop.3,"ax",@progbits
+ 139               		.type	RequestXmlTree.constprop.3, @function
+ 140               	RequestXmlTree.constprop.3:
+ 141 0000 CF92      		push r12
+ 142 0002 DF92      		push r13
+ 143 0004 EF92      		push r14
+ 144 0006 FF92      		push r15
+ 145 0008 0F93      		push r16
+ 146 000a 1F93      		push r17
+ 147 000c CF93      		push r28
+ 148 000e DF93      		push r29
+ 149               	/* prologue: function */
+ 150               	/* frame size = 0 */
+ 151               	/* stack size = 8 */
+ 152               	.L__stack_usage = 8
+ 153 0010 EC01      		movw r28,r24
+ 154 0012 47E0      		ldi r20,lo8(7)
+ 155 0014 50E0      		ldi r21,0
+ 156 0016 60E0      		ldi r22,lo8(.LC0)
+ 157 0018 70E0      		ldi r23,hi8(.LC0)
+ 158 001a 0E94 0000 		call strncasecmp
+ 159 001e 892B      		or r24,r25
+ 160 0020 01F0      		breq .L25
+GAS LISTING /tmp/cc00cB6E.s 			page 4
+
+
+ 161               	.L27:
+ 162 0022 00E0      		ldi r16,0
+ 163 0024 10E0      		ldi r17,0
+ 164 0026 00C0      		rjmp .L26
+ 165               	.L25:
+ 166 0028 CE01      		movw r24,r28
+ 167 002a 0796      		adiw r24,7
+ 168 002c 0E94 0000 		call UriSchemeSplit
+ 169 0030 7C01      		movw r14,r24
+ 170 0032 892B      		or r24,r25
+ 171 0034 01F0      		breq .L27
+ 172 0036 0E94 0000 		call NutTcpCreateSocket
+ 173 003a 6C01      		movw r12,r24
+ 174 003c 0097      		sbiw r24,0
+ 175 003e 01F4      		brne .+2
+ 176 0040 00C0      		rjmp .L30
+ 177 0042 F701      		movw r30,r14
+ 178 0044 4685      		ldd r20,Z+14
+ 179 0046 5785      		ldd r21,Z+15
+ 180 0048 6085      		ldd r22,Z+8
+ 181 004a 7185      		ldd r23,Z+9
+ 182 004c 00ED      		ldi r16,lo8(-48)
+ 183 004e 17E0      		ldi r17,lo8(7)
+ 184 0050 20E0      		ldi r18,0
+ 185 0052 30E0      		ldi r19,0
+ 186 0054 0E94 0000 		call TcpHostConnectStream
+ 187 0058 EC01      		movw r28,r24
+ 188 005a 0097      		sbiw r24,0
+ 189 005c 01F0      		breq .L31
+ 190 005e BC01      		movw r22,r24
+ 191 0060 80E0      		ldi r24,lo8(.LC1)
+ 192 0062 90E0      		ldi r25,hi8(.LC1)
+ 193 0064 0E94 0000 		call fputs
+ 194 0068 F701      		movw r30,r14
+ 195 006a 8585      		ldd r24,Z+13
+ 196 006c 8F93      		push r24
+ 197 006e 8485      		ldd r24,Z+12
+ 198 0070 8F93      		push r24
+ 199 0072 80E0      		ldi r24,lo8(.LC2)
+ 200 0074 90E0      		ldi r25,hi8(.LC2)
+ 201 0076 9F93      		push r25
+ 202 0078 8F93      		push r24
+ 203 007a DF93      		push r29
+ 204 007c CF93      		push r28
+ 205 007e 0E94 0000 		call fprintf
+ 206 0082 F701      		movw r30,r14
+ 207 0084 8185      		ldd r24,Z+9
+ 208 0086 8F93      		push r24
+ 209 0088 8085      		ldd r24,Z+8
+ 210 008a 8F93      		push r24
+ 211 008c 80E0      		ldi r24,lo8(.LC3)
+ 212 008e 90E0      		ldi r25,hi8(.LC3)
+ 213 0090 9F93      		push r25
+ 214 0092 8F93      		push r24
+ 215 0094 DF93      		push r29
+ 216 0096 CF93      		push r28
+ 217 0098 0E94 0000 		call fprintf
+GAS LISTING /tmp/cc00cB6E.s 			page 5
+
+
+ 218 009c BE01      		movw r22,r28
+ 219 009e 80E0      		ldi r24,lo8(.LC4)
+ 220 00a0 90E0      		ldi r25,hi8(.LC4)
+ 221 00a2 0E94 0000 		call fputs
+ 222 00a6 CE01      		movw r24,r28
+ 223 00a8 0E94 0000 		call fflush
+ 224 00ac 40E0      		ldi r20,0
+ 225 00ae 50E0      		ldi r21,0
+ 226 00b0 60E0      		ldi r22,0
+ 227 00b2 70E0      		ldi r23,0
+ 228 00b4 CE01      		movw r24,r28
+ 229 00b6 0E94 0000 		call UxmlParseStream
+ 230 00ba 8C01      		movw r16,r24
+ 231 00bc CE01      		movw r24,r28
+ 232 00be 0E94 0000 		call fclose
+ 233 00c2 EDB7      		in r30,__SP_L__
+ 234 00c4 FEB7      		in r31,__SP_H__
+ 235 00c6 3C96      		adiw r30,12
+ 236 00c8 0FB6      		in __tmp_reg__,__SREG__
+ 237 00ca F894      		cli
+ 238 00cc FEBF      		out __SP_H__,r31
+ 239 00ce 0FBE      		out __SREG__,__tmp_reg__
+ 240 00d0 EDBF      		out __SP_L__,r30
+ 241 00d2 00C0      		rjmp .L29
+ 242               	.L31:
+ 243 00d4 00E0      		ldi r16,0
+ 244 00d6 10E0      		ldi r17,0
+ 245               	.L29:
+ 246 00d8 C601      		movw r24,r12
+ 247 00da 0E94 0000 		call NutTcpCloseSocket
+ 248 00de 00C0      		rjmp .L28
+ 249               	.L30:
+ 250 00e0 00E0      		ldi r16,0
+ 251 00e2 10E0      		ldi r17,0
+ 252               	.L28:
+ 253 00e4 C701      		movw r24,r14
+ 254 00e6 0E94 0000 		call UriSchemeRelease
+ 255               	.L26:
+ 256 00ea C801      		movw r24,r16
+ 257               	/* epilogue start */
+ 258 00ec DF91      		pop r29
+ 259 00ee CF91      		pop r28
+ 260 00f0 1F91      		pop r17
+ 261 00f2 0F91      		pop r16
+ 262 00f4 FF90      		pop r15
+ 263 00f6 EF90      		pop r14
+ 264 00f8 DF90      		pop r13
+ 265 00fa CF90      		pop r12
+ 266 00fc 0895      		ret
+ 267               		.size	RequestXmlTree.constprop.3, .-RequestXmlTree.constprop.3
+ 268               		.section	.rodata.str1.1
+ 269               	.LC5:
+ 270 003d 726F 6F74 		.string	"root"
+ 270      00
+ 271               	.LC6:
+ 272 0042 6465 7669 		.string	"device"
+ 272      6365 00
+GAS LISTING /tmp/cc00cB6E.s 			page 6
+
+
+ 273               	.LC7:
+ 274 0049 6672 6965 		.string	"friendlyName"
+ 274      6E64 6C79 
+ 274      4E61 6D65 
+ 274      00
+ 275               	.LC8:
+ 276 0056 6465 7669 		.string	"deviceType"
+ 276      6365 5479 
+ 276      7065 00
+ 277               	.LC9:
+ 278 0061 7365 7276 		.string	"serviceList"
+ 278      6963 654C 
+ 278      6973 7400 
+ 279               	.LC10:
+ 280 006d 7365 7276 		.string	"serviceType"
+ 280      6963 6554 
+ 280      7970 6500 
+ 281               	.LC11:
+ 282 0079 5343 5044 		.string	"SCPDURL"
+ 282      5552 4C00 
+ 283               	.LC12:
+ 284 0081 636F 6E74 		.string	"controlURL"
+ 284      726F 6C55 
+ 284      524C 00
+ 285               	.LC13:
+ 286 008c 6576 656E 		.string	"eventSubURL"
+ 286      7453 7562 
+ 286      5552 4C00 
+ 287               	.LC14:
+ 288 0098 7363 7064 		.string	"scpd"
+ 288      00
+ 289               	.LC15:
+ 290 009d 6163 7469 		.string	"actionList"
+ 290      6F6E 4C69 
+ 290      7374 00
+ 291               	.LC16:
+ 292 00a8 7365 7276 		.string	"serviceStateTable"
+ 292      6963 6553 
+ 292      7461 7465 
+ 292      5461 626C 
+ 292      6500 
+ 293               	.LC17:
+ 294 00ba 6E61 6D65 		.string	"name"
+ 294      00
+ 295               	.LC18:
+ 296 00bf 6461 7461 		.string	"dataType"
+ 296      5479 7065 
+ 296      00
+ 297               	.LC19:
+ 298 00c8 6465 6661 		.string	"defaultValue"
+ 298      756C 7456 
+ 298      616C 7565 
+ 298      00
+ 299               	.LC20:
+ 300 00d5 6172 6775 		.string	"argumentList"
+ 300      6D65 6E74 
+ 300      4C69 7374 
+GAS LISTING /tmp/cc00cB6E.s 			page 7
+
+
+ 300      00
+ 301               	.LC21:
+ 302 00e2 6469 7265 		.string	"direction"
+ 302      6374 696F 
+ 302      6E00 
+ 303               	.LC22:
+ 304 00ec 7265 6C61 		.string	"relatedStateVariable"
+ 304      7465 6453 
+ 304      7461 7465 
+ 304      5661 7269 
+ 304      6162 6C65 
+ 305               		.section	.text.ServiceObserver,"ax",@progbits
+ 306               		.type	ServiceObserver, @function
+ 307               	ServiceObserver:
+ 308 0000 2F92      		push r2
+ 309 0002 3F92      		push r3
+ 310 0004 4F92      		push r4
+ 311 0006 5F92      		push r5
+ 312 0008 6F92      		push r6
+ 313 000a 7F92      		push r7
+ 314 000c 8F92      		push r8
+ 315 000e 9F92      		push r9
+ 316 0010 AF92      		push r10
+ 317 0012 BF92      		push r11
+ 318 0014 CF92      		push r12
+ 319 0016 DF92      		push r13
+ 320 0018 EF92      		push r14
+ 321 001a FF92      		push r15
+ 322 001c 0F93      		push r16
+ 323 001e 1F93      		push r17
+ 324 0020 CF93      		push r28
+ 325 0022 DF93      		push r29
+ 326 0024 CDB7      		in r28,__SP_L__
+ 327 0026 DEB7      		in r29,__SP_H__
+ 328 0028 6497      		sbiw r28,20
+ 329 002a 0FB6      		in __tmp_reg__,__SREG__
+ 330 002c F894      		cli
+ 331 002e DEBF      		out __SP_H__,r29
+ 332 0030 0FBE      		out __SREG__,__tmp_reg__
+ 333 0032 CDBF      		out __SP_L__,r28
+ 334               	/* prologue: function */
+ 335               	/* frame size = 20 */
+ 336               	/* stack size = 38 */
+ 337               	.L__stack_usage = 38
+ 338 0034 7C01      		movw r14,r24
+ 339 0036 6623      		tst r22
+ 340 0038 01F4      		brne .+2
+ 341 003a 00C0      		rjmp .L36
+ 342 003c 61E0      		ldi r22,lo8(1)
+ 343 003e 0E94 0000 		call CallObservers
+ 344 0042 D701      		movw r26,r14
+ 345 0044 1896      		adiw r26,8
+ 346 0046 CD90      		ld r12,X+
+ 347 0048 DC90      		ld r13,X
+ 348 004a 1997      		sbiw r26,8+1
+ 349 004c C114      		cp r12,__zero_reg__
+ 350 004e D104      		cpc r13,__zero_reg__
+GAS LISTING /tmp/cc00cB6E.s 			page 8
+
+
+ 351 0050 01F4      		brne .+2
+ 352 0052 00C0      		rjmp .L95
+ 353 0054 F601      		movw r30,r12
+ 354 0056 0681      		ldd r16,Z+6
+ 355 0058 1781      		ldd r17,Z+7
+ 356               	.L38:
+ 357 005a 0115      		cp r16,__zero_reg__
+ 358 005c 1105      		cpc r17,__zero_reg__
+ 359 005e 01F4      		brne .+2
+ 360 0060 00C0      		rjmp .L198
+ 361 0062 D801      		movw r26,r16
+ 362 0064 AC90      		ld r10,X
+ 363 0066 1196      		adiw r26,1
+ 364 0068 BC90      		ld r11,X
+ 365 006a 1197      		sbiw r26,1
+ 366 006c 1496      		adiw r26,4
+ 367 006e ED90      		ld r14,X+
+ 368 0070 FC90      		ld r15,X
+ 369 0072 1597      		sbiw r26,4+1
+ 370               	.L39:
+ 371 0074 E114      		cp r14,__zero_reg__
+ 372 0076 F104      		cpc r15,__zero_reg__
+ 373 0078 01F0      		breq .L199
+ 374 007a F701      		movw r30,r14
+ 375 007c 8080      		ld r8,Z
+ 376 007e 9180      		ldd r9,Z+1
+ 377 0080 8281      		ldd r24,Z+2
+ 378 0082 9381      		ldd r25,Z+3
+ 379 0084 0E94 0000 		call free
+ 380 0088 D701      		movw r26,r14
+ 381 008a 1496      		adiw r26,4
+ 382 008c 8D91      		ld r24,X+
+ 383 008e 9C91      		ld r25,X
+ 384 0090 1597      		sbiw r26,4+1
+ 385 0092 0E94 0000 		call free
+ 386 0096 C701      		movw r24,r14
+ 387 0098 0E94 0000 		call free
+ 388 009c 7401      		movw r14,r8
+ 389 009e 00C0      		rjmp .L39
+ 390               	.L199:
+ 391 00a0 F801      		movw r30,r16
+ 392 00a2 E680      		ldd r14,Z+6
+ 393 00a4 F780      		ldd r15,Z+7
+ 394               	.L41:
+ 395 00a6 E114      		cp r14,__zero_reg__
+ 396 00a8 F104      		cpc r15,__zero_reg__
+ 397 00aa 01F0      		breq .L200
+ 398 00ac D701      		movw r26,r14
+ 399 00ae 8C90      		ld r8,X
+ 400 00b0 1196      		adiw r26,1
+ 401 00b2 9C90      		ld r9,X
+ 402 00b4 1197      		sbiw r26,1
+ 403 00b6 1296      		adiw r26,2
+ 404 00b8 8D91      		ld r24,X+
+ 405 00ba 9C91      		ld r25,X
+ 406 00bc 1397      		sbiw r26,2+1
+ 407 00be 0E94 0000 		call free
+GAS LISTING /tmp/cc00cB6E.s 			page 9
+
+
+ 408 00c2 F701      		movw r30,r14
+ 409 00c4 8481      		ldd r24,Z+4
+ 410 00c6 9581      		ldd r25,Z+5
+ 411 00c8 0E94 0000 		call free
+ 412 00cc C701      		movw r24,r14
+ 413 00ce 0E94 0000 		call free
+ 414 00d2 7401      		movw r14,r8
+ 415 00d4 00C0      		rjmp .L41
+ 416               	.L200:
+ 417 00d6 D801      		movw r26,r16
+ 418 00d8 1296      		adiw r26,2
+ 419 00da 8D91      		ld r24,X+
+ 420 00dc 9C91      		ld r25,X
+ 421 00de 1397      		sbiw r26,2+1
+ 422 00e0 0E94 0000 		call free
+ 423 00e4 C801      		movw r24,r16
+ 424 00e6 0E94 0000 		call free
+ 425 00ea 8501      		movw r16,r10
+ 426 00ec 00C0      		rjmp .L38
+ 427               	.L198:
+ 428 00ee F601      		movw r30,r12
+ 429 00f0 0085      		ldd r16,Z+8
+ 430 00f2 1185      		ldd r17,Z+9
+ 431               	.L44:
+ 432 00f4 0115      		cp r16,__zero_reg__
+ 433 00f6 1105      		cpc r17,__zero_reg__
+ 434 00f8 01F0      		breq .L201
+ 435 00fa D801      		movw r26,r16
+ 436 00fc 1896      		adiw r26,8
+ 437 00fe EC90      		ld r14,X
+ 438 0100 1897      		sbiw r26,8
+ 439 0102 1996      		adiw r26,9
+ 440 0104 FC90      		ld r15,X
+ 441 0106 1997      		sbiw r26,9
+ 442 0108 1296      		adiw r26,2
+ 443 010a 8D91      		ld r24,X+
+ 444 010c 9C91      		ld r25,X
+ 445 010e 1397      		sbiw r26,2+1
+ 446 0110 0E94 0000 		call free
+ 447 0114 F801      		movw r30,r16
+ 448 0116 8681      		ldd r24,Z+6
+ 449 0118 9781      		ldd r25,Z+7
+ 450 011a 0E94 0000 		call free
+ 451 011e C801      		movw r24,r16
+ 452 0120 0E94 0000 		call free
+ 453 0124 8701      		movw r16,r14
+ 454 0126 00C0      		rjmp .L44
+ 455               	.L201:
+ 456 0128 D601      		movw r26,r12
+ 457 012a 8D91      		ld r24,X+
+ 458 012c 9C91      		ld r25,X
+ 459 012e 0E94 0000 		call free
+ 460 0132 F601      		movw r30,r12
+ 461 0134 8281      		ldd r24,Z+2
+ 462 0136 9381      		ldd r25,Z+3
+ 463 0138 0E94 0000 		call free
+ 464 013c D601      		movw r26,r12
+GAS LISTING /tmp/cc00cB6E.s 			page 10
+
+
+ 465 013e 1496      		adiw r26,4
+ 466 0140 8D91      		ld r24,X+
+ 467 0142 9C91      		ld r25,X
+ 468 0144 1597      		sbiw r26,4+1
+ 469 0146 0E94 0000 		call free
+ 470 014a C601      		movw r24,r12
+ 471 014c 0E94 0000 		call free
+ 472 0150 00C0      		rjmp .L95
+ 473               	.L36:
+ 474 0152 DC01      		movw r26,r24
+ 475 0154 1296      		adiw r26,2
+ 476 0156 ED91      		ld r30,X+
+ 477 0158 FC91      		ld r31,X
+ 478 015a 1397      		sbiw r26,2+1
+ 479 015c 8089      		ldd r24,Z+16
+ 480 015e 9189      		ldd r25,Z+17
+ 481 0160 892B      		or r24,r25
+ 482 0162 01F0      		breq .L46
+ 483               	.L63:
+ 484 0164 F701      		movw r30,r14
+ 485 0166 0085      		ldd r16,Z+8
+ 486 0168 1185      		ldd r17,Z+9
+ 487 016a 0280      		ldd __tmp_reg__,Z+2
+ 488 016c F381      		ldd r31,Z+3
+ 489 016e E02D      		mov r30,__tmp_reg__
+ 490 0170 C084      		ldd r12,Z+8
+ 491 0172 D184      		ldd r13,Z+9
+ 492 0174 F601      		movw r30,r12
+ 493               		0:
+ 494 0176 0190      		ld __tmp_reg__,Z+
+ 495 0178 0020      		tst __tmp_reg__
+ 496 017a 01F4      		brne 0b
+ 497 017c 3197      		sbiw r30,1
+ 498 017e CF01      		movw r24,r30
+ 499 0180 8C19      		sub r24,r12
+ 500 0182 9D09      		sbc r25,r13
+ 501 0184 F801      		movw r30,r16
+ 502 0186 A081      		ld r26,Z
+ 503 0188 B181      		ldd r27,Z+1
+ 504 018a FD01      		movw r30,r26
+ 505               		0:
+ 506 018c 0190      		ld __tmp_reg__,Z+
+ 507 018e 0020      		tst __tmp_reg__
+ 508 0190 01F4      		brne 0b
+ 509 0192 3197      		sbiw r30,1
+ 510 0194 EA1B      		sub r30,r26
+ 511 0196 FB0B      		sbc r31,r27
+ 512 0198 8E0F      		add r24,r30
+ 513 019a 9F1F      		adc r25,r31
+ 514 019c 0E94 0000 		call malloc
+ 515 01a0 5C01      		movw r10,r24
+ 516 01a2 0097      		sbiw r24,0
+ 517 01a4 01F0      		breq .+2
+ 518 01a6 00C0      		rjmp .L47
+ 519 01a8 00C0      		rjmp .L96
+ 520               	.L46:
+ 521 01aa 8085      		ldd r24,Z+8
+GAS LISTING /tmp/cc00cB6E.s 			page 11
+
+
+ 522 01ac 9185      		ldd r25,Z+9
+ 523 01ae 0E94 0000 		call RequestXmlTree.constprop.3
+ 524 01b2 4C01      		movw r8,r24
+ 525 01b4 892B      		or r24,r25
+ 526 01b6 01F4      		brne .+2
+ 527 01b8 00C0      		rjmp .L96
+ 528 01ba D701      		movw r26,r14
+ 529 01bc 1296      		adiw r26,2
+ 530 01be CD90      		ld r12,X+
+ 531 01c0 DC90      		ld r13,X
+ 532 01c2 1397      		sbiw r26,2+1
+ 533 01c4 68E0      		ldi r22,lo8(8)
+ 534 01c6 70E0      		ldi r23,0
+ 535 01c8 81E0      		ldi r24,lo8(1)
+ 536 01ca 90E0      		ldi r25,0
+ 537 01cc 0E94 0000 		call calloc
+ 538 01d0 5C01      		movw r10,r24
+ 539 01d2 60E0      		ldi r22,lo8(.LC5)
+ 540 01d4 70E0      		ldi r23,hi8(.LC5)
+ 541 01d6 C401      		movw r24,r8
+ 542 01d8 0E94 0000 		call GetXmlNode
+ 543 01dc 8C01      		movw r16,r24
+ 544 01de 0097      		sbiw r24,0
+ 545 01e0 01F0      		breq .L50
+ 546 01e2 60E0      		ldi r22,lo8(.LC6)
+ 547 01e4 70E0      		ldi r23,hi8(.LC6)
+ 548 01e6 FC01      		movw r30,r24
+ 549 01e8 8281      		ldd r24,Z+2
+ 550 01ea 9381      		ldd r25,Z+3
+ 551 01ec 0E94 0000 		call GetXmlNode
+ 552 01f0 8C01      		movw r16,r24
+ 553 01f2 0097      		sbiw r24,0
+ 554 01f4 01F0      		breq .L50
+ 555 01f6 DC01      		movw r26,r24
+ 556 01f8 1296      		adiw r26,2
+ 557 01fa 0D91      		ld r16,X+
+ 558 01fc 1C91      		ld r17,X
+ 559 01fe 1397      		sbiw r26,2+1
+ 560               	.L50:
+ 561 0200 A114      		cp r10,__zero_reg__
+ 562 0202 B104      		cpc r11,__zero_reg__
+ 563 0204 01F0      		breq .L51
+ 564 0206 F601      		movw r30,r12
+ 565 0208 B18A      		std Z+17,r11
+ 566 020a A08A      		std Z+16,r10
+ 567 020c 60E0      		ldi r22,lo8(.LC7)
+ 568 020e 70E0      		ldi r23,hi8(.LC7)
+ 569 0210 C801      		movw r24,r16
+ 570 0212 0E94 0000 		call DuplicateXmlNodeContent
+ 571 0216 D501      		movw r26,r10
+ 572 0218 8D93      		st X+,r24
+ 573 021a 9C93      		st X,r25
+ 574               	.L51:
+ 575 021c F601      		movw r30,r12
+ 576 021e 8285      		ldd r24,Z+10
+ 577 0220 9385      		ldd r25,Z+11
+ 578 0222 892B      		or r24,r25
+GAS LISTING /tmp/cc00cB6E.s 			page 12
+
+
+ 579 0224 01F0      		breq .L52
+ 580 0226 8485      		ldd r24,Z+12
+ 581 0228 9585      		ldd r25,Z+13
+ 582 022a 892B      		or r24,r25
+ 583 022c 01F4      		brne .L53
+ 584               	.L52:
+ 585 022e 60E0      		ldi r22,lo8(.LC8)
+ 586 0230 70E0      		ldi r23,hi8(.LC8)
+ 587 0232 C801      		movw r24,r16
+ 588 0234 0E94 0000 		call DuplicateXmlNodeContent
+ 589 0238 25E0      		ldi r18,lo8(5)
+ 590 023a 30E0      		ldi r19,0
+ 591 023c AE01      		movw r20,r28
+ 592 023e 4F5F      		subi r20,-1
+ 593 0240 5F4F      		sbci r21,-1
+ 594 0242 6AE3      		ldi r22,lo8(58)
+ 595 0244 0E94 0000 		call SsdpSplitWords
+ 596 0248 D601      		movw r26,r12
+ 597 024a 1A96      		adiw r26,10
+ 598 024c 8D91      		ld r24,X+
+ 599 024e 9C91      		ld r25,X
+ 600 0250 1B97      		sbiw r26,10+1
+ 601 0252 892B      		or r24,r25
+ 602 0254 01F4      		brne .L54
+ 603 0256 8B81      		ldd r24,Y+3
+ 604 0258 9C81      		ldd r25,Y+4
+ 605 025a 0E94 0000 		call strdup
+ 606 025e F601      		movw r30,r12
+ 607 0260 9387      		std Z+11,r25
+ 608 0262 8287      		std Z+10,r24
+ 609               	.L54:
+ 610 0264 D601      		movw r26,r12
+ 611 0266 1C96      		adiw r26,12
+ 612 0268 8D91      		ld r24,X+
+ 613 026a 9C91      		ld r25,X
+ 614 026c 1D97      		sbiw r26,12+1
+ 615 026e 892B      		or r24,r25
+ 616 0270 01F4      		brne .L53
+ 617 0272 8F81      		ldd r24,Y+7
+ 618 0274 9885      		ldd r25,Y+8
+ 619 0276 0E94 0000 		call strdup
+ 620 027a F601      		movw r30,r12
+ 621 027c 9587      		std Z+13,r25
+ 622 027e 8487      		std Z+12,r24
+ 623               	.L53:
+ 624 0280 60E0      		ldi r22,lo8(.LC9)
+ 625 0282 70E0      		ldi r23,hi8(.LC9)
+ 626 0284 C801      		movw r24,r16
+ 627 0286 0E94 0000 		call GetXmlNode
+ 628 028a 0097      		sbiw r24,0
+ 629 028c 01F4      		brne .+2
+ 630 028e 00C0      		rjmp .L97
+ 631 0290 DC01      		movw r26,r24
+ 632 0292 1296      		adiw r26,2
+ 633 0294 6D90      		ld r6,X+
+ 634 0296 7C90      		ld r7,X
+ 635 0298 1397      		sbiw r26,2+1
+GAS LISTING /tmp/cc00cB6E.s 			page 13
+
+
+ 636 029a 0FEF      		ldi r16,lo8(-1)
+ 637 029c 1FEF      		ldi r17,lo8(-1)
+ 638               	.L57:
+ 639 029e 6114      		cp r6,__zero_reg__
+ 640 02a0 7104      		cpc r7,__zero_reg__
+ 641 02a2 01F4      		brne .+2
+ 642 02a4 00C0      		rjmp .L56
+ 643 02a6 D301      		movw r26,r6
+ 644 02a8 1296      		adiw r26,2
+ 645 02aa CD90      		ld r12,X+
+ 646 02ac DC90      		ld r13,X
+ 647 02ae 1397      		sbiw r26,2+1
+ 648 02b0 C114      		cp r12,__zero_reg__
+ 649 02b2 D104      		cpc r13,__zero_reg__
+ 650 02b4 01F4      		brne .+2
+ 651 02b6 00C0      		rjmp .L56
+ 652 02b8 60E0      		ldi r22,lo8(.LC10)
+ 653 02ba 70E0      		ldi r23,hi8(.LC10)
+ 654 02bc C601      		movw r24,r12
+ 655 02be 0E94 0000 		call GetXmlNode
+ 656 02c2 FC01      		movw r30,r24
+ 657 02c4 8085      		ldd r24,Z+8
+ 658 02c6 9185      		ldd r25,Z+9
+ 659 02c8 0E94 0000 		call strdup
+ 660 02cc 25E0      		ldi r18,lo8(5)
+ 661 02ce 30E0      		ldi r19,0
+ 662 02d0 AE01      		movw r20,r28
+ 663 02d2 4F5F      		subi r20,-1
+ 664 02d4 5F4F      		sbci r21,-1
+ 665 02d6 6AE3      		ldi r22,lo8(58)
+ 666 02d8 0E94 0000 		call SsdpSplitWords
+ 667 02dc D701      		movw r26,r14
+ 668 02de 1496      		adiw r26,4
+ 669 02e0 6D91      		ld r22,X+
+ 670 02e2 7C91      		ld r23,X
+ 671 02e4 1597      		sbiw r26,4+1
+ 672 02e6 8B81      		ldd r24,Y+3
+ 673 02e8 9C81      		ldd r25,Y+4
+ 674 02ea 0E94 0000 		call strcasecmp
+ 675 02ee 892B      		or r24,r25
+ 676 02f0 01F0      		breq .+2
+ 677 02f2 00C0      		rjmp .L58
+ 678 02f4 F701      		movw r30,r14
+ 679 02f6 6681      		ldd r22,Z+6
+ 680 02f8 7781      		ldd r23,Z+7
+ 681 02fa 8F81      		ldd r24,Y+7
+ 682 02fc 9885      		ldd r25,Y+8
+ 683 02fe 0E94 0000 		call strcasecmp
+ 684 0302 892B      		or r24,r25
+ 685 0304 01F0      		breq .+2
+ 686 0306 00C0      		rjmp .L58
+ 687 0308 6AE0      		ldi r22,lo8(10)
+ 688 030a 70E0      		ldi r23,0
+ 689 030c 81E0      		ldi r24,lo8(1)
+ 690 030e 90E0      		ldi r25,0
+ 691 0310 0E94 0000 		call calloc
+ 692 0314 5C01      		movw r10,r24
+GAS LISTING /tmp/cc00cB6E.s 			page 14
+
+
+ 693 0316 892B      		or r24,r25
+ 694 0318 01F4      		brne .+2
+ 695 031a 00C0      		rjmp .L58
+ 696 031c 60E0      		ldi r22,lo8(.LC11)
+ 697 031e 70E0      		ldi r23,hi8(.LC11)
+ 698 0320 C601      		movw r24,r12
+ 699 0322 0E94 0000 		call GetXmlNode
+ 700 0326 0097      		sbiw r24,0
+ 701 0328 01F0      		breq .L59
+ 702 032a DC01      		movw r26,r24
+ 703 032c 1896      		adiw r26,8
+ 704 032e 8D91      		ld r24,X+
+ 705 0330 9C91      		ld r25,X
+ 706 0332 1997      		sbiw r26,8+1
+ 707 0334 0097      		sbiw r24,0
+ 708 0336 01F0      		breq .L59
+ 709 0338 0E94 0000 		call strdup
+ 710 033c F501      		movw r30,r10
+ 711 033e 9183      		std Z+1,r25
+ 712 0340 8083      		st Z,r24
+ 713               	.L59:
+ 714 0342 60E0      		ldi r22,lo8(.LC12)
+ 715 0344 70E0      		ldi r23,hi8(.LC12)
+ 716 0346 C601      		movw r24,r12
+ 717 0348 0E94 0000 		call GetXmlNode
+ 718 034c 0097      		sbiw r24,0
+ 719 034e 01F0      		breq .L60
+ 720 0350 DC01      		movw r26,r24
+ 721 0352 1896      		adiw r26,8
+ 722 0354 8D91      		ld r24,X+
+ 723 0356 9C91      		ld r25,X
+ 724 0358 1997      		sbiw r26,8+1
+ 725 035a 0097      		sbiw r24,0
+ 726 035c 01F0      		breq .L60
+ 727 035e 0E94 0000 		call strdup
+ 728 0362 F501      		movw r30,r10
+ 729 0364 9383      		std Z+3,r25
+ 730 0366 8283      		std Z+2,r24
+ 731               	.L60:
+ 732 0368 60E0      		ldi r22,lo8(.LC13)
+ 733 036a 70E0      		ldi r23,hi8(.LC13)
+ 734 036c C601      		movw r24,r12
+ 735 036e 0E94 0000 		call GetXmlNode
+ 736 0372 0097      		sbiw r24,0
+ 737 0374 01F0      		breq .L61
+ 738 0376 DC01      		movw r26,r24
+ 739 0378 1896      		adiw r26,8
+ 740 037a 8D91      		ld r24,X+
+ 741 037c 9C91      		ld r25,X
+ 742 037e 1997      		sbiw r26,8+1
+ 743 0380 0097      		sbiw r24,0
+ 744 0382 01F0      		breq .L61
+ 745 0384 0E94 0000 		call strdup
+ 746 0388 F501      		movw r30,r10
+ 747 038a 9583      		std Z+5,r25
+ 748 038c 8483      		std Z+4,r24
+ 749               	.L61:
+GAS LISTING /tmp/cc00cB6E.s 			page 15
+
+
+ 750 038e D701      		movw r26,r14
+ 751 0390 1996      		adiw r26,8+1
+ 752 0392 BC92      		st X,r11
+ 753 0394 AE92      		st -X,r10
+ 754 0396 1897      		sbiw r26,8
+ 755 0398 00E0      		ldi r16,0
+ 756 039a 10E0      		ldi r17,0
+ 757               	.L58:
+ 758 039c F301      		movw r30,r6
+ 759 039e 6080      		ld r6,Z
+ 760 03a0 7180      		ldd r7,Z+1
+ 761 03a2 00C0      		rjmp .L57
+ 762               	.L97:
+ 763 03a4 0FEF      		ldi r16,lo8(-1)
+ 764 03a6 1FEF      		ldi r17,lo8(-1)
+ 765               	.L56:
+ 766 03a8 C401      		movw r24,r8
+ 767 03aa 0E94 0000 		call UxmlTreeDestroy
+ 768 03ae 0115      		cp r16,__zero_reg__
+ 769 03b0 1105      		cpc r17,__zero_reg__
+ 770 03b2 01F0      		breq .+2
+ 771 03b4 00C0      		rjmp .L132
+ 772 03b6 00C0      		rjmp .L63
+ 773               	.L47:
+ 774 03b8 B601      		movw r22,r12
+ 775 03ba 0E94 0000 		call strcpy
+ 776 03be 6FE2      		ldi r22,lo8(47)
+ 777 03c0 70E0      		ldi r23,0
+ 778 03c2 C501      		movw r24,r10
+ 779 03c4 0E94 0000 		call strrchr
+ 780 03c8 0097      		sbiw r24,0
+ 781 03ca 01F4      		brne .+2
+ 782 03cc 00C0      		rjmp .L96
+ 783 03ce F801      		movw r30,r16
+ 784 03d0 6081      		ld r22,Z
+ 785 03d2 7181      		ldd r23,Z+1
+ 786 03d4 DB01      		movw r26,r22
+ 787 03d6 2C91      		ld r18,X
+ 788 03d8 2F32      		cpi r18,lo8(47)
+ 789 03da 01F0      		breq .L64
+ 790 03dc 0196      		adiw r24,1
+ 791               	.L64:
+ 792 03de 0E94 0000 		call strcpy
+ 793 03e2 C501      		movw r24,r10
+ 794 03e4 0E94 0000 		call RequestXmlTree.constprop.3
+ 795 03e8 4C01      		movw r8,r24
+ 796 03ea 0097      		sbiw r24,0
+ 797 03ec 01F4      		brne .+2
+ 798 03ee 00C0      		rjmp .L96
+ 799 03f0 60E0      		ldi r22,lo8(.LC14)
+ 800 03f2 70E0      		ldi r23,hi8(.LC14)
+ 801 03f4 0E94 0000 		call GetXmlNode
+ 802 03f8 0097      		sbiw r24,0
+ 803 03fa 01F4      		brne .+2
+ 804 03fc 00C0      		rjmp .L100
+ 805 03fe FC01      		movw r30,r24
+ 806 0400 0281      		ldd r16,Z+2
+GAS LISTING /tmp/cc00cB6E.s 			page 16
+
+
+ 807 0402 1381      		ldd r17,Z+3
+ 808 0404 60E0      		ldi r22,lo8(.LC15)
+ 809 0406 70E0      		ldi r23,hi8(.LC15)
+ 810 0408 C801      		movw r24,r16
+ 811 040a 0E94 0000 		call GetXmlNode
+ 812 040e 2C01      		movw r4,r24
+ 813 0410 60E0      		ldi r22,lo8(.LC16)
+ 814 0412 70E0      		ldi r23,hi8(.LC16)
+ 815 0414 C801      		movw r24,r16
+ 816 0416 0E94 0000 		call GetXmlNode
+ 817 041a 4114      		cp r4,__zero_reg__
+ 818 041c 5104      		cpc r5,__zero_reg__
+ 819 041e 01F4      		brne .+2
+ 820 0420 00C0      		rjmp .L100
+ 821 0422 0097      		sbiw r24,0
+ 822 0424 01F4      		brne .+2
+ 823 0426 00C0      		rjmp .L100
+ 824 0428 DC01      		movw r26,r24
+ 825 042a 1296      		adiw r26,2
+ 826 042c 6D90      		ld r6,X+
+ 827 042e 7C90      		ld r7,X
+ 828 0430 1397      		sbiw r26,2+1
+ 829               	.L66:
+ 830 0432 6114      		cp r6,__zero_reg__
+ 831 0434 7104      		cpc r7,__zero_reg__
+ 832 0436 01F4      		brne .+2
+ 833 0438 00C0      		rjmp .L73
+ 834 043a F301      		movw r30,r6
+ 835 043c C280      		ldd r12,Z+2
+ 836 043e D380      		ldd r13,Z+3
+ 837 0440 C114      		cp r12,__zero_reg__
+ 838 0442 D104      		cpc r13,__zero_reg__
+ 839 0444 01F4      		brne .+2
+ 840 0446 00C0      		rjmp .L73
+ 841 0448 6AE0      		ldi r22,lo8(10)
+ 842 044a 70E0      		ldi r23,0
+ 843 044c 81E0      		ldi r24,lo8(1)
+ 844 044e 90E0      		ldi r25,0
+ 845 0450 0E94 0000 		call calloc
+ 846 0454 8C01      		movw r16,r24
+ 847 0456 892B      		or r24,r25
+ 848 0458 01F4      		brne .+2
+ 849 045a 00C0      		rjmp .L67
+ 850               	.L71:
+ 851 045c F601      		movw r30,r12
+ 852 045e A084      		ldd r10,Z+8
+ 853 0460 B184      		ldd r11,Z+9
+ 854 0462 A114      		cp r10,__zero_reg__
+ 855 0464 B104      		cpc r11,__zero_reg__
+ 856 0466 01F0      		breq .L68
+ 857 0468 2680      		ldd r2,Z+6
+ 858 046a 3780      		ldd r3,Z+7
+ 859 046c 60E0      		ldi r22,lo8(.LC17)
+ 860 046e 70E0      		ldi r23,hi8(.LC17)
+ 861 0470 C101      		movw r24,r2
+ 862 0472 0E94 0000 		call strcasecmp
+ 863 0476 892B      		or r24,r25
+GAS LISTING /tmp/cc00cB6E.s 			page 17
+
+
+ 864 0478 01F4      		brne .L69
+ 865 047a C501      		movw r24,r10
+ 866 047c 0E94 0000 		call strdup
+ 867 0480 D801      		movw r26,r16
+ 868 0482 1396      		adiw r26,2+1
+ 869 0484 9C93      		st X,r25
+ 870 0486 8E93      		st -X,r24
+ 871 0488 1297      		sbiw r26,2
+ 872 048a 00C0      		rjmp .L68
+ 873               	.L69:
+ 874 048c 60E0      		ldi r22,lo8(.LC18)
+ 875 048e 70E0      		ldi r23,hi8(.LC18)
+ 876 0490 C101      		movw r24,r2
+ 877 0492 0E94 0000 		call strcasecmp
+ 878 0496 892B      		or r24,r25
+ 879 0498 01F4      		brne .L70
+ 880 049a C501      		movw r24,r10
+ 881 049c 0E94 0000 		call UpnpVarTypeIndex
+ 882 04a0 F801      		movw r30,r16
+ 883 04a2 9183      		std Z+1,r25
+ 884 04a4 8083      		st Z,r24
+ 885 04a6 00C0      		rjmp .L68
+ 886               	.L70:
+ 887 04a8 60E0      		ldi r22,lo8(.LC19)
+ 888 04aa 70E0      		ldi r23,hi8(.LC19)
+ 889 04ac C101      		movw r24,r2
+ 890 04ae 0E94 0000 		call strcasecmp
+ 891 04b2 892B      		or r24,r25
+ 892 04b4 01F4      		brne .L68
+ 893 04b6 C501      		movw r24,r10
+ 894 04b8 0E94 0000 		call strdup
+ 895 04bc D801      		movw r26,r16
+ 896 04be 1796      		adiw r26,6+1
+ 897 04c0 9C93      		st X,r25
+ 898 04c2 8E93      		st -X,r24
+ 899 04c4 1697      		sbiw r26,6
+ 900               	.L68:
+ 901 04c6 F601      		movw r30,r12
+ 902 04c8 C080      		ld r12,Z
+ 903 04ca D180      		ldd r13,Z+1
+ 904 04cc C114      		cp r12,__zero_reg__
+ 905 04ce D104      		cpc r13,__zero_reg__
+ 906 04d0 01F4      		brne .L71
+ 907 04d2 D801      		movw r26,r16
+ 908 04d4 1296      		adiw r26,2
+ 909 04d6 8D91      		ld r24,X+
+ 910 04d8 9C91      		ld r25,X
+ 911 04da 1397      		sbiw r26,2+1
+ 912 04dc 0097      		sbiw r24,0
+ 913 04de 01F0      		breq .L72
+ 914 04e0 2D91      		ld r18,X+
+ 915 04e2 3C91      		ld r19,X
+ 916 04e4 232B      		or r18,r19
+ 917 04e6 01F0      		breq .L72
+ 918 04e8 D701      		movw r26,r14
+ 919 04ea 1896      		adiw r26,8
+ 920 04ec ED91      		ld r30,X+
+GAS LISTING /tmp/cc00cB6E.s 			page 18
+
+
+ 921 04ee FC91      		ld r31,X
+ 922 04f0 1997      		sbiw r26,8+1
+ 923 04f2 8085      		ldd r24,Z+8
+ 924 04f4 9185      		ldd r25,Z+9
+ 925 04f6 D801      		movw r26,r16
+ 926 04f8 1996      		adiw r26,8+1
+ 927 04fa 9C93      		st X,r25
+ 928 04fc 8E93      		st -X,r24
+ 929 04fe 1897      		sbiw r26,8
+ 930 0500 1187      		std Z+9,r17
+ 931 0502 0087      		std Z+8,r16
+ 932 0504 00C0      		rjmp .L67
+ 933               	.L72:
+ 934 0506 0E94 0000 		call free
+ 935 050a F801      		movw r30,r16
+ 936 050c 8681      		ldd r24,Z+6
+ 937 050e 9781      		ldd r25,Z+7
+ 938 0510 0E94 0000 		call free
+ 939 0514 C801      		movw r24,r16
+ 940 0516 0E94 0000 		call free
+ 941               	.L67:
+ 942 051a D301      		movw r26,r6
+ 943 051c 6D90      		ld r6,X+
+ 944 051e 7C90      		ld r7,X
+ 945 0520 00C0      		rjmp .L66
+ 946               	.L73:
+ 947 0522 D201      		movw r26,r4
+ 948 0524 1296      		adiw r26,2
+ 949 0526 0D90      		ld __tmp_reg__,X+
+ 950 0528 BC91      		ld r27,X
+ 951 052a A02D      		mov r26,__tmp_reg__
+ 952 052c BE87      		std Y+14,r27
+ 953 052e AD87      		std Y+13,r26
+ 954 0530 0FEF      		ldi r16,lo8(-1)
+ 955 0532 1FEF      		ldi r17,lo8(-1)
+ 956               	.L75:
+ 957 0534 8D85      		ldd r24,Y+13
+ 958 0536 9E85      		ldd r25,Y+14
+ 959 0538 0097      		sbiw r24,0
+ 960 053a 01F4      		brne .+2
+ 961 053c 00C0      		rjmp .L65
+ 962 053e DC01      		movw r26,r24
+ 963 0540 1296      		adiw r26,2
+ 964 0542 CD90      		ld r12,X+
+ 965 0544 DC90      		ld r13,X
+ 966 0546 1397      		sbiw r26,2+1
+ 967 0548 C114      		cp r12,__zero_reg__
+ 968 054a D104      		cpc r13,__zero_reg__
+ 969 054c 01F4      		brne .+2
+ 970 054e 00C0      		rjmp .L65
+ 971 0550 68E0      		ldi r22,lo8(8)
+ 972 0552 70E0      		ldi r23,0
+ 973 0554 81E0      		ldi r24,lo8(1)
+ 974 0556 90E0      		ldi r25,0
+ 975 0558 0E94 0000 		call calloc
+ 976 055c 5C01      		movw r10,r24
+ 977 055e 892B      		or r24,r25
+GAS LISTING /tmp/cc00cB6E.s 			page 19
+
+
+ 978 0560 01F4      		brne .+2
+ 979 0562 00C0      		rjmp .L76
+ 980 0564 60E0      		ldi r22,lo8(.LC17)
+ 981 0566 70E0      		ldi r23,hi8(.LC17)
+ 982 0568 C601      		movw r24,r12
+ 983 056a 0E94 0000 		call GetXmlNode
+ 984 056e 0097      		sbiw r24,0
+ 985 0570 01F4      		brne .+2
+ 986 0572 00C0      		rjmp .L76
+ 987 0574 FC01      		movw r30,r24
+ 988 0576 6084      		ldd r6,Z+8
+ 989 0578 7184      		ldd r7,Z+9
+ 990 057a 6114      		cp r6,__zero_reg__
+ 991 057c 7104      		cpc r7,__zero_reg__
+ 992 057e 01F4      		brne .+2
+ 993 0580 00C0      		rjmp .L76
+ 994 0582 60E0      		ldi r22,lo8(.LC20)
+ 995 0584 70E0      		ldi r23,hi8(.LC20)
+ 996 0586 C601      		movw r24,r12
+ 997 0588 0E94 0000 		call GetXmlNode
+ 998 058c 8C01      		movw r16,r24
+ 999 058e C301      		movw r24,r6
+ 1000 0590 0E94 0000 		call strdup
+ 1001 0594 D501      		movw r26,r10
+ 1002 0596 1396      		adiw r26,2+1
+ 1003 0598 9C93      		st X,r25
+ 1004 059a 8E93      		st -X,r24
+ 1005 059c 1297      		sbiw r26,2
+ 1006 059e 0115      		cp r16,__zero_reg__
+ 1007 05a0 1105      		cpc r17,__zero_reg__
+ 1008 05a2 01F4      		brne .+2
+ 1009 05a4 00C0      		rjmp .L76
+ 1010 05a6 F801      		movw r30,r16
+ 1011 05a8 0280      		ldd __tmp_reg__,Z+2
+ 1012 05aa F381      		ldd r31,Z+3
+ 1013 05ac E02D      		mov r30,__tmp_reg__
+ 1014 05ae FC87      		std Y+12,r31
+ 1015 05b0 EB87      		std Y+11,r30
+ 1016 05b2 0FEF      		ldi r16,lo8(-1)
+ 1017 05b4 1FEF      		ldi r17,lo8(-1)
+ 1018 05b6 C501      		movw r24,r10
+ 1019 05b8 0696      		adiw r24,6
+ 1020 05ba 988B      		std Y+16,r25
+ 1021 05bc 8F87      		std Y+15,r24
+ 1022 05be 1496      		adiw r26,4
+ 1023 05c0 BA8B      		std Y+18,r27
+ 1024 05c2 A98B      		std Y+17,r26
+ 1025               	.L78:
+ 1026 05c4 8B85      		ldd r24,Y+11
+ 1027 05c6 9C85      		ldd r25,Y+12
+ 1028 05c8 892B      		or r24,r25
+ 1029 05ca 01F4      		brne .L89
+ 1030               	.L93:
+ 1031 05cc 0115      		cp r16,__zero_reg__
+ 1032 05ce 1105      		cpc r17,__zero_reg__
+ 1033 05d0 01F0      		breq .+2
+ 1034 05d2 00C0      		rjmp .L91
+GAS LISTING /tmp/cc00cB6E.s 			page 20
+
+
+ 1035 05d4 D701      		movw r26,r14
+ 1036 05d6 1896      		adiw r26,8
+ 1037 05d8 ED91      		ld r30,X+
+ 1038 05da FC91      		ld r31,X
+ 1039 05dc 1997      		sbiw r26,8+1
+ 1040 05de 8681      		ldd r24,Z+6
+ 1041 05e0 9781      		ldd r25,Z+7
+ 1042 05e2 D501      		movw r26,r10
+ 1043 05e4 8D93      		st X+,r24
+ 1044 05e6 9C93      		st X,r25
+ 1045 05e8 B782      		std Z+7,r11
+ 1046 05ea A682      		std Z+6,r10
+ 1047 05ec 00C0      		rjmp .L91
+ 1048               	.L89:
+ 1049 05ee AB85      		ldd r26,Y+11
+ 1050 05f0 BC85      		ldd r27,Y+12
+ 1051 05f2 1296      		adiw r26,2
+ 1052 05f4 4D90      		ld r4,X+
+ 1053 05f6 5C90      		ld r5,X
+ 1054 05f8 1397      		sbiw r26,2+1
+ 1055 05fa 4114      		cp r4,__zero_reg__
+ 1056 05fc 5104      		cpc r5,__zero_reg__
+ 1057 05fe 01F0      		breq .L93
+ 1058 0600 68E0      		ldi r22,lo8(8)
+ 1059 0602 70E0      		ldi r23,0
+ 1060 0604 81E0      		ldi r24,lo8(1)
+ 1061 0606 90E0      		ldi r25,0
+ 1062 0608 0E94 0000 		call calloc
+ 1063 060c 6C01      		movw r12,r24
+ 1064 060e 892B      		or r24,r25
+ 1065 0610 01F4      		brne .+2
+ 1066 0612 00C0      		rjmp .L79
+ 1067 0614 212C      		mov r2,__zero_reg__
+ 1068 0616 312C      		mov r3,__zero_reg__
+ 1069               	.L87:
+ 1070 0618 F201      		movw r30,r4
+ 1071 061a 6084      		ldd r6,Z+8
+ 1072 061c 7184      		ldd r7,Z+9
+ 1073 061e 6114      		cp r6,__zero_reg__
+ 1074 0620 7104      		cpc r7,__zero_reg__
+ 1075 0622 01F4      		brne .+2
+ 1076 0624 00C0      		rjmp .L80
+ 1077 0626 2681      		ldd r18,Z+6
+ 1078 0628 3781      		ldd r19,Z+7
+ 1079 062a 60E0      		ldi r22,lo8(.LC17)
+ 1080 062c 70E0      		ldi r23,hi8(.LC17)
+ 1081 062e C901      		movw r24,r18
+ 1082 0630 2B8B      		std Y+19,r18
+ 1083 0632 3C8B      		std Y+20,r19
+ 1084 0634 0E94 0000 		call strcasecmp
+ 1085 0638 2B89      		ldd r18,Y+19
+ 1086 063a 3C89      		ldd r19,Y+20
+ 1087 063c 892B      		or r24,r25
+ 1088 063e 01F4      		brne .L81
+ 1089 0640 C301      		movw r24,r6
+ 1090 0642 0E94 0000 		call strdup
+ 1091 0646 D601      		movw r26,r12
+GAS LISTING /tmp/cc00cB6E.s 			page 21
+
+
+ 1092 0648 1396      		adiw r26,2+1
+ 1093 064a 9C93      		st X,r25
+ 1094 064c 8E93      		st -X,r24
+ 1095 064e 1297      		sbiw r26,2
+ 1096 0650 00C0      		rjmp .L80
+ 1097               	.L81:
+ 1098 0652 60E0      		ldi r22,lo8(.LC21)
+ 1099 0654 70E0      		ldi r23,hi8(.LC21)
+ 1100 0656 C901      		movw r24,r18
+ 1101 0658 2B8B      		std Y+19,r18
+ 1102 065a 3C8B      		std Y+20,r19
+ 1103 065c 0E94 0000 		call strcasecmp
+ 1104 0660 2B89      		ldd r18,Y+19
+ 1105 0662 3C89      		ldd r19,Y+20
+ 1106 0664 892B      		or r24,r25
+ 1107 0666 01F4      		brne .L82
+ 1108 0668 F301      		movw r30,r6
+ 1109 066a 8081      		ld r24,Z
+ 1110 066c 8936      		cpi r24,lo8(105)
+ 1111 066e 01F4      		brne .L83
+ 1112 0670 2988      		ldd r2,Y+17
+ 1113 0672 3A88      		ldd r3,Y+18
+ 1114 0674 00C0      		rjmp .L80
+ 1115               	.L83:
+ 1116 0676 8F36      		cpi r24,lo8(111)
+ 1117 0678 01F4      		brne .L80
+ 1118 067a 2F84      		ldd r2,Y+15
+ 1119 067c 3888      		ldd r3,Y+16
+ 1120 067e 00C0      		rjmp .L80
+ 1121               	.L82:
+ 1122 0680 60E0      		ldi r22,lo8(.LC22)
+ 1123 0682 70E0      		ldi r23,hi8(.LC22)
+ 1124 0684 C901      		movw r24,r18
+ 1125 0686 0E94 0000 		call strcasecmp
+ 1126 068a 892B      		or r24,r25
+ 1127 068c 01F4      		brne .L80
+ 1128 068e D701      		movw r26,r14
+ 1129 0690 1896      		adiw r26,8
+ 1130 0692 ED91      		ld r30,X+
+ 1131 0694 FC91      		ld r31,X
+ 1132 0696 1997      		sbiw r26,8+1
+ 1133               	.L197:
+ 1134 0698 2085      		ldd r18,Z+8
+ 1135 069a 3185      		ldd r19,Z+9
+ 1136 069c 2115      		cp r18,__zero_reg__
+ 1137 069e 3105      		cpc r19,__zero_reg__
+ 1138 06a0 01F0      		breq .L80
+ 1139 06a2 F901      		movw r30,r18
+ 1140 06a4 6281      		ldd r22,Z+2
+ 1141 06a6 7381      		ldd r23,Z+3
+ 1142 06a8 C301      		movw r24,r6
+ 1143 06aa 2B8B      		std Y+19,r18
+ 1144 06ac 3C8B      		std Y+20,r19
+ 1145 06ae 0E94 0000 		call strcasecmp
+ 1146 06b2 2B89      		ldd r18,Y+19
+ 1147 06b4 3C89      		ldd r19,Y+20
+ 1148 06b6 892B      		or r24,r25
+GAS LISTING /tmp/cc00cB6E.s 			page 22
+
+
+ 1149 06b8 01F4      		brne .L85
+ 1150 06ba D601      		movw r26,r12
+ 1151 06bc 1796      		adiw r26,6+1
+ 1152 06be 3C93      		st X,r19
+ 1153 06c0 2E93      		st -X,r18
+ 1154 06c2 1697      		sbiw r26,6
+ 1155 06c4 00C0      		rjmp .L80
+ 1156               	.L85:
+ 1157 06c6 F901      		movw r30,r18
+ 1158 06c8 00C0      		rjmp .L197
+ 1159               	.L80:
+ 1160 06ca D201      		movw r26,r4
+ 1161 06cc 4D90      		ld r4,X+
+ 1162 06ce 5C90      		ld r5,X
+ 1163 06d0 4114      		cp r4,__zero_reg__
+ 1164 06d2 5104      		cpc r5,__zero_reg__
+ 1165 06d4 01F0      		breq .+2
+ 1166 06d6 00C0      		rjmp .L87
+ 1167 06d8 F601      		movw r30,r12
+ 1168 06da 8281      		ldd r24,Z+2
+ 1169 06dc 9381      		ldd r25,Z+3
+ 1170 06de 0097      		sbiw r24,0
+ 1171 06e0 01F0      		breq .L88
+ 1172 06e2 2114      		cp r2,__zero_reg__
+ 1173 06e4 3104      		cpc r3,__zero_reg__
+ 1174 06e6 01F0      		breq .L88
+ 1175 06e8 2681      		ldd r18,Z+6
+ 1176 06ea 3781      		ldd r19,Z+7
+ 1177 06ec 232B      		or r18,r19
+ 1178 06ee 01F0      		breq .L88
+ 1179 06f0 D101      		movw r26,r2
+ 1180 06f2 8D91      		ld r24,X+
+ 1181 06f4 9C91      		ld r25,X
+ 1182 06f6 1197      		sbiw r26,1
+ 1183 06f8 9183      		std Z+1,r25
+ 1184 06fa 8083      		st Z,r24
+ 1185 06fc CD92      		st X+,r12
+ 1186 06fe DC92      		st X,r13
+ 1187 0700 00E0      		ldi r16,0
+ 1188 0702 10E0      		ldi r17,0
+ 1189 0704 00C0      		rjmp .L79
+ 1190               	.L88:
+ 1191 0706 0E94 0000 		call free
+ 1192 070a C601      		movw r24,r12
+ 1193 070c 0E94 0000 		call free
+ 1194               	.L79:
+ 1195 0710 EB85      		ldd r30,Y+11
+ 1196 0712 FC85      		ldd r31,Y+12
+ 1197 0714 0190      		ld __tmp_reg__,Z+
+ 1198 0716 F081      		ld r31,Z
+ 1199 0718 E02D      		mov r30,__tmp_reg__
+ 1200 071a FC87      		std Y+12,r31
+ 1201 071c EB87      		std Y+11,r30
+ 1202 071e 00C0      		rjmp .L78
+ 1203               	.L76:
+ 1204 0720 0FEF      		ldi r16,lo8(-1)
+ 1205 0722 1FEF      		ldi r17,lo8(-1)
+GAS LISTING /tmp/cc00cB6E.s 			page 23
+
+
+ 1206               	.L91:
+ 1207 0724 ED85      		ldd r30,Y+13
+ 1208 0726 FE85      		ldd r31,Y+14
+ 1209 0728 0190      		ld __tmp_reg__,Z+
+ 1210 072a F081      		ld r31,Z
+ 1211 072c E02D      		mov r30,__tmp_reg__
+ 1212 072e FE87      		std Y+14,r31
+ 1213 0730 ED87      		std Y+13,r30
+ 1214 0732 00C0      		rjmp .L75
+ 1215               	.L100:
+ 1216 0734 0FEF      		ldi r16,lo8(-1)
+ 1217 0736 1FEF      		ldi r17,lo8(-1)
+ 1218               	.L65:
+ 1219 0738 C401      		movw r24,r8
+ 1220 073a 0E94 0000 		call UxmlTreeDestroy
+ 1221 073e 0115      		cp r16,__zero_reg__
+ 1222 0740 1105      		cpc r17,__zero_reg__
+ 1223 0742 01F4      		brne .L132
+ 1224 0744 60E0      		ldi r22,0
+ 1225 0746 C701      		movw r24,r14
+ 1226 0748 0E94 0000 		call CallObservers
+ 1227 074c 8C01      		movw r16,r24
+ 1228 074e 00C0      		rjmp .L132
+ 1229               	.L95:
+ 1230 0750 00E0      		ldi r16,0
+ 1231 0752 10E0      		ldi r17,0
+ 1232 0754 00C0      		rjmp .L132
+ 1233               	.L96:
+ 1234 0756 0FEF      		ldi r16,lo8(-1)
+ 1235 0758 1FEF      		ldi r17,lo8(-1)
+ 1236               	.L132:
+ 1237 075a C801      		movw r24,r16
+ 1238               	/* epilogue start */
+ 1239 075c 6496      		adiw r28,20
+ 1240 075e 0FB6      		in __tmp_reg__,__SREG__
+ 1241 0760 F894      		cli
+ 1242 0762 DEBF      		out __SP_H__,r29
+ 1243 0764 0FBE      		out __SREG__,__tmp_reg__
+ 1244 0766 CDBF      		out __SP_L__,r28
+ 1245 0768 DF91      		pop r29
+ 1246 076a CF91      		pop r28
+ 1247 076c 1F91      		pop r17
+ 1248 076e 0F91      		pop r16
+ 1249 0770 FF90      		pop r15
+ 1250 0772 EF90      		pop r14
+ 1251 0774 DF90      		pop r13
+ 1252 0776 CF90      		pop r12
+ 1253 0778 BF90      		pop r11
+ 1254 077a AF90      		pop r10
+ 1255 077c 9F90      		pop r9
+ 1256 077e 8F90      		pop r8
+ 1257 0780 7F90      		pop r7
+ 1258 0782 6F90      		pop r6
+ 1259 0784 5F90      		pop r5
+ 1260 0786 4F90      		pop r4
+ 1261 0788 3F90      		pop r3
+ 1262 078a 2F90      		pop r2
+GAS LISTING /tmp/cc00cB6E.s 			page 24
+
+
+ 1263 078c 0895      		ret
+ 1264               		.size	ServiceObserver, .-ServiceObserver
+ 1265               		.section	.text.UpnpRegisterServiceObserver,"ax",@progbits
+ 1266               	.global	UpnpRegisterServiceObserver
+ 1267               		.type	UpnpRegisterServiceObserver, @function
+ 1268               	UpnpRegisterServiceObserver:
+ 1269 0000 8F92      		push r8
+ 1270 0002 9F92      		push r9
+ 1271 0004 AF92      		push r10
+ 1272 0006 BF92      		push r11
+ 1273 0008 CF92      		push r12
+ 1274 000a DF92      		push r13
+ 1275 000c EF92      		push r14
+ 1276 000e FF92      		push r15
+ 1277 0010 0F93      		push r16
+ 1278 0012 1F93      		push r17
+ 1279 0014 CF93      		push r28
+ 1280 0016 DF93      		push r29
+ 1281 0018 1F92      		push __zero_reg__
+ 1282 001a CDB7      		in r28,__SP_L__
+ 1283 001c DEB7      		in r29,__SP_H__
+ 1284               	/* prologue: function */
+ 1285               	/* frame size = 1 */
+ 1286               	/* stack size = 13 */
+ 1287               	.L__stack_usage = 13
+ 1288 001e 5C01      		movw r10,r24
+ 1289 0020 8B01      		movw r16,r22
+ 1290 0022 7A01      		movw r14,r20
+ 1291 0024 88E0      		ldi r24,lo8(8)
+ 1292 0026 90E0      		ldi r25,0
+ 1293 0028 2983      		std Y+1,r18
+ 1294 002a 0E94 0000 		call malloc
+ 1295 002e 4C01      		movw r8,r24
+ 1296 0030 892B      		or r24,r25
+ 1297 0032 01F0      		breq .L205
+ 1298 0034 C801      		movw r24,r16
+ 1299 0036 0E94 0000 		call strdup
+ 1300 003a 6C01      		movw r12,r24
+ 1301 003c F401      		movw r30,r8
+ 1302 003e 9383      		std Z+3,r25
+ 1303 0040 8283      		std Z+2,r24
+ 1304 0042 C701      		movw r24,r14
+ 1305 0044 0E94 0000 		call strdup
+ 1306 0048 F401      		movw r30,r8
+ 1307 004a 9583      		std Z+5,r25
+ 1308 004c 8483      		std Z+4,r24
+ 1309 004e 2981      		ldd r18,Y+1
+ 1310 0050 CD28      		or r12,r13
+ 1311 0052 01F0      		breq .L207
+ 1312 0054 892B      		or r24,r25
+ 1313 0056 01F0      		breq .L207
+ 1314 0058 B782      		std Z+7,r11
+ 1315 005a A682      		std Z+6,r10
+ 1316 005c 8091 0000 		lds r24,upnp_observer_root
+ 1317 0060 9091 0000 		lds r25,upnp_observer_root+1
+ 1318 0064 9183      		std Z+1,r25
+ 1319 0066 8083      		st Z,r24
+GAS LISTING /tmp/cc00cB6E.s 			page 25
+
+
+ 1320 0068 9092 0000 		sts upnp_observer_root+1,r9
+ 1321 006c 8092 0000 		sts upnp_observer_root,r8
+ 1322 0070 A701      		movw r20,r14
+ 1323 0072 B801      		movw r22,r16
+ 1324 0074 80E0      		ldi r24,lo8(gs(ServiceObserver))
+ 1325 0076 90E0      		ldi r25,hi8(gs(ServiceObserver))
+ 1326 0078 0E94 0000 		call SsdpRegisterServiceObserver
+ 1327 007c 8C01      		movw r16,r24
+ 1328 007e 892B      		or r24,r25
+ 1329 0080 01F0      		breq .L203
+ 1330 0082 00C0      		rjmp .L204
+ 1331               	.L207:
+ 1332 0084 0FEF      		ldi r16,lo8(-1)
+ 1333 0086 1FEF      		ldi r17,lo8(-1)
+ 1334               	.L204:
+ 1335 0088 F401      		movw r30,r8
+ 1336 008a 8281      		ldd r24,Z+2
+ 1337 008c 9381      		ldd r25,Z+3
+ 1338 008e 0E94 0000 		call free
+ 1339 0092 F401      		movw r30,r8
+ 1340 0094 8481      		ldd r24,Z+4
+ 1341 0096 9581      		ldd r25,Z+5
+ 1342 0098 0E94 0000 		call free
+ 1343 009c C401      		movw r24,r8
+ 1344 009e 0E94 0000 		call free
+ 1345 00a2 00C0      		rjmp .L203
+ 1346               	.L205:
+ 1347 00a4 0FEF      		ldi r16,lo8(-1)
+ 1348 00a6 1FEF      		ldi r17,lo8(-1)
+ 1349               	.L203:
+ 1350 00a8 C801      		movw r24,r16
+ 1351               	/* epilogue start */
+ 1352 00aa 0F90      		pop __tmp_reg__
+ 1353 00ac DF91      		pop r29
+ 1354 00ae CF91      		pop r28
+ 1355 00b0 1F91      		pop r17
+ 1356 00b2 0F91      		pop r16
+ 1357 00b4 FF90      		pop r15
+ 1358 00b6 EF90      		pop r14
+ 1359 00b8 DF90      		pop r13
+ 1360 00ba CF90      		pop r12
+ 1361 00bc BF90      		pop r11
+ 1362 00be AF90      		pop r10
+ 1363 00c0 9F90      		pop r9
+ 1364 00c2 8F90      		pop r8
+ 1365 00c4 0895      		ret
+ 1366               		.size	UpnpRegisterServiceObserver, .-UpnpRegisterServiceObserver
+ 1367               		.section	.text.UpnpServiceProcByName,"ax",@progbits
+ 1368               	.global	UpnpServiceProcByName
+ 1369               		.type	UpnpServiceProcByName, @function
+ 1370               	UpnpServiceProcByName:
+ 1371               	/* prologue: function */
+ 1372               	/* frame size = 0 */
+ 1373               	/* stack size = 0 */
+ 1374               	.L__stack_usage = 0
+ 1375 0000 DC01      		movw r26,r24
+ 1376 0002 1896      		adiw r26,8
+GAS LISTING /tmp/cc00cB6E.s 			page 26
+
+
+ 1377 0004 ED91      		ld r30,X+
+ 1378 0006 FC91      		ld r31,X
+ 1379 0008 1997      		sbiw r26,8+1
+ 1380 000a 8681      		ldd r24,Z+6
+ 1381 000c 9781      		ldd r25,Z+7
+ 1382 000e 0C94 0000 		jmp SoapProcByName
+ 1383               		.size	UpnpServiceProcByName, .-UpnpServiceProcByName
+ 1384               		.section	.rodata.str1.1
+ 1385               	.LC23:
+ 1386 0101 2573 3A73 		.string	"%s:service:%s:1"
+ 1386      6572 7669 
+ 1386      6365 3A25 
+ 1386      733A 3100 
+ 1387               		.section	.text.UpnpServiceProcCall,"ax",@progbits
+ 1388               	.global	UpnpServiceProcCall
+ 1389               		.type	UpnpServiceProcCall, @function
+ 1390               	UpnpServiceProcCall:
+ 1391 0000 4F92      		push r4
+ 1392 0002 5F92      		push r5
+ 1393 0004 6F92      		push r6
+ 1394 0006 7F92      		push r7
+ 1395 0008 8F92      		push r8
+ 1396 000a 9F92      		push r9
+ 1397 000c AF92      		push r10
+ 1398 000e BF92      		push r11
+ 1399 0010 CF92      		push r12
+ 1400 0012 DF92      		push r13
+ 1401 0014 EF92      		push r14
+ 1402 0016 FF92      		push r15
+ 1403 0018 0F93      		push r16
+ 1404 001a 1F93      		push r17
+ 1405 001c CF93      		push r28
+ 1406 001e DF93      		push r29
+ 1407 0020 00D0      		rcall .
+ 1408 0022 1F92      		push __zero_reg__
+ 1409 0024 CDB7      		in r28,__SP_L__
+ 1410 0026 DEB7      		in r29,__SP_H__
+ 1411               	/* prologue: function */
+ 1412               	/* frame size = 4 */
+ 1413               	/* stack size = 20 */
+ 1414               	.L__stack_usage = 20
+ 1415 0028 2C01      		movw r4,r24
+ 1416 002a 4B01      		movw r8,r22
+ 1417 002c DC01      		movw r26,r24
+ 1418 002e 1896      		adiw r26,8
+ 1419 0030 0D91      		ld r16,X+
+ 1420 0032 1C91      		ld r17,X
+ 1421 0034 1997      		sbiw r26,8+1
+ 1422 0036 1496      		adiw r26,4
+ 1423 0038 6C90      		ld r6,X
+ 1424 003a 1497      		sbiw r26,4
+ 1425 003c 1596      		adiw r26,5
+ 1426 003e 7C90      		ld r7,X
+ 1427 0040 D301      		movw r26,r6
+ 1428 0042 FD01      		movw r30,r26
+ 1429               		0:
+ 1430 0044 0190      		ld __tmp_reg__,Z+
+GAS LISTING /tmp/cc00cB6E.s 			page 27
+
+
+ 1431 0046 0020      		tst __tmp_reg__
+ 1432 0048 01F4      		brne 0b
+ 1433 004a 3197      		sbiw r30,1
+ 1434 004c BF01      		movw r22,r30
+ 1435 004e 6A1B      		sub r22,r26
+ 1436 0050 7B0B      		sbc r23,r27
+ 1437 0052 FC01      		movw r30,r24
+ 1438 0054 F680      		ldd r15,Z+6
+ 1439 0056 E780      		ldd r14,Z+7
+ 1440 0058 AF2D      		mov r26,r15
+ 1441 005a BE2D      		mov r27,r14
+ 1442 005c FD01      		movw r30,r26
+ 1443               		0:
+ 1444 005e 0190      		ld __tmp_reg__,Z+
+ 1445 0060 0020      		tst __tmp_reg__
+ 1446 0062 01F4      		brne 0b
+ 1447 0064 3197      		sbiw r30,1
+ 1448 0066 CF01      		movw r24,r30
+ 1449 0068 8A1B      		sub r24,r26
+ 1450 006a 9B0B      		sbc r25,r27
+ 1451 006c 860F      		add r24,r22
+ 1452 006e 971F      		adc r25,r23
+ 1453 0070 0C96      		adiw r24,12
+ 1454 0072 2983      		std Y+1,r18
+ 1455 0074 3A83      		std Y+2,r19
+ 1456 0076 4B83      		std Y+3,r20
+ 1457 0078 5C83      		std Y+4,r21
+ 1458 007a 0E94 0000 		call malloc
+ 1459 007e 5C01      		movw r10,r24
+ 1460 0080 D201      		movw r26,r4
+ 1461 0082 1296      		adiw r26,2
+ 1462 0084 ED91      		ld r30,X+
+ 1463 0086 FC91      		ld r31,X
+ 1464 0088 1397      		sbiw r26,2+1
+ 1465 008a 0084      		ldd __tmp_reg__,Z+8
+ 1466 008c F185      		ldd r31,Z+9
+ 1467 008e E02D      		mov r30,__tmp_reg__
+ 1468 0090 DF01      		movw r26,r30
+ 1469               		0:
+ 1470 0092 0D90      		ld __tmp_reg__,X+
+ 1471 0094 0020      		tst __tmp_reg__
+ 1472 0096 01F4      		brne 0b
+ 1473 0098 1197      		sbiw r26,1
+ 1474 009a BD01      		movw r22,r26
+ 1475 009c 6E1B      		sub r22,r30
+ 1476 009e 7F0B      		sbc r23,r31
+ 1477 00a0 F801      		movw r30,r16
+ 1478 00a2 A281      		ldd r26,Z+2
+ 1479 00a4 B381      		ldd r27,Z+3
+ 1480 00a6 FD01      		movw r30,r26
+ 1481               		0:
+ 1482 00a8 0190      		ld __tmp_reg__,Z+
+ 1483 00aa 0020      		tst __tmp_reg__
+ 1484 00ac 01F4      		brne 0b
+ 1485 00ae 3197      		sbiw r30,1
+ 1486 00b0 CF01      		movw r24,r30
+ 1487 00b2 8A1B      		sub r24,r26
+GAS LISTING /tmp/cc00cB6E.s 			page 28
+
+
+ 1488 00b4 9B0B      		sbc r25,r27
+ 1489 00b6 860F      		add r24,r22
+ 1490 00b8 971F      		adc r25,r23
+ 1491 00ba 0E94 0000 		call malloc
+ 1492 00be 6C01      		movw r12,r24
+ 1493 00c0 2981      		ldd r18,Y+1
+ 1494 00c2 3A81      		ldd r19,Y+2
+ 1495 00c4 4B81      		ldd r20,Y+3
+ 1496 00c6 5C81      		ldd r21,Y+4
+ 1497 00c8 A114      		cp r10,__zero_reg__
+ 1498 00ca B104      		cpc r11,__zero_reg__
+ 1499 00cc 01F4      		brne .L213
+ 1500               	.L215:
+ 1501 00ce 0FEF      		ldi r16,lo8(-1)
+ 1502 00d0 1FEF      		ldi r17,lo8(-1)
+ 1503 00d2 00C0      		rjmp .L214
+ 1504               	.L213:
+ 1505 00d4 892B      		or r24,r25
+ 1506 00d6 01F0      		breq .L215
+ 1507 00d8 EF92      		push r14
+ 1508 00da FF92      		push r15
+ 1509 00dc 7F92      		push r7
+ 1510 00de 6F92      		push r6
+ 1511 00e0 80E0      		ldi r24,lo8(.LC23)
+ 1512 00e2 90E0      		ldi r25,hi8(.LC23)
+ 1513 00e4 9F93      		push r25
+ 1514 00e6 8F93      		push r24
+ 1515 00e8 BF92      		push r11
+ 1516 00ea AF92      		push r10
+ 1517 00ec 2983      		std Y+1,r18
+ 1518 00ee 3A83      		std Y+2,r19
+ 1519 00f0 4B83      		std Y+3,r20
+ 1520 00f2 5C83      		std Y+4,r21
+ 1521 00f4 0E94 0000 		call sprintf
+ 1522 00f8 D201      		movw r26,r4
+ 1523 00fa 1296      		adiw r26,2
+ 1524 00fc ED91      		ld r30,X+
+ 1525 00fe FC91      		ld r31,X
+ 1526 0100 1397      		sbiw r26,2+1
+ 1527 0102 6085      		ldd r22,Z+8
+ 1528 0104 7185      		ldd r23,Z+9
+ 1529 0106 C601      		movw r24,r12
+ 1530 0108 0E94 0000 		call strcpy
+ 1531 010c 6FE2      		ldi r22,lo8(47)
+ 1532 010e 70E0      		ldi r23,0
+ 1533 0110 C601      		movw r24,r12
+ 1534 0112 0E94 0000 		call strrchr
+ 1535 0116 3C01      		movw r6,r24
+ 1536 0118 0FB6      		in __tmp_reg__,__SREG__
+ 1537 011a F894      		cli
+ 1538 011c DEBF      		out __SP_H__,r29
+ 1539 011e 0FBE      		out __SREG__,__tmp_reg__
+ 1540 0120 CDBF      		out __SP_L__,r28
+ 1541 0122 2981      		ldd r18,Y+1
+ 1542 0124 3A81      		ldd r19,Y+2
+ 1543 0126 4B81      		ldd r20,Y+3
+ 1544 0128 5C81      		ldd r21,Y+4
+GAS LISTING /tmp/cc00cB6E.s 			page 29
+
+
+ 1545 012a 892B      		or r24,r25
+ 1546 012c 01F0      		breq .L215
+ 1547 012e D801      		movw r26,r16
+ 1548 0130 1296      		adiw r26,2
+ 1549 0132 6D91      		ld r22,X+
+ 1550 0134 7C91      		ld r23,X
+ 1551 0136 1397      		sbiw r26,2+1
+ 1552 0138 FB01      		movw r30,r22
+ 1553 013a 8081      		ld r24,Z
+ 1554 013c 8F32      		cpi r24,lo8(47)
+ 1555 013e 01F0      		breq .L216
+ 1556 0140 FFEF      		ldi r31,-1
+ 1557 0142 6F1A      		sub r6,r31
+ 1558 0144 7F0A      		sbc r7,r31
+ 1559               	.L216:
+ 1560 0146 C301      		movw r24,r6
+ 1561 0148 2983      		std Y+1,r18
+ 1562 014a 3A83      		std Y+2,r19
+ 1563 014c 4B83      		std Y+3,r20
+ 1564 014e 5C83      		std Y+4,r21
+ 1565 0150 0E94 0000 		call strcpy
+ 1566 0154 2981      		ldd r18,Y+1
+ 1567 0156 3A81      		ldd r19,Y+2
+ 1568 0158 4B81      		ldd r20,Y+3
+ 1569 015a 5C81      		ldd r21,Y+4
+ 1570 015c 7901      		movw r14,r18
+ 1571 015e 8A01      		movw r16,r20
+ 1572 0160 9501      		movw r18,r10
+ 1573 0162 A301      		movw r20,r6
+ 1574 0164 B601      		movw r22,r12
+ 1575 0166 C401      		movw r24,r8
+ 1576 0168 0E94 0000 		call SoapProcCallResource
+ 1577 016c 8C01      		movw r16,r24
+ 1578               	.L214:
+ 1579 016e C501      		movw r24,r10
+ 1580 0170 0E94 0000 		call free
+ 1581 0174 C601      		movw r24,r12
+ 1582 0176 0E94 0000 		call free
+ 1583 017a C801      		movw r24,r16
+ 1584               	/* epilogue start */
+ 1585 017c 0F90      		pop __tmp_reg__
+ 1586 017e 0F90      		pop __tmp_reg__
+ 1587 0180 0F90      		pop __tmp_reg__
+ 1588 0182 0F90      		pop __tmp_reg__
+ 1589 0184 DF91      		pop r29
+ 1590 0186 CF91      		pop r28
+ 1591 0188 1F91      		pop r17
+ 1592 018a 0F91      		pop r16
+ 1593 018c FF90      		pop r15
+ 1594 018e EF90      		pop r14
+ 1595 0190 DF90      		pop r13
+ 1596 0192 CF90      		pop r12
+ 1597 0194 BF90      		pop r11
+ 1598 0196 AF90      		pop r10
+ 1599 0198 9F90      		pop r9
+ 1600 019a 8F90      		pop r8
+ 1601 019c 7F90      		pop r7
+GAS LISTING /tmp/cc00cB6E.s 			page 30
+
+
+ 1602 019e 6F90      		pop r6
+ 1603 01a0 5F90      		pop r5
+ 1604 01a2 4F90      		pop r4
+ 1605 01a4 0895      		ret
+ 1606               		.size	UpnpServiceProcCall, .-UpnpServiceProcCall
+ 1607               		.local	upnp_observer_root
+ 1608               		.comm	upnp_observer_root,2,1
+ 1609               		.ident	"GCC: (GNU) 5.3.0"
+ 1610               	.global __do_copy_data
+ 1611               	.global __do_clear_bss
+GAS LISTING /tmp/cc00cB6E.s 			page 31
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 upnp_ctrl.c
+     /tmp/cc00cB6E.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cc00cB6E.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cc00cB6E.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cc00cB6E.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cc00cB6E.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cc00cB6E.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cc00cB6E.s:10     .text.GetXmlNode:0000000000000000 GetXmlNode
+     /tmp/cc00cB6E.s:45     .text.DuplicateXmlNodeContent:0000000000000000 DuplicateXmlNodeContent
+     /tmp/cc00cB6E.s:66     .text.CallObservers:0000000000000000 CallObservers
+                             .bss:0000000000000000 upnp_observer_root
+     /tmp/cc00cB6E.s:140    .text.RequestXmlTree.constprop.3:0000000000000000 RequestXmlTree.constprop.3
+     /tmp/cc00cB6E.s:307    .text.ServiceObserver:0000000000000000 ServiceObserver
+     /tmp/cc00cB6E.s:1268   .text.UpnpRegisterServiceObserver:0000000000000000 UpnpRegisterServiceObserver
+     /tmp/cc00cB6E.s:1370   .text.UpnpServiceProcByName:0000000000000000 UpnpServiceProcByName
+     /tmp/cc00cB6E.s:1390   .text.UpnpServiceProcCall:0000000000000000 UpnpServiceProcCall
+
+UNDEFINED SYMBOLS
+strcasecmp
+strdup
+strcmp
+strncasecmp
+UriSchemeSplit
+NutTcpCreateSocket
+TcpHostConnectStream
+fputs
+fprintf
+fflush
+UxmlParseStream
+fclose
+NutTcpCloseSocket
+UriSchemeRelease
+free
+malloc
+calloc
+SsdpSplitWords
+UxmlTreeDestroy
+strcpy
+strrchr
+UpnpVarTypeIndex
+SsdpRegisterServiceObserver
+SoapProcByName
+sprintf
+SoapProcCallResource
+__do_copy_data
+__do_clear_bss

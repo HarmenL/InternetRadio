@@ -1,0 +1,1827 @@
+GAS LISTING /tmp/ccWlS2uD.s 			page 1
+
+
+   1               		.file	"uartavr.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.TxComplete,"ax",@progbits
+   9               		.type	TxComplete, @function
+  10               	TxComplete:
+  11               	/* prologue: function */
+  12               	/* frame size = 0 */
+  13               	/* stack size = 0 */
+  14               	.L__stack_usage = 0
+  15 0000 DC01      		movw r26,r24
+  16 0002 1F96      		adiw r26,15
+  17 0004 ED91      		ld r30,X+
+  18 0006 FC91      		ld r31,X
+  19 0008 5097      		sbiw r26,15+1
+  20 000a 9085      		ldd r25,Z+8
+  21 000c 8185      		ldd r24,Z+9
+  22 000e 9817      		cp r25,r24
+  23 0010 01F0      		breq .L2
+  24 0012 1C96      		adiw r26,12
+  25 0014 8D91      		ld r24,X+
+  26 0016 9C91      		ld r25,X
+  27 0018 1D97      		sbiw r26,12+1
+  28 001a 892B      		or r24,r25
+  29 001c 01F0      		breq .L3
+  30 001e 8085      		ldd r24,Z+8
+  31 0020 DF01      		movw r26,r30
+  32 0022 A80F      		add r26,r24
+  33 0024 B11D      		adc r27,__zero_reg__
+  34 0026 A45F      		subi r26,-12
+  35 0028 BE4F      		sbci r27,-2
+  36 002a 8C91      		ld r24,X
+  37 002c 8093 CE00 		sts 206,r24
+  38 0030 00C0      		rjmp .L4
+  39               	.L3:
+  40 0032 8085      		ldd r24,Z+8
+  41 0034 DF01      		movw r26,r30
+  42 0036 A80F      		add r26,r24
+  43 0038 B11D      		adc r27,__zero_reg__
+  44 003a A45F      		subi r26,-12
+  45 003c BE4F      		sbci r27,-2
+  46 003e 8C91      		ld r24,X
+  47 0040 8093 C600 		sts 198,r24
+  48               	.L4:
+  49 0044 8085      		ldd r24,Z+8
+  50 0046 8F5F      		subi r24,lo8(-(1))
+  51 0048 8087      		std Z+8,r24
+  52 004a 0895      		ret
+  53               	.L2:
+  54 004c 1286      		std Z+10,__zero_reg__
+  55 004e 5196      		adiw r26,17
+  56 0050 0D90      		ld __tmp_reg__,X+
+  57 0052 BC91      		ld r27,X
+GAS LISTING /tmp/ccWlS2uD.s 			page 2
+
+
+  58 0054 A02D      		mov r26,__tmp_reg__
+  59 0056 1896      		adiw r26,8
+  60 0058 ED91      		ld r30,X+
+  61 005a FC91      		ld r31,X
+  62 005c 1997      		sbiw r26,8+1
+  63 005e 3097      		sbiw r30,0
+  64 0060 01F4      		brne .L6
+  65 0062 8FEF      		ldi r24,lo8(-1)
+  66 0064 9FEF      		ldi r25,lo8(-1)
+  67 0066 1996      		adiw r26,8+1
+  68 0068 9C93      		st X,r25
+  69 006a 8E93      		st -X,r24
+  70 006c 1897      		sbiw r26,8
+  71 006e 0895      		ret
+  72               	.L6:
+  73 0070 EF3F      		cpi r30,-1
+  74 0072 8FEF      		ldi r24,-1
+  75 0074 F807      		cpc r31,r24
+  76 0076 01F0      		breq .L1
+  77 0078 8481      		ldd r24,Z+4
+  78 007a 9581      		ldd r25,Z+5
+  79 007c 0196      		adiw r24,1
+  80 007e 9583      		std Z+5,r25
+  81 0080 8483      		std Z+4,r24
+  82               	.L1:
+  83 0082 0895      		ret
+  84               		.size	TxComplete, .-TxComplete
+  85               		.section	.text.RxComplete,"ax",@progbits
+  86               		.type	RxComplete, @function
+  87               	RxComplete:
+  88 0000 CF93      		push r28
+  89 0002 DF93      		push r29
+  90               	/* prologue: function */
+  91               	/* frame size = 0 */
+  92               	/* stack size = 2 */
+  93               	.L__stack_usage = 2
+  94 0004 DC01      		movw r26,r24
+  95 0006 1F96      		adiw r26,15
+  96 0008 ED91      		ld r30,X+
+  97 000a FC91      		ld r31,X
+  98 000c 5097      		sbiw r26,15+1
+  99 000e 1C96      		adiw r26,12
+ 100 0010 8D91      		ld r24,X+
+ 101 0012 9C91      		ld r25,X
+ 102 0014 1D97      		sbiw r26,12+1
+ 103 0016 892B      		or r24,r25
+ 104 0018 01F0      		breq .L12
+ 105 001a 9681      		ldd r25,Z+6
+ 106 001c 8091 CE00 		lds r24,206
+ 107 0020 00C0      		rjmp .L19
+ 108               	.L12:
+ 109 0022 9681      		ldd r25,Z+6
+ 110 0024 8091 C600 		lds r24,198
+ 111               	.L19:
+ 112 0028 EF01      		movw r28,r30
+ 113 002a C90F      		add r28,r25
+ 114 002c D11D      		adc r29,__zero_reg__
+GAS LISTING /tmp/ccWlS2uD.s 			page 3
+
+
+ 115 002e 8C87      		std Y+12,r24
+ 116 0030 8681      		ldd r24,Z+6
+ 117 0032 9781      		ldd r25,Z+7
+ 118 0034 9813      		cpse r25,r24
+ 119 0036 00C0      		rjmp .L14
+ 120 0038 5196      		adiw r26,17
+ 121 003a CD91      		ld r28,X+
+ 122 003c DC91      		ld r29,X
+ 123 003e 5297      		sbiw r26,17+1
+ 124 0040 AA85      		ldd r26,Y+10
+ 125 0042 BB85      		ldd r27,Y+11
+ 126 0044 1097      		sbiw r26,0
+ 127 0046 01F4      		brne .L15
+ 128 0048 8FEF      		ldi r24,lo8(-1)
+ 129 004a 9FEF      		ldi r25,lo8(-1)
+ 130 004c 9B87      		std Y+11,r25
+ 131 004e 8A87      		std Y+10,r24
+ 132 0050 00C0      		rjmp .L14
+ 133               	.L15:
+ 134 0052 AF3F      		cpi r26,-1
+ 135 0054 8FEF      		ldi r24,-1
+ 136 0056 B807      		cpc r27,r24
+ 137 0058 01F0      		breq .L14
+ 138 005a 1496      		adiw r26,4
+ 139 005c 8D91      		ld r24,X+
+ 140 005e 9C91      		ld r25,X
+ 141 0060 1597      		sbiw r26,4+1
+ 142 0062 0196      		adiw r24,1
+ 143 0064 1596      		adiw r26,4+1
+ 144 0066 9C93      		st X,r25
+ 145 0068 8E93      		st -X,r24
+ 146 006a 1497      		sbiw r26,4
+ 147               	.L14:
+ 148 006c 8681      		ldd r24,Z+6
+ 149 006e 8F5F      		subi r24,lo8(-(1))
+ 150 0070 8683      		std Z+6,r24
+ 151               	/* epilogue start */
+ 152 0072 DF91      		pop r29
+ 153 0074 CF91      		pop r28
+ 154 0076 0895      		ret
+ 155               		.size	RxComplete, .-RxComplete
+ 156               		.section	.text.UartAvrOutput,"ax",@progbits
+ 157               	.global	UartAvrOutput
+ 158               		.type	UartAvrOutput, @function
+ 159               	UartAvrOutput:
+ 160               	/* prologue: function */
+ 161               	/* frame size = 0 */
+ 162               	/* stack size = 0 */
+ 163               	.L__stack_usage = 0
+ 164 0000 DC01      		movw r26,r24
+ 165 0002 1F96      		adiw r26,15
+ 166 0004 ED91      		ld r30,X+
+ 167 0006 FC91      		ld r31,X
+ 168 0008 5097      		sbiw r26,15+1
+ 169 000a 2285      		ldd r18,Z+10
+ 170 000c 2111      		cpse r18,__zero_reg__
+ 171 000e 00C0      		rjmp .L21
+GAS LISTING /tmp/ccWlS2uD.s 			page 4
+
+
+ 172 0010 3085      		ldd r19,Z+8
+ 173 0012 2185      		ldd r18,Z+9
+ 174 0014 3217      		cp r19,r18
+ 175 0016 01F0      		breq .L21
+ 176 0018 21E0      		ldi r18,lo8(1)
+ 177 001a 2287      		std Z+10,r18
+ 178 001c 1C96      		adiw r26,12
+ 179 001e 8D91      		ld r24,X+
+ 180 0020 9C91      		ld r25,X
+ 181 0022 1D97      		sbiw r26,12+1
+ 182 0024 892B      		or r24,r25
+ 183 0026 01F0      		breq .L22
+ 184 0028 8085      		ldd r24,Z+8
+ 185 002a DF01      		movw r26,r30
+ 186 002c A80F      		add r26,r24
+ 187 002e B11D      		adc r27,__zero_reg__
+ 188 0030 A45F      		subi r26,-12
+ 189 0032 BE4F      		sbci r27,-2
+ 190 0034 8C91      		ld r24,X
+ 191 0036 8093 CE00 		sts 206,r24
+ 192 003a 00C0      		rjmp .L23
+ 193               	.L22:
+ 194 003c 8085      		ldd r24,Z+8
+ 195 003e DF01      		movw r26,r30
+ 196 0040 A80F      		add r26,r24
+ 197 0042 B11D      		adc r27,__zero_reg__
+ 198 0044 A45F      		subi r26,-12
+ 199 0046 BE4F      		sbci r27,-2
+ 200 0048 8C91      		ld r24,X
+ 201 004a 8093 C600 		sts 198,r24
+ 202               	.L23:
+ 203 004e 8085      		ldd r24,Z+8
+ 204 0050 8F5F      		subi r24,lo8(-(1))
+ 205 0052 8087      		std Z+8,r24
+ 206               	.L21:
+ 207 0054 80E0      		ldi r24,0
+ 208 0056 90E0      		ldi r25,0
+ 209 0058 0895      		ret
+ 210               		.size	UartAvrOutput, .-UartAvrOutput
+ 211               		.section	.text.UartAvrEnable,"ax",@progbits
+ 212               		.type	UartAvrEnable, @function
+ 213               	UartAvrEnable:
+ 214               	/* prologue: function */
+ 215               	/* frame size = 0 */
+ 216               	/* stack size = 0 */
+ 217               	.L__stack_usage = 0
+ 218               	/* #APP */
+ 219               	 ;  271 "../../nut/arch/avr/dev/uartavr.c" 1
+ 220 0000 0FB6      		in  __tmp_reg__, __SREG__
+ 221 0002 F894      		cli
+ 222 0004 0F92      		push __tmp_reg__
+ 223               		
+ 224               	 ;  0 "" 2
+ 225               	/* #NOAPP */
+ 226 0006 892B      		or r24,r25
+ 227 0008 01F0      		breq .L25
+ 228 000a 88ED      		ldi r24,lo8(-40)
+GAS LISTING /tmp/ccWlS2uD.s 			page 5
+
+
+ 229 000c 8093 C900 		sts 201,r24
+ 230 0010 00C0      		rjmp .L26
+ 231               	.L25:
+ 232 0012 88ED      		ldi r24,lo8(-40)
+ 233 0014 8093 C100 		sts 193,r24
+ 234               	.L26:
+ 235               	/* #APP */
+ 236               	 ;  278 "../../nut/arch/avr/dev/uartavr.c" 1
+ 237 0018 0F90      		pop __tmp_reg__
+ 238 001a 0FBE      		out __SREG__, __tmp_reg__
+ 239               		
+ 240               	 ;  0 "" 2
+ 241               	/* #NOAPP */
+ 242 001c 0895      		ret
+ 243               		.size	UartAvrEnable, .-UartAvrEnable
+ 244               		.section	.text.UartAvrInput,"ax",@progbits
+ 245               	.global	UartAvrInput
+ 246               		.type	UartAvrInput, @function
+ 247               	UartAvrInput:
+ 248 0000 EF92      		push r14
+ 249 0002 FF92      		push r15
+ 250 0004 0F93      		push r16
+ 251 0006 1F93      		push r17
+ 252 0008 CF93      		push r28
+ 253 000a DF93      		push r29
+ 254               	/* prologue: function */
+ 255               	/* frame size = 0 */
+ 256               	/* stack size = 6 */
+ 257               	.L__stack_usage = 6
+ 258 000c FC01      		movw r30,r24
+ 259 000e C785      		ldd r28,Z+15
+ 260 0010 D089      		ldd r29,Z+16
+ 261               	/* #APP */
+ 262               	 ;  143 "../../nut/arch/avr/dev/uartavr.c" 1
+ 263 0012 0FB6      		in  __tmp_reg__, __SREG__
+ 264 0014 F894      		cli
+ 265 0016 0F92      		push __tmp_reg__
+ 266               		
+ 267               	 ;  0 "" 2
+ 268               	/* #NOAPP */
+ 269 0018 2E81      		ldd r18,Y+6
+ 270               	/* #APP */
+ 271               	 ;  145 "../../nut/arch/avr/dev/uartavr.c" 1
+ 272 001a 0F90      		pop __tmp_reg__
+ 273 001c 0FBE      		out __SREG__, __tmp_reg__
+ 274               		
+ 275               	 ;  0 "" 2
+ 276               	/* #NOAPP */
+ 277 001e 3F81      		ldd r19,Y+7
+ 278 0020 3217      		cp r19,r18
+ 279 0022 01F0      		breq .L28
+ 280               	.L31:
+ 281 0024 80E0      		ldi r24,0
+ 282 0026 90E0      		ldi r25,0
+ 283 0028 00C0      		rjmp .L29
+ 284               	.L28:
+ 285 002a FC01      		movw r30,r24
+GAS LISTING /tmp/ccWlS2uD.s 			page 6
+
+
+ 286 002c 0189      		ldd r16,Z+17
+ 287 002e 1289      		ldd r17,Z+18
+ 288 0030 7801      		movw r14,r16
+ 289 0032 FAE0      		ldi r31,10
+ 290 0034 EF0E      		add r14,r31
+ 291 0036 F11C      		adc r15,__zero_reg__
+ 292               	.L30:
+ 293 0038 F801      		movw r30,r16
+ 294 003a 4081      		ld r20,Z
+ 295 003c 5181      		ldd r21,Z+1
+ 296 003e 6281      		ldd r22,Z+2
+ 297 0040 7381      		ldd r23,Z+3
+ 298 0042 C701      		movw r24,r14
+ 299 0044 0E94 0000 		call NutEventWait
+ 300               	/* #APP */
+ 301               	 ;  163 "../../nut/arch/avr/dev/uartavr.c" 1
+ 302 0048 0FB6      		in  __tmp_reg__, __SREG__
+ 303 004a F894      		cli
+ 304 004c 0F92      		push __tmp_reg__
+ 305               		
+ 306               	 ;  0 "" 2
+ 307               	/* #NOAPP */
+ 308 004e 3F81      		ldd r19,Y+7
+ 309 0050 2E81      		ldd r18,Y+6
+ 310               	/* #APP */
+ 311               	 ;  165 "../../nut/arch/avr/dev/uartavr.c" 1
+ 312 0052 0F90      		pop __tmp_reg__
+ 313 0054 0FBE      		out __SREG__, __tmp_reg__
+ 314               		
+ 315               	 ;  0 "" 2
+ 316               	/* #NOAPP */
+ 317 0056 0097      		sbiw r24,0
+ 318 0058 01F4      		brne .L29
+ 319 005a 3217      		cp r19,r18
+ 320 005c 01F0      		breq .L30
+ 321 005e 00C0      		rjmp .L31
+ 322               	.L29:
+ 323               	/* epilogue start */
+ 324 0060 DF91      		pop r29
+ 325 0062 CF91      		pop r28
+ 326 0064 1F91      		pop r17
+ 327 0066 0F91      		pop r16
+ 328 0068 FF90      		pop r15
+ 329 006a EF90      		pop r14
+ 330 006c 0895      		ret
+ 331               		.size	UartAvrInput, .-UartAvrInput
+ 332               		.section	.text.UartAvrFlush,"ax",@progbits
+ 333               	.global	UartAvrFlush
+ 334               		.type	UartAvrFlush, @function
+ 335               	UartAvrFlush:
+ 336 0000 EF92      		push r14
+ 337 0002 FF92      		push r15
+ 338 0004 0F93      		push r16
+ 339 0006 1F93      		push r17
+ 340 0008 CF93      		push r28
+ 341 000a DF93      		push r29
+ 342               	/* prologue: function */
+GAS LISTING /tmp/ccWlS2uD.s 			page 7
+
+
+ 343               	/* frame size = 0 */
+ 344               	/* stack size = 6 */
+ 345               	.L__stack_usage = 6
+ 346 000c FC01      		movw r30,r24
+ 347 000e E784      		ldd r14,Z+15
+ 348 0010 F088      		ldd r15,Z+16
+ 349 0012 0189      		ldd r16,Z+17
+ 350 0014 1289      		ldd r17,Z+18
+ 351 0016 0E94 0000 		call UartAvrOutput
+ 352 001a EC01      		movw r28,r24
+ 353 001c 892B      		or r24,r25
+ 354 001e 01F4      		brne .L37
+ 355               	/* #APP */
+ 356               	 ;  228 "../../nut/arch/avr/dev/uartavr.c" 1
+ 357 0020 0FB6      		in  __tmp_reg__, __SREG__
+ 358 0022 F894      		cli
+ 359 0024 0F92      		push __tmp_reg__
+ 360               		
+ 361               	 ;  0 "" 2
+ 362               	/* #NOAPP */
+ 363 0026 085F      		subi r16,-8
+ 364 0028 1F4F      		sbci r17,-1
+ 365               	.L35:
+ 366 002a F701      		movw r30,r14
+ 367 002c 9085      		ldd r25,Z+8
+ 368 002e 8185      		ldd r24,Z+9
+ 369 0030 9817      		cp r25,r24
+ 370 0032 01F0      		breq .L38
+ 371 0034 44E6      		ldi r20,lo8(100)
+ 372 0036 50E0      		ldi r21,0
+ 373 0038 60E0      		ldi r22,0
+ 374 003a 70E0      		ldi r23,0
+ 375 003c C801      		movw r24,r16
+ 376 003e 0E94 0000 		call NutEventWait
+ 377 0042 00C0      		rjmp .L35
+ 378               	.L38:
+ 379               	/* #APP */
+ 380               	 ;  231 "../../nut/arch/avr/dev/uartavr.c" 1
+ 381 0044 0F90      		pop __tmp_reg__
+ 382 0046 0FBE      		out __SREG__, __tmp_reg__
+ 383               		
+ 384               	 ;  0 "" 2
+ 385               	/* #NOAPP */
+ 386 0048 00C0      		rjmp .L34
+ 387               	.L37:
+ 388 004a CFEF      		ldi r28,lo8(-1)
+ 389 004c DFEF      		ldi r29,lo8(-1)
+ 390               	.L34:
+ 391 004e CE01      		movw r24,r28
+ 392               	/* epilogue start */
+ 393 0050 DF91      		pop r29
+ 394 0052 CF91      		pop r28
+ 395 0054 1F91      		pop r17
+ 396 0056 0F91      		pop r16
+ 397 0058 FF90      		pop r15
+ 398 005a EF90      		pop r14
+ 399 005c 0895      		ret
+GAS LISTING /tmp/ccWlS2uD.s 			page 8
+
+
+ 400               		.size	UartAvrFlush, .-UartAvrFlush
+ 401               		.section	.text.UartAvrDisable,"ax",@progbits
+ 402               		.type	UartAvrDisable, @function
+ 403               	UartAvrDisable:
+ 404 0000 CF93      		push r28
+ 405 0002 DF93      		push r29
+ 406               	/* prologue: function */
+ 407               	/* frame size = 0 */
+ 408               	/* stack size = 2 */
+ 409               	.L__stack_usage = 2
+ 410 0004 EC01      		movw r28,r24
+ 411               	/* #APP */
+ 412               	 ;  289 "../../nut/arch/avr/dev/uartavr.c" 1
+ 413 0006 0FB6      		in  __tmp_reg__, __SREG__
+ 414 0008 F894      		cli
+ 415 000a 0F92      		push __tmp_reg__
+ 416               		
+ 417               	 ;  0 "" 2
+ 418               	/* #NOAPP */
+ 419 000c 892B      		or r24,r25
+ 420 000e 01F0      		breq .L40
+ 421 0010 8091 C900 		lds r24,201
+ 422 0014 8F73      		andi r24,lo8(63)
+ 423 0016 8093 C900 		sts 201,r24
+ 424 001a 00C0      		rjmp .L41
+ 425               	.L40:
+ 426 001c 8091 C100 		lds r24,193
+ 427 0020 8F73      		andi r24,lo8(63)
+ 428 0022 8093 C100 		sts 193,r24
+ 429               	.L41:
+ 430               	/* #APP */
+ 431               	 ;  296 "../../nut/arch/avr/dev/uartavr.c" 1
+ 432 0026 0F90      		pop __tmp_reg__
+ 433 0028 0FBE      		out __SREG__, __tmp_reg__
+ 434               		
+ 435               	 ;  0 "" 2
+ 436               	/* #NOAPP */
+ 437 002a 8AE0      		ldi r24,lo8(10)
+ 438 002c 0E94 0000 		call NutDelay
+ 439 0030 CD2B      		or r28,r29
+ 440 0032 01F0      		breq .L42
+ 441 0034 8091 C900 		lds r24,201
+ 442 0038 877E      		andi r24,lo8(-25)
+ 443 003a 8093 C900 		sts 201,r24
+ 444 003e 00C0      		rjmp .L39
+ 445               	.L42:
+ 446 0040 8091 C100 		lds r24,193
+ 447 0044 877E      		andi r24,lo8(-25)
+ 448 0046 8093 C100 		sts 193,r24
+ 449               	.L39:
+ 450               	/* epilogue start */
+ 451 004a DF91      		pop r29
+ 452 004c CF91      		pop r28
+ 453 004e 0895      		ret
+ 454               		.size	UartAvrDisable, .-UartAvrDisable
+ 455               		.section	.text.UartAvrIOCtl,"ax",@progbits
+ 456               	.global	UartAvrIOCtl
+GAS LISTING /tmp/ccWlS2uD.s 			page 9
+
+
+ 457               		.type	UartAvrIOCtl, @function
+ 458               	UartAvrIOCtl:
+ 459 0000 4F92      		push r4
+ 460 0002 5F92      		push r5
+ 461 0004 6F92      		push r6
+ 462 0006 7F92      		push r7
+ 463 0008 AF92      		push r10
+ 464 000a BF92      		push r11
+ 465 000c CF92      		push r12
+ 466 000e DF92      		push r13
+ 467 0010 EF92      		push r14
+ 468 0012 FF92      		push r15
+ 469 0014 0F93      		push r16
+ 470 0016 1F93      		push r17
+ 471 0018 CF93      		push r28
+ 472 001a DF93      		push r29
+ 473 001c 00D0      		rcall .
+ 474 001e 1F92      		push __zero_reg__
+ 475 0020 CDB7      		in r28,__SP_L__
+ 476 0022 DEB7      		in r29,__SP_H__
+ 477               	/* prologue: function */
+ 478               	/* frame size = 4 */
+ 479               	/* stack size = 18 */
+ 480               	.L__stack_usage = 18
+ 481 0024 9C01      		movw r18,r24
+ 482 0026 5A01      		movw r10,r20
+ 483 0028 DA01      		movw r26,r20
+ 484 002a 4D90      		ld r4,X+
+ 485 002c 5D90      		ld r5,X+
+ 486 002e 6D90      		ld r6,X+
+ 487 0030 7C90      		ld r7,X
+ 488 0032 042D      		mov r16,r4
+ 489 0034 892B      		or r24,r25
+ 490 0036 01F4      		brne .L45
+ 491 0038 20E0      		ldi r18,lo8(devUart0)
+ 492 003a 30E0      		ldi r19,hi8(devUart0)
+ 493               	.L45:
+ 494 003c F901      		movw r30,r18
+ 495 003e 4485      		ldd r20,Z+12
+ 496 0040 5585      		ldd r21,Z+13
+ 497 0042 142F      		mov r17,r20
+ 498 0044 A189      		ldd r26,Z+17
+ 499 0046 B289      		ldd r27,Z+18
+ 500 0048 FB01      		movw r30,r22
+ 501 004a E150      		subi r30,1
+ 502 004c F140      		sbci r31,1
+ 503 004e E431      		cpi r30,20
+ 504 0050 F105      		cpc r31,__zero_reg__
+ 505 0052 00F0      		brlo .+2
+ 506 0054 00C0      		rjmp .L46
+ 507 0056 8827      		clr r24
+ 508 0058 E050      		subi r30,pm_lo8(-(.L48))
+ 509 005a F040      		sbci r31,pm_hi8(-(.L48))
+ 510 005c 8040      		sbci r24,pm_hh8(-(.L48))
+ 511 005e 0C94 0000 		jmp __tablejump2__
+ 512               		.section	.progmem.gcc_sw_table.UartAvrIOCtl,"a",@progbits
+ 513               		.p2align	1
+GAS LISTING /tmp/ccWlS2uD.s 			page 10
+
+
+ 514               	.L48:
+ 515 0000 0000      		.word gs(.L47)
+ 516 0002 0000      		.word gs(.L49)
+ 517 0004 0000      		.word gs(.L50)
+ 518 0006 0000      		.word gs(.L51)
+ 519 0008 0000      		.word gs(.L52)
+ 520 000a 0000      		.word gs(.L53)
+ 521 000c 0000      		.word gs(.L54)
+ 522 000e 0000      		.word gs(.L55)
+ 523 0010 0000      		.word gs(.L46)
+ 524 0012 0000      		.word gs(.L56)
+ 525 0014 0000      		.word gs(.L57)
+ 526 0016 0000      		.word gs(.L58)
+ 527 0018 0000      		.word gs(.L59)
+ 528 001a 0000      		.word gs(.L60)
+ 529 001c 0000      		.word gs(.L63)
+ 530 001e 0000      		.word gs(.L62)
+ 531 0020 0000      		.word gs(.L63)
+ 532 0022 0000      		.word gs(.L105)
+ 533 0024 0000      		.word gs(.L65)
+ 534 0026 0000      		.word gs(.L66)
+ 535               		.section	.text.UartAvrIOCtl
+ 536               	.L47:
+ 537 0062 7A01      		movw r14,r20
+ 538 0064 FF24      		clr r15
+ 539 0066 C701      		movw r24,r14
+ 540 0068 0E94 0000 		call UartAvrDisable
+ 541 006c 1123      		tst r17
+ 542 006e 01F0      		breq .L67
+ 543 0070 8091 C800 		lds r24,200
+ 544 0074 00C0      		rjmp .L120
+ 545               	.L67:
+ 546 0076 8091 C000 		lds r24,192
+ 547               	.L120:
+ 548 007a A301      		movw r20,r6
+ 549 007c 9201      		movw r18,r4
+ 550 007e 81FF      		sbrs r24,1
+ 551 0080 00C0      		rjmp .L70
+ 552 0082 72E0      		ldi r23,2
+ 553               		1:
+ 554 0084 220F      		lsl r18
+ 555 0086 331F      		rol r19
+ 556 0088 441F      		rol r20
+ 557 008a 551F      		rol r21
+ 558 008c 7A95      		dec r23
+ 559 008e 01F4      		brne 1b
+ 560 0090 00C0      		rjmp .L69
+ 561               	.L70:
+ 562 0092 63E0      		ldi r22,3
+ 563               		1:
+ 564 0094 220F      		lsl r18
+ 565 0096 331F      		rol r19
+ 566 0098 441F      		rol r20
+ 567 009a 551F      		rol r21
+ 568 009c 6A95      		dec r22
+ 569 009e 01F4      		brne 1b
+ 570               	.L69:
+GAS LISTING /tmp/ccWlS2uD.s 			page 11
+
+
+ 571 00a0 2983      		std Y+1,r18
+ 572 00a2 3A83      		std Y+2,r19
+ 573 00a4 4B83      		std Y+3,r20
+ 574 00a6 5C83      		std Y+4,r21
+ 575 00a8 0E94 0000 		call NutGetCpuClock
+ 576 00ac 2981      		ldd r18,Y+1
+ 577 00ae 3A81      		ldd r19,Y+2
+ 578 00b0 4B81      		ldd r20,Y+3
+ 579 00b2 5C81      		ldd r21,Y+4
+ 580 00b4 0E94 0000 		call __udivmodsi4
+ 581 00b8 DA01      		movw r26,r20
+ 582 00ba C901      		movw r24,r18
+ 583 00bc 0196      		adiw r24,1
+ 584 00be A11D      		adc r26,__zero_reg__
+ 585 00c0 B11D      		adc r27,__zero_reg__
+ 586 00c2 B695      		lsr r27
+ 587 00c4 A795      		ror r26
+ 588 00c6 9795      		ror r25
+ 589 00c8 8795      		ror r24
+ 590 00ca 9C01      		movw r18,r24
+ 591 00cc 2150      		subi r18,1
+ 592 00ce 3109      		sbc r19,__zero_reg__
+ 593 00d0 1123      		tst r17
+ 594 00d2 01F0      		breq .L71
+ 595 00d4 2093 CC00 		sts 204,r18
+ 596 00d8 3093 CD00 		sts 205,r19
+ 597 00dc 00C0      		rjmp .L72
+ 598               	.L71:
+ 599 00de 2093 C400 		sts 196,r18
+ 600 00e2 3093 C500 		sts 197,r19
+ 601               	.L72:
+ 602 00e6 C701      		movw r24,r14
+ 603 00e8 0E94 0000 		call UartAvrEnable
+ 604 00ec 00C0      		rjmp .L105
+ 605               	.L49:
+ 606 00ee 4423      		tst r20
+ 607 00f0 01F0      		breq .L73
+ 608 00f2 8091 C800 		lds r24,200
+ 609 00f6 81FD      		sbrc r24,1
+ 610 00f8 00C0      		rjmp .L100
+ 611 00fa 20E1      		ldi r18,lo8(16)
+ 612 00fc 30E0      		ldi r19,0
+ 613 00fe 40E0      		ldi r20,0
+ 614 0100 50E0      		ldi r21,0
+ 615 0102 00C0      		rjmp .L74
+ 616               	.L100:
+ 617 0104 28E0      		ldi r18,lo8(8)
+ 618 0106 30E0      		ldi r19,0
+ 619 0108 40E0      		ldi r20,0
+ 620 010a 50E0      		ldi r21,0
+ 621               	.L74:
+ 622 010c 8091 CD00 		lds r24,205
+ 623 0110 E090 CC00 		lds r14,204
+ 624 0114 00C0      		rjmp .L116
+ 625               	.L73:
+ 626 0116 8091 C000 		lds r24,192
+ 627 011a 81FD      		sbrc r24,1
+GAS LISTING /tmp/ccWlS2uD.s 			page 12
+
+
+ 628 011c 00C0      		rjmp .L101
+ 629 011e 20E1      		ldi r18,lo8(16)
+ 630 0120 30E0      		ldi r19,0
+ 631 0122 40E0      		ldi r20,0
+ 632 0124 50E0      		ldi r21,0
+ 633 0126 00C0      		rjmp .L76
+ 634               	.L101:
+ 635 0128 28E0      		ldi r18,lo8(8)
+ 636 012a 30E0      		ldi r19,0
+ 637 012c 40E0      		ldi r20,0
+ 638 012e 50E0      		ldi r21,0
+ 639               	.L76:
+ 640 0130 8091 C500 		lds r24,197
+ 641 0134 E090 C400 		lds r14,196
+ 642               	.L116:
+ 643 0138 F12C      		mov r15,__zero_reg__
+ 644 013a F82A      		or r15,r24
+ 645 013c 2983      		std Y+1,r18
+ 646 013e 3A83      		std Y+2,r19
+ 647 0140 4B83      		std Y+3,r20
+ 648 0142 5C83      		std Y+4,r21
+ 649 0144 0E94 0000 		call NutGetCpuClock
+ 650 0148 2B01      		movw r4,r22
+ 651 014a 3C01      		movw r6,r24
+ 652 014c D701      		movw r26,r14
+ 653 014e 1196      		adiw r26,1
+ 654 0150 2981      		ldd r18,Y+1
+ 655 0152 3A81      		ldd r19,Y+2
+ 656 0154 4B81      		ldd r20,Y+3
+ 657 0156 5C81      		ldd r21,Y+4
+ 658 0158 0E94 0000 		call __muluhisi3
+ 659 015c 9B01      		movw r18,r22
+ 660 015e AC01      		movw r20,r24
+ 661 0160 C301      		movw r24,r6
+ 662 0162 B201      		movw r22,r4
+ 663 0164 0E94 0000 		call __udivmodsi4
+ 664 0168 D501      		movw r26,r10
+ 665 016a 2D93      		st X+,r18
+ 666 016c 3D93      		st X+,r19
+ 667 016e 4D93      		st X+,r20
+ 668 0170 5C93      		st X,r21
+ 669 0172 1397      		sbiw r26,3
+ 670 0174 00C0      		rjmp .L105
+ 671               	.L50:
+ 672 0176 7A01      		movw r14,r20
+ 673 0178 FF24      		clr r15
+ 674 017a C701      		movw r24,r14
+ 675 017c 0E94 0000 		call UartAvrDisable
+ 676 0180 8BEF      		ldi r24,lo8(-5)
+ 677 0182 840D      		add r24,r4
+ 678 0184 8430      		cpi r24,lo8(4)
+ 679 0186 00F0      		brlo .+2
+ 680 0188 00C0      		rjmp .L104
+ 681 018a 482E      		mov r4,r24
+ 682 018c 440C      		lsl r4
+ 683 018e 1123      		tst r17
+ 684 0190 01F0      		breq .L78
+GAS LISTING /tmp/ccWlS2uD.s 			page 13
+
+
+ 685 0192 2091 CA00 		lds r18,202
+ 686 0196 297F      		andi r18,lo8(-7)
+ 687 0198 422A      		or r4,r18
+ 688 019a 4092 CA00 		sts 202,r4
+ 689 019e 8091 C900 		lds r24,201
+ 690 01a2 8B7F      		andi r24,lo8(-5)
+ 691 01a4 8093 C900 		sts 201,r24
+ 692 01a8 00C0      		rjmp .L118
+ 693               	.L78:
+ 694 01aa 2091 C200 		lds r18,194
+ 695 01ae 297F      		andi r18,lo8(-7)
+ 696 01b0 422A      		or r4,r18
+ 697 01b2 4092 C200 		sts 194,r4
+ 698 01b6 8091 C100 		lds r24,193
+ 699 01ba 8B7F      		andi r24,lo8(-5)
+ 700 01bc 8093 C100 		sts 193,r24
+ 701 01c0 00C0      		rjmp .L118
+ 702               	.L51:
+ 703 01c2 4423      		tst r20
+ 704 01c4 01F0      		breq .L79
+ 705 01c6 8091 CA00 		lds r24,202
+ 706 01ca 00C0      		rjmp .L126
+ 707               	.L79:
+ 708 01cc 8091 C200 		lds r24,194
+ 709               	.L126:
+ 710 01d0 8670      		andi r24,lo8(6)
+ 711 01d2 90E0      		ldi r25,0
+ 712 01d4 9595      		asr r25
+ 713 01d6 8795      		ror r24
+ 714 01d8 0596      		adiw r24,5
+ 715 01da 00C0      		rjmp .L124
+ 716               	.L52:
+ 717 01dc 7A01      		movw r14,r20
+ 718 01de FF24      		clr r15
+ 719 01e0 C701      		movw r24,r14
+ 720 01e2 0E94 0000 		call UartAvrDisable
+ 721 01e6 0330      		cpi r16,lo8(3)
+ 722 01e8 00F0      		brlo .+2
+ 723 01ea 00C0      		rjmp .L104
+ 724 01ec 0130      		cpi r16,lo8(1)
+ 725 01ee 01F4      		brne .L81
+ 726 01f0 03E0      		ldi r16,lo8(3)
+ 727               	.L81:
+ 728 01f2 0295      		swap r16
+ 729 01f4 007F      		andi r16,lo8(-16)
+ 730 01f6 1123      		tst r17
+ 731 01f8 01F0      		breq .L82
+ 732 01fa 8091 CA00 		lds r24,202
+ 733 01fe 8F7C      		andi r24,lo8(-49)
+ 734 0200 802B      		or r24,r16
+ 735 0202 8093 CA00 		sts 202,r24
+ 736 0206 00C0      		rjmp .L83
+ 737               	.L82:
+ 738 0208 8091 C200 		lds r24,194
+ 739 020c 8F7C      		andi r24,lo8(-49)
+ 740 020e 802B      		or r24,r16
+ 741 0210 8093 C200 		sts 194,r24
+GAS LISTING /tmp/ccWlS2uD.s 			page 14
+
+
+ 742               	.L83:
+ 743 0214 81E0      		ldi r24,lo8(1)
+ 744 0216 90E0      		ldi r25,0
+ 745 0218 0111      		cpse r16,__zero_reg__
+ 746 021a 00C0      		rjmp .L84
+ 747 021c 80E0      		ldi r24,0
+ 748 021e 90E0      		ldi r25,0
+ 749               	.L84:
+ 750 0220 0027      		clr r16
+ 751 0222 1127      		clr r17
+ 752 0224 081B      		sub r16,r24
+ 753 0226 190B      		sbc r17,r25
+ 754 0228 00C0      		rjmp .L86
+ 755               	.L53:
+ 756 022a 4423      		tst r20
+ 757 022c 01F0      		breq .L85
+ 758 022e 8091 CA00 		lds r24,202
+ 759 0232 00C0      		rjmp .L105
+ 760               	.L85:
+ 761 0234 8091 C200 		lds r24,194
+ 762 0238 00C0      		rjmp .L105
+ 763               	.L54:
+ 764 023a 7A01      		movw r14,r20
+ 765 023c FF24      		clr r15
+ 766 023e C701      		movw r24,r14
+ 767 0240 0E94 0000 		call UartAvrDisable
+ 768 0244 8FEF      		ldi r24,lo8(-1)
+ 769 0246 840D      		add r24,r4
+ 770 0248 8230      		cpi r24,lo8(2)
+ 771 024a 00F4      		brsh .L104
+ 772 024c 482E      		mov r4,r24
+ 773 024e 440C      		lsl r4
+ 774 0250 440C      		lsl r4
+ 775 0252 440C      		lsl r4
+ 776 0254 1123      		tst r17
+ 777 0256 01F0      		breq .L87
+ 778 0258 2091 CA00 		lds r18,202
+ 779 025c 277F      		andi r18,lo8(-9)
+ 780 025e 422A      		or r4,r18
+ 781 0260 4092 CA00 		sts 202,r4
+ 782 0264 00C0      		rjmp .L118
+ 783               	.L87:
+ 784 0266 2091 C200 		lds r18,194
+ 785 026a 277F      		andi r18,lo8(-9)
+ 786 026c 422A      		or r4,r18
+ 787 026e 4092 C200 		sts 194,r4
+ 788               	.L118:
+ 789 0272 00E0      		ldi r16,0
+ 790 0274 10E0      		ldi r17,0
+ 791 0276 00C0      		rjmp .L86
+ 792               	.L104:
+ 793 0278 0FEF      		ldi r16,lo8(-1)
+ 794 027a 1FEF      		ldi r17,lo8(-1)
+ 795               	.L86:
+ 796 027c C701      		movw r24,r14
+ 797 027e 0E94 0000 		call UartAvrEnable
+ 798 0282 00C0      		rjmp .L64
+GAS LISTING /tmp/ccWlS2uD.s 			page 15
+
+
+ 799               	.L55:
+ 800 0284 4423      		tst r20
+ 801 0286 01F0      		breq .L88
+ 802 0288 8091 CA00 		lds r24,202
+ 803 028c 83FB      		bst r24,3
+ 804 028e CC24      		clr r12
+ 805 0290 C0F8      		bld r12,0
+ 806 0292 D12C      		mov r13,__zero_reg__
+ 807 0294 FFEF      		ldi r31,-1
+ 808 0296 CF1A      		sub r12,r31
+ 809 0298 DF0A      		sbc r13,r31
+ 810 029a 0D2C      		mov __tmp_reg__,r13
+ 811 029c 000C      		lsl r0
+ 812 029e EE08      		sbc r14,r14
+ 813 02a0 FF08      		sbc r15,r15
+ 814 02a2 D501      		movw r26,r10
+ 815 02a4 CD92      		st X+,r12
+ 816 02a6 DD92      		st X+,r13
+ 817 02a8 ED92      		st X+,r14
+ 818 02aa FC92      		st X,r15
+ 819 02ac 1397      		sbiw r26,3
+ 820 02ae 00C0      		rjmp .L105
+ 821               	.L88:
+ 822 02b0 8091 C200 		lds r24,194
+ 823 02b4 83FB      		bst r24,3
+ 824 02b6 EE24      		clr r14
+ 825 02b8 E0F8      		bld r14,0
+ 826 02ba F12C      		mov r15,__zero_reg__
+ 827 02bc C701      		movw r24,r14
+ 828 02be 0196      		adiw r24,1
+ 829               	.L124:
+ 830 02c0 092E      		mov __tmp_reg__,r25
+ 831 02c2 000C      		lsl r0
+ 832 02c4 AA0B      		sbc r26,r26
+ 833 02c6 BB0B      		sbc r27,r27
+ 834 02c8 00C0      		rjmp .L121
+ 835               	.L56:
+ 836 02ca D901      		movw r26,r18
+ 837 02cc 1F96      		adiw r26,15
+ 838 02ce ED91      		ld r30,X+
+ 839 02d0 FC91      		ld r31,X
+ 840 02d2 5097      		sbiw r26,15+1
+ 841 02d4 D501      		movw r26,r10
+ 842 02d6 1D92      		st X+,__zero_reg__
+ 843 02d8 1D92      		st X+,__zero_reg__
+ 844 02da 1D92      		st X+,__zero_reg__
+ 845 02dc 1C92      		st X,__zero_reg__
+ 846 02de 1397      		sbiw r26,3
+ 847 02e0 452B      		or r20,r21
+ 848 02e2 01F0      		breq .L89
+ 849 02e4 8091 C800 		lds r24,200
+ 850 02e8 00C0      		rjmp .L90
+ 851               	.L89:
+ 852 02ea 8091 C000 		lds r24,192
+ 853               	.L90:
+ 854 02ee 82FF      		sbrs r24,2
+ 855 02f0 00C0      		rjmp .L91
+GAS LISTING /tmp/ccWlS2uD.s 			page 16
+
+
+ 856 02f2 41E0      		ldi r20,lo8(1)
+ 857 02f4 50E0      		ldi r21,0
+ 858 02f6 60E0      		ldi r22,0
+ 859 02f8 70E0      		ldi r23,0
+ 860 02fa D501      		movw r26,r10
+ 861 02fc 4D93      		st X+,r20
+ 862 02fe 5D93      		st X+,r21
+ 863 0300 6D93      		st X+,r22
+ 864 0302 7C93      		st X,r23
+ 865 0304 1397      		sbiw r26,3
+ 866               	.L91:
+ 867 0306 8370      		andi r24,lo8(3)
+ 868 0308 01F0      		breq .L92
+ 869 030a D501      		movw r26,r10
+ 870 030c 4D91      		ld r20,X+
+ 871 030e 5D91      		ld r21,X+
+ 872 0310 6D91      		ld r22,X+
+ 873 0312 7C91      		ld r23,X
+ 874 0314 1397      		sbiw r26,3
+ 875 0316 4260      		ori r20,2
+ 876 0318 4D93      		st X+,r20
+ 877 031a 5D93      		st X+,r21
+ 878 031c 6D93      		st X+,r22
+ 879 031e 7C93      		st X,r23
+ 880 0320 1397      		sbiw r26,3
+ 881               	.L92:
+ 882 0322 9085      		ldd r25,Z+8
+ 883 0324 8185      		ldd r24,Z+9
+ 884 0326 9813      		cpse r25,r24
+ 885 0328 00C0      		rjmp .L93
+ 886 032a D501      		movw r26,r10
+ 887 032c 4D91      		ld r20,X+
+ 888 032e 5D91      		ld r21,X+
+ 889 0330 6D91      		ld r22,X+
+ 890 0332 7C91      		ld r23,X
+ 891 0334 1397      		sbiw r26,3
+ 892 0336 4068      		ori r20,128
+ 893 0338 4D93      		st X+,r20
+ 894 033a 5D93      		st X+,r21
+ 895 033c 6D93      		st X+,r22
+ 896 033e 7C93      		st X,r23
+ 897 0340 1397      		sbiw r26,3
+ 898               	.L93:
+ 899 0342 8681      		ldd r24,Z+6
+ 900 0344 9781      		ldd r25,Z+7
+ 901 0346 9813      		cpse r25,r24
+ 902 0348 00C0      		rjmp .L105
+ 903 034a F501      		movw r30,r10
+ 904 034c 8081      		ld r24,Z
+ 905 034e 9181      		ldd r25,Z+1
+ 906 0350 A281      		ldd r26,Z+2
+ 907 0352 B381      		ldd r27,Z+3
+ 908 0354 8064      		ori r24,64
+ 909 0356 00C0      		rjmp .L123
+ 910               	.L57:
+ 911 0358 4D92      		st X+,r4
+ 912 035a 5D92      		st X+,r5
+GAS LISTING /tmp/ccWlS2uD.s 			page 17
+
+
+ 913 035c 6D92      		st X+,r6
+ 914 035e 7C92      		st X,r7
+ 915 0360 1397      		sbiw r26,3
+ 916 0362 00C0      		rjmp .L105
+ 917               	.L58:
+ 918 0364 8D91      		ld r24,X+
+ 919 0366 9D91      		ld r25,X+
+ 920 0368 0D90      		ld __tmp_reg__,X+
+ 921 036a BC91      		ld r27,X
+ 922 036c A02D      		mov r26,__tmp_reg__
+ 923 036e 00C0      		rjmp .L121
+ 924               	.L59:
+ 925 0370 1496      		adiw r26,4
+ 926 0372 4D92      		st X+,r4
+ 927 0374 5D92      		st X+,r5
+ 928 0376 6D92      		st X+,r6
+ 929 0378 7C92      		st X,r7
+ 930 037a 1797      		sbiw r26,4+3
+ 931 037c 00C0      		rjmp .L105
+ 932               	.L60:
+ 933 037e 1496      		adiw r26,4
+ 934 0380 8D91      		ld r24,X+
+ 935 0382 9D91      		ld r25,X+
+ 936 0384 0D90      		ld __tmp_reg__,X+
+ 937 0386 BC91      		ld r27,X
+ 938 0388 A02D      		mov r26,__tmp_reg__
+ 939               	.L121:
+ 940 038a F501      		movw r30,r10
+ 941               	.L123:
+ 942 038c 8083      		st Z,r24
+ 943 038e 9183      		std Z+1,r25
+ 944 0390 A283      		std Z+2,r26
+ 945 0392 B383      		std Z+3,r27
+ 946 0394 00C0      		rjmp .L105
+ 947               	.L62:
+ 948 0396 1C96      		adiw r26,12
+ 949 0398 8D91      		ld r24,X+
+ 950 039a 9D91      		ld r25,X+
+ 951 039c 0D90      		ld __tmp_reg__,X+
+ 952 039e BC91      		ld r27,X
+ 953 03a0 A02D      		mov r26,__tmp_reg__
+ 954 03a2 A0FF      		sbrs r26,0
+ 955 03a4 00C0      		rjmp .L95
+ 956               	.L98:
+ 957 03a6 81E0      		ldi r24,lo8(1)
+ 958 03a8 90E0      		ldi r25,0
+ 959 03aa A0E0      		ldi r26,0
+ 960 03ac B0E0      		ldi r27,0
+ 961 03ae 00C0      		rjmp .L121
+ 962               	.L66:
+ 963 03b0 1C96      		adiw r26,12
+ 964 03b2 8D91      		ld r24,X+
+ 965 03b4 9D91      		ld r25,X+
+ 966 03b6 0D90      		ld __tmp_reg__,X+
+ 967 03b8 BC91      		ld r27,X
+ 968 03ba A02D      		mov r26,__tmp_reg__
+ 969 03bc A1FD      		sbrc r26,1
+GAS LISTING /tmp/ccWlS2uD.s 			page 18
+
+
+ 970 03be 00C0      		rjmp .L98
+ 971               	.L95:
+ 972 03c0 D501      		movw r26,r10
+ 973 03c2 1D92      		st X+,__zero_reg__
+ 974 03c4 1D92      		st X+,__zero_reg__
+ 975 03c6 1D92      		st X+,__zero_reg__
+ 976 03c8 1C92      		st X,__zero_reg__
+ 977 03ca 1397      		sbiw r26,3
+ 978 03cc 00C0      		rjmp .L105
+ 979               	.L63:
+ 980 03ce 1C96      		adiw r26,12
+ 981 03d0 4D91      		ld r20,X+
+ 982 03d2 5D91      		ld r21,X+
+ 983 03d4 6D91      		ld r22,X+
+ 984 03d6 7C91      		ld r23,X
+ 985 03d8 1F97      		sbiw r26,12+3
+ 986 03da 0023      		tst r16
+ 987 03dc 01F0      		breq .L96
+ 988 03de 6160      		ori r22,1
+ 989 03e0 00C0      		rjmp .L122
+ 990               	.L96:
+ 991 03e2 6E7F      		andi r22,254
+ 992 03e4 00C0      		rjmp .L122
+ 993               	.L65:
+ 994 03e6 1C96      		adiw r26,12
+ 995 03e8 4D91      		ld r20,X+
+ 996 03ea 5D91      		ld r21,X+
+ 997 03ec 6D91      		ld r22,X+
+ 998 03ee 7C91      		ld r23,X
+ 999 03f0 1F97      		sbiw r26,12+3
+ 1000 03f2 0023      		tst r16
+ 1001 03f4 01F0      		breq .L97
+ 1002 03f6 6260      		ori r22,2
+ 1003               	.L122:
+ 1004 03f8 1C96      		adiw r26,12
+ 1005 03fa 4D93      		st X+,r20
+ 1006 03fc 5D93      		st X+,r21
+ 1007 03fe 6D93      		st X+,r22
+ 1008 0400 7C93      		st X,r23
+ 1009 0402 1F97      		sbiw r26,12+3
+ 1010 0404 00C0      		rjmp .L105
+ 1011               	.L97:
+ 1012 0406 6D7F      		andi r22,253
+ 1013 0408 00C0      		rjmp .L122
+ 1014               	.L46:
+ 1015 040a 0FEF      		ldi r16,lo8(-1)
+ 1016 040c 1FEF      		ldi r17,lo8(-1)
+ 1017 040e 00C0      		rjmp .L64
+ 1018               	.L105:
+ 1019 0410 00E0      		ldi r16,0
+ 1020 0412 10E0      		ldi r17,0
+ 1021               	.L64:
+ 1022 0414 C801      		movw r24,r16
+ 1023               	/* epilogue start */
+ 1024 0416 0F90      		pop __tmp_reg__
+ 1025 0418 0F90      		pop __tmp_reg__
+ 1026 041a 0F90      		pop __tmp_reg__
+GAS LISTING /tmp/ccWlS2uD.s 			page 19
+
+
+ 1027 041c 0F90      		pop __tmp_reg__
+ 1028 041e DF91      		pop r29
+ 1029 0420 CF91      		pop r28
+ 1030 0422 1F91      		pop r17
+ 1031 0424 0F91      		pop r16
+ 1032 0426 FF90      		pop r15
+ 1033 0428 EF90      		pop r14
+ 1034 042a DF90      		pop r13
+ 1035 042c CF90      		pop r12
+ 1036 042e BF90      		pop r11
+ 1037 0430 AF90      		pop r10
+ 1038 0432 7F90      		pop r7
+ 1039 0434 6F90      		pop r6
+ 1040 0436 5F90      		pop r5
+ 1041 0438 4F90      		pop r4
+ 1042 043a 0895      		ret
+ 1043               		.size	UartAvrIOCtl, .-UartAvrIOCtl
+ 1044               		.section	.text.UartAvrInit,"ax",@progbits
+ 1045               	.global	UartAvrInit
+ 1046               		.type	UartAvrInit, @function
+ 1047               	UartAvrInit:
+ 1048 0000 0F93      		push r16
+ 1049 0002 1F93      		push r17
+ 1050 0004 CF93      		push r28
+ 1051 0006 DF93      		push r29
+ 1052 0008 00D0      		rcall .
+ 1053 000a 1F92      		push __zero_reg__
+ 1054 000c CDB7      		in r28,__SP_L__
+ 1055 000e DEB7      		in r29,__SP_H__
+ 1056               	/* prologue: function */
+ 1057               	/* frame size = 4 */
+ 1058               	/* stack size = 8 */
+ 1059               	.L__stack_usage = 8
+ 1060 0010 8C01      		movw r16,r24
+ 1061 0012 80E8      		ldi r24,lo8(-128)
+ 1062 0014 95E2      		ldi r25,lo8(37)
+ 1063 0016 A0E0      		ldi r26,0
+ 1064 0018 B0E0      		ldi r27,0
+ 1065 001a 8983      		std Y+1,r24
+ 1066 001c 9A83      		std Y+2,r25
+ 1067 001e AB83      		std Y+3,r26
+ 1068 0020 BC83      		std Y+4,r27
+ 1069 0022 D801      		movw r26,r16
+ 1070 0024 1B96      		adiw r26,11
+ 1071 0026 8C91      		ld r24,X
+ 1072 0028 8230      		cpi r24,lo8(2)
+ 1073 002a 01F0      		breq .L129
+ 1074               	.L131:
+ 1075 002c 8FEF      		ldi r24,lo8(-1)
+ 1076 002e 9FEF      		ldi r25,lo8(-1)
+ 1077 0030 00C0      		rjmp .L130
+ 1078               	.L129:
+ 1079 0032 F801      		movw r30,r16
+ 1080 0034 8685      		ldd r24,Z+14
+ 1081 0036 8111      		cpse r24,__zero_reg__
+ 1082 0038 00C0      		rjmp .L131
+ 1083 003a 8485      		ldd r24,Z+12
+GAS LISTING /tmp/ccWlS2uD.s 			page 20
+
+
+ 1084 003c 9585      		ldd r25,Z+13
+ 1085 003e 0297      		sbiw r24,2
+ 1086 0040 00F4      		brsh .L131
+ 1087 0042 0784      		ldd __tmp_reg__,Z+15
+ 1088 0044 F089      		ldd r31,Z+16
+ 1089 0046 E02D      		mov r30,__tmp_reg__
+ 1090 0048 8CE0      		ldi r24,lo8(12)
+ 1091 004a 92E0      		ldi r25,lo8(2)
+ 1092 004c DF01      		movw r26,r30
+ 1093 004e 9C01      		movw r18,r24
+ 1094               		0:
+ 1095 0050 1D92      		st X+,__zero_reg__
+ 1096 0052 2150      		subi r18,1
+ 1097 0054 3040      		sbci r19,0
+ 1098 0056 01F4      		brne 0b
+ 1099 0058 80E0      		ldi r24,lo8(gs(UartAvrInput))
+ 1100 005a 90E0      		ldi r25,hi8(gs(UartAvrInput))
+ 1101 005c 9183      		std Z+1,r25
+ 1102 005e 8083      		st Z,r24
+ 1103 0060 80E0      		ldi r24,lo8(gs(UartAvrOutput))
+ 1104 0062 90E0      		ldi r25,hi8(gs(UartAvrOutput))
+ 1105 0064 9383      		std Z+3,r25
+ 1106 0066 8283      		std Z+2,r24
+ 1107 0068 80E0      		ldi r24,lo8(gs(UartAvrFlush))
+ 1108 006a 90E0      		ldi r25,hi8(gs(UartAvrFlush))
+ 1109 006c 9583      		std Z+5,r25
+ 1110 006e 8483      		std Z+4,r24
+ 1111 0070 D801      		movw r26,r16
+ 1112 0072 5196      		adiw r26,17
+ 1113 0074 ED91      		ld r30,X+
+ 1114 0076 FC91      		ld r31,X
+ 1115 0078 5297      		sbiw r26,17+1
+ 1116 007a 80E1      		ldi r24,lo8(16)
+ 1117 007c DF01      		movw r26,r30
+ 1118               		0:
+ 1119 007e 1D92      		st X+,__zero_reg__
+ 1120 0080 8A95      		dec r24
+ 1121 0082 01F4      		brne 0b
+ 1122 0084 80E0      		ldi r24,0
+ 1123 0086 90E0      		ldi r25,0
+ 1124 0088 A0E1      		ldi r26,lo8(16)
+ 1125 008a B0E0      		ldi r27,0
+ 1126 008c 8487      		std Z+12,r24
+ 1127 008e 9587      		std Z+13,r25
+ 1128 0090 A687      		std Z+14,r26
+ 1129 0092 B787      		std Z+15,r27
+ 1130 0094 F801      		movw r30,r16
+ 1131 0096 8485      		ldd r24,Z+12
+ 1132 0098 9585      		ldd r25,Z+13
+ 1133 009a A801      		movw r20,r16
+ 1134 009c 60E0      		ldi r22,lo8(gs(RxComplete))
+ 1135 009e 70E0      		ldi r23,hi8(gs(RxComplete))
+ 1136 00a0 892B      		or r24,r25
+ 1137 00a2 01F0      		breq .L132
+ 1138 00a4 80E0      		ldi r24,lo8(sig_UART1_RECV)
+ 1139 00a6 90E0      		ldi r25,hi8(sig_UART1_RECV)
+ 1140 00a8 0E94 0000 		call NutRegisterIrqHandler
+GAS LISTING /tmp/ccWlS2uD.s 			page 21
+
+
+ 1141 00ac 892B      		or r24,r25
+ 1142 00ae 01F0      		breq .+2
+ 1143 00b0 00C0      		rjmp .L131
+ 1144 00b2 A801      		movw r20,r16
+ 1145 00b4 60E0      		ldi r22,lo8(gs(TxComplete))
+ 1146 00b6 70E0      		ldi r23,hi8(gs(TxComplete))
+ 1147 00b8 80E0      		ldi r24,lo8(sig_UART1_TRANS)
+ 1148 00ba 90E0      		ldi r25,hi8(sig_UART1_TRANS)
+ 1149 00bc 00C0      		rjmp .L134
+ 1150               	.L132:
+ 1151 00be 80E0      		ldi r24,lo8(sig_UART0_RECV)
+ 1152 00c0 90E0      		ldi r25,hi8(sig_UART0_RECV)
+ 1153 00c2 0E94 0000 		call NutRegisterIrqHandler
+ 1154 00c6 892B      		or r24,r25
+ 1155 00c8 01F0      		breq .+2
+ 1156 00ca 00C0      		rjmp .L131
+ 1157 00cc A801      		movw r20,r16
+ 1158 00ce 60E0      		ldi r22,lo8(gs(TxComplete))
+ 1159 00d0 70E0      		ldi r23,hi8(gs(TxComplete))
+ 1160 00d2 80E0      		ldi r24,lo8(sig_UART0_TRANS)
+ 1161 00d4 90E0      		ldi r25,hi8(sig_UART0_TRANS)
+ 1162               	.L134:
+ 1163 00d6 0E94 0000 		call NutRegisterIrqHandler
+ 1164 00da 892B      		or r24,r25
+ 1165 00dc 01F0      		breq .+2
+ 1166 00de 00C0      		rjmp .L131
+ 1167 00e0 AE01      		movw r20,r28
+ 1168 00e2 4F5F      		subi r20,-1
+ 1169 00e4 5F4F      		sbci r21,-1
+ 1170 00e6 61E0      		ldi r22,lo8(1)
+ 1171 00e8 71E0      		ldi r23,lo8(1)
+ 1172 00ea C801      		movw r24,r16
+ 1173 00ec 0E94 0000 		call UartAvrIOCtl
+ 1174 00f0 80E0      		ldi r24,0
+ 1175 00f2 90E0      		ldi r25,0
+ 1176               	.L130:
+ 1177               	/* epilogue start */
+ 1178 00f4 0F90      		pop __tmp_reg__
+ 1179 00f6 0F90      		pop __tmp_reg__
+ 1180 00f8 0F90      		pop __tmp_reg__
+ 1181 00fa 0F90      		pop __tmp_reg__
+ 1182 00fc DF91      		pop r29
+ 1183 00fe CF91      		pop r28
+ 1184 0100 1F91      		pop r17
+ 1185 0102 0F91      		pop r16
+ 1186 0104 0895      		ret
+ 1187               		.size	UartAvrInit, .-UartAvrInit
+ 1188               		.section	.text.UartAvrRead,"ax",@progbits
+ 1189               	.global	UartAvrRead
+ 1190               		.type	UartAvrRead, @function
+ 1191               	UartAvrRead:
+ 1192 0000 4F92      		push r4
+ 1193 0002 5F92      		push r5
+ 1194 0004 7F92      		push r7
+ 1195 0006 8F92      		push r8
+ 1196 0008 9F92      		push r9
+ 1197 000a AF92      		push r10
+GAS LISTING /tmp/ccWlS2uD.s 			page 22
+
+
+ 1198 000c BF92      		push r11
+ 1199 000e CF92      		push r12
+ 1200 0010 DF92      		push r13
+ 1201 0012 EF92      		push r14
+ 1202 0014 FF92      		push r15
+ 1203 0016 0F93      		push r16
+ 1204 0018 1F93      		push r17
+ 1205 001a CF93      		push r28
+ 1206 001c DF93      		push r29
+ 1207 001e 1F92      		push __zero_reg__
+ 1208 0020 1F92      		push __zero_reg__
+ 1209 0022 CDB7      		in r28,__SP_L__
+ 1210 0024 DEB7      		in r29,__SP_H__
+ 1211               	/* prologue: function */
+ 1212               	/* frame size = 2 */
+ 1213               	/* stack size = 17 */
+ 1214               	.L__stack_usage = 17
+ 1215 0026 6A01      		movw r12,r20
+ 1216 0028 DC01      		movw r26,r24
+ 1217 002a ED90      		ld r14,X+
+ 1218 002c FC90      		ld r15,X
+ 1219 002e F701      		movw r30,r14
+ 1220 0030 4784      		ldd r4,Z+15
+ 1221 0032 5088      		ldd r5,Z+16
+ 1222 0034 0188      		ldd __tmp_reg__,Z+17
+ 1223 0036 F289      		ldd r31,Z+18
+ 1224 0038 E02D      		mov r30,__tmp_reg__
+ 1225 003a 8484      		ldd r8,Z+12
+ 1226 003c 9584      		ldd r9,Z+13
+ 1227 003e A684      		ldd r10,Z+14
+ 1228 0040 B784      		ldd r11,Z+15
+ 1229 0042 8824      		clr r8
+ 1230 0044 9924      		clr r9
+ 1231 0046 F2E0      		ldi r31,2
+ 1232 0048 AF22      		and r10,r31
+ 1233 004a BB24      		clr r11
+ 1234 004c 6115      		cp r22,__zero_reg__
+ 1235 004e 7105      		cpc r23,__zero_reg__
+ 1236 0050 01F0      		breq .L136
+ 1237 0052 00E0      		ldi r16,0
+ 1238 0054 10E0      		ldi r17,0
+ 1239 0056 8AE0      		ldi r24,lo8(10)
+ 1240 0058 782E      		mov r7,r24
+ 1241 005a 00C0      		rjmp .L137
+ 1242               	.L136:
+ 1243 005c D201      		movw r26,r4
+ 1244 005e 1696      		adiw r26,6
+ 1245 0060 8C91      		ld r24,X
+ 1246 0062 1697      		sbiw r26,6
+ 1247 0064 1796      		adiw r26,7
+ 1248 0066 8C93      		st X,r24
+ 1249 0068 00C0      		rjmp .L150
+ 1250               	.L148:
+ 1251 006a F201      		movw r30,r4
+ 1252 006c 8681      		ldd r24,Z+6
+ 1253 006e 9781      		ldd r25,Z+7
+ 1254 0070 9817      		cp r25,r24
+GAS LISTING /tmp/ccWlS2uD.s 			page 23
+
+
+ 1255 0072 01F0      		breq .L139
+ 1256               	.L144:
+ 1257 0074 D201      		movw r26,r4
+ 1258 0076 1796      		adiw r26,7
+ 1259 0078 8C91      		ld r24,X
+ 1260 007a 1797      		sbiw r26,7
+ 1261 007c 91E0      		ldi r25,lo8(1)
+ 1262 007e 980F      		add r25,r24
+ 1263 0080 1796      		adiw r26,7
+ 1264 0082 9C93      		st X,r25
+ 1265 0084 F201      		movw r30,r4
+ 1266 0086 E80F      		add r30,r24
+ 1267 0088 F11D      		adc r31,__zero_reg__
+ 1268 008a 8485      		ldd r24,Z+12
+ 1269 008c 8114      		cp r8,__zero_reg__
+ 1270 008e 9104      		cpc r9,__zero_reg__
+ 1271 0090 A104      		cpc r10,__zero_reg__
+ 1272 0092 B104      		cpc r11,__zero_reg__
+ 1273 0094 01F0      		breq .L141
+ 1274 0096 8D30      		cpi r24,lo8(13)
+ 1275 0098 01F4      		brne .L158
+ 1276               	.L145:
+ 1277 009a D201      		movw r26,r4
+ 1278 009c 1B96      		adiw r26,11
+ 1279 009e 9C91      		ld r25,X
+ 1280 00a0 9923      		tst r25
+ 1281 00a2 01F0      		breq .L146
+ 1282 00a4 8917      		cp r24,r25
+ 1283 00a6 01F0      		breq .L146
+ 1284               	.L137:
+ 1285 00a8 0C15      		cp r16,r12
+ 1286 00aa 1D05      		cpc r17,r13
+ 1287 00ac 04F0      		brlt .L148
+ 1288 00ae 00C0      		rjmp .L149
+ 1289               	.L139:
+ 1290 00b0 0115      		cp r16,__zero_reg__
+ 1291 00b2 1105      		cpc r17,__zero_reg__
+ 1292 00b4 01F4      		brne .L149
+ 1293               	.L142:
+ 1294 00b6 F201      		movw r30,r4
+ 1295 00b8 8681      		ldd r24,Z+6
+ 1296 00ba 9781      		ldd r25,Z+7
+ 1297 00bc 9813      		cpse r25,r24
+ 1298 00be 00C0      		rjmp .L144
+ 1299 00c0 C701      		movw r24,r14
+ 1300 00c2 6983      		std Y+1,r22
+ 1301 00c4 7A83      		std Y+2,r23
+ 1302 00c6 0E94 0000 		call UartAvrInput
+ 1303 00ca 6981      		ldd r22,Y+1
+ 1304 00cc 7A81      		ldd r23,Y+2
+ 1305 00ce 892B      		or r24,r25
+ 1306 00d0 01F0      		breq .L142
+ 1307 00d2 00C0      		rjmp .L150
+ 1308               	.L158:
+ 1309 00d4 8A30      		cpi r24,lo8(10)
+ 1310 00d6 01F4      		brne .L141
+ 1311 00d8 00C0      		rjmp .L145
+GAS LISTING /tmp/ccWlS2uD.s 			page 24
+
+
+ 1312               	.L146:
+ 1313 00da F201      		movw r30,r4
+ 1314 00dc 8387      		std Z+11,r24
+ 1315 00de DB01      		movw r26,r22
+ 1316 00e0 7C92      		st X,r7
+ 1317 00e2 00C0      		rjmp .L157
+ 1318               	.L141:
+ 1319 00e4 F201      		movw r30,r4
+ 1320 00e6 1386      		std Z+11,__zero_reg__
+ 1321 00e8 DB01      		movw r26,r22
+ 1322 00ea 8C93      		st X,r24
+ 1323               	.L157:
+ 1324 00ec 0F5F      		subi r16,-1
+ 1325 00ee 1F4F      		sbci r17,-1
+ 1326 00f0 6F5F      		subi r22,-1
+ 1327 00f2 7F4F      		sbci r23,-1
+ 1328 00f4 00C0      		rjmp .L137
+ 1329               	.L149:
+ 1330 00f6 C801      		movw r24,r16
+ 1331 00f8 00C0      		rjmp .L138
+ 1332               	.L150:
+ 1333 00fa 80E0      		ldi r24,0
+ 1334 00fc 90E0      		ldi r25,0
+ 1335               	.L138:
+ 1336               	/* epilogue start */
+ 1337 00fe 0F90      		pop __tmp_reg__
+ 1338 0100 0F90      		pop __tmp_reg__
+ 1339 0102 DF91      		pop r29
+ 1340 0104 CF91      		pop r28
+ 1341 0106 1F91      		pop r17
+ 1342 0108 0F91      		pop r16
+ 1343 010a FF90      		pop r15
+ 1344 010c EF90      		pop r14
+ 1345 010e DF90      		pop r13
+ 1346 0110 CF90      		pop r12
+ 1347 0112 BF90      		pop r11
+ 1348 0114 AF90      		pop r10
+ 1349 0116 9F90      		pop r9
+ 1350 0118 8F90      		pop r8
+ 1351 011a 7F90      		pop r7
+ 1352 011c 5F90      		pop r5
+ 1353 011e 4F90      		pop r4
+ 1354 0120 0895      		ret
+ 1355               		.size	UartAvrRead, .-UartAvrRead
+ 1356               		.section	.text.UartAvrPut,"ax",@progbits
+ 1357               	.global	UartAvrPut
+ 1358               		.type	UartAvrPut, @function
+ 1359               	UartAvrPut:
+ 1360 0000 4F92      		push r4
+ 1361 0002 5F92      		push r5
+ 1362 0004 6F92      		push r6
+ 1363 0006 7F92      		push r7
+ 1364 0008 8F92      		push r8
+ 1365 000a 9F92      		push r9
+ 1366 000c AF92      		push r10
+ 1367 000e BF92      		push r11
+ 1368 0010 CF92      		push r12
+GAS LISTING /tmp/ccWlS2uD.s 			page 25
+
+
+ 1369 0012 DF92      		push r13
+ 1370 0014 EF92      		push r14
+ 1371 0016 FF92      		push r15
+ 1372 0018 0F93      		push r16
+ 1373 001a 1F93      		push r17
+ 1374 001c CF93      		push r28
+ 1375 001e DF93      		push r29
+ 1376 0020 1F92      		push __zero_reg__
+ 1377 0022 1F92      		push __zero_reg__
+ 1378 0024 CDB7      		in r28,__SP_L__
+ 1379 0026 DEB7      		in r29,__SP_H__
+ 1380               	/* prologue: function */
+ 1381               	/* frame size = 2 */
+ 1382               	/* stack size = 18 */
+ 1383               	.L__stack_usage = 18
+ 1384 0028 2C01      		movw r4,r24
+ 1385 002a 7B01      		movw r14,r22
+ 1386 002c 5A01      		movw r10,r20
+ 1387 002e 4901      		movw r8,r18
+ 1388 0030 FC01      		movw r30,r24
+ 1389 0032 0785      		ldd r16,Z+15
+ 1390 0034 1089      		ldd r17,Z+16
+ 1391 0036 C188      		ldd r12,Z+17
+ 1392 0038 D288      		ldd r13,Z+18
+ 1393 003a F601      		movw r30,r12
+ 1394 003c 8485      		ldd r24,Z+12
+ 1395 003e 9585      		ldd r25,Z+13
+ 1396 0040 A685      		ldd r26,Z+14
+ 1397 0042 B785      		ldd r27,Z+15
+ 1398 0044 AC01      		movw r20,r24
+ 1399 0046 BD01      		movw r22,r26
+ 1400 0048 25E1      		ldi r18,21
+ 1401               		1:
+ 1402 004a 7695      		lsr r23
+ 1403 004c 6795      		ror r22
+ 1404 004e 5795      		ror r21
+ 1405 0050 4795      		ror r20
+ 1406 0052 2A95      		dec r18
+ 1407 0054 01F4      		brne 1b
+ 1408 0056 242F      		mov r18,r20
+ 1409 0058 2170      		andi r18,lo8(1)
+ 1410 005a 31E1      		ldi r19,17
+ 1411               		1:
+ 1412 005c B695      		lsr r27
+ 1413 005e A795      		ror r26
+ 1414 0060 9795      		ror r25
+ 1415 0062 8795      		ror r24
+ 1416 0064 3A95      		dec r19
+ 1417 0066 01F4      		brne 1b
+ 1418 0068 382F      		mov r19,r24
+ 1419 006a 3170      		andi r19,lo8(1)
+ 1420 006c E114      		cp r14,__zero_reg__
+ 1421 006e F104      		cpc r15,__zero_reg__
+ 1422 0070 01F0      		breq .L160
+ 1423 0072 612C      		mov r6,__zero_reg__
+ 1424 0074 712C      		mov r7,__zero_reg__
+ 1425 0076 00C0      		rjmp .L161
+GAS LISTING /tmp/ccWlS2uD.s 			page 26
+
+
+ 1426               	.L160:
+ 1427 0078 C201      		movw r24,r4
+ 1428               	/* epilogue start */
+ 1429 007a 0F90      		pop __tmp_reg__
+ 1430 007c 0F90      		pop __tmp_reg__
+ 1431 007e DF91      		pop r29
+ 1432 0080 CF91      		pop r28
+ 1433 0082 1F91      		pop r17
+ 1434 0084 0F91      		pop r16
+ 1435 0086 FF90      		pop r15
+ 1436 0088 EF90      		pop r14
+ 1437 008a DF90      		pop r13
+ 1438 008c CF90      		pop r12
+ 1439 008e BF90      		pop r11
+ 1440 0090 AF90      		pop r10
+ 1441 0092 9F90      		pop r9
+ 1442 0094 8F90      		pop r8
+ 1443 0096 7F90      		pop r7
+ 1444 0098 6F90      		pop r6
+ 1445 009a 5F90      		pop r5
+ 1446 009c 4F90      		pop r4
+ 1447 009e 0C94 0000 		jmp UartAvrFlush
+ 1448               	.L171:
+ 1449 00a2 F801      		movw r30,r16
+ 1450 00a4 9085      		ldd r25,Z+8
+ 1451 00a6 8185      		ldd r24,Z+9
+ 1452 00a8 8F5F      		subi r24,lo8(-(1))
+ 1453 00aa 8917      		cp r24,r25
+ 1454 00ac 01F0      		breq .L162
+ 1455               	.L166:
+ 1456 00ae 8114      		cp r8,__zero_reg__
+ 1457 00b0 9104      		cpc r9,__zero_reg__
+ 1458 00b2 01F0      		breq .L182
+ 1459 00b4 F701      		movw r30,r14
+ 1460               	/* #APP */
+ 1461               	 ;  771 "../../nut/arch/avr/dev/uartavr.c" 1
+ 1462 00b6 8491      		lpm r24, Z
+ 1463               		
+ 1464               	 ;  0 "" 2
+ 1465               	/* #NOAPP */
+ 1466               	.L167:
+ 1467 00b8 3130      		cpi r19,lo8(1)
+ 1468 00ba 01F4      		brne .L168
+ 1469 00bc 8A30      		cpi r24,lo8(10)
+ 1470 00be 01F4      		brne .L169
+ 1471 00c0 8DE0      		ldi r24,lo8(13)
+ 1472 00c2 32E0      		ldi r19,lo8(2)
+ 1473 00c4 2130      		cpi r18,lo8(1)
+ 1474 00c6 01F4      		brne .L170
+ 1475 00c8 22E0      		ldi r18,lo8(2)
+ 1476               	.L170:
+ 1477 00ca F801      		movw r30,r16
+ 1478 00cc 9185      		ldd r25,Z+9
+ 1479 00ce 41E0      		ldi r20,lo8(1)
+ 1480 00d0 490F      		add r20,r25
+ 1481 00d2 4187      		std Z+9,r20
+ 1482 00d4 E90F      		add r30,r25
+GAS LISTING /tmp/ccWlS2uD.s 			page 27
+
+
+ 1483 00d6 F11D      		adc r31,__zero_reg__
+ 1484 00d8 E45F      		subi r30,-12
+ 1485 00da FE4F      		sbci r31,-2
+ 1486 00dc 8083      		st Z,r24
+ 1487               	.L161:
+ 1488 00de 6A14      		cp r6,r10
+ 1489 00e0 7B04      		cpc r7,r11
+ 1490 00e2 04F0      		brlt .L171
+ 1491 00e4 00C0      		rjmp .L183
+ 1492               	.L162:
+ 1493 00e6 C201      		movw r24,r4
+ 1494 00e8 2983      		std Y+1,r18
+ 1495 00ea 3A83      		std Y+2,r19
+ 1496 00ec 0E94 0000 		call UartAvrFlush
+ 1497 00f0 2981      		ldd r18,Y+1
+ 1498 00f2 3A81      		ldd r19,Y+2
+ 1499 00f4 892B      		or r24,r25
+ 1500 00f6 01F0      		breq .L166
+ 1501 00f8 00C0      		rjmp .L165
+ 1502               	.L182:
+ 1503 00fa F701      		movw r30,r14
+ 1504 00fc 8081      		ld r24,Z
+ 1505 00fe 00C0      		rjmp .L167
+ 1506               	.L168:
+ 1507 0100 3230      		cpi r19,lo8(2)
+ 1508 0102 01F4      		brne .L169
+ 1509 0104 31E0      		ldi r19,lo8(1)
+ 1510               	.L169:
+ 1511 0106 FFEF      		ldi r31,-1
+ 1512 0108 EF1A      		sub r14,r31
+ 1513 010a FF0A      		sbc r15,r31
+ 1514 010c 9FEF      		ldi r25,-1
+ 1515 010e 691A      		sub r6,r25
+ 1516 0110 790A      		sbc r7,r25
+ 1517 0112 00C0      		rjmp .L170
+ 1518               	.L183:
+ 1519 0114 2230      		cpi r18,lo8(2)
+ 1520 0116 01F0      		breq .L172
+ 1521 0118 F601      		movw r30,r12
+ 1522 011a 8485      		ldd r24,Z+12
+ 1523 011c 9585      		ldd r25,Z+13
+ 1524 011e A685      		ldd r26,Z+14
+ 1525 0120 B785      		ldd r27,Z+15
+ 1526 0122 A4FF      		sbrs r26,4
+ 1527 0124 00C0      		rjmp .L177
+ 1528               	.L172:
+ 1529 0126 C201      		movw r24,r4
+ 1530 0128 0E94 0000 		call UartAvrFlush
+ 1531 012c 892B      		or r24,r25
+ 1532 012e 01F0      		breq .L177
+ 1533               	.L165:
+ 1534 0130 8FEF      		ldi r24,lo8(-1)
+ 1535 0132 9FEF      		ldi r25,lo8(-1)
+ 1536 0134 00C0      		rjmp .L173
+ 1537               	.L177:
+ 1538 0136 C301      		movw r24,r6
+ 1539               	.L173:
+GAS LISTING /tmp/ccWlS2uD.s 			page 28
+
+
+ 1540               	/* epilogue start */
+ 1541 0138 0F90      		pop __tmp_reg__
+ 1542 013a 0F90      		pop __tmp_reg__
+ 1543 013c DF91      		pop r29
+ 1544 013e CF91      		pop r28
+ 1545 0140 1F91      		pop r17
+ 1546 0142 0F91      		pop r16
+ 1547 0144 FF90      		pop r15
+ 1548 0146 EF90      		pop r14
+ 1549 0148 DF90      		pop r13
+ 1550 014a CF90      		pop r12
+ 1551 014c BF90      		pop r11
+ 1552 014e AF90      		pop r10
+ 1553 0150 9F90      		pop r9
+ 1554 0152 8F90      		pop r8
+ 1555 0154 7F90      		pop r7
+ 1556 0156 6F90      		pop r6
+ 1557 0158 5F90      		pop r5
+ 1558 015a 4F90      		pop r4
+ 1559 015c 0895      		ret
+ 1560               		.size	UartAvrPut, .-UartAvrPut
+ 1561               		.section	.text.UartAvrWrite,"ax",@progbits
+ 1562               	.global	UartAvrWrite
+ 1563               		.type	UartAvrWrite, @function
+ 1564               	UartAvrWrite:
+ 1565               	/* prologue: function */
+ 1566               	/* frame size = 0 */
+ 1567               	/* stack size = 0 */
+ 1568               	.L__stack_usage = 0
+ 1569 0000 20E0      		ldi r18,0
+ 1570 0002 30E0      		ldi r19,0
+ 1571 0004 FC01      		movw r30,r24
+ 1572 0006 8081      		ld r24,Z
+ 1573 0008 9181      		ldd r25,Z+1
+ 1574 000a 0C94 0000 		jmp UartAvrPut
+ 1575               		.size	UartAvrWrite, .-UartAvrWrite
+ 1576               		.section	.text.UartAvrWrite_P,"ax",@progbits
+ 1577               	.global	UartAvrWrite_P
+ 1578               		.type	UartAvrWrite_P, @function
+ 1579               	UartAvrWrite_P:
+ 1580               	/* prologue: function */
+ 1581               	/* frame size = 0 */
+ 1582               	/* stack size = 0 */
+ 1583               	.L__stack_usage = 0
+ 1584 0000 21E0      		ldi r18,lo8(1)
+ 1585 0002 30E0      		ldi r19,0
+ 1586 0004 FC01      		movw r30,r24
+ 1587 0006 8081      		ld r24,Z
+ 1588 0008 9181      		ldd r25,Z+1
+ 1589 000a 0C94 0000 		jmp UartAvrPut
+ 1590               		.size	UartAvrWrite_P, .-UartAvrWrite_P
+ 1591               		.section	.text.UartAvrOpen,"ax",@progbits
+ 1592               	.global	UartAvrOpen
+ 1593               		.type	UartAvrOpen, @function
+ 1594               	UartAvrOpen:
+ 1595 0000 EF92      		push r14
+ 1596 0002 FF92      		push r15
+GAS LISTING /tmp/ccWlS2uD.s 			page 29
+
+
+ 1597 0004 0F93      		push r16
+ 1598 0006 1F93      		push r17
+ 1599 0008 CF93      		push r28
+ 1600 000a DF93      		push r29
+ 1601               	/* prologue: function */
+ 1602               	/* frame size = 0 */
+ 1603               	/* stack size = 6 */
+ 1604               	.L__stack_usage = 6
+ 1605 000c EC01      		movw r28,r24
+ 1606 000e 7A01      		movw r14,r20
+ 1607 0010 64E0      		ldi r22,lo8(4)
+ 1608 0012 70E0      		ldi r23,0
+ 1609 0014 80E0      		ldi r24,lo8(heapFreeList)
+ 1610 0016 90E0      		ldi r25,hi8(heapFreeList)
+ 1611 0018 0E94 0000 		call NutHeapRootAlloc
+ 1612 001c FC01      		movw r30,r24
+ 1613 001e 892B      		or r24,r25
+ 1614 0020 01F0      		breq .L190
+ 1615 0022 A989      		ldd r26,Y+17
+ 1616 0024 BA89      		ldd r27,Y+18
+ 1617 0026 1C96      		adiw r26,12
+ 1618 0028 0D91      		ld r16,X+
+ 1619 002a 1D91      		ld r17,X+
+ 1620 002c 2D91      		ld r18,X+
+ 1621 002e 3C91      		ld r19,X
+ 1622 0030 1F97      		sbiw r26,12+3
+ 1623 0032 F7FE      		sbrs r15,7
+ 1624 0034 00C0      		rjmp .L188
+ 1625 0036 2D7F      		andi r18,253
+ 1626 0038 00C0      		rjmp .L191
+ 1627               	.L188:
+ 1628 003a 2260      		ori r18,2
+ 1629               	.L191:
+ 1630 003c 1C96      		adiw r26,12
+ 1631 003e 0D93      		st X+,r16
+ 1632 0040 1D93      		st X+,r17
+ 1633 0042 2D93      		st X+,r18
+ 1634 0044 3C93      		st X,r19
+ 1635 0046 1F97      		sbiw r26,12+3
+ 1636 0048 D183      		std Z+1,r29
+ 1637 004a C083      		st Z,r28
+ 1638 004c 1382      		std Z+3,__zero_reg__
+ 1639 004e 1282      		std Z+2,__zero_reg__
+ 1640 0050 CF01      		movw r24,r30
+ 1641 0052 00C0      		rjmp .L187
+ 1642               	.L190:
+ 1643 0054 8FEF      		ldi r24,lo8(-1)
+ 1644 0056 9FEF      		ldi r25,lo8(-1)
+ 1645               	.L187:
+ 1646               	/* epilogue start */
+ 1647 0058 DF91      		pop r29
+ 1648 005a CF91      		pop r28
+ 1649 005c 1F91      		pop r17
+ 1650 005e 0F91      		pop r16
+ 1651 0060 FF90      		pop r15
+ 1652 0062 EF90      		pop r14
+ 1653 0064 0895      		ret
+GAS LISTING /tmp/ccWlS2uD.s 			page 30
+
+
+ 1654               		.size	UartAvrOpen, .-UartAvrOpen
+ 1655               		.section	.text.UartAvrClose,"ax",@progbits
+ 1656               	.global	UartAvrClose
+ 1657               		.type	UartAvrClose, @function
+ 1658               	UartAvrClose:
+ 1659               	/* prologue: function */
+ 1660               	/* frame size = 0 */
+ 1661               	/* stack size = 0 */
+ 1662               	.L__stack_usage = 0
+ 1663 0000 BC01      		movw r22,r24
+ 1664 0002 80E0      		ldi r24,lo8(heapFreeList)
+ 1665 0004 90E0      		ldi r25,hi8(heapFreeList)
+ 1666 0006 0E94 0000 		call NutHeapRootFree
+ 1667 000a 80E0      		ldi r24,0
+ 1668 000c 90E0      		ldi r25,0
+ 1669 000e 0895      		ret
+ 1670               		.size	UartAvrClose, .-UartAvrClose
+ 1671               		.section	.text.UartAvrSize,"ax",@progbits
+ 1672               	.global	UartAvrSize
+ 1673               		.type	UartAvrSize, @function
+ 1674               	UartAvrSize:
+ 1675               	/* prologue: function */
+ 1676               	/* frame size = 0 */
+ 1677               	/* stack size = 0 */
+ 1678               	.L__stack_usage = 0
+ 1679 0000 DC01      		movw r26,r24
+ 1680 0002 ED91      		ld r30,X+
+ 1681 0004 FC91      		ld r31,X
+ 1682 0006 0784      		ldd __tmp_reg__,Z+15
+ 1683 0008 F089      		ldd r31,Z+16
+ 1684 000a E02D      		mov r30,__tmp_reg__
+ 1685 000c 6681      		ldd r22,Z+6
+ 1686 000e 8781      		ldd r24,Z+7
+ 1687 0010 681B      		sub r22,r24
+ 1688 0012 70E0      		ldi r23,0
+ 1689 0014 80E0      		ldi r24,0
+ 1690 0016 90E0      		ldi r25,0
+ 1691 0018 0895      		ret
+ 1692               		.size	UartAvrSize, .-UartAvrSize
+ 1693               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccWlS2uD.s 			page 31
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 uartavr.c
+     /tmp/ccWlS2uD.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccWlS2uD.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccWlS2uD.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccWlS2uD.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccWlS2uD.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccWlS2uD.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccWlS2uD.s:10     .text.TxComplete:0000000000000000 TxComplete
+     /tmp/ccWlS2uD.s:87     .text.RxComplete:0000000000000000 RxComplete
+     /tmp/ccWlS2uD.s:159    .text.UartAvrOutput:0000000000000000 UartAvrOutput
+     /tmp/ccWlS2uD.s:213    .text.UartAvrEnable:0000000000000000 UartAvrEnable
+     /tmp/ccWlS2uD.s:247    .text.UartAvrInput:0000000000000000 UartAvrInput
+     /tmp/ccWlS2uD.s:335    .text.UartAvrFlush:0000000000000000 UartAvrFlush
+     /tmp/ccWlS2uD.s:403    .text.UartAvrDisable:0000000000000000 UartAvrDisable
+     /tmp/ccWlS2uD.s:458    .text.UartAvrIOCtl:0000000000000000 UartAvrIOCtl
+     /tmp/ccWlS2uD.s:1047   .text.UartAvrInit:0000000000000000 UartAvrInit
+     /tmp/ccWlS2uD.s:1191   .text.UartAvrRead:0000000000000000 UartAvrRead
+     /tmp/ccWlS2uD.s:1359   .text.UartAvrPut:0000000000000000 UartAvrPut
+     /tmp/ccWlS2uD.s:1564   .text.UartAvrWrite:0000000000000000 UartAvrWrite
+     /tmp/ccWlS2uD.s:1579   .text.UartAvrWrite_P:0000000000000000 UartAvrWrite_P
+     /tmp/ccWlS2uD.s:1594   .text.UartAvrOpen:0000000000000000 UartAvrOpen
+     /tmp/ccWlS2uD.s:1658   .text.UartAvrClose:0000000000000000 UartAvrClose
+     /tmp/ccWlS2uD.s:1674   .text.UartAvrSize:0000000000000000 UartAvrSize
+
+UNDEFINED SYMBOLS
+NutEventWait
+NutDelay
+devUart0
+__tablejump2__
+NutGetCpuClock
+__udivmodsi4
+__muluhisi3
+sig_UART1_RECV
+NutRegisterIrqHandler
+sig_UART1_TRANS
+sig_UART0_RECV
+sig_UART0_TRANS
+heapFreeList
+NutHeapRootAlloc
+NutHeapRootFree

@@ -1,0 +1,345 @@
+GAS LISTING /tmp/ccC9o6d6.s 			page 1
+
+
+   1               		.file	"snmp_pdu.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.SnmpPduCreate,"ax",@progbits
+   9               	.global	SnmpPduCreate
+  10               		.type	SnmpPduCreate, @function
+  11               	SnmpPduCreate:
+  12 0000 CF92      		push r12
+  13 0002 DF92      		push r13
+  14 0004 EF92      		push r14
+  15 0006 FF92      		push r15
+  16 0008 0F93      		push r16
+  17 000a 1F93      		push r17
+  18 000c CF93      		push r28
+  19 000e DF93      		push r29
+  20               	/* prologue: function */
+  21               	/* frame size = 0 */
+  22               	/* stack size = 8 */
+  23               	.L__stack_usage = 8
+  24 0010 7C01      		movw r14,r24
+  25 0012 6B01      		movw r12,r22
+  26 0014 8A01      		movw r16,r20
+  27 0016 60E2      		ldi r22,lo8(32)
+  28 0018 70E0      		ldi r23,0
+  29 001a 81E0      		ldi r24,lo8(1)
+  30 001c 90E0      		ldi r25,0
+  31 001e 0E94 0000 		call calloc
+  32 0022 EC01      		movw r28,r24
+  33 0024 892B      		or r24,r25
+  34 0026 01F0      		breq .L2
+  35 0028 F982      		std Y+1,r15
+  36 002a E882      		st Y,r14
+  37 002c 7801      		movw r14,r16
+  38 002e EE0C      		lsl r14
+  39 0030 FF1C      		rol r15
+  40 0032 EE0C      		lsl r14
+  41 0034 FF1C      		rol r15
+  42 0036 C701      		movw r24,r14
+  43 0038 0E94 0000 		call malloc
+  44 003c 9F87      		std Y+15,r25
+  45 003e 8E87      		std Y+14,r24
+  46 0040 0097      		sbiw r24,0
+  47 0042 01F0      		breq .L3
+  48 0044 A701      		movw r20,r14
+  49 0046 B601      		movw r22,r12
+  50 0048 0E94 0000 		call memcpy
+  51 004c 198B      		std Y+17,r17
+  52 004e 088B      		std Y+16,r16
+  53 0050 00C0      		rjmp .L2
+  54               	.L3:
+  55 0052 CE01      		movw r24,r28
+  56 0054 0E94 0000 		call free
+  57 0058 C0E0      		ldi r28,0
+GAS LISTING /tmp/ccC9o6d6.s 			page 2
+
+
+  58 005a D0E0      		ldi r29,0
+  59               	.L2:
+  60 005c CE01      		movw r24,r28
+  61               	/* epilogue start */
+  62 005e DF91      		pop r29
+  63 0060 CF91      		pop r28
+  64 0062 1F91      		pop r17
+  65 0064 0F91      		pop r16
+  66 0066 FF90      		pop r15
+  67 0068 EF90      		pop r14
+  68 006a DF90      		pop r13
+  69 006c CF90      		pop r12
+  70 006e 0895      		ret
+  71               		.size	SnmpPduCreate, .-SnmpPduCreate
+  72               		.section	.text.SnmpPduAddVariable,"ax",@progbits
+  73               	.global	SnmpPduAddVariable
+  74               		.type	SnmpPduAddVariable, @function
+  75               	SnmpPduAddVariable:
+  76 0000 4F92      		push r4
+  77 0002 5F92      		push r5
+  78 0004 6F92      		push r6
+  79 0006 7F92      		push r7
+  80 0008 8F92      		push r8
+  81 000a 9F92      		push r9
+  82 000c AF92      		push r10
+  83 000e BF92      		push r11
+  84 0010 CF92      		push r12
+  85 0012 DF92      		push r13
+  86 0014 EF92      		push r14
+  87 0016 FF92      		push r15
+  88 0018 0F93      		push r16
+  89 001a 1F93      		push r17
+  90 001c CF93      		push r28
+  91 001e DF93      		push r29
+  92 0020 1F92      		push __zero_reg__
+  93 0022 CDB7      		in r28,__SP_L__
+  94 0024 DEB7      		in r29,__SP_H__
+  95               	/* prologue: function */
+  96               	/* frame size = 1 */
+  97               	/* stack size = 17 */
+  98               	.L__stack_usage = 17
+  99 0026 6C01      		movw r12,r24
+ 100 0028 4B01      		movw r8,r22
+ 101 002a 5A01      		movw r10,r20
+ 102 002c 6FE0      		ldi r22,lo8(15)
+ 103 002e 70E0      		ldi r23,0
+ 104 0030 81E0      		ldi r24,lo8(1)
+ 105 0032 90E0      		ldi r25,0
+ 106 0034 2983      		std Y+1,r18
+ 107 0036 0E94 0000 		call calloc
+ 108 003a 2C01      		movw r4,r24
+ 109 003c 892B      		or r24,r25
+ 110 003e 01F4      		brne .+2
+ 111 0040 00C0      		rjmp .L20
+ 112 0042 3501      		movw r6,r10
+ 113 0044 660C      		lsl r6
+ 114 0046 771C      		rol r7
+GAS LISTING /tmp/ccC9o6d6.s 			page 3
+
+
+ 115 0048 660C      		lsl r6
+ 116 004a 771C      		rol r7
+ 117 004c C301      		movw r24,r6
+ 118 004e 0E94 0000 		call malloc
+ 119 0052 D201      		movw r26,r4
+ 120 0054 1396      		adiw r26,2+1
+ 121 0056 9C93      		st X,r25
+ 122 0058 8E93      		st -X,r24
+ 123 005a 1297      		sbiw r26,2
+ 124 005c 2981      		ldd r18,Y+1
+ 125 005e 0097      		sbiw r24,0
+ 126 0060 01F4      		brne .L10
+ 127 0062 C201      		movw r24,r4
+ 128 0064 0E94 0000 		call free
+ 129 0068 00C0      		rjmp .L20
+ 130               	.L10:
+ 131 006a A301      		movw r20,r6
+ 132 006c B401      		movw r22,r8
+ 133 006e 2983      		std Y+1,r18
+ 134 0070 0E94 0000 		call memcpy
+ 135 0074 F201      		movw r30,r4
+ 136 0076 B582      		std Z+5,r11
+ 137 0078 A482      		std Z+4,r10
+ 138 007a 2981      		ldd r18,Y+1
+ 139 007c 2683      		std Z+6,r18
+ 140 007e 2434      		cpi r18,lo8(68)
+ 141 0080 00F4      		brsh .L12
+ 142 0082 2134      		cpi r18,lo8(65)
+ 143 0084 00F4      		brsh .L13
+ 144 0086 2230      		cpi r18,lo8(2)
+ 145 0088 01F4      		brne .L11
+ 146 008a 00C0      		rjmp .L13
+ 147               	.L12:
+ 148 008c 2734      		cpi r18,lo8(71)
+ 149 008e 01F4      		brne .L11
+ 150               	.L13:
+ 151 0090 E114      		cp r14,__zero_reg__
+ 152 0092 F104      		cpc r15,__zero_reg__
+ 153 0094 01F4      		brne .L14
+ 154 0096 84E0      		ldi r24,lo8(4)
+ 155 0098 E82E      		mov r14,r24
+ 156 009a F12C      		mov r15,__zero_reg__
+ 157               	.L14:
+ 158 009c C201      		movw r24,r4
+ 159 009e 0796      		adiw r24,7
+ 160 00a0 D201      		movw r26,r4
+ 161 00a2 1C96      		adiw r26,11+1
+ 162 00a4 9C93      		st X,r25
+ 163 00a6 8E93      		st -X,r24
+ 164 00a8 1B97      		sbiw r26,11
+ 165 00aa A701      		movw r20,r14
+ 166 00ac B801      		movw r22,r16
+ 167 00ae 0E94 0000 		call memcpy
+ 168 00b2 84E0      		ldi r24,lo8(4)
+ 169 00b4 90E0      		ldi r25,0
+ 170 00b6 F201      		movw r30,r4
+ 171 00b8 9687      		std Z+14,r25
+GAS LISTING /tmp/ccC9o6d6.s 			page 4
+
+
+ 172 00ba 8587      		std Z+13,r24
+ 173 00bc 00C0      		rjmp .L15
+ 174               	.L11:
+ 175 00be E114      		cp r14,__zero_reg__
+ 176 00c0 F104      		cpc r15,__zero_reg__
+ 177 00c2 01F0      		breq .L15
+ 178 00c4 C701      		movw r24,r14
+ 179 00c6 0E94 0000 		call malloc
+ 180 00ca D201      		movw r26,r4
+ 181 00cc 1C96      		adiw r26,11+1
+ 182 00ce 9C93      		st X,r25
+ 183 00d0 8E93      		st -X,r24
+ 184 00d2 1B97      		sbiw r26,11
+ 185 00d4 0097      		sbiw r24,0
+ 186 00d6 01F0      		breq .L15
+ 187 00d8 A701      		movw r20,r14
+ 188 00da B801      		movw r22,r16
+ 189 00dc 0E94 0000 		call memcpy
+ 190 00e0 F201      		movw r30,r4
+ 191 00e2 F686      		std Z+14,r15
+ 192 00e4 E586      		std Z+13,r14
+ 193               	.L15:
+ 194 00e6 D601      		movw r26,r12
+ 195 00e8 5E96      		adiw r26,30
+ 196 00ea ED91      		ld r30,X+
+ 197 00ec FC91      		ld r31,X
+ 198 00ee 5F97      		sbiw r26,30+1
+ 199 00f0 3097      		sbiw r30,0
+ 200 00f2 01F0      		breq .L32
+ 201               	.L19:
+ 202 00f4 8081      		ld r24,Z
+ 203 00f6 9181      		ldd r25,Z+1
+ 204 00f8 0097      		sbiw r24,0
+ 205 00fa 01F0      		breq .L33
+ 206 00fc FC01      		movw r30,r24
+ 207 00fe 00C0      		rjmp .L19
+ 208               	.L33:
+ 209 0100 5182      		std Z+1,r5
+ 210 0102 4082      		st Z,r4
+ 211 0104 00C0      		rjmp .L31
+ 212               	.L32:
+ 213 0106 F601      		movw r30,r12
+ 214 0108 578E      		std Z+31,r5
+ 215 010a 468E      		std Z+30,r4
+ 216               	.L31:
+ 217 010c 80E0      		ldi r24,0
+ 218 010e 90E0      		ldi r25,0
+ 219 0110 00C0      		rjmp .L9
+ 220               	.L20:
+ 221 0112 8FEF      		ldi r24,lo8(-1)
+ 222 0114 9FEF      		ldi r25,lo8(-1)
+ 223               	.L9:
+ 224               	/* epilogue start */
+ 225 0116 0F90      		pop __tmp_reg__
+ 226 0118 DF91      		pop r29
+ 227 011a CF91      		pop r28
+ 228 011c 1F91      		pop r17
+GAS LISTING /tmp/ccC9o6d6.s 			page 5
+
+
+ 229 011e 0F91      		pop r16
+ 230 0120 FF90      		pop r15
+ 231 0122 EF90      		pop r14
+ 232 0124 DF90      		pop r13
+ 233 0126 CF90      		pop r12
+ 234 0128 BF90      		pop r11
+ 235 012a AF90      		pop r10
+ 236 012c 9F90      		pop r9
+ 237 012e 8F90      		pop r8
+ 238 0130 7F90      		pop r7
+ 239 0132 6F90      		pop r6
+ 240 0134 5F90      		pop r5
+ 241 0136 4F90      		pop r4
+ 242 0138 0895      		ret
+ 243               		.size	SnmpPduAddVariable, .-SnmpPduAddVariable
+ 244               		.section	.text.SnmpPduDestroy,"ax",@progbits
+ 245               	.global	SnmpPduDestroy
+ 246               		.type	SnmpPduDestroy, @function
+ 247               	SnmpPduDestroy:
+ 248 0000 EF92      		push r14
+ 249 0002 FF92      		push r15
+ 250 0004 0F93      		push r16
+ 251 0006 1F93      		push r17
+ 252 0008 CF93      		push r28
+ 253 000a DF93      		push r29
+ 254               	/* prologue: function */
+ 255               	/* frame size = 0 */
+ 256               	/* stack size = 6 */
+ 257               	.L__stack_usage = 6
+ 258 000c 8C01      		movw r16,r24
+ 259 000e FC01      		movw r30,r24
+ 260 0010 C68D      		ldd r28,Z+30
+ 261 0012 D78D      		ldd r29,Z+31
+ 262               	.L35:
+ 263 0014 2097      		sbiw r28,0
+ 264 0016 01F0      		breq .L49
+ 265 0018 8A81      		ldd r24,Y+2
+ 266 001a 9B81      		ldd r25,Y+3
+ 267 001c 0097      		sbiw r24,0
+ 268 001e 01F0      		breq .L36
+ 269 0020 0E94 0000 		call free
+ 270               	.L36:
+ 271 0024 8B85      		ldd r24,Y+11
+ 272 0026 9C85      		ldd r25,Y+12
+ 273 0028 0097      		sbiw r24,0
+ 274 002a 01F0      		breq .L37
+ 275 002c 9E01      		movw r18,r28
+ 276 002e 295F      		subi r18,-7
+ 277 0030 3F4F      		sbci r19,-1
+ 278 0032 8217      		cp r24,r18
+ 279 0034 9307      		cpc r25,r19
+ 280 0036 01F0      		breq .L37
+ 281 0038 0E94 0000 		call free
+ 282               	.L37:
+ 283 003c E880      		ld r14,Y
+ 284 003e F980      		ldd r15,Y+1
+ 285 0040 CE01      		movw r24,r28
+GAS LISTING /tmp/ccC9o6d6.s 			page 6
+
+
+ 286 0042 0E94 0000 		call free
+ 287 0046 E701      		movw r28,r14
+ 288 0048 00C0      		rjmp .L35
+ 289               	.L49:
+ 290 004a F801      		movw r30,r16
+ 291 004c 8685      		ldd r24,Z+14
+ 292 004e 9785      		ldd r25,Z+15
+ 293 0050 0097      		sbiw r24,0
+ 294 0052 01F0      		breq .L39
+ 295 0054 0E94 0000 		call free
+ 296               	.L39:
+ 297 0058 C801      		movw r24,r16
+ 298               	/* epilogue start */
+ 299 005a DF91      		pop r29
+ 300 005c CF91      		pop r28
+ 301 005e 1F91      		pop r17
+ 302 0060 0F91      		pop r16
+ 303 0062 FF90      		pop r15
+ 304 0064 EF90      		pop r14
+ 305 0066 0C94 0000 		jmp free
+ 306               		.size	SnmpPduDestroy, .-SnmpPduDestroy
+ 307               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccC9o6d6.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 snmp_pdu.c
+     /tmp/ccC9o6d6.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccC9o6d6.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccC9o6d6.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccC9o6d6.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccC9o6d6.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccC9o6d6.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccC9o6d6.s:11     .text.SnmpPduCreate:0000000000000000 SnmpPduCreate
+     /tmp/ccC9o6d6.s:75     .text.SnmpPduAddVariable:0000000000000000 SnmpPduAddVariable
+     /tmp/ccC9o6d6.s:247    .text.SnmpPduDestroy:0000000000000000 SnmpPduDestroy
+
+UNDEFINED SYMBOLS
+calloc
+malloc
+memcpy
+free

@@ -1,0 +1,183 @@
+GAS LISTING /tmp/ccFb9aAP.s 			page 1
+
+
+   1               		.file	"ih_spi_stc.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.AvrSpiIrqCtl,"ax",@progbits
+   9               		.type	AvrSpiIrqCtl, @function
+  10               	AvrSpiIrqCtl:
+  11               	/* prologue: function */
+  12               	/* frame size = 0 */
+  13               	/* stack size = 0 */
+  14               	.L__stack_usage = 0
+  15 0000 FB01      		movw r30,r22
+  16 0002 2CB5      		in r18,0x2c
+  17 0004 2078      		andi r18,lo8(-128)
+  18 0006 3CB5      		in r19,0x2c
+  19 0008 3F77      		andi r19,lo8(127)
+  20 000a 3CBD      		out 0x2c,r19
+  21 000c 8031      		cpi r24,16
+  22 000e 9105      		cpc r25,__zero_reg__
+  23 0010 01F0      		breq .L3
+  24 0012 04F4      		brge .L4
+  25 0014 0097      		sbiw r24,0
+  26 0016 01F0      		breq .L5
+  27 0018 0197      		sbiw r24,1
+  28 001a 01F0      		breq .L6
+  29 001c 00C0      		rjmp .L14
+  30               	.L4:
+  31 001e 8231      		cpi r24,18
+  32 0020 9105      		cpc r25,__zero_reg__
+  33 0022 01F0      		breq .L7
+  34 0024 04F0      		brlt .L8
+  35 0026 8097      		sbiw r24,32
+  36 0028 01F4      		brne .L14
+  37 002a 80E1      		ldi r24,lo8(16)
+  38 002c 90E0      		ldi r25,0
+  39 002e 9183      		std Z+1,r25
+  40 0030 8083      		st Z,r24
+  41 0032 00C0      		rjmp .L15
+  42               	.L5:
+  43 0034 20E0      		ldi r18,0
+  44               	.L6:
+  45 0036 0DB4      		in __tmp_reg__,0x2d
+  46 0038 07FE      		sbrs __tmp_reg__,7
+  47 003a 00C0      		rjmp .L15
+  48 003c 8EB5      		in r24,0x2e
+  49 003e 00C0      		rjmp .L15
+  50               	.L3:
+  51 0040 0DB4      		in __tmp_reg__,0x2d
+  52 0042 07FE      		sbrs __tmp_reg__,7
+  53 0044 00C0      		rjmp .L10
+  54 0046 81E0      		ldi r24,lo8(1)
+  55 0048 90E0      		ldi r25,0
+  56 004a 9183      		std Z+1,r25
+  57 004c 8083      		st Z,r24
+GAS LISTING /tmp/ccFb9aAP.s 			page 2
+
+
+  58 004e 00C0      		rjmp .L11
+  59               	.L10:
+  60 0050 1182      		std Z+1,__zero_reg__
+  61 0052 1082      		st Z,__zero_reg__
+  62               	.L11:
+  63 0054 2223      		tst r18
+  64 0056 01F0      		breq .L7
+  65 0058 8081      		ld r24,Z
+  66 005a 9181      		ldd r25,Z+1
+  67 005c 8068      		ori r24,128
+  68 005e 9183      		std Z+1,r25
+  69 0060 8083      		st Z,r24
+  70 0062 00C0      		rjmp .L8
+  71               	.L14:
+  72 0064 8FEF      		ldi r24,lo8(-1)
+  73 0066 9FEF      		ldi r25,lo8(-1)
+  74 0068 00C0      		rjmp .L2
+  75               	.L15:
+  76 006a 80E0      		ldi r24,0
+  77 006c 90E0      		ldi r25,0
+  78               	.L2:
+  79 006e 2223      		tst r18
+  80 0070 01F0      		breq .L20
+  81               	.L13:
+  82 0072 2CB5      		in r18,0x2c
+  83 0074 2068      		ori r18,lo8(-128)
+  84 0076 2CBD      		out 0x2c,r18
+  85 0078 0895      		ret
+  86               	.L8:
+  87 007a 80E0      		ldi r24,0
+  88 007c 90E0      		ldi r25,0
+  89 007e 00C0      		rjmp .L13
+  90               	.L7:
+  91 0080 80E0      		ldi r24,0
+  92 0082 90E0      		ldi r25,0
+  93               	.L20:
+  94 0084 0895      		ret
+  95               		.size	AvrSpiIrqCtl, .-AvrSpiIrqCtl
+  96               		.section	.text.__vector_24,"ax",@progbits
+  97               	.global	__vector_24
+  98               		.type	__vector_24, @function
+  99               	__vector_24:
+ 100 0000 1F92      		push r1
+ 101 0002 0F92      		push r0
+ 102 0004 0FB6      		in r0,__SREG__
+ 103 0006 0F92      		push r0
+ 104 0008 1124      		clr __zero_reg__
+ 105 000a 0BB6      		in r0,__RAMPZ__
+ 106 000c 0F92      		push r0
+ 107 000e 2F93      		push r18
+ 108 0010 3F93      		push r19
+ 109 0012 4F93      		push r20
+ 110 0014 5F93      		push r21
+ 111 0016 6F93      		push r22
+ 112 0018 7F93      		push r23
+ 113 001a 8F93      		push r24
+ 114 001c 9F93      		push r25
+GAS LISTING /tmp/ccFb9aAP.s 			page 3
+
+
+ 115 001e AF93      		push r26
+ 116 0020 BF93      		push r27
+ 117 0022 EF93      		push r30
+ 118 0024 FF93      		push r31
+ 119               	/* prologue: Signal */
+ 120               	/* frame size = 0 */
+ 121               	/* stack size = 16 */
+ 122               	.L__stack_usage = 16
+ 123 0026 80E0      		ldi r24,lo8(sig_SPI)
+ 124 0028 90E0      		ldi r25,hi8(sig_SPI)
+ 125 002a 0E94 0000 		call CallHandler
+ 126               	/* epilogue start */
+ 127 002e FF91      		pop r31
+ 128 0030 EF91      		pop r30
+ 129 0032 BF91      		pop r27
+ 130 0034 AF91      		pop r26
+ 131 0036 9F91      		pop r25
+ 132 0038 8F91      		pop r24
+ 133 003a 7F91      		pop r23
+ 134 003c 6F91      		pop r22
+ 135 003e 5F91      		pop r21
+ 136 0040 4F91      		pop r20
+ 137 0042 3F91      		pop r19
+ 138 0044 2F91      		pop r18
+ 139 0046 0F90      		pop r0
+ 140 0048 0BBE      		out __RAMPZ__,r0
+ 141 004a 0F90      		pop r0
+ 142 004c 0FBE      		out __SREG__,r0
+ 143 004e 0F90      		pop r0
+ 144 0050 1F90      		pop r1
+ 145 0052 1895      		reti
+ 146               		.size	__vector_24, .-__vector_24
+ 147               	.global	sig_SPI
+ 148               		.data
+ 149               		.type	sig_SPI, @object
+ 150               		.size	sig_SPI, 6
+ 151               	sig_SPI:
+ 152 0000 0000      		.word	0
+ 153 0002 0000      		.word	0
+ 154 0004 0000      		.word	gs(AvrSpiIrqCtl)
+ 155               		.ident	"GCC: (GNU) 5.3.0"
+ 156               	.global __do_copy_data
+GAS LISTING /tmp/ccFb9aAP.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 ih_spi_stc.c
+     /tmp/ccFb9aAP.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccFb9aAP.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccFb9aAP.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccFb9aAP.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccFb9aAP.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccFb9aAP.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccFb9aAP.s:10     .text.AvrSpiIrqCtl:0000000000000000 AvrSpiIrqCtl
+     /tmp/ccFb9aAP.s:99     .text.__vector_24:0000000000000000 __vector_24
+     /tmp/ccFb9aAP.s:151    .data:0000000000000000 sig_SPI
+
+UNDEFINED SYMBOLS
+CallHandler
+__do_copy_data

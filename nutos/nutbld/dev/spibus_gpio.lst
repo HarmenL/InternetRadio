@@ -1,0 +1,189 @@
+GAS LISTING /tmp/cccZBdln.s 			page 1
+
+
+   1               		.file	"spibus_gpio.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.GpioSpiBusSetRate,"ax",@progbits
+   9               	.global	GpioSpiBusSetRate
+  10               		.type	GpioSpiBusSetRate, @function
+  11               	GpioSpiBusSetRate:
+  12 0000 4F92      		push r4
+  13 0002 5F92      		push r5
+  14 0004 6F92      		push r6
+  15 0006 7F92      		push r7
+  16 0008 8F92      		push r8
+  17 000a 9F92      		push r9
+  18 000c AF92      		push r10
+  19 000e BF92      		push r11
+  20 0010 CF92      		push r12
+  21 0012 DF92      		push r13
+  22 0014 EF92      		push r14
+  23 0016 FF92      		push r15
+  24 0018 0F93      		push r16
+  25 001a 1F93      		push r17
+  26 001c CF93      		push r28
+  27 001e DF93      		push r29
+  28               	/* prologue: function */
+  29               	/* frame size = 0 */
+  30               	/* stack size = 16 */
+  31               	.L__stack_usage = 16
+  32 0020 EC01      		movw r28,r24
+  33 0022 2A01      		movw r4,r20
+  34 0024 3B01      		movw r6,r22
+  35 0026 0A81      		ldd r16,Y+2
+  36 0028 1B81      		ldd r17,Y+3
+  37 002a F801      		movw r30,r16
+  38 002c 2081      		ld r18,Z
+  39 002e 3181      		ldd r19,Z+1
+  40 0030 4281      		ldd r20,Z+2
+  41 0032 5381      		ldd r21,Z+3
+  42 0034 2115      		cp r18,__zero_reg__
+  43 0036 3105      		cpc r19,__zero_reg__
+  44 0038 4105      		cpc r20,__zero_reg__
+  45 003a 5105      		cpc r21,__zero_reg__
+  46 003c 01F0      		breq .L5
+  47 003e 60E2      		ldi r22,lo8(32)
+  48 0040 71EA      		ldi r23,lo8(-95)
+  49 0042 87E0      		ldi r24,lo8(7)
+  50 0044 90E0      		ldi r25,0
+  51 0046 0E94 0000 		call __udivmodsi4
+  52 004a 6901      		movw r12,r18
+  53 004c 7A01      		movw r14,r20
+  54 004e 00C0      		rjmp .L2
+  55               	.L5:
+  56 0050 90E2      		ldi r25,lo8(32)
+  57 0052 C92E      		mov r12,r25
+GAS LISTING /tmp/cccZBdln.s 			page 2
+
+
+  58 0054 91EA      		ldi r25,lo8(-95)
+  59 0056 D92E      		mov r13,r25
+  60 0058 97E0      		ldi r25,lo8(7)
+  61 005a E92E      		mov r14,r25
+  62 005c F12C      		mov r15,__zero_reg__
+  63               	.L2:
+  64 005e FFEF      		ldi r31,-1
+  65 0060 4F16      		cp r4,r31
+  66 0062 5F06      		cpc r5,r31
+  67 0064 6F06      		cpc r6,r31
+  68 0066 7F06      		cpc r7,r31
+  69 0068 01F0      		breq .L3
+  70 006a 80E2      		ldi r24,lo8(32)
+  71 006c 882E      		mov r8,r24
+  72 006e 81EA      		ldi r24,lo8(-95)
+  73 0070 982E      		mov r9,r24
+  74 0072 87E0      		ldi r24,lo8(7)
+  75 0074 A82E      		mov r10,r24
+  76 0076 B12C      		mov r11,__zero_reg__
+  77 0078 C501      		movw r24,r10
+  78 007a B401      		movw r22,r8
+  79 007c A301      		movw r20,r6
+  80 007e 9201      		movw r18,r4
+  81 0080 0E94 0000 		call __udivmodsi4
+  82 0084 F801      		movw r30,r16
+  83 0086 2083      		st Z,r18
+  84 0088 3183      		std Z+1,r19
+  85 008a 4283      		std Z+2,r20
+  86 008c 5383      		std Z+3,r21
+  87 008e 2115      		cp r18,__zero_reg__
+  88 0090 3105      		cpc r19,__zero_reg__
+  89 0092 4105      		cpc r20,__zero_reg__
+  90 0094 5105      		cpc r21,__zero_reg__
+  91 0096 01F0      		breq .L6
+  92 0098 C501      		movw r24,r10
+  93 009a B401      		movw r22,r8
+  94 009c 0E94 0000 		call __udivmodsi4
+  95 00a0 00C0      		rjmp .L4
+  96               	.L6:
+  97 00a2 20E2      		ldi r18,lo8(32)
+  98 00a4 31EA      		ldi r19,lo8(-95)
+  99 00a6 47E0      		ldi r20,lo8(7)
+ 100 00a8 50E0      		ldi r21,0
+ 101               	.L4:
+ 102 00aa 2C83      		std Y+4,r18
+ 103 00ac 3D83      		std Y+5,r19
+ 104 00ae 4E83      		std Y+6,r20
+ 105 00b0 5F83      		std Y+7,r21
+ 106 00b2 8885      		ldd r24,Y+8
+ 107 00b4 9985      		ldd r25,Y+9
+ 108 00b6 9068      		ori r25,128
+ 109 00b8 9987      		std Y+9,r25
+ 110 00ba 8887      		std Y+8,r24
+ 111               	.L3:
+ 112 00bc C701      		movw r24,r14
+ 113 00be B601      		movw r22,r12
+ 114               	/* epilogue start */
+GAS LISTING /tmp/cccZBdln.s 			page 3
+
+
+ 115 00c0 DF91      		pop r29
+ 116 00c2 CF91      		pop r28
+ 117 00c4 1F91      		pop r17
+ 118 00c6 0F91      		pop r16
+ 119 00c8 FF90      		pop r15
+ 120 00ca EF90      		pop r14
+ 121 00cc DF90      		pop r13
+ 122 00ce CF90      		pop r12
+ 123 00d0 BF90      		pop r11
+ 124 00d2 AF90      		pop r10
+ 125 00d4 9F90      		pop r9
+ 126 00d6 8F90      		pop r8
+ 127 00d8 7F90      		pop r7
+ 128 00da 6F90      		pop r6
+ 129 00dc 5F90      		pop r5
+ 130 00de 4F90      		pop r4
+ 131 00e0 0895      		ret
+ 132               		.size	GpioSpiBusSetRate, .-GpioSpiBusSetRate
+ 133               		.section	.text.GpioSpiSetup,"ax",@progbits
+ 134               	.global	GpioSpiSetup
+ 135               		.type	GpioSpiSetup, @function
+ 136               	GpioSpiSetup:
+ 137 0000 CF93      		push r28
+ 138 0002 DF93      		push r29
+ 139               	/* prologue: function */
+ 140               	/* frame size = 0 */
+ 141               	/* stack size = 2 */
+ 142               	.L__stack_usage = 2
+ 143 0004 EC01      		movw r28,r24
+ 144 0006 88E0      		ldi r24,lo8(8)
+ 145 0008 8A87      		std Y+10,r24
+ 146 000a 4C81      		ldd r20,Y+4
+ 147 000c 5D81      		ldd r21,Y+5
+ 148 000e 6E81      		ldd r22,Y+6
+ 149 0010 7F81      		ldd r23,Y+7
+ 150 0012 CE01      		movw r24,r28
+ 151 0014 0E94 0000 		call GpioSpiBusSetRate
+ 152 0018 8885      		ldd r24,Y+8
+ 153 001a 9985      		ldd r25,Y+9
+ 154 001c 9F77      		andi r25,127
+ 155 001e 9987      		std Y+9,r25
+ 156 0020 8887      		std Y+8,r24
+ 157 0022 80E0      		ldi r24,0
+ 158 0024 90E0      		ldi r25,0
+ 159               	/* epilogue start */
+ 160 0026 DF91      		pop r29
+ 161 0028 CF91      		pop r28
+ 162 002a 0895      		ret
+ 163               		.size	GpioSpiSetup, .-GpioSpiSetup
+ 164               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/cccZBdln.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 spibus_gpio.c
+     /tmp/cccZBdln.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cccZBdln.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cccZBdln.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cccZBdln.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cccZBdln.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cccZBdln.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cccZBdln.s:11     .text.GpioSpiBusSetRate:0000000000000000 GpioSpiBusSetRate
+     /tmp/cccZBdln.s:136    .text.GpioSpiSetup:0000000000000000 GpioSpiSetup
+
+UNDEFINED SYMBOLS
+__udivmodsi4

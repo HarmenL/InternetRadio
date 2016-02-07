@@ -1,0 +1,805 @@
+GAS LISTING /tmp/ccQaIAkB.s 			page 1
+
+
+   1               		.file	"ifconfig.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.NutNetIfSetup,"ax",@progbits
+   9               	.global	NutNetIfSetup
+  10               		.type	NutNetIfSetup, @function
+  11               	NutNetIfSetup:
+  12 0000 2F92      		push r2
+  13 0002 3F92      		push r3
+  14 0004 4F92      		push r4
+  15 0006 5F92      		push r5
+  16 0008 6F92      		push r6
+  17 000a 7F92      		push r7
+  18 000c 8F92      		push r8
+  19 000e 9F92      		push r9
+  20 0010 AF92      		push r10
+  21 0012 BF92      		push r11
+  22 0014 CF92      		push r12
+  23 0016 DF92      		push r13
+  24 0018 EF92      		push r14
+  25 001a FF92      		push r15
+  26 001c 0F93      		push r16
+  27 001e 1F93      		push r17
+  28 0020 CF93      		push r28
+  29 0022 DF93      		push r29
+  30 0024 00D0      		rcall .
+  31 0026 00D0      		rcall .
+  32 0028 CDB7      		in r28,__SP_L__
+  33 002a DEB7      		in r29,__SP_H__
+  34               	/* prologue: function */
+  35               	/* frame size = 6 */
+  36               	/* stack size = 24 */
+  37               	.L__stack_usage = 24
+  38 002c 1C01      		movw r2,r24
+  39 002e 2A01      		movw r4,r20
+  40 0030 3B01      		movw r6,r22
+  41 0032 4801      		movw r8,r16
+  42 0034 5901      		movw r10,r18
+  43 0036 C982      		std Y+1,r12
+  44 0038 DA82      		std Y+2,r13
+  45 003a EB82      		std Y+3,r14
+  46 003c FC82      		std Y+4,r15
+  47 003e DC01      		movw r26,r24
+  48 0040 1F96      		adiw r26,15
+  49 0042 0D90      		ld __tmp_reg__,X+
+  50 0044 BC91      		ld r27,X
+  51 0046 A02D      		mov r26,__tmp_reg__
+  52 0048 BE83      		std Y+6,r27
+  53 004a AD83      		std Y+5,r26
+  54 004c 452B      		or r20,r21
+  55 004e 462B      		or r20,r22
+  56 0050 472B      		or r20,r23
+  57 0052 01F4      		brne .L2
+GAS LISTING /tmp/ccQaIAkB.s 			page 2
+
+
+  58 0054 4090 0000 		lds r4,confnet+16
+  59 0058 5090 0000 		lds r5,confnet+16+1
+  60 005c 6090 0000 		lds r6,confnet+16+2
+  61 0060 7090 0000 		lds r7,confnet+16+3
+  62 0064 4114      		cp r4,__zero_reg__
+  63 0066 5104      		cpc r5,__zero_reg__
+  64 0068 6104      		cpc r6,__zero_reg__
+  65 006a 7104      		cpc r7,__zero_reg__
+  66 006c 01F4      		brne .+2
+  67 006e 00C0      		rjmp .L3
+  68               	.L2:
+  69 0070 ED81      		ldd r30,Y+5
+  70 0072 FE81      		ldd r31,Y+6
+  71 0074 4386      		std Z+11,r4
+  72 0076 5486      		std Z+12,r5
+  73 0078 6586      		std Z+13,r6
+  74 007a 7686      		std Z+14,r7
+  75 007c 8114      		cp r8,__zero_reg__
+  76 007e 9104      		cpc r9,__zero_reg__
+  77 0080 A104      		cpc r10,__zero_reg__
+  78 0082 B104      		cpc r11,__zero_reg__
+  79 0084 01F4      		brne .L4
+  80 0086 8824      		clr r8
+  81 0088 8A94      		dec r8
+  82 008a 982C      		mov r9,r8
+  83 008c A82C      		mov r10,r8
+  84 008e B12C      		mov r11,__zero_reg__
+  85               	.L4:
+  86 0090 AD81      		ldd r26,Y+5
+  87 0092 BE81      		ldd r27,Y+6
+  88 0094 5396      		adiw r26,19
+  89 0096 8D92      		st X+,r8
+  90 0098 9D92      		st X+,r9
+  91 009a AD92      		st X+,r10
+  92 009c BC92      		st X,r11
+  93 009e 5697      		sbiw r26,19+3
+  94 00a0 6101      		movw r12,r2
+  95 00a2 E12C      		mov r14,__zero_reg__
+  96 00a4 F12C      		mov r15,__zero_reg__
+  97 00a6 8701      		movw r16,r14
+  98 00a8 A501      		movw r20,r10
+  99 00aa 9401      		movw r18,r8
+ 100 00ac C301      		movw r24,r6
+ 101 00ae B201      		movw r22,r4
+ 102 00b0 6821      		and r22,r8
+ 103 00b2 7921      		and r23,r9
+ 104 00b4 8A21      		and r24,r10
+ 105 00b6 9B21      		and r25,r11
+ 106 00b8 0E94 0000 		call NutIpRouteAdd
+ 107 00bc 8981      		ldd r24,Y+1
+ 108 00be 9A81      		ldd r25,Y+2
+ 109 00c0 AB81      		ldd r26,Y+3
+ 110 00c2 BC81      		ldd r27,Y+4
+ 111 00c4 0097      		sbiw r24,0
+ 112 00c6 A105      		cpc r26,__zero_reg__
+ 113 00c8 B105      		cpc r27,__zero_reg__
+ 114 00ca 01F0      		breq .L5
+GAS LISTING /tmp/ccQaIAkB.s 			page 3
+
+
+ 115 00cc 7C01      		movw r14,r24
+ 116 00ce 8D01      		movw r16,r26
+ 117 00d0 20E0      		ldi r18,0
+ 118 00d2 30E0      		ldi r19,0
+ 119 00d4 A901      		movw r20,r18
+ 120 00d6 60E0      		ldi r22,0
+ 121 00d8 70E0      		ldi r23,0
+ 122 00da CB01      		movw r24,r22
+ 123 00dc 0E94 0000 		call NutIpRouteAdd
+ 124               	.L5:
+ 125 00e0 89E0      		ldi r24,lo8(9)
+ 126 00e2 F101      		movw r30,r2
+ 127 00e4 3296      		adiw r30,2
+ 128 00e6 A0E0      		ldi r26,lo8(confnet+1)
+ 129 00e8 B0E0      		ldi r27,hi8(confnet+1)
+ 130               		0:
+ 131 00ea 0190      		ld r0,Z+
+ 132 00ec 0D92      		st X+,r0
+ 133 00ee 8A95      		dec r24
+ 134 00f0 01F4      		brne 0b
+ 135 00f2 AD81      		ldd r26,Y+5
+ 136 00f4 BE81      		ldd r27,Y+6
+ 137 00f6 1596      		adiw r26,5
+ 138 00f8 6C91      		ld r22,X
+ 139 00fa 1597      		sbiw r26,5
+ 140 00fc 1696      		adiw r26,6
+ 141 00fe 5C91      		ld r21,X
+ 142 0100 1697      		sbiw r26,6
+ 143 0102 1796      		adiw r26,7
+ 144 0104 4C91      		ld r20,X
+ 145 0106 1797      		sbiw r26,7
+ 146 0108 1896      		adiw r26,8
+ 147 010a 3C91      		ld r19,X
+ 148 010c 1897      		sbiw r26,8
+ 149 010e 1996      		adiw r26,9
+ 150 0110 2C91      		ld r18,X
+ 151 0112 1997      		sbiw r26,9
+ 152 0114 1A96      		adiw r26,10
+ 153 0116 9C91      		ld r25,X
+ 154 0118 1A97      		sbiw r26,10
+ 155 011a 862F      		mov r24,r22
+ 156 011c 8523      		and r24,r21
+ 157 011e 8423      		and r24,r20
+ 158 0120 8323      		and r24,r19
+ 159 0122 8223      		and r24,r18
+ 160 0124 8923      		and r24,r25
+ 161 0126 8F3F      		cpi r24,lo8(-1)
+ 162 0128 01F0      		breq .L6
+ 163 012a 562B      		or r21,r22
+ 164 012c 452B      		or r20,r21
+ 165 012e 342B      		or r19,r20
+ 166 0130 232B      		or r18,r19
+ 167 0132 922B      		or r25,r18
+ 168 0134 01F0      		breq .L6
+ 169 0136 86E0      		ldi r24,lo8(6)
+ 170 0138 FD01      		movw r30,r26
+ 171 013a 3596      		adiw r30,5
+GAS LISTING /tmp/ccQaIAkB.s 			page 4
+
+
+ 172 013c A0E0      		ldi r26,lo8(confnet+10)
+ 173 013e B0E0      		ldi r27,hi8(confnet+10)
+ 174               		0:
+ 175 0140 0190      		ld r0,Z+
+ 176 0142 0D92      		st X+,r0
+ 177 0144 8A95      		dec r24
+ 178 0146 01F4      		brne 0b
+ 179               	.L6:
+ 180 0148 4092 0000 		sts confnet+16,r4
+ 181 014c 5092 0000 		sts confnet+16+1,r5
+ 182 0150 6092 0000 		sts confnet+16+2,r6
+ 183 0154 7092 0000 		sts confnet+16+3,r7
+ 184 0158 8092 0000 		sts confnet+20,r8
+ 185 015c 9092 0000 		sts confnet+20+1,r9
+ 186 0160 A092 0000 		sts confnet+20+2,r10
+ 187 0164 B092 0000 		sts confnet+20+3,r11
+ 188 0168 8981      		ldd r24,Y+1
+ 189 016a 9A81      		ldd r25,Y+2
+ 190 016c AB81      		ldd r26,Y+3
+ 191 016e BC81      		ldd r27,Y+4
+ 192 0170 892B      		or r24,r25
+ 193 0172 8A2B      		or r24,r26
+ 194 0174 8B2B      		or r24,r27
+ 195 0176 01F4      		brne .L7
+ 196 0178 8091 0000 		lds r24,confnet+24
+ 197 017c 9091 0000 		lds r25,confnet+24+1
+ 198 0180 A091 0000 		lds r26,confnet+24+2
+ 199 0184 B091 0000 		lds r27,confnet+24+3
+ 200 0188 4826      		eor r4,r24
+ 201 018a 5926      		eor r5,r25
+ 202 018c 6A26      		eor r6,r26
+ 203 018e 7B26      		eor r7,r27
+ 204 0190 8420      		and r8,r4
+ 205 0192 9520      		and r9,r5
+ 206 0194 A620      		and r10,r6
+ 207 0196 B720      		and r11,r7
+ 208 0198 8928      		or r8,r9
+ 209 019a 8A28      		or r8,r10
+ 210 019c 8B28      		or r8,r11
+ 211 019e 01F0      		breq .L8
+ 212               	.L7:
+ 213 01a0 8981      		ldd r24,Y+1
+ 214 01a2 9A81      		ldd r25,Y+2
+ 215 01a4 AB81      		ldd r26,Y+3
+ 216 01a6 BC81      		ldd r27,Y+4
+ 217 01a8 8093 0000 		sts confnet+24,r24
+ 218 01ac 9093 0000 		sts confnet+24+1,r25
+ 219 01b0 A093 0000 		sts confnet+24+2,r26
+ 220 01b4 B093 0000 		sts confnet+24+3,r27
+ 221               	.L8:
+ 222               	/* epilogue start */
+ 223 01b8 2696      		adiw r28,6
+ 224 01ba 0FB6      		in __tmp_reg__,__SREG__
+ 225 01bc F894      		cli
+ 226 01be DEBF      		out __SP_H__,r29
+ 227 01c0 0FBE      		out __SREG__,__tmp_reg__
+ 228 01c2 CDBF      		out __SP_L__,r28
+GAS LISTING /tmp/ccQaIAkB.s 			page 5
+
+
+ 229 01c4 DF91      		pop r29
+ 230 01c6 CF91      		pop r28
+ 231 01c8 1F91      		pop r17
+ 232 01ca 0F91      		pop r16
+ 233 01cc FF90      		pop r15
+ 234 01ce EF90      		pop r14
+ 235 01d0 DF90      		pop r13
+ 236 01d2 CF90      		pop r12
+ 237 01d4 BF90      		pop r11
+ 238 01d6 AF90      		pop r10
+ 239 01d8 9F90      		pop r9
+ 240 01da 8F90      		pop r8
+ 241 01dc 7F90      		pop r7
+ 242 01de 6F90      		pop r6
+ 243 01e0 5F90      		pop r5
+ 244 01e2 4F90      		pop r4
+ 245 01e4 3F90      		pop r3
+ 246 01e6 2F90      		pop r2
+ 247 01e8 0C94 0000 		jmp NutNetSaveConfig
+ 248               	.L3:
+ 249 01ec 8FEF      		ldi r24,lo8(-1)
+ 250 01ee 9FEF      		ldi r25,lo8(-1)
+ 251               	/* epilogue start */
+ 252 01f0 2696      		adiw r28,6
+ 253 01f2 0FB6      		in __tmp_reg__,__SREG__
+ 254 01f4 F894      		cli
+ 255 01f6 DEBF      		out __SP_H__,r29
+ 256 01f8 0FBE      		out __SREG__,__tmp_reg__
+ 257 01fa CDBF      		out __SP_L__,r28
+ 258 01fc DF91      		pop r29
+ 259 01fe CF91      		pop r28
+ 260 0200 1F91      		pop r17
+ 261 0202 0F91      		pop r16
+ 262 0204 FF90      		pop r15
+ 263 0206 EF90      		pop r14
+ 264 0208 DF90      		pop r13
+ 265 020a CF90      		pop r12
+ 266 020c BF90      		pop r11
+ 267 020e AF90      		pop r10
+ 268 0210 9F90      		pop r9
+ 269 0212 8F90      		pop r8
+ 270 0214 7F90      		pop r7
+ 271 0216 6F90      		pop r6
+ 272 0218 5F90      		pop r5
+ 273 021a 4F90      		pop r4
+ 274 021c 3F90      		pop r3
+ 275 021e 2F90      		pop r2
+ 276 0220 0895      		ret
+ 277               		.size	NutNetIfSetup, .-NutNetIfSetup
+ 278               		.section	.text.NutNetIfConfig2,"ax",@progbits
+ 279               	.global	NutNetIfConfig2
+ 280               		.type	NutNetIfConfig2, @function
+ 281               	NutNetIfConfig2:
+ 282 0000 4F92      		push r4
+ 283 0002 5F92      		push r5
+ 284 0004 6F92      		push r6
+ 285 0006 7F92      		push r7
+GAS LISTING /tmp/ccQaIAkB.s 			page 6
+
+
+ 286 0008 8F92      		push r8
+ 287 000a 9F92      		push r9
+ 288 000c AF92      		push r10
+ 289 000e BF92      		push r11
+ 290 0010 CF92      		push r12
+ 291 0012 DF92      		push r13
+ 292 0014 EF92      		push r14
+ 293 0016 FF92      		push r15
+ 294 0018 0F93      		push r16
+ 295 001a 1F93      		push r17
+ 296 001c CF93      		push r28
+ 297 001e DF93      		push r29
+ 298 0020 CDB7      		in r28,__SP_L__
+ 299 0022 DEB7      		in r29,__SP_H__
+ 300 0024 2A97      		sbiw r28,10
+ 301 0026 0FB6      		in __tmp_reg__,__SREG__
+ 302 0028 F894      		cli
+ 303 002a DEBF      		out __SP_H__,r29
+ 304 002c 0FBE      		out __SREG__,__tmp_reg__
+ 305 002e CDBF      		out __SP_L__,r28
+ 306               	/* prologue: function */
+ 307               	/* frame size = 10 */
+ 308               	/* stack size = 26 */
+ 309               	.L__stack_usage = 26
+ 310 0030 4B01      		movw r8,r22
+ 311 0032 2F83      		std Y+7,r18
+ 312 0034 3887      		std Y+8,r19
+ 313 0036 4987      		std Y+9,r20
+ 314 0038 5A87      		std Y+10,r21
+ 315 003a 2701      		movw r4,r14
+ 316 003c 3801      		movw r6,r16
+ 317 003e 7601      		movw r14,r12
+ 318 0040 6501      		movw r12,r10
+ 319 0042 0E94 0000 		call NutDeviceLookup
+ 320 0046 9E83      		std Y+6,r25
+ 321 0048 8D83      		std Y+5,r24
+ 322 004a 0097      		sbiw r24,0
+ 323 004c 01F4      		brne .L23
+ 324               	.L25:
+ 325 004e 8FEF      		ldi r24,lo8(-1)
+ 326 0050 9FEF      		ldi r25,lo8(-1)
+ 327 0052 00C0      		rjmp .L24
+ 328               	.L23:
+ 329 0054 DC01      		movw r26,r24
+ 330 0056 1B96      		adiw r26,11
+ 331 0058 2C91      		ld r18,X
+ 332 005a 1B97      		sbiw r26,11
+ 333 005c 2330      		cpi r18,lo8(3)
+ 334 005e 01F4      		brne .L25
+ 335 0060 1F96      		adiw r26,15
+ 336 0062 0D90      		ld __tmp_reg__,X+
+ 337 0064 BC91      		ld r27,X
+ 338 0066 A02D      		mov r26,__tmp_reg__
+ 339 0068 2C91      		ld r18,X
+ 340 006a 2630      		cpi r18,lo8(6)
+ 341 006c 01F4      		brne .L26
+ 342 006e FC01      		movw r30,r24
+GAS LISTING /tmp/ccQaIAkB.s 			page 7
+
+
+ 343 0070 2589      		ldd r18,Z+21
+ 344 0072 3689      		ldd r19,Z+22
+ 345 0074 2115      		cp r18,__zero_reg__
+ 346 0076 3105      		cpc r19,__zero_reg__
+ 347 0078 01F0      		breq .L27
+ 348 007a AE01      		movw r20,r28
+ 349 007c 4F5F      		subi r20,-1
+ 350 007e 5F4F      		sbci r21,-1
+ 351 0080 64E0      		ldi r22,lo8(4)
+ 352 0082 70E1      		ldi r23,lo8(16)
+ 353 0084 F901      		movw r30,r18
+ 354 0086 1995      		eicall
+ 355 0088 8D81      		ldd r24,Y+5
+ 356 008a 9E81      		ldd r25,Y+6
+ 357 008c DC01      		movw r26,r24
+ 358 008e 5596      		adiw r26,21
+ 359 0090 ED91      		ld r30,X+
+ 360 0092 FC91      		ld r31,X
+ 361 0094 5697      		sbiw r26,21+1
+ 362 0096 A401      		movw r20,r8
+ 363 0098 65E0      		ldi r22,lo8(5)
+ 364 009a 70E1      		ldi r23,lo8(16)
+ 365 009c 1995      		eicall
+ 366 009e 8981      		ldd r24,Y+1
+ 367 00a0 9A81      		ldd r25,Y+2
+ 368 00a2 AB81      		ldd r26,Y+3
+ 369 00a4 BC81      		ldd r27,Y+4
+ 370 00a6 8160      		ori r24,1
+ 371 00a8 8983      		std Y+1,r24
+ 372 00aa 9A83      		std Y+2,r25
+ 373 00ac AB83      		std Y+3,r26
+ 374 00ae BC83      		std Y+4,r27
+ 375 00b0 8D81      		ldd r24,Y+5
+ 376 00b2 9E81      		ldd r25,Y+6
+ 377 00b4 DC01      		movw r26,r24
+ 378 00b6 5596      		adiw r26,21
+ 379 00b8 ED91      		ld r30,X+
+ 380 00ba FC91      		ld r31,X
+ 381 00bc 5697      		sbiw r26,21+1
+ 382 00be AE01      		movw r20,r28
+ 383 00c0 4F5F      		subi r20,-1
+ 384 00c2 5F4F      		sbci r21,-1
+ 385 00c4 63E0      		ldi r22,lo8(3)
+ 386 00c6 70E1      		ldi r23,lo8(16)
+ 387 00c8 1995      		eicall
+ 388 00ca 00C0      		rjmp .L28
+ 389               	.L27:
+ 390 00cc 1596      		adiw r26,5
+ 391 00ce 86E0      		ldi r24,lo8(6)
+ 392 00d0 F401      		movw r30,r8
+ 393               		0:
+ 394 00d2 0190      		ld r0,Z+
+ 395 00d4 0D92      		st X+,r0
+ 396 00d6 8A95      		dec r24
+ 397 00d8 01F4      		brne 0b
+ 398               	.L28:
+ 399 00da 9301      		movw r18,r6
+GAS LISTING /tmp/ccQaIAkB.s 			page 8
+
+
+ 400 00dc 8201      		movw r16,r4
+ 401 00de 4F81      		ldd r20,Y+7
+ 402 00e0 5885      		ldd r21,Y+8
+ 403 00e2 6985      		ldd r22,Y+9
+ 404 00e4 7A85      		ldd r23,Y+10
+ 405 00e6 00C0      		rjmp .L35
+ 406               	.L26:
+ 407 00e8 2731      		cpi r18,lo8(23)
+ 408 00ea 01F0      		breq .+2
+ 409 00ec 00C0      		rjmp .L25
+ 410 00ee FC01      		movw r30,r24
+ 411 00f0 A188      		ldd r10,Z+17
+ 412 00f2 B288      		ldd r11,Z+18
+ 413 00f4 8F81      		ldd r24,Y+7
+ 414 00f6 9885      		ldd r25,Y+8
+ 415 00f8 A985      		ldd r26,Y+9
+ 416 00fa BA85      		ldd r27,Y+10
+ 417 00fc F501      		movw r30,r10
+ 418 00fe 81A3      		std Z+33,r24
+ 419 0100 92A3      		std Z+34,r25
+ 420 0102 A3A3      		std Z+35,r26
+ 421 0104 B4A3      		std Z+36,r27
+ 422 0106 4114      		cp r4,__zero_reg__
+ 423 0108 5104      		cpc r5,__zero_reg__
+ 424 010a 6104      		cpc r6,__zero_reg__
+ 425 010c 7104      		cpc r7,__zero_reg__
+ 426 010e 01F0      		breq .L31
+ 427 0110 342D      		mov r19,r4
+ 428 0112 252D      		mov r18,r5
+ 429 0114 962D      		mov r25,r6
+ 430 0116 872D      		mov r24,r7
+ 431 0118 00C0      		rjmp .L29
+ 432               	.L31:
+ 433 011a 3FEF      		ldi r19,lo8(-1)
+ 434 011c 2FEF      		ldi r18,lo8(-1)
+ 435 011e 9FEF      		ldi r25,lo8(-1)
+ 436 0120 8FEF      		ldi r24,lo8(-1)
+ 437               	.L29:
+ 438 0122 D501      		movw r26,r10
+ 439 0124 9996      		adiw r26,41
+ 440 0126 3C93      		st X,r19
+ 441 0128 9997      		sbiw r26,41
+ 442 012a 9A96      		adiw r26,42
+ 443 012c 2C93      		st X,r18
+ 444 012e 9A97      		sbiw r26,42
+ 445 0130 9B96      		adiw r26,43
+ 446 0132 9C93      		st X,r25
+ 447 0134 9B97      		sbiw r26,43
+ 448 0136 9C96      		adiw r26,44
+ 449 0138 8C93      		st X,r24
+ 450 013a 8114      		cp r8,__zero_reg__
+ 451 013c 9104      		cpc r9,__zero_reg__
+ 452 013e 01F0      		breq .L30
+ 453 0140 F401      		movw r30,r8
+ 454 0142 8081      		ld r24,Z
+ 455 0144 9181      		ldd r25,Z+1
+ 456 0146 A281      		ldd r26,Z+2
+GAS LISTING /tmp/ccQaIAkB.s 			page 9
+
+
+ 457 0148 B381      		ldd r27,Z+3
+ 458 014a F501      		movw r30,r10
+ 459 014c 85A3      		std Z+37,r24
+ 460 014e 96A3      		std Z+38,r25
+ 461 0150 A7A3      		std Z+39,r26
+ 462 0152 B0A7      		std Z+40,r27
+ 463               	.L30:
+ 464 0154 C501      		movw r24,r10
+ 465 0156 0E94 0000 		call NutEventBroadcast
+ 466 015a AE01      		movw r20,r28
+ 467 015c 4B5F      		subi r20,-5
+ 468 015e 5F4F      		sbci r21,-1
+ 469 0160 67E1      		ldi r22,lo8(23)
+ 470 0162 71E0      		ldi r23,lo8(1)
+ 471 0164 F501      		movw r30,r10
+ 472 0166 FF96      		adiw r30,63
+ 473 0168 8081      		ld r24,Z
+ 474 016a 9181      		ldd r25,Z+1
+ 475 016c 0E94 0000 		call _ioctl
+ 476 0170 40E6      		ldi r20,lo8(96)
+ 477 0172 5AEE      		ldi r21,lo8(-22)
+ 478 0174 60E0      		ldi r22,0
+ 479 0176 70E0      		ldi r23,0
+ 480 0178 C501      		movw r24,r10
+ 481 017a 0E94 0000 		call NutEventWait
+ 482 017e 892B      		or r24,r25
+ 483 0180 01F0      		breq .+2
+ 484 0182 00C0      		rjmp .L25
+ 485 0184 D501      		movw r26,r10
+ 486 0186 DC96      		adiw r26,60
+ 487 0188 8C91      		ld r24,X
+ 488 018a DC97      		sbiw r26,60
+ 489 018c 8930      		cpi r24,lo8(9)
+ 490 018e 01F0      		breq .+2
+ 491 0190 00C0      		rjmp .L25
+ 492 0192 9596      		adiw r26,37
+ 493 0194 CD90      		ld r12,X+
+ 494 0196 DD90      		ld r13,X+
+ 495 0198 ED90      		ld r14,X+
+ 496 019a FC90      		ld r15,X
+ 497 019c 9897      		sbiw r26,37+3
+ 498 019e 9996      		adiw r26,41
+ 499 01a0 0D91      		ld r16,X+
+ 500 01a2 1D91      		ld r17,X+
+ 501 01a4 2D91      		ld r18,X+
+ 502 01a6 3C91      		ld r19,X
+ 503 01a8 9C97      		sbiw r26,41+3
+ 504 01aa 9196      		adiw r26,33
+ 505 01ac 4D91      		ld r20,X+
+ 506 01ae 5D91      		ld r21,X+
+ 507 01b0 6D91      		ld r22,X+
+ 508 01b2 7C91      		ld r23,X
+ 509 01b4 9497      		sbiw r26,33+3
+ 510               	.L35:
+ 511 01b6 8D81      		ldd r24,Y+5
+ 512 01b8 9E81      		ldd r25,Y+6
+ 513 01ba 0E94 0000 		call NutNetIfSetup
+GAS LISTING /tmp/ccQaIAkB.s 			page 10
+
+
+ 514               	.L24:
+ 515               	/* epilogue start */
+ 516 01be 2A96      		adiw r28,10
+ 517 01c0 0FB6      		in __tmp_reg__,__SREG__
+ 518 01c2 F894      		cli
+ 519 01c4 DEBF      		out __SP_H__,r29
+ 520 01c6 0FBE      		out __SREG__,__tmp_reg__
+ 521 01c8 CDBF      		out __SP_L__,r28
+ 522 01ca DF91      		pop r29
+ 523 01cc CF91      		pop r28
+ 524 01ce 1F91      		pop r17
+ 525 01d0 0F91      		pop r16
+ 526 01d2 FF90      		pop r15
+ 527 01d4 EF90      		pop r14
+ 528 01d6 DF90      		pop r13
+ 529 01d8 CF90      		pop r12
+ 530 01da BF90      		pop r11
+ 531 01dc AF90      		pop r10
+ 532 01de 9F90      		pop r9
+ 533 01e0 8F90      		pop r8
+ 534 01e2 7F90      		pop r7
+ 535 01e4 6F90      		pop r6
+ 536 01e6 5F90      		pop r5
+ 537 01e8 4F90      		pop r4
+ 538 01ea 0895      		ret
+ 539               		.size	NutNetIfConfig2, .-NutNetIfConfig2
+ 540               		.section	.text.NutNetIfConfig,"ax",@progbits
+ 541               	.global	NutNetIfConfig
+ 542               		.type	NutNetIfConfig, @function
+ 543               	NutNetIfConfig:
+ 544 0000 AF92      		push r10
+ 545 0002 BF92      		push r11
+ 546 0004 CF92      		push r12
+ 547 0006 DF92      		push r13
+ 548 0008 EF92      		push r14
+ 549 000a FF92      		push r15
+ 550 000c 0F93      		push r16
+ 551 000e 1F93      		push r17
+ 552               	/* prologue: function */
+ 553               	/* frame size = 0 */
+ 554               	/* stack size = 8 */
+ 555               	.L__stack_usage = 8
+ 556 0010 A12C      		mov r10,__zero_reg__
+ 557 0012 B12C      		mov r11,__zero_reg__
+ 558 0014 6501      		movw r12,r10
+ 559 0016 0E94 0000 		call NutNetIfConfig2
+ 560               	/* epilogue start */
+ 561 001a 1F91      		pop r17
+ 562 001c 0F91      		pop r16
+ 563 001e FF90      		pop r15
+ 564 0020 EF90      		pop r14
+ 565 0022 DF90      		pop r13
+ 566 0024 CF90      		pop r12
+ 567 0026 BF90      		pop r11
+ 568 0028 AF90      		pop r10
+ 569 002a 0895      		ret
+ 570               		.size	NutNetIfConfig, .-NutNetIfConfig
+GAS LISTING /tmp/ccQaIAkB.s 			page 11
+
+
+ 571               		.section	.text.NutNetIfAddMcastAddr,"ax",@progbits
+ 572               	.global	NutNetIfAddMcastAddr
+ 573               		.type	NutNetIfAddMcastAddr, @function
+ 574               	NutNetIfAddMcastAddr:
+ 575 0000 0F93      		push r16
+ 576 0002 1F93      		push r17
+ 577 0004 CF93      		push r28
+ 578 0006 DF93      		push r29
+ 579 0008 00D0      		rcall .
+ 580 000a 1F92      		push __zero_reg__
+ 581 000c CDB7      		in r28,__SP_L__
+ 582 000e DEB7      		in r29,__SP_H__
+ 583               	/* prologue: function */
+ 584               	/* frame size = 4 */
+ 585               	/* stack size = 8 */
+ 586               	.L__stack_usage = 8
+ 587 0010 4983      		std Y+1,r20
+ 588 0012 5A83      		std Y+2,r21
+ 589 0014 6B83      		std Y+3,r22
+ 590 0016 7C83      		std Y+4,r23
+ 591 0018 0E94 0000 		call NutDeviceLookup
+ 592 001c 8C01      		movw r16,r24
+ 593 001e 0097      		sbiw r24,0
+ 594 0020 01F0      		breq .L42
+ 595 0022 DC01      		movw r26,r24
+ 596 0024 1B96      		adiw r26,11
+ 597 0026 8C91      		ld r24,X
+ 598 0028 1B97      		sbiw r26,11
+ 599 002a 8330      		cpi r24,lo8(3)
+ 600 002c 01F4      		brne .L42
+ 601 002e 1F96      		adiw r26,15
+ 602 0030 ED91      		ld r30,X+
+ 603 0032 FC91      		ld r31,X
+ 604 0034 5097      		sbiw r26,15+1
+ 605 0036 8081      		ld r24,Z
+ 606 0038 8630      		cpi r24,lo8(6)
+ 607 003a 01F4      		brne .L42
+ 608 003c 5596      		adiw r26,21
+ 609 003e ED91      		ld r30,X+
+ 610 0040 FC91      		ld r31,X
+ 611 0042 5697      		sbiw r26,21+1
+ 612 0044 3097      		sbiw r30,0
+ 613 0046 01F0      		breq .L42
+ 614 0048 AE01      		movw r20,r28
+ 615 004a 4F5F      		subi r20,-1
+ 616 004c 5F4F      		sbci r21,-1
+ 617 004e 67E0      		ldi r22,lo8(7)
+ 618 0050 70E1      		ldi r23,lo8(16)
+ 619 0052 C801      		movw r24,r16
+ 620 0054 1995      		eicall
+ 621 0056 0097      		sbiw r24,0
+ 622 0058 01F4      		brne .L38
+ 623 005a 4981      		ldd r20,Y+1
+ 624 005c 5A81      		ldd r21,Y+2
+ 625 005e 6B81      		ldd r22,Y+3
+ 626 0060 7C81      		ldd r23,Y+4
+ 627 0062 403E      		cpi r20,-32
+GAS LISTING /tmp/ccQaIAkB.s 			page 12
+
+
+ 628 0064 5105      		cpc r21,__zero_reg__
+ 629 0066 6105      		cpc r22,__zero_reg__
+ 630 0068 B1E0      		ldi r27,1
+ 631 006a 7B07      		cpc r23,r27
+ 632 006c 01F0      		breq .L44
+ 633 006e C801      		movw r24,r16
+ 634 0070 0E94 0000 		call NutIgmpJoinGroup
+ 635 0074 00C0      		rjmp .L44
+ 636               	.L42:
+ 637 0076 8FEF      		ldi r24,lo8(-1)
+ 638 0078 9FEF      		ldi r25,lo8(-1)
+ 639 007a 00C0      		rjmp .L38
+ 640               	.L44:
+ 641 007c 80E0      		ldi r24,0
+ 642 007e 90E0      		ldi r25,0
+ 643               	.L38:
+ 644               	/* epilogue start */
+ 645 0080 0F90      		pop __tmp_reg__
+ 646 0082 0F90      		pop __tmp_reg__
+ 647 0084 0F90      		pop __tmp_reg__
+ 648 0086 0F90      		pop __tmp_reg__
+ 649 0088 DF91      		pop r29
+ 650 008a CF91      		pop r28
+ 651 008c 1F91      		pop r17
+ 652 008e 0F91      		pop r16
+ 653 0090 0895      		ret
+ 654               		.size	NutNetIfAddMcastAddr, .-NutNetIfAddMcastAddr
+ 655               		.section	.text.NutNetIfDelMcastAddr,"ax",@progbits
+ 656               	.global	NutNetIfDelMcastAddr
+ 657               		.type	NutNetIfDelMcastAddr, @function
+ 658               	NutNetIfDelMcastAddr:
+ 659 0000 0F93      		push r16
+ 660 0002 1F93      		push r17
+ 661 0004 CF93      		push r28
+ 662 0006 DF93      		push r29
+ 663 0008 00D0      		rcall .
+ 664 000a 1F92      		push __zero_reg__
+ 665 000c CDB7      		in r28,__SP_L__
+ 666 000e DEB7      		in r29,__SP_H__
+ 667               	/* prologue: function */
+ 668               	/* frame size = 4 */
+ 669               	/* stack size = 8 */
+ 670               	.L__stack_usage = 8
+ 671 0010 4983      		std Y+1,r20
+ 672 0012 5A83      		std Y+2,r21
+ 673 0014 6B83      		std Y+3,r22
+ 674 0016 7C83      		std Y+4,r23
+ 675 0018 0E94 0000 		call NutDeviceLookup
+ 676 001c 8C01      		movw r16,r24
+ 677 001e 0097      		sbiw r24,0
+ 678 0020 01F0      		breq .L50
+ 679 0022 DC01      		movw r26,r24
+ 680 0024 1B96      		adiw r26,11
+ 681 0026 8C91      		ld r24,X
+ 682 0028 1B97      		sbiw r26,11
+ 683 002a 8330      		cpi r24,lo8(3)
+ 684 002c 01F4      		brne .L50
+GAS LISTING /tmp/ccQaIAkB.s 			page 13
+
+
+ 685 002e 1F96      		adiw r26,15
+ 686 0030 ED91      		ld r30,X+
+ 687 0032 FC91      		ld r31,X
+ 688 0034 5097      		sbiw r26,15+1
+ 689 0036 8081      		ld r24,Z
+ 690 0038 8630      		cpi r24,lo8(6)
+ 691 003a 01F4      		brne .L50
+ 692 003c 5596      		adiw r26,21
+ 693 003e ED91      		ld r30,X+
+ 694 0040 FC91      		ld r31,X
+ 695 0042 5697      		sbiw r26,21+1
+ 696 0044 3097      		sbiw r30,0
+ 697 0046 01F0      		breq .L50
+ 698 0048 AE01      		movw r20,r28
+ 699 004a 4F5F      		subi r20,-1
+ 700 004c 5F4F      		sbci r21,-1
+ 701 004e 68E0      		ldi r22,lo8(8)
+ 702 0050 70E1      		ldi r23,lo8(16)
+ 703 0052 C801      		movw r24,r16
+ 704 0054 1995      		eicall
+ 705 0056 0097      		sbiw r24,0
+ 706 0058 01F4      		brne .L46
+ 707 005a 4981      		ldd r20,Y+1
+ 708 005c 5A81      		ldd r21,Y+2
+ 709 005e 6B81      		ldd r22,Y+3
+ 710 0060 7C81      		ldd r23,Y+4
+ 711 0062 403E      		cpi r20,-32
+ 712 0064 5105      		cpc r21,__zero_reg__
+ 713 0066 6105      		cpc r22,__zero_reg__
+ 714 0068 B1E0      		ldi r27,1
+ 715 006a 7B07      		cpc r23,r27
+ 716 006c 01F0      		breq .L52
+ 717 006e C801      		movw r24,r16
+ 718 0070 0E94 0000 		call NutIgmpLeaveGroup
+ 719 0074 00C0      		rjmp .L52
+ 720               	.L50:
+ 721 0076 8FEF      		ldi r24,lo8(-1)
+ 722 0078 9FEF      		ldi r25,lo8(-1)
+ 723 007a 00C0      		rjmp .L46
+ 724               	.L52:
+ 725 007c 80E0      		ldi r24,0
+ 726 007e 90E0      		ldi r25,0
+ 727               	.L46:
+ 728               	/* epilogue start */
+ 729 0080 0F90      		pop __tmp_reg__
+ 730 0082 0F90      		pop __tmp_reg__
+ 731 0084 0F90      		pop __tmp_reg__
+ 732 0086 0F90      		pop __tmp_reg__
+ 733 0088 DF91      		pop r29
+ 734 008a CF91      		pop r28
+ 735 008c 1F91      		pop r17
+ 736 008e 0F91      		pop r16
+ 737 0090 0895      		ret
+ 738               		.size	NutNetIfDelMcastAddr, .-NutNetIfDelMcastAddr
+ 739               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccQaIAkB.s 			page 14
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 ifconfig.c
+     /tmp/ccQaIAkB.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccQaIAkB.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccQaIAkB.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccQaIAkB.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccQaIAkB.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccQaIAkB.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccQaIAkB.s:11     .text.NutNetIfSetup:0000000000000000 NutNetIfSetup
+     /tmp/ccQaIAkB.s:281    .text.NutNetIfConfig2:0000000000000000 NutNetIfConfig2
+     /tmp/ccQaIAkB.s:543    .text.NutNetIfConfig:0000000000000000 NutNetIfConfig
+     /tmp/ccQaIAkB.s:574    .text.NutNetIfAddMcastAddr:0000000000000000 NutNetIfAddMcastAddr
+     /tmp/ccQaIAkB.s:658    .text.NutNetIfDelMcastAddr:0000000000000000 NutNetIfDelMcastAddr
+
+UNDEFINED SYMBOLS
+confnet
+NutIpRouteAdd
+NutNetSaveConfig
+NutDeviceLookup
+NutEventBroadcast
+_ioctl
+NutEventWait
+NutIgmpJoinGroup
+NutIgmpLeaveGroup

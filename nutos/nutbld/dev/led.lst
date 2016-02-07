@@ -1,0 +1,525 @@
+GAS LISTING /tmp/ccqGInPz.s 			page 1
+
+
+   1               		.file	"led.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.LedTimerCb,"ax",@progbits
+   9               		.type	LedTimerCb, @function
+  10               	LedTimerCb:
+  11               	/* prologue: function */
+  12               	/* frame size = 0 */
+  13               	/* stack size = 0 */
+  14               	.L__stack_usage = 0
+  15 0000 CB01      		movw r24,r22
+  16 0002 0C94 0000 		jmp NutEventPostAsync
+  17               		.size	LedTimerCb, .-LedTimerCb
+  18               		.section	.text.InitLED,"ax",@progbits
+  19               	.global	InitLED
+  20               		.type	InitLED, @function
+  21               	InitLED:
+  22 0000 CF93      		push r28
+  23 0002 DF93      		push r29
+  24               	/* prologue: function */
+  25               	/* frame size = 0 */
+  26               	/* stack size = 2 */
+  27               	.L__stack_usage = 2
+  28 0004 EC01      		movw r28,r24
+  29 0006 6889      		ldd r22,Y+16
+  30 0008 7989      		ldd r23,Y+17
+  31 000a 22E0      		ldi r18,lo8(2)
+  32 000c 30E0      		ldi r19,0
+  33 000e 40E0      		ldi r20,0
+  34 0010 50E0      		ldi r21,0
+  35 0012 8E85      		ldd r24,Y+14
+  36 0014 9F85      		ldd r25,Y+15
+  37 0016 0E94 0000 		call GpioPinConfigSet
+  38 001a 6889      		ldd r22,Y+16
+  39 001c 7989      		ldd r23,Y+17
+  40 001e 8E85      		ldd r24,Y+14
+  41 0020 9F85      		ldd r25,Y+15
+  42 0022 0E94 0000 		call GpioPinSetHigh
+  43 0026 80E0      		ldi r24,0
+  44 0028 90E0      		ldi r25,0
+  45               	/* epilogue start */
+  46 002a DF91      		pop r29
+  47 002c CF91      		pop r28
+  48 002e 0895      		ret
+  49               		.size	InitLED, .-InitLED
+  50               		.section	.text.NutSetLed,"ax",@progbits
+  51               	.global	NutSetLed
+  52               		.type	NutSetLed, @function
+  53               	NutSetLed:
+  54 0000 EF92      		push r14
+  55 0002 FF92      		push r15
+  56 0004 0F93      		push r16
+  57 0006 1F93      		push r17
+GAS LISTING /tmp/ccqGInPz.s 			page 2
+
+
+  58               	/* prologue: function */
+  59               	/* frame size = 0 */
+  60               	/* stack size = 4 */
+  61               	.L__stack_usage = 4
+  62 0008 FC01      		movw r30,r24
+  63 000a 648B      		std Z+20,r22
+  64 000c 6230      		cpi r22,lo8(2)
+  65 000e 01F0      		breq .L5
+  66 0010 6430      		cpi r22,lo8(4)
+  67 0012 01F0      		breq .L6
+  68 0014 6130      		cpi r22,lo8(1)
+  69 0016 01F4      		brne .L10
+  70 0018 138A      		std Z+19,__zero_reg__
+  71 001a 128A      		std Z+18,__zero_reg__
+  72 001c 2287      		std Z+10,r18
+  73 001e 3387      		std Z+11,r19
+  74 0020 4487      		std Z+12,r20
+  75 0022 5587      		std Z+13,r21
+  76 0024 2283      		std Z+2,r18
+  77 0026 3383      		std Z+3,r19
+  78 0028 4483      		std Z+4,r20
+  79 002a 5583      		std Z+5,r21
+  80 002c 00C0      		rjmp .L9
+  81               	.L6:
+  82 002e 8289      		ldd r24,Z+18
+  83 0030 9389      		ldd r25,Z+19
+  84 0032 61E0      		ldi r22,1
+  85 0034 8627      		eor r24,r22
+  86 0036 938B      		std Z+19,r25
+  87 0038 828B      		std Z+18,r24
+  88 003a 2283      		std Z+2,r18
+  89 003c 3383      		std Z+3,r19
+  90 003e 4483      		std Z+4,r20
+  91 0040 5583      		std Z+5,r21
+  92 0042 E682      		std Z+6,r14
+  93 0044 F782      		std Z+7,r15
+  94 0046 0087      		std Z+8,r16
+  95 0048 1187      		std Z+9,r17
+  96 004a 892B      		or r24,r25
+  97 004c 01F4      		brne .L8
+  98 004e E286      		std Z+10,r14
+  99 0050 F386      		std Z+11,r15
+ 100 0052 0487      		std Z+12,r16
+ 101 0054 1587      		std Z+13,r17
+ 102 0056 00C0      		rjmp .L9
+ 103               	.L8:
+ 104 0058 2287      		std Z+10,r18
+ 105 005a 3387      		std Z+11,r19
+ 106 005c 4487      		std Z+12,r20
+ 107 005e 5587      		std Z+13,r21
+ 108 0060 00C0      		rjmp .L9
+ 109               	.L5:
+ 110 0062 8289      		ldd r24,Z+18
+ 111 0064 9389      		ldd r25,Z+19
+ 112 0066 21E0      		ldi r18,1
+ 113 0068 8227      		eor r24,r18
+ 114 006a 938B      		std Z+19,r25
+GAS LISTING /tmp/ccqGInPz.s 			page 3
+
+
+ 115 006c 828B      		std Z+18,r24
+ 116 006e 00C0      		rjmp .L9
+ 117               	.L10:
+ 118 0070 81E0      		ldi r24,lo8(1)
+ 119 0072 90E0      		ldi r25,0
+ 120 0074 938B      		std Z+19,r25
+ 121 0076 828B      		std Z+18,r24
+ 122 0078 E286      		std Z+10,r14
+ 123 007a F386      		std Z+11,r15
+ 124 007c 0487      		std Z+12,r16
+ 125 007e 1587      		std Z+13,r17
+ 126 0080 E682      		std Z+6,r14
+ 127 0082 F782      		std Z+7,r15
+ 128 0084 0087      		std Z+8,r16
+ 129 0086 1187      		std Z+9,r17
+ 130               	.L9:
+ 131 0088 4289      		ldd r20,Z+18
+ 132 008a 5389      		ldd r21,Z+19
+ 133 008c 6089      		ldd r22,Z+16
+ 134 008e 7189      		ldd r23,Z+17
+ 135 0090 8685      		ldd r24,Z+14
+ 136 0092 9785      		ldd r25,Z+15
+ 137               	/* epilogue start */
+ 138 0094 1F91      		pop r17
+ 139 0096 0F91      		pop r16
+ 140 0098 FF90      		pop r15
+ 141 009a EF90      		pop r14
+ 142 009c 0C94 0000 		jmp GpioPinSet
+ 143               		.size	NutSetLed, .-NutSetLed
+ 144               		.section	.text.sys_led,"ax",@progbits
+ 145               	.global	sys_led
+ 146               		.type	sys_led, @function
+ 147               	sys_led:
+ 148 0000 CF93      		push r28
+ 149 0002 DF93      		push r29
+ 150 0004 1F92      		push __zero_reg__
+ 151 0006 CDB7      		in r28,__SP_L__
+ 152 0008 DEB7      		in r29,__SP_H__
+ 153               	/* prologue: function */
+ 154               	/* frame size = 1 */
+ 155               	/* stack size = 3 */
+ 156               	.L__stack_usage = 3
+ 157 000a 6C01      		movw r12,r24
+ 158 000c 0E94 0000 		call NutGetMillis
+ 159 0010 4B01      		movw r8,r22
+ 160 0012 5C01      		movw r10,r24
+ 161 0014 80E1      		ldi r24,lo8(16)
+ 162 0016 0E94 0000 		call NutThreadSetPriority
+ 163               	.L13:
+ 164 001a 40E0      		ldi r20,0
+ 165 001c 50E0      		ldi r21,0
+ 166 001e BA01      		movw r22,r20
+ 167 0020 C601      		movw r24,r12
+ 168 0022 0E94 0000 		call NutEventWait
+ 169 0026 892B      		or r24,r25
+ 170 0028 01F4      		brne .L13
+ 171 002a 0E94 0000 		call NutGetMillis
+GAS LISTING /tmp/ccqGInPz.s 			page 4
+
+
+ 172 002e 2B01      		movw r4,r22
+ 173 0030 3C01      		movw r6,r24
+ 174 0032 DC01      		movw r26,r24
+ 175 0034 CB01      		movw r24,r22
+ 176 0036 8819      		sub r24,r8
+ 177 0038 9909      		sbc r25,r9
+ 178 003a AA09      		sbc r26,r10
+ 179 003c BB09      		sbc r27,r11
+ 180 003e 4C01      		movw r8,r24
+ 181 0040 5D01      		movw r10,r26
+ 182 0042 2090 0000 		lds r2,first_led
+ 183 0046 3090 0000 		lds r3,first_led+1
+ 184               	.L14:
+ 185 004a 2114      		cp r2,__zero_reg__
+ 186 004c 3104      		cpc r3,__zero_reg__
+ 187 004e 01F4      		brne .+2
+ 188 0050 00C0      		rjmp .L35
+ 189 0052 D101      		movw r26,r2
+ 190 0054 5496      		adiw r26,20
+ 191 0056 7C91      		ld r23,X
+ 192 0058 7130      		cpi r23,lo8(1)
+ 193 005a 01F0      		breq .L16
+ 194 005c 00F0      		brlo .L17
+ 195 005e 7430      		cpi r23,lo8(4)
+ 196 0060 01F0      		breq .L18
+ 197 0062 00C0      		rjmp .L15
+ 198               	.L16:
+ 199 0064 F101      		movw r30,r2
+ 200 0066 8281      		ldd r24,Z+2
+ 201 0068 9381      		ldd r25,Z+3
+ 202 006a A481      		ldd r26,Z+4
+ 203 006c B581      		ldd r27,Z+5
+ 204 006e 892B      		or r24,r25
+ 205 0070 8A2B      		or r24,r26
+ 206 0072 8B2B      		or r24,r27
+ 207 0074 01F4      		brne .+2
+ 208 0076 00C0      		rjmp .L15
+ 209 0078 8285      		ldd r24,Z+10
+ 210 007a 9385      		ldd r25,Z+11
+ 211 007c A485      		ldd r26,Z+12
+ 212 007e B585      		ldd r27,Z+13
+ 213 0080 8815      		cp r24,r8
+ 214 0082 9905      		cpc r25,r9
+ 215 0084 AA05      		cpc r26,r10
+ 216 0086 BB05      		cpc r27,r11
+ 217 0088 00F4      		brsh .L34
+ 218 008a E12C      		mov r14,__zero_reg__
+ 219 008c F12C      		mov r15,__zero_reg__
+ 220 008e 8701      		movw r16,r14
+ 221 0090 20E0      		ldi r18,0
+ 222 0092 30E0      		ldi r19,0
+ 223 0094 A901      		movw r20,r18
+ 224 0096 60E0      		ldi r22,0
+ 225 0098 00C0      		rjmp .L32
+ 226               	.L17:
+ 227 009a F101      		movw r30,r2
+ 228 009c 8681      		ldd r24,Z+6
+GAS LISTING /tmp/ccqGInPz.s 			page 5
+
+
+ 229 009e 9781      		ldd r25,Z+7
+ 230 00a0 A085      		ldd r26,Z+8
+ 231 00a2 B185      		ldd r27,Z+9
+ 232 00a4 892B      		or r24,r25
+ 233 00a6 8A2B      		or r24,r26
+ 234 00a8 8B2B      		or r24,r27
+ 235 00aa 01F4      		brne .+2
+ 236 00ac 00C0      		rjmp .L15
+ 237 00ae 8285      		ldd r24,Z+10
+ 238 00b0 9385      		ldd r25,Z+11
+ 239 00b2 A485      		ldd r26,Z+12
+ 240 00b4 B585      		ldd r27,Z+13
+ 241 00b6 8815      		cp r24,r8
+ 242 00b8 9905      		cpc r25,r9
+ 243 00ba AA05      		cpc r26,r10
+ 244 00bc BB05      		cpc r27,r11
+ 245 00be 00F4      		brsh .L34
+ 246 00c0 E12C      		mov r14,__zero_reg__
+ 247 00c2 F12C      		mov r15,__zero_reg__
+ 248 00c4 8701      		movw r16,r14
+ 249 00c6 20E0      		ldi r18,0
+ 250 00c8 30E0      		ldi r19,0
+ 251 00ca A901      		movw r20,r18
+ 252 00cc 61E0      		ldi r22,lo8(1)
+ 253               	.L32:
+ 254 00ce C101      		movw r24,r2
+ 255 00d0 0E94 0000 		call NutSetLed
+ 256 00d4 00C0      		rjmp .L15
+ 257               	.L18:
+ 258 00d6 F101      		movw r30,r2
+ 259 00d8 8285      		ldd r24,Z+10
+ 260 00da 9385      		ldd r25,Z+11
+ 261 00dc A485      		ldd r26,Z+12
+ 262 00de B585      		ldd r27,Z+13
+ 263 00e0 8815      		cp r24,r8
+ 264 00e2 9905      		cpc r25,r9
+ 265 00e4 AA05      		cpc r26,r10
+ 266 00e6 BB05      		cpc r27,r11
+ 267 00e8 00F0      		brlo .L21
+ 268               	.L34:
+ 269 00ea 8819      		sub r24,r8
+ 270 00ec 9909      		sbc r25,r9
+ 271 00ee AA09      		sbc r26,r10
+ 272 00f0 BB09      		sbc r27,r11
+ 273 00f2 00C0      		rjmp .L33
+ 274               	.L21:
+ 275 00f4 E12C      		mov r14,__zero_reg__
+ 276 00f6 F12C      		mov r15,__zero_reg__
+ 277 00f8 8701      		movw r16,r14
+ 278 00fa 20E0      		ldi r18,0
+ 279 00fc 30E0      		ldi r19,0
+ 280 00fe A901      		movw r20,r18
+ 281 0100 62E0      		ldi r22,lo8(2)
+ 282 0102 C101      		movw r24,r2
+ 283 0104 7983      		std Y+1,r23
+ 284 0106 0E94 0000 		call NutSetLed
+ 285 010a 7981      		ldd r23,Y+1
+GAS LISTING /tmp/ccqGInPz.s 			page 6
+
+
+ 286 010c D101      		movw r26,r2
+ 287 010e 5496      		adiw r26,20
+ 288 0110 7C93      		st X,r23
+ 289 0112 5497      		sbiw r26,20
+ 290 0114 5296      		adiw r26,18
+ 291 0116 8D91      		ld r24,X+
+ 292 0118 9C91      		ld r25,X
+ 293 011a 5397      		sbiw r26,18+1
+ 294 011c 892B      		or r24,r25
+ 295 011e 01F0      		breq .L22
+ 296 0120 1696      		adiw r26,6
+ 297 0122 8D91      		ld r24,X+
+ 298 0124 9D91      		ld r25,X+
+ 299 0126 0D90      		ld __tmp_reg__,X+
+ 300 0128 BC91      		ld r27,X
+ 301 012a A02D      		mov r26,__tmp_reg__
+ 302 012c F101      		movw r30,r2
+ 303 012e 00C0      		rjmp .L33
+ 304               	.L22:
+ 305 0130 F101      		movw r30,r2
+ 306 0132 8281      		ldd r24,Z+2
+ 307 0134 9381      		ldd r25,Z+3
+ 308 0136 A481      		ldd r26,Z+4
+ 309 0138 B581      		ldd r27,Z+5
+ 310               	.L33:
+ 311 013a 8287      		std Z+10,r24
+ 312 013c 9387      		std Z+11,r25
+ 313 013e A487      		std Z+12,r26
+ 314 0140 B587      		std Z+13,r27
+ 315               	.L15:
+ 316 0142 D101      		movw r26,r2
+ 317 0144 2D90      		ld r2,X+
+ 318 0146 3C90      		ld r3,X
+ 319 0148 00C0      		rjmp .L14
+ 320               	.L35:
+ 321 014a 5301      		movw r10,r6
+ 322 014c 4201      		movw r8,r4
+ 323 014e 00C0      		rjmp .L13
+ 324               		.size	sys_led, .-sys_led
+ 325               		.section	.rodata.str1.1,"aMS",@progbits,1
+ 326               	.LC0:
+ 327 0000 7379 735F 		.string	"sys_led"
+ 327      6C65 6400 
+ 328               		.section	.text.NutRegisterLed,"ax",@progbits
+ 329               	.global	NutRegisterLed
+ 330               		.type	NutRegisterLed, @function
+ 331               	NutRegisterLed:
+ 332 0000 CF92      		push r12
+ 333 0002 DF92      		push r13
+ 334 0004 EF92      		push r14
+ 335 0006 FF92      		push r15
+ 336 0008 0F93      		push r16
+ 337 000a 1F93      		push r17
+ 338 000c CF93      		push r28
+ 339 000e DF93      		push r29
+ 340               	/* prologue: function */
+ 341               	/* frame size = 0 */
+GAS LISTING /tmp/ccqGInPz.s 			page 7
+
+
+ 342               	/* stack size = 8 */
+ 343               	.L__stack_usage = 8
+ 344 0010 6C01      		movw r12,r24
+ 345 0012 7B01      		movw r14,r22
+ 346 0014 8A01      		movw r16,r20
+ 347 0016 85E1      		ldi r24,lo8(21)
+ 348 0018 90E0      		ldi r25,0
+ 349 001a 0E94 0000 		call malloc
+ 350 001e EC01      		movw r28,r24
+ 351 0020 F601      		movw r30,r12
+ 352 0022 9183      		std Z+1,r25
+ 353 0024 8083      		st Z,r24
+ 354 0026 892B      		or r24,r25
+ 355 0028 01F4      		brne .+2
+ 356 002a 00C0      		rjmp .L37
+ 357 002c 85E1      		ldi r24,lo8(21)
+ 358 002e FE01      		movw r30,r28
+ 359               		0:
+ 360 0030 1192      		st Z+,__zero_reg__
+ 361 0032 8A95      		dec r24
+ 362 0034 01F4      		brne 0b
+ 363 0036 FF86      		std Y+15,r15
+ 364 0038 EE86      		std Y+14,r14
+ 365 003a 198B      		std Y+17,r17
+ 366 003c 088B      		std Y+16,r16
+ 367 003e 81E0      		ldi r24,lo8(1)
+ 368 0040 90E0      		ldi r25,0
+ 369 0042 9B8B      		std Y+19,r25
+ 370 0044 8A8B      		std Y+18,r24
+ 371               	/* #APP */
+ 372               	 ;  307 "../../nut/dev/led.c" 1
+ 373 0046 0FB6      		in  __tmp_reg__, __SREG__
+ 374 0048 F894      		cli
+ 375 004a 0F92      		push __tmp_reg__
+ 376               		
+ 377               	 ;  0 "" 2
+ 378               	/* #NOAPP */
+ 379 004c 8091 0000 		lds r24,first_led
+ 380 0050 9091 0000 		lds r25,first_led+1
+ 381 0054 0097      		sbiw r24,0
+ 382 0056 01F0      		breq .L41
+ 383 0058 9983      		std Y+1,r25
+ 384 005a 8883      		st Y,r24
+ 385               	.L41:
+ 386 005c D093 0000 		sts first_led+1,r29
+ 387 0060 C093 0000 		sts first_led,r28
+ 388               	/* #APP */
+ 389               	 ;  317 "../../nut/dev/led.c" 1
+ 390 0064 0F90      		pop __tmp_reg__
+ 391 0066 0FBE      		out __SREG__, __tmp_reg__
+ 392               		
+ 393               	 ;  0 "" 2
+ 394               	/* #NOAPP */
+ 395 0068 8091 0000 		lds r24,led_tmr
+ 396 006c 9091 0000 		lds r25,led_tmr+1
+ 397 0070 892B      		or r24,r25
+ 398 0072 01F4      		brne .L40
+GAS LISTING /tmp/ccqGInPz.s 			page 8
+
+
+ 399 0074 20EC      		ldi r18,lo8(-64)
+ 400 0076 30E0      		ldi r19,0
+ 401 0078 40E0      		ldi r20,lo8(led_evt)
+ 402 007a 50E0      		ldi r21,hi8(led_evt)
+ 403 007c 60E0      		ldi r22,lo8(gs(sys_led))
+ 404 007e 70E0      		ldi r23,hi8(gs(sys_led))
+ 405 0080 80E0      		ldi r24,lo8(.LC0)
+ 406 0082 90E0      		ldi r25,hi8(.LC0)
+ 407 0084 0E94 0000 		call NutThreadCreate
+ 408 0088 00E0      		ldi r16,0
+ 409 008a 20E0      		ldi r18,lo8(led_evt)
+ 410 008c 30E0      		ldi r19,hi8(led_evt)
+ 411 008e 40E0      		ldi r20,lo8(gs(LedTimerCb))
+ 412 0090 50E0      		ldi r21,hi8(gs(LedTimerCb))
+ 413 0092 6AE0      		ldi r22,lo8(10)
+ 414 0094 70E0      		ldi r23,0
+ 415 0096 80E0      		ldi r24,0
+ 416 0098 90E0      		ldi r25,0
+ 417 009a 0E94 0000 		call NutTimerStart
+ 418 009e 9093 0000 		sts led_tmr+1,r25
+ 419 00a2 8093 0000 		sts led_tmr,r24
+ 420               	.L40:
+ 421 00a6 CE01      		movw r24,r28
+ 422               	/* epilogue start */
+ 423 00a8 DF91      		pop r29
+ 424 00aa CF91      		pop r28
+ 425 00ac 1F91      		pop r17
+ 426 00ae 0F91      		pop r16
+ 427 00b0 FF90      		pop r15
+ 428 00b2 EF90      		pop r14
+ 429 00b4 DF90      		pop r13
+ 430 00b6 CF90      		pop r12
+ 431 00b8 0C94 0000 		jmp InitLED
+ 432               	.L37:
+ 433 00bc 8FEF      		ldi r24,lo8(-1)
+ 434 00be 9FEF      		ldi r25,lo8(-1)
+ 435               	/* epilogue start */
+ 436 00c0 DF91      		pop r29
+ 437 00c2 CF91      		pop r28
+ 438 00c4 1F91      		pop r17
+ 439 00c6 0F91      		pop r16
+ 440 00c8 FF90      		pop r15
+ 441 00ca EF90      		pop r14
+ 442 00cc DF90      		pop r13
+ 443 00ce CF90      		pop r12
+ 444 00d0 0895      		ret
+ 445               		.size	NutRegisterLed, .-NutRegisterLed
+ 446               	.global	led_evt
+ 447               		.section .bss
+ 448               		.type	led_evt, @object
+ 449               		.size	led_evt, 2
+ 450               	led_evt:
+ 451 0000 0000      		.zero	2
+ 452               	.global	led_tmr
+ 453               		.type	led_tmr, @object
+ 454               		.size	led_tmr, 2
+ 455               	led_tmr:
+GAS LISTING /tmp/ccqGInPz.s 			page 9
+
+
+ 456 0002 0000      		.zero	2
+ 457               	.global	first_led
+ 458               		.type	first_led, @object
+ 459               		.size	first_led, 2
+ 460               	first_led:
+ 461 0004 0000      		.zero	2
+ 462               		.ident	"GCC: (GNU) 5.3.0"
+ 463               	.global __do_copy_data
+ 464               	.global __do_clear_bss
+GAS LISTING /tmp/ccqGInPz.s 			page 10
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 led.c
+     /tmp/ccqGInPz.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccqGInPz.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccqGInPz.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccqGInPz.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccqGInPz.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccqGInPz.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccqGInPz.s:10     .text.LedTimerCb:0000000000000000 LedTimerCb
+     /tmp/ccqGInPz.s:21     .text.InitLED:0000000000000000 InitLED
+     /tmp/ccqGInPz.s:53     .text.NutSetLed:0000000000000000 NutSetLed
+     /tmp/ccqGInPz.s:147    .text.sys_led:0000000000000000 sys_led
+     /tmp/ccqGInPz.s:460    .bss:0000000000000004 first_led
+     /tmp/ccqGInPz.s:331    .text.NutRegisterLed:0000000000000000 NutRegisterLed
+     /tmp/ccqGInPz.s:455    .bss:0000000000000002 led_tmr
+     /tmp/ccqGInPz.s:450    .bss:0000000000000000 led_evt
+
+UNDEFINED SYMBOLS
+NutEventPostAsync
+GpioPinConfigSet
+GpioPinSetHigh
+GpioPinSet
+NutGetMillis
+NutThreadSetPriority
+NutEventWait
+malloc
+NutThreadCreate
+NutTimerStart
+__do_copy_data
+__do_clear_bss

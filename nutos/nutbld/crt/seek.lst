@@ -1,0 +1,119 @@
+GAS LISTING /tmp/ccHmnJT2.s 			page 1
+
+
+   1               		.file	"seek.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text._seek,"ax",@progbits
+   9               	.global	_seek
+  10               		.type	_seek, @function
+  11               	_seek:
+  12 0000 CF93      		push r28
+  13 0002 DF93      		push r29
+  14 0004 CDB7      		in r28,__SP_L__
+  15 0006 DEB7      		in r29,__SP_H__
+  16 0008 2A97      		sbiw r28,10
+  17 000a 0FB6      		in __tmp_reg__,__SREG__
+  18 000c F894      		cli
+  19 000e DEBF      		out __SP_H__,r29
+  20 0010 0FBE      		out __SREG__,__tmp_reg__
+  21 0012 CDBF      		out __SP_L__,r28
+  22               	/* prologue: function */
+  23               	/* frame size = 10 */
+  24               	/* stack size = 12 */
+  25               	.L__stack_usage = 12
+  26 0014 4F83      		std Y+7,r20
+  27 0016 5887      		std Y+8,r21
+  28 0018 6987      		std Y+9,r22
+  29 001a 7A87      		std Y+10,r23
+  30 001c 8830      		cpi r24,8
+  31 001e 9105      		cpc r25,__zero_reg__
+  32 0020 00F0      		brlo .L2
+  33               	.L4:
+  34 0022 89E0      		ldi r24,lo8(9)
+  35 0024 90E0      		ldi r25,0
+  36 0026 00C0      		rjmp .L13
+  37               	.L2:
+  38 0028 880F      		lsl r24
+  39 002a 991F      		rol r25
+  40 002c FC01      		movw r30,r24
+  41 002e E050      		subi r30,lo8(-(__fds))
+  42 0030 F040      		sbci r31,hi8(-(__fds))
+  43 0032 0190      		ld __tmp_reg__,Z+
+  44 0034 F081      		ld r31,Z
+  45 0036 E02D      		mov r30,__tmp_reg__
+  46 0038 3097      		sbiw r30,0
+  47 003a 01F0      		breq .L4
+  48 003c FA83      		std Y+2,r31
+  49 003e E983      		std Y+1,r30
+  50 0040 CE01      		movw r24,r28
+  51 0042 0796      		adiw r24,7
+  52 0044 9C83      		std Y+4,r25
+  53 0046 8B83      		std Y+3,r24
+  54 0048 3E83      		std Y+6,r19
+  55 004a 2D83      		std Y+5,r18
+  56 004c 8081      		ld r24,Z
+  57 004e 9181      		ldd r25,Z+1
+GAS LISTING /tmp/ccHmnJT2.s 			page 2
+
+
+  58 0050 0097      		sbiw r24,0
+  59 0052 01F0      		breq .L5
+  60 0054 DC01      		movw r26,r24
+  61 0056 5596      		adiw r26,21
+  62 0058 ED91      		ld r30,X+
+  63 005a FC91      		ld r31,X
+  64 005c 5697      		sbiw r26,21+1
+  65 005e AE01      		movw r20,r28
+  66 0060 4F5F      		subi r20,-1
+  67 0062 5F4F      		sbci r21,-1
+  68 0064 63E2      		ldi r22,lo8(35)
+  69 0066 71E1      		ldi r23,lo8(17)
+  70 0068 1995      		eicall
+  71 006a 892B      		or r24,r25
+  72 006c 01F4      		brne .L6
+  73               	.L5:
+  74 006e 86E1      		ldi r24,lo8(22)
+  75 0070 90E0      		ldi r25,0
+  76               	.L13:
+  77 0072 9093 0000 		sts errno+1,r25
+  78 0076 8093 0000 		sts errno,r24
+  79 007a 8FEF      		ldi r24,lo8(-1)
+  80 007c 9FEF      		ldi r25,lo8(-1)
+  81 007e 00C0      		rjmp .L3
+  82               	.L6:
+  83 0080 80E0      		ldi r24,0
+  84 0082 90E0      		ldi r25,0
+  85               	.L3:
+  86               	/* epilogue start */
+  87 0084 2A96      		adiw r28,10
+  88 0086 0FB6      		in __tmp_reg__,__SREG__
+  89 0088 F894      		cli
+  90 008a DEBF      		out __SP_H__,r29
+  91 008c 0FBE      		out __SREG__,__tmp_reg__
+  92 008e CDBF      		out __SP_L__,r28
+  93 0090 DF91      		pop r29
+  94 0092 CF91      		pop r28
+  95 0094 0895      		ret
+  96               		.size	_seek, .-_seek
+  97               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccHmnJT2.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 seek.c
+     /tmp/ccHmnJT2.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccHmnJT2.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccHmnJT2.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccHmnJT2.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccHmnJT2.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccHmnJT2.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccHmnJT2.s:11     .text._seek:0000000000000000 _seek
+
+UNDEFINED SYMBOLS
+__fds
+errno

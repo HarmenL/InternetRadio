@@ -1,0 +1,512 @@
+GAS LISTING /tmp/ccfEGOTg.s 			page 1
+
+
+   1               		.file	"mod_auth_basic.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.HttpAuthBasicLookup,"ax",@progbits
+   9               	.global	HttpAuthBasicLookup
+  10               		.type	HttpAuthBasicLookup, @function
+  11               	HttpAuthBasicLookup:
+  12 0000 CF92      		push r12
+  13 0002 DF92      		push r13
+  14 0004 EF92      		push r14
+  15 0006 FF92      		push r15
+  16 0008 0F93      		push r16
+  17 000a 1F93      		push r17
+  18 000c CF93      		push r28
+  19 000e DF93      		push r29
+  20               	/* prologue: function */
+  21               	/* frame size = 0 */
+  22               	/* stack size = 8 */
+  23               	.L__stack_usage = 8
+  24 0010 8C01      		movw r16,r24
+  25 0012 7B01      		movw r14,r22
+  26 0014 6A01      		movw r12,r20
+  27 0016 C091 0000 		lds r28,authInfoList
+  28 001a D091 0000 		lds r29,authInfoList+1
+  29               	.L2:
+  30 001e 2097      		sbiw r28,0
+  31 0020 01F0      		breq .L5
+  32 0022 8C81      		ldd r24,Y+4
+  33 0024 9D81      		ldd r25,Y+5
+  34 0026 C114      		cp r12,__zero_reg__
+  35 0028 D104      		cpc r13,__zero_reg__
+  36 002a 01F0      		breq .L3
+  37 002c FC01      		movw r30,r24
+  38               		0:
+  39 002e 0190      		ld __tmp_reg__,Z+
+  40 0030 0020      		tst __tmp_reg__
+  41 0032 01F4      		brne 0b
+  42 0034 3197      		sbiw r30,1
+  43 0036 AF01      		movw r20,r30
+  44 0038 481B      		sub r20,r24
+  45 003a 590B      		sbc r21,r25
+  46 003c B801      		movw r22,r16
+  47 003e 0E94 0000 		call strncasecmp
+  48 0042 00C0      		rjmp .L4
+  49               	.L3:
+  50 0044 B801      		movw r22,r16
+  51 0046 0E94 0000 		call strcasecmp
+  52               	.L4:
+  53 004a 97FD      		sbrc r25,7
+  54 004c 00C0      		rjmp .L8
+  55 004e 892B      		or r24,r25
+  56 0050 01F4      		brne .L6
+  57 0052 E114      		cp r14,__zero_reg__
+GAS LISTING /tmp/ccfEGOTg.s 			page 2
+
+
+  58 0054 F104      		cpc r15,__zero_reg__
+  59 0056 01F0      		breq .L5
+  60 0058 B701      		movw r22,r14
+  61 005a 8E81      		ldd r24,Y+6
+  62 005c 9F81      		ldd r25,Y+7
+  63 005e 0E94 0000 		call strcmp
+  64 0062 892B      		or r24,r25
+  65 0064 01F0      		breq .L5
+  66               	.L6:
+  67 0066 0A80      		ldd __tmp_reg__,Y+2
+  68 0068 DB81      		ldd r29,Y+3
+  69 006a C02D      		mov r28,__tmp_reg__
+  70 006c 00C0      		rjmp .L2
+  71               	.L8:
+  72 006e C0E0      		ldi r28,0
+  73 0070 D0E0      		ldi r29,0
+  74               	.L5:
+  75 0072 CE01      		movw r24,r28
+  76               	/* epilogue start */
+  77 0074 DF91      		pop r29
+  78 0076 CF91      		pop r28
+  79 0078 1F91      		pop r17
+  80 007a 0F91      		pop r16
+  81 007c FF90      		pop r15
+  82 007e EF90      		pop r14
+  83 0080 DF90      		pop r13
+  84 0082 CF90      		pop r12
+  85 0084 0895      		ret
+  86               		.size	HttpAuthBasicLookup, .-HttpAuthBasicLookup
+  87               		.section	.rodata.str1.1,"aMS",@progbits,1
+  88               	.LC0:
+  89 0000 4261 7369 		.string	"Basic "
+  89      6320 00
+  90               		.section	.text.HttpAuthBasicValidate,"ax",@progbits
+  91               	.global	HttpAuthBasicValidate
+  92               		.type	HttpAuthBasicValidate, @function
+  93               	HttpAuthBasicValidate:
+  94 0000 EF92      		push r14
+  95 0002 FF92      		push r15
+  96 0004 0F93      		push r16
+  97 0006 1F93      		push r17
+  98 0008 CF93      		push r28
+  99 000a DF93      		push r29
+ 100               	/* prologue: function */
+ 101               	/* frame size = 0 */
+ 102               	/* stack size = 6 */
+ 103               	.L__stack_usage = 6
+ 104 000c 8C01      		movw r16,r24
+ 105 000e 41E0      		ldi r20,lo8(1)
+ 106 0010 50E0      		ldi r21,0
+ 107 0012 60E0      		ldi r22,0
+ 108 0014 70E0      		ldi r23,0
+ 109 0016 FC01      		movw r30,r24
+ 110 0018 8481      		ldd r24,Z+4
+ 111 001a 9581      		ldd r25,Z+5
+ 112 001c 0E94 0000 		call HttpAuthBasicLookup
+ 113 0020 EC01      		movw r28,r24
+GAS LISTING /tmp/ccfEGOTg.s 			page 3
+
+
+ 114 0022 892B      		or r24,r25
+ 115 0024 01F0      		breq .L20
+ 116 0026 2885      		ldd r18,Y+8
+ 117 0028 3985      		ldd r19,Y+9
+ 118 002a 2115      		cp r18,__zero_reg__
+ 119 002c 3105      		cpc r19,__zero_reg__
+ 120 002e 01F4      		brne .L21
+ 121 0030 8C81      		ldd r24,Y+4
+ 122 0032 9D81      		ldd r25,Y+5
+ 123 0034 00C0      		rjmp .L18
+ 124               	.L21:
+ 125 0036 C901      		movw r24,r18
+ 126               	.L18:
+ 127 0038 0E94 0000 		call strdup
+ 128 003c F801      		movw r30,r16
+ 129 003e 978B      		std Z+23,r25
+ 130 0040 868B      		std Z+22,r24
+ 131 0042 E48C      		ldd r14,Z+28
+ 132 0044 F58C      		ldd r15,Z+29
+ 133 0046 E114      		cp r14,__zero_reg__
+ 134 0048 F104      		cpc r15,__zero_reg__
+ 135 004a 01F0      		breq .L23
+ 136 004c 46E0      		ldi r20,lo8(6)
+ 137 004e 50E0      		ldi r21,0
+ 138 0050 60E0      		ldi r22,lo8(.LC0)
+ 139 0052 70E0      		ldi r23,hi8(.LC0)
+ 140 0054 C701      		movw r24,r14
+ 141 0056 0E94 0000 		call strncasecmp
+ 142 005a 892B      		or r24,r25
+ 143 005c 01F4      		brne .L23
+ 144 005e C701      		movw r24,r14
+ 145 0060 0696      		adiw r24,6
+ 146 0062 0E94 0000 		call HttpDecodeBase64
+ 147 0066 F801      		movw r30,r16
+ 148 0068 648D      		ldd r22,Z+28
+ 149 006a 758D      		ldd r23,Z+29
+ 150 006c 6A5F      		subi r22,-6
+ 151 006e 7F4F      		sbci r23,-1
+ 152 0070 40E0      		ldi r20,0
+ 153 0072 50E0      		ldi r21,0
+ 154 0074 8C81      		ldd r24,Y+4
+ 155 0076 9D81      		ldd r25,Y+5
+ 156 0078 0E94 0000 		call HttpAuthBasicLookup
+ 157 007c 21E0      		ldi r18,lo8(1)
+ 158 007e 30E0      		ldi r19,0
+ 159 0080 892B      		or r24,r25
+ 160 0082 01F0      		breq .L19
+ 161 0084 20E0      		ldi r18,0
+ 162 0086 30E0      		ldi r19,0
+ 163               	.L19:
+ 164 0088 8827      		clr r24
+ 165 008a 9927      		clr r25
+ 166 008c 821B      		sub r24,r18
+ 167 008e 930B      		sbc r25,r19
+ 168 0090 00C0      		rjmp .L17
+ 169               	.L20:
+ 170 0092 80E0      		ldi r24,0
+GAS LISTING /tmp/ccfEGOTg.s 			page 4
+
+
+ 171 0094 90E0      		ldi r25,0
+ 172 0096 00C0      		rjmp .L17
+ 173               	.L23:
+ 174 0098 8FEF      		ldi r24,lo8(-1)
+ 175 009a 9FEF      		ldi r25,lo8(-1)
+ 176               	.L17:
+ 177               	/* epilogue start */
+ 178 009c DF91      		pop r29
+ 179 009e CF91      		pop r28
+ 180 00a0 1F91      		pop r17
+ 181 00a2 0F91      		pop r16
+ 182 00a4 FF90      		pop r15
+ 183 00a6 EF90      		pop r14
+ 184 00a8 0895      		ret
+ 185               		.size	HttpAuthBasicValidate, .-HttpAuthBasicValidate
+ 186               		.section	.text.HttpRegisterAuthBasic,"ax",@progbits
+ 187               	.global	HttpRegisterAuthBasic
+ 188               		.type	HttpRegisterAuthBasic, @function
+ 189               	HttpRegisterAuthBasic:
+ 190 0000 6F92      		push r6
+ 191 0002 7F92      		push r7
+ 192 0004 8F92      		push r8
+ 193 0006 9F92      		push r9
+ 194 0008 AF92      		push r10
+ 195 000a BF92      		push r11
+ 196 000c CF92      		push r12
+ 197 000e DF92      		push r13
+ 198 0010 EF92      		push r14
+ 199 0012 FF92      		push r15
+ 200 0014 0F93      		push r16
+ 201 0016 1F93      		push r17
+ 202 0018 CF93      		push r28
+ 203 001a DF93      		push r29
+ 204               	/* prologue: function */
+ 205               	/* frame size = 0 */
+ 206               	/* stack size = 14 */
+ 207               	.L__stack_usage = 14
+ 208 001c 5C01      		movw r10,r24
+ 209 001e 7B01      		movw r14,r22
+ 210 0020 4A01      		movw r8,r20
+ 211 0022 0091 0000 		lds r16,authInfoList
+ 212 0026 1091 0000 		lds r17,authInfoList+1
+ 213 002a CFEF      		ldi r28,lo8(-1)
+ 214 002c DFEF      		ldi r29,lo8(-1)
+ 215 002e CC24      		clr r12
+ 216 0030 CA94      		dec r12
+ 217 0032 DC2C      		mov r13,r12
+ 218               	.L28:
+ 219 0034 0115      		cp r16,__zero_reg__
+ 220 0036 1105      		cpc r17,__zero_reg__
+ 221 0038 01F4      		brne .+2
+ 222 003a 00C0      		rjmp .L62
+ 223 003c D801      		movw r26,r16
+ 224 003e 1496      		adiw r26,4
+ 225 0040 6D90      		ld r6,X+
+ 226 0042 7C90      		ld r7,X
+ 227 0044 1597      		sbiw r26,4+1
+GAS LISTING /tmp/ccfEGOTg.s 			page 5
+
+
+ 228 0046 B501      		movw r22,r10
+ 229 0048 C301      		movw r24,r6
+ 230 004a 0E94 0000 		call strcasecmp
+ 231 004e EC01      		movw r28,r24
+ 232 0050 97FD      		sbrc r25,7
+ 233 0052 00C0      		rjmp .L29
+ 234 0054 892B      		or r24,r25
+ 235 0056 01F0      		breq .+2
+ 236 0058 00C0      		rjmp .L30
+ 237 005a E114      		cp r14,__zero_reg__
+ 238 005c F104      		cpc r15,__zero_reg__
+ 239 005e 01F0      		breq .L31
+ 240 0060 B701      		movw r22,r14
+ 241 0062 F801      		movw r30,r16
+ 242 0064 8681      		ldd r24,Z+6
+ 243 0066 9781      		ldd r25,Z+7
+ 244 0068 0E94 0000 		call strcmp
+ 245 006c EC01      		movw r28,r24
+ 246 006e 1816      		cp __zero_reg__,r24
+ 247 0070 1906      		cpc __zero_reg__,r25
+ 248 0072 04F0      		brlt .L30
+ 249 0074 892B      		or r24,r25
+ 250 0076 01F4      		brne .+2
+ 251 0078 00C0      		rjmp .L50
+ 252 007a 00C0      		rjmp .L33
+ 253               	.L31:
+ 254 007c D801      		movw r26,r16
+ 255 007e CC90      		ld r12,X
+ 256 0080 1196      		adiw r26,1
+ 257 0082 DC90      		ld r13,X
+ 258 0084 1197      		sbiw r26,1
+ 259 0086 1296      		adiw r26,2
+ 260 0088 ED91      		ld r30,X+
+ 261 008a FC91      		ld r31,X
+ 262 008c 1397      		sbiw r26,2+1
+ 263 008e 3097      		sbiw r30,0
+ 264 0090 01F0      		breq .L34
+ 265 0092 C082      		st Z,r12
+ 266 0094 D182      		std Z+1,r13
+ 267 0096 00C0      		rjmp .L35
+ 268               	.L34:
+ 269 0098 C092 0000 		sts authInfoList+2,r12
+ 270 009c D092 0000 		sts authInfoList+3,r13
+ 271               	.L35:
+ 272 00a0 D801      		movw r26,r16
+ 273 00a2 8D91      		ld r24,X+
+ 274 00a4 9C91      		ld r25,X
+ 275 00a6 0097      		sbiw r24,0
+ 276 00a8 01F0      		breq .L36
+ 277 00aa DC01      		movw r26,r24
+ 278 00ac 1396      		adiw r26,2+1
+ 279 00ae FC93      		st X,r31
+ 280 00b0 EE93      		st -X,r30
+ 281 00b2 1297      		sbiw r26,2
+ 282 00b4 00C0      		rjmp .L37
+ 283               	.L36:
+ 284 00b6 F093 0000 		sts authInfoList+1,r31
+GAS LISTING /tmp/ccfEGOTg.s 			page 6
+
+
+ 285 00ba E093 0000 		sts authInfoList,r30
+ 286               	.L37:
+ 287 00be C301      		movw r24,r6
+ 288 00c0 0E94 0000 		call free
+ 289 00c4 F801      		movw r30,r16
+ 290 00c6 8681      		ldd r24,Z+6
+ 291 00c8 9781      		ldd r25,Z+7
+ 292 00ca 0E94 0000 		call free
+ 293 00ce D801      		movw r26,r16
+ 294 00d0 1896      		adiw r26,8
+ 295 00d2 8D91      		ld r24,X+
+ 296 00d4 9C91      		ld r25,X
+ 297 00d6 1997      		sbiw r26,8+1
+ 298 00d8 0E94 0000 		call free
+ 299 00dc C801      		movw r24,r16
+ 300 00de 0E94 0000 		call free
+ 301 00e2 8601      		movw r16,r12
+ 302 00e4 C12C      		mov r12,__zero_reg__
+ 303 00e6 D12C      		mov r13,__zero_reg__
+ 304               	.L30:
+ 305 00e8 F801      		movw r30,r16
+ 306 00ea 0281      		ldd r16,Z+2
+ 307 00ec 1381      		ldd r17,Z+3
+ 308 00ee 00C0      		rjmp .L28
+ 309               	.L62:
+ 310 00f0 E114      		cp r14,__zero_reg__
+ 311 00f2 F104      		cpc r15,__zero_reg__
+ 312 00f4 01F4      		brne .+2
+ 313 00f6 00C0      		rjmp .L54
+ 314 00f8 CD2B      		or r28,r29
+ 315 00fa 01F4      		brne .+2
+ 316 00fc 00C0      		rjmp .L54
+ 317               	.L33:
+ 318 00fe 6AE0      		ldi r22,lo8(10)
+ 319 0100 70E0      		ldi r23,0
+ 320 0102 81E0      		ldi r24,lo8(1)
+ 321 0104 90E0      		ldi r25,0
+ 322 0106 0E94 0000 		call calloc
+ 323 010a EC01      		movw r28,r24
+ 324 010c 892B      		or r24,r25
+ 325 010e 01F4      		brne .+2
+ 326 0110 00C0      		rjmp .L54
+ 327 0112 C501      		movw r24,r10
+ 328 0114 0E94 0000 		call strdup
+ 329 0118 5C01      		movw r10,r24
+ 330 011a 9D83      		std Y+5,r25
+ 331 011c 8C83      		std Y+4,r24
+ 332 011e 892B      		or r24,r25
+ 333 0120 01F4      		brne .+2
+ 334 0122 00C0      		rjmp .L39
+ 335 0124 C701      		movw r24,r14
+ 336 0126 0E94 0000 		call strdup
+ 337 012a 9F83      		std Y+7,r25
+ 338 012c 8E83      		std Y+6,r24
+ 339 012e 892B      		or r24,r25
+ 340 0130 01F4      		brne .+2
+ 341 0132 00C0      		rjmp .L40
+GAS LISTING /tmp/ccfEGOTg.s 			page 7
+
+
+ 342 0134 8114      		cp r8,__zero_reg__
+ 343 0136 9104      		cpc r9,__zero_reg__
+ 344 0138 01F0      		breq .L41
+ 345 013a C401      		movw r24,r8
+ 346 013c 0E94 0000 		call strdup
+ 347 0140 9987      		std Y+9,r25
+ 348 0142 8887      		std Y+8,r24
+ 349 0144 00C0      		rjmp .L42
+ 350               	.L41:
+ 351 0146 1986      		std Y+9,__zero_reg__
+ 352 0148 1886      		std Y+8,__zero_reg__
+ 353               	.L42:
+ 354 014a 0115      		cp r16,__zero_reg__
+ 355 014c 1105      		cpc r17,__zero_reg__
+ 356 014e 01F0      		breq .L43
+ 357 0150 D801      		movw r26,r16
+ 358 0152 8D91      		ld r24,X+
+ 359 0154 9C91      		ld r25,X
+ 360 0156 0097      		sbiw r24,0
+ 361 0158 01F4      		brne .L44
+ 362 015a E091 0000 		lds r30,authInfoList
+ 363 015e F091 0000 		lds r31,authInfoList+1
+ 364 0162 3097      		sbiw r30,0
+ 365 0164 01F0      		breq .L45
+ 366 0166 D183      		std Z+1,r29
+ 367 0168 C083      		st Z,r28
+ 368 016a 00C0      		rjmp .L46
+ 369               	.L45:
+ 370 016c D093 0000 		sts authInfoList+2+1,r29
+ 371 0170 C093 0000 		sts authInfoList+2,r28
+ 372               	.L46:
+ 373 0174 1982      		std Y+1,__zero_reg__
+ 374 0176 1882      		st Y,__zero_reg__
+ 375 0178 FB83      		std Y+3,r31
+ 376 017a EA83      		std Y+2,r30
+ 377 017c D093 0000 		sts authInfoList+1,r29
+ 378 0180 C093 0000 		sts authInfoList,r28
+ 379 0184 00C0      		rjmp .L47
+ 380               	.L44:
+ 381 0186 9983      		std Y+1,r25
+ 382 0188 8883      		st Y,r24
+ 383 018a F801      		movw r30,r16
+ 384 018c D183      		std Z+1,r29
+ 385 018e C083      		st Z,r28
+ 386 0190 E881      		ld r30,Y
+ 387 0192 F981      		ldd r31,Y+1
+ 388 0194 D383      		std Z+3,r29
+ 389 0196 C283      		std Z+2,r28
+ 390 0198 1B83      		std Y+3,r17
+ 391 019a 0A83      		std Y+2,r16
+ 392 019c 00C0      		rjmp .L47
+ 393               	.L43:
+ 394 019e E091 0000 		lds r30,authInfoList+2
+ 395 01a2 F091 0000 		lds r31,authInfoList+2+1
+ 396 01a6 3097      		sbiw r30,0
+ 397 01a8 01F0      		breq .L48
+ 398 01aa D383      		std Z+3,r29
+GAS LISTING /tmp/ccfEGOTg.s 			page 8
+
+
+ 399 01ac C283      		std Z+2,r28
+ 400 01ae 00C0      		rjmp .L49
+ 401               	.L48:
+ 402 01b0 D093 0000 		sts authInfoList+1,r29
+ 403 01b4 C093 0000 		sts authInfoList,r28
+ 404               	.L49:
+ 405 01b8 F983      		std Y+1,r31
+ 406 01ba E883      		st Y,r30
+ 407 01bc 1B82      		std Y+3,__zero_reg__
+ 408 01be 1A82      		std Y+2,__zero_reg__
+ 409 01c0 D093 0000 		sts authInfoList+2+1,r29
+ 410 01c4 C093 0000 		sts authInfoList+2,r28
+ 411               	.L47:
+ 412 01c8 80E0      		ldi r24,lo8(gs(HttpAuthBasicValidate))
+ 413 01ca 90E0      		ldi r25,hi8(gs(HttpAuthBasicValidate))
+ 414 01cc 9093 0000 		sts httpd_auth_validator+1,r25
+ 415 01d0 8093 0000 		sts httpd_auth_validator,r24
+ 416 01d4 00C0      		rjmp .L50
+ 417               	.L40:
+ 418 01d6 C501      		movw r24,r10
+ 419 01d8 00C0      		rjmp .L61
+ 420               	.L39:
+ 421 01da CE01      		movw r24,r28
+ 422               	.L61:
+ 423 01dc 0E94 0000 		call free
+ 424 01e0 00C0      		rjmp .L54
+ 425               	.L50:
+ 426 01e2 C12C      		mov r12,__zero_reg__
+ 427 01e4 D12C      		mov r13,__zero_reg__
+ 428 01e6 00C0      		rjmp .L54
+ 429               	.L29:
+ 430 01e8 E114      		cp r14,__zero_reg__
+ 431 01ea F104      		cpc r15,__zero_reg__
+ 432 01ec 01F0      		breq .+2
+ 433 01ee 00C0      		rjmp .L33
+ 434               	.L54:
+ 435 01f0 C601      		movw r24,r12
+ 436               	/* epilogue start */
+ 437 01f2 DF91      		pop r29
+ 438 01f4 CF91      		pop r28
+ 439 01f6 1F91      		pop r17
+ 440 01f8 0F91      		pop r16
+ 441 01fa FF90      		pop r15
+ 442 01fc EF90      		pop r14
+ 443 01fe DF90      		pop r13
+ 444 0200 CF90      		pop r12
+ 445 0202 BF90      		pop r11
+ 446 0204 AF90      		pop r10
+ 447 0206 9F90      		pop r9
+ 448 0208 8F90      		pop r8
+ 449 020a 7F90      		pop r7
+ 450 020c 6F90      		pop r6
+ 451 020e 0895      		ret
+ 452               		.size	HttpRegisterAuthBasic, .-HttpRegisterAuthBasic
+ 453               		.local	authInfoList
+ 454               		.comm	authInfoList,4,1
+ 455               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccfEGOTg.s 			page 9
+
+
+ 456               	.global __do_copy_data
+ 457               	.global __do_clear_bss
+GAS LISTING /tmp/ccfEGOTg.s 			page 10
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 mod_auth_basic.c
+     /tmp/ccfEGOTg.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccfEGOTg.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccfEGOTg.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccfEGOTg.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccfEGOTg.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccfEGOTg.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccfEGOTg.s:11     .text.HttpAuthBasicLookup:0000000000000000 HttpAuthBasicLookup
+                             .bss:0000000000000000 authInfoList
+     /tmp/ccfEGOTg.s:93     .text.HttpAuthBasicValidate:0000000000000000 HttpAuthBasicValidate
+     /tmp/ccfEGOTg.s:189    .text.HttpRegisterAuthBasic:0000000000000000 HttpRegisterAuthBasic
+
+UNDEFINED SYMBOLS
+strncasecmp
+strcasecmp
+strcmp
+strdup
+HttpDecodeBase64
+free
+calloc
+httpd_auth_validator
+__do_copy_data
+__do_clear_bss

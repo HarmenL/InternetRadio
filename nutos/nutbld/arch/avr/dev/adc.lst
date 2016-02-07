@@ -1,0 +1,544 @@
+GAS LISTING /tmp/ccZlXFSd.s 			page 1
+
+
+   1               		.file	"adc.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.ADCInterrupt,"ax",@progbits
+   9               		.type	ADCInterrupt, @function
+  10               	ADCInterrupt:
+  11               	/* prologue: function */
+  12               	/* frame size = 0 */
+  13               	/* stack size = 0 */
+  14               	.L__stack_usage = 0
+  15 0000 6091 7800 		lds r22,120
+  16 0004 7091 7900 		lds r23,120+1
+  17 0008 A091 0000 		lds r26,ADC_buffer
+  18 000c B091 0000 		lds r27,ADC_buffer+1
+  19 0010 9096      		adiw r26,32
+  20 0012 8D91      		ld r24,X+
+  21 0014 9C91      		ld r25,X
+  22 0016 9197      		sbiw r26,32+1
+  23 0018 9927      		clr r25
+  24 001a 9C01      		movw r18,r24
+  25 001c 2F5F      		subi r18,-1
+  26 001e 3F4F      		sbci r19,-1
+  27 0020 2F70      		andi r18,15
+  28 0022 3327      		clr r19
+  29 0024 9296      		adiw r26,34
+  30 0026 4D91      		ld r20,X+
+  31 0028 5C91      		ld r21,X
+  32 002a 9397      		sbiw r26,34+1
+  33 002c 5527      		clr r21
+  34 002e 2417      		cp r18,r20
+  35 0030 3507      		cpc r19,r21
+  36 0032 01F0      		breq .L1
+  37 0034 880F      		lsl r24
+  38 0036 991F      		rol r25
+  39 0038 FD01      		movw r30,r26
+  40 003a E80F      		add r30,r24
+  41 003c F91F      		adc r31,r25
+  42 003e 7183      		std Z+1,r23
+  43 0040 6083      		st Z,r22
+  44 0042 9196      		adiw r26,32+1
+  45 0044 3C93      		st X,r19
+  46 0046 2E93      		st -X,r18
+  47 0048 9097      		sbiw r26,32
+  48               	.L1:
+  49 004a 0895      		ret
+  50               		.size	ADCInterrupt, .-ADCInterrupt
+  51               		.section	.text.ADCSetRef.part.1,"ax",@progbits
+  52               		.type	ADCSetRef.part.1, @function
+  53               	ADCSetRef.part.1:
+  54               	/* prologue: function */
+  55               	/* frame size = 0 */
+  56               	/* stack size = 0 */
+  57               	.L__stack_usage = 0
+GAS LISTING /tmp/ccZlXFSd.s 			page 2
+
+
+  58 0000 ECE7      		ldi r30,lo8(124)
+  59 0002 F0E0      		ldi r31,0
+  60 0004 8081      		ld r24,Z
+  61 0006 8F77      		andi r24,lo8(127)
+  62 0008 8083      		st Z,r24
+  63 000a 8081      		ld r24,Z
+  64 000c 8064      		ori r24,lo8(64)
+  65 000e 8083      		st Z,r24
+  66 0010 0895      		ret
+  67               		.size	ADCSetRef.part.1, .-ADCSetRef.part.1
+  68               		.section	.text.ADCBufInit,"ax",@progbits
+  69               	.global	ADCBufInit
+  70               		.type	ADCBufInit, @function
+  71               	ADCBufInit:
+  72               	/* prologue: function */
+  73               	/* frame size = 0 */
+  74               	/* stack size = 0 */
+  75               	.L__stack_usage = 0
+  76 0000 FC01      		movw r30,r24
+  77 0002 11A2      		std Z+33,__zero_reg__
+  78 0004 10A2      		std Z+32,__zero_reg__
+  79 0006 13A2      		std Z+35,__zero_reg__
+  80 0008 12A2      		std Z+34,__zero_reg__
+  81 000a 0895      		ret
+  82               		.size	ADCBufInit, .-ADCBufInit
+  83               		.section	.text.ADCSetChannel,"ax",@progbits
+  84               	.global	ADCSetChannel
+  85               		.type	ADCSetChannel, @function
+  86               	ADCSetChannel:
+  87               	/* prologue: function */
+  88               	/* frame size = 0 */
+  89               	/* stack size = 0 */
+  90               	.L__stack_usage = 0
+  91 0000 ECE7      		ldi r30,lo8(124)
+  92 0002 F0E0      		ldi r31,0
+  93 0004 9081      		ld r25,Z
+  94 0006 987F      		andi r25,lo8(-8)
+  95 0008 892B      		or r24,r25
+  96 000a 8083      		st Z,r24
+  97 000c 0895      		ret
+  98               		.size	ADCSetChannel, .-ADCSetChannel
+  99               		.section	.text.ADCBufferFlush,"ax",@progbits
+ 100               	.global	ADCBufferFlush
+ 101               		.type	ADCBufferFlush, @function
+ 102               	ADCBufferFlush:
+ 103               	/* prologue: function */
+ 104               	/* frame size = 0 */
+ 105               	/* stack size = 0 */
+ 106               	.L__stack_usage = 0
+ 107 0000 E091 0000 		lds r30,ADC_buffer
+ 108 0004 F091 0000 		lds r31,ADC_buffer+1
+ 109 0008 11A2      		std Z+33,__zero_reg__
+ 110 000a 10A2      		std Z+32,__zero_reg__
+ 111 000c 13A2      		std Z+35,__zero_reg__
+ 112 000e 12A2      		std Z+34,__zero_reg__
+ 113 0010 0895      		ret
+ 114               		.size	ADCBufferFlush, .-ADCBufferFlush
+GAS LISTING /tmp/ccZlXFSd.s 			page 3
+
+
+ 115               		.section	.text.ADCStartConversion,"ax",@progbits
+ 116               	.global	ADCStartConversion
+ 117               		.type	ADCStartConversion, @function
+ 118               	ADCStartConversion:
+ 119               	/* prologue: function */
+ 120               	/* frame size = 0 */
+ 121               	/* stack size = 0 */
+ 122               	.L__stack_usage = 0
+ 123 0000 EAE7      		ldi r30,lo8(122)
+ 124 0002 F0E0      		ldi r31,0
+ 125 0004 8081      		ld r24,Z
+ 126 0006 8064      		ori r24,lo8(64)
+ 127 0008 8083      		st Z,r24
+ 128 000a 0895      		ret
+ 129               		.size	ADCStartConversion, .-ADCStartConversion
+ 130               		.section	.text.ADCStopConversion,"ax",@progbits
+ 131               	.global	ADCStopConversion
+ 132               		.type	ADCStopConversion, @function
+ 133               	ADCStopConversion:
+ 134               	/* prologue: function */
+ 135               	/* frame size = 0 */
+ 136               	/* stack size = 0 */
+ 137               	.L__stack_usage = 0
+ 138 0000 8091 0000 		lds r24,current_mode
+ 139 0004 9091 0000 		lds r25,current_mode+1
+ 140 0008 0197      		sbiw r24,1
+ 141 000a 01F4      		brne .L9
+ 142 000c 8091 7A00 		lds r24,122
+ 143 0010 8F77      		andi r24,lo8(127)
+ 144 0012 8093 7A00 		sts 122,r24
+ 145 0016 8091 7A00 		lds r24,122
+ 146 001a 8F7B      		andi r24,lo8(-65)
+ 147 001c 8093 7A00 		sts 122,r24
+ 148 0020 8091 7A00 		lds r24,122
+ 149 0024 8068      		ori r24,lo8(-128)
+ 150 0026 8093 7A00 		sts 122,r24
+ 151               	.L9:
+ 152 002a 0895      		ret
+ 153               		.size	ADCStopConversion, .-ADCStopConversion
+ 154               		.section	.text.ADCSetRef,"ax",@progbits
+ 155               	.global	ADCSetRef
+ 156               		.type	ADCSetRef, @function
+ 157               	ADCSetRef:
+ 158 0000 CF93      		push r28
+ 159 0002 DF93      		push r29
+ 160               	/* prologue: function */
+ 161               	/* frame size = 0 */
+ 162               	/* stack size = 2 */
+ 163               	.L__stack_usage = 2
+ 164 0004 EC01      		movw r28,r24
+ 165 0006 0E94 0000 		call ADCStopConversion
+ 166 000a C130      		cpi r28,1
+ 167 000c D105      		cpc r29,__zero_reg__
+ 168 000e 01F0      		breq .L13
+ 169 0010 00F0      		brlo .L14
+ 170 0012 2297      		sbiw r28,2
+ 171 0014 01F4      		brne .L11
+GAS LISTING /tmp/ccZlXFSd.s 			page 4
+
+
+ 172 0016 8091 7C00 		lds r24,124
+ 173 001a 8068      		ori r24,lo8(-128)
+ 174 001c 8093 7C00 		sts 124,r24
+ 175 0020 8091 7C00 		lds r24,124
+ 176 0024 8064      		ori r24,lo8(64)
+ 177 0026 00C0      		rjmp .L16
+ 178               	.L14:
+ 179               	/* epilogue start */
+ 180 0028 DF91      		pop r29
+ 181 002a CF91      		pop r28
+ 182 002c 0C94 0000 		jmp ADCSetRef.part.1
+ 183               	.L13:
+ 184 0030 8091 7C00 		lds r24,124
+ 185 0034 8F77      		andi r24,lo8(127)
+ 186 0036 8093 7C00 		sts 124,r24
+ 187 003a 8091 7C00 		lds r24,124
+ 188 003e 8F7B      		andi r24,lo8(-65)
+ 189               	.L16:
+ 190 0040 8093 7C00 		sts 124,r24
+ 191               	.L11:
+ 192               	/* epilogue start */
+ 193 0044 DF91      		pop r29
+ 194 0046 CF91      		pop r28
+ 195 0048 0895      		ret
+ 196               		.size	ADCSetRef, .-ADCSetRef
+ 197               		.section	.text.ADCSetMode,"ax",@progbits
+ 198               	.global	ADCSetMode
+ 199               		.type	ADCSetMode, @function
+ 200               	ADCSetMode:
+ 201 0000 CF93      		push r28
+ 202 0002 DF93      		push r29
+ 203               	/* prologue: function */
+ 204               	/* frame size = 0 */
+ 205               	/* stack size = 2 */
+ 206               	.L__stack_usage = 2
+ 207 0004 EC01      		movw r28,r24
+ 208 0006 0E94 0000 		call ADCStopConversion
+ 209 000a C130      		cpi r28,1
+ 210 000c D105      		cpc r29,__zero_reg__
+ 211 000e 01F0      		breq .L19
+ 212 0010 C230      		cpi r28,2
+ 213 0012 D105      		cpc r29,__zero_reg__
+ 214 0014 01F4      		brne .L18
+ 215 0016 8091 7A00 		lds r24,122
+ 216 001a 8F7D      		andi r24,lo8(-33)
+ 217 001c 00C0      		rjmp .L21
+ 218               	.L19:
+ 219 001e 8091 7A00 		lds r24,122
+ 220 0022 8062      		ori r24,lo8(32)
+ 221               	.L21:
+ 222 0024 8093 7A00 		sts 122,r24
+ 223               	.L18:
+ 224 0028 D093 0000 		sts current_mode+1,r29
+ 225 002c C093 0000 		sts current_mode,r28
+ 226               	/* epilogue start */
+ 227 0030 DF91      		pop r29
+ 228 0032 CF91      		pop r28
+GAS LISTING /tmp/ccZlXFSd.s 			page 5
+
+
+ 229 0034 0895      		ret
+ 230               		.size	ADCSetMode, .-ADCSetMode
+ 231               		.section	.text.ADCStartLowNoiseConversion,"ax",@progbits
+ 232               	.global	ADCStartLowNoiseConversion
+ 233               		.type	ADCStartLowNoiseConversion, @function
+ 234               	ADCStartLowNoiseConversion:
+ 235               	/* prologue: function */
+ 236               	/* frame size = 0 */
+ 237               	/* stack size = 0 */
+ 238               	.L__stack_usage = 0
+ 239 0000 82E0      		ldi r24,lo8(2)
+ 240 0002 90E0      		ldi r25,0
+ 241 0004 0E94 0000 		call ADCSetMode
+ 242 0008 83B7      		in r24,0x33
+ 243 000a 93B7      		in r25,0x33
+ 244 000c 917F      		andi r25,lo8(-15)
+ 245 000e 2091 0000 		lds r18,adc_sleep_mode
+ 246 0012 922B      		or r25,r18
+ 247 0014 93BF      		out 0x33,r25
+ 248 0016 93B7      		in r25,0x33
+ 249 0018 9160      		ori r25,lo8(1)
+ 250 001a 93BF      		out 0x33,r25
+ 251               	/* #APP */
+ 252               	 ;  306 "../../nut/arch/avr/dev/adc.c" 1
+ 253 001c 8895      		sleep
+ 254               		
+ 255               	 ;  0 "" 2
+ 256               	/* #NOAPP */
+ 257 001e 93B7      		in r25,0x33
+ 258 0020 9E7F      		andi r25,lo8(-2)
+ 259 0022 93BF      		out 0x33,r25
+ 260 0024 93B7      		in r25,0x33
+ 261 0026 917F      		andi r25,lo8(-15)
+ 262 0028 8E70      		andi r24,lo8(14)
+ 263 002a 892B      		or r24,r25
+ 264 002c 83BF      		out 0x33,r24
+ 265 002e 0895      		ret
+ 266               		.size	ADCStartLowNoiseConversion, .-ADCStartLowNoiseConversion
+ 267               		.section	.text.ADCSetPrescale,"ax",@progbits
+ 268               	.global	ADCSetPrescale
+ 269               		.type	ADCSetPrescale, @function
+ 270               	ADCSetPrescale:
+ 271 0000 CF93      		push r28
+ 272 0002 DF93      		push r29
+ 273 0004 1F92      		push __zero_reg__
+ 274 0006 CDB7      		in r28,__SP_L__
+ 275 0008 DEB7      		in r29,__SP_H__
+ 276               	/* prologue: function */
+ 277               	/* frame size = 1 */
+ 278               	/* stack size = 3 */
+ 279               	.L__stack_usage = 3
+ 280 000a 8983      		std Y+1,r24
+ 281 000c 0E94 0000 		call ADCStopConversion
+ 282 0010 8981      		ldd r24,Y+1
+ 283 0012 8138      		cpi r24,lo8(-127)
+ 284 0014 00F0      		brlo .+2
+ 285 0016 00C0      		rjmp .L34
+GAS LISTING /tmp/ccZlXFSd.s 			page 6
+
+
+ 286 0018 90E0      		ldi r25,0
+ 287 001a 8830      		cpi r24,8
+ 288 001c 9105      		cpc r25,__zero_reg__
+ 289 001e 00F0      		brlo .+2
+ 290 0020 00C0      		rjmp .L34
+ 291 0022 FC01      		movw r30,r24
+ 292 0024 8827      		clr r24
+ 293 0026 E050      		subi r30,pm_lo8(-(.L26))
+ 294 0028 F040      		sbci r31,pm_hi8(-(.L26))
+ 295 002a 8040      		sbci r24,pm_hh8(-(.L26))
+ 296 002c 0C94 0000 		jmp __tablejump2__
+ 297               		.section	.progmem.gcc_sw_table.ADCSetPrescale,"a",@progbits
+ 298               		.p2align	1
+ 299               	.L26:
+ 300 0000 0000      		.word gs(.L25)
+ 301 0002 0000      		.word gs(.L34)
+ 302 0004 0000      		.word gs(.L27)
+ 303 0006 0000      		.word gs(.L28)
+ 304 0008 0000      		.word gs(.L29)
+ 305 000a 0000      		.word gs(.L30)
+ 306 000c 0000      		.word gs(.L31)
+ 307 000e 0000      		.word gs(.L32)
+ 308               		.section	.text.ADCSetPrescale
+ 309               	.L25:
+ 310 0030 8091 7A00 		lds r24,122
+ 311 0034 8B7F      		andi r24,lo8(-5)
+ 312 0036 00C0      		rjmp .L40
+ 313               	.L27:
+ 314 0038 8091 7A00 		lds r24,122
+ 315 003c 8B7F      		andi r24,lo8(-5)
+ 316               	.L39:
+ 317 003e 8093 7A00 		sts 122,r24
+ 318 0042 8091 7A00 		lds r24,122
+ 319 0046 8260      		ori r24,lo8(2)
+ 320               	.L38:
+ 321 0048 8093 7A00 		sts 122,r24
+ 322 004c 8091 7A00 		lds r24,122
+ 323 0050 8E7F      		andi r24,lo8(-2)
+ 324 0052 00C0      		rjmp .L35
+ 325               	.L28:
+ 326 0054 8091 7A00 		lds r24,122
+ 327 0058 8B7F      		andi r24,lo8(-5)
+ 328 005a 00C0      		rjmp .L36
+ 329               	.L29:
+ 330 005c 8091 7A00 		lds r24,122
+ 331 0060 8460      		ori r24,lo8(4)
+ 332               	.L40:
+ 333 0062 8093 7A00 		sts 122,r24
+ 334 0066 8091 7A00 		lds r24,122
+ 335 006a 8D7F      		andi r24,lo8(-3)
+ 336 006c 00C0      		rjmp .L38
+ 337               	.L30:
+ 338 006e 8091 7A00 		lds r24,122
+ 339 0072 8460      		ori r24,lo8(4)
+ 340 0074 8093 7A00 		sts 122,r24
+ 341 0078 8091 7A00 		lds r24,122
+ 342 007c 8D7F      		andi r24,lo8(-3)
+GAS LISTING /tmp/ccZlXFSd.s 			page 7
+
+
+ 343 007e 00C0      		rjmp .L37
+ 344               	.L31:
+ 345 0080 8091 7A00 		lds r24,122
+ 346 0084 8460      		ori r24,lo8(4)
+ 347 0086 00C0      		rjmp .L39
+ 348               	.L32:
+ 349 0088 8091 7A00 		lds r24,122
+ 350 008c 8460      		ori r24,lo8(4)
+ 351               	.L36:
+ 352 008e 8093 7A00 		sts 122,r24
+ 353 0092 8091 7A00 		lds r24,122
+ 354 0096 8260      		ori r24,lo8(2)
+ 355               	.L37:
+ 356 0098 8093 7A00 		sts 122,r24
+ 357 009c 8091 7A00 		lds r24,122
+ 358 00a0 8160      		ori r24,lo8(1)
+ 359               	.L35:
+ 360 00a2 8093 7A00 		sts 122,r24
+ 361 00a6 80E0      		ldi r24,0
+ 362 00a8 00C0      		rjmp .L24
+ 363               	.L34:
+ 364 00aa 81E0      		ldi r24,lo8(1)
+ 365               	.L24:
+ 366               	/* epilogue start */
+ 367 00ac 0F90      		pop __tmp_reg__
+ 368 00ae DF91      		pop r29
+ 369 00b0 CF91      		pop r28
+ 370 00b2 0895      		ret
+ 371               		.size	ADCSetPrescale, .-ADCSetPrescale
+ 372               		.section	.text.ADCInit,"ax",@progbits
+ 373               	.global	ADCInit
+ 374               		.type	ADCInit, @function
+ 375               	ADCInit:
+ 376               	/* prologue: function */
+ 377               	/* frame size = 0 */
+ 378               	/* stack size = 0 */
+ 379               	.L__stack_usage = 0
+ 380 0000 8091 0000 		lds r24,ADC_buffer
+ 381 0004 9091 0000 		lds r25,ADC_buffer+1
+ 382 0008 892B      		or r24,r25
+ 383 000a 01F4      		brne .L41
+ 384 000c 80E0      		ldi r24,0
+ 385 000e 90E0      		ldi r25,0
+ 386 0010 0E94 0000 		call ADCSetChannel
+ 387 0014 0E94 0000 		call ADCStopConversion
+ 388 0018 0E94 0000 		call ADCSetRef.part.1
+ 389 001c 82E0      		ldi r24,lo8(2)
+ 390 001e 90E0      		ldi r25,0
+ 391 0020 0E94 0000 		call ADCSetMode
+ 392 0024 86E0      		ldi r24,lo8(6)
+ 393 0026 0E94 0000 		call ADCSetPrescale
+ 394 002a 64E2      		ldi r22,lo8(36)
+ 395 002c 70E0      		ldi r23,0
+ 396 002e 80E0      		ldi r24,lo8(heapFreeList)
+ 397 0030 90E0      		ldi r25,hi8(heapFreeList)
+ 398 0032 0E94 0000 		call NutHeapRootAlloc
+ 399 0036 9093 0000 		sts ADC_buffer+1,r25
+GAS LISTING /tmp/ccZlXFSd.s 			page 8
+
+
+ 400 003a 8093 0000 		sts ADC_buffer,r24
+ 401 003e FC01      		movw r30,r24
+ 402 0040 11A2      		std Z+33,__zero_reg__
+ 403 0042 10A2      		std Z+32,__zero_reg__
+ 404 0044 13A2      		std Z+35,__zero_reg__
+ 405 0046 12A2      		std Z+34,__zero_reg__
+ 406 0048 40E0      		ldi r20,0
+ 407 004a 50E0      		ldi r21,0
+ 408 004c 60E0      		ldi r22,lo8(gs(ADCInterrupt))
+ 409 004e 70E0      		ldi r23,hi8(gs(ADCInterrupt))
+ 410 0050 80E0      		ldi r24,lo8(sig_ADC)
+ 411 0052 90E0      		ldi r25,hi8(sig_ADC)
+ 412 0054 0E94 0000 		call NutRegisterIrqHandler
+ 413 0058 892B      		or r24,r25
+ 414 005a 01F4      		brne .L41
+ 415 005c 8091 7A00 		lds r24,122
+ 416 0060 8068      		ori r24,lo8(-128)
+ 417 0062 8093 7A00 		sts 122,r24
+ 418 0066 8091 7A00 		lds r24,122
+ 419 006a 8860      		ori r24,lo8(8)
+ 420 006c 8093 7A00 		sts 122,r24
+ 421               	.L41:
+ 422 0070 0895      		ret
+ 423               		.size	ADCInit, .-ADCInit
+ 424               		.section	.text.ADCRead,"ax",@progbits
+ 425               	.global	ADCRead
+ 426               		.type	ADCRead, @function
+ 427               	ADCRead:
+ 428               	/* prologue: function */
+ 429               	/* frame size = 0 */
+ 430               	/* stack size = 0 */
+ 431               	.L__stack_usage = 0
+ 432 0000 E091 0000 		lds r30,ADC_buffer
+ 433 0004 F091 0000 		lds r31,ADC_buffer+1
+ 434 0008 22A1      		ldd r18,Z+34
+ 435 000a 33A1      		ldd r19,Z+35
+ 436 000c 40A1      		ldd r20,Z+32
+ 437 000e 4217      		cp r20,r18
+ 438 0010 01F0      		breq .L47
+ 439 0012 3327      		clr r19
+ 440 0014 D901      		movw r26,r18
+ 441 0016 AA0F      		lsl r26
+ 442 0018 BB1F      		rol r27
+ 443 001a AE0F      		add r26,r30
+ 444 001c BF1F      		adc r27,r31
+ 445 001e 4D91      		ld r20,X+
+ 446 0020 5C91      		ld r21,X
+ 447 0022 DC01      		movw r26,r24
+ 448 0024 4D93      		st X+,r20
+ 449 0026 5C93      		st X,r21
+ 450 0028 2F5F      		subi r18,-1
+ 451 002a 3F4F      		sbci r19,-1
+ 452 002c 2F70      		andi r18,15
+ 453 002e 3327      		clr r19
+ 454 0030 33A3      		std Z+35,r19
+ 455 0032 22A3      		std Z+34,r18
+ 456 0034 80E0      		ldi r24,0
+GAS LISTING /tmp/ccZlXFSd.s 			page 9
+
+
+ 457 0036 0895      		ret
+ 458               	.L47:
+ 459 0038 81E0      		ldi r24,lo8(1)
+ 460 003a 0895      		ret
+ 461               		.size	ADCRead, .-ADCRead
+ 462               	.global	ADC_buffer
+ 463               		.section .bss
+ 464               		.type	ADC_buffer, @object
+ 465               		.size	ADC_buffer, 2
+ 466               	ADC_buffer:
+ 467 0000 0000      		.zero	2
+ 468               	.global	current_mode
+ 469               		.type	current_mode, @object
+ 470               		.size	current_mode, 2
+ 471               	current_mode:
+ 472 0002 0000      		.zero	2
+ 473               	.global	adc_sleep_mode
+ 474               		.data
+ 475               		.type	adc_sleep_mode, @object
+ 476               		.size	adc_sleep_mode, 1
+ 477               	adc_sleep_mode:
+ 478 0000 02        		.byte	2
+ 479               		.ident	"GCC: (GNU) 5.3.0"
+ 480               	.global __do_copy_data
+ 481               	.global __do_clear_bss
+GAS LISTING /tmp/ccZlXFSd.s 			page 10
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 adc.c
+     /tmp/ccZlXFSd.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccZlXFSd.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccZlXFSd.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccZlXFSd.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccZlXFSd.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccZlXFSd.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccZlXFSd.s:10     .text.ADCInterrupt:0000000000000000 ADCInterrupt
+     /tmp/ccZlXFSd.s:466    .bss:0000000000000000 ADC_buffer
+     /tmp/ccZlXFSd.s:53     .text.ADCSetRef.part.1:0000000000000000 ADCSetRef.part.1
+     /tmp/ccZlXFSd.s:71     .text.ADCBufInit:0000000000000000 ADCBufInit
+     /tmp/ccZlXFSd.s:86     .text.ADCSetChannel:0000000000000000 ADCSetChannel
+     /tmp/ccZlXFSd.s:102    .text.ADCBufferFlush:0000000000000000 ADCBufferFlush
+     /tmp/ccZlXFSd.s:118    .text.ADCStartConversion:0000000000000000 ADCStartConversion
+     /tmp/ccZlXFSd.s:133    .text.ADCStopConversion:0000000000000000 ADCStopConversion
+     /tmp/ccZlXFSd.s:471    .bss:0000000000000002 current_mode
+     /tmp/ccZlXFSd.s:157    .text.ADCSetRef:0000000000000000 ADCSetRef
+     /tmp/ccZlXFSd.s:200    .text.ADCSetMode:0000000000000000 ADCSetMode
+     /tmp/ccZlXFSd.s:234    .text.ADCStartLowNoiseConversion:0000000000000000 ADCStartLowNoiseConversion
+     /tmp/ccZlXFSd.s:477    .data:0000000000000000 adc_sleep_mode
+     /tmp/ccZlXFSd.s:270    .text.ADCSetPrescale:0000000000000000 ADCSetPrescale
+     /tmp/ccZlXFSd.s:375    .text.ADCInit:0000000000000000 ADCInit
+     /tmp/ccZlXFSd.s:427    .text.ADCRead:0000000000000000 ADCRead
+
+UNDEFINED SYMBOLS
+__tablejump2__
+heapFreeList
+NutHeapRootAlloc
+sig_ADC
+NutRegisterIrqHandler
+__do_copy_data
+__do_clear_bss

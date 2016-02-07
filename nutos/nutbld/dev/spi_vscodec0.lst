@@ -1,0 +1,24 @@
+GAS LISTING /tmp/ccCZA8Sj.s 			page 1
+
+
+   1               		.file	"spi_vscodec0.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccCZA8Sj.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 spi_vscodec0.c
+     /tmp/ccCZA8Sj.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccCZA8Sj.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccCZA8Sj.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccCZA8Sj.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccCZA8Sj.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccCZA8Sj.s:7      *ABS*:0000000000000001 __zero_reg__
+
+NO UNDEFINED SYMBOLS

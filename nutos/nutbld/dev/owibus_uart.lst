@@ -1,0 +1,525 @@
+GAS LISTING /tmp/cczBTHTD.s 			page 1
+
+
+   1               		.file	"owibus_uart.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.Uart_OwiInit,"ax",@progbits
+   9               	.global	Uart_OwiInit
+  10               		.type	Uart_OwiInit, @function
+  11               	Uart_OwiInit:
+  12 0000 EF92      		push r14
+  13 0002 FF92      		push r15
+  14 0004 0F93      		push r16
+  15 0006 1F93      		push r17
+  16 0008 CF93      		push r28
+  17 000a DF93      		push r29
+  18 000c CDB7      		in r28,__SP_L__
+  19 000e DEB7      		in r29,__SP_H__
+  20 0010 2B97      		sbiw r28,11
+  21 0012 0FB6      		in __tmp_reg__,__SREG__
+  22 0014 F894      		cli
+  23 0016 DEBF      		out __SP_H__,r29
+  24 0018 0FBE      		out __SREG__,__tmp_reg__
+  25 001a CDBF      		out __SP_L__,r28
+  26               	/* prologue: function */
+  27               	/* frame size = 11 */
+  28               	/* stack size = 17 */
+  29               	.L__stack_usage = 17
+  30 001c 7C01      		movw r14,r24
+  31 001e CB01      		movw r24,r22
+  32 0020 5B87      		std Y+11,r21
+  33 0022 4A87      		std Y+10,r20
+  34 0024 45E0      		ldi r20,lo8(5)
+  35 0026 50E0      		ldi r21,0
+  36 0028 60E0      		ldi r22,0
+  37 002a 70E0      		ldi r23,0
+  38 002c 4D83      		std Y+5,r20
+  39 002e 5E83      		std Y+6,r21
+  40 0030 6F83      		std Y+7,r22
+  41 0032 7887      		std Y+8,r23
+  42 0034 42E0      		ldi r20,lo8(2)
+  43 0036 50E0      		ldi r21,0
+  44 0038 60E0      		ldi r22,0
+  45 003a 70E0      		ldi r23,0
+  46 003c 4983      		std Y+1,r20
+  47 003e 5A83      		std Y+2,r21
+  48 0040 6B83      		std Y+3,r22
+  49 0042 7C83      		std Y+4,r23
+  50 0044 62E0      		ldi r22,lo8(2)
+  51 0046 70E8      		ldi r23,lo8(-128)
+  52 0048 0296      		adiw r24,2
+  53 004a 0E94 0000 		call _open
+  54 004e 8C01      		movw r16,r24
+  55 0050 0F3F      		cpi r16,-1
+  56 0052 8FEF      		ldi r24,-1
+  57 0054 1807      		cpc r17,r24
+GAS LISTING /tmp/cczBTHTD.s 			page 2
+
+
+  58 0056 01F0      		breq .L5
+  59 0058 AE01      		movw r20,r28
+  60 005a 465F      		subi r20,-10
+  61 005c 5F4F      		sbci r21,-1
+  62 005e 62E3      		ldi r22,lo8(50)
+  63 0060 71E0      		ldi r23,lo8(1)
+  64 0062 C801      		movw r24,r16
+  65 0064 0E94 0000 		call _ioctl
+  66 0068 892B      		or r24,r25
+  67 006a 01F0      		breq .L3
+  68 006c C801      		movw r24,r16
+  69 006e 0E94 0000 		call _close
+  70 0072 00C0      		rjmp .L5
+  71               	.L3:
+  72 0074 AE01      		movw r20,r28
+  73 0076 4B5F      		subi r20,-5
+  74 0078 5F4F      		sbci r21,-1
+  75 007a 6BE0      		ldi r22,lo8(11)
+  76 007c 71E0      		ldi r23,lo8(1)
+  77 007e C801      		movw r24,r16
+  78 0080 0E94 0000 		call _ioctl
+  79 0084 AE01      		movw r20,r28
+  80 0086 4F5F      		subi r20,-1
+  81 0088 5F4F      		sbci r21,-1
+  82 008a 67E0      		ldi r22,lo8(7)
+  83 008c 71E0      		ldi r23,lo8(1)
+  84 008e C801      		movw r24,r16
+  85 0090 0E94 0000 		call _ioctl
+  86               	.L4:
+  87 0094 41E0      		ldi r20,lo8(1)
+  88 0096 50E0      		ldi r21,0
+  89 0098 BE01      		movw r22,r28
+  90 009a 675F      		subi r22,-9
+  91 009c 7F4F      		sbci r23,-1
+  92 009e C801      		movw r24,r16
+  93 00a0 0E94 0000 		call _read
+  94 00a4 0197      		sbiw r24,1
+  95 00a6 01F0      		breq .L4
+  96 00a8 F701      		movw r30,r14
+  97 00aa 1183      		std Z+1,r17
+  98 00ac 0083      		st Z,r16
+  99 00ae 80E0      		ldi r24,0
+ 100 00b0 90E0      		ldi r25,0
+ 101 00b2 00C0      		rjmp .L2
+ 102               	.L5:
+ 103 00b4 8EEF      		ldi r24,lo8(-2)
+ 104 00b6 9FEF      		ldi r25,lo8(-1)
+ 105               	.L2:
+ 106               	/* epilogue start */
+ 107 00b8 2B96      		adiw r28,11
+ 108 00ba 0FB6      		in __tmp_reg__,__SREG__
+ 109 00bc F894      		cli
+ 110 00be DEBF      		out __SP_H__,r29
+ 111 00c0 0FBE      		out __SREG__,__tmp_reg__
+ 112 00c2 CDBF      		out __SP_L__,r28
+ 113 00c4 DF91      		pop r29
+ 114 00c6 CF91      		pop r28
+GAS LISTING /tmp/cczBTHTD.s 			page 3
+
+
+ 115 00c8 1F91      		pop r17
+ 116 00ca 0F91      		pop r16
+ 117 00cc FF90      		pop r15
+ 118 00ce EF90      		pop r14
+ 119 00d0 0895      		ret
+ 120               		.size	Uart_OwiInit, .-Uart_OwiInit
+ 121               		.section	.text.Uart_OwiTouchReset,"ax",@progbits
+ 122               	.global	Uart_OwiTouchReset
+ 123               		.type	Uart_OwiTouchReset, @function
+ 124               	Uart_OwiTouchReset:
+ 125 0000 EF92      		push r14
+ 126 0002 FF92      		push r15
+ 127 0004 0F93      		push r16
+ 128 0006 1F93      		push r17
+ 129 0008 CF93      		push r28
+ 130 000a DF93      		push r29
+ 131 000c CDB7      		in r28,__SP_L__
+ 132 000e DEB7      		in r29,__SP_H__
+ 133 0010 6397      		sbiw r28,19
+ 134 0012 0FB6      		in __tmp_reg__,__SREG__
+ 135 0014 F894      		cli
+ 136 0016 DEBF      		out __SP_H__,r29
+ 137 0018 0FBE      		out __SREG__,__tmp_reg__
+ 138 001a CDBF      		out __SP_L__,r28
+ 139               	/* prologue: function */
+ 140               	/* frame size = 19 */
+ 141               	/* stack size = 25 */
+ 142               	.L__stack_usage = 25
+ 143 001c DC01      		movw r26,r24
+ 144 001e ED91      		ld r30,X+
+ 145 0020 FC91      		ld r31,X
+ 146 0022 80EF      		ldi r24,lo8(-16)
+ 147 0024 8B8B      		std Y+19,r24
+ 148 0026 CE01      		movw r24,r28
+ 149 0028 0196      		adiw r24,1
+ 150 002a 7C01      		movw r14,r24
+ 151 002c 8AE0      		ldi r24,lo8(10)
+ 152 002e D701      		movw r26,r14
+ 153               		0:
+ 154 0030 1D92      		st X+,__zero_reg__
+ 155 0032 8A95      		dec r24
+ 156 0034 01F4      		brne 0b
+ 157 0036 80E8      		ldi r24,lo8(-128)
+ 158 0038 95E2      		ldi r25,lo8(37)
+ 159 003a A0E0      		ldi r26,0
+ 160 003c B0E0      		ldi r27,0
+ 161 003e 8F87      		std Y+15,r24
+ 162 0040 988B      		std Y+16,r25
+ 163 0042 A98B      		std Y+17,r26
+ 164 0044 BA8B      		std Y+18,r27
+ 165 0046 80E0      		ldi r24,0
+ 166 0048 92EC      		ldi r25,lo8(-62)
+ 167 004a A1E0      		ldi r26,lo8(1)
+ 168 004c B0E0      		ldi r27,0
+ 169 004e 8B87      		std Y+11,r24
+ 170 0050 9C87      		std Y+12,r25
+ 171 0052 AD87      		std Y+13,r26
+GAS LISTING /tmp/cczBTHTD.s 			page 4
+
+
+ 172 0054 BE87      		std Y+14,r27
+ 173 0056 0081      		ld r16,Z
+ 174 0058 1181      		ldd r17,Z+1
+ 175 005a AE01      		movw r20,r28
+ 176 005c 415F      		subi r20,-15
+ 177 005e 5F4F      		sbci r21,-1
+ 178 0060 61E0      		ldi r22,lo8(1)
+ 179 0062 71E0      		ldi r23,lo8(1)
+ 180 0064 C801      		movw r24,r16
+ 181 0066 0E94 0000 		call _ioctl
+ 182 006a 41E0      		ldi r20,lo8(1)
+ 183 006c 50E0      		ldi r21,0
+ 184 006e BE01      		movw r22,r28
+ 185 0070 6D5E      		subi r22,-19
+ 186 0072 7F4F      		sbci r23,-1
+ 187 0074 C801      		movw r24,r16
+ 188 0076 0E94 0000 		call _write
+ 189 007a 41E0      		ldi r20,lo8(1)
+ 190 007c 50E0      		ldi r21,0
+ 191 007e B701      		movw r22,r14
+ 192 0080 C801      		movw r24,r16
+ 193 0082 0E94 0000 		call _read
+ 194 0086 0196      		adiw r24,1
+ 195 0088 01F0      		breq .L12
+ 196 008a AE01      		movw r20,r28
+ 197 008c 455F      		subi r20,-11
+ 198 008e 5F4F      		sbci r21,-1
+ 199 0090 61E0      		ldi r22,lo8(1)
+ 200 0092 71E0      		ldi r23,lo8(1)
+ 201 0094 C801      		movw r24,r16
+ 202 0096 0E94 0000 		call _ioctl
+ 203 009a 2981      		ldd r18,Y+1
+ 204 009c 203F      		cpi r18,lo8(-16)
+ 205 009e 01F0      		breq .L14
+ 206 00a0 24FD      		sbrc r18,4
+ 207 00a2 00C0      		rjmp .L14
+ 208 00a4 81E0      		ldi r24,lo8(1)
+ 209 00a6 90E0      		ldi r25,0
+ 210 00a8 2223      		tst r18
+ 211 00aa 01F0      		breq .L11
+ 212 00ac 80E0      		ldi r24,0
+ 213 00ae 90E0      		ldi r25,0
+ 214               	.L11:
+ 215 00b0 9195      		neg r25
+ 216 00b2 8195      		neg r24
+ 217 00b4 9109      		sbc r25,__zero_reg__
+ 218 00b6 00C0      		rjmp .L10
+ 219               	.L12:
+ 220 00b8 8CEF      		ldi r24,lo8(-4)
+ 221 00ba 9FEF      		ldi r25,lo8(-1)
+ 222 00bc 00C0      		rjmp .L10
+ 223               	.L14:
+ 224 00be 8FEF      		ldi r24,lo8(-1)
+ 225 00c0 9FEF      		ldi r25,lo8(-1)
+ 226               	.L10:
+ 227               	/* epilogue start */
+ 228 00c2 6396      		adiw r28,19
+GAS LISTING /tmp/cczBTHTD.s 			page 5
+
+
+ 229 00c4 0FB6      		in __tmp_reg__,__SREG__
+ 230 00c6 F894      		cli
+ 231 00c8 DEBF      		out __SP_H__,r29
+ 232 00ca 0FBE      		out __SREG__,__tmp_reg__
+ 233 00cc CDBF      		out __SP_L__,r28
+ 234 00ce DF91      		pop r29
+ 235 00d0 CF91      		pop r28
+ 236 00d2 1F91      		pop r17
+ 237 00d4 0F91      		pop r16
+ 238 00d6 FF90      		pop r15
+ 239 00d8 EF90      		pop r14
+ 240 00da 0895      		ret
+ 241               		.size	Uart_OwiTouchReset, .-Uart_OwiTouchReset
+ 242               		.section	.text.Uart_OwiRWBit,"ax",@progbits
+ 243               	.global	Uart_OwiRWBit
+ 244               		.type	Uart_OwiRWBit, @function
+ 245               	Uart_OwiRWBit:
+ 246 0000 0F93      		push r16
+ 247 0002 1F93      		push r17
+ 248 0004 CF93      		push r28
+ 249 0006 DF93      		push r29
+ 250 0008 1F92      		push __zero_reg__
+ 251 000a 1F92      		push __zero_reg__
+ 252 000c CDB7      		in r28,__SP_L__
+ 253 000e DEB7      		in r29,__SP_H__
+ 254               	/* prologue: function */
+ 255               	/* frame size = 2 */
+ 256               	/* stack size = 6 */
+ 257               	.L__stack_usage = 6
+ 258 0010 FC01      		movw r30,r24
+ 259 0012 0081      		ld r16,Z
+ 260 0014 1181      		ldd r17,Z+1
+ 261 0016 81E0      		ldi r24,lo8(1)
+ 262 0018 6111      		cpse r22,__zero_reg__
+ 263 001a 00C0      		rjmp .L19
+ 264 001c 80E0      		ldi r24,0
+ 265               	.L19:
+ 266 001e 8195      		neg r24
+ 267 0020 8A83      		std Y+2,r24
+ 268 0022 1982      		std Y+1,__zero_reg__
+ 269 0024 41E0      		ldi r20,lo8(1)
+ 270 0026 50E0      		ldi r21,0
+ 271 0028 BE01      		movw r22,r28
+ 272 002a 6E5F      		subi r22,-2
+ 273 002c 7F4F      		sbci r23,-1
+ 274 002e F801      		movw r30,r16
+ 275 0030 8081      		ld r24,Z
+ 276 0032 9181      		ldd r25,Z+1
+ 277 0034 0E94 0000 		call _write
+ 278 0038 41E0      		ldi r20,lo8(1)
+ 279 003a 50E0      		ldi r21,0
+ 280 003c BE01      		movw r22,r28
+ 281 003e 6F5F      		subi r22,-1
+ 282 0040 7F4F      		sbci r23,-1
+ 283 0042 F801      		movw r30,r16
+ 284 0044 8081      		ld r24,Z
+ 285 0046 9181      		ldd r25,Z+1
+GAS LISTING /tmp/cczBTHTD.s 			page 6
+
+
+ 286 0048 0E94 0000 		call _read
+ 287 004c 0196      		adiw r24,1
+ 288 004e 01F0      		breq .L21
+ 289 0050 8981      		ldd r24,Y+1
+ 290 0052 8170      		andi r24,1
+ 291 0054 90E0      		ldi r25,0
+ 292 0056 00C0      		rjmp .L20
+ 293               	.L21:
+ 294 0058 8CEF      		ldi r24,lo8(-4)
+ 295 005a 9FEF      		ldi r25,lo8(-1)
+ 296               	.L20:
+ 297               	/* epilogue start */
+ 298 005c 0F90      		pop __tmp_reg__
+ 299 005e 0F90      		pop __tmp_reg__
+ 300 0060 DF91      		pop r29
+ 301 0062 CF91      		pop r28
+ 302 0064 1F91      		pop r17
+ 303 0066 0F91      		pop r16
+ 304 0068 0895      		ret
+ 305               		.size	Uart_OwiRWBit, .-Uart_OwiRWBit
+ 306               		.section	.text.Uart_OwiWriteBlock,"ax",@progbits
+ 307               	.global	Uart_OwiWriteBlock
+ 308               		.type	Uart_OwiWriteBlock, @function
+ 309               	Uart_OwiWriteBlock:
+ 310 0000 AF92      		push r10
+ 311 0002 BF92      		push r11
+ 312 0004 CF92      		push r12
+ 313 0006 DF92      		push r13
+ 314 0008 EF92      		push r14
+ 315 000a FF92      		push r15
+ 316 000c 0F93      		push r16
+ 317 000e 1F93      		push r17
+ 318 0010 CF93      		push r28
+ 319 0012 DF93      		push r29
+ 320               	/* prologue: function */
+ 321               	/* frame size = 0 */
+ 322               	/* stack size = 10 */
+ 323               	.L__stack_usage = 10
+ 324 0014 7C01      		movw r14,r24
+ 325 0016 6B01      		movw r12,r22
+ 326 0018 C0E0      		ldi r28,0
+ 327 001a D0E0      		ldi r29,0
+ 328 001c 042F      		mov r16,r20
+ 329 001e 10E0      		ldi r17,0
+ 330 0020 AA24      		clr r10
+ 331 0022 A394      		inc r10
+ 332 0024 B12C      		mov r11,__zero_reg__
+ 333               	.L23:
+ 334 0026 C017      		cp r28,r16
+ 335 0028 D107      		cpc r29,r17
+ 336 002a 04F4      		brge .L27
+ 337 002c FE01      		movw r30,r28
+ 338 002e 83E0      		ldi r24,3
+ 339               		1:
+ 340 0030 F595      		asr r31
+ 341 0032 E795      		ror r30
+ 342 0034 8A95      		dec r24
+GAS LISTING /tmp/cczBTHTD.s 			page 7
+
+
+ 343 0036 01F4      		brne 1b
+ 344 0038 EC0D      		add r30,r12
+ 345 003a FD1D      		adc r31,r13
+ 346 003c CE01      		movw r24,r28
+ 347 003e 8770      		andi r24,7
+ 348 0040 9927      		clr r25
+ 349 0042 9501      		movw r18,r10
+ 350 0044 00C0      		rjmp 2f
+ 351               		1:
+ 352 0046 220F      		lsl r18
+ 353 0048 331F      		rol r19
+ 354               		2:
+ 355 004a 8A95      		dec r24
+ 356 004c 02F4      		brpl 1b
+ 357 004e 6081      		ld r22,Z
+ 358 0050 6223      		and r22,r18
+ 359 0052 C701      		movw r24,r14
+ 360 0054 0E94 0000 		call Uart_OwiRWBit
+ 361 0058 97FD      		sbrc r25,7
+ 362 005a 00C0      		rjmp .L26
+ 363 005c 2196      		adiw r28,1
+ 364 005e 00C0      		rjmp .L23
+ 365               	.L27:
+ 366 0060 80E0      		ldi r24,0
+ 367 0062 90E0      		ldi r25,0
+ 368 0064 00C0      		rjmp .L24
+ 369               	.L26:
+ 370 0066 8CEF      		ldi r24,lo8(-4)
+ 371 0068 9FEF      		ldi r25,lo8(-1)
+ 372               	.L24:
+ 373               	/* epilogue start */
+ 374 006a DF91      		pop r29
+ 375 006c CF91      		pop r28
+ 376 006e 1F91      		pop r17
+ 377 0070 0F91      		pop r16
+ 378 0072 FF90      		pop r15
+ 379 0074 EF90      		pop r14
+ 380 0076 DF90      		pop r13
+ 381 0078 CF90      		pop r12
+ 382 007a BF90      		pop r11
+ 383 007c AF90      		pop r10
+ 384 007e 0895      		ret
+ 385               		.size	Uart_OwiWriteBlock, .-Uart_OwiWriteBlock
+ 386               		.section	.text.Uart_OwiReadBlock,"ax",@progbits
+ 387               	.global	Uart_OwiReadBlock
+ 388               		.type	Uart_OwiReadBlock, @function
+ 389               	Uart_OwiReadBlock:
+ 390 0000 CF92      		push r12
+ 391 0002 DF92      		push r13
+ 392 0004 EF92      		push r14
+ 393 0006 FF92      		push r15
+ 394 0008 0F93      		push r16
+ 395 000a 1F93      		push r17
+ 396 000c CF93      		push r28
+ 397 000e DF93      		push r29
+ 398               	/* prologue: function */
+ 399               	/* frame size = 0 */
+GAS LISTING /tmp/cczBTHTD.s 			page 8
+
+
+ 400               	/* stack size = 8 */
+ 401               	.L__stack_usage = 8
+ 402 0010 7C01      		movw r14,r24
+ 403 0012 8B01      		movw r16,r22
+ 404 0014 C42F      		mov r28,r20
+ 405 0016 D0E0      		ldi r29,0
+ 406 0018 AE01      		movw r20,r28
+ 407 001a 495F      		subi r20,-7
+ 408 001c 5F4F      		sbci r21,-1
+ 409 001e 33E0      		ldi r19,3
+ 410               		1:
+ 411 0020 5595      		asr r21
+ 412 0022 4795      		ror r20
+ 413 0024 3A95      		dec r19
+ 414 0026 01F4      		brne 1b
+ 415 0028 60E0      		ldi r22,0
+ 416 002a 70E0      		ldi r23,0
+ 417 002c C801      		movw r24,r16
+ 418 002e 0E94 0000 		call memset
+ 419 0032 C12C      		mov r12,__zero_reg__
+ 420 0034 D12C      		mov r13,__zero_reg__
+ 421               	.L29:
+ 422 0036 CC16      		cp r12,r28
+ 423 0038 DD06      		cpc r13,r29
+ 424 003a 04F4      		brge .L33
+ 425 003c 61E0      		ldi r22,lo8(1)
+ 426 003e C701      		movw r24,r14
+ 427 0040 0E94 0000 		call Uart_OwiRWBit
+ 428 0044 97FD      		sbrc r25,7
+ 429 0046 00C0      		rjmp .L32
+ 430 0048 F601      		movw r30,r12
+ 431 004a 23E0      		ldi r18,3
+ 432               		1:
+ 433 004c F595      		asr r31
+ 434 004e E795      		ror r30
+ 435 0050 2A95      		dec r18
+ 436 0052 01F4      		brne 1b
+ 437 0054 E00F      		add r30,r16
+ 438 0056 F11F      		adc r31,r17
+ 439 0058 9601      		movw r18,r12
+ 440 005a 2770      		andi r18,7
+ 441 005c 3327      		clr r19
+ 442 005e 00C0      		rjmp 2f
+ 443               		1:
+ 444 0060 880F      		lsl r24
+ 445               		2:
+ 446 0062 2A95      		dec r18
+ 447 0064 02F4      		brpl 1b
+ 448 0066 9081      		ld r25,Z
+ 449 0068 892B      		or r24,r25
+ 450 006a 8083      		st Z,r24
+ 451 006c 8FEF      		ldi r24,-1
+ 452 006e C81A      		sub r12,r24
+ 453 0070 D80A      		sbc r13,r24
+ 454 0072 00C0      		rjmp .L29
+ 455               	.L33:
+ 456 0074 80E0      		ldi r24,0
+GAS LISTING /tmp/cczBTHTD.s 			page 9
+
+
+ 457 0076 90E0      		ldi r25,0
+ 458 0078 00C0      		rjmp .L30
+ 459               	.L32:
+ 460 007a 8CEF      		ldi r24,lo8(-4)
+ 461 007c 9FEF      		ldi r25,lo8(-1)
+ 462               	.L30:
+ 463               	/* epilogue start */
+ 464 007e DF91      		pop r29
+ 465 0080 CF91      		pop r28
+ 466 0082 1F91      		pop r17
+ 467 0084 0F91      		pop r16
+ 468 0086 FF90      		pop r15
+ 469 0088 EF90      		pop r14
+ 470 008a DF90      		pop r13
+ 471 008c CF90      		pop r12
+ 472 008e 0895      		ret
+ 473               		.size	Uart_OwiReadBlock, .-Uart_OwiReadBlock
+ 474               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/cczBTHTD.s 			page 10
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 owibus_uart.c
+     /tmp/cczBTHTD.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cczBTHTD.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cczBTHTD.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cczBTHTD.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cczBTHTD.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cczBTHTD.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cczBTHTD.s:11     .text.Uart_OwiInit:0000000000000000 Uart_OwiInit
+     /tmp/cczBTHTD.s:124    .text.Uart_OwiTouchReset:0000000000000000 Uart_OwiTouchReset
+     /tmp/cczBTHTD.s:245    .text.Uart_OwiRWBit:0000000000000000 Uart_OwiRWBit
+     /tmp/cczBTHTD.s:309    .text.Uart_OwiWriteBlock:0000000000000000 Uart_OwiWriteBlock
+     /tmp/cczBTHTD.s:389    .text.Uart_OwiReadBlock:0000000000000000 Uart_OwiReadBlock
+
+UNDEFINED SYMBOLS
+_open
+_ioctl
+_close
+_read
+_write
+memset

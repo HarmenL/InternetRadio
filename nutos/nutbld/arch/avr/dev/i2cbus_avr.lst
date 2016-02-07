@@ -1,0 +1,655 @@
+GAS LISTING /tmp/cclgtdP6.s 			page 1
+
+
+   1               		.file	"i2cbus_avr.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.TwInterrupt,"ax",@progbits
+   9               		.type	TwInterrupt, @function
+  10               	TwInterrupt:
+  11 0000 CF93      		push r28
+  12 0002 DF93      		push r29
+  13               	/* prologue: function */
+  14               	/* frame size = 0 */
+  15               	/* stack size = 2 */
+  16               	.L__stack_usage = 2
+  17 0004 DC01      		movw r26,r24
+  18 0006 1396      		adiw r26,3
+  19 0008 ED91      		ld r30,X+
+  20 000a FC91      		ld r31,X
+  21 000c 1497      		sbiw r26,3+1
+  22 000e 2091 BC00 		lds r18,188
+  23 0012 2F78      		andi r18,lo8(-113)
+  24 0014 9091 B900 		lds r25,185
+  25 0018 987F      		andi r25,lo8(-8)
+  26 001a 9033      		cpi r25,lo8(48)
+  27 001c 01F4      		brne .+2
+  28 001e 00C0      		rjmp .L3
+  29 0020 00F4      		brsh .L4
+  30 0022 9831      		cpi r25,lo8(24)
+  31 0024 01F0      		breq .L5
+  32 0026 00F4      		brsh .L6
+  33 0028 9830      		cpi r25,lo8(8)
+  34 002a 01F0      		breq .L7
+  35 002c 9031      		cpi r25,lo8(16)
+  36 002e 01F0      		breq .L7
+  37 0030 00C0      		rjmp .L2
+  38               	.L6:
+  39 0032 9032      		cpi r25,lo8(32)
+  40 0034 01F4      		brne .+2
+  41 0036 00C0      		rjmp .L3
+  42 0038 9832      		cpi r25,lo8(40)
+  43 003a 01F0      		breq .L5
+  44 003c 00C0      		rjmp .L2
+  45               	.L4:
+  46 003e 9834      		cpi r25,lo8(72)
+  47 0040 01F4      		brne .+2
+  48 0042 00C0      		rjmp .L3
+  49 0044 00F4      		brsh .L8
+  50 0046 9833      		cpi r25,lo8(56)
+  51 0048 01F4      		brne .+2
+  52 004a 00C0      		rjmp .L3
+  53 004c 9034      		cpi r25,lo8(64)
+  54 004e 01F4      		brne .+2
+  55 0050 00C0      		rjmp .L9
+  56 0052 00C0      		rjmp .L2
+  57               	.L8:
+GAS LISTING /tmp/cclgtdP6.s 			page 2
+
+
+  58 0054 9035      		cpi r25,lo8(80)
+  59 0056 01F4      		brne .+2
+  60 0058 00C0      		rjmp .L10
+  61 005a 9835      		cpi r25,lo8(88)
+  62 005c 01F0      		breq .+2
+  63 005e 00C0      		rjmp .L2
+  64 0060 4681      		ldd r20,Z+6
+  65 0062 5781      		ldd r21,Z+7
+  66 0064 8285      		ldd r24,Z+10
+  67 0066 9385      		ldd r25,Z+11
+  68 0068 BC01      		movw r22,r24
+  69 006a 6F5F      		subi r22,-1
+  70 006c 7F4F      		sbci r23,-1
+  71 006e 7387      		std Z+11,r23
+  72 0070 6287      		std Z+10,r22
+  73 0072 3091 BB00 		lds r19,187
+  74 0076 FA01      		movw r30,r20
+  75 0078 E80F      		add r30,r24
+  76 007a F91F      		adc r31,r25
+  77 007c 3083      		st Z,r19
+  78 007e 2061      		ori r18,lo8(16)
+  79 0080 00C0      		rjmp .L13
+  80               	.L7:
+  81 0082 6481      		ldd r22,Z+4
+  82 0084 7581      		ldd r23,Z+5
+  83 0086 4281      		ldd r20,Z+2
+  84 0088 5381      		ldd r21,Z+3
+  85 008a 8C91      		ld r24,X
+  86 008c 6417      		cp r22,r20
+  87 008e 7507      		cpc r23,r21
+  88 0090 04F0      		brlt .L59
+  89 0092 8160      		ori r24,lo8(1)
+  90               	.L59:
+  91 0094 8093 BB00 		sts 187,r24
+  92 0098 00C0      		rjmp .L13
+  93               	.L5:
+  94 009a 4481      		ldd r20,Z+4
+  95 009c 5581      		ldd r21,Z+5
+  96 009e 8281      		ldd r24,Z+2
+  97 00a0 9381      		ldd r25,Z+3
+  98 00a2 4817      		cp r20,r24
+  99 00a4 5907      		cpc r21,r25
+ 100 00a6 04F4      		brge .L14
+ 101 00a8 4081      		ld r20,Z
+ 102 00aa 5181      		ldd r21,Z+1
+ 103 00ac 8481      		ldd r24,Z+4
+ 104 00ae 9581      		ldd r25,Z+5
+ 105 00b0 BC01      		movw r22,r24
+ 106 00b2 6F5F      		subi r22,-1
+ 107 00b4 7F4F      		sbci r23,-1
+ 108 00b6 7583      		std Z+5,r23
+ 109 00b8 6483      		std Z+4,r22
+ 110 00ba FA01      		movw r30,r20
+ 111 00bc E80F      		add r30,r24
+ 112 00be F91F      		adc r31,r25
+ 113 00c0 8081      		ld r24,Z
+ 114 00c2 00C0      		rjmp .L59
+GAS LISTING /tmp/cclgtdP6.s 			page 3
+
+
+ 115               	.L14:
+ 116 00c4 8085      		ldd r24,Z+8
+ 117 00c6 9185      		ldd r25,Z+9
+ 118 00c8 892B      		or r24,r25
+ 119 00ca 01F0      		breq .L3
+ 120 00cc 2062      		ori r18,lo8(32)
+ 121 00ce 00C0      		rjmp .L13
+ 122               	.L3:
+ 123 00d0 2061      		ori r18,lo8(16)
+ 124 00d2 1596      		adiw r26,5
+ 125 00d4 ED91      		ld r30,X+
+ 126 00d6 FC91      		ld r31,X
+ 127 00d8 1697      		sbiw r26,5+1
+ 128 00da 3097      		sbiw r30,0
+ 129 00dc 01F4      		brne .L15
+ 130 00de 8FEF      		ldi r24,lo8(-1)
+ 131 00e0 9FEF      		ldi r25,lo8(-1)
+ 132 00e2 1696      		adiw r26,5+1
+ 133 00e4 9C93      		st X,r25
+ 134 00e6 8E93      		st -X,r24
+ 135 00e8 1597      		sbiw r26,5
+ 136 00ea 00C0      		rjmp .L13
+ 137               	.L15:
+ 138 00ec EF3F      		cpi r30,-1
+ 139 00ee 8FEF      		ldi r24,-1
+ 140 00f0 F807      		cpc r31,r24
+ 141 00f2 01F0      		breq .L13
+ 142 00f4 8481      		ldd r24,Z+4
+ 143 00f6 9581      		ldd r25,Z+5
+ 144 00f8 0196      		adiw r24,1
+ 145 00fa 9583      		std Z+5,r25
+ 146 00fc 8483      		std Z+4,r24
+ 147 00fe 00C0      		rjmp .L13
+ 148               	.L10:
+ 149 0100 4681      		ldd r20,Z+6
+ 150 0102 5781      		ldd r21,Z+7
+ 151 0104 8285      		ldd r24,Z+10
+ 152 0106 9385      		ldd r25,Z+11
+ 153 0108 BC01      		movw r22,r24
+ 154 010a 6F5F      		subi r22,-1
+ 155 010c 7F4F      		sbci r23,-1
+ 156 010e 7387      		std Z+11,r23
+ 157 0110 6287      		std Z+10,r22
+ 158 0112 3091 BB00 		lds r19,187
+ 159 0116 EA01      		movw r28,r20
+ 160 0118 C80F      		add r28,r24
+ 161 011a D91F      		adc r29,r25
+ 162 011c 3883      		st Y,r19
+ 163               	.L9:
+ 164 011e 8285      		ldd r24,Z+10
+ 165 0120 9385      		ldd r25,Z+11
+ 166 0122 0196      		adiw r24,1
+ 167 0124 4085      		ldd r20,Z+8
+ 168 0126 5185      		ldd r21,Z+9
+ 169 0128 8417      		cp r24,r20
+ 170 012a 9507      		cpc r25,r21
+ 171 012c 04F4      		brge .L13
+GAS LISTING /tmp/cclgtdP6.s 			page 4
+
+
+ 172 012e 2064      		ori r18,lo8(64)
+ 173 0130 00C0      		rjmp .L13
+ 174               	.L2:
+ 175 0132 983F      		cpi r25,lo8(-8)
+ 176 0134 01F0      		breq .L1
+ 177 0136 2061      		ori r18,lo8(16)
+ 178 0138 2093 BC00 		sts 188,r18
+ 179 013c 00C0      		rjmp .L1
+ 180               	.L13:
+ 181 013e 2093 BC00 		sts 188,r18
+ 182 0142 24FF      		sbrs r18,4
+ 183 0144 00C0      		rjmp .L1
+ 184 0146 1596      		adiw r26,5
+ 185 0148 ED91      		ld r30,X+
+ 186 014a FC91      		ld r31,X
+ 187 014c 1697      		sbiw r26,5+1
+ 188 014e 3097      		sbiw r30,0
+ 189 0150 01F4      		brne .L19
+ 190 0152 8FEF      		ldi r24,lo8(-1)
+ 191 0154 9FEF      		ldi r25,lo8(-1)
+ 192 0156 1696      		adiw r26,5+1
+ 193 0158 9C93      		st X,r25
+ 194 015a 8E93      		st -X,r24
+ 195 015c 1597      		sbiw r26,5
+ 196 015e 00C0      		rjmp .L1
+ 197               	.L19:
+ 198 0160 EF3F      		cpi r30,-1
+ 199 0162 8FEF      		ldi r24,-1
+ 200 0164 F807      		cpc r31,r24
+ 201 0166 01F0      		breq .L1
+ 202 0168 8481      		ldd r24,Z+4
+ 203 016a 9581      		ldd r25,Z+5
+ 204 016c 0196      		adiw r24,1
+ 205 016e 9583      		std Z+5,r25
+ 206 0170 8483      		std Z+4,r24
+ 207               	.L1:
+ 208               	/* epilogue start */
+ 209 0172 DF91      		pop r29
+ 210 0174 CF91      		pop r28
+ 211 0176 0895      		ret
+ 212               		.size	TwInterrupt, .-TwInterrupt
+ 213               		.section	.text.AvrTwiBusTran,"ax",@progbits
+ 214               		.type	AvrTwiBusTran, @function
+ 215               	AvrTwiBusTran:
+ 216 0000 EF92      		push r14
+ 217 0002 FF92      		push r15
+ 218 0004 0F93      		push r16
+ 219 0006 1F93      		push r17
+ 220 0008 CF93      		push r28
+ 221 000a DF93      		push r29
+ 222               	/* prologue: function */
+ 223               	/* frame size = 0 */
+ 224               	/* stack size = 6 */
+ 225               	.L__stack_usage = 6
+ 226 000c 8C01      		movw r16,r24
+ 227 000e 7B01      		movw r14,r22
+ 228 0010 DC01      		movw r26,r24
+GAS LISTING /tmp/cclgtdP6.s 			page 5
+
+
+ 229 0012 ED91      		ld r30,X+
+ 230 0014 FC91      		ld r31,X
+ 231 0016 1197      		sbiw r26,1
+ 232 0018 C081      		ld r28,Z
+ 233 001a D181      		ldd r29,Z+1
+ 234 001c 1296      		adiw r26,2
+ 235 001e 8C91      		ld r24,X
+ 236 0020 880F      		lsl r24
+ 237 0022 8883      		st Y,r24
+ 238 0024 7C83      		std Y+4,r23
+ 239 0026 6B83      		std Y+3,r22
+ 240 0028 84EA      		ldi r24,lo8(-92)
+ 241 002a 8093 BC00 		sts 188,r24
+ 242 002e 8981      		ldd r24,Y+1
+ 243 0030 9A81      		ldd r25,Y+2
+ 244 0032 0E94 0000 		call NutIrqEnable
+ 245 0036 F801      		movw r30,r16
+ 246 0038 4481      		ldd r20,Z+4
+ 247 003a 5581      		ldd r21,Z+5
+ 248 003c 6681      		ldd r22,Z+6
+ 249 003e 7781      		ldd r23,Z+7
+ 250 0040 CE01      		movw r24,r28
+ 251 0042 0596      		adiw r24,5
+ 252 0044 0E94 0000 		call NutEventWait
+ 253 0048 8C01      		movw r16,r24
+ 254 004a 8981      		ldd r24,Y+1
+ 255 004c 9A81      		ldd r25,Y+2
+ 256 004e 0E94 0000 		call NutIrqDisable
+ 257 0052 0115      		cp r16,__zero_reg__
+ 258 0054 1105      		cpc r17,__zero_reg__
+ 259 0056 01F0      		breq .L62
+ 260 0058 8091 BC00 		lds r24,188
+ 261 005c 87FF      		sbrs r24,7
+ 262 005e 00C0      		rjmp .L63
+ 263 0060 84E9      		ldi r24,lo8(-108)
+ 264 0062 8093 BC00 		sts 188,r24
+ 265 0066 00C0      		rjmp .L63
+ 266               	.L62:
+ 267 0068 D701      		movw r26,r14
+ 268 006a 1A96      		adiw r26,10
+ 269 006c 0D91      		ld r16,X+
+ 270 006e 1C91      		ld r17,X
+ 271 0070 1B97      		sbiw r26,10+1
+ 272               	.L63:
+ 273 0072 C801      		movw r24,r16
+ 274               	/* epilogue start */
+ 275 0074 DF91      		pop r29
+ 276 0076 CF91      		pop r28
+ 277 0078 1F91      		pop r17
+ 278 007a 0F91      		pop r16
+ 279 007c FF90      		pop r15
+ 280 007e EF90      		pop r14
+ 281 0080 0895      		ret
+ 282               		.size	AvrTwiBusTran, .-AvrTwiBusTran
+ 283               		.section	.text.AvrTwiBusWait,"ax",@progbits
+ 284               		.type	AvrTwiBusWait, @function
+ 285               	AvrTwiBusWait:
+GAS LISTING /tmp/cclgtdP6.s 			page 6
+
+
+ 286 0000 0F93      		push r16
+ 287 0002 1F93      		push r17
+ 288 0004 CF93      		push r28
+ 289 0006 DF93      		push r29
+ 290               	/* prologue: function */
+ 291               	/* frame size = 0 */
+ 292               	/* stack size = 4 */
+ 293               	.L__stack_usage = 4
+ 294 0008 182F      		mov r17,r24
+ 295 000a 062F      		mov r16,r22
+ 296 000c EA01      		movw r28,r20
+ 297               	.L65:
+ 298 000e 8091 BC00 		lds r24,188
+ 299 0012 8123      		and r24,r17
+ 300 0014 8017      		cp r24,r16
+ 301 0016 01F0      		breq .L64
+ 302 0018 2097      		sbiw r28,0
+ 303 001a 01F0      		breq .L64
+ 304 001c 61E0      		ldi r22,lo8(1)
+ 305 001e 70E0      		ldi r23,0
+ 306 0020 80E0      		ldi r24,0
+ 307 0022 90E0      		ldi r25,0
+ 308 0024 0E94 0000 		call NutSleep
+ 309 0028 2197      		sbiw r28,1
+ 310 002a 00C0      		rjmp .L65
+ 311               	.L64:
+ 312               	/* epilogue start */
+ 313 002c DF91      		pop r29
+ 314 002e CF91      		pop r28
+ 315 0030 1F91      		pop r17
+ 316 0032 0F91      		pop r16
+ 317 0034 0895      		ret
+ 318               		.size	AvrTwiBusWait, .-AvrTwiBusWait
+ 319               		.section	.text.AvrTwiBusProbe,"ax",@progbits
+ 320               		.type	AvrTwiBusProbe, @function
+ 321               	AvrTwiBusProbe:
+ 322 0000 0F93      		push r16
+ 323 0002 1F93      		push r17
+ 324 0004 CF93      		push r28
+ 325 0006 DF93      		push r29
+ 326 0008 1F92      		push __zero_reg__
+ 327 000a CDB7      		in r28,__SP_L__
+ 328 000c DEB7      		in r29,__SP_H__
+ 329               	/* prologue: function */
+ 330               	/* frame size = 1 */
+ 331               	/* stack size = 5 */
+ 332               	.L__stack_usage = 5
+ 333 000e 8B01      		movw r16,r22
+ 334 0010 2FEF      		ldi r18,lo8(-1)
+ 335 0012 2983      		std Y+1,r18
+ 336 0014 FC01      		movw r30,r24
+ 337 0016 8285      		ldd r24,Z+10
+ 338 0018 9385      		ldd r25,Z+11
+ 339 001a A485      		ldd r26,Z+12
+ 340 001c B585      		ldd r27,Z+13
+ 341 001e 8F3F      		cpi r24,-1
+ 342 0020 9105      		cpc r25,__zero_reg__
+GAS LISTING /tmp/cclgtdP6.s 			page 7
+
+
+ 343 0022 A105      		cpc r26,__zero_reg__
+ 344 0024 B105      		cpc r27,__zero_reg__
+ 345 0026 01F0      		breq .+2
+ 346 0028 00F4      		brsh .L69
+ 347 002a 8983      		std Y+1,r24
+ 348               	.L69:
+ 349 002c 84EA      		ldi r24,lo8(-92)
+ 350 002e 8093 BC00 		sts 188,r24
+ 351 0032 AE01      		movw r20,r28
+ 352 0034 4F5F      		subi r20,-1
+ 353 0036 5F4F      		sbci r21,-1
+ 354 0038 60E8      		ldi r22,lo8(-128)
+ 355 003a 80E8      		ldi r24,lo8(-128)
+ 356 003c 0E94 0000 		call AvrTwiBusWait
+ 357 0040 8981      		ldd r24,Y+1
+ 358 0042 8111      		cpse r24,__zero_reg__
+ 359 0044 00C0      		rjmp .L70
+ 360               	.L72:
+ 361 0046 0FEF      		ldi r16,lo8(-1)
+ 362 0048 1FEF      		ldi r17,lo8(-1)
+ 363 004a 00C0      		rjmp .L71
+ 364               	.L70:
+ 365 004c 000F      		lsl r16
+ 366 004e 111F      		rol r17
+ 367 0050 0160      		ori r16,lo8(1)
+ 368 0052 0093 BB00 		sts 187,r16
+ 369 0056 14E8      		ldi r17,lo8(-124)
+ 370 0058 1093 BC00 		sts 188,r17
+ 371 005c AE01      		movw r20,r28
+ 372 005e 4F5F      		subi r20,-1
+ 373 0060 5F4F      		sbci r21,-1
+ 374 0062 60E8      		ldi r22,lo8(-128)
+ 375 0064 80E8      		ldi r24,lo8(-128)
+ 376 0066 0E94 0000 		call AvrTwiBusWait
+ 377 006a 8981      		ldd r24,Y+1
+ 378 006c 8823      		tst r24
+ 379 006e 01F0      		breq .L72
+ 380 0070 8091 B900 		lds r24,185
+ 381 0074 887F      		andi r24,lo8(-8)
+ 382 0076 8034      		cpi r24,lo8(64)
+ 383 0078 01F4      		brne .L72
+ 384 007a 1093 BC00 		sts 188,r17
+ 385 007e AE01      		movw r20,r28
+ 386 0080 4F5F      		subi r20,-1
+ 387 0082 5F4F      		sbci r21,-1
+ 388 0084 60E8      		ldi r22,lo8(-128)
+ 389 0086 80E8      		ldi r24,lo8(-128)
+ 390 0088 0E94 0000 		call AvrTwiBusWait
+ 391 008c 00E0      		ldi r16,0
+ 392 008e 10E0      		ldi r17,0
+ 393               	.L71:
+ 394 0090 84E9      		ldi r24,lo8(-108)
+ 395 0092 8093 BC00 		sts 188,r24
+ 396 0096 AE01      		movw r20,r28
+ 397 0098 4F5F      		subi r20,-1
+ 398 009a 5F4F      		sbci r21,-1
+ 399 009c 60E0      		ldi r22,0
+GAS LISTING /tmp/cclgtdP6.s 			page 8
+
+
+ 400 009e 80E1      		ldi r24,lo8(16)
+ 401 00a0 0E94 0000 		call AvrTwiBusWait
+ 402 00a4 8981      		ldd r24,Y+1
+ 403 00a6 8823      		tst r24
+ 404 00a8 01F0      		breq .L74
+ 405 00aa C801      		movw r24,r16
+ 406 00ac 00C0      		rjmp .L73
+ 407               	.L74:
+ 408 00ae 8FEF      		ldi r24,lo8(-1)
+ 409 00b0 9FEF      		ldi r25,lo8(-1)
+ 410               	.L73:
+ 411               	/* epilogue start */
+ 412 00b2 0F90      		pop __tmp_reg__
+ 413 00b4 DF91      		pop r29
+ 414 00b6 CF91      		pop r28
+ 415 00b8 1F91      		pop r17
+ 416 00ba 0F91      		pop r16
+ 417 00bc 0895      		ret
+ 418               		.size	AvrTwiBusProbe, .-AvrTwiBusProbe
+ 419               		.section	.text.AvrTwiBusConf,"ax",@progbits
+ 420               		.type	AvrTwiBusConf, @function
+ 421               	AvrTwiBusConf:
+ 422 0000 CF92      		push r12
+ 423 0002 DF92      		push r13
+ 424 0004 EF92      		push r14
+ 425 0006 FF92      		push r15
+ 426 0008 0F93      		push r16
+ 427 000a 1F93      		push r17
+ 428 000c CF93      		push r28
+ 429 000e DF93      		push r29
+ 430               	/* prologue: function */
+ 431               	/* frame size = 0 */
+ 432               	/* stack size = 8 */
+ 433               	.L__stack_usage = 8
+ 434 0010 EC01      		movw r28,r24
+ 435 0012 0E94 0000 		call NutGetCpuClock
+ 436 0016 6B01      		movw r12,r22
+ 437 0018 7C01      		movw r14,r24
+ 438 001a 2E85      		ldd r18,Y+14
+ 439 001c 3F85      		ldd r19,Y+15
+ 440 001e 4889      		ldd r20,Y+16
+ 441 0020 5989      		ldd r21,Y+17
+ 442 0022 DC01      		movw r26,r24
+ 443 0024 CB01      		movw r24,r22
+ 444 0026 820F      		add r24,r18
+ 445 0028 931F      		adc r25,r19
+ 446 002a A41F      		adc r26,r20
+ 447 002c B51F      		adc r27,r21
+ 448 002e BC01      		movw r22,r24
+ 449 0030 CD01      		movw r24,r26
+ 450 0032 9695      		lsr r25
+ 451 0034 8795      		ror r24
+ 452 0036 7795      		ror r23
+ 453 0038 6795      		ror r22
+ 454 003a 0E94 0000 		call __udivmodsi4
+ 455 003e BA01      		movw r22,r20
+ 456 0040 A901      		movw r20,r18
+GAS LISTING /tmp/cclgtdP6.s 			page 9
+
+
+ 457 0042 4850      		subi r20,8
+ 458 0044 5109      		sbc r21,__zero_reg__
+ 459 0046 6109      		sbc r22,__zero_reg__
+ 460 0048 7109      		sbc r23,__zero_reg__
+ 461 004a 80E0      		ldi r24,0
+ 462               	.L79:
+ 463 004c 4F3F      		cpi r20,-1
+ 464 004e 5105      		cpc r21,__zero_reg__
+ 465 0050 6105      		cpc r22,__zero_reg__
+ 466 0052 7105      		cpc r23,__zero_reg__
+ 467 0054 01F0      		breq .L80
+ 468 0056 00F0      		brlo .L80
+ 469 0058 8430      		cpi r24,lo8(4)
+ 470 005a 01F0      		breq .L83
+ 471 005c F2E0      		ldi r31,2
+ 472               		1:
+ 473 005e 7695      		lsr r23
+ 474 0060 6795      		ror r22
+ 475 0062 5795      		ror r21
+ 476 0064 4795      		ror r20
+ 477 0066 FA95      		dec r31
+ 478 0068 01F4      		brne 1b
+ 479 006a 8F5F      		subi r24,lo8(-(1))
+ 480 006c 00C0      		rjmp .L79
+ 481               	.L80:
+ 482 006e 8430      		cpi r24,lo8(4)
+ 483 0070 01F4      		brne .L82
+ 484               	.L83:
+ 485 0072 83E0      		ldi r24,lo8(3)
+ 486 0074 4FEF      		ldi r20,lo8(-1)
+ 487 0076 50E0      		ldi r21,0
+ 488 0078 60E0      		ldi r22,0
+ 489 007a 70E0      		ldi r23,0
+ 490               	.L82:
+ 491 007c 4093 B800 		sts 184,r20
+ 492 0080 8093 B900 		sts 185,r24
+ 493 0084 94E0      		ldi r25,lo8(4)
+ 494 0086 9093 BC00 		sts 188,r25
+ 495 008a 880F      		lsl r24
+ 496 008c 8A01      		movw r16,r20
+ 497 008e 9B01      		movw r18,r22
+ 498 0090 00C0      		rjmp 2f
+ 499               		1:
+ 500 0092 000F      		lsl r16
+ 501 0094 111F      		rol r17
+ 502 0096 221F      		rol r18
+ 503 0098 331F      		rol r19
+ 504               		2:
+ 505 009a 8A95      		dec r24
+ 506 009c 02F4      		brpl 1b
+ 507 009e 085F      		subi r16,-8
+ 508 00a0 1F4F      		sbci r17,-1
+ 509 00a2 2F4F      		sbci r18,-1
+ 510 00a4 3F4F      		sbci r19,-1
+ 511 00a6 C701      		movw r24,r14
+ 512 00a8 B601      		movw r22,r12
+ 513 00aa 600F      		add r22,r16
+GAS LISTING /tmp/cclgtdP6.s 			page 10
+
+
+ 514 00ac 711F      		adc r23,r17
+ 515 00ae 821F      		adc r24,r18
+ 516 00b0 931F      		adc r25,r19
+ 517 00b2 A901      		movw r20,r18
+ 518 00b4 9801      		movw r18,r16
+ 519 00b6 220F      		lsl r18
+ 520 00b8 331F      		rol r19
+ 521 00ba 441F      		rol r20
+ 522 00bc 551F      		rol r21
+ 523 00be 0E94 0000 		call __udivmodsi4
+ 524 00c2 2E87      		std Y+14,r18
+ 525 00c4 3F87      		std Y+15,r19
+ 526 00c6 488B      		std Y+16,r20
+ 527 00c8 598B      		std Y+17,r21
+ 528 00ca 80E0      		ldi r24,0
+ 529 00cc 90E0      		ldi r25,0
+ 530               	/* epilogue start */
+ 531 00ce DF91      		pop r29
+ 532 00d0 CF91      		pop r28
+ 533 00d2 1F91      		pop r17
+ 534 00d4 0F91      		pop r16
+ 535 00d6 FF90      		pop r15
+ 536 00d8 EF90      		pop r14
+ 537 00da DF90      		pop r13
+ 538 00dc CF90      		pop r12
+ 539 00de 0895      		ret
+ 540               		.size	AvrTwiBusConf, .-AvrTwiBusConf
+ 541               		.section	.text.AvrTwiBusInit,"ax",@progbits
+ 542               		.type	AvrTwiBusInit, @function
+ 543               	AvrTwiBusInit:
+ 544 0000 CF93      		push r28
+ 545 0002 DF93      		push r29
+ 546               	/* prologue: function */
+ 547               	/* frame size = 0 */
+ 548               	/* stack size = 2 */
+ 549               	.L__stack_usage = 2
+ 550 0004 FC01      		movw r30,r24
+ 551 0006 C081      		ld r28,Z
+ 552 0008 D181      		ldd r29,Z+1
+ 553 000a 0E94 0000 		call AvrTwiBusConf
+ 554 000e AE01      		movw r20,r28
+ 555 0010 60E0      		ldi r22,lo8(gs(TwInterrupt))
+ 556 0012 70E0      		ldi r23,hi8(gs(TwInterrupt))
+ 557 0014 8981      		ldd r24,Y+1
+ 558 0016 9A81      		ldd r25,Y+2
+ 559               	/* epilogue start */
+ 560 0018 DF91      		pop r29
+ 561 001a CF91      		pop r28
+ 562 001c 0C94 0000 		jmp NutRegisterIrqHandler
+ 563               		.size	AvrTwiBusInit, .-AvrTwiBusInit
+ 564               	.global	i2cBus0Avr
+ 565               		.data
+ 566               		.type	i2cBus0Avr, @object
+ 567               		.size	i2cBus0Avr, 21
+ 568               	i2cBus0Avr:
+ 569 0000 0000      		.word	twi0cb
+ 570 0002 0000      		.word	gs(AvrTwiBusInit)
+GAS LISTING /tmp/cclgtdP6.s 			page 11
+
+
+ 571 0004 0000      		.word	gs(AvrTwiBusConf)
+ 572 0006 0000      		.word	gs(AvrTwiBusProbe)
+ 573 0008 0000      		.word	gs(AvrTwiBusTran)
+ 574 000a 64        		.byte	100
+ 575 000b 00        		.byte	0
+ 576 000c 00        		.byte	0
+ 577 000d 00        		.byte	0
+ 578 000e A0        		.byte	-96
+ 579 000f 86        		.byte	-122
+ 580 0010 01        		.byte	1
+ 581 0011 00        		.byte	0
+ 582 0012 00        		.byte	0
+ 583 0013 0000      		.word	0
+ 584               		.type	twi0cb, @object
+ 585               		.size	twi0cb, 7
+ 586               	twi0cb:
+ 587 0015 00        		.byte	0
+ 588 0016 0000      		.word	sig_2WIRE_SERIAL
+ 589 0018 0000      		.word	0
+ 590 001a 0000      		.word	0
+ 591               		.ident	"GCC: (GNU) 5.3.0"
+ 592               	.global __do_copy_data
+GAS LISTING /tmp/cclgtdP6.s 			page 12
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 i2cbus_avr.c
+     /tmp/cclgtdP6.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cclgtdP6.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cclgtdP6.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cclgtdP6.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cclgtdP6.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cclgtdP6.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cclgtdP6.s:10     .text.TwInterrupt:0000000000000000 TwInterrupt
+     /tmp/cclgtdP6.s:215    .text.AvrTwiBusTran:0000000000000000 AvrTwiBusTran
+     /tmp/cclgtdP6.s:285    .text.AvrTwiBusWait:0000000000000000 AvrTwiBusWait
+     /tmp/cclgtdP6.s:321    .text.AvrTwiBusProbe:0000000000000000 AvrTwiBusProbe
+     /tmp/cclgtdP6.s:421    .text.AvrTwiBusConf:0000000000000000 AvrTwiBusConf
+     /tmp/cclgtdP6.s:543    .text.AvrTwiBusInit:0000000000000000 AvrTwiBusInit
+     /tmp/cclgtdP6.s:568    .data:0000000000000000 i2cBus0Avr
+     /tmp/cclgtdP6.s:586    .data:0000000000000015 twi0cb
+
+UNDEFINED SYMBOLS
+NutIrqEnable
+NutEventWait
+NutIrqDisable
+NutSleep
+NutGetCpuClock
+__udivmodsi4
+NutRegisterIrqHandler
+sig_2WIRE_SERIAL
+__do_copy_data

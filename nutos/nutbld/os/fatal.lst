@@ -1,0 +1,66 @@
+GAS LISTING /tmp/ccBGwqpm.s 			page 1
+
+
+   1               		.file	"fatal.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.rodata.str1.1,"aMS",@progbits,1
+   9               	.LC0:
+  10 0000 2573 3A25 		.string	"%s:%d: Fatal: Expected %s in %s\n"
+  10      643A 2046 
+  10      6174 616C 
+  10      3A20 4578 
+  10      7065 6374 
+  11               		.section	.text.NUTFATAL,"ax",@progbits
+  12               	.global	NUTFATAL
+  13               		.type	NUTFATAL, @function
+  14               	NUTFATAL:
+  15               	/* prologue: function */
+  16               	/* frame size = 0 */
+  17               	/* stack size = 0 */
+  18               	.L__stack_usage = 0
+  19 0000 9F93      		push r25
+  20 0002 8F93      		push r24
+  21 0004 3F93      		push r19
+  22 0006 2F93      		push r18
+  23 0008 5F93      		push r21
+  24 000a 4F93      		push r20
+  25 000c 7F93      		push r23
+  26 000e 6F93      		push r22
+  27 0010 80E0      		ldi r24,lo8(.LC0)
+  28 0012 90E0      		ldi r25,hi8(.LC0)
+  29 0014 9F93      		push r25
+  30 0016 8F93      		push r24
+  31 0018 0E94 0000 		call NUTPANIC
+  32 001c 8DB7      		in r24,__SP_L__
+  33 001e 9EB7      		in r25,__SP_H__
+  34 0020 0A96      		adiw r24,10
+  35 0022 0FB6      		in __tmp_reg__,__SREG__
+  36 0024 F894      		cli
+  37 0026 9EBF      		out __SP_H__,r25
+  38 0028 0FBE      		out __SREG__,__tmp_reg__
+  39 002a 8DBF      		out __SP_L__,r24
+  40 002c 0895      		ret
+  41               		.size	NUTFATAL, .-NUTFATAL
+  42               		.ident	"GCC: (GNU) 5.3.0"
+  43               	.global __do_copy_data
+GAS LISTING /tmp/ccBGwqpm.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 fatal.c
+     /tmp/ccBGwqpm.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccBGwqpm.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccBGwqpm.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccBGwqpm.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccBGwqpm.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccBGwqpm.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccBGwqpm.s:14     .text.NUTFATAL:0000000000000000 NUTFATAL
+
+UNDEFINED SYMBOLS
+NUTPANIC
+__do_copy_data

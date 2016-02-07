@@ -1,0 +1,141 @@
+GAS LISTING /tmp/ccXw0Esg.s 			page 1
+
+
+   1               		.file	"ih_ee_ready.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.AvrEepromRdyIrqCtl,"ax",@progbits
+   9               		.type	AvrEepromRdyIrqCtl, @function
+  10               	AvrEepromRdyIrqCtl:
+  11               	/* prologue: function */
+  12               	/* frame size = 0 */
+  13               	/* stack size = 0 */
+  14               	.L__stack_usage = 0
+  15 0000 2FB3      		in r18,0x1f
+  16 0002 FB98      		cbi 0x1f,3
+  17 0004 8131      		cpi r24,17
+  18 0006 9105      		cpc r25,__zero_reg__
+  19 0008 01F0      		breq .L9
+  20 000a 04F4      		brge .L4
+  21 000c 892B      		or r24,r25
+  22 000e 01F0      		breq .L8
+  23 0010 00C0      		rjmp .L7
+  24               	.L4:
+  25 0012 8231      		cpi r24,18
+  26 0014 9105      		cpc r25,__zero_reg__
+  27 0016 01F0      		breq .L8
+  28 0018 8097      		sbiw r24,32
+  29 001a 01F4      		brne .L7
+  30 001c FB01      		movw r30,r22
+  31 001e 1182      		std Z+1,__zero_reg__
+  32 0020 1082      		st Z,__zero_reg__
+  33 0022 80E0      		ldi r24,0
+  34 0024 90E0      		ldi r25,0
+  35 0026 00C0      		rjmp .L2
+  36               	.L7:
+  37 0028 8FEF      		ldi r24,lo8(-1)
+  38 002a 9FEF      		ldi r25,lo8(-1)
+  39               	.L2:
+  40 002c 23FD      		sbrc r18,3
+  41 002e 00C0      		rjmp .L3
+  42 0030 0895      		ret
+  43               	.L9:
+  44 0032 80E0      		ldi r24,0
+  45 0034 90E0      		ldi r25,0
+  46               	.L3:
+  47 0036 FB9A      		sbi 0x1f,3
+  48 0038 0895      		ret
+  49               	.L8:
+  50 003a 80E0      		ldi r24,0
+  51 003c 90E0      		ldi r25,0
+  52 003e 0895      		ret
+  53               		.size	AvrEepromRdyIrqCtl, .-AvrEepromRdyIrqCtl
+  54               		.section	.text.__vector_30,"ax",@progbits
+  55               	.global	__vector_30
+  56               		.type	__vector_30, @function
+  57               	__vector_30:
+GAS LISTING /tmp/ccXw0Esg.s 			page 2
+
+
+  58 0000 1F92      		push r1
+  59 0002 0F92      		push r0
+  60 0004 0FB6      		in r0,__SREG__
+  61 0006 0F92      		push r0
+  62 0008 1124      		clr __zero_reg__
+  63 000a 0BB6      		in r0,__RAMPZ__
+  64 000c 0F92      		push r0
+  65 000e 2F93      		push r18
+  66 0010 3F93      		push r19
+  67 0012 4F93      		push r20
+  68 0014 5F93      		push r21
+  69 0016 6F93      		push r22
+  70 0018 7F93      		push r23
+  71 001a 8F93      		push r24
+  72 001c 9F93      		push r25
+  73 001e AF93      		push r26
+  74 0020 BF93      		push r27
+  75 0022 EF93      		push r30
+  76 0024 FF93      		push r31
+  77               	/* prologue: Signal */
+  78               	/* frame size = 0 */
+  79               	/* stack size = 16 */
+  80               	.L__stack_usage = 16
+  81 0026 80E0      		ldi r24,lo8(sig_EEPROM_READY)
+  82 0028 90E0      		ldi r25,hi8(sig_EEPROM_READY)
+  83 002a 0E94 0000 		call CallHandler
+  84               	/* epilogue start */
+  85 002e FF91      		pop r31
+  86 0030 EF91      		pop r30
+  87 0032 BF91      		pop r27
+  88 0034 AF91      		pop r26
+  89 0036 9F91      		pop r25
+  90 0038 8F91      		pop r24
+  91 003a 7F91      		pop r23
+  92 003c 6F91      		pop r22
+  93 003e 5F91      		pop r21
+  94 0040 4F91      		pop r20
+  95 0042 3F91      		pop r19
+  96 0044 2F91      		pop r18
+  97 0046 0F90      		pop r0
+  98 0048 0BBE      		out __RAMPZ__,r0
+  99 004a 0F90      		pop r0
+ 100 004c 0FBE      		out __SREG__,r0
+ 101 004e 0F90      		pop r0
+ 102 0050 1F90      		pop r1
+ 103 0052 1895      		reti
+ 104               		.size	__vector_30, .-__vector_30
+ 105               	.global	sig_EEPROM_READY
+ 106               		.data
+ 107               		.type	sig_EEPROM_READY, @object
+ 108               		.size	sig_EEPROM_READY, 6
+ 109               	sig_EEPROM_READY:
+ 110 0000 0000      		.word	0
+ 111 0002 0000      		.word	0
+ 112 0004 0000      		.word	gs(AvrEepromRdyIrqCtl)
+ 113               		.ident	"GCC: (GNU) 5.3.0"
+ 114               	.global __do_copy_data
+GAS LISTING /tmp/ccXw0Esg.s 			page 3
+
+
+GAS LISTING /tmp/ccXw0Esg.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 ih_ee_ready.c
+     /tmp/ccXw0Esg.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccXw0Esg.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccXw0Esg.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccXw0Esg.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccXw0Esg.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccXw0Esg.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccXw0Esg.s:10     .text.AvrEepromRdyIrqCtl:0000000000000000 AvrEepromRdyIrqCtl
+     /tmp/ccXw0Esg.s:57     .text.__vector_30:0000000000000000 __vector_30
+     /tmp/ccXw0Esg.s:109    .data:0000000000000000 sig_EEPROM_READY
+
+UNDEFINED SYMBOLS
+CallHandler
+__do_copy_data

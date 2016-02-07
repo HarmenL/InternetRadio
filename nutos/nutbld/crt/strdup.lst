@@ -1,0 +1,68 @@
+GAS LISTING /tmp/cccomLFy.s 			page 1
+
+
+   1               		.file	"strdup.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.strdup,"ax",@progbits
+   9               	.global	strdup
+  10               		.type	strdup, @function
+  11               	strdup:
+  12 0000 EF92      		push r14
+  13 0002 FF92      		push r15
+  14 0004 0F93      		push r16
+  15 0006 1F93      		push r17
+  16 0008 CF93      		push r28
+  17 000a DF93      		push r29
+  18               	/* prologue: function */
+  19               	/* frame size = 0 */
+  20               	/* stack size = 6 */
+  21               	.L__stack_usage = 6
+  22 000c 7C01      		movw r14,r24
+  23 000e EC01      		movw r28,r24
+  24               		0:
+  25 0010 0990      		ld __tmp_reg__,Y+
+  26 0012 0020      		tst __tmp_reg__
+  27 0014 01F4      		brne 0b
+  28 0016 C81B      		sub r28,r24
+  29 0018 D90B      		sbc r29,r25
+  30 001a CE01      		movw r24,r28
+  31 001c 0E94 0000 		call malloc
+  32 0020 8C01      		movw r16,r24
+  33 0022 0097      		sbiw r24,0
+  34 0024 01F0      		breq .L2
+  35 0026 AE01      		movw r20,r28
+  36 0028 B701      		movw r22,r14
+  37 002a 0E94 0000 		call memcpy
+  38               	.L2:
+  39 002e C801      		movw r24,r16
+  40               	/* epilogue start */
+  41 0030 DF91      		pop r29
+  42 0032 CF91      		pop r28
+  43 0034 1F91      		pop r17
+  44 0036 0F91      		pop r16
+  45 0038 FF90      		pop r15
+  46 003a EF90      		pop r14
+  47 003c 0895      		ret
+  48               		.size	strdup, .-strdup
+  49               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/cccomLFy.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 strdup.c
+     /tmp/cccomLFy.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cccomLFy.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cccomLFy.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cccomLFy.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cccomLFy.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cccomLFy.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cccomLFy.s:11     .text.strdup:0000000000000000 strdup
+
+UNDEFINED SYMBOLS
+malloc
+memcpy

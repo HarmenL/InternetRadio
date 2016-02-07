@@ -1,0 +1,350 @@
+GAS LISTING /tmp/cczovDNO.s 			page 1
+
+
+   1               		.file	"cgi.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.NutRegisterCgiBinPath,"ax",@progbits
+   9               	.global	NutRegisterCgiBinPath
+  10               		.type	NutRegisterCgiBinPath, @function
+  11               	NutRegisterCgiBinPath:
+  12 0000 CF93      		push r28
+  13 0002 DF93      		push r29
+  14               	/* prologue: function */
+  15               	/* frame size = 0 */
+  16               	/* stack size = 2 */
+  17               	.L__stack_usage = 2
+  18 0004 EC01      		movw r28,r24
+  19 0006 8091 0000 		lds r24,cgiBinPath
+  20 000a 9091 0000 		lds r25,cgiBinPath+1
+  21 000e 0097      		sbiw r24,0
+  22 0010 01F0      		breq .L2
+  23 0012 0E94 0000 		call free
+  24               	.L2:
+  25 0016 CE01      		movw r24,r28
+  26 0018 0E94 0000 		call strdup
+  27 001c 9093 0000 		sts cgiBinPath+1,r25
+  28 0020 8093 0000 		sts cgiBinPath,r24
+  29               	/* epilogue start */
+  30 0024 DF91      		pop r29
+  31 0026 CF91      		pop r28
+  32 0028 0895      		ret
+  33               		.size	NutRegisterCgiBinPath, .-NutRegisterCgiBinPath
+  34               		.section	.text.NutRegisterCgi,"ax",@progbits
+  35               	.global	NutRegisterCgi
+  36               		.type	NutRegisterCgi, @function
+  37               	NutRegisterCgi:
+  38 0000 EF92      		push r14
+  39 0002 FF92      		push r15
+  40 0004 0F93      		push r16
+  41 0006 1F93      		push r17
+  42 0008 CF93      		push r28
+  43 000a DF93      		push r29
+  44               	/* prologue: function */
+  45               	/* frame size = 0 */
+  46               	/* stack size = 6 */
+  47               	.L__stack_usage = 6
+  48 000c 8C01      		movw r16,r24
+  49 000e 7B01      		movw r14,r22
+  50 0010 C091 0000 		lds r28,cgiFunctionList
+  51 0014 D091 0000 		lds r29,cgiFunctionList+1
+  52               	.L8:
+  53 0018 2097      		sbiw r28,0
+  54 001a 01F0      		breq .L21
+  55 001c 6A81      		ldd r22,Y+2
+  56 001e 7B81      		ldd r23,Y+3
+  57 0020 C801      		movw r24,r16
+GAS LISTING /tmp/cczovDNO.s 			page 2
+
+
+  58 0022 0E94 0000 		call strcmp
+  59 0026 892B      		or r24,r25
+  60 0028 01F4      		brne .L9
+  61               	.L13:
+  62 002a 8FEF      		ldi r24,lo8(-1)
+  63 002c 9FEF      		ldi r25,lo8(-1)
+  64 002e 00C0      		rjmp .L18
+  65               	.L9:
+  66 0030 0990      		ld __tmp_reg__,Y+
+  67 0032 D881      		ld r29,Y
+  68 0034 C02D      		mov r28,__tmp_reg__
+  69 0036 00C0      		rjmp .L8
+  70               	.L21:
+  71 0038 86E0      		ldi r24,lo8(6)
+  72 003a 90E0      		ldi r25,0
+  73 003c 0E94 0000 		call malloc
+  74 0040 EC01      		movw r28,r24
+  75 0042 892B      		or r24,r25
+  76 0044 01F0      		breq .L13
+  77 0046 8091 0000 		lds r24,cgiFunctionList
+  78 004a 9091 0000 		lds r25,cgiFunctionList+1
+  79 004e 9983      		std Y+1,r25
+  80 0050 8883      		st Y,r24
+  81 0052 C801      		movw r24,r16
+  82 0054 0E94 0000 		call strdup
+  83 0058 9B83      		std Y+3,r25
+  84 005a 8A83      		std Y+2,r24
+  85 005c FD82      		std Y+5,r15
+  86 005e EC82      		std Y+4,r14
+  87 0060 D093 0000 		sts cgiFunctionList+1,r29
+  88 0064 C093 0000 		sts cgiFunctionList,r28
+  89 0068 80E0      		ldi r24,0
+  90 006a 90E0      		ldi r25,0
+  91               	.L18:
+  92               	/* epilogue start */
+  93 006c DF91      		pop r29
+  94 006e CF91      		pop r28
+  95 0070 1F91      		pop r17
+  96 0072 0F91      		pop r16
+  97 0074 FF90      		pop r15
+  98 0076 EF90      		pop r14
+  99 0078 0895      		ret
+ 100               		.size	NutRegisterCgi, .-NutRegisterCgi
+ 101               		.section	.text.NutCgiProcessRequest,"ax",@progbits
+ 102               	.global	NutCgiProcessRequest
+ 103               		.type	NutCgiProcessRequest, @function
+ 104               	NutCgiProcessRequest:
+ 105 0000 CF92      		push r12
+ 106 0002 DF92      		push r13
+ 107 0004 EF92      		push r14
+ 108 0006 FF92      		push r15
+ 109 0008 0F93      		push r16
+ 110 000a 1F93      		push r17
+ 111 000c CF93      		push r28
+ 112 000e DF93      		push r29
+ 113               	/* prologue: function */
+ 114               	/* frame size = 0 */
+GAS LISTING /tmp/cczovDNO.s 			page 3
+
+
+ 115               	/* stack size = 8 */
+ 116               	.L__stack_usage = 8
+ 117 0010 7C01      		movw r14,r24
+ 118 0012 EB01      		movw r28,r22
+ 119 0014 6A01      		movw r12,r20
+ 120 0016 8881      		ld r24,Y
+ 121 0018 9981      		ldd r25,Y+1
+ 122 001a 0197      		sbiw r24,1
+ 123 001c 0297      		sbiw r24,2
+ 124 001e 00F0      		brlo .L23
+ 125 0020 45EF      		ldi r20,lo8(-11)
+ 126 0022 51E0      		ldi r21,lo8(1)
+ 127 0024 00C0      		rjmp .L31
+ 128               	.L23:
+ 129 0026 0091 0000 		lds r16,cgiFunctionList
+ 130 002a 1091 0000 		lds r17,cgiFunctionList+1
+ 131               	.L24:
+ 132 002e 0115      		cp r16,__zero_reg__
+ 133 0030 1105      		cpc r17,__zero_reg__
+ 134 0032 01F0      		breq .L32
+ 135 0034 6885      		ldd r22,Y+8
+ 136 0036 7985      		ldd r23,Y+9
+ 137 0038 6C0D      		add r22,r12
+ 138 003a 7D1D      		adc r23,r13
+ 139 003c D801      		movw r26,r16
+ 140 003e 1296      		adiw r26,2
+ 141 0040 8D91      		ld r24,X+
+ 142 0042 9C91      		ld r25,X
+ 143 0044 1397      		sbiw r26,2+1
+ 144 0046 0E94 0000 		call strcasecmp
+ 145 004a 892B      		or r24,r25
+ 146 004c 01F0      		breq .L25
+ 147 004e F801      		movw r30,r16
+ 148 0050 0081      		ld r16,Z
+ 149 0052 1181      		ldd r17,Z+1
+ 150 0054 00C0      		rjmp .L24
+ 151               	.L32:
+ 152 0056 44E9      		ldi r20,lo8(-108)
+ 153 0058 51E0      		ldi r21,lo8(1)
+ 154               	.L31:
+ 155 005a BE01      		movw r22,r28
+ 156 005c C701      		movw r24,r14
+ 157               	/* epilogue start */
+ 158 005e DF91      		pop r29
+ 159 0060 CF91      		pop r28
+ 160 0062 1F91      		pop r17
+ 161 0064 0F91      		pop r16
+ 162 0066 FF90      		pop r15
+ 163 0068 EF90      		pop r14
+ 164 006a DF90      		pop r13
+ 165 006c CF90      		pop r12
+ 166 006e 0C94 0000 		jmp NutHttpSendError
+ 167               	.L25:
+ 168 0072 D801      		movw r26,r16
+ 169 0074 1496      		adiw r26,4
+ 170 0076 ED91      		ld r30,X+
+ 171 0078 FC91      		ld r31,X
+GAS LISTING /tmp/cczovDNO.s 			page 4
+
+
+ 172 007a 1597      		sbiw r26,4+1
+ 173 007c BE01      		movw r22,r28
+ 174 007e C701      		movw r24,r14
+ 175 0080 1995      		eicall
+ 176 0082 892B      		or r24,r25
+ 177 0084 01F0      		breq .L33
+ 178 0086 44EF      		ldi r20,lo8(-12)
+ 179 0088 51E0      		ldi r21,lo8(1)
+ 180 008a 00C0      		rjmp .L31
+ 181               	.L33:
+ 182               	/* epilogue start */
+ 183 008c DF91      		pop r29
+ 184 008e CF91      		pop r28
+ 185 0090 1F91      		pop r17
+ 186 0092 0F91      		pop r16
+ 187 0094 FF90      		pop r15
+ 188 0096 EF90      		pop r14
+ 189 0098 DF90      		pop r13
+ 190 009a CF90      		pop r12
+ 191 009c 0895      		ret
+ 192               		.size	NutCgiProcessRequest, .-NutCgiProcessRequest
+ 193               		.section	.rodata.str1.1,"aMS",@progbits,1
+ 194               	.LC0:
+ 195 0000 6367 692D 		.string	"cgi-bin/"
+ 195      6269 6E2F 
+ 195      00
+ 196               		.section	.text.NutCgiCheckRequest,"ax",@progbits
+ 197               	.global	NutCgiCheckRequest
+ 198               		.type	NutCgiCheckRequest, @function
+ 199               	NutCgiCheckRequest:
+ 200 0000 CF92      		push r12
+ 201 0002 DF92      		push r13
+ 202 0004 EF92      		push r14
+ 203 0006 FF92      		push r15
+ 204 0008 0F93      		push r16
+ 205 000a 1F93      		push r17
+ 206 000c CF93      		push r28
+ 207 000e DF93      		push r29
+ 208               	/* prologue: function */
+ 209               	/* frame size = 0 */
+ 210               	/* stack size = 8 */
+ 211               	.L__stack_usage = 8
+ 212 0010 6C01      		movw r12,r24
+ 213 0012 7B01      		movw r14,r22
+ 214 0014 E091 0000 		lds r30,cgiBinPath
+ 215 0018 F091 0000 		lds r31,cgiBinPath+1
+ 216 001c 3097      		sbiw r30,0
+ 217 001e 01F4      		brne .L40
+ 218 0020 E0E0      		ldi r30,lo8(.LC0)
+ 219 0022 F0E0      		ldi r31,hi8(.LC0)
+ 220 0024 00C0      		rjmp .L40
+ 221               	.L50:
+ 222 0026 DE01      		movw r26,r28
+ 223               	.L41:
+ 224 0028 8D01      		movw r16,r26
+ 225 002a 0C1B      		sub r16,r28
+ 226 002c 1D0B      		sbc r17,r29
+GAS LISTING /tmp/cczovDNO.s 			page 5
+
+
+ 227 002e 8D91      		ld r24,X+
+ 228 0030 8111      		cpse r24,__zero_reg__
+ 229 0032 00C0      		rjmp .L38
+ 230               	.L42:
+ 231 0034 0115      		cp r16,__zero_reg__
+ 232 0036 1105      		cpc r17,__zero_reg__
+ 233 0038 01F4      		brne .L49
+ 234               	.L40:
+ 235 003a 8081      		ld r24,Z
+ 236 003c 8823      		tst r24
+ 237 003e 01F0      		breq .L47
+ 238 0040 EF01      		movw r28,r30
+ 239               	.L37:
+ 240 0042 FE01      		movw r30,r28
+ 241 0044 9E01      		movw r18,r28
+ 242 0046 2F5F      		subi r18,-1
+ 243 0048 3F4F      		sbci r19,-1
+ 244 004a 8881      		ld r24,Y
+ 245 004c 8B33      		cpi r24,lo8(59)
+ 246 004e 01F4      		brne .L50
+ 247 0050 E901      		movw r28,r18
+ 248 0052 00C0      		rjmp .L37
+ 249               	.L38:
+ 250 0054 8B33      		cpi r24,lo8(59)
+ 251 0056 01F4      		brne .L41
+ 252 0058 00C0      		rjmp .L42
+ 253               	.L49:
+ 254 005a A801      		movw r20,r16
+ 255 005c BE01      		movw r22,r28
+ 256 005e F701      		movw r30,r14
+ 257 0060 8085      		ldd r24,Z+8
+ 258 0062 9185      		ldd r25,Z+9
+ 259 0064 0E94 0000 		call strncasecmp
+ 260 0068 892B      		or r24,r25
+ 261 006a 01F4      		brne .L43
+ 262 006c A801      		movw r20,r16
+ 263 006e B701      		movw r22,r14
+ 264 0070 C601      		movw r24,r12
+ 265 0072 0E94 0000 		call NutCgiProcessRequest
+ 266 0076 81E0      		ldi r24,lo8(1)
+ 267 0078 90E0      		ldi r25,0
+ 268 007a 00C0      		rjmp .L44
+ 269               	.L43:
+ 270 007c FE01      		movw r30,r28
+ 271 007e E00F      		add r30,r16
+ 272 0080 F11F      		adc r31,r17
+ 273 0082 00C0      		rjmp .L40
+ 274               	.L47:
+ 275 0084 80E0      		ldi r24,0
+ 276 0086 90E0      		ldi r25,0
+ 277               	.L44:
+ 278               	/* epilogue start */
+ 279 0088 DF91      		pop r29
+ 280 008a CF91      		pop r28
+ 281 008c 1F91      		pop r17
+ 282 008e 0F91      		pop r16
+ 283 0090 FF90      		pop r15
+GAS LISTING /tmp/cczovDNO.s 			page 6
+
+
+ 284 0092 EF90      		pop r14
+ 285 0094 DF90      		pop r13
+ 286 0096 CF90      		pop r12
+ 287 0098 0895      		ret
+ 288               		.size	NutCgiCheckRequest, .-NutCgiCheckRequest
+ 289               	.global	cgiBinPath
+ 290               		.section .bss
+ 291               		.type	cgiBinPath, @object
+ 292               		.size	cgiBinPath, 2
+ 293               	cgiBinPath:
+ 294 0000 0000      		.zero	2
+ 295               	.global	cgiFunctionList
+ 296               		.type	cgiFunctionList, @object
+ 297               		.size	cgiFunctionList, 2
+ 298               	cgiFunctionList:
+ 299 0002 0000      		.zero	2
+ 300               		.ident	"GCC: (GNU) 5.3.0"
+ 301               	.global __do_copy_data
+ 302               	.global __do_clear_bss
+GAS LISTING /tmp/cczovDNO.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 cgi.c
+     /tmp/cczovDNO.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cczovDNO.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cczovDNO.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cczovDNO.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cczovDNO.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cczovDNO.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cczovDNO.s:11     .text.NutRegisterCgiBinPath:0000000000000000 NutRegisterCgiBinPath
+     /tmp/cczovDNO.s:293    .bss:0000000000000000 cgiBinPath
+     /tmp/cczovDNO.s:37     .text.NutRegisterCgi:0000000000000000 NutRegisterCgi
+     /tmp/cczovDNO.s:298    .bss:0000000000000002 cgiFunctionList
+     /tmp/cczovDNO.s:104    .text.NutCgiProcessRequest:0000000000000000 NutCgiProcessRequest
+     /tmp/cczovDNO.s:199    .text.NutCgiCheckRequest:0000000000000000 NutCgiCheckRequest
+
+UNDEFINED SYMBOLS
+free
+strdup
+strcmp
+malloc
+strcasecmp
+NutHttpSendError
+strncasecmp
+__do_copy_data
+__do_clear_bss

@@ -1,0 +1,729 @@
+GAS LISTING /tmp/ccY3FIEk.s 			page 1
+
+
+   1               		.file	"rfctime.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.skip_spaces,"ax",@progbits
+   9               		.type	skip_spaces, @function
+  10               	skip_spaces:
+  11               	/* prologue: function */
+  12               	/* frame size = 0 */
+  13               	/* stack size = 0 */
+  14               	.L__stack_usage = 0
+  15 0000 FC01      		movw r30,r24
+  16               	.L2:
+  17 0002 CF01      		movw r24,r30
+  18 0004 2191      		ld r18,Z+
+  19 0006 2032      		cpi r18,lo8(32)
+  20 0008 01F0      		breq .L2
+  21 000a 2930      		cpi r18,lo8(9)
+  22 000c 01F0      		breq .L2
+  23               	/* epilogue start */
+  24 000e 0895      		ret
+  25               		.size	skip_spaces, .-skip_spaces
+  26               		.section	.text.parse_digits,"ax",@progbits
+  27               		.type	parse_digits, @function
+  28               	parse_digits:
+  29 0000 CF93      		push r28
+  30 0002 DF93      		push r29
+  31               	/* prologue: function */
+  32               	/* frame size = 0 */
+  33               	/* stack size = 2 */
+  34               	.L__stack_usage = 2
+  35 0004 FB01      		movw r30,r22
+  36 0006 1182      		std Z+1,__zero_reg__
+  37 0008 1082      		st Z,__zero_reg__
+  38 000a 6AE0      		ldi r22,lo8(10)
+  39               	.L12:
+  40 000c DC01      		movw r26,r24
+  41 000e 2C91      		ld r18,X
+  42 0010 30E0      		ldi r19,0
+  43 0012 2053      		subi r18,48
+  44 0014 3109      		sbc r19,__zero_reg__
+  45 0016 2A30      		cpi r18,10
+  46 0018 3105      		cpc r19,__zero_reg__
+  47 001a 00F4      		brsh .L14
+  48 001c 2081      		ld r18,Z
+  49 001e 3181      		ldd r19,Z+1
+  50 0020 629F      		mul r22,r18
+  51 0022 A001      		movw r20,r0
+  52 0024 639F      		mul r22,r19
+  53 0026 500D      		add r21,r0
+  54 0028 1124      		clr __zero_reg__
+  55 002a 5183      		std Z+1,r21
+  56 002c 4083      		st Z,r20
+  57 002e 0196      		adiw r24,1
+GAS LISTING /tmp/ccY3FIEk.s 			page 2
+
+
+  58 0030 2C91      		ld r18,X
+  59 0032 022E      		mov __tmp_reg__,r18
+  60 0034 000C      		lsl r0
+  61 0036 330B      		sbc r19,r19
+  62 0038 2053      		subi r18,48
+  63 003a 3109      		sbc r19,__zero_reg__
+  64 003c 240F      		add r18,r20
+  65 003e 351F      		adc r19,r21
+  66 0040 3183      		std Z+1,r19
+  67 0042 2083      		st Z,r18
+  68 0044 00C0      		rjmp .L12
+  69               	.L14:
+  70               	/* epilogue start */
+  71 0046 DF91      		pop r29
+  72 0048 CF91      		pop r28
+  73 004a 0895      		ret
+  74               		.size	parse_digits, .-parse_digits
+  75               		.section	.text.TimeParseYear,"ax",@progbits
+  76               	.global	TimeParseYear
+  77               		.type	TimeParseYear, @function
+  78               	TimeParseYear:
+  79 0000 CF93      		push r28
+  80 0002 DF93      		push r29
+  81               	/* prologue: function */
+  82               	/* frame size = 0 */
+  83               	/* stack size = 2 */
+  84               	.L__stack_usage = 2
+  85 0004 EB01      		movw r28,r22
+  86 0006 0E94 0000 		call parse_digits
+  87 000a 2881      		ld r18,Y
+  88 000c 3981      		ldd r19,Y+1
+  89 000e 2634      		cpi r18,70
+  90 0010 3105      		cpc r19,__zero_reg__
+  91 0012 04F4      		brge .L16
+  92 0014 2C59      		subi r18,-100
+  93 0016 3F4F      		sbci r19,-1
+  94 0018 00C0      		rjmp .L18
+  95               	.L16:
+  96 001a 2D36      		cpi r18,109
+  97 001c 47E0      		ldi r20,7
+  98 001e 3407      		cpc r19,r20
+  99 0020 04F0      		brlt .L17
+ 100 0022 2C56      		subi r18,108
+ 101 0024 3740      		sbci r19,7
+ 102               	.L18:
+ 103 0026 3983      		std Y+1,r19
+ 104 0028 2883      		st Y,r18
+ 105               	.L17:
+ 106               	/* epilogue start */
+ 107 002a DF91      		pop r29
+ 108 002c CF91      		pop r28
+ 109 002e 0895      		ret
+ 110               		.size	TimeParseYear, .-TimeParseYear
+ 111               		.section	.text.TimeParseMonth,"ax",@progbits
+ 112               	.global	TimeParseMonth
+ 113               		.type	TimeParseMonth, @function
+ 114               	TimeParseMonth:
+GAS LISTING /tmp/ccY3FIEk.s 			page 3
+
+
+ 115 0000 0F93      		push r16
+ 116 0002 1F93      		push r17
+ 117 0004 CF93      		push r28
+ 118 0006 DF93      		push r29
+ 119               	/* prologue: function */
+ 120               	/* frame size = 0 */
+ 121               	/* stack size = 4 */
+ 122               	.L__stack_usage = 4
+ 123 0008 FC01      		movw r30,r24
+ 124 000a DB01      		movw r26,r22
+ 125 000c 8081      		ld r24,Z
+ 126 000e 8134      		cpi r24,lo8(65)
+ 127 0010 01F4      		brne .L20
+ 128 0012 9F01      		movw r18,r30
+ 129 0014 2F5F      		subi r18,-1
+ 130 0016 3F4F      		sbci r19,-1
+ 131 0018 8181      		ldd r24,Z+1
+ 132 001a 8F7D      		andi r24,lo8(-33)
+ 133 001c 8035      		cpi r24,lo8(80)
+ 134 001e 01F4      		brne .L21
+ 135 0020 83E0      		ldi r24,lo8(3)
+ 136 0022 90E0      		ldi r25,0
+ 137 0024 00C0      		rjmp .L40
+ 138               	.L21:
+ 139 0026 87E0      		ldi r24,lo8(7)
+ 140 0028 90E0      		ldi r25,0
+ 141               	.L40:
+ 142 002a 8D93      		st X+,r24
+ 143 002c 9C93      		st X,r25
+ 144 002e F901      		movw r30,r18
+ 145               	.L22:
+ 146 0030 EF01      		movw r28,r30
+ 147 0032 00C0      		rjmp .L23
+ 148               	.L20:
+ 149 0034 8434      		cpi r24,lo8(68)
+ 150 0036 01F4      		brne .L24
+ 151 0038 8BE0      		ldi r24,lo8(11)
+ 152 003a 90E0      		ldi r25,0
+ 153 003c 00C0      		rjmp .L38
+ 154               	.L24:
+ 155 003e 8634      		cpi r24,lo8(70)
+ 156 0040 01F4      		brne .L25
+ 157 0042 81E0      		ldi r24,lo8(1)
+ 158 0044 90E0      		ldi r25,0
+ 159 0046 00C0      		rjmp .L38
+ 160               	.L25:
+ 161 0048 8A34      		cpi r24,lo8(74)
+ 162 004a 01F4      		brne .L26
+ 163 004c CF01      		movw r24,r30
+ 164 004e 0196      		adiw r24,1
+ 165 0050 2181      		ldd r18,Z+1
+ 166 0052 322F      		mov r19,r18
+ 167 0054 3F7D      		andi r19,lo8(-33)
+ 168 0056 3134      		cpi r19,lo8(65)
+ 169 0058 01F4      		brne .L27
+ 170 005a 1D92      		st X+,__zero_reg__
+ 171 005c 1C92      		st X,__zero_reg__
+GAS LISTING /tmp/ccY3FIEk.s 			page 4
+
+
+ 172 005e 00C0      		rjmp .L41
+ 173               	.L27:
+ 174 0060 2223      		tst r18
+ 175 0062 01F0      		breq .L28
+ 176 0064 CF01      		movw r24,r30
+ 177 0066 0296      		adiw r24,2
+ 178 0068 2281      		ldd r18,Z+2
+ 179 006a 2F7D      		andi r18,lo8(-33)
+ 180 006c 2C34      		cpi r18,lo8(76)
+ 181 006e 01F4      		brne .L28
+ 182 0070 26E0      		ldi r18,lo8(6)
+ 183 0072 30E0      		ldi r19,0
+ 184 0074 00C0      		rjmp .L39
+ 185               	.L28:
+ 186 0076 25E0      		ldi r18,lo8(5)
+ 187 0078 30E0      		ldi r19,0
+ 188 007a 00C0      		rjmp .L39
+ 189               	.L26:
+ 190 007c 8D34      		cpi r24,lo8(77)
+ 191 007e 01F4      		brne .L29
+ 192 0080 8181      		ldd r24,Z+1
+ 193 0082 8136      		cpi r24,lo8(97)
+ 194 0084 01F4      		brne .L30
+ 195 0086 CF01      		movw r24,r30
+ 196 0088 0296      		adiw r24,2
+ 197 008a 2281      		ldd r18,Z+2
+ 198 008c 2F7D      		andi r18,lo8(-33)
+ 199 008e 2235      		cpi r18,lo8(82)
+ 200 0090 01F4      		brne .L31
+ 201 0092 22E0      		ldi r18,lo8(2)
+ 202 0094 30E0      		ldi r19,0
+ 203               	.L39:
+ 204 0096 2D93      		st X+,r18
+ 205 0098 3C93      		st X,r19
+ 206               	.L41:
+ 207 009a FC01      		movw r30,r24
+ 208 009c 00C0      		rjmp .L22
+ 209               	.L30:
+ 210 009e CF01      		movw r24,r30
+ 211 00a0 0196      		adiw r24,1
+ 212               	.L31:
+ 213 00a2 24E0      		ldi r18,lo8(4)
+ 214 00a4 30E0      		ldi r19,0
+ 215 00a6 00C0      		rjmp .L39
+ 216               	.L29:
+ 217 00a8 8E34      		cpi r24,lo8(78)
+ 218 00aa 01F4      		brne .L32
+ 219 00ac 8AE0      		ldi r24,lo8(10)
+ 220 00ae 90E0      		ldi r25,0
+ 221               	.L38:
+ 222 00b0 8D93      		st X+,r24
+ 223 00b2 9C93      		st X,r25
+ 224 00b4 00C0      		rjmp .L22
+ 225               	.L32:
+ 226 00b6 8F34      		cpi r24,lo8(79)
+ 227 00b8 01F4      		brne .L33
+ 228 00ba 89E0      		ldi r24,lo8(9)
+GAS LISTING /tmp/ccY3FIEk.s 			page 5
+
+
+ 229 00bc 90E0      		ldi r25,0
+ 230 00be 00C0      		rjmp .L38
+ 231               	.L33:
+ 232 00c0 88E0      		ldi r24,lo8(8)
+ 233 00c2 90E0      		ldi r25,0
+ 234 00c4 00C0      		rjmp .L38
+ 235               	.L23:
+ 236 00c6 8E01      		movw r16,r28
+ 237 00c8 2196      		adiw r28,1
+ 238 00ca F801      		movw r30,r16
+ 239 00cc 8081      		ld r24,Z
+ 240 00ce 90E0      		ldi r25,0
+ 241 00d0 0E94 0000 		call isalpha
+ 242 00d4 892B      		or r24,r25
+ 243 00d6 01F4      		brne .L23
+ 244 00d8 C801      		movw r24,r16
+ 245               	/* epilogue start */
+ 246 00da DF91      		pop r29
+ 247 00dc CF91      		pop r28
+ 248 00de 1F91      		pop r17
+ 249 00e0 0F91      		pop r16
+ 250 00e2 0895      		ret
+ 251               		.size	TimeParseMonth, .-TimeParseMonth
+ 252               		.section	.text.TimeParseDmy,"ax",@progbits
+ 253               	.global	TimeParseDmy
+ 254               		.type	TimeParseDmy, @function
+ 255               	TimeParseDmy:
+ 256 0000 CF92      		push r12
+ 257 0002 DF92      		push r13
+ 258 0004 EF92      		push r14
+ 259 0006 FF92      		push r15
+ 260 0008 0F93      		push r16
+ 261 000a 1F93      		push r17
+ 262 000c CF93      		push r28
+ 263 000e DF93      		push r29
+ 264               	/* prologue: function */
+ 265               	/* frame size = 0 */
+ 266               	/* stack size = 8 */
+ 267               	.L__stack_usage = 8
+ 268 0010 7A01      		movw r14,r20
+ 269 0012 8901      		movw r16,r18
+ 270 0014 0E94 0000 		call parse_digits
+ 271 0018 EC01      		movw r28,r24
+ 272               	.L45:
+ 273 001a DC2E      		mov r13,r28
+ 274 001c CD2E      		mov r12,r29
+ 275 001e 8991      		ld r24,Y+
+ 276 0020 8111      		cpse r24,__zero_reg__
+ 277 0022 00C0      		rjmp .L43
+ 278               	.L46:
+ 279 0024 B701      		movw r22,r14
+ 280 0026 8D2D      		mov r24,r13
+ 281 0028 9C2D      		mov r25,r12
+ 282 002a 0E94 0000 		call TimeParseMonth
+ 283 002e FC01      		movw r30,r24
+ 284 0030 00C0      		rjmp .L44
+ 285               	.L43:
+GAS LISTING /tmp/ccY3FIEk.s 			page 6
+
+
+ 286 0032 90E0      		ldi r25,0
+ 287 0034 0E94 0000 		call isalpha
+ 288 0038 892B      		or r24,r25
+ 289 003a 01F0      		breq .L45
+ 290 003c 00C0      		rjmp .L46
+ 291               	.L47:
+ 292 003e 30E0      		ldi r19,0
+ 293 0040 2053      		subi r18,48
+ 294 0042 3109      		sbc r19,__zero_reg__
+ 295 0044 2A30      		cpi r18,10
+ 296 0046 3105      		cpc r19,__zero_reg__
+ 297 0048 00F0      		brlo .L48
+ 298               	.L44:
+ 299 004a CF01      		movw r24,r30
+ 300 004c 2191      		ld r18,Z+
+ 301 004e 2111      		cpse r18,__zero_reg__
+ 302 0050 00C0      		rjmp .L47
+ 303               	.L48:
+ 304 0052 B801      		movw r22,r16
+ 305               	/* epilogue start */
+ 306 0054 DF91      		pop r29
+ 307 0056 CF91      		pop r28
+ 308 0058 1F91      		pop r17
+ 309 005a 0F91      		pop r16
+ 310 005c FF90      		pop r15
+ 311 005e EF90      		pop r14
+ 312 0060 DF90      		pop r13
+ 313 0062 CF90      		pop r12
+ 314 0064 0C94 0000 		jmp TimeParseYear
+ 315               		.size	TimeParseDmy, .-TimeParseDmy
+ 316               		.section	.text.TimeParseHms,"ax",@progbits
+ 317               	.global	TimeParseHms
+ 318               		.type	TimeParseHms, @function
+ 319               	TimeParseHms:
+ 320 0000 0F93      		push r16
+ 321 0002 1F93      		push r17
+ 322 0004 CF93      		push r28
+ 323 0006 DF93      		push r29
+ 324               	/* prologue: function */
+ 325               	/* frame size = 0 */
+ 326               	/* stack size = 4 */
+ 327               	.L__stack_usage = 4
+ 328 0008 EA01      		movw r28,r20
+ 329 000a 8901      		movw r16,r18
+ 330 000c 0E94 0000 		call parse_digits
+ 331 0010 FC01      		movw r30,r24
+ 332 0012 2081      		ld r18,Z
+ 333 0014 2A33      		cpi r18,lo8(58)
+ 334 0016 01F4      		brne .L53
+ 335 0018 BE01      		movw r22,r28
+ 336 001a 0196      		adiw r24,1
+ 337 001c 0E94 0000 		call parse_digits
+ 338 0020 FC01      		movw r30,r24
+ 339 0022 2081      		ld r18,Z
+ 340 0024 2A33      		cpi r18,lo8(58)
+ 341 0026 01F4      		brne .L54
+ 342 0028 B801      		movw r22,r16
+GAS LISTING /tmp/ccY3FIEk.s 			page 7
+
+
+ 343 002a 0196      		adiw r24,1
+ 344               	/* epilogue start */
+ 345 002c DF91      		pop r29
+ 346 002e CF91      		pop r28
+ 347 0030 1F91      		pop r17
+ 348 0032 0F91      		pop r16
+ 349 0034 0C94 0000 		jmp parse_digits
+ 350               	.L54:
+ 351 0038 F801      		movw r30,r16
+ 352 003a 1182      		std Z+1,__zero_reg__
+ 353 003c 1082      		st Z,__zero_reg__
+ 354 003e 00C0      		rjmp .L55
+ 355               	.L53:
+ 356 0040 1982      		std Y+1,__zero_reg__
+ 357 0042 1882      		st Y,__zero_reg__
+ 358               	.L55:
+ 359               	/* epilogue start */
+ 360 0044 DF91      		pop r29
+ 361 0046 CF91      		pop r28
+ 362 0048 1F91      		pop r17
+ 363 004a 0F91      		pop r16
+ 364 004c 0895      		ret
+ 365               		.size	TimeParseHms, .-TimeParseHms
+ 366               		.section	.rodata.str1.1,"aMS",@progbits,1
+ 367               	.LC0:
+ 368 0000 474D 5400 		.string	"GMT"
+ 369               		.section	.text.RfcTimeParse,"ax",@progbits
+ 370               	.global	RfcTimeParse
+ 371               		.type	RfcTimeParse, @function
+ 372               	RfcTimeParse:
+ 373 0000 DF92      		push r13
+ 374 0002 EF92      		push r14
+ 375 0004 FF92      		push r15
+ 376 0006 0F93      		push r16
+ 377 0008 1F93      		push r17
+ 378 000a CF93      		push r28
+ 379 000c DF93      		push r29
+ 380 000e CDB7      		in r28,__SP_L__
+ 381 0010 DEB7      		in r29,__SP_H__
+ 382 0012 6297      		sbiw r28,18
+ 383 0014 0FB6      		in __tmp_reg__,__SREG__
+ 384 0016 F894      		cli
+ 385 0018 DEBF      		out __SP_H__,r29
+ 386 001a 0FBE      		out __SREG__,__tmp_reg__
+ 387 001c CDBF      		out __SP_L__,r28
+ 388               	/* prologue: function */
+ 389               	/* frame size = 18 */
+ 390               	/* stack size = 25 */
+ 391               	.L__stack_usage = 25
+ 392 001e 9E01      		movw r18,r28
+ 393 0020 2F5F      		subi r18,-1
+ 394 0022 3F4F      		sbci r19,-1
+ 395 0024 7901      		movw r14,r18
+ 396 0026 22E1      		ldi r18,lo8(18)
+ 397 0028 F701      		movw r30,r14
+ 398               		0:
+ 399 002a 1192      		st Z+,__zero_reg__
+GAS LISTING /tmp/ccY3FIEk.s 			page 8
+
+
+ 400 002c 2A95      		dec r18
+ 401 002e 01F4      		brne 0b
+ 402 0030 21E0      		ldi r18,lo8(1)
+ 403 0032 30E0      		ldi r19,0
+ 404 0034 3887      		std Y+8,r19
+ 405 0036 2F83      		std Y+7,r18
+ 406 0038 0E94 0000 		call skip_spaces
+ 407 003c 8C01      		movw r16,r24
+ 408 003e FC01      		movw r30,r24
+ 409 0040 8081      		ld r24,Z
+ 410 0042 90E0      		ldi r25,0
+ 411 0044 0E94 0000 		call isalpha
+ 412 0048 892B      		or r24,r25
+ 413 004a 01F0      		breq .L57
+ 414 004c F801      		movw r30,r16
+ 415               	.L59:
+ 416 004e CF01      		movw r24,r30
+ 417 0050 2191      		ld r18,Z+
+ 418 0052 322F      		mov r19,r18
+ 419 0054 3F7D      		andi r19,lo8(-33)
+ 420 0056 01F4      		brne .L58
+ 421               	.L60:
+ 422 0058 0E94 0000 		call skip_spaces
+ 423 005c 8C01      		movw r16,r24
+ 424 005e 00C0      		rjmp .L57
+ 425               	.L58:
+ 426 0060 2930      		cpi r18,lo8(9)
+ 427 0062 01F4      		brne .L59
+ 428 0064 00C0      		rjmp .L60
+ 429               	.L57:
+ 430 0066 F801      		movw r30,r16
+ 431 0068 D080      		ld r13,Z
+ 432 006a 8D2D      		mov r24,r13
+ 433 006c 90E0      		ldi r25,0
+ 434 006e 0E94 0000 		call isalpha
+ 435 0072 892B      		or r24,r25
+ 436 0074 01F0      		breq .L61
+ 437 0076 BE01      		movw r22,r28
+ 438 0078 675F      		subi r22,-9
+ 439 007a 7F4F      		sbci r23,-1
+ 440 007c C801      		movw r24,r16
+ 441 007e 0E94 0000 		call TimeParseMonth
+ 442 0082 0E94 0000 		call skip_spaces
+ 443 0086 BE01      		movw r22,r28
+ 444 0088 695F      		subi r22,-7
+ 445 008a 7F4F      		sbci r23,-1
+ 446 008c 0E94 0000 		call parse_digits
+ 447 0090 0E94 0000 		call skip_spaces
+ 448 0094 BE01      		movw r22,r28
+ 449 0096 655F      		subi r22,-11
+ 450 0098 7F4F      		sbci r23,-1
+ 451 009a 0E94 0000 		call TimeParseYear
+ 452 009e 00C0      		rjmp .L72
+ 453               	.L61:
+ 454 00a0 DD20      		tst r13
+ 455 00a2 01F0      		breq .L62
+ 456 00a4 9E01      		movw r18,r28
+GAS LISTING /tmp/ccY3FIEk.s 			page 9
+
+
+ 457 00a6 255F      		subi r18,-11
+ 458 00a8 3F4F      		sbci r19,-1
+ 459 00aa AE01      		movw r20,r28
+ 460 00ac 475F      		subi r20,-9
+ 461 00ae 5F4F      		sbci r21,-1
+ 462 00b0 BE01      		movw r22,r28
+ 463 00b2 695F      		subi r22,-7
+ 464 00b4 7F4F      		sbci r23,-1
+ 465 00b6 C801      		movw r24,r16
+ 466 00b8 0E94 0000 		call TimeParseDmy
+ 467               	.L72:
+ 468 00bc 0E94 0000 		call skip_spaces
+ 469 00c0 9701      		movw r18,r14
+ 470 00c2 AE01      		movw r20,r28
+ 471 00c4 4D5F      		subi r20,-3
+ 472 00c6 5F4F      		sbci r21,-1
+ 473 00c8 BE01      		movw r22,r28
+ 474 00ca 6B5F      		subi r22,-5
+ 475 00cc 7F4F      		sbci r23,-1
+ 476 00ce 0E94 0000 		call TimeParseHms
+ 477 00d2 8C01      		movw r16,r24
+ 478               	.L62:
+ 479 00d4 C801      		movw r24,r16
+ 480 00d6 0E94 0000 		call skip_spaces
+ 481 00da 60E0      		ldi r22,lo8(.LC0)
+ 482 00dc 70E0      		ldi r23,hi8(.LC0)
+ 483 00de 0E94 0000 		call strcmp
+ 484 00e2 892B      		or r24,r25
+ 485 00e4 01F4      		brne .L63
+ 486 00e6 C701      		movw r24,r14
+ 487 00e8 0E94 0000 		call mktime
+ 488 00ec 00C0      		rjmp .L64
+ 489               	.L63:
+ 490 00ee C701      		movw r24,r14
+ 491 00f0 0E94 0000 		call _mkgmtime
+ 492               	.L64:
+ 493               	/* epilogue start */
+ 494 00f4 6296      		adiw r28,18
+ 495 00f6 0FB6      		in __tmp_reg__,__SREG__
+ 496 00f8 F894      		cli
+ 497 00fa DEBF      		out __SP_H__,r29
+ 498 00fc 0FBE      		out __SREG__,__tmp_reg__
+ 499 00fe CDBF      		out __SP_L__,r28
+ 500 0100 DF91      		pop r29
+ 501 0102 CF91      		pop r28
+ 502 0104 1F91      		pop r17
+ 503 0106 0F91      		pop r16
+ 504 0108 FF90      		pop r15
+ 505 010a EF90      		pop r14
+ 506 010c DF90      		pop r13
+ 507 010e 0895      		ret
+ 508               		.size	RfcTimeParse, .-RfcTimeParse
+ 509               		.section	.rodata.str1.1
+ 510               	.LC1:
+ 511 0004 2573 2C20 		.string	"%s, %02d %s %04d %02d:%02d:%02d"
+ 511      2530 3264 
+ 511      2025 7320 
+GAS LISTING /tmp/ccY3FIEk.s 			page 10
+
+
+ 511      2530 3464 
+ 511      2025 3032 
+ 512               		.section	.text.Rfc1123TimeString,"ax",@progbits
+ 513               	.global	Rfc1123TimeString
+ 514               		.type	Rfc1123TimeString, @function
+ 515               	Rfc1123TimeString:
+ 516               	/* prologue: function */
+ 517               	/* frame size = 0 */
+ 518               	/* stack size = 0 */
+ 519               	.L__stack_usage = 0
+ 520 0000 FC01      		movw r30,r24
+ 521 0002 8181      		ldd r24,Z+1
+ 522 0004 8F93      		push r24
+ 523 0006 8081      		ld r24,Z
+ 524 0008 8F93      		push r24
+ 525 000a 8381      		ldd r24,Z+3
+ 526 000c 8F93      		push r24
+ 527 000e 8281      		ldd r24,Z+2
+ 528 0010 8F93      		push r24
+ 529 0012 8581      		ldd r24,Z+5
+ 530 0014 8F93      		push r24
+ 531 0016 8481      		ldd r24,Z+4
+ 532 0018 8F93      		push r24
+ 533 001a 8285      		ldd r24,Z+10
+ 534 001c 9385      		ldd r25,Z+11
+ 535 001e 8459      		subi r24,-108
+ 536 0020 984F      		sbci r25,-8
+ 537 0022 9F93      		push r25
+ 538 0024 8F93      		push r24
+ 539 0026 A085      		ldd r26,Z+8
+ 540 0028 B185      		ldd r27,Z+9
+ 541 002a AA0F      		lsl r26
+ 542 002c BB1F      		rol r27
+ 543 002e A050      		subi r26,lo8(-(months))
+ 544 0030 B040      		sbci r27,hi8(-(months))
+ 545 0032 1196      		adiw r26,1
+ 546 0034 8C91      		ld r24,X
+ 547 0036 1197      		sbiw r26,1
+ 548 0038 8F93      		push r24
+ 549 003a 8C91      		ld r24,X
+ 550 003c 8F93      		push r24
+ 551 003e 8781      		ldd r24,Z+7
+ 552 0040 8F93      		push r24
+ 553 0042 8681      		ldd r24,Z+6
+ 554 0044 8F93      		push r24
+ 555 0046 0484      		ldd __tmp_reg__,Z+12
+ 556 0048 F585      		ldd r31,Z+13
+ 557 004a E02D      		mov r30,__tmp_reg__
+ 558 004c EE0F      		lsl r30
+ 559 004e FF1F      		rol r31
+ 560 0050 E050      		subi r30,lo8(-(wkdays))
+ 561 0052 F040      		sbci r31,hi8(-(wkdays))
+ 562 0054 8181      		ldd r24,Z+1
+ 563 0056 8F93      		push r24
+ 564 0058 8081      		ld r24,Z
+ 565 005a 8F93      		push r24
+ 566 005c 80E0      		ldi r24,lo8(.LC1)
+GAS LISTING /tmp/ccY3FIEk.s 			page 11
+
+
+ 567 005e 90E0      		ldi r25,hi8(.LC1)
+ 568 0060 9F93      		push r25
+ 569 0062 8F93      		push r24
+ 570 0064 80E0      		ldi r24,lo8(rfc1123_buf)
+ 571 0066 90E0      		ldi r25,hi8(rfc1123_buf)
+ 572 0068 9F93      		push r25
+ 573 006a 8F93      		push r24
+ 574 006c 0E94 0000 		call sprintf
+ 575 0070 8DB7      		in r24,__SP_L__
+ 576 0072 9EB7      		in r25,__SP_H__
+ 577 0074 4296      		adiw r24,18
+ 578 0076 0FB6      		in __tmp_reg__,__SREG__
+ 579 0078 F894      		cli
+ 580 007a 9EBF      		out __SP_H__,r25
+ 581 007c 0FBE      		out __SREG__,__tmp_reg__
+ 582 007e 8DBF      		out __SP_L__,r24
+ 583 0080 80E0      		ldi r24,lo8(rfc1123_buf)
+ 584 0082 90E0      		ldi r25,hi8(rfc1123_buf)
+ 585 0084 0895      		ret
+ 586               		.size	Rfc1123TimeString, .-Rfc1123TimeString
+ 587               		.section	.rodata.str1.1
+ 588               	.LC2:
+ 589 0024 4A61 6E00 		.string	"Jan"
+ 590               	.LC3:
+ 591 0028 4665 6200 		.string	"Feb"
+ 592               	.LC4:
+ 593 002c 4D61 7200 		.string	"Mar"
+ 594               	.LC5:
+ 595 0030 4170 7200 		.string	"Apr"
+ 596               	.LC6:
+ 597 0034 4D61 7900 		.string	"May"
+ 598               	.LC7:
+ 599 0038 4A75 6E00 		.string	"Jun"
+ 600               	.LC8:
+ 601 003c 4A75 6C00 		.string	"Jul"
+ 602               	.LC9:
+ 603 0040 4175 6700 		.string	"Aug"
+ 604               	.LC10:
+ 605 0044 5365 7000 		.string	"Sep"
+ 606               	.LC11:
+ 607 0048 4F63 7400 		.string	"Oct"
+ 608               	.LC12:
+ 609 004c 4E6F 7600 		.string	"Nov"
+ 610               	.LC13:
+ 611 0050 4465 6300 		.string	"Dec"
+ 612               		.section	.rodata
+ 613               		.type	months, @object
+ 614               		.size	months, 24
+ 615               	months:
+ 616 0000 0000      		.word	.LC2
+ 617 0002 0000      		.word	.LC3
+ 618 0004 0000      		.word	.LC4
+ 619 0006 0000      		.word	.LC5
+ 620 0008 0000      		.word	.LC6
+ 621 000a 0000      		.word	.LC7
+ 622 000c 0000      		.word	.LC8
+ 623 000e 0000      		.word	.LC9
+GAS LISTING /tmp/ccY3FIEk.s 			page 12
+
+
+ 624 0010 0000      		.word	.LC10
+ 625 0012 0000      		.word	.LC11
+ 626 0014 0000      		.word	.LC12
+ 627 0016 0000      		.word	.LC13
+ 628               		.section	.rodata.str1.1
+ 629               	.LC14:
+ 630 0054 5375 6E00 		.string	"Sun"
+ 631               	.LC15:
+ 632 0058 4D6F 6E00 		.string	"Mon"
+ 633               	.LC16:
+ 634 005c 5475 6500 		.string	"Tue"
+ 635               	.LC17:
+ 636 0060 5765 6400 		.string	"Wed"
+ 637               	.LC18:
+ 638 0064 5468 7500 		.string	"Thu"
+ 639               	.LC19:
+ 640 0068 4672 6900 		.string	"Fri"
+ 641               	.LC20:
+ 642 006c 5361 7400 		.string	"Sat"
+ 643               		.section	.rodata
+ 644               		.type	wkdays, @object
+ 645               		.size	wkdays, 14
+ 646               	wkdays:
+ 647 0018 0000      		.word	.LC14
+ 648 001a 0000      		.word	.LC15
+ 649 001c 0000      		.word	.LC16
+ 650 001e 0000      		.word	.LC17
+ 651 0020 0000      		.word	.LC18
+ 652 0022 0000      		.word	.LC19
+ 653 0024 0000      		.word	.LC20
+ 654               		.local	rfc1123_buf
+ 655               		.comm	rfc1123_buf,32,1
+ 656               		.ident	"GCC: (GNU) 5.3.0"
+ 657               	.global __do_copy_data
+ 658               	.global __do_clear_bss
+GAS LISTING /tmp/ccY3FIEk.s 			page 13
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 rfctime.c
+     /tmp/ccY3FIEk.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccY3FIEk.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccY3FIEk.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccY3FIEk.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccY3FIEk.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccY3FIEk.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccY3FIEk.s:10     .text.skip_spaces:0000000000000000 skip_spaces
+     /tmp/ccY3FIEk.s:28     .text.parse_digits:0000000000000000 parse_digits
+     /tmp/ccY3FIEk.s:78     .text.TimeParseYear:0000000000000000 TimeParseYear
+     /tmp/ccY3FIEk.s:114    .text.TimeParseMonth:0000000000000000 TimeParseMonth
+     /tmp/ccY3FIEk.s:255    .text.TimeParseDmy:0000000000000000 TimeParseDmy
+     /tmp/ccY3FIEk.s:319    .text.TimeParseHms:0000000000000000 TimeParseHms
+     /tmp/ccY3FIEk.s:372    .text.RfcTimeParse:0000000000000000 RfcTimeParse
+     /tmp/ccY3FIEk.s:515    .text.Rfc1123TimeString:0000000000000000 Rfc1123TimeString
+     /tmp/ccY3FIEk.s:615    .rodata:0000000000000000 months
+     /tmp/ccY3FIEk.s:646    .rodata:0000000000000018 wkdays
+                             .bss:0000000000000000 rfc1123_buf
+
+UNDEFINED SYMBOLS
+isalpha
+strcmp
+mktime
+_mkgmtime
+sprintf
+__do_copy_data
+__do_clear_bss

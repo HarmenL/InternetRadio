@@ -1,0 +1,199 @@
+GAS LISTING /tmp/cc15Y3H5.s 			page 1
+
+
+   1               		.file	"mutex.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.NutMutexInit,"ax",@progbits
+   9               	.global	NutMutexInit
+  10               		.type	NutMutexInit, @function
+  11               	NutMutexInit:
+  12               	/* prologue: function */
+  13               	/* frame size = 0 */
+  14               	/* stack size = 0 */
+  15               	.L__stack_usage = 0
+  16 0000 FC01      		movw r30,r24
+  17 0002 1382      		std Z+3,__zero_reg__
+  18 0004 1282      		std Z+2,__zero_reg__
+  19 0006 1582      		std Z+5,__zero_reg__
+  20 0008 1482      		std Z+4,__zero_reg__
+  21 000a 1182      		std Z+1,__zero_reg__
+  22 000c 1082      		st Z,__zero_reg__
+  23 000e 0895      		ret
+  24               		.size	NutMutexInit, .-NutMutexInit
+  25               		.section	.text.NutMutexLock,"ax",@progbits
+  26               	.global	NutMutexLock
+  27               		.type	NutMutexLock, @function
+  28               	NutMutexLock:
+  29 0000 CF93      		push r28
+  30 0002 DF93      		push r29
+  31               	/* prologue: function */
+  32               	/* frame size = 0 */
+  33               	/* stack size = 2 */
+  34               	.L__stack_usage = 2
+  35 0004 EC01      		movw r28,r24
+  36 0006 2A81      		ldd r18,Y+2
+  37 0008 3B81      		ldd r19,Y+3
+  38 000a 8091 0000 		lds r24,runningThread
+  39 000e 9091 0000 		lds r25,runningThread+1
+  40 0012 2817      		cp r18,r24
+  41 0014 3907      		cpc r19,r25
+  42 0016 01F4      		brne .L6
+  43               	.L5:
+  44 0018 8091 0000 		lds r24,runningThread
+  45 001c 9091 0000 		lds r25,runningThread+1
+  46 0020 9B83      		std Y+3,r25
+  47 0022 8A83      		std Y+2,r24
+  48 0024 8C81      		ldd r24,Y+4
+  49 0026 9D81      		ldd r25,Y+5
+  50 0028 0196      		adiw r24,1
+  51 002a 9D83      		std Y+5,r25
+  52 002c 8C83      		std Y+4,r24
+  53               	/* epilogue start */
+  54 002e DF91      		pop r29
+  55 0030 CF91      		pop r28
+  56 0032 0895      		ret
+  57               	.L6:
+GAS LISTING /tmp/cc15Y3H5.s 			page 2
+
+
+  58 0034 8C81      		ldd r24,Y+4
+  59 0036 9D81      		ldd r25,Y+5
+  60 0038 892B      		or r24,r25
+  61 003a 01F0      		breq .L5
+  62 003c 40E0      		ldi r20,0
+  63 003e 50E0      		ldi r21,0
+  64 0040 BA01      		movw r22,r20
+  65 0042 CE01      		movw r24,r28
+  66 0044 0E94 0000 		call NutEventWaitNext
+  67 0048 00C0      		rjmp .L6
+  68               		.size	NutMutexLock, .-NutMutexLock
+  69               		.section	.text.NutMutexTrylock,"ax",@progbits
+  70               	.global	NutMutexTrylock
+  71               		.type	NutMutexTrylock, @function
+  72               	NutMutexTrylock:
+  73               	/* prologue: function */
+  74               	/* frame size = 0 */
+  75               	/* stack size = 0 */
+  76               	.L__stack_usage = 0
+  77 0000 FC01      		movw r30,r24
+  78 0002 2481      		ldd r18,Z+4
+  79 0004 3581      		ldd r19,Z+5
+  80 0006 232B      		or r18,r19
+  81 0008 01F0      		breq .L10
+  82 000a 4281      		ldd r20,Z+2
+  83 000c 5381      		ldd r21,Z+3
+  84 000e 2091 0000 		lds r18,runningThread
+  85 0012 3091 0000 		lds r19,runningThread+1
+  86 0016 4217      		cp r20,r18
+  87 0018 5307      		cpc r21,r19
+  88 001a 01F4      		brne .L12
+  89               	.L10:
+  90 001c 0E94 0000 		call NutMutexLock
+  91 0020 80E0      		ldi r24,0
+  92 0022 90E0      		ldi r25,0
+  93 0024 0895      		ret
+  94               	.L12:
+  95 0026 8FEF      		ldi r24,lo8(-1)
+  96 0028 9FEF      		ldi r25,lo8(-1)
+  97 002a 0895      		ret
+  98               		.size	NutMutexTrylock, .-NutMutexTrylock
+  99               		.section	.text.NutMutexUnlock,"ax",@progbits
+ 100               	.global	NutMutexUnlock
+ 101               		.type	NutMutexUnlock, @function
+ 102               	NutMutexUnlock:
+ 103               	/* prologue: function */
+ 104               	/* frame size = 0 */
+ 105               	/* stack size = 0 */
+ 106               	.L__stack_usage = 0
+ 107 0000 FC01      		movw r30,r24
+ 108 0002 4281      		ldd r20,Z+2
+ 109 0004 5381      		ldd r21,Z+3
+ 110 0006 2091 0000 		lds r18,runningThread
+ 111 000a 3091 0000 		lds r19,runningThread+1
+ 112 000e 4217      		cp r20,r18
+ 113 0010 5307      		cpc r21,r19
+ 114 0012 01F4      		brne .L18
+GAS LISTING /tmp/cc15Y3H5.s 			page 3
+
+
+ 115 0014 2481      		ldd r18,Z+4
+ 116 0016 3581      		ldd r19,Z+5
+ 117 0018 2150      		subi r18,1
+ 118 001a 3109      		sbc r19,__zero_reg__
+ 119 001c 3583      		std Z+5,r19
+ 120 001e 2483      		std Z+4,r18
+ 121 0020 232B      		or r18,r19
+ 122 0022 01F4      		brne .L19
+ 123 0024 0E94 0000 		call NutEventPost
+ 124 0028 00C0      		rjmp .L19
+ 125               	.L18:
+ 126 002a 8FEF      		ldi r24,lo8(-1)
+ 127 002c 9FEF      		ldi r25,lo8(-1)
+ 128 002e 0895      		ret
+ 129               	.L19:
+ 130 0030 80E0      		ldi r24,0
+ 131 0032 90E0      		ldi r25,0
+ 132 0034 0895      		ret
+ 133               		.size	NutMutexUnlock, .-NutMutexUnlock
+ 134               		.section	.text.NutMutexDestroy,"ax",@progbits
+ 135               	.global	NutMutexDestroy
+ 136               		.type	NutMutexDestroy, @function
+ 137               	NutMutexDestroy:
+ 138               	/* prologue: function */
+ 139               	/* frame size = 0 */
+ 140               	/* stack size = 0 */
+ 141               	.L__stack_usage = 0
+ 142 0000 FC01      		movw r30,r24
+ 143 0002 2481      		ldd r18,Z+4
+ 144 0004 3581      		ldd r19,Z+5
+ 145 0006 232B      		or r18,r19
+ 146 0008 01F0      		breq .L23
+ 147 000a 21E0      		ldi r18,lo8(1)
+ 148 000c 30E0      		ldi r19,0
+ 149 000e 4281      		ldd r20,Z+2
+ 150 0010 5381      		ldd r21,Z+3
+ 151 0012 8091 0000 		lds r24,runningThread
+ 152 0016 9091 0000 		lds r25,runningThread+1
+ 153 001a 4817      		cp r20,r24
+ 154 001c 5907      		cpc r21,r25
+ 155 001e 01F4      		brne .L22
+ 156 0020 20E0      		ldi r18,0
+ 157 0022 30E0      		ldi r19,0
+ 158               	.L22:
+ 159 0024 8827      		clr r24
+ 160 0026 9927      		clr r25
+ 161 0028 821B      		sub r24,r18
+ 162 002a 930B      		sbc r25,r19
+ 163 002c 0895      		ret
+ 164               	.L23:
+ 165 002e 80E0      		ldi r24,0
+ 166 0030 90E0      		ldi r25,0
+ 167 0032 0895      		ret
+ 168               		.size	NutMutexDestroy, .-NutMutexDestroy
+ 169               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/cc15Y3H5.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 mutex.c
+     /tmp/cc15Y3H5.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cc15Y3H5.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cc15Y3H5.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cc15Y3H5.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cc15Y3H5.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cc15Y3H5.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cc15Y3H5.s:11     .text.NutMutexInit:0000000000000000 NutMutexInit
+     /tmp/cc15Y3H5.s:28     .text.NutMutexLock:0000000000000000 NutMutexLock
+     /tmp/cc15Y3H5.s:72     .text.NutMutexTrylock:0000000000000000 NutMutexTrylock
+     /tmp/cc15Y3H5.s:102    .text.NutMutexUnlock:0000000000000000 NutMutexUnlock
+     /tmp/cc15Y3H5.s:137    .text.NutMutexDestroy:0000000000000000 NutMutexDestroy
+
+UNDEFINED SYMBOLS
+runningThread
+NutEventWaitNext
+NutEventPost

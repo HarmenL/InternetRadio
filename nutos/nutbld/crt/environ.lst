@@ -1,0 +1,360 @@
+GAS LISTING /tmp/cceuPhBH.s 			page 1
+
+
+   1               		.file	"environ.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.read_string,"ax",@progbits
+   9               		.type	read_string, @function
+  10               	read_string:
+  11 0000 AF92      		push r10
+  12 0002 BF92      		push r11
+  13 0004 CF92      		push r12
+  14 0006 DF92      		push r13
+  15 0008 EF92      		push r14
+  16 000a FF92      		push r15
+  17 000c 0F93      		push r16
+  18 000e 1F93      		push r17
+  19 0010 CF93      		push r28
+  20 0012 DF93      		push r29
+  21 0014 1F92      		push __zero_reg__
+  22 0016 CDB7      		in r28,__SP_L__
+  23 0018 DEB7      		in r29,__SP_H__
+  24               	/* prologue: function */
+  25               	/* frame size = 1 */
+  26               	/* stack size = 11 */
+  27               	.L__stack_usage = 11
+  28 001a 6C01      		movw r12,r24
+  29 001c 8B01      		movw r16,r22
+  30 001e 5A01      		movw r10,r20
+  31 0020 E12C      		mov r14,__zero_reg__
+  32 0022 F12C      		mov r15,__zero_reg__
+  33               	.L4:
+  34 0024 41E0      		ldi r20,lo8(1)
+  35 0026 50E0      		ldi r21,0
+  36 0028 BE01      		movw r22,r28
+  37 002a 6F5F      		subi r22,-1
+  38 002c 7F4F      		sbci r23,-1
+  39 002e F601      		movw r30,r12
+  40 0030 8081      		ld r24,Z
+  41 0032 9181      		ldd r25,Z+1
+  42 0034 0E94 0000 		call NutNvMemLoad
+  43 0038 892B      		or r24,r25
+  44 003a 01F4      		brne .L6
+  45 003c F601      		movw r30,r12
+  46 003e 8081      		ld r24,Z
+  47 0040 9181      		ldd r25,Z+1
+  48 0042 0196      		adiw r24,1
+  49 0044 9183      		std Z+1,r25
+  50 0046 8083      		st Z,r24
+  51 0048 8981      		ldd r24,Y+1
+  52 004a 8823      		tst r24
+  53 004c 01F0      		breq .L2
+  54 004e 0115      		cp r16,__zero_reg__
+  55 0050 1105      		cpc r17,__zero_reg__
+  56 0052 01F0      		breq .L3
+  57 0054 F801      		movw r30,r16
+GAS LISTING /tmp/cceuPhBH.s 			page 2
+
+
+  58 0056 8083      		st Z,r24
+  59 0058 0F5F      		subi r16,-1
+  60 005a 1F4F      		sbci r17,-1
+  61               	.L3:
+  62 005c FFEF      		ldi r31,-1
+  63 005e EF1A      		sub r14,r31
+  64 0060 FF0A      		sbc r15,r31
+  65 0062 AE14      		cp r10,r14
+  66 0064 BF04      		cpc r11,r15
+  67 0066 00F4      		brsh .L4
+  68 0068 00C0      		rjmp .L2
+  69               	.L6:
+  70 006a E12C      		mov r14,__zero_reg__
+  71 006c F12C      		mov r15,__zero_reg__
+  72               	.L2:
+  73 006e 0115      		cp r16,__zero_reg__
+  74 0070 1105      		cpc r17,__zero_reg__
+  75 0072 01F0      		breq .L5
+  76 0074 F801      		movw r30,r16
+  77 0076 1082      		st Z,__zero_reg__
+  78               	.L5:
+  79 0078 C701      		movw r24,r14
+  80               	/* epilogue start */
+  81 007a 0F90      		pop __tmp_reg__
+  82 007c DF91      		pop r29
+  83 007e CF91      		pop r28
+  84 0080 1F91      		pop r17
+  85 0082 0F91      		pop r16
+  86 0084 FF90      		pop r15
+  87 0086 EF90      		pop r14
+  88 0088 DF90      		pop r13
+  89 008a CF90      		pop r12
+  90 008c BF90      		pop r11
+  91 008e AF90      		pop r10
+  92 0090 0895      		ret
+  93               		.size	read_string, .-read_string
+  94               		.section	.text.findenv,"ax",@progbits
+  95               	.global	findenv
+  96               		.type	findenv, @function
+  97               	findenv:
+  98 0000 4F92      		push r4
+  99 0002 5F92      		push r5
+ 100 0004 7F92      		push r7
+ 101 0006 8F92      		push r8
+ 102 0008 9F92      		push r9
+ 103 000a AF92      		push r10
+ 104 000c BF92      		push r11
+ 105 000e CF92      		push r12
+ 106 0010 DF92      		push r13
+ 107 0012 EF92      		push r14
+ 108 0014 FF92      		push r15
+ 109 0016 0F93      		push r16
+ 110 0018 1F93      		push r17
+ 111 001a CF93      		push r28
+ 112 001c DF93      		push r29
+ 113 001e 00D0      		rcall .
+ 114 0020 00D0      		rcall .
+GAS LISTING /tmp/cceuPhBH.s 			page 3
+
+
+ 115 0022 CDB7      		in r28,__SP_L__
+ 116 0024 DEB7      		in r29,__SP_H__
+ 117               	/* prologue: function */
+ 118               	/* frame size = 6 */
+ 119               	/* stack size = 21 */
+ 120               	.L__stack_usage = 21
+ 121 0026 6C01      		movw r12,r24
+ 122 0028 8091 0000 		lds r24,nut_environ
+ 123 002c 9091 0000 		lds r25,nut_environ+1
+ 124 0030 892B      		or r24,r25
+ 125 0032 01F0      		breq .+2
+ 126 0034 00C0      		rjmp .L19
+ 127 0036 80E0      		ldi r24,0
+ 128 0038 91E0      		ldi r25,lo8(1)
+ 129 003a 9E83      		std Y+6,r25
+ 130 003c 8D83      		std Y+5,r24
+ 131 003e 44E0      		ldi r20,lo8(4)
+ 132 0040 50E0      		ldi r21,0
+ 133 0042 BE01      		movw r22,r28
+ 134 0044 6F5F      		subi r22,-1
+ 135 0046 7F4F      		sbci r23,-1
+ 136 0048 0E94 0000 		call NutNvMemLoad
+ 137 004c 892B      		or r24,r25
+ 138 004e 01F0      		breq .+2
+ 139 0050 00C0      		rjmp .L19
+ 140 0052 8981      		ldd r24,Y+1
+ 141 0054 9A81      		ldd r25,Y+2
+ 142 0056 AB81      		ldd r26,Y+3
+ 143 0058 BC81      		ldd r27,Y+4
+ 144 005a 8534      		cpi r24,69
+ 145 005c 9E44      		sbci r25,78
+ 146 005e A645      		sbci r26,86
+ 147 0060 B105      		cpc r27,__zero_reg__
+ 148 0062 01F0      		breq .+2
+ 149 0064 00C0      		rjmp .L19
+ 150 0066 8D81      		ldd r24,Y+5
+ 151 0068 9E81      		ldd r25,Y+6
+ 152 006a 0496      		adiw r24,4
+ 153 006c 9E83      		std Y+6,r25
+ 154 006e 8D83      		std Y+5,r24
+ 155 0070 E12C      		mov r14,__zero_reg__
+ 156 0072 F12C      		mov r15,__zero_reg__
+ 157               	.L23:
+ 158 0074 40E4      		ldi r20,lo8(64)
+ 159 0076 50E0      		ldi r21,0
+ 160 0078 60E0      		ldi r22,0
+ 161 007a 70E0      		ldi r23,0
+ 162 007c CE01      		movw r24,r28
+ 163 007e 0596      		adiw r24,5
+ 164 0080 0E94 0000 		call read_string
+ 165 0084 8C01      		movw r16,r24
+ 166 0086 892B      		or r24,r25
+ 167 0088 01F0      		breq .L50
+ 168 008a 40E4      		ldi r20,lo8(64)
+ 169 008c 50E0      		ldi r21,0
+ 170 008e 60E0      		ldi r22,0
+ 171 0090 70E0      		ldi r23,0
+GAS LISTING /tmp/cceuPhBH.s 			page 4
+
+
+ 172 0092 CE01      		movw r24,r28
+ 173 0094 0596      		adiw r24,5
+ 174 0096 0E94 0000 		call read_string
+ 175 009a 9801      		movw r18,r16
+ 176 009c 0817      		cp r16,r24
+ 177 009e 1907      		cpc r17,r25
+ 178 00a0 00F4      		brsh .L24
+ 179 00a2 9C01      		movw r18,r24
+ 180               	.L24:
+ 181 00a4 E216      		cp r14,r18
+ 182 00a6 F306      		cpc r15,r19
+ 183 00a8 00F4      		brsh .L23
+ 184 00aa 7901      		movw r14,r18
+ 185 00ac 00C0      		rjmp .L23
+ 186               	.L50:
+ 187 00ae 84E0      		ldi r24,lo8(4)
+ 188 00b0 91E0      		ldi r25,lo8(1)
+ 189 00b2 9E83      		std Y+6,r25
+ 190 00b4 8D83      		std Y+5,r24
+ 191 00b6 E114      		cp r14,__zero_reg__
+ 192 00b8 F104      		cpc r15,__zero_reg__
+ 193 00ba 01F4      		brne .+2
+ 194 00bc 00C0      		rjmp .L19
+ 195 00be C701      		movw r24,r14
+ 196 00c0 0196      		adiw r24,1
+ 197 00c2 0E94 0000 		call malloc
+ 198 00c6 5C01      		movw r10,r24
+ 199 00c8 892B      		or r24,r25
+ 200 00ca 01F4      		brne .+2
+ 201 00cc 00C0      		rjmp .L19
+ 202 00ce 812C      		mov r8,__zero_reg__
+ 203 00d0 912C      		mov r9,__zero_reg__
+ 204 00d2 88E0      		ldi r24,lo8(8)
+ 205 00d4 782E      		mov r7,r24
+ 206               	.L27:
+ 207 00d6 A701      		movw r20,r14
+ 208 00d8 B501      		movw r22,r10
+ 209 00da CE01      		movw r24,r28
+ 210 00dc 0596      		adiw r24,5
+ 211 00de 0E94 0000 		call read_string
+ 212 00e2 2C01      		movw r4,r24
+ 213 00e4 892B      		or r24,r25
+ 214 00e6 01F0      		breq .L29
+ 215 00e8 88E0      		ldi r24,lo8(8)
+ 216 00ea 90E0      		ldi r25,0
+ 217 00ec 0E94 0000 		call malloc
+ 218 00f0 8C01      		movw r16,r24
+ 219 00f2 0097      		sbiw r24,0
+ 220 00f4 01F0      		breq .L29
+ 221 00f6 FC01      		movw r30,r24
+ 222 00f8 272D      		mov r18,r7
+ 223               		0:
+ 224 00fa 1192      		st Z+,__zero_reg__
+ 225 00fc 2A95      		dec r18
+ 226 00fe 01F4      		brne 0b
+ 227 0100 C201      		movw r24,r4
+ 228 0102 0196      		adiw r24,1
+GAS LISTING /tmp/cceuPhBH.s 			page 5
+
+
+ 229 0104 0E94 0000 		call malloc
+ 230 0108 F801      		movw r30,r16
+ 231 010a 9583      		std Z+5,r25
+ 232 010c 8483      		std Z+4,r24
+ 233 010e 0097      		sbiw r24,0
+ 234 0110 01F4      		brne .L30
+ 235 0112 C801      		movw r24,r16
+ 236 0114 0E94 0000 		call free
+ 237 0118 00C0      		rjmp .L29
+ 238               	.L30:
+ 239 011a B501      		movw r22,r10
+ 240 011c 0E94 0000 		call strcpy
+ 241 0120 A701      		movw r20,r14
+ 242 0122 B501      		movw r22,r10
+ 243 0124 CE01      		movw r24,r28
+ 244 0126 0596      		adiw r24,5
+ 245 0128 0E94 0000 		call read_string
+ 246 012c 0196      		adiw r24,1
+ 247 012e 0E94 0000 		call malloc
+ 248 0132 F801      		movw r30,r16
+ 249 0134 9783      		std Z+7,r25
+ 250 0136 8683      		std Z+6,r24
+ 251 0138 0097      		sbiw r24,0
+ 252 013a 01F0      		breq .L29
+ 253 013c B501      		movw r22,r10
+ 254 013e 0E94 0000 		call strcpy
+ 255 0142 8114      		cp r8,__zero_reg__
+ 256 0144 9104      		cpc r9,__zero_reg__
+ 257 0146 01F0      		breq .L32
+ 258 0148 F401      		movw r30,r8
+ 259 014a 1183      		std Z+1,r17
+ 260 014c 0083      		st Z,r16
+ 261 014e F801      		movw r30,r16
+ 262 0150 9382      		std Z+3,r9
+ 263 0152 8282      		std Z+2,r8
+ 264 0154 00C0      		rjmp .L33
+ 265               	.L32:
+ 266 0156 1093 0000 		sts nut_environ+1,r17
+ 267 015a 0093 0000 		sts nut_environ,r16
+ 268               	.L33:
+ 269 015e 4801      		movw r8,r16
+ 270 0160 00C0      		rjmp .L27
+ 271               	.L29:
+ 272 0162 C501      		movw r24,r10
+ 273 0164 0E94 0000 		call free
+ 274               	.L19:
+ 275 0168 0091 0000 		lds r16,nut_environ
+ 276 016c 1091 0000 		lds r17,nut_environ+1
+ 277               	.L35:
+ 278 0170 0115      		cp r16,__zero_reg__
+ 279 0172 1105      		cpc r17,__zero_reg__
+ 280 0174 01F0      		breq .L36
+ 281 0176 B601      		movw r22,r12
+ 282 0178 F801      		movw r30,r16
+ 283 017a 8481      		ldd r24,Z+4
+ 284 017c 9581      		ldd r25,Z+5
+ 285 017e 0E94 0000 		call strcmp
+GAS LISTING /tmp/cceuPhBH.s 			page 6
+
+
+ 286 0182 892B      		or r24,r25
+ 287 0184 01F0      		breq .L36
+ 288 0186 F801      		movw r30,r16
+ 289 0188 0081      		ld r16,Z
+ 290 018a 1181      		ldd r17,Z+1
+ 291 018c 00C0      		rjmp .L35
+ 292               	.L36:
+ 293 018e C801      		movw r24,r16
+ 294               	/* epilogue start */
+ 295 0190 2696      		adiw r28,6
+ 296 0192 0FB6      		in __tmp_reg__,__SREG__
+ 297 0194 F894      		cli
+ 298 0196 DEBF      		out __SP_H__,r29
+ 299 0198 0FBE      		out __SREG__,__tmp_reg__
+ 300 019a CDBF      		out __SP_L__,r28
+ 301 019c DF91      		pop r29
+ 302 019e CF91      		pop r28
+ 303 01a0 1F91      		pop r17
+ 304 01a2 0F91      		pop r16
+ 305 01a4 FF90      		pop r15
+ 306 01a6 EF90      		pop r14
+ 307 01a8 DF90      		pop r13
+ 308 01aa CF90      		pop r12
+ 309 01ac BF90      		pop r11
+ 310 01ae AF90      		pop r10
+ 311 01b0 9F90      		pop r9
+ 312 01b2 8F90      		pop r8
+ 313 01b4 7F90      		pop r7
+ 314 01b6 5F90      		pop r5
+ 315 01b8 4F90      		pop r4
+ 316 01ba 0895      		ret
+ 317               		.size	findenv, .-findenv
+ 318               		.comm	nut_environ,2,1
+ 319               		.ident	"GCC: (GNU) 5.3.0"
+ 320               	.global __do_clear_bss
+GAS LISTING /tmp/cceuPhBH.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 environ.c
+     /tmp/cceuPhBH.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cceuPhBH.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cceuPhBH.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cceuPhBH.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cceuPhBH.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cceuPhBH.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cceuPhBH.s:10     .text.read_string:0000000000000000 read_string
+     /tmp/cceuPhBH.s:97     .text.findenv:0000000000000000 findenv
+                            *COM*:0000000000000002 nut_environ
+
+UNDEFINED SYMBOLS
+NutNvMemLoad
+malloc
+free
+strcpy
+strcmp
+__do_clear_bss

@@ -1,0 +1,152 @@
+GAS LISTING /tmp/ccqZRq6Z.s 			page 1
+
+
+   1               		.file	"semaphore.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.NutSemInit,"ax",@progbits
+   9               	.global	NutSemInit
+  10               		.type	NutSemInit, @function
+  11               	NutSemInit:
+  12               	/* prologue: function */
+  13               	/* frame size = 0 */
+  14               	/* stack size = 0 */
+  15               	.L__stack_usage = 0
+  16 0000 FC01      		movw r30,r24
+  17 0002 1182      		std Z+1,__zero_reg__
+  18 0004 1082      		st Z,__zero_reg__
+  19 0006 7383      		std Z+3,r23
+  20 0008 6283      		std Z+2,r22
+  21 000a 0895      		ret
+  22               		.size	NutSemInit, .-NutSemInit
+  23               		.section	.text.NutSemWait,"ax",@progbits
+  24               	.global	NutSemWait
+  25               		.type	NutSemWait, @function
+  26               	NutSemWait:
+  27               	/* prologue: function */
+  28               	/* frame size = 0 */
+  29               	/* stack size = 0 */
+  30               	.L__stack_usage = 0
+  31 0000 FC01      		movw r30,r24
+  32 0002 2281      		ldd r18,Z+2
+  33 0004 3381      		ldd r19,Z+3
+  34 0006 2150      		subi r18,1
+  35 0008 3109      		sbc r19,__zero_reg__
+  36 000a 3383      		std Z+3,r19
+  37 000c 2283      		std Z+2,r18
+  38 000e 37FF      		sbrs r19,7
+  39 0010 00C0      		rjmp .L2
+  40 0012 40E0      		ldi r20,0
+  41 0014 50E0      		ldi r21,0
+  42 0016 BA01      		movw r22,r20
+  43 0018 0C94 0000 		jmp NutEventWaitNext
+  44               	.L2:
+  45 001c 0895      		ret
+  46               		.size	NutSemWait, .-NutSemWait
+  47               		.section	.text.NutSemPost,"ax",@progbits
+  48               	.global	NutSemPost
+  49               		.type	NutSemPost, @function
+  50               	NutSemPost:
+  51               	/* prologue: function */
+  52               	/* frame size = 0 */
+  53               	/* stack size = 0 */
+  54               	.L__stack_usage = 0
+  55 0000 FC01      		movw r30,r24
+  56 0002 2281      		ldd r18,Z+2
+  57 0004 3381      		ldd r19,Z+3
+GAS LISTING /tmp/ccqZRq6Z.s 			page 2
+
+
+  58 0006 2F5F      		subi r18,-1
+  59 0008 3F4F      		sbci r19,-1
+  60 000a 3383      		std Z+3,r19
+  61 000c 2283      		std Z+2,r18
+  62 000e 1216      		cp __zero_reg__,r18
+  63 0010 1306      		cpc __zero_reg__,r19
+  64 0012 04F0      		brlt .L5
+  65 0014 0C94 0000 		jmp NutEventPost
+  66               	.L5:
+  67 0018 0895      		ret
+  68               		.size	NutSemPost, .-NutSemPost
+  69               		.section	.text.NutSemTryWait,"ax",@progbits
+  70               	.global	NutSemTryWait
+  71               		.type	NutSemTryWait, @function
+  72               	NutSemTryWait:
+  73               	/* prologue: function */
+  74               	/* frame size = 0 */
+  75               	/* stack size = 0 */
+  76               	.L__stack_usage = 0
+  77 0000 FC01      		movw r30,r24
+  78 0002 2281      		ldd r18,Z+2
+  79 0004 3381      		ldd r19,Z+3
+  80 0006 1216      		cp __zero_reg__,r18
+  81 0008 1306      		cpc __zero_reg__,r19
+  82 000a 04F4      		brge .L9
+  83 000c 0E94 0000 		call NutSemWait
+  84 0010 80E0      		ldi r24,0
+  85 0012 90E0      		ldi r25,0
+  86 0014 0895      		ret
+  87               	.L9:
+  88 0016 8FEF      		ldi r24,lo8(-1)
+  89 0018 9FEF      		ldi r25,lo8(-1)
+  90 001a 0895      		ret
+  91               		.size	NutSemTryWait, .-NutSemTryWait
+  92               		.section	.text.NutSemDestroy,"ax",@progbits
+  93               	.global	NutSemDestroy
+  94               		.type	NutSemDestroy, @function
+  95               	NutSemDestroy:
+  96               	/* prologue: function */
+  97               	/* frame size = 0 */
+  98               	/* stack size = 0 */
+  99               	.L__stack_usage = 0
+ 100 0000 FC01      		movw r30,r24
+ 101 0002 2081      		ld r18,Z
+ 102 0004 3181      		ldd r19,Z+1
+ 103 0006 2F3F      		cpi r18,-1
+ 104 0008 FFEF      		ldi r31,-1
+ 105 000a 3F07      		cpc r19,r31
+ 106 000c 01F0      		breq .L13
+ 107 000e 81E0      		ldi r24,lo8(1)
+ 108 0010 90E0      		ldi r25,0
+ 109 0012 232B      		or r18,r19
+ 110 0014 01F4      		brne .L12
+ 111 0016 80E0      		ldi r24,0
+ 112 0018 90E0      		ldi r25,0
+ 113               	.L12:
+ 114 001a 9195      		neg r25
+GAS LISTING /tmp/ccqZRq6Z.s 			page 3
+
+
+ 115 001c 8195      		neg r24
+ 116 001e 9109      		sbc r25,__zero_reg__
+ 117 0020 0895      		ret
+ 118               	.L13:
+ 119 0022 80E0      		ldi r24,0
+ 120 0024 90E0      		ldi r25,0
+ 121 0026 0895      		ret
+ 122               		.size	NutSemDestroy, .-NutSemDestroy
+ 123               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccqZRq6Z.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 semaphore.c
+     /tmp/ccqZRq6Z.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccqZRq6Z.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccqZRq6Z.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccqZRq6Z.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccqZRq6Z.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccqZRq6Z.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccqZRq6Z.s:11     .text.NutSemInit:0000000000000000 NutSemInit
+     /tmp/ccqZRq6Z.s:26     .text.NutSemWait:0000000000000000 NutSemWait
+     /tmp/ccqZRq6Z.s:50     .text.NutSemPost:0000000000000000 NutSemPost
+     /tmp/ccqZRq6Z.s:72     .text.NutSemTryWait:0000000000000000 NutSemTryWait
+     /tmp/ccqZRq6Z.s:95     .text.NutSemDestroy:0000000000000000 NutSemDestroy
+
+UNDEFINED SYMBOLS
+NutEventWaitNext
+NutEventPost

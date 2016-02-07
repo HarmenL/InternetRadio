@@ -1,0 +1,1951 @@
+GAS LISTING /tmp/ccPfx3IE.s 			page 1
+
+
+   1               		.file	"usart.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.UsartFlushOutput,"ax",@progbits
+   9               		.type	UsartFlushOutput, @function
+  10               	UsartFlushOutput:
+  11 0000 AF92      		push r10
+  12 0002 BF92      		push r11
+  13 0004 CF92      		push r12
+  14 0006 DF92      		push r13
+  15 0008 EF92      		push r14
+  16 000a FF92      		push r15
+  17 000c 0F93      		push r16
+  18 000e 1F93      		push r17
+  19 0010 CF93      		push r28
+  20 0012 DF93      		push r29
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	/* stack size = 10 */
+  24               	.L__stack_usage = 10
+  25 0014 EC01      		movw r28,r24
+  26 0016 7A01      		movw r14,r20
+  27               	/* #APP */
+  28               	 ;  326 "../../nut/dev/usart.c" 1
+  29 0018 0FB6      		in  __tmp_reg__, __SREG__
+  30 001a F894      		cli
+  31 001c 0F92      		push __tmp_reg__
+  32               		
+  33               	 ;  0 "" 2
+  34               	/* #NOAPP */
+  35 001e 8A8D      		ldd r24,Y+26
+  36 0020 9B8D      		ldd r25,Y+27
+  37 0022 680F      		add r22,r24
+  38 0024 791F      		adc r23,r25
+  39 0026 7B8F      		std Y+27,r23
+  40 0028 6A8F      		std Y+26,r22
+  41 002a 0A8D      		ldd r16,Y+26
+  42 002c 1B8D      		ldd r17,Y+27
+  43               	/* #APP */
+  44               	 ;  329 "../../nut/dev/usart.c" 1
+  45 002e 0F90      		pop __tmp_reg__
+  46 0030 0FBE      		out __SREG__, __tmp_reg__
+  47               		
+  48               	 ;  0 "" 2
+  49               	/* #NOAPP */
+  50 0032 6E01      		movw r12,r28
+  51 0034 85E4      		ldi r24,69
+  52 0036 C80E      		add r12,r24
+  53 0038 D11C      		adc r13,__zero_reg__
+  54 003a 5E01      		movw r10,r28
+  55 003c A0E2      		ldi r26,32
+  56 003e AA0E      		add r10,r26
+  57 0040 B11C      		adc r11,__zero_reg__
+GAS LISTING /tmp/ccPfx3IE.s 			page 2
+
+
+  58               	.L2:
+  59 0042 E016      		cp r14,r16
+  60 0044 F106      		cpc r15,r17
+  61 0046 00F4      		brsh .L6
+  62 0048 D601      		movw r26,r12
+  63 004a ED91      		ld r30,X+
+  64 004c FC91      		ld r31,X
+  65 004e 1995      		eicall
+  66 0050 4C85      		ldd r20,Y+12
+  67 0052 5D85      		ldd r21,Y+13
+  68 0054 6E85      		ldd r22,Y+14
+  69 0056 7F85      		ldd r23,Y+15
+  70 0058 C501      		movw r24,r10
+  71 005a 0E94 0000 		call NutEventWait
+  72 005e 892B      		or r24,r25
+  73 0060 01F4      		brne .L6
+  74               	/* #APP */
+  75               	 ;  338 "../../nut/dev/usart.c" 1
+  76 0062 0FB6      		in  __tmp_reg__, __SREG__
+  77 0064 F894      		cli
+  78 0066 0F92      		push __tmp_reg__
+  79               		
+  80               	 ;  0 "" 2
+  81               	/* #NOAPP */
+  82 0068 0A8D      		ldd r16,Y+26
+  83 006a 1B8D      		ldd r17,Y+27
+  84               	/* #APP */
+  85               	 ;  340 "../../nut/dev/usart.c" 1
+  86 006c 0F90      		pop __tmp_reg__
+  87 006e 0FBE      		out __SREG__, __tmp_reg__
+  88               		
+  89               	 ;  0 "" 2
+  90               	/* #NOAPP */
+  91 0070 00C0      		rjmp .L2
+  92               	.L6:
+  93 0072 C801      		movw r24,r16
+  94               	/* epilogue start */
+  95 0074 DF91      		pop r29
+  96 0076 CF91      		pop r28
+  97 0078 1F91      		pop r17
+  98 007a 0F91      		pop r16
+  99 007c FF90      		pop r15
+ 100 007e EF90      		pop r14
+ 101 0080 DF90      		pop r13
+ 102 0082 CF90      		pop r12
+ 103 0084 BF90      		pop r11
+ 104 0086 AF90      		pop r10
+ 105 0088 0895      		ret
+ 106               		.size	UsartFlushOutput, .-UsartFlushOutput
+ 107               		.section	.text.UsartResetBuffer,"ax",@progbits
+ 108               		.type	UsartResetBuffer, @function
+ 109               	UsartResetBuffer:
+ 110 0000 CF92      		push r12
+ 111 0002 DF92      		push r13
+ 112 0004 EF92      		push r14
+ 113 0006 FF92      		push r15
+ 114 0008 0F93      		push r16
+GAS LISTING /tmp/ccPfx3IE.s 			page 3
+
+
+ 115 000a 1F93      		push r17
+ 116 000c CF93      		push r28
+ 117 000e DF93      		push r29
+ 118               	/* prologue: function */
+ 119               	/* frame size = 0 */
+ 120               	/* stack size = 8 */
+ 121               	.L__stack_usage = 8
+ 122 0010 EC01      		movw r28,r24
+ 123 0012 8B01      		movw r16,r22
+ 124 0014 6A01      		movw r12,r20
+ 125 0016 7901      		movw r14,r18
+ 126 0018 8C81      		ldd r24,Y+4
+ 127 001a 9D81      		ldd r25,Y+5
+ 128 001c 2885      		ldd r18,Y+8
+ 129 001e 3985      		ldd r19,Y+9
+ 130               	/* #APP */
+ 131               	 ;  120 "../../nut/dev/usart.c" 1
+ 132 0020 0FB6      		in  __tmp_reg__, __SREG__
+ 133 0022 F894      		cli
+ 134 0024 0F92      		push __tmp_reg__
+ 135               		
+ 136               	 ;  0 "" 2
+ 137               	/* #NOAPP */
+ 138 0026 1986      		std Y+9,__zero_reg__
+ 139 0028 1886      		std Y+8,__zero_reg__
+ 140               	/* #APP */
+ 141               	 ;  122 "../../nut/dev/usart.c" 1
+ 142 002a 0F90      		pop __tmp_reg__
+ 143 002c 0FBE      		out __SREG__, __tmp_reg__
+ 144               		
+ 145               	 ;  0 "" 2
+ 146               	/* #NOAPP */
+ 147 002e 2617      		cp r18,r22
+ 148 0030 3707      		cpc r19,r23
+ 149 0032 01F0      		breq .L9
+ 150 0034 232B      		or r18,r19
+ 151 0036 01F0      		breq .L10
+ 152 0038 0E94 0000 		call free
+ 153               	.L10:
+ 154 003c 0115      		cp r16,__zero_reg__
+ 155 003e 1105      		cpc r17,__zero_reg__
+ 156 0040 01F0      		breq .L22
+ 157 0042 C801      		movw r24,r16
+ 158 0044 0E94 0000 		call malloc
+ 159 0048 0097      		sbiw r24,0
+ 160 004a 01F4      		brne .L13
+ 161 004c 00C0      		rjmp .L23
+ 162               	.L9:
+ 163 004e 672B      		or r22,r23
+ 164 0050 01F0      		breq .L22
+ 165               	.L13:
+ 166 0052 9D83      		std Y+5,r25
+ 167 0054 8C83      		std Y+4,r24
+ 168 0056 9983      		std Y+1,r25
+ 169 0058 8883      		st Y,r24
+ 170 005a 9B83      		std Y+3,r25
+ 171 005c 8A83      		std Y+2,r24
+GAS LISTING /tmp/ccPfx3IE.s 			page 4
+
+
+ 172 005e 800F      		add r24,r16
+ 173 0060 911F      		adc r25,r17
+ 174 0062 9F83      		std Y+7,r25
+ 175 0064 8E83      		std Y+6,r24
+ 176 0066 DD86      		std Y+13,r13
+ 177 0068 CC86      		std Y+12,r12
+ 178 006a FF86      		std Y+15,r15
+ 179 006c EE86      		std Y+14,r14
+ 180 006e 1B86      		std Y+11,__zero_reg__
+ 181 0070 1A86      		std Y+10,__zero_reg__
+ 182               	/* #APP */
+ 183               	 ;  148 "../../nut/dev/usart.c" 1
+ 184 0072 0FB6      		in  __tmp_reg__, __SREG__
+ 185 0074 F894      		cli
+ 186 0076 0F92      		push __tmp_reg__
+ 187               		
+ 188               	 ;  0 "" 2
+ 189               	/* #NOAPP */
+ 190 0078 1987      		std Y+9,r17
+ 191 007a 0887      		std Y+8,r16
+ 192               	/* #APP */
+ 193               	 ;  150 "../../nut/dev/usart.c" 1
+ 194 007c 0F90      		pop __tmp_reg__
+ 195 007e 0FBE      		out __SREG__, __tmp_reg__
+ 196               		
+ 197               	 ;  0 "" 2
+ 198               	/* #NOAPP */
+ 199               	.L22:
+ 200 0080 80E0      		ldi r24,0
+ 201 0082 90E0      		ldi r25,0
+ 202 0084 00C0      		rjmp .L12
+ 203               	.L23:
+ 204 0086 8FEF      		ldi r24,lo8(-1)
+ 205 0088 9FEF      		ldi r25,lo8(-1)
+ 206               	.L12:
+ 207               	/* epilogue start */
+ 208 008a DF91      		pop r29
+ 209 008c CF91      		pop r28
+ 210 008e 1F91      		pop r17
+ 211 0090 0F91      		pop r16
+ 212 0092 FF90      		pop r15
+ 213 0094 EF90      		pop r14
+ 214 0096 DF90      		pop r13
+ 215 0098 CF90      		pop r12
+ 216 009a 0895      		ret
+ 217               		.size	UsartResetBuffer, .-UsartResetBuffer
+ 218               		.section	.text.UsartPut.isra.0,"ax",@progbits
+ 219               		.type	UsartPut.isra.0, @function
+ 220               	UsartPut.isra.0:
+ 221 0000 8F92      		push r8
+ 222 0002 9F92      		push r9
+ 223 0004 AF92      		push r10
+ 224 0006 BF92      		push r11
+ 225 0008 CF92      		push r12
+ 226 000a DF92      		push r13
+ 227 000c EF92      		push r14
+ 228 000e FF92      		push r15
+GAS LISTING /tmp/ccPfx3IE.s 			page 5
+
+
+ 229 0010 0F93      		push r16
+ 230 0012 1F93      		push r17
+ 231 0014 CF93      		push r28
+ 232 0016 DF93      		push r29
+ 233               	/* prologue: function */
+ 234               	/* frame size = 0 */
+ 235               	/* stack size = 12 */
+ 236               	.L__stack_usage = 12
+ 237 0018 EC01      		movw r28,r24
+ 238 001a 6B01      		movw r12,r22
+ 239 001c 5A01      		movw r10,r20
+ 240 001e 4901      		movw r8,r18
+ 241 0020 8881      		ld r24,Y
+ 242 0022 9981      		ldd r25,Y+1
+ 243 0024 AA81      		ldd r26,Y+2
+ 244 0026 BB81      		ldd r27,Y+3
+ 245 0028 94FF      		sbrs r25,4
+ 246 002a 00C0      		rjmp .L25
+ 247 002c 7DA3      		std Y+37,r23
+ 248 002e 6CA3      		std Y+36,r22
+ 249 0030 5BA3      		std Y+35,r21
+ 250 0032 4AA3      		std Y+34,r20
+ 251 0034 FE01      		movw r30,r28
+ 252 0036 EB5B      		subi r30,-69
+ 253 0038 FF4F      		sbci r31,-1
+ 254 003a 0190      		ld __tmp_reg__,Z+
+ 255 003c F081      		ld r31,Z
+ 256 003e E02D      		mov r30,__tmp_reg__
+ 257 0040 1995      		eicall
+ 258 0042 4C85      		ldd r20,Y+12
+ 259 0044 5D85      		ldd r21,Y+13
+ 260 0046 6E85      		ldd r22,Y+14
+ 261 0048 7F85      		ldd r23,Y+15
+ 262 004a CE01      		movw r24,r28
+ 263 004c 8096      		adiw r24,32
+ 264 004e 0E94 0000 		call NutEventWaitNext
+ 265 0052 0097      		sbiw r24,0
+ 266 0054 01F0      		breq .+2
+ 267 0056 00C0      		rjmp .L26
+ 268 0058 C501      		movw r24,r10
+ 269 005a 00C0      		rjmp .L26
+ 270               	.L25:
+ 271 005c 288D      		ldd r18,Y+24
+ 272 005e 398D      		ldd r19,Y+25
+ 273 0060 232B      		or r18,r19
+ 274 0062 01F4      		brne .+2
+ 275 0064 00C0      		rjmp .L38
+ 276 0066 672B      		or r22,r23
+ 277 0068 01F4      		brne .L27
+ 278 006a 40E0      		ldi r20,0
+ 279 006c 50E0      		ldi r21,0
+ 280 006e 60E0      		ldi r22,0
+ 281 0070 70E0      		ldi r23,0
+ 282 0072 CE01      		movw r24,r28
+ 283               	/* epilogue start */
+ 284 0074 DF91      		pop r29
+ 285 0076 CF91      		pop r28
+GAS LISTING /tmp/ccPfx3IE.s 			page 6
+
+
+ 286 0078 1F91      		pop r17
+ 287 007a 0F91      		pop r16
+ 288 007c FF90      		pop r15
+ 289 007e EF90      		pop r14
+ 290 0080 DF90      		pop r13
+ 291 0082 CF90      		pop r12
+ 292 0084 BF90      		pop r11
+ 293 0086 AF90      		pop r10
+ 294 0088 9F90      		pop r9
+ 295 008a 8F90      		pop r8
+ 296 008c 0C94 0000 		jmp UsartFlushOutput
+ 297               	.L27:
+ 298 0090 8C01      		movw r16,r24
+ 299 0092 9D01      		movw r18,r26
+ 300 0094 49E0      		ldi r20,9
+ 301               		1:
+ 302 0096 3695      		lsr r19
+ 303 0098 2795      		ror r18
+ 304 009a 1795      		ror r17
+ 305 009c 0795      		ror r16
+ 306 009e 4A95      		dec r20
+ 307 00a0 01F4      		brne 1b
+ 308 00a2 0170      		andi r16,lo8(1)
+ 309 00a4 57E0      		ldi r21,7
+ 310               		1:
+ 311 00a6 B695      		lsr r27
+ 312 00a8 A795      		ror r26
+ 313 00aa 9795      		ror r25
+ 314 00ac 8795      		ror r24
+ 315 00ae 5A95      		dec r21
+ 316 00b0 01F4      		brne 1b
+ 317 00b2 182F      		mov r17,r24
+ 318 00b4 1170      		andi r17,lo8(1)
+ 319               	/* #APP */
+ 320               	 ;  412 "../../nut/dev/usart.c" 1
+ 321 00b6 0FB6      		in  __tmp_reg__, __SREG__
+ 322 00b8 F894      		cli
+ 323 00ba 0F92      		push __tmp_reg__
+ 324               		
+ 325               	 ;  0 "" 2
+ 326               	/* #NOAPP */
+ 327 00bc 8A8D      		ldd r24,Y+26
+ 328 00be 9B8D      		ldd r25,Y+27
+ 329               	/* #APP */
+ 330               	 ;  414 "../../nut/dev/usart.c" 1
+ 331 00c0 0F90      		pop __tmp_reg__
+ 332 00c2 0FBE      		out __SREG__, __tmp_reg__
+ 333               		
+ 334               	 ;  0 "" 2
+ 335               	/* #NOAPP */
+ 336 00c4 60E0      		ldi r22,0
+ 337 00c6 70E0      		ldi r23,0
+ 338 00c8 E12C      		mov r14,__zero_reg__
+ 339 00ca F12C      		mov r15,__zero_reg__
+ 340               	.L28:
+ 341 00cc EA14      		cp r14,r10
+ 342 00ce FB04      		cpc r15,r11
+GAS LISTING /tmp/ccPfx3IE.s 			page 7
+
+
+ 343 00d0 04F0      		brlt .+2
+ 344 00d2 00C0      		rjmp .L43
+ 345 00d4 4E8D      		ldd r20,Y+30
+ 346 00d6 5F8D      		ldd r21,Y+31
+ 347 00d8 9C01      		movw r18,r24
+ 348 00da 260F      		add r18,r22
+ 349 00dc 371F      		adc r19,r23
+ 350 00de 2417      		cp r18,r20
+ 351 00e0 3507      		cpc r19,r21
+ 352 00e2 00F0      		brlo .L29
+ 353 00e4 4C8D      		ldd r20,Y+28
+ 354 00e6 5D8D      		ldd r21,Y+29
+ 355 00e8 CE01      		movw r24,r28
+ 356 00ea 0E94 0000 		call UsartFlushOutput
+ 357 00ee 2C8D      		ldd r18,Y+28
+ 358 00f0 3D8D      		ldd r19,Y+29
+ 359 00f2 2817      		cp r18,r24
+ 360 00f4 3907      		cpc r19,r25
+ 361 00f6 00F4      		brsh .+2
+ 362 00f8 00C0      		rjmp .L42
+ 363 00fa 60E0      		ldi r22,0
+ 364 00fc 70E0      		ldi r23,0
+ 365               	.L29:
+ 366 00fe F601      		movw r30,r12
+ 367 0100 8114      		cp r8,__zero_reg__
+ 368 0102 9104      		cpc r9,__zero_reg__
+ 369 0104 01F0      		breq .L30
+ 370               	/* #APP */
+ 371               	 ;  439 "../../nut/dev/usart.c" 1
+ 372 0106 4491      		lpm r20, Z
+ 373               		
+ 374               	 ;  0 "" 2
+ 375               	/* #NOAPP */
+ 376 0108 00C0      		rjmp .L31
+ 377               	.L30:
+ 378 010a 4081      		ld r20,Z
+ 379               	.L31:
+ 380 010c 1130      		cpi r17,lo8(1)
+ 381 010e 01F4      		brne .L32
+ 382 0110 4A30      		cpi r20,lo8(10)
+ 383 0112 01F4      		brne .L33
+ 384 0114 4DE0      		ldi r20,lo8(13)
+ 385 0116 12E0      		ldi r17,lo8(2)
+ 386 0118 0130      		cpi r16,lo8(1)
+ 387 011a 01F4      		brne .L34
+ 388 011c 02E0      		ldi r16,lo8(2)
+ 389 011e 00C0      		rjmp .L34
+ 390               	.L32:
+ 391 0120 1230      		cpi r17,lo8(2)
+ 392 0122 01F4      		brne .L33
+ 393 0124 11E0      		ldi r17,lo8(1)
+ 394               	.L33:
+ 395 0126 FFEF      		ldi r31,-1
+ 396 0128 CF1A      		sub r12,r31
+ 397 012a DF0A      		sbc r13,r31
+ 398 012c 2FEF      		ldi r18,-1
+ 399 012e E21A      		sub r14,r18
+GAS LISTING /tmp/ccPfx3IE.s 			page 8
+
+
+ 400 0130 F20A      		sbc r15,r18
+ 401               	.L34:
+ 402 0132 E889      		ldd r30,Y+16
+ 403 0134 F989      		ldd r31,Y+17
+ 404 0136 9F01      		movw r18,r30
+ 405 0138 2F5F      		subi r18,-1
+ 406 013a 3F4F      		sbci r19,-1
+ 407 013c 398B      		std Y+17,r19
+ 408 013e 288B      		std Y+16,r18
+ 409 0140 4083      		st Z,r20
+ 410 0142 4889      		ldd r20,Y+16
+ 411 0144 5989      		ldd r21,Y+17
+ 412 0146 2E89      		ldd r18,Y+22
+ 413 0148 3F89      		ldd r19,Y+23
+ 414 014a 4217      		cp r20,r18
+ 415 014c 5307      		cpc r21,r19
+ 416 014e 01F4      		brne .L35
+ 417 0150 2C89      		ldd r18,Y+20
+ 418 0152 3D89      		ldd r19,Y+21
+ 419 0154 398B      		std Y+17,r19
+ 420 0156 288B      		std Y+16,r18
+ 421               	.L35:
+ 422 0158 6F5F      		subi r22,-1
+ 423 015a 7F4F      		sbci r23,-1
+ 424 015c 00C0      		rjmp .L28
+ 425               	.L43:
+ 426 015e 6115      		cp r22,__zero_reg__
+ 427 0160 7105      		cpc r23,__zero_reg__
+ 428 0162 01F0      		breq .L42
+ 429               	/* #APP */
+ 430               	 ;  466 "../../nut/dev/usart.c" 1
+ 431 0164 0FB6      		in  __tmp_reg__, __SREG__
+ 432 0166 F894      		cli
+ 433 0168 0F92      		push __tmp_reg__
+ 434               		
+ 435               	 ;  0 "" 2
+ 436               	/* #NOAPP */
+ 437 016a 8A8D      		ldd r24,Y+26
+ 438 016c 9B8D      		ldd r25,Y+27
+ 439 016e 680F      		add r22,r24
+ 440 0170 791F      		adc r23,r25
+ 441 0172 7B8F      		std Y+27,r23
+ 442 0174 6A8F      		std Y+26,r22
+ 443               	/* #APP */
+ 444               	 ;  468 "../../nut/dev/usart.c" 1
+ 445 0176 0F90      		pop __tmp_reg__
+ 446 0178 0FBE      		out __SREG__, __tmp_reg__
+ 447               		
+ 448               	 ;  0 "" 2
+ 449               	/* #NOAPP */
+ 450 017a CB5B      		subi r28,-69
+ 451 017c DF4F      		sbci r29,-1
+ 452 017e E881      		ld r30,Y
+ 453 0180 F981      		ldd r31,Y+1
+ 454 0182 1995      		eicall
+ 455 0184 00C0      		rjmp .L42
+ 456               	.L38:
+GAS LISTING /tmp/ccPfx3IE.s 			page 9
+
+
+ 457 0186 8FEF      		ldi r24,lo8(-1)
+ 458 0188 9FEF      		ldi r25,lo8(-1)
+ 459 018a 00C0      		rjmp .L26
+ 460               	.L42:
+ 461 018c C701      		movw r24,r14
+ 462               	.L26:
+ 463               	/* epilogue start */
+ 464 018e DF91      		pop r29
+ 465 0190 CF91      		pop r28
+ 466 0192 1F91      		pop r17
+ 467 0194 0F91      		pop r16
+ 468 0196 FF90      		pop r15
+ 469 0198 EF90      		pop r14
+ 470 019a DF90      		pop r13
+ 471 019c CF90      		pop r12
+ 472 019e BF90      		pop r11
+ 473 01a0 AF90      		pop r10
+ 474 01a2 9F90      		pop r9
+ 475 01a4 8F90      		pop r8
+ 476 01a6 0895      		ret
+ 477               		.size	UsartPut.isra.0, .-UsartPut.isra.0
+ 478               		.section	.text.UsartInit,"ax",@progbits
+ 479               	.global	UsartInit
+ 480               		.type	UsartInit, @function
+ 481               	UsartInit:
+ 482 0000 0F93      		push r16
+ 483 0002 1F93      		push r17
+ 484 0004 CF93      		push r28
+ 485 0006 DF93      		push r29
+ 486               	/* prologue: function */
+ 487               	/* frame size = 0 */
+ 488               	/* stack size = 4 */
+ 489               	.L__stack_usage = 4
+ 490 0008 FC01      		movw r30,r24
+ 491 000a C189      		ldd r28,Z+17
+ 492 000c D289      		ldd r29,Z+18
+ 493 000e FE01      		movw r30,r28
+ 494 0010 EF5B      		subi r30,-65
+ 495 0012 FF4F      		sbci r31,-1
+ 496 0014 0190      		ld __tmp_reg__,Z+
+ 497 0016 F081      		ld r31,Z
+ 498 0018 E02D      		mov r30,__tmp_reg__
+ 499 001a 1995      		eicall
+ 500 001c 8C01      		movw r16,r24
+ 501 001e 892B      		or r24,r25
+ 502 0020 01F4      		brne .L45
+ 503 0022 C35B      		subi r28,-77
+ 504 0024 DF4F      		sbci r29,-1
+ 505 0026 E881      		ld r30,Y
+ 506 0028 F981      		ldd r31,Y+1
+ 507 002a 60E0      		ldi r22,0
+ 508 002c 72EC      		ldi r23,lo8(-62)
+ 509 002e 81E0      		ldi r24,lo8(1)
+ 510 0030 90E0      		ldi r25,0
+ 511 0032 1995      		eicall
+ 512               	.L45:
+ 513 0034 C801      		movw r24,r16
+GAS LISTING /tmp/ccPfx3IE.s 			page 10
+
+
+ 514               	/* epilogue start */
+ 515 0036 DF91      		pop r29
+ 516 0038 CF91      		pop r28
+ 517 003a 1F91      		pop r17
+ 518 003c 0F91      		pop r16
+ 519 003e 0895      		ret
+ 520               		.size	UsartInit, .-UsartInit
+ 521               		.section	.text.UsartRead,"ax",@progbits
+ 522               	.global	UsartRead
+ 523               		.type	UsartRead, @function
+ 524               	UsartRead:
+ 525 0000 AF92      		push r10
+ 526 0002 BF92      		push r11
+ 527 0004 CF92      		push r12
+ 528 0006 DF92      		push r13
+ 529 0008 EF92      		push r14
+ 530 000a FF92      		push r15
+ 531 000c 0F93      		push r16
+ 532 000e 1F93      		push r17
+ 533 0010 CF93      		push r28
+ 534 0012 DF93      		push r29
+ 535               	/* prologue: function */
+ 536               	/* frame size = 0 */
+ 537               	/* stack size = 10 */
+ 538               	.L__stack_usage = 10
+ 539 0014 8B01      		movw r16,r22
+ 540 0016 6A01      		movw r12,r20
+ 541 0018 DC01      		movw r26,r24
+ 542 001a ED91      		ld r30,X+
+ 543 001c FC91      		ld r31,X
+ 544 001e C189      		ldd r28,Z+17
+ 545 0020 D289      		ldd r29,Z+18
+ 546 0022 8881      		ld r24,Y
+ 547 0024 9981      		ldd r25,Y+1
+ 548 0026 AA81      		ldd r26,Y+2
+ 549 0028 BB81      		ldd r27,Y+3
+ 550 002a 93FF      		sbrs r25,3
+ 551 002c 00C0      		rjmp .L47
+ 552 002e 7DAF      		std Y+61,r23
+ 553 0030 6CAF      		std Y+60,r22
+ 554 0032 5BAF      		std Y+59,r21
+ 555 0034 4AAF      		std Y+58,r20
+ 556 0036 C95B      		subi r28,-71
+ 557 0038 DF4F      		sbci r29,-1
+ 558 003a E881      		ld r30,Y
+ 559 003c F981      		ldd r31,Y+1
+ 560 003e 1995      		eicall
+ 561 0040 C601      		movw r24,r12
+ 562 0042 00C0      		rjmp .L48
+ 563               	.L47:
+ 564 0044 68A9      		ldd r22,Y+48
+ 565 0046 79A9      		ldd r23,Y+49
+ 566 0048 6115      		cp r22,__zero_reg__
+ 567 004a 7105      		cpc r23,__zero_reg__
+ 568 004c 01F4      		brne .L49
+ 569               	.L52:
+ 570 004e 8FEF      		ldi r24,lo8(-1)
+GAS LISTING /tmp/ccPfx3IE.s 			page 11
+
+
+ 571 0050 9FEF      		ldi r25,lo8(-1)
+ 572 0052 00C0      		rjmp .L48
+ 573               	.L49:
+ 574 0054 0115      		cp r16,__zero_reg__
+ 575 0056 1105      		cpc r17,__zero_reg__
+ 576 0058 01F4      		brne .L50
+ 577 005a 2EA9      		ldd r18,Y+54
+ 578 005c 3FA9      		ldd r19,Y+55
+ 579 005e 4CA9      		ldd r20,Y+52
+ 580 0060 5DA9      		ldd r21,Y+53
+ 581 0062 CE01      		movw r24,r28
+ 582 0064 8896      		adiw r24,40
+ 583 0066 0E94 0000 		call UsartResetBuffer
+ 584 006a C95B      		subi r28,-71
+ 585 006c DF4F      		sbci r29,-1
+ 586 006e E881      		ld r30,Y
+ 587 0070 F981      		ldd r31,Y+1
+ 588 0072 1995      		eicall
+ 589 0074 00C0      		rjmp .L69
+ 590               	.L50:
+ 591 0076 7E01      		movw r14,r28
+ 592 0078 B7E4      		ldi r27,71
+ 593 007a EB0E      		add r14,r27
+ 594 007c F11C      		adc r15,__zero_reg__
+ 595 007e 5E01      		movw r10,r28
+ 596 0080 28E3      		ldi r18,56
+ 597 0082 A20E      		add r10,r18
+ 598 0084 B11C      		adc r11,__zero_reg__
+ 599               	.L80:
+ 600               	/* #APP */
+ 601               	 ;  227 "../../nut/dev/usart.c" 1
+ 602 0086 0FB6      		in  __tmp_reg__, __SREG__
+ 603 0088 F894      		cli
+ 604 008a 0F92      		push __tmp_reg__
+ 605               		
+ 606               	 ;  0 "" 2
+ 607               	/* #NOAPP */
+ 608 008c 4AA9      		ldd r20,Y+50
+ 609 008e 5BA9      		ldd r21,Y+51
+ 610               	/* #APP */
+ 611               	 ;  229 "../../nut/dev/usart.c" 1
+ 612 0090 0F90      		pop __tmp_reg__
+ 613 0092 0FBE      		out __SREG__, __tmp_reg__
+ 614               		
+ 615               	 ;  0 "" 2
+ 616               	/* #NOAPP */
+ 617 0094 4115      		cp r20,__zero_reg__
+ 618 0096 5105      		cpc r21,__zero_reg__
+ 619 0098 01F4      		brne .L51
+ 620 009a D701      		movw r26,r14
+ 621 009c ED91      		ld r30,X+
+ 622 009e FC91      		ld r31,X
+ 623 00a0 1995      		eicall
+ 624 00a2 4885      		ldd r20,Y+8
+ 625 00a4 5985      		ldd r21,Y+9
+ 626 00a6 6A85      		ldd r22,Y+10
+ 627 00a8 7B85      		ldd r23,Y+11
+GAS LISTING /tmp/ccPfx3IE.s 			page 12
+
+
+ 628 00aa C501      		movw r24,r10
+ 629 00ac 0E94 0000 		call NutEventWait
+ 630 00b0 892B      		or r24,r25
+ 631 00b2 01F0      		breq .+2
+ 632 00b4 00C0      		rjmp .L69
+ 633 00b6 88A9      		ldd r24,Y+48
+ 634 00b8 99A9      		ldd r25,Y+49
+ 635 00ba 892B      		or r24,r25
+ 636 00bc 01F4      		brne .L80
+ 637 00be 00C0      		rjmp .L52
+ 638               	.L51:
+ 639 00c0 8881      		ld r24,Y
+ 640 00c2 87FF      		sbrs r24,7
+ 641 00c4 00C0      		rjmp .L53
+ 642 00c6 80E0      		ldi r24,0
+ 643 00c8 90E0      		ldi r25,0
+ 644 00ca E12C      		mov r14,__zero_reg__
+ 645 00cc F12C      		mov r15,__zero_reg__
+ 646 00ce FE01      		movw r30,r28
+ 647 00d0 E05C      		subi r30,-64
+ 648 00d2 FF4F      		sbci r31,-1
+ 649 00d4 6AE0      		ldi r22,lo8(10)
+ 650               	.L54:
+ 651 00d6 EC14      		cp r14,r12
+ 652 00d8 FD04      		cpc r15,r13
+ 653 00da 00F0      		brlo .+2
+ 654 00dc 00C0      		rjmp .L62
+ 655 00de 8417      		cp r24,r20
+ 656 00e0 9507      		cpc r25,r21
+ 657 00e2 01F4      		brne .+2
+ 658 00e4 00C0      		rjmp .L55
+ 659 00e6 AAA5      		ldd r26,Y+42
+ 660 00e8 BBA5      		ldd r27,Y+43
+ 661 00ea 9D01      		movw r18,r26
+ 662 00ec 2F5F      		subi r18,-1
+ 663 00ee 3F4F      		sbci r19,-1
+ 664 00f0 3BA7      		std Y+43,r19
+ 665 00f2 2AA7      		std Y+42,r18
+ 666 00f4 2C91      		ld r18,X
+ 667 00f6 AAA4      		ldd r10,Y+42
+ 668 00f8 BBA4      		ldd r11,Y+43
+ 669 00fa AEA5      		ldd r26,Y+46
+ 670 00fc BFA5      		ldd r27,Y+47
+ 671 00fe AA16      		cp r10,r26
+ 672 0100 BB06      		cpc r11,r27
+ 673 0102 01F4      		brne .L56
+ 674 0104 ACA5      		ldd r26,Y+44
+ 675 0106 BDA5      		ldd r27,Y+45
+ 676 0108 BBA7      		std Y+43,r27
+ 677 010a AAA7      		std Y+42,r26
+ 678               	.L56:
+ 679 010c 0196      		adiw r24,1
+ 680 010e 2D30      		cpi r18,lo8(13)
+ 681 0110 01F0      		breq .L57
+ 682 0112 2A30      		cpi r18,lo8(10)
+ 683 0114 01F4      		brne .L58
+ 684               	.L57:
+GAS LISTING /tmp/ccPfx3IE.s 			page 13
+
+
+ 685 0116 3081      		ld r19,Z
+ 686 0118 3323      		tst r19
+ 687 011a 01F0      		breq .L59
+ 688 011c 2313      		cpse r18,r19
+ 689 011e 00C0      		rjmp .L54
+ 690               	.L59:
+ 691 0120 2083      		st Z,r18
+ 692 0122 D801      		movw r26,r16
+ 693 0124 6C93      		st X,r22
+ 694 0126 00C0      		rjmp .L81
+ 695               	.L58:
+ 696 0128 1082      		st Z,__zero_reg__
+ 697 012a D801      		movw r26,r16
+ 698 012c 2C93      		st X,r18
+ 699               	.L81:
+ 700 012e BFEF      		ldi r27,-1
+ 701 0130 EB1A      		sub r14,r27
+ 702 0132 FB0A      		sbc r15,r27
+ 703 0134 0F5F      		subi r16,-1
+ 704 0136 1F4F      		sbci r17,-1
+ 705 0138 00C0      		rjmp .L54
+ 706               	.L53:
+ 707 013a 7A01      		movw r14,r20
+ 708 013c C416      		cp r12,r20
+ 709 013e D506      		cpc r13,r21
+ 710 0140 00F4      		brsh .L63
+ 711 0142 7601      		movw r14,r12
+ 712               	.L63:
+ 713 0144 F801      		movw r30,r16
+ 714 0146 C801      		movw r24,r16
+ 715 0148 8E0D      		add r24,r14
+ 716 014a 9F1D      		adc r25,r15
+ 717               	.L64:
+ 718 014c E817      		cp r30,r24
+ 719 014e F907      		cpc r31,r25
+ 720 0150 01F0      		breq .L82
+ 721 0152 AAA5      		ldd r26,Y+42
+ 722 0154 BBA5      		ldd r27,Y+43
+ 723 0156 9D01      		movw r18,r26
+ 724 0158 2F5F      		subi r18,-1
+ 725 015a 3F4F      		sbci r19,-1
+ 726 015c 3BA7      		std Y+43,r19
+ 727 015e 2AA7      		std Y+42,r18
+ 728 0160 2C91      		ld r18,X
+ 729 0162 2193      		st Z+,r18
+ 730 0164 4AA5      		ldd r20,Y+42
+ 731 0166 5BA5      		ldd r21,Y+43
+ 732 0168 2EA5      		ldd r18,Y+46
+ 733 016a 3FA5      		ldd r19,Y+47
+ 734 016c 4217      		cp r20,r18
+ 735 016e 5307      		cpc r21,r19
+ 736 0170 01F4      		brne .L64
+ 737 0172 2CA5      		ldd r18,Y+44
+ 738 0174 3DA5      		ldd r19,Y+45
+ 739 0176 3BA7      		std Y+43,r19
+ 740 0178 2AA7      		std Y+42,r18
+ 741 017a 00C0      		rjmp .L64
+GAS LISTING /tmp/ccPfx3IE.s 			page 14
+
+
+ 742               	.L82:
+ 743 017c C701      		movw r24,r14
+ 744               	.L62:
+ 745 017e 0097      		sbiw r24,0
+ 746 0180 01F0      		breq .L67
+ 747               	.L55:
+ 748               	/* #APP */
+ 749               	 ;  291 "../../nut/dev/usart.c" 1
+ 750 0182 0FB6      		in  __tmp_reg__, __SREG__
+ 751 0184 F894      		cli
+ 752 0186 0F92      		push __tmp_reg__
+ 753               		
+ 754               	 ;  0 "" 2
+ 755               	/* #NOAPP */
+ 756 0188 2AA9      		ldd r18,Y+50
+ 757 018a 3BA9      		ldd r19,Y+51
+ 758 018c A901      		movw r20,r18
+ 759 018e 481B      		sub r20,r24
+ 760 0190 590B      		sbc r21,r25
+ 761 0192 5BAB      		std Y+51,r21
+ 762 0194 4AAB      		std Y+50,r20
+ 763               	/* #APP */
+ 764               	 ;  293 "../../nut/dev/usart.c" 1
+ 765 0196 0F90      		pop __tmp_reg__
+ 766 0198 0FBE      		out __SREG__, __tmp_reg__
+ 767               		
+ 768               	 ;  0 "" 2
+ 769               	/* #NOAPP */
+ 770 019a 2AA9      		ldd r18,Y+50
+ 771 019c 3BA9      		ldd r19,Y+51
+ 772 019e 8CA9      		ldd r24,Y+52
+ 773 01a0 9DA9      		ldd r25,Y+53
+ 774 01a2 2817      		cp r18,r24
+ 775 01a4 3907      		cpc r19,r25
+ 776 01a6 00F4      		brsh .L67
+ 777 01a8 C95B      		subi r28,-71
+ 778 01aa DF4F      		sbci r29,-1
+ 779 01ac E881      		ld r30,Y
+ 780 01ae F981      		ldd r31,Y+1
+ 781 01b0 1995      		eicall
+ 782               	.L67:
+ 783 01b2 C701      		movw r24,r14
+ 784 01b4 00C0      		rjmp .L48
+ 785               	.L69:
+ 786 01b6 80E0      		ldi r24,0
+ 787 01b8 90E0      		ldi r25,0
+ 788               	.L48:
+ 789               	/* epilogue start */
+ 790 01ba DF91      		pop r29
+ 791 01bc CF91      		pop r28
+ 792 01be 1F91      		pop r17
+ 793 01c0 0F91      		pop r16
+ 794 01c2 FF90      		pop r15
+ 795 01c4 EF90      		pop r14
+ 796 01c6 DF90      		pop r13
+ 797 01c8 CF90      		pop r12
+ 798 01ca BF90      		pop r11
+GAS LISTING /tmp/ccPfx3IE.s 			page 15
+
+
+ 799 01cc AF90      		pop r10
+ 800 01ce 0895      		ret
+ 801               		.size	UsartRead, .-UsartRead
+ 802               		.section	.text.UsartWrite,"ax",@progbits
+ 803               	.global	UsartWrite
+ 804               		.type	UsartWrite, @function
+ 805               	UsartWrite:
+ 806               	/* prologue: function */
+ 807               	/* frame size = 0 */
+ 808               	/* stack size = 0 */
+ 809               	.L__stack_usage = 0
+ 810 0000 DC01      		movw r26,r24
+ 811 0002 ED91      		ld r30,X+
+ 812 0004 FC91      		ld r31,X
+ 813 0006 20E0      		ldi r18,0
+ 814 0008 30E0      		ldi r19,0
+ 815 000a 8189      		ldd r24,Z+17
+ 816 000c 9289      		ldd r25,Z+18
+ 817 000e 0C94 0000 		jmp UsartPut.isra.0
+ 818               		.size	UsartWrite, .-UsartWrite
+ 819               		.section	.text.UsartWrite_P,"ax",@progbits
+ 820               	.global	UsartWrite_P
+ 821               		.type	UsartWrite_P, @function
+ 822               	UsartWrite_P:
+ 823               	/* prologue: function */
+ 824               	/* frame size = 0 */
+ 825               	/* stack size = 0 */
+ 826               	.L__stack_usage = 0
+ 827 0000 DC01      		movw r26,r24
+ 828 0002 ED91      		ld r30,X+
+ 829 0004 FC91      		ld r31,X
+ 830 0006 21E0      		ldi r18,lo8(1)
+ 831 0008 30E0      		ldi r19,0
+ 832 000a 8189      		ldd r24,Z+17
+ 833 000c 9289      		ldd r25,Z+18
+ 834 000e 0C94 0000 		jmp UsartPut.isra.0
+ 835               		.size	UsartWrite_P, .-UsartWrite_P
+ 836               		.section	.text.UsartClose,"ax",@progbits
+ 837               	.global	UsartClose
+ 838               		.type	UsartClose, @function
+ 839               	UsartClose:
+ 840 0000 EF92      		push r14
+ 841 0002 FF92      		push r15
+ 842 0004 0F93      		push r16
+ 843 0006 1F93      		push r17
+ 844 0008 CF93      		push r28
+ 845 000a DF93      		push r29
+ 846               	/* prologue: function */
+ 847               	/* frame size = 0 */
+ 848               	/* stack size = 6 */
+ 849               	.L__stack_usage = 6
+ 850 000c 8C01      		movw r16,r24
+ 851 000e DC01      		movw r26,r24
+ 852 0010 ED91      		ld r30,X+
+ 853 0012 FC91      		ld r31,X
+ 854 0014 C189      		ldd r28,Z+17
+ 855 0016 D289      		ldd r29,Z+18
+GAS LISTING /tmp/ccPfx3IE.s 			page 16
+
+
+ 856 0018 40E0      		ldi r20,0
+ 857 001a 50E0      		ldi r21,0
+ 858 001c 60E0      		ldi r22,0
+ 859 001e 70E0      		ldi r23,0
+ 860 0020 CE01      		movw r24,r28
+ 861 0022 0E94 0000 		call UsartFlushOutput
+ 862 0026 7C01      		movw r14,r24
+ 863 0028 FE01      		movw r30,r28
+ 864 002a E35A      		subi r30,-93
+ 865 002c FF4F      		sbci r31,-1
+ 866 002e 0190      		ld __tmp_reg__,Z+
+ 867 0030 F081      		ld r31,Z
+ 868 0032 E02D      		mov r30,__tmp_reg__
+ 869 0034 60E0      		ldi r22,0
+ 870 0036 72E0      		ldi r23,lo8(2)
+ 871 0038 80E0      		ldi r24,0
+ 872 003a 90E0      		ldi r25,0
+ 873 003c 1995      		eicall
+ 874 003e C801      		movw r24,r16
+ 875 0040 0E94 0000 		call free
+ 876 0044 20E0      		ldi r18,0
+ 877 0046 30E0      		ldi r19,0
+ 878 0048 40E0      		ldi r20,0
+ 879 004a 50E0      		ldi r21,0
+ 880 004c 60E0      		ldi r22,0
+ 881 004e 70E0      		ldi r23,0
+ 882 0050 CE01      		movw r24,r28
+ 883 0052 4096      		adiw r24,16
+ 884 0054 0E94 0000 		call UsartResetBuffer
+ 885 0058 20E0      		ldi r18,0
+ 886 005a 30E0      		ldi r19,0
+ 887 005c 40E0      		ldi r20,0
+ 888 005e 50E0      		ldi r21,0
+ 889 0060 60E0      		ldi r22,0
+ 890 0062 70E0      		ldi r23,0
+ 891 0064 CE01      		movw r24,r28
+ 892 0066 8896      		adiw r24,40
+ 893 0068 0E94 0000 		call UsartResetBuffer
+ 894 006c CE01      		movw r24,r28
+ 895 006e C896      		adiw r24,56
+ 896 0070 0E94 0000 		call NutEventBroadcast
+ 897 0074 61E0      		ldi r22,lo8(1)
+ 898 0076 8EAD      		ldd r24,Y+62
+ 899 0078 9FAD      		ldd r25,Y+63
+ 900 007a 0E94 0000 		call NutSelectWakeup
+ 901 007e 62E0      		ldi r22,lo8(2)
+ 902 0080 8EA1      		ldd r24,Y+38
+ 903 0082 9FA1      		ldd r25,Y+39
+ 904 0084 0E94 0000 		call NutSelectWakeup
+ 905 0088 81E0      		ldi r24,lo8(1)
+ 906 008a 90E0      		ldi r25,0
+ 907 008c EF28      		or r14,r15
+ 908 008e 01F4      		brne .L86
+ 909 0090 80E0      		ldi r24,0
+ 910 0092 90E0      		ldi r25,0
+ 911               	.L86:
+ 912 0094 9195      		neg r25
+GAS LISTING /tmp/ccPfx3IE.s 			page 17
+
+
+ 913 0096 8195      		neg r24
+ 914 0098 9109      		sbc r25,__zero_reg__
+ 915               	/* epilogue start */
+ 916 009a DF91      		pop r29
+ 917 009c CF91      		pop r28
+ 918 009e 1F91      		pop r17
+ 919 00a0 0F91      		pop r16
+ 920 00a2 FF90      		pop r15
+ 921 00a4 EF90      		pop r14
+ 922 00a6 0895      		ret
+ 923               		.size	UsartClose, .-UsartClose
+ 924               		.section	.text.UsartOpen,"ax",@progbits
+ 925               	.global	UsartOpen
+ 926               		.type	UsartOpen, @function
+ 927               	UsartOpen:
+ 928 0000 AF92      		push r10
+ 929 0002 BF92      		push r11
+ 930 0004 CF92      		push r12
+ 931 0006 DF92      		push r13
+ 932 0008 EF92      		push r14
+ 933 000a FF92      		push r15
+ 934 000c 0F93      		push r16
+ 935 000e 1F93      		push r17
+ 936 0010 CF93      		push r28
+ 937 0012 DF93      		push r29
+ 938               	/* prologue: function */
+ 939               	/* frame size = 0 */
+ 940               	/* stack size = 10 */
+ 941               	.L__stack_usage = 10
+ 942 0014 6C01      		movw r12,r24
+ 943 0016 5A01      		movw r10,r20
+ 944 0018 FC01      		movw r30,r24
+ 945 001a C189      		ldd r28,Z+17
+ 946 001c D289      		ldd r29,Z+18
+ 947 001e 7A01      		movw r14,r20
+ 948 0020 F3E0      		ldi r31,3
+ 949 0022 EF22      		and r14,r31
+ 950 0024 FF24      		clr r15
+ 951 0026 E114      		cp r14,__zero_reg__
+ 952 0028 F104      		cpc r15,__zero_reg__
+ 953 002a 01F4      		brne .L88
+ 954               	.L92:
+ 955 002c 20EF      		ldi r18,lo8(-16)
+ 956 002e 30E0      		ldi r19,0
+ 957 0030 40ED      		ldi r20,lo8(-48)
+ 958 0032 50E0      		ldi r21,0
+ 959 0034 60E0      		ldi r22,0
+ 960 0036 71E0      		ldi r23,lo8(1)
+ 961 0038 CE01      		movw r24,r28
+ 962 003a 8896      		adiw r24,40
+ 963 003c 0E94 0000 		call UsartResetBuffer
+ 964 0040 892B      		or r24,r25
+ 965 0042 01F0      		breq .L90
+ 966 0044 8C89      		ldd r24,Y+20
+ 967 0046 9D89      		ldd r25,Y+21
+ 968 0048 00C0      		rjmp .L99
+ 969               	.L88:
+GAS LISTING /tmp/ccPfx3IE.s 			page 18
+
+
+ 970 004a 28E3      		ldi r18,lo8(56)
+ 971 004c 30E0      		ldi r19,0
+ 972 004e 48E2      		ldi r20,lo8(40)
+ 973 0050 50E0      		ldi r21,0
+ 974 0052 60E4      		ldi r22,lo8(64)
+ 975 0054 70E0      		ldi r23,0
+ 976 0056 CE01      		movw r24,r28
+ 977 0058 4096      		adiw r24,16
+ 978 005a 0E94 0000 		call UsartResetBuffer
+ 979 005e 892B      		or r24,r25
+ 980 0060 01F4      		brne .L96
+ 981 0062 21E0      		ldi r18,1
+ 982 0064 E216      		cp r14,r18
+ 983 0066 F104      		cpc r15,__zero_reg__
+ 984 0068 01F4      		brne .L92
+ 985               	.L90:
+ 986 006a 84E0      		ldi r24,lo8(4)
+ 987 006c 90E0      		ldi r25,0
+ 988 006e 0E94 0000 		call malloc
+ 989 0072 8C01      		movw r16,r24
+ 990 0074 892B      		or r24,r25
+ 991 0076 01F4      		brne .L93
+ 992 0078 8C89      		ldd r24,Y+20
+ 993 007a 9D89      		ldd r25,Y+21
+ 994 007c 0E94 0000 		call free
+ 995 0080 8CA5      		ldd r24,Y+44
+ 996 0082 9DA5      		ldd r25,Y+45
+ 997               	.L99:
+ 998 0084 0E94 0000 		call free
+ 999 0088 00C0      		rjmp .L96
+ 1000               	.L93:
+ 1001 008a AA24      		clr r10
+ 1002 008c 80EC      		ldi r24,192
+ 1003 008e B822      		and r11,r24
+ 1004 0090 8881      		ld r24,Y
+ 1005 0092 9981      		ldd r25,Y+1
+ 1006 0094 AA81      		ldd r26,Y+2
+ 1007 0096 BB81      		ldd r27,Y+3
+ 1008 0098 A114      		cp r10,__zero_reg__
+ 1009 009a E0E8      		ldi r30,-128
+ 1010 009c BE06      		cpc r11,r30
+ 1011 009e 01F4      		brne .L94
+ 1012 00a0 8F77      		andi r24,127
+ 1013 00a2 00C0      		rjmp .L98
+ 1014               	.L94:
+ 1015 00a4 8068      		ori r24,128
+ 1016               	.L98:
+ 1017 00a6 8883      		st Y,r24
+ 1018 00a8 9983      		std Y+1,r25
+ 1019 00aa AA83      		std Y+2,r26
+ 1020 00ac BB83      		std Y+3,r27
+ 1021 00ae F801      		movw r30,r16
+ 1022 00b0 D182      		std Z+1,r13
+ 1023 00b2 C082      		st Z,r12
+ 1024 00b4 1382      		std Z+3,__zero_reg__
+ 1025 00b6 1282      		std Z+2,__zero_reg__
+ 1026 00b8 EA94      		dec r14
+GAS LISTING /tmp/ccPfx3IE.s 			page 19
+
+
+ 1027 00ba EF28      		or r14,r15
+ 1028 00bc 01F0      		breq .L97
+ 1029 00be C95B      		subi r28,-71
+ 1030 00c0 DF4F      		sbci r29,-1
+ 1031 00c2 E881      		ld r30,Y
+ 1032 00c4 F981      		ldd r31,Y+1
+ 1033 00c6 1995      		eicall
+ 1034 00c8 00C0      		rjmp .L97
+ 1035               	.L96:
+ 1036 00ca 8FEF      		ldi r24,lo8(-1)
+ 1037 00cc 9FEF      		ldi r25,lo8(-1)
+ 1038 00ce 00C0      		rjmp .L91
+ 1039               	.L97:
+ 1040 00d0 C801      		movw r24,r16
+ 1041               	.L91:
+ 1042               	/* epilogue start */
+ 1043 00d2 DF91      		pop r29
+ 1044 00d4 CF91      		pop r28
+ 1045 00d6 1F91      		pop r17
+ 1046 00d8 0F91      		pop r16
+ 1047 00da FF90      		pop r15
+ 1048 00dc EF90      		pop r14
+ 1049 00de DF90      		pop r13
+ 1050 00e0 CF90      		pop r12
+ 1051 00e2 BF90      		pop r11
+ 1052 00e4 AF90      		pop r10
+ 1053 00e6 0895      		ret
+ 1054               		.size	UsartOpen, .-UsartOpen
+ 1055               		.section	.text.UsartIOCtl,"ax",@progbits
+ 1056               	.global	UsartIOCtl
+ 1057               		.type	UsartIOCtl, @function
+ 1058               	UsartIOCtl:
+ 1059 0000 AF92      		push r10
+ 1060 0002 BF92      		push r11
+ 1061 0004 CF92      		push r12
+ 1062 0006 DF92      		push r13
+ 1063 0008 EF92      		push r14
+ 1064 000a FF92      		push r15
+ 1065 000c 0F93      		push r16
+ 1066 000e 1F93      		push r17
+ 1067 0010 CF93      		push r28
+ 1068 0012 DF93      		push r29
+ 1069 0014 1F92      		push __zero_reg__
+ 1070 0016 1F92      		push __zero_reg__
+ 1071 0018 CDB7      		in r28,__SP_L__
+ 1072 001a DEB7      		in r29,__SP_H__
+ 1073               	/* prologue: function */
+ 1074               	/* frame size = 2 */
+ 1075               	/* stack size = 12 */
+ 1076               	.L__stack_usage = 12
+ 1077 001c 8A01      		movw r16,r20
+ 1078 001e FA01      		movw r30,r20
+ 1079 0020 C080      		ld r12,Z
+ 1080 0022 D180      		ldd r13,Z+1
+ 1081 0024 E280      		ldd r14,Z+2
+ 1082 0026 F380      		ldd r15,Z+3
+ 1083 0028 2C2D      		mov r18,r12
+GAS LISTING /tmp/ccPfx3IE.s 			page 20
+
+
+ 1084 002a FC01      		movw r30,r24
+ 1085 002c A188      		ldd r10,Z+17
+ 1086 002e B288      		ldd r11,Z+18
+ 1087 0030 FB01      		movw r30,r22
+ 1088 0032 E150      		subi r30,1
+ 1089 0034 F140      		sbci r31,1
+ 1090 0036 E333      		cpi r30,51
+ 1091 0038 F105      		cpc r31,__zero_reg__
+ 1092 003a 00F0      		brlo .+2
+ 1093 003c 00C0      		rjmp .L161
+ 1094 003e 8827      		clr r24
+ 1095 0040 E050      		subi r30,pm_lo8(-(.L103))
+ 1096 0042 F040      		sbci r31,pm_hi8(-(.L103))
+ 1097 0044 8040      		sbci r24,pm_hh8(-(.L103))
+ 1098 0046 0C94 0000 		jmp __tablejump2__
+ 1099               		.section	.progmem.gcc_sw_table.UsartIOCtl,"a",@progbits
+ 1100               		.p2align	1
+ 1101               	.L103:
+ 1102 0000 0000      		.word gs(.L102)
+ 1103 0002 0000      		.word gs(.L104)
+ 1104 0004 0000      		.word gs(.L105)
+ 1105 0006 0000      		.word gs(.L106)
+ 1106 0008 0000      		.word gs(.L107)
+ 1107 000a 0000      		.word gs(.L108)
+ 1108 000c 0000      		.word gs(.L109)
+ 1109 000e 0000      		.word gs(.L110)
+ 1110 0010 0000      		.word gs(.L111)
+ 1111 0012 0000      		.word gs(.L112)
+ 1112 0014 0000      		.word gs(.L113)
+ 1113 0016 0000      		.word gs(.L114)
+ 1114 0018 0000      		.word gs(.L115)
+ 1115 001a 0000      		.word gs(.L116)
+ 1116 001c 0000      		.word gs(.L117)
+ 1117 001e 0000      		.word gs(.L118)
+ 1118 0020 0000      		.word gs(.L119)
+ 1119 0022 0000      		.word gs(.L140)
+ 1120 0024 0000      		.word gs(.L121)
+ 1121 0026 0000      		.word gs(.L122)
+ 1122 0028 0000      		.word gs(.L161)
+ 1123 002a 0000      		.word gs(.L161)
+ 1124 002c 0000      		.word gs(.L161)
+ 1125 002e 0000      		.word gs(.L161)
+ 1126 0030 0000      		.word gs(.L123)
+ 1127 0032 0000      		.word gs(.L124)
+ 1128 0034 0000      		.word gs(.L125)
+ 1129 0036 0000      		.word gs(.L126)
+ 1130 0038 0000      		.word gs(.L127)
+ 1131 003a 0000      		.word gs(.L128)
+ 1132 003c 0000      		.word gs(.L161)
+ 1133 003e 0000      		.word gs(.L129)
+ 1134 0040 0000      		.word gs(.L130)
+ 1135 0042 0000      		.word gs(.L131)
+ 1136 0044 0000      		.word gs(.L132)
+ 1137 0046 0000      		.word gs(.L133)
+ 1138 0048 0000      		.word gs(.L134)
+ 1139 004a 0000      		.word gs(.L135)
+ 1140 004c 0000      		.word gs(.L136)
+GAS LISTING /tmp/ccPfx3IE.s 			page 21
+
+
+ 1141 004e 0000      		.word gs(.L137)
+ 1142 0050 0000      		.word gs(.L140)
+ 1143 0052 0000      		.word gs(.L139)
+ 1144 0054 0000      		.word gs(.L140)
+ 1145 0056 0000      		.word gs(.L161)
+ 1146 0058 0000      		.word gs(.L161)
+ 1147 005a 0000      		.word gs(.L161)
+ 1148 005c 0000      		.word gs(.L161)
+ 1149 005e 0000      		.word gs(.L141)
+ 1150 0060 0000      		.word gs(.L142)
+ 1151 0062 0000      		.word gs(.L143)
+ 1152 0064 0000      		.word gs(.L144)
+ 1153               		.section	.text.UsartIOCtl
+ 1154               	.L102:
+ 1155 004a F501      		movw r30,r10
+ 1156 004c E35B      		subi r30,-77
+ 1157 004e FF4F      		sbci r31,-1
+ 1158 0050 0190      		ld __tmp_reg__,Z+
+ 1159 0052 F081      		ld r31,Z
+ 1160 0054 E02D      		mov r30,__tmp_reg__
+ 1161 0056 C701      		movw r24,r14
+ 1162 0058 B601      		movw r22,r12
+ 1163 005a 00C0      		rjmp .L173
+ 1164               	.L104:
+ 1165 005c F501      		movw r30,r10
+ 1166 005e E15B      		subi r30,-79
+ 1167 0060 FF4F      		sbci r31,-1
+ 1168 0062 00C0      		rjmp .L186
+ 1169               	.L105:
+ 1170 0064 F501      		movw r30,r10
+ 1171 0066 EF5A      		subi r30,-81
+ 1172 0068 FF4F      		sbci r31,-1
+ 1173 006a 00C0      		rjmp .L174
+ 1174               	.L106:
+ 1175 006c F501      		movw r30,r10
+ 1176 006e ED5A      		subi r30,-83
+ 1177 0070 FF4F      		sbci r31,-1
+ 1178 0072 00C0      		rjmp .L188
+ 1179               	.L107:
+ 1180 0074 F501      		movw r30,r10
+ 1181 0076 EB5A      		subi r30,-85
+ 1182 0078 FF4F      		sbci r31,-1
+ 1183               	.L174:
+ 1184 007a 0190      		ld __tmp_reg__,Z+
+ 1185 007c F081      		ld r31,Z
+ 1186 007e E02D      		mov r30,__tmp_reg__
+ 1187 0080 8C2D      		mov r24,r12
+ 1188               	/* epilogue start */
+ 1189 0082 0F90      		pop __tmp_reg__
+ 1190 0084 0F90      		pop __tmp_reg__
+ 1191 0086 DF91      		pop r29
+ 1192 0088 CF91      		pop r28
+ 1193 008a 1F91      		pop r17
+ 1194 008c 0F91      		pop r16
+ 1195 008e FF90      		pop r15
+ 1196 0090 EF90      		pop r14
+ 1197 0092 DF90      		pop r13
+GAS LISTING /tmp/ccPfx3IE.s 			page 22
+
+
+ 1198 0094 CF90      		pop r12
+ 1199 0096 BF90      		pop r11
+ 1200 0098 AF90      		pop r10
+ 1201 009a 1994      		eijmp
+ 1202               	.L108:
+ 1203 009c F501      		movw r30,r10
+ 1204 009e E95A      		subi r30,-87
+ 1205 00a0 FF4F      		sbci r31,-1
+ 1206               	.L188:
+ 1207 00a2 0190      		ld __tmp_reg__,Z+
+ 1208 00a4 F081      		ld r31,Z
+ 1209 00a6 E02D      		mov r30,__tmp_reg__
+ 1210 00a8 1995      		eicall
+ 1211 00aa 90E0      		ldi r25,0
+ 1212 00ac 00C0      		rjmp .L185
+ 1213               	.L109:
+ 1214 00ae F501      		movw r30,r10
+ 1215 00b0 E75A      		subi r30,-89
+ 1216 00b2 FF4F      		sbci r31,-1
+ 1217 00b4 00C0      		rjmp .L174
+ 1218               	.L110:
+ 1219 00b6 F501      		movw r30,r10
+ 1220 00b8 E55A      		subi r30,-91
+ 1221 00ba FF4F      		sbci r31,-1
+ 1222 00bc 00C0      		rjmp .L188
+ 1223               	.L111:
+ 1224 00be C6FE      		sbrs r12,6
+ 1225 00c0 00C0      		rjmp .L145
+ 1226 00c2 F501      		movw r30,r10
+ 1227 00c4 26A9      		ldd r18,Z+54
+ 1228 00c6 37A9      		ldd r19,Z+55
+ 1229 00c8 44A9      		ldd r20,Z+52
+ 1230 00ca 55A9      		ldd r21,Z+53
+ 1231 00cc 60A9      		ldd r22,Z+48
+ 1232 00ce 71A9      		ldd r23,Z+49
+ 1233 00d0 C501      		movw r24,r10
+ 1234 00d2 8896      		adiw r24,40
+ 1235 00d4 0E94 0000 		call UsartResetBuffer
+ 1236 00d8 F501      		movw r30,r10
+ 1237 00da E95B      		subi r30,-71
+ 1238 00dc FF4F      		sbci r31,-1
+ 1239 00de 0190      		ld __tmp_reg__,Z+
+ 1240 00e0 F081      		ld r31,Z
+ 1241 00e2 E02D      		mov r30,__tmp_reg__
+ 1242 00e4 1995      		eicall
+ 1243               	.L145:
+ 1244 00e6 C7FE      		sbrs r12,7
+ 1245 00e8 00C0      		rjmp .L146
+ 1246 00ea F501      		movw r30,r10
+ 1247 00ec 268D      		ldd r18,Z+30
+ 1248 00ee 378D      		ldd r19,Z+31
+ 1249 00f0 448D      		ldd r20,Z+28
+ 1250 00f2 558D      		ldd r21,Z+29
+ 1251 00f4 608D      		ldd r22,Z+24
+ 1252 00f6 718D      		ldd r23,Z+25
+ 1253 00f8 C501      		movw r24,r10
+ 1254 00fa 4096      		adiw r24,16
+GAS LISTING /tmp/ccPfx3IE.s 			page 23
+
+
+ 1255 00fc 0E94 0000 		call UsartResetBuffer
+ 1256               	.L146:
+ 1257 0100 C701      		movw r24,r14
+ 1258 0102 B601      		movw r22,r12
+ 1259 0104 6F73      		andi r22,63
+ 1260 0106 F501      		movw r30,r10
+ 1261 0108 E35A      		subi r30,-93
+ 1262 010a FF4F      		sbci r31,-1
+ 1263 010c 0190      		ld __tmp_reg__,Z+
+ 1264 010e F081      		ld r31,Z
+ 1265 0110 E02D      		mov r30,__tmp_reg__
+ 1266               	.L173:
+ 1267               	/* epilogue start */
+ 1268 0112 0F90      		pop __tmp_reg__
+ 1269 0114 0F90      		pop __tmp_reg__
+ 1270 0116 DF91      		pop r29
+ 1271 0118 CF91      		pop r28
+ 1272 011a 1F91      		pop r17
+ 1273 011c 0F91      		pop r16
+ 1274 011e FF90      		pop r15
+ 1275 0120 EF90      		pop r14
+ 1276 0122 DF90      		pop r13
+ 1277 0124 CF90      		pop r12
+ 1278 0126 BF90      		pop r11
+ 1279 0128 AF90      		pop r10
+ 1280 012a 1994      		eijmp
+ 1281               	.L112:
+ 1282 012c F501      		movw r30,r10
+ 1283 012e E15A      		subi r30,-95
+ 1284 0130 FF4F      		sbci r31,-1
+ 1285 0132 0190      		ld __tmp_reg__,Z+
+ 1286 0134 F081      		ld r31,Z
+ 1287 0136 E02D      		mov r30,__tmp_reg__
+ 1288 0138 1995      		eicall
+ 1289 013a F801      		movw r30,r16
+ 1290 013c 6083      		st Z,r22
+ 1291 013e 7183      		std Z+1,r23
+ 1292 0140 8283      		std Z+2,r24
+ 1293 0142 9383      		std Z+3,r25
+ 1294 0144 F501      		movw r30,r10
+ 1295 0146 22A9      		ldd r18,Z+50
+ 1296 0148 33A9      		ldd r19,Z+51
+ 1297 014a 232B      		or r18,r19
+ 1298 014c 01F4      		brne .L147
+ 1299 014e DC01      		movw r26,r24
+ 1300 0150 CB01      		movw r24,r22
+ 1301 0152 8064      		ori r24,64
+ 1302 0154 F801      		movw r30,r16
+ 1303 0156 8083      		st Z,r24
+ 1304 0158 9183      		std Z+1,r25
+ 1305 015a A283      		std Z+2,r26
+ 1306 015c B383      		std Z+3,r27
+ 1307               	.L147:
+ 1308 015e F501      		movw r30,r10
+ 1309 0160 828D      		ldd r24,Z+26
+ 1310 0162 938D      		ldd r25,Z+27
+ 1311 0164 892B      		or r24,r25
+GAS LISTING /tmp/ccPfx3IE.s 			page 24
+
+
+ 1312 0166 01F0      		breq .+2
+ 1313 0168 00C0      		rjmp .L162
+ 1314 016a F801      		movw r30,r16
+ 1315 016c 8081      		ld r24,Z
+ 1316 016e 9181      		ldd r25,Z+1
+ 1317 0170 A281      		ldd r26,Z+2
+ 1318 0172 B381      		ldd r27,Z+3
+ 1319 0174 00C0      		rjmp .L189
+ 1320               	.L113:
+ 1321 0176 F501      		movw r30,r10
+ 1322 0178 C086      		std Z+8,r12
+ 1323 017a D186      		std Z+9,r13
+ 1324 017c E286      		std Z+10,r14
+ 1325 017e F386      		std Z+11,r15
+ 1326 0180 00C0      		rjmp .L162
+ 1327               	.L114:
+ 1328 0182 F501      		movw r30,r10
+ 1329 0184 8085      		ldd r24,Z+8
+ 1330 0186 9185      		ldd r25,Z+9
+ 1331 0188 A285      		ldd r26,Z+10
+ 1332 018a B385      		ldd r27,Z+11
+ 1333 018c 00C0      		rjmp .L182
+ 1334               	.L115:
+ 1335 018e F501      		movw r30,r10
+ 1336 0190 C486      		std Z+12,r12
+ 1337 0192 D586      		std Z+13,r13
+ 1338 0194 E686      		std Z+14,r14
+ 1339 0196 F786      		std Z+15,r15
+ 1340 0198 00C0      		rjmp .L162
+ 1341               	.L116:
+ 1342 019a F501      		movw r30,r10
+ 1343 019c 8485      		ldd r24,Z+12
+ 1344 019e 9585      		ldd r25,Z+13
+ 1345 01a0 A685      		ldd r26,Z+14
+ 1346 01a2 B785      		ldd r27,Z+15
+ 1347 01a4 00C0      		rjmp .L182
+ 1348               	.L117:
+ 1349 01a6 F501      		movw r30,r10
+ 1350 01a8 C080      		ld r12,Z
+ 1351 01aa D180      		ldd r13,Z+1
+ 1352 01ac E280      		ldd r14,Z+2
+ 1353 01ae F380      		ldd r15,Z+3
+ 1354 01b0 2223      		tst r18
+ 1355 01b2 01F0      		breq .L148
+ 1356 01b4 6894      		set
+ 1357 01b6 C6F8      		bld r12,6
+ 1358 01b8 00C0      		rjmp .L160
+ 1359               	.L148:
+ 1360 01ba E894      		clt
+ 1361 01bc C6F8      		bld r12,6
+ 1362 01be 00C0      		rjmp .L160
+ 1363               	.L118:
+ 1364 01c0 F501      		movw r30,r10
+ 1365 01c2 8081      		ld r24,Z
+ 1366 01c4 86FF      		sbrs r24,6
+ 1367 01c6 00C0      		rjmp .L150
+ 1368               	.L156:
+GAS LISTING /tmp/ccPfx3IE.s 			page 25
+
+
+ 1369 01c8 81E0      		ldi r24,lo8(1)
+ 1370 01ca 90E0      		ldi r25,0
+ 1371 01cc A0E0      		ldi r26,0
+ 1372 01ce B0E0      		ldi r27,0
+ 1373 01d0 00C0      		rjmp .L182
+ 1374               	.L122:
+ 1375 01d2 F501      		movw r30,r10
+ 1376 01d4 8081      		ld r24,Z
+ 1377 01d6 87FD      		sbrc r24,7
+ 1378 01d8 00C0      		rjmp .L156
+ 1379               	.L150:
+ 1380 01da F801      		movw r30,r16
+ 1381 01dc 1082      		st Z,__zero_reg__
+ 1382 01de 1182      		std Z+1,__zero_reg__
+ 1383 01e0 1282      		std Z+2,__zero_reg__
+ 1384 01e2 1382      		std Z+3,__zero_reg__
+ 1385 01e4 00C0      		rjmp .L162
+ 1386               	.L119:
+ 1387 01e6 F501      		movw r30,r10
+ 1388 01e8 C080      		ld r12,Z
+ 1389 01ea D180      		ldd r13,Z+1
+ 1390 01ec E280      		ldd r14,Z+2
+ 1391 01ee F380      		ldd r15,Z+3
+ 1392 01f0 00C0      		rjmp .L180
+ 1393               	.L137:
+ 1394 01f2 F501      		movw r30,r10
+ 1395 01f4 C080      		ld r12,Z
+ 1396 01f6 D180      		ldd r13,Z+1
+ 1397 01f8 E280      		ldd r14,Z+2
+ 1398 01fa F380      		ldd r15,Z+3
+ 1399 01fc 2223      		tst r18
+ 1400 01fe 01F0      		breq .L151
+ 1401 0200 6894      		set
+ 1402 0202 D3F8      		bld r13,3
+ 1403 0204 00C0      		rjmp .L160
+ 1404               	.L151:
+ 1405 0206 E894      		clt
+ 1406 0208 D3F8      		bld r13,3
+ 1407 020a 00C0      		rjmp .L160
+ 1408               	.L139:
+ 1409 020c F501      		movw r30,r10
+ 1410 020e C080      		ld r12,Z
+ 1411 0210 D180      		ldd r13,Z+1
+ 1412 0212 E280      		ldd r14,Z+2
+ 1413 0214 F380      		ldd r15,Z+3
+ 1414 0216 2223      		tst r18
+ 1415 0218 01F0      		breq .L153
+ 1416 021a 6894      		set
+ 1417 021c D4F8      		bld r13,4
+ 1418 021e 00C0      		rjmp .L160
+ 1419               	.L153:
+ 1420 0220 E894      		clt
+ 1421 0222 D4F8      		bld r13,4
+ 1422 0224 00C0      		rjmp .L160
+ 1423               	.L140:
+ 1424 0226 F501      		movw r30,r10
+ 1425 0228 E55B      		subi r30,-75
+GAS LISTING /tmp/ccPfx3IE.s 			page 26
+
+
+ 1426 022a FF4F      		sbci r31,-1
+ 1427               	.L186:
+ 1428 022c 0190      		ld __tmp_reg__,Z+
+ 1429 022e F081      		ld r31,Z
+ 1430 0230 E02D      		mov r30,__tmp_reg__
+ 1431 0232 1995      		eicall
+ 1432 0234 F801      		movw r30,r16
+ 1433 0236 6083      		st Z,r22
+ 1434 0238 7183      		std Z+1,r23
+ 1435 023a 8283      		std Z+2,r24
+ 1436 023c 9383      		std Z+3,r25
+ 1437 023e 00C0      		rjmp .L162
+ 1438               	.L121:
+ 1439 0240 F501      		movw r30,r10
+ 1440 0242 8081      		ld r24,Z
+ 1441 0244 9181      		ldd r25,Z+1
+ 1442 0246 A281      		ldd r26,Z+2
+ 1443 0248 B381      		ldd r27,Z+3
+ 1444 024a CC20      		tst r12
+ 1445 024c 01F0      		breq .L155
+ 1446               	.L189:
+ 1447 024e 8068      		ori r24,128
+ 1448 0250 00C0      		rjmp .L184
+ 1449               	.L155:
+ 1450 0252 8F77      		andi r24,127
+ 1451 0254 F501      		movw r30,r10
+ 1452 0256 00C0      		rjmp .L184
+ 1453               	.L141:
+ 1454 0258 F501      		movw r30,r10
+ 1455 025a C080      		ld r12,Z
+ 1456 025c D180      		ldd r13,Z+1
+ 1457 025e E280      		ldd r14,Z+2
+ 1458 0260 F380      		ldd r15,Z+3
+ 1459 0262 2223      		tst r18
+ 1460 0264 01F0      		breq .L157
+ 1461 0266 6894      		set
+ 1462 0268 D2F8      		bld r13,2
+ 1463 026a 00C0      		rjmp .L160
+ 1464               	.L157:
+ 1465 026c E894      		clt
+ 1466 026e D2F8      		bld r13,2
+ 1467 0270 00C0      		rjmp .L160
+ 1468               	.L142:
+ 1469 0272 F501      		movw r30,r10
+ 1470 0274 8081      		ld r24,Z
+ 1471 0276 9181      		ldd r25,Z+1
+ 1472 0278 A281      		ldd r26,Z+2
+ 1473 027a B381      		ldd r27,Z+3
+ 1474 027c 92FD      		sbrc r25,2
+ 1475 027e 00C0      		rjmp .L156
+ 1476 0280 00C0      		rjmp .L150
+ 1477               	.L143:
+ 1478 0282 F501      		movw r30,r10
+ 1479 0284 C080      		ld r12,Z
+ 1480 0286 D180      		ldd r13,Z+1
+ 1481 0288 E280      		ldd r14,Z+2
+ 1482 028a F380      		ldd r15,Z+3
+GAS LISTING /tmp/ccPfx3IE.s 			page 27
+
+
+ 1483 028c 2223      		tst r18
+ 1484 028e 01F0      		breq .L159
+ 1485 0290 6894      		set
+ 1486 0292 D5F8      		bld r13,5
+ 1487 0294 00C0      		rjmp .L160
+ 1488               	.L159:
+ 1489 0296 E894      		clt
+ 1490 0298 D5F8      		bld r13,5
+ 1491               	.L160:
+ 1492 029a F501      		movw r30,r10
+ 1493               	.L180:
+ 1494 029c E75B      		subi r30,-73
+ 1495 029e FF4F      		sbci r31,-1
+ 1496 02a0 0190      		ld __tmp_reg__,Z+
+ 1497 02a2 F081      		ld r31,Z
+ 1498 02a4 E02D      		mov r30,__tmp_reg__
+ 1499 02a6 C701      		movw r24,r14
+ 1500 02a8 B601      		movw r22,r12
+ 1501 02aa 1995      		eicall
+ 1502 02ac 0097      		sbiw r24,0
+ 1503 02ae 01F0      		breq .+2
+ 1504 02b0 00C0      		rjmp .L101
+ 1505 02b2 F501      		movw r30,r10
+ 1506 02b4 C082      		st Z,r12
+ 1507 02b6 D182      		std Z+1,r13
+ 1508 02b8 E282      		std Z+2,r14
+ 1509 02ba F382      		std Z+3,r15
+ 1510 02bc 00C0      		rjmp .L101
+ 1511               	.L144:
+ 1512 02be F501      		movw r30,r10
+ 1513 02c0 8081      		ld r24,Z
+ 1514 02c2 9181      		ldd r25,Z+1
+ 1515 02c4 A281      		ldd r26,Z+2
+ 1516 02c6 B381      		ldd r27,Z+3
+ 1517 02c8 95FD      		sbrc r25,5
+ 1518 02ca 00C0      		rjmp .L156
+ 1519 02cc 00C0      		rjmp .L150
+ 1520               	.L123:
+ 1521 02ce F501      		movw r30,r10
+ 1522 02d0 EF59      		subi r30,-97
+ 1523 02d2 FF4F      		sbci r31,-1
+ 1524 02d4 00C0      		rjmp .L174
+ 1525               	.L124:
+ 1526 02d6 F501      		movw r30,r10
+ 1527 02d8 ED59      		subi r30,-99
+ 1528 02da FF4F      		sbci r31,-1
+ 1529 02dc 00C0      		rjmp .L188
+ 1530               	.L125:
+ 1531 02de F501      		movw r30,r10
+ 1532 02e0 268D      		ldd r18,Z+30
+ 1533 02e2 378D      		ldd r19,Z+31
+ 1534 02e4 448D      		ldd r20,Z+28
+ 1535 02e6 558D      		ldd r21,Z+29
+ 1536 02e8 B601      		movw r22,r12
+ 1537 02ea C501      		movw r24,r10
+ 1538 02ec 4096      		adiw r24,16
+ 1539 02ee 0E94 0000 		call UsartResetBuffer
+GAS LISTING /tmp/ccPfx3IE.s 			page 28
+
+
+ 1540 02f2 0097      		sbiw r24,0
+ 1541 02f4 01F0      		breq .+2
+ 1542 02f6 00C0      		rjmp .L101
+ 1543 02f8 F501      		movw r30,r10
+ 1544 02fa E95B      		subi r30,-71
+ 1545 02fc FF4F      		sbci r31,-1
+ 1546 02fe 0190      		ld __tmp_reg__,Z+
+ 1547 0300 F081      		ld r31,Z
+ 1548 0302 E02D      		mov r30,__tmp_reg__
+ 1549 0304 8983      		std Y+1,r24
+ 1550 0306 9A83      		std Y+2,r25
+ 1551 0308 1995      		eicall
+ 1552 030a 8981      		ldd r24,Y+1
+ 1553 030c 9A81      		ldd r25,Y+2
+ 1554 030e 00C0      		rjmp .L101
+ 1555               	.L126:
+ 1556 0310 F501      		movw r30,r10
+ 1557 0312 808D      		ldd r24,Z+24
+ 1558 0314 918D      		ldd r25,Z+25
+ 1559 0316 00C0      		rjmp .L185
+ 1560               	.L127:
+ 1561 0318 F501      		movw r30,r10
+ 1562 031a 26A9      		ldd r18,Z+54
+ 1563 031c 37A9      		ldd r19,Z+55
+ 1564 031e 44A9      		ldd r20,Z+52
+ 1565 0320 55A9      		ldd r21,Z+53
+ 1566 0322 B601      		movw r22,r12
+ 1567 0324 C501      		movw r24,r10
+ 1568 0326 8896      		adiw r24,40
+ 1569               	/* epilogue start */
+ 1570 0328 0F90      		pop __tmp_reg__
+ 1571 032a 0F90      		pop __tmp_reg__
+ 1572 032c DF91      		pop r29
+ 1573 032e CF91      		pop r28
+ 1574 0330 1F91      		pop r17
+ 1575 0332 0F91      		pop r16
+ 1576 0334 FF90      		pop r15
+ 1577 0336 EF90      		pop r14
+ 1578 0338 DF90      		pop r13
+ 1579 033a CF90      		pop r12
+ 1580 033c BF90      		pop r11
+ 1581 033e AF90      		pop r10
+ 1582 0340 0C94 0000 		jmp UsartResetBuffer
+ 1583               	.L128:
+ 1584 0344 F501      		movw r30,r10
+ 1585 0346 80A9      		ldd r24,Z+48
+ 1586 0348 91A9      		ldd r25,Z+49
+ 1587 034a 00C0      		rjmp .L185
+ 1588               	.L129:
+ 1589               	/* #APP */
+ 1590               	 ;  942 "../../nut/dev/usart.c" 1
+ 1591 034c 0FB6      		in  __tmp_reg__, __SREG__
+ 1592 034e F894      		cli
+ 1593 0350 0F92      		push __tmp_reg__
+ 1594               		
+ 1595               	 ;  0 "" 2
+ 1596               	/* #NOAPP */
+GAS LISTING /tmp/ccPfx3IE.s 			page 29
+
+
+ 1597 0352 F501      		movw r30,r10
+ 1598 0354 D58E      		std Z+29,r13
+ 1599 0356 C48E      		std Z+28,r12
+ 1600 0358 00C0      		rjmp .L183
+ 1601               	.L130:
+ 1602 035a F501      		movw r30,r10
+ 1603 035c 848D      		ldd r24,Z+28
+ 1604 035e 958D      		ldd r25,Z+29
+ 1605 0360 00C0      		rjmp .L185
+ 1606               	.L131:
+ 1607               	/* #APP */
+ 1608               	 ;  951 "../../nut/dev/usart.c" 1
+ 1609 0362 0FB6      		in  __tmp_reg__, __SREG__
+ 1610 0364 F894      		cli
+ 1611 0366 0F92      		push __tmp_reg__
+ 1612               		
+ 1613               	 ;  0 "" 2
+ 1614               	/* #NOAPP */
+ 1615 0368 F501      		movw r30,r10
+ 1616 036a D78E      		std Z+31,r13
+ 1617 036c C68E      		std Z+30,r12
+ 1618 036e 00C0      		rjmp .L183
+ 1619               	.L132:
+ 1620 0370 F501      		movw r30,r10
+ 1621 0372 868D      		ldd r24,Z+30
+ 1622 0374 978D      		ldd r25,Z+31
+ 1623 0376 00C0      		rjmp .L185
+ 1624               	.L133:
+ 1625               	/* #APP */
+ 1626               	 ;  960 "../../nut/dev/usart.c" 1
+ 1627 0378 0FB6      		in  __tmp_reg__, __SREG__
+ 1628 037a F894      		cli
+ 1629 037c 0F92      		push __tmp_reg__
+ 1630               		
+ 1631               	 ;  0 "" 2
+ 1632               	/* #NOAPP */
+ 1633 037e F501      		movw r30,r10
+ 1634 0380 D5AA      		std Z+53,r13
+ 1635 0382 C4AA      		std Z+52,r12
+ 1636 0384 00C0      		rjmp .L183
+ 1637               	.L134:
+ 1638 0386 F501      		movw r30,r10
+ 1639 0388 84A9      		ldd r24,Z+52
+ 1640 038a 95A9      		ldd r25,Z+53
+ 1641 038c 00C0      		rjmp .L185
+ 1642               	.L135:
+ 1643               	/* #APP */
+ 1644               	 ;  969 "../../nut/dev/usart.c" 1
+ 1645 038e 0FB6      		in  __tmp_reg__, __SREG__
+ 1646 0390 F894      		cli
+ 1647 0392 0F92      		push __tmp_reg__
+ 1648               		
+ 1649               	 ;  0 "" 2
+ 1650               	/* #NOAPP */
+ 1651 0394 F501      		movw r30,r10
+ 1652 0396 D7AA      		std Z+55,r13
+ 1653 0398 C6AA      		std Z+54,r12
+GAS LISTING /tmp/ccPfx3IE.s 			page 30
+
+
+ 1654               	.L183:
+ 1655               	/* #APP */
+ 1656               	 ;  971 "../../nut/dev/usart.c" 1
+ 1657 039a 0F90      		pop __tmp_reg__
+ 1658 039c 0FBE      		out __SREG__, __tmp_reg__
+ 1659               		
+ 1660               	 ;  0 "" 2
+ 1661               	/* #NOAPP */
+ 1662 039e 00C0      		rjmp .L162
+ 1663               	.L136:
+ 1664 03a0 F501      		movw r30,r10
+ 1665 03a2 86A9      		ldd r24,Z+54
+ 1666 03a4 97A9      		ldd r25,Z+55
+ 1667               	.L185:
+ 1668 03a6 A0E0      		ldi r26,0
+ 1669 03a8 B0E0      		ldi r27,0
+ 1670               	.L182:
+ 1671 03aa F801      		movw r30,r16
+ 1672               	.L184:
+ 1673 03ac 8083      		st Z,r24
+ 1674 03ae 9183      		std Z+1,r25
+ 1675 03b0 A283      		std Z+2,r26
+ 1676 03b2 B383      		std Z+3,r27
+ 1677 03b4 00C0      		rjmp .L162
+ 1678               	.L161:
+ 1679 03b6 8FEF      		ldi r24,lo8(-1)
+ 1680 03b8 9FEF      		ldi r25,lo8(-1)
+ 1681 03ba 00C0      		rjmp .L101
+ 1682               	.L162:
+ 1683 03bc 80E0      		ldi r24,0
+ 1684 03be 90E0      		ldi r25,0
+ 1685               	.L101:
+ 1686               	/* epilogue start */
+ 1687 03c0 0F90      		pop __tmp_reg__
+ 1688 03c2 0F90      		pop __tmp_reg__
+ 1689 03c4 DF91      		pop r29
+ 1690 03c6 CF91      		pop r28
+ 1691 03c8 1F91      		pop r17
+ 1692 03ca 0F91      		pop r16
+ 1693 03cc FF90      		pop r15
+ 1694 03ce EF90      		pop r14
+ 1695 03d0 DF90      		pop r13
+ 1696 03d2 CF90      		pop r12
+ 1697 03d4 BF90      		pop r11
+ 1698 03d6 AF90      		pop r10
+ 1699 03d8 0895      		ret
+ 1700               		.size	UsartIOCtl, .-UsartIOCtl
+ 1701               		.section	.text.UsartSize,"ax",@progbits
+ 1702               	.global	UsartSize
+ 1703               		.type	UsartSize, @function
+ 1704               	UsartSize:
+ 1705               	/* prologue: function */
+ 1706               	/* frame size = 0 */
+ 1707               	/* stack size = 0 */
+ 1708               	.L__stack_usage = 0
+ 1709 0000 DC01      		movw r26,r24
+ 1710 0002 ED91      		ld r30,X+
+GAS LISTING /tmp/ccPfx3IE.s 			page 31
+
+
+ 1711 0004 FC91      		ld r31,X
+ 1712 0006 0188      		ldd __tmp_reg__,Z+17
+ 1713 0008 F289      		ldd r31,Z+18
+ 1714 000a E02D      		mov r30,__tmp_reg__
+ 1715               	/* #APP */
+ 1716               	 ;  1015 "../../nut/dev/usart.c" 1
+ 1717 000c 0FB6      		in  __tmp_reg__, __SREG__
+ 1718 000e F894      		cli
+ 1719 0010 0F92      		push __tmp_reg__
+ 1720               		
+ 1721               	 ;  0 "" 2
+ 1722               	/* #NOAPP */
+ 1723 0012 62A9      		ldd r22,Z+50
+ 1724 0014 73A9      		ldd r23,Z+51
+ 1725               	/* #APP */
+ 1726               	 ;  1017 "../../nut/dev/usart.c" 1
+ 1727 0016 0F90      		pop __tmp_reg__
+ 1728 0018 0FBE      		out __SREG__, __tmp_reg__
+ 1729               		
+ 1730               	 ;  0 "" 2
+ 1731               	/* #NOAPP */
+ 1732 001a 80E0      		ldi r24,0
+ 1733 001c 90E0      		ldi r25,0
+ 1734 001e 0895      		ret
+ 1735               		.size	UsartSize, .-UsartSize
+ 1736               		.section	.text.UsartSelect,"ax",@progbits
+ 1737               	.global	UsartSelect
+ 1738               		.type	UsartSelect, @function
+ 1739               	UsartSelect:
+ 1740 0000 CF92      		push r12
+ 1741 0002 DF92      		push r13
+ 1742 0004 EF92      		push r14
+ 1743 0006 FF92      		push r15
+ 1744 0008 0F93      		push r16
+ 1745 000a 1F93      		push r17
+ 1746 000c CF93      		push r28
+ 1747 000e DF93      		push r29
+ 1748               	/* prologue: function */
+ 1749               	/* frame size = 0 */
+ 1750               	/* stack size = 8 */
+ 1751               	.L__stack_usage = 8
+ 1752 0010 8B01      		movw r16,r22
+ 1753 0012 7A01      		movw r14,r20
+ 1754 0014 6901      		movw r12,r18
+ 1755 0016 DC01      		movw r26,r24
+ 1756 0018 ED91      		ld r30,X+
+ 1757 001a FC91      		ld r31,X
+ 1758 001c C189      		ldd r28,Z+17
+ 1759 001e D289      		ldd r29,Z+18
+ 1760 0020 AB01      		movw r20,r22
+ 1761 0022 4170      		andi r20,1
+ 1762 0024 5527      		clr r21
+ 1763 0026 B701      		movw r22,r14
+ 1764 0028 CE01      		movw r24,r28
+ 1765 002a CE96      		adiw r24,62
+ 1766 002c 0E94 0000 		call NutSelectManageWq
+ 1767 0030 A801      		movw r20,r16
+GAS LISTING /tmp/ccPfx3IE.s 			page 32
+
+
+ 1768 0032 4270      		andi r20,2
+ 1769 0034 5527      		clr r21
+ 1770 0036 9601      		movw r18,r12
+ 1771 0038 B701      		movw r22,r14
+ 1772 003a CE01      		movw r24,r28
+ 1773 003c 8696      		adiw r24,38
+ 1774 003e 0E94 0000 		call NutSelectManageWq
+ 1775               	/* #APP */
+ 1776               	 ;  1063 "../../nut/dev/usart.c" 1
+ 1777 0042 0FB6      		in  __tmp_reg__, __SREG__
+ 1778 0044 F894      		cli
+ 1779 0046 0F92      		push __tmp_reg__
+ 1780               		
+ 1781               	 ;  0 "" 2
+ 1782               	/* #NOAPP */
+ 1783 0048 8AA9      		ldd r24,Y+50
+ 1784 004a 9BA9      		ldd r25,Y+51
+ 1785 004c 31E0      		ldi r19,lo8(1)
+ 1786 004e 20E0      		ldi r18,0
+ 1787 0050 892B      		or r24,r25
+ 1788 0052 01F4      		brne .L192
+ 1789 0054 30E0      		ldi r19,0
+ 1790               	.L192:
+ 1791 0056 832F      		mov r24,r19
+ 1792 0058 922F      		mov r25,r18
+ 1793 005a 4A8D      		ldd r20,Y+26
+ 1794 005c 5B8D      		ldd r21,Y+27
+ 1795 005e 288D      		ldd r18,Y+24
+ 1796 0060 398D      		ldd r19,Y+25
+ 1797 0062 4217      		cp r20,r18
+ 1798 0064 5307      		cpc r21,r19
+ 1799 0066 00F4      		brsh .L193
+ 1800 0068 8260      		ori r24,2
+ 1801               	.L193:
+ 1802               	/* #APP */
+ 1803               	 ;  1070 "../../nut/dev/usart.c" 1
+ 1804 006a 0F90      		pop __tmp_reg__
+ 1805 006c 0FBE      		out __SREG__, __tmp_reg__
+ 1806               		
+ 1807               	 ;  0 "" 2
+ 1808               	/* #NOAPP */
+ 1809 006e 8023      		and r24,r16
+ 1810 0070 9123      		and r25,r17
+ 1811               	/* epilogue start */
+ 1812 0072 DF91      		pop r29
+ 1813 0074 CF91      		pop r28
+ 1814 0076 1F91      		pop r17
+ 1815 0078 0F91      		pop r16
+ 1816 007a FF90      		pop r15
+ 1817 007c EF90      		pop r14
+ 1818 007e DF90      		pop r13
+ 1819 0080 CF90      		pop r12
+ 1820 0082 0895      		ret
+ 1821               		.size	UsartSelect, .-UsartSelect
+ 1822               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccPfx3IE.s 			page 33
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 usart.c
+     /tmp/ccPfx3IE.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccPfx3IE.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccPfx3IE.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccPfx3IE.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccPfx3IE.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccPfx3IE.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccPfx3IE.s:10     .text.UsartFlushOutput:0000000000000000 UsartFlushOutput
+     /tmp/ccPfx3IE.s:109    .text.UsartResetBuffer:0000000000000000 UsartResetBuffer
+     /tmp/ccPfx3IE.s:220    .text.UsartPut.isra.0:0000000000000000 UsartPut.isra.0
+     /tmp/ccPfx3IE.s:481    .text.UsartInit:0000000000000000 UsartInit
+     /tmp/ccPfx3IE.s:524    .text.UsartRead:0000000000000000 UsartRead
+     /tmp/ccPfx3IE.s:805    .text.UsartWrite:0000000000000000 UsartWrite
+     /tmp/ccPfx3IE.s:822    .text.UsartWrite_P:0000000000000000 UsartWrite_P
+     /tmp/ccPfx3IE.s:839    .text.UsartClose:0000000000000000 UsartClose
+     /tmp/ccPfx3IE.s:927    .text.UsartOpen:0000000000000000 UsartOpen
+     /tmp/ccPfx3IE.s:1058   .text.UsartIOCtl:0000000000000000 UsartIOCtl
+     /tmp/ccPfx3IE.s:1704   .text.UsartSize:0000000000000000 UsartSize
+     /tmp/ccPfx3IE.s:1739   .text.UsartSelect:0000000000000000 UsartSelect
+
+UNDEFINED SYMBOLS
+NutEventWait
+free
+malloc
+NutEventWaitNext
+NutEventBroadcast
+NutSelectWakeup
+__tablejump2__
+NutSelectManageWq

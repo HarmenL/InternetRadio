@@ -1,0 +1,537 @@
+GAS LISTING /tmp/cc9x1Tbz.s 			page 1
+
+
+   1               		.file	"bankmem.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.NutSegBufReset,"ax",@progbits
+   9               	.global	NutSegBufReset
+  10               		.type	NutSegBufReset, @function
+  11               	NutSegBufReset:
+  12               	/* prologue: function */
+  13               	/* frame size = 0 */
+  14               	/* stack size = 0 */
+  15               	.L__stack_usage = 0
+  16 0000 8091 0000 		lds r24,segbuf_start
+  17 0004 9091 0000 		lds r25,segbuf_start+1
+  18 0008 9093 0000 		sts segbuf_wp+1,r25
+  19 000c 8093 0000 		sts segbuf_wp,r24
+  20 0010 9093 0000 		sts segbuf_rp+1,r25
+  21 0014 8093 0000 		sts segbuf_rp,r24
+  22 0018 1092 0000 		sts segbuf_ws,__zero_reg__
+  23 001c 1092 0000 		sts segbuf_rs,__zero_reg__
+  24 0020 1092 FFFF 		sts -1,__zero_reg__
+  25 0024 81E0      		ldi r24,lo8(1)
+  26 0026 8093 0000 		sts segbuf_empty,r24
+  27 002a 1092 0000 		sts segbuf_used,__zero_reg__
+  28 002e 1092 0000 		sts segbuf_used+1,__zero_reg__
+  29 0032 1092 0000 		sts segbuf_used+2,__zero_reg__
+  30 0036 1092 0000 		sts segbuf_used+3,__zero_reg__
+  31 003a 8091 0000 		lds r24,segbuf_start
+  32 003e 9091 0000 		lds r25,segbuf_start+1
+  33 0042 0895      		ret
+  34               		.size	NutSegBufReset, .-NutSegBufReset
+  35               		.section	.text.NutSegBufInit,"ax",@progbits
+  36               	.global	NutSegBufInit
+  37               		.type	NutSegBufInit, @function
+  38               	NutSegBufInit:
+  39               	/* prologue: function */
+  40               	/* frame size = 0 */
+  41               	/* stack size = 0 */
+  42               	.L__stack_usage = 0
+  43 0000 80E0      		ldi r24,0
+  44 0002 90E8      		ldi r25,lo8(-128)
+  45 0004 9093 0000 		sts segbuf_start+1,r25
+  46 0008 8093 0000 		sts segbuf_start,r24
+  47 000c 80E0      		ldi r24,0
+  48 000e 90EC      		ldi r25,lo8(-64)
+  49 0010 9093 0000 		sts segbuf_end+1,r25
+  50 0014 8093 0000 		sts segbuf_end,r24
+  51 0018 80E0      		ldi r24,0
+  52 001a 90E8      		ldi r25,lo8(-128)
+  53 001c A7E0      		ldi r26,lo8(7)
+  54 001e B0E0      		ldi r27,0
+  55 0020 8093 0000 		sts segbuf_total,r24
+  56 0024 9093 0000 		sts segbuf_total+1,r25
+  57 0028 A093 0000 		sts segbuf_total+2,r26
+GAS LISTING /tmp/cc9x1Tbz.s 			page 2
+
+
+  58 002c B093 0000 		sts segbuf_total+3,r27
+  59 0030 0C94 0000 		jmp NutSegBufReset
+  60               		.size	NutSegBufInit, .-NutSegBufInit
+  61               		.section	.text.NutSegBufWriteRequest,"ax",@progbits
+  62               	.global	NutSegBufWriteRequest
+  63               		.type	NutSegBufWriteRequest, @function
+  64               	NutSegBufWriteRequest:
+  65               	/* prologue: function */
+  66               	/* frame size = 0 */
+  67               	/* stack size = 0 */
+  68               	.L__stack_usage = 0
+  69 0000 FC01      		movw r30,r24
+  70 0002 2091 0000 		lds r18,segbuf_empty
+  71 0006 4091 0000 		lds r20,segbuf_ws
+  72 000a 8091 0000 		lds r24,segbuf_wp
+  73 000e 9091 0000 		lds r25,segbuf_wp+1
+  74 0012 2111      		cpse r18,__zero_reg__
+  75 0014 00C0      		rjmp .L4
+  76 0016 2091 0000 		lds r18,segbuf_rs
+  77 001a 4213      		cpse r20,r18
+  78 001c 00C0      		rjmp .L4
+  79 001e 2091 0000 		lds r18,segbuf_rp
+  80 0022 3091 0000 		lds r19,segbuf_rp+1
+  81 0026 2817      		cp r18,r24
+  82 0028 3907      		cpc r19,r25
+  83 002a 00F4      		brsh .L5
+  84               	.L4:
+  85 002c 2091 0000 		lds r18,segbuf_end
+  86 0030 3091 0000 		lds r19,segbuf_end+1
+  87               	.L5:
+  88 0034 281B      		sub r18,r24
+  89 0036 390B      		sbc r19,r25
+  90 0038 3183      		std Z+1,r19
+  91 003a 2083      		st Z,r18
+  92 003c E42F      		mov r30,r20
+  93 003e 042E      		mov __tmp_reg__,r20
+  94 0040 000C      		lsl r0
+  95 0042 FF0B      		sbc r31,r31
+  96 0044 3197      		sbiw r30,1
+  97 0046 4083      		st Z,r20
+  98 0048 0895      		ret
+  99               		.size	NutSegBufWriteRequest, .-NutSegBufWriteRequest
+ 100               		.section	.text.NutSegBufReadRequest,"ax",@progbits
+ 101               	.global	NutSegBufReadRequest
+ 102               		.type	NutSegBufReadRequest, @function
+ 103               	NutSegBufReadRequest:
+ 104               	/* prologue: function */
+ 105               	/* frame size = 0 */
+ 106               	/* stack size = 0 */
+ 107               	.L__stack_usage = 0
+ 108 0000 FC01      		movw r30,r24
+ 109 0002 2091 0000 		lds r18,segbuf_empty
+ 110 0006 4091 0000 		lds r20,segbuf_rs
+ 111 000a 8091 0000 		lds r24,segbuf_rp
+ 112 000e 9091 0000 		lds r25,segbuf_rp+1
+ 113 0012 2223      		tst r18
+ 114 0014 01F0      		breq .L9
+GAS LISTING /tmp/cc9x1Tbz.s 			page 3
+
+
+ 115 0016 1182      		std Z+1,__zero_reg__
+ 116 0018 1082      		st Z,__zero_reg__
+ 117 001a 00C0      		rjmp .L10
+ 118               	.L9:
+ 119 001c 2091 0000 		lds r18,segbuf_ws
+ 120 0020 2413      		cpse r18,r20
+ 121 0022 00C0      		rjmp .L11
+ 122 0024 2091 0000 		lds r18,segbuf_wp
+ 123 0028 3091 0000 		lds r19,segbuf_wp+1
+ 124 002c 8217      		cp r24,r18
+ 125 002e 9307      		cpc r25,r19
+ 126 0030 00F0      		brlo .L12
+ 127               	.L11:
+ 128 0032 2091 0000 		lds r18,segbuf_end
+ 129 0036 3091 0000 		lds r19,segbuf_end+1
+ 130 003a 281B      		sub r18,r24
+ 131 003c 390B      		sbc r19,r25
+ 132 003e 3183      		std Z+1,r19
+ 133 0040 2083      		st Z,r18
+ 134 0042 00C0      		rjmp .L10
+ 135               	.L12:
+ 136 0044 281B      		sub r18,r24
+ 137 0046 390B      		sbc r19,r25
+ 138 0048 3183      		std Z+1,r19
+ 139 004a 2083      		st Z,r18
+ 140 004c 232B      		or r18,r19
+ 141 004e 01F4      		brne .L10
+ 142 0050 21E0      		ldi r18,lo8(1)
+ 143 0052 2093 0000 		sts segbuf_empty,r18
+ 144               	.L10:
+ 145 0056 E42F      		mov r30,r20
+ 146 0058 042E      		mov __tmp_reg__,r20
+ 147 005a 000C      		lsl r0
+ 148 005c FF0B      		sbc r31,r31
+ 149 005e 3197      		sbiw r30,1
+ 150 0060 4083      		st Z,r20
+ 151 0062 0895      		ret
+ 152               		.size	NutSegBufReadRequest, .-NutSegBufReadRequest
+ 153               		.section	.text.NutSegBufWriteCommit,"ax",@progbits
+ 154               	.global	NutSegBufWriteCommit
+ 155               		.type	NutSegBufWriteCommit, @function
+ 156               	NutSegBufWriteCommit:
+ 157               	/* prologue: function */
+ 158               	/* frame size = 0 */
+ 159               	/* stack size = 0 */
+ 160               	.L__stack_usage = 0
+ 161 0000 AC01      		movw r20,r24
+ 162 0002 0097      		sbiw r24,0
+ 163 0004 01F4      		brne .+2
+ 164 0006 00C0      		rjmp .L15
+ 165 0008 2091 0000 		lds r18,segbuf_wp
+ 166 000c 3091 0000 		lds r19,segbuf_wp+1
+ 167 0010 280F      		add r18,r24
+ 168 0012 391F      		adc r19,r25
+ 169 0014 3093 0000 		sts segbuf_wp+1,r19
+ 170 0018 2093 0000 		sts segbuf_wp,r18
+ 171 001c 1092 0000 		sts segbuf_empty,__zero_reg__
+GAS LISTING /tmp/cc9x1Tbz.s 			page 4
+
+
+ 172 0020 8091 0000 		lds r24,segbuf_used
+ 173 0024 9091 0000 		lds r25,segbuf_used+1
+ 174 0028 A091 0000 		lds r26,segbuf_used+2
+ 175 002c B091 0000 		lds r27,segbuf_used+3
+ 176 0030 840F      		add r24,r20
+ 177 0032 951F      		adc r25,r21
+ 178 0034 A11D      		adc r26,__zero_reg__
+ 179 0036 B11D      		adc r27,__zero_reg__
+ 180 0038 8093 0000 		sts segbuf_used,r24
+ 181 003c 9093 0000 		sts segbuf_used+1,r25
+ 182 0040 A093 0000 		sts segbuf_used+2,r26
+ 183 0044 B093 0000 		sts segbuf_used+3,r27
+ 184 0048 8091 0000 		lds r24,segbuf_end
+ 185 004c 9091 0000 		lds r25,segbuf_end+1
+ 186 0050 2817      		cp r18,r24
+ 187 0052 3907      		cpc r19,r25
+ 188 0054 01F4      		brne .L15
+ 189 0056 8091 0000 		lds r24,segbuf_start
+ 190 005a 9091 0000 		lds r25,segbuf_start+1
+ 191 005e 9093 0000 		sts segbuf_wp+1,r25
+ 192 0062 8093 0000 		sts segbuf_wp,r24
+ 193 0066 8091 0000 		lds r24,segbuf_ws
+ 194 006a 8F5F      		subi r24,lo8(-(1))
+ 195 006c 8E31      		cpi r24,lo8(30)
+ 196 006e 04F4      		brge .L17
+ 197 0070 8093 0000 		sts segbuf_ws,r24
+ 198 0074 00C0      		rjmp .L18
+ 199               	.L17:
+ 200 0076 1092 0000 		sts segbuf_ws,__zero_reg__
+ 201               	.L18:
+ 202 007a 8091 0000 		lds r24,segbuf_ws
+ 203 007e E82F      		mov r30,r24
+ 204 0080 082E      		mov __tmp_reg__,r24
+ 205 0082 000C      		lsl r0
+ 206 0084 FF0B      		sbc r31,r31
+ 207 0086 3197      		sbiw r30,1
+ 208 0088 8083      		st Z,r24
+ 209               	.L15:
+ 210 008a 8091 0000 		lds r24,segbuf_wp
+ 211 008e 9091 0000 		lds r25,segbuf_wp+1
+ 212 0092 0895      		ret
+ 213               		.size	NutSegBufWriteCommit, .-NutSegBufWriteCommit
+ 214               		.section	.text.NutSegBufReadCommit,"ax",@progbits
+ 215               	.global	NutSegBufReadCommit
+ 216               		.type	NutSegBufReadCommit, @function
+ 217               	NutSegBufReadCommit:
+ 218               	/* prologue: function */
+ 219               	/* frame size = 0 */
+ 220               	/* stack size = 0 */
+ 221               	.L__stack_usage = 0
+ 222 0000 AC01      		movw r20,r24
+ 223 0002 0097      		sbiw r24,0
+ 224 0004 01F4      		brne .+2
+ 225 0006 00C0      		rjmp .L21
+ 226 0008 2091 0000 		lds r18,segbuf_rp
+ 227 000c 3091 0000 		lds r19,segbuf_rp+1
+ 228 0010 280F      		add r18,r24
+GAS LISTING /tmp/cc9x1Tbz.s 			page 5
+
+
+ 229 0012 391F      		adc r19,r25
+ 230 0014 3093 0000 		sts segbuf_rp+1,r19
+ 231 0018 2093 0000 		sts segbuf_rp,r18
+ 232 001c 8091 0000 		lds r24,segbuf_used
+ 233 0020 9091 0000 		lds r25,segbuf_used+1
+ 234 0024 A091 0000 		lds r26,segbuf_used+2
+ 235 0028 B091 0000 		lds r27,segbuf_used+3
+ 236 002c 841B      		sub r24,r20
+ 237 002e 950B      		sbc r25,r21
+ 238 0030 A109      		sbc r26,__zero_reg__
+ 239 0032 B109      		sbc r27,__zero_reg__
+ 240 0034 8093 0000 		sts segbuf_used,r24
+ 241 0038 9093 0000 		sts segbuf_used+1,r25
+ 242 003c A093 0000 		sts segbuf_used+2,r26
+ 243 0040 B093 0000 		sts segbuf_used+3,r27
+ 244 0044 8091 0000 		lds r24,segbuf_end
+ 245 0048 9091 0000 		lds r25,segbuf_end+1
+ 246 004c 2817      		cp r18,r24
+ 247 004e 3907      		cpc r19,r25
+ 248 0050 01F4      		brne .L22
+ 249 0052 8091 0000 		lds r24,segbuf_start
+ 250 0056 9091 0000 		lds r25,segbuf_start+1
+ 251 005a 9093 0000 		sts segbuf_rp+1,r25
+ 252 005e 8093 0000 		sts segbuf_rp,r24
+ 253 0062 8091 0000 		lds r24,segbuf_rs
+ 254 0066 8F5F      		subi r24,lo8(-(1))
+ 255 0068 8E31      		cpi r24,lo8(30)
+ 256 006a 04F4      		brge .L23
+ 257 006c 8093 0000 		sts segbuf_rs,r24
+ 258 0070 00C0      		rjmp .L24
+ 259               	.L23:
+ 260 0072 1092 0000 		sts segbuf_rs,__zero_reg__
+ 261               	.L24:
+ 262 0076 8091 0000 		lds r24,segbuf_rs
+ 263 007a E82F      		mov r30,r24
+ 264 007c 082E      		mov __tmp_reg__,r24
+ 265 007e 000C      		lsl r0
+ 266 0080 FF0B      		sbc r31,r31
+ 267 0082 3197      		sbiw r30,1
+ 268 0084 8083      		st Z,r24
+ 269               	.L22:
+ 270 0086 2091 0000 		lds r18,segbuf_rp
+ 271 008a 3091 0000 		lds r19,segbuf_rp+1
+ 272 008e 8091 0000 		lds r24,segbuf_wp
+ 273 0092 9091 0000 		lds r25,segbuf_wp+1
+ 274 0096 2817      		cp r18,r24
+ 275 0098 3907      		cpc r19,r25
+ 276 009a 01F4      		brne .L21
+ 277 009c 9091 0000 		lds r25,segbuf_rs
+ 278 00a0 8091 0000 		lds r24,segbuf_ws
+ 279 00a4 9813      		cpse r25,r24
+ 280 00a6 00C0      		rjmp .L21
+ 281 00a8 81E0      		ldi r24,lo8(1)
+ 282 00aa 8093 0000 		sts segbuf_empty,r24
+ 283               	.L21:
+ 284 00ae 8091 0000 		lds r24,segbuf_rp
+ 285 00b2 9091 0000 		lds r25,segbuf_rp+1
+GAS LISTING /tmp/cc9x1Tbz.s 			page 6
+
+
+ 286 00b6 0895      		ret
+ 287               		.size	NutSegBufReadCommit, .-NutSegBufReadCommit
+ 288               		.section	.text.NutSegBufWriteLast,"ax",@progbits
+ 289               	.global	NutSegBufWriteLast
+ 290               		.type	NutSegBufWriteLast, @function
+ 291               	NutSegBufWriteLast:
+ 292               	/* prologue: function */
+ 293               	/* frame size = 0 */
+ 294               	/* stack size = 0 */
+ 295               	.L__stack_usage = 0
+ 296 0000 AC01      		movw r20,r24
+ 297 0002 0097      		sbiw r24,0
+ 298 0004 01F0      		breq .L28
+ 299 0006 2091 0000 		lds r18,segbuf_wp
+ 300 000a 3091 0000 		lds r19,segbuf_wp+1
+ 301 000e 280F      		add r18,r24
+ 302 0010 391F      		adc r19,r25
+ 303 0012 3093 0000 		sts segbuf_wp+1,r19
+ 304 0016 2093 0000 		sts segbuf_wp,r18
+ 305 001a 8091 0000 		lds r24,segbuf_used
+ 306 001e 9091 0000 		lds r25,segbuf_used+1
+ 307 0022 A091 0000 		lds r26,segbuf_used+2
+ 308 0026 B091 0000 		lds r27,segbuf_used+3
+ 309 002a 840F      		add r24,r20
+ 310 002c 951F      		adc r25,r21
+ 311 002e A11D      		adc r26,__zero_reg__
+ 312 0030 B11D      		adc r27,__zero_reg__
+ 313 0032 8093 0000 		sts segbuf_used,r24
+ 314 0036 9093 0000 		sts segbuf_used+1,r25
+ 315 003a A093 0000 		sts segbuf_used+2,r26
+ 316 003e B093 0000 		sts segbuf_used+3,r27
+ 317 0042 1092 0000 		sts segbuf_empty,__zero_reg__
+ 318 0046 8091 0000 		lds r24,segbuf_end
+ 319 004a 9091 0000 		lds r25,segbuf_end+1
+ 320 004e 2817      		cp r18,r24
+ 321 0050 3907      		cpc r19,r25
+ 322 0052 01F4      		brne .L28
+ 323 0054 8091 0000 		lds r24,segbuf_start
+ 324 0058 9091 0000 		lds r25,segbuf_start+1
+ 325 005c 9093 0000 		sts segbuf_wp+1,r25
+ 326 0060 8093 0000 		sts segbuf_wp,r24
+ 327 0064 8091 0000 		lds r24,segbuf_ws
+ 328 0068 8F5F      		subi r24,lo8(-(1))
+ 329 006a 8E31      		cpi r24,lo8(30)
+ 330 006c 04F4      		brge .L30
+ 331 006e 8093 0000 		sts segbuf_ws,r24
+ 332 0072 00C0      		rjmp .L28
+ 333               	.L30:
+ 334 0074 1092 0000 		sts segbuf_ws,__zero_reg__
+ 335               	.L28:
+ 336 0078 8091 0000 		lds r24,segbuf_rs
+ 337 007c E82F      		mov r30,r24
+ 338 007e 082E      		mov __tmp_reg__,r24
+ 339 0080 000C      		lsl r0
+ 340 0082 FF0B      		sbc r31,r31
+ 341 0084 3197      		sbiw r30,1
+ 342 0086 8083      		st Z,r24
+GAS LISTING /tmp/cc9x1Tbz.s 			page 7
+
+
+ 343 0088 0895      		ret
+ 344               		.size	NutSegBufWriteLast, .-NutSegBufWriteLast
+ 345               		.section	.text.NutSegBufReadLast,"ax",@progbits
+ 346               	.global	NutSegBufReadLast
+ 347               		.type	NutSegBufReadLast, @function
+ 348               	NutSegBufReadLast:
+ 349               	/* prologue: function */
+ 350               	/* frame size = 0 */
+ 351               	/* stack size = 0 */
+ 352               	.L__stack_usage = 0
+ 353 0000 FC01      		movw r30,r24
+ 354 0002 9091 0000 		lds r25,segbuf_ws
+ 355 0006 3097      		sbiw r30,0
+ 356 0008 01F4      		brne .+2
+ 357 000a 00C0      		rjmp .L33
+ 358 000c 2091 0000 		lds r18,segbuf_rp
+ 359 0010 3091 0000 		lds r19,segbuf_rp+1
+ 360 0014 2E0F      		add r18,r30
+ 361 0016 3F1F      		adc r19,r31
+ 362 0018 3093 0000 		sts segbuf_rp+1,r19
+ 363 001c 2093 0000 		sts segbuf_rp,r18
+ 364 0020 4091 0000 		lds r20,segbuf_used
+ 365 0024 5091 0000 		lds r21,segbuf_used+1
+ 366 0028 6091 0000 		lds r22,segbuf_used+2
+ 367 002c 7091 0000 		lds r23,segbuf_used+3
+ 368 0030 4E1B      		sub r20,r30
+ 369 0032 5F0B      		sbc r21,r31
+ 370 0034 6109      		sbc r22,__zero_reg__
+ 371 0036 7109      		sbc r23,__zero_reg__
+ 372 0038 4093 0000 		sts segbuf_used,r20
+ 373 003c 5093 0000 		sts segbuf_used+1,r21
+ 374 0040 6093 0000 		sts segbuf_used+2,r22
+ 375 0044 7093 0000 		sts segbuf_used+3,r23
+ 376 0048 4091 0000 		lds r20,segbuf_end
+ 377 004c 5091 0000 		lds r21,segbuf_end+1
+ 378 0050 2417      		cp r18,r20
+ 379 0052 3507      		cpc r19,r21
+ 380 0054 01F4      		brne .L35
+ 381 0056 2091 0000 		lds r18,segbuf_start
+ 382 005a 3091 0000 		lds r19,segbuf_start+1
+ 383 005e 3093 0000 		sts segbuf_rp+1,r19
+ 384 0062 2093 0000 		sts segbuf_rp,r18
+ 385 0066 8091 0000 		lds r24,segbuf_rs
+ 386 006a 8F5F      		subi r24,lo8(-(1))
+ 387 006c 8E31      		cpi r24,lo8(30)
+ 388 006e 04F4      		brge .L36
+ 389 0070 8093 0000 		sts segbuf_rs,r24
+ 390 0074 00C0      		rjmp .L35
+ 391               	.L36:
+ 392 0076 1092 0000 		sts segbuf_rs,__zero_reg__
+ 393               	.L35:
+ 394 007a 4091 0000 		lds r20,segbuf_rp
+ 395 007e 5091 0000 		lds r21,segbuf_rp+1
+ 396 0082 2091 0000 		lds r18,segbuf_wp
+ 397 0086 3091 0000 		lds r19,segbuf_wp+1
+ 398 008a 4217      		cp r20,r18
+ 399 008c 5307      		cpc r21,r19
+GAS LISTING /tmp/cc9x1Tbz.s 			page 8
+
+
+ 400 008e 01F4      		brne .L33
+ 401 0090 8091 0000 		lds r24,segbuf_rs
+ 402 0094 8913      		cpse r24,r25
+ 403 0096 00C0      		rjmp .L33
+ 404 0098 81E0      		ldi r24,lo8(1)
+ 405 009a 8093 0000 		sts segbuf_empty,r24
+ 406               	.L33:
+ 407 009e E92F      		mov r30,r25
+ 408 00a0 092E      		mov __tmp_reg__,r25
+ 409 00a2 000C      		lsl r0
+ 410 00a4 FF0B      		sbc r31,r31
+ 411 00a6 3197      		sbiw r30,1
+ 412 00a8 9083      		st Z,r25
+ 413 00aa 0895      		ret
+ 414               		.size	NutSegBufReadLast, .-NutSegBufReadLast
+ 415               		.section	.text.NutSegBufAvailable,"ax",@progbits
+ 416               	.global	NutSegBufAvailable
+ 417               		.type	NutSegBufAvailable, @function
+ 418               	NutSegBufAvailable:
+ 419 0000 0F93      		push r16
+ 420 0002 1F93      		push r17
+ 421               	/* prologue: function */
+ 422               	/* frame size = 0 */
+ 423               	/* stack size = 2 */
+ 424               	.L__stack_usage = 2
+ 425 0004 8091 0000 		lds r24,segbuf_total
+ 426 0008 9091 0000 		lds r25,segbuf_total+1
+ 427 000c A091 0000 		lds r26,segbuf_total+2
+ 428 0010 B091 0000 		lds r27,segbuf_total+3
+ 429 0014 0091 0000 		lds r16,segbuf_used
+ 430 0018 1091 0000 		lds r17,segbuf_used+1
+ 431 001c 2091 0000 		lds r18,segbuf_used+2
+ 432 0020 3091 0000 		lds r19,segbuf_used+3
+ 433 0024 BC01      		movw r22,r24
+ 434 0026 CD01      		movw r24,r26
+ 435 0028 601B      		sub r22,r16
+ 436 002a 710B      		sbc r23,r17
+ 437 002c 820B      		sbc r24,r18
+ 438 002e 930B      		sbc r25,r19
+ 439               	/* epilogue start */
+ 440 0030 1F91      		pop r17
+ 441 0032 0F91      		pop r16
+ 442 0034 0895      		ret
+ 443               		.size	NutSegBufAvailable, .-NutSegBufAvailable
+ 444               		.section	.text.NutSegBufUsed,"ax",@progbits
+ 445               	.global	NutSegBufUsed
+ 446               		.type	NutSegBufUsed, @function
+ 447               	NutSegBufUsed:
+ 448               	/* prologue: function */
+ 449               	/* frame size = 0 */
+ 450               	/* stack size = 0 */
+ 451               	.L__stack_usage = 0
+ 452 0000 6091 0000 		lds r22,segbuf_used
+ 453 0004 7091 0000 		lds r23,segbuf_used+1
+ 454 0008 8091 0000 		lds r24,segbuf_used+2
+ 455 000c 9091 0000 		lds r25,segbuf_used+3
+ 456 0010 0895      		ret
+GAS LISTING /tmp/cc9x1Tbz.s 			page 9
+
+
+ 457               		.size	NutSegBufUsed, .-NutSegBufUsed
+ 458               		.local	segbuf_rs
+ 459               		.comm	segbuf_rs,1,1
+ 460               		.local	segbuf_rp
+ 461               		.comm	segbuf_rp,2,1
+ 462               		.local	segbuf_ws
+ 463               		.comm	segbuf_ws,1,1
+ 464               		.local	segbuf_wp
+ 465               		.comm	segbuf_wp,2,1
+ 466               		.local	segbuf_end
+ 467               		.comm	segbuf_end,2,1
+ 468               		.local	segbuf_start
+ 469               		.comm	segbuf_start,2,1
+ 470               		.local	segbuf_used
+ 471               		.comm	segbuf_used,4,1
+ 472               		.local	segbuf_total
+ 473               		.comm	segbuf_total,4,1
+ 474               		.local	segbuf_empty
+ 475               		.comm	segbuf_empty,1,1
+ 476               		.ident	"GCC: (GNU) 5.3.0"
+ 477               	.global __do_clear_bss
+GAS LISTING /tmp/cc9x1Tbz.s 			page 10
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 bankmem.c
+     /tmp/cc9x1Tbz.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cc9x1Tbz.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cc9x1Tbz.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cc9x1Tbz.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cc9x1Tbz.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cc9x1Tbz.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cc9x1Tbz.s:11     .text.NutSegBufReset:0000000000000000 NutSegBufReset
+     /tmp/cc9x1Tbz.s:467    .bss:0000000000000008 segbuf_start
+     /tmp/cc9x1Tbz.s:463    .bss:0000000000000004 segbuf_wp
+     /tmp/cc9x1Tbz.s:459    .bss:0000000000000001 segbuf_rp
+     /tmp/cc9x1Tbz.s:461    .bss:0000000000000003 segbuf_ws
+                             .bss:0000000000000000 segbuf_rs
+     /tmp/cc9x1Tbz.s:473    .bss:0000000000000012 segbuf_empty
+     /tmp/cc9x1Tbz.s:469    .bss:000000000000000a segbuf_used
+     /tmp/cc9x1Tbz.s:38     .text.NutSegBufInit:0000000000000000 NutSegBufInit
+     /tmp/cc9x1Tbz.s:465    .bss:0000000000000006 segbuf_end
+     /tmp/cc9x1Tbz.s:471    .bss:000000000000000e segbuf_total
+     /tmp/cc9x1Tbz.s:64     .text.NutSegBufWriteRequest:0000000000000000 NutSegBufWriteRequest
+     /tmp/cc9x1Tbz.s:103    .text.NutSegBufReadRequest:0000000000000000 NutSegBufReadRequest
+     /tmp/cc9x1Tbz.s:156    .text.NutSegBufWriteCommit:0000000000000000 NutSegBufWriteCommit
+     /tmp/cc9x1Tbz.s:217    .text.NutSegBufReadCommit:0000000000000000 NutSegBufReadCommit
+     /tmp/cc9x1Tbz.s:291    .text.NutSegBufWriteLast:0000000000000000 NutSegBufWriteLast
+     /tmp/cc9x1Tbz.s:348    .text.NutSegBufReadLast:0000000000000000 NutSegBufReadLast
+     /tmp/cc9x1Tbz.s:418    .text.NutSegBufAvailable:0000000000000000 NutSegBufAvailable
+     /tmp/cc9x1Tbz.s:447    .text.NutSegBufUsed:0000000000000000 NutSegBufUsed
+
+UNDEFINED SYMBOLS
+__do_clear_bss

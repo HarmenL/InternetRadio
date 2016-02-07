@@ -1,0 +1,150 @@
+GAS LISTING /tmp/ccvSgVeZ.s 			page 1
+
+
+   1               		.file	"ostimer.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.NutRegisterTimer,"ax",@progbits
+   9               	.global	NutRegisterTimer
+  10               		.type	NutRegisterTimer, @function
+  11               	NutRegisterTimer:
+  12               	/* prologue: function */
+  13               	/* frame size = 0 */
+  14               	/* stack size = 0 */
+  15               	.L__stack_usage = 0
+  16 0000 BC01      		movw r22,r24
+  17 0002 80E0      		ldi r24,0
+  18 0004 90E0      		ldi r25,0
+  19 0006 A1EE      		ldi r26,lo8(-31)
+  20 0008 B0E0      		ldi r27,0
+  21 000a 8093 0000 		sts cpu_clock,r24
+  22 000e 9093 0000 		sts cpu_clock+1,r25
+  23 0012 A093 0000 		sts cpu_clock+2,r26
+  24 0016 B093 0000 		sts cpu_clock+3,r27
+  25 001a E0E7      		ldi r30,lo8(112)
+  26 001c F0E0      		ldi r31,0
+  27 001e 9081      		ld r25,Z
+  28 0020 9D7F      		andi r25,lo8(-3)
+  29 0022 9083      		st Z,r25
+  30 0024 1092 B200 		sts 178,__zero_reg__
+  31 0028 92E0      		ldi r25,lo8(2)
+  32 002a 9093 B000 		sts 176,r25
+  33 002e 85E0      		ldi r24,lo8(5)
+  34 0030 8093 B100 		sts 177,r24
+  35 0034 82E7      		ldi r24,lo8(114)
+  36 0036 8093 B300 		sts 179,r24
+  37 003a 95BB      		out 0x15,r25
+  38 003c 40E0      		ldi r20,0
+  39 003e 50E0      		ldi r21,0
+  40 0040 80E0      		ldi r24,lo8(sig_OUTPUT_COMPARE2)
+  41 0042 90E0      		ldi r25,hi8(sig_OUTPUT_COMPARE2)
+  42 0044 0C94 0000 		jmp NutRegisterIrqHandler
+  43               		.size	NutRegisterTimer, .-NutRegisterTimer
+  44               		.section	.text.NutArchClockGet,"ax",@progbits
+  45               	.global	NutArchClockGet
+  46               		.type	NutArchClockGet, @function
+  47               	NutArchClockGet:
+  48               	/* prologue: function */
+  49               	/* frame size = 0 */
+  50               	/* stack size = 0 */
+  51               	.L__stack_usage = 0
+  52 0000 6091 0000 		lds r22,cpu_clock
+  53 0004 7091 0000 		lds r23,cpu_clock+1
+  54 0008 8091 0000 		lds r24,cpu_clock+2
+  55 000c 9091 0000 		lds r25,cpu_clock+3
+  56 0010 0895      		ret
+  57               		.size	NutArchClockGet, .-NutArchClockGet
+GAS LISTING /tmp/ccvSgVeZ.s 			page 2
+
+
+  58               		.section	.text.NutGetTickClock,"ax",@progbits
+  59               	.global	NutGetTickClock
+  60               		.type	NutGetTickClock, @function
+  61               	NutGetTickClock:
+  62               	/* prologue: function */
+  63               	/* frame size = 0 */
+  64               	/* stack size = 0 */
+  65               	.L__stack_usage = 0
+  66 0000 6AEE      		ldi r22,lo8(-22)
+  67 0002 73E0      		ldi r23,lo8(3)
+  68 0004 80E0      		ldi r24,0
+  69 0006 90E0      		ldi r25,0
+  70 0008 0895      		ret
+  71               		.size	NutGetTickClock, .-NutGetTickClock
+  72               		.section	.text.NutTimerMillisToTicks,"ax",@progbits
+  73               	.global	NutTimerMillisToTicks
+  74               		.type	NutTimerMillisToTicks, @function
+  75               	NutTimerMillisToTicks:
+  76               	/* prologue: function */
+  77               	/* frame size = 0 */
+  78               	/* stack size = 0 */
+  79               	.L__stack_usage = 0
+  80 0000 6115      		cp r22,__zero_reg__
+  81 0002 20E8      		ldi r18,-128
+  82 0004 7207      		cpc r23,r18
+  83 0006 2EE3      		ldi r18,62
+  84 0008 8207      		cpc r24,r18
+  85 000a 9105      		cpc r25,__zero_reg__
+  86 000c 00F0      		brlo .L5
+  87 000e 28EE      		ldi r18,lo8(-24)
+  88 0010 33E0      		ldi r19,lo8(3)
+  89 0012 40E0      		ldi r20,0
+  90 0014 50E0      		ldi r21,0
+  91 0016 0E94 0000 		call __udivmodsi4
+  92 001a AAEE      		ldi r26,lo8(-22)
+  93 001c B3E0      		ldi r27,lo8(3)
+  94 001e 0E94 0000 		call __muluhisi3
+  95 0022 0895      		ret
+  96               	.L5:
+  97 0024 AAEE      		ldi r26,lo8(-22)
+  98 0026 B3E0      		ldi r27,lo8(3)
+  99 0028 9B01      		movw r18,r22
+ 100 002a AC01      		movw r20,r24
+ 101 002c 0E94 0000 		call __muluhisi3
+ 102 0030 6951      		subi r22,25
+ 103 0032 7C4F      		sbci r23,-4
+ 104 0034 8F4F      		sbci r24,-1
+ 105 0036 9F4F      		sbci r25,-1
+ 106 0038 28EE      		ldi r18,lo8(-24)
+ 107 003a 33E0      		ldi r19,lo8(3)
+ 108 003c 40E0      		ldi r20,0
+ 109 003e 50E0      		ldi r21,0
+ 110 0040 0E94 0000 		call __udivmodsi4
+ 111 0044 CA01      		movw r24,r20
+ 112 0046 B901      		movw r22,r18
+ 113 0048 0895      		ret
+ 114               		.size	NutTimerMillisToTicks, .-NutTimerMillisToTicks
+GAS LISTING /tmp/ccvSgVeZ.s 			page 3
+
+
+ 115               		.local	cpu_clock
+ 116               		.comm	cpu_clock,4,1
+ 117               		.ident	"GCC: (GNU) 5.3.0"
+ 118               	.global __do_clear_bss
+GAS LISTING /tmp/ccvSgVeZ.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 ostimer.c
+     /tmp/ccvSgVeZ.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccvSgVeZ.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccvSgVeZ.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccvSgVeZ.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccvSgVeZ.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccvSgVeZ.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccvSgVeZ.s:11     .text.NutRegisterTimer:0000000000000000 NutRegisterTimer
+                             .bss:0000000000000000 cpu_clock
+     /tmp/ccvSgVeZ.s:47     .text.NutArchClockGet:0000000000000000 NutArchClockGet
+     /tmp/ccvSgVeZ.s:61     .text.NutGetTickClock:0000000000000000 NutGetTickClock
+     /tmp/ccvSgVeZ.s:75     .text.NutTimerMillisToTicks:0000000000000000 NutTimerMillisToTicks
+
+UNDEFINED SYMBOLS
+sig_OUTPUT_COMPARE2
+NutRegisterIrqHandler
+__udivmodsi4
+__muluhisi3
+__do_clear_bss

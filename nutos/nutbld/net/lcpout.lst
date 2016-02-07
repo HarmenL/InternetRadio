@@ -1,0 +1,398 @@
+GAS LISTING /tmp/ccSjCngo.s 			page 1
+
+
+   1               		.file	"lcpout.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.NutLcpOutput,"ax",@progbits
+   9               	.global	NutLcpOutput
+  10               		.type	NutLcpOutput, @function
+  11               	NutLcpOutput:
+  12 0000 EF92      		push r14
+  13 0002 FF92      		push r15
+  14 0004 0F93      		push r16
+  15 0006 1F93      		push r17
+  16 0008 CF93      		push r28
+  17 000a DF93      		push r29
+  18               	/* prologue: function */
+  19               	/* frame size = 0 */
+  20               	/* stack size = 6 */
+  21               	.L__stack_usage = 6
+  22 000c 8C01      		movw r16,r24
+  23 000e E62E      		mov r14,r22
+  24 0010 F42E      		mov r15,r20
+  25 0012 C901      		movw r24,r18
+  26 0014 44E0      		ldi r20,lo8(4)
+  27 0016 50E0      		ldi r21,0
+  28 0018 60E2      		ldi r22,lo8(32)
+  29 001a 0E94 0000 		call NutNetBufAlloc
+  30 001e EC01      		movw r28,r24
+  31 0020 892B      		or r24,r25
+  32 0022 01F0      		breq .L3
+  33 0024 EF81      		ldd r30,Y+7
+  34 0026 F885      		ldd r31,Y+8
+  35 0028 E082      		st Z,r14
+  36 002a F182      		std Z+1,r15
+  37 002c 2985      		ldd r18,Y+9
+  38 002e 3A85      		ldd r19,Y+10
+  39 0030 8D85      		ldd r24,Y+13
+  40 0032 9E85      		ldd r25,Y+14
+  41 0034 820F      		add r24,r18
+  42 0036 931F      		adc r25,r19
+  43 0038 2989      		ldd r18,Y+17
+  44 003a 3A89      		ldd r19,Y+18
+  45 003c 820F      		add r24,r18
+  46 003e 931F      		adc r25,r19
+  47               	/* #APP */
+  48               	 ;  309 "../../nut/include/sys/types.h" 1
+  49 0040 082E      		mov __tmp_reg__, r24
+  50 0042 892F      		mov r24, r25
+  51 0044 902D      		mov r25, __tmp_reg__
+  52               		
+  53               	 ;  0 "" 2
+  54               	/* #NOAPP */
+  55 0046 9383      		std Z+3,r25
+  56 0048 8283      		std Z+2,r24
+  57 004a 9E01      		movw r18,r28
+GAS LISTING /tmp/ccSjCngo.s 			page 2
+
+
+  58 004c 40E0      		ldi r20,0
+  59 004e 50E0      		ldi r21,0
+  60 0050 61E2      		ldi r22,lo8(33)
+  61 0052 70EC      		ldi r23,lo8(-64)
+  62 0054 C801      		movw r24,r16
+  63 0056 0E94 0000 		call NutPppOutput
+  64 005a 8C01      		movw r16,r24
+  65 005c 892B      		or r24,r25
+  66 005e 01F4      		brne .L4
+  67 0060 CE01      		movw r24,r28
+  68 0062 0E94 0000 		call NutNetBufFree
+  69 0066 00C0      		rjmp .L2
+  70               	.L3:
+  71 0068 0FEF      		ldi r16,lo8(-1)
+  72 006a 1FEF      		ldi r17,lo8(-1)
+  73 006c 00C0      		rjmp .L2
+  74               	.L4:
+  75 006e 00E0      		ldi r16,0
+  76 0070 10E0      		ldi r17,0
+  77               	.L2:
+  78 0072 C801      		movw r24,r16
+  79               	/* epilogue start */
+  80 0074 DF91      		pop r29
+  81 0076 CF91      		pop r28
+  82 0078 1F91      		pop r17
+  83 007a 0F91      		pop r16
+  84 007c FF90      		pop r15
+  85 007e EF90      		pop r14
+  86 0080 0895      		ret
+  87               		.size	NutLcpOutput, .-NutLcpOutput
+  88               		.section	.text.LcpTxConfReq,"ax",@progbits
+  89               	.global	LcpTxConfReq
+  90               		.type	LcpTxConfReq, @function
+  91               	LcpTxConfReq:
+  92 0000 EF92      		push r14
+  93 0002 FF92      		push r15
+  94 0004 0F93      		push r16
+  95 0006 1F93      		push r17
+  96 0008 CF93      		push r28
+  97 000a DF93      		push r29
+  98               	/* prologue: function */
+  99               	/* frame size = 0 */
+ 100               	/* stack size = 6 */
+ 101               	.L__stack_usage = 6
+ 102 000c 8C01      		movw r16,r24
+ 103 000e E62E      		mov r14,r22
+ 104 0010 F42E      		mov r15,r20
+ 105 0012 DC01      		movw r26,r24
+ 106 0014 5196      		adiw r26,17
+ 107 0016 CD91      		ld r28,X+
+ 108 0018 DC91      		ld r29,X
+ 109 001a 5297      		sbiw r26,17+1
+ 110 001c 8A81      		ldd r24,Y+2
+ 111 001e 8650      		subi r24,lo8(-(-6))
+ 112 0020 8330      		cpi r24,lo8(3)
+ 113 0022 00F4      		brsh .+2
+ 114 0024 00C0      		rjmp .L7
+GAS LISTING /tmp/ccSjCngo.s 			page 3
+
+
+ 115 0026 1E86      		std Y+14,__zero_reg__
+ 116 0028 ED8D      		ldd r30,Y+29
+ 117 002a FE8D      		ldd r31,Y+30
+ 118 002c 3097      		sbiw r30,0
+ 119 002e 01F0      		breq .L8
+ 120 0030 8081      		ld r24,Z
+ 121 0032 8111      		cpse r24,__zero_reg__
+ 122 0034 00C0      		rjmp .L9
+ 123               	.L8:
+ 124 0036 EF8D      		ldd r30,Y+31
+ 125 0038 F8A1      		ldd r31,Y+32
+ 126 003a 3097      		sbiw r30,0
+ 127 003c 01F0      		breq .L10
+ 128 003e 8081      		ld r24,Z
+ 129 0040 8823      		tst r24
+ 130 0042 01F0      		breq .L10
+ 131               	.L9:
+ 132 0044 83E2      		ldi r24,lo8(35)
+ 133 0046 90EC      		ldi r25,lo8(-64)
+ 134 0048 988B      		std Y+16,r25
+ 135 004a 8F87      		std Y+15,r24
+ 136 004c 00C0      		rjmp .L11
+ 137               	.L10:
+ 138 004e 188A      		std Y+16,__zero_reg__
+ 139 0050 1F86      		std Y+15,__zero_reg__
+ 140               	.L11:
+ 141 0052 8091 0000 		lds r24,new_magic
+ 142 0056 9091 0000 		lds r25,new_magic+1
+ 143 005a A091 0000 		lds r26,new_magic+2
+ 144 005e B091 0000 		lds r27,new_magic+3
+ 145 0062 898B      		std Y+17,r24
+ 146 0064 9A8B      		std Y+18,r25
+ 147 0066 AB8B      		std Y+19,r26
+ 148 0068 BC8B      		std Y+20,r27
+ 149 006a 1D8A      		std Y+21,__zero_reg__
+ 150 006c 1E8A      		std Y+22,__zero_reg__
+ 151 006e 1F8A      		std Y+23,__zero_reg__
+ 152 0070 188E      		std Y+24,__zero_reg__
+ 153 0072 198E      		std Y+25,__zero_reg__
+ 154 0074 1A8E      		std Y+26,__zero_reg__
+ 155 0076 1B8E      		std Y+27,__zero_reg__
+ 156 0078 1C8E      		std Y+28,__zero_reg__
+ 157 007a 8FEF      		ldi r24,lo8(-1)
+ 158 007c 9FEF      		ldi r25,lo8(-1)
+ 159 007e DC01      		movw r26,r24
+ 160 0080 8A87      		std Y+10,r24
+ 161 0082 9B87      		std Y+11,r25
+ 162 0084 AC87      		std Y+12,r26
+ 163 0086 BD87      		std Y+13,r27
+ 164 0088 8CED      		ldi r24,lo8(-36)
+ 165 008a 95E0      		ldi r25,lo8(5)
+ 166 008c 9F83      		std Y+7,r25
+ 167 008e 8E83      		std Y+6,r24
+ 168 0090 AE01      		movw r20,r28
+ 169 0092 465F      		subi r20,-10
+ 170 0094 5F4F      		sbci r21,-1
+ 171 0096 6EE2      		ldi r22,lo8(46)
+GAS LISTING /tmp/ccSjCngo.s 			page 4
+
+
+ 172 0098 71E0      		ldi r23,lo8(1)
+ 173 009a FE01      		movw r30,r28
+ 174 009c FF96      		adiw r30,63
+ 175 009e 8081      		ld r24,Z
+ 176 00a0 9181      		ldd r25,Z+1
+ 177 00a2 0E94 0000 		call _ioctl
+ 178 00a6 1AAE      		std Y+58,__zero_reg__
+ 179               	.L7:
+ 180 00a8 1D82      		std Y+5,__zero_reg__
+ 181 00aa 19AE      		std Y+57,__zero_reg__
+ 182 00ac F110      		cpse r15,__zero_reg__
+ 183 00ae 00C0      		rjmp .L15
+ 184 00b0 4CE0      		ldi r20,lo8(12)
+ 185 00b2 50E0      		ldi r21,0
+ 186 00b4 00C0      		rjmp .L12
+ 187               	.L15:
+ 188 00b6 46E0      		ldi r20,lo8(6)
+ 189 00b8 50E0      		ldi r21,0
+ 190               	.L12:
+ 191 00ba 60E8      		ldi r22,lo8(-128)
+ 192 00bc 80E0      		ldi r24,0
+ 193 00be 90E0      		ldi r25,0
+ 194 00c0 0E94 0000 		call NutNetBufAlloc
+ 195 00c4 0097      		sbiw r24,0
+ 196 00c6 01F0      		breq .L6
+ 197 00c8 DC01      		movw r26,r24
+ 198 00ca 1F96      		adiw r26,15
+ 199 00cc ED91      		ld r30,X+
+ 200 00ce FC91      		ld r31,X
+ 201 00d0 5097      		sbiw r26,15+1
+ 202 00d2 22E0      		ldi r18,lo8(2)
+ 203 00d4 2083      		st Z,r18
+ 204 00d6 26E0      		ldi r18,lo8(6)
+ 205 00d8 2183      		std Z+1,r18
+ 206 00da 40E0      		ldi r20,0
+ 207 00dc 50E0      		ldi r21,0
+ 208 00de 6AE0      		ldi r22,lo8(10)
+ 209 00e0 70E0      		ldi r23,0
+ 210               	/* #APP */
+ 211               	 ;  319 "../../nut/include/sys/types.h" 1
+ 212 00e2 042E      		mov __tmp_reg__, r20
+ 213 00e4 472F      		mov r20, r23
+ 214 00e6 702D      		mov r23, __tmp_reg__
+ 215 00e8 052E      		mov __tmp_reg__, r21
+ 216 00ea 562F      		mov r21, r22
+ 217 00ec 602D      		mov r22, __tmp_reg__
+ 218               		
+ 219               	 ;  0 "" 2
+ 220               	/* #NOAPP */
+ 221 00ee 4283      		std Z+2,r20
+ 222 00f0 5383      		std Z+3,r21
+ 223 00f2 6483      		std Z+4,r22
+ 224 00f4 7583      		std Z+5,r23
+ 225 00f6 F110      		cpse r15,__zero_reg__
+ 226 00f8 00C0      		rjmp .L14
+ 227 00fa 35E0      		ldi r19,lo8(5)
+ 228 00fc 3683      		std Z+6,r19
+GAS LISTING /tmp/ccSjCngo.s 			page 5
+
+
+ 229 00fe 2783      		std Z+7,r18
+ 230 0100 4989      		ldd r20,Y+17
+ 231 0102 5A89      		ldd r21,Y+18
+ 232 0104 6B89      		ldd r22,Y+19
+ 233 0106 7C89      		ldd r23,Y+20
+ 234 0108 4087      		std Z+8,r20
+ 235 010a 5187      		std Z+9,r21
+ 236 010c 6287      		std Z+10,r22
+ 237 010e 7387      		std Z+11,r23
+ 238               	.L14:
+ 239 0110 9C01      		movw r18,r24
+ 240 0112 4E2D      		mov r20,r14
+ 241 0114 61E0      		ldi r22,lo8(1)
+ 242 0116 C801      		movw r24,r16
+ 243               	/* epilogue start */
+ 244 0118 DF91      		pop r29
+ 245 011a CF91      		pop r28
+ 246 011c 1F91      		pop r17
+ 247 011e 0F91      		pop r16
+ 248 0120 FF90      		pop r15
+ 249 0122 EF90      		pop r14
+ 250 0124 0C94 0000 		jmp NutLcpOutput
+ 251               	.L6:
+ 252               	/* epilogue start */
+ 253 0128 DF91      		pop r29
+ 254 012a CF91      		pop r28
+ 255 012c 1F91      		pop r17
+ 256 012e 0F91      		pop r16
+ 257 0130 FF90      		pop r15
+ 258 0132 EF90      		pop r14
+ 259 0134 0895      		ret
+ 260               		.size	LcpTxConfReq, .-LcpTxConfReq
+ 261               		.section	.text.LcpTxProtRej,"ax",@progbits
+ 262               	.global	LcpTxProtRej
+ 263               		.type	LcpTxProtRej, @function
+ 264               	LcpTxProtRej:
+ 265 0000 AF92      		push r10
+ 266 0002 BF92      		push r11
+ 267 0004 CF92      		push r12
+ 268 0006 DF92      		push r13
+ 269 0008 EF92      		push r14
+ 270 000a FF92      		push r15
+ 271 000c 0F93      		push r16
+ 272 000e 1F93      		push r17
+ 273 0010 CF93      		push r28
+ 274 0012 DF93      		push r29
+ 275               	/* prologue: function */
+ 276               	/* frame size = 0 */
+ 277               	/* stack size = 10 */
+ 278               	.L__stack_usage = 10
+ 279 0014 7C01      		movw r14,r24
+ 280 0016 8B01      		movw r16,r22
+ 281 0018 EA01      		movw r28,r20
+ 282 001a FC01      		movw r30,r24
+ 283 001c C188      		ldd r12,Z+17
+ 284 001e D288      		ldd r13,Z+18
+ 285 0020 4985      		ldd r20,Y+9
+GAS LISTING /tmp/ccSjCngo.s 			page 6
+
+
+ 286 0022 5A85      		ldd r21,Y+10
+ 287 0024 60E8      		ldi r22,lo8(-128)
+ 288 0026 80E0      		ldi r24,0
+ 289 0028 90E0      		ldi r25,0
+ 290 002a 0E94 0000 		call NutNetBufAlloc
+ 291 002e 5C01      		movw r10,r24
+ 292 0030 0097      		sbiw r24,0
+ 293 0032 01F0      		breq .L26
+ 294 0034 FC01      		movw r30,r24
+ 295 0036 3785      		ldd r19,Z+15
+ 296 0038 2089      		ldd r18,Z+16
+ 297 003a B801      		movw r22,r16
+ 298               	/* #APP */
+ 299               	 ;  309 "../../nut/include/sys/types.h" 1
+ 300 003c 062E      		mov __tmp_reg__, r22
+ 301 003e 672F      		mov r22, r23
+ 302 0040 702D      		mov r23, __tmp_reg__
+ 303               		
+ 304               	 ;  0 "" 2
+ 305               	/* #NOAPP */
+ 306 0042 832F      		mov r24,r19
+ 307 0044 922F      		mov r25,r18
+ 308 0046 FC01      		movw r30,r24
+ 309 0048 6193      		st Z+,r22
+ 310 004a 7193      		st Z+,r23
+ 311 004c CF01      		movw r24,r30
+ 312 004e 4985      		ldd r20,Y+9
+ 313 0050 5A85      		ldd r21,Y+10
+ 314 0052 4250      		subi r20,2
+ 315 0054 5109      		sbc r21,__zero_reg__
+ 316 0056 6F81      		ldd r22,Y+7
+ 317 0058 7885      		ldd r23,Y+8
+ 318 005a 0E94 0000 		call memcpy
+ 319 005e CE01      		movw r24,r28
+ 320 0060 0E94 0000 		call NutNetBufFree
+ 321 0064 F601      		movw r30,r12
+ 322 0066 4481      		ldd r20,Z+4
+ 323 0068 4F5F      		subi r20,lo8(-(1))
+ 324 006a 4483      		std Z+4,r20
+ 325 006c 9501      		movw r18,r10
+ 326 006e 68E0      		ldi r22,lo8(8)
+ 327 0070 C701      		movw r24,r14
+ 328               	/* epilogue start */
+ 329 0072 DF91      		pop r29
+ 330 0074 CF91      		pop r28
+ 331 0076 1F91      		pop r17
+ 332 0078 0F91      		pop r16
+ 333 007a FF90      		pop r15
+ 334 007c EF90      		pop r14
+ 335 007e DF90      		pop r13
+ 336 0080 CF90      		pop r12
+ 337 0082 BF90      		pop r11
+ 338 0084 AF90      		pop r10
+ 339 0086 0C94 0000 		jmp NutLcpOutput
+ 340               	.L26:
+ 341 008a CE01      		movw r24,r28
+ 342               	/* epilogue start */
+GAS LISTING /tmp/ccSjCngo.s 			page 7
+
+
+ 343 008c DF91      		pop r29
+ 344 008e CF91      		pop r28
+ 345 0090 1F91      		pop r17
+ 346 0092 0F91      		pop r16
+ 347 0094 FF90      		pop r15
+ 348 0096 EF90      		pop r14
+ 349 0098 DF90      		pop r13
+ 350 009a CF90      		pop r12
+ 351 009c BF90      		pop r11
+ 352 009e AF90      		pop r10
+ 353 00a0 0C94 0000 		jmp NutNetBufFree
+ 354               		.size	LcpTxProtRej, .-LcpTxProtRej
+ 355               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccSjCngo.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 lcpout.c
+     /tmp/ccSjCngo.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccSjCngo.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccSjCngo.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccSjCngo.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccSjCngo.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccSjCngo.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccSjCngo.s:11     .text.NutLcpOutput:0000000000000000 NutLcpOutput
+     /tmp/ccSjCngo.s:91     .text.LcpTxConfReq:0000000000000000 LcpTxConfReq
+     /tmp/ccSjCngo.s:264    .text.LcpTxProtRej:0000000000000000 LcpTxProtRej
+
+UNDEFINED SYMBOLS
+NutNetBufAlloc
+NutPppOutput
+NutNetBufFree
+new_magic
+_ioctl
+memcpy

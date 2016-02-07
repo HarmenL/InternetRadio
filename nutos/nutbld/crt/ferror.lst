@@ -1,0 +1,39 @@
+GAS LISTING /tmp/cc7MG9cD.s 			page 1
+
+
+   1               		.file	"ferror.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.ferror,"ax",@progbits
+   9               	.global	ferror
+  10               		.type	ferror, @function
+  11               	ferror:
+  12               	/* prologue: function */
+  13               	/* frame size = 0 */
+  14               	/* stack size = 0 */
+  15               	.L__stack_usage = 0
+  16 0000 FC01      		movw r30,r24
+  17 0002 8481      		ldd r24,Z+4
+  18 0004 8071      		andi r24,lo8(16)
+  19 0006 90E0      		ldi r25,0
+  20 0008 0895      		ret
+  21               		.size	ferror, .-ferror
+  22               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/cc7MG9cD.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 ferror.c
+     /tmp/cc7MG9cD.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cc7MG9cD.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cc7MG9cD.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cc7MG9cD.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cc7MG9cD.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cc7MG9cD.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cc7MG9cD.s:11     .text.ferror:0000000000000000 ferror
+
+NO UNDEFINED SYMBOLS

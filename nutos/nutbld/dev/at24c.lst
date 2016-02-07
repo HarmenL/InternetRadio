@@ -1,0 +1,441 @@
+GAS LISTING /tmp/ccTIJMRp.s 			page 1
+
+
+   1               		.file	"at24c.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.At24cRead,"ax",@progbits
+   9               	.global	At24cRead
+  10               		.type	At24cRead, @function
+  11               	At24cRead:
+  12 0000 2F92      		push r2
+  13 0002 3F92      		push r3
+  14 0004 4F92      		push r4
+  15 0006 5F92      		push r5
+  16 0008 6F92      		push r6
+  17 000a 7F92      		push r7
+  18 000c 8F92      		push r8
+  19 000e 9F92      		push r9
+  20 0010 AF92      		push r10
+  21 0012 BF92      		push r11
+  22 0014 CF92      		push r12
+  23 0016 DF92      		push r13
+  24 0018 EF92      		push r14
+  25 001a FF92      		push r15
+  26 001c 0F93      		push r16
+  27 001e 1F93      		push r17
+  28 0020 CF93      		push r28
+  29 0022 DF93      		push r29
+  30 0024 CDB7      		in r28,__SP_L__
+  31 0026 DEB7      		in r29,__SP_H__
+  32 0028 2A97      		sbiw r28,10
+  33 002a 0FB6      		in __tmp_reg__,__SREG__
+  34 002c F894      		cli
+  35 002e DEBF      		out __SP_H__,r29
+  36 0030 0FBE      		out __SREG__,__tmp_reg__
+  37 0032 CDBF      		out __SP_L__,r28
+  38               	/* prologue: function */
+  39               	/* frame size = 10 */
+  40               	/* stack size = 28 */
+  41               	.L__stack_usage = 28
+  42 0034 9A87      		std Y+10,r25
+  43 0036 8987      		std Y+9,r24
+  44 0038 7887      		std Y+8,r23
+  45 003a 6F83      		std Y+7,r22
+  46 003c 1A01      		movw r2,r20
+  47 003e 2901      		movw r4,r18
+  48 0040 0896      		adiw r24,8
+  49 0042 9A83      		std Y+2,r25
+  50 0044 8983      		std Y+1,r24
+  51 0046 A985      		ldd r26,Y+9
+  52 0048 BA85      		ldd r27,Y+10
+  53 004a 1296      		adiw r26,2
+  54 004c 6C91      		ld r22,X
+  55 004e 70E0      		ldi r23,0
+  56 0050 CA01      		movw r24,r20
+  57 0052 0E94 0000 		call __udivmodhi4
+GAS LISTING /tmp/ccTIJMRp.s 			page 2
+
+
+  58 0056 E985      		ldd r30,Y+9
+  59 0058 FA85      		ldd r31,Y+10
+  60 005a 8781      		ldd r24,Z+7
+  61 005c 869F      		mul r24,r22
+  62 005e A001      		movw r20,r0
+  63 0060 879F      		mul r24,r23
+  64 0062 500D      		add r21,r0
+  65 0064 1124      		clr __zero_reg__
+  66 0066 60E0      		ldi r22,0
+  67 0068 70E0      		ldi r23,0
+  68 006a 8981      		ldd r24,Y+1
+  69 006c 9A81      		ldd r25,Y+2
+  70 006e 0E94 0000 		call NutEventWait
+  71 0072 0097      		sbiw r24,0
+  72 0074 01F0      		breq .+2
+  73 0076 00C0      		rjmp .L2
+  74 0078 A985      		ldd r26,Y+9
+  75 007a BA85      		ldd r27,Y+10
+  76 007c 1796      		adiw r26,7
+  77 007e 1C91      		ld r17,X
+  78 0080 1797      		sbiw r26,7
+  79 0082 129D      		mul r17,r2
+  80 0084 C001      		movw r24,r0
+  81 0086 139D      		mul r17,r3
+  82 0088 900D      		add r25,r0
+  83 008a 1124      		clr __zero_reg__
+  84 008c 1296      		adiw r26,2
+  85 008e 6C91      		ld r22,X
+  86 0090 70E0      		ldi r23,0
+  87 0092 0E94 0000 		call __udivmodhi4
+  88 0096 CB01      		movw r24,r22
+  89 0098 A0E0      		ldi r26,0
+  90 009a B0E0      		ldi r27,0
+  91 009c 8B83      		std Y+3,r24
+  92 009e 9C83      		std Y+4,r25
+  93 00a0 AD83      		std Y+5,r26
+  94 00a2 BE83      		std Y+6,r27
+  95 00a4 612C      		mov r6,__zero_reg__
+  96 00a6 712C      		mov r7,__zero_reg__
+  97               	.L4:
+  98 00a8 8B80      		ldd r8,Y+3
+  99 00aa 9C80      		ldd r9,Y+4
+ 100 00ac AD80      		ldd r10,Y+5
+ 101 00ae BE80      		ldd r11,Y+6
+ 102 00b0 6101      		movw r12,r2
+ 103 00b2 EF80      		ldd r14,Y+7
+ 104 00b4 F884      		ldd r15,Y+8
+ 105 00b6 A985      		ldd r26,Y+9
+ 106 00b8 BA85      		ldd r27,Y+10
+ 107 00ba 1196      		adiw r26,1
+ 108 00bc 0C91      		ld r16,X
+ 109 00be 1197      		sbiw r26,1
+ 110 00c0 A301      		movw r20,r6
+ 111 00c2 9201      		movw r18,r4
+ 112 00c4 6C91      		ld r22,X
+ 113 00c6 80E0      		ldi r24,lo8(AVRTwiBus)
+ 114 00c8 90E0      		ldi r25,hi8(AVRTwiBus)
+GAS LISTING /tmp/ccTIJMRp.s 			page 3
+
+
+ 115 00ca 0E94 0000 		call NutTwiMasterRegRead
+ 116 00ce 1816      		cp __zero_reg__,r24
+ 117 00d0 1906      		cpc __zero_reg__,r25
+ 118 00d2 04F0      		brlt .L7
+ 119 00d4 1150      		subi r17,lo8(-(-1))
+ 120 00d6 61E0      		ldi r22,lo8(1)
+ 121 00d8 70E0      		ldi r23,0
+ 122 00da 80E0      		ldi r24,0
+ 123 00dc 90E0      		ldi r25,0
+ 124 00de 0E94 0000 		call NutSleep
+ 125 00e2 1111      		cpse r17,__zero_reg__
+ 126 00e4 00C0      		rjmp .L4
+ 127 00e6 0FEF      		ldi r16,lo8(-1)
+ 128 00e8 1FEF      		ldi r17,lo8(-1)
+ 129 00ea 00C0      		rjmp .L3
+ 130               	.L7:
+ 131 00ec 8C01      		movw r16,r24
+ 132               	.L3:
+ 133 00ee 8981      		ldd r24,Y+1
+ 134 00f0 9A81      		ldd r25,Y+2
+ 135 00f2 0E94 0000 		call NutEventPost
+ 136 00f6 81E0      		ldi r24,lo8(1)
+ 137 00f8 90E0      		ldi r25,0
+ 138 00fa 0F3F      		cpi r16,-1
+ 139 00fc 1F4F      		sbci r17,-1
+ 140 00fe 01F0      		breq .L5
+ 141 0100 80E0      		ldi r24,0
+ 142 0102 90E0      		ldi r25,0
+ 143               	.L5:
+ 144 0104 9195      		neg r25
+ 145 0106 8195      		neg r24
+ 146 0108 9109      		sbc r25,__zero_reg__
+ 147               	.L2:
+ 148               	/* epilogue start */
+ 149 010a 2A96      		adiw r28,10
+ 150 010c 0FB6      		in __tmp_reg__,__SREG__
+ 151 010e F894      		cli
+ 152 0110 DEBF      		out __SP_H__,r29
+ 153 0112 0FBE      		out __SREG__,__tmp_reg__
+ 154 0114 CDBF      		out __SP_L__,r28
+ 155 0116 DF91      		pop r29
+ 156 0118 CF91      		pop r28
+ 157 011a 1F91      		pop r17
+ 158 011c 0F91      		pop r16
+ 159 011e FF90      		pop r15
+ 160 0120 EF90      		pop r14
+ 161 0122 DF90      		pop r13
+ 162 0124 CF90      		pop r12
+ 163 0126 BF90      		pop r11
+ 164 0128 AF90      		pop r10
+ 165 012a 9F90      		pop r9
+ 166 012c 8F90      		pop r8
+ 167 012e 7F90      		pop r7
+ 168 0130 6F90      		pop r6
+ 169 0132 5F90      		pop r5
+ 170 0134 4F90      		pop r4
+ 171 0136 3F90      		pop r3
+GAS LISTING /tmp/ccTIJMRp.s 			page 4
+
+
+ 172 0138 2F90      		pop r2
+ 173 013a 0895      		ret
+ 174               		.size	At24cRead, .-At24cRead
+ 175               		.section	.text.At24cWrite,"ax",@progbits
+ 176               	.global	At24cWrite
+ 177               		.type	At24cWrite, @function
+ 178               	At24cWrite:
+ 179 0000 2F92      		push r2
+ 180 0002 3F92      		push r3
+ 181 0004 4F92      		push r4
+ 182 0006 5F92      		push r5
+ 183 0008 6F92      		push r6
+ 184 000a 7F92      		push r7
+ 185 000c 8F92      		push r8
+ 186 000e 9F92      		push r9
+ 187 0010 AF92      		push r10
+ 188 0012 BF92      		push r11
+ 189 0014 CF92      		push r12
+ 190 0016 DF92      		push r13
+ 191 0018 EF92      		push r14
+ 192 001a FF92      		push r15
+ 193 001c 0F93      		push r16
+ 194 001e 1F93      		push r17
+ 195 0020 CF93      		push r28
+ 196 0022 DF93      		push r29
+ 197 0024 CDB7      		in r28,__SP_L__
+ 198 0026 DEB7      		in r29,__SP_H__
+ 199 0028 2E97      		sbiw r28,14
+ 200 002a 0FB6      		in __tmp_reg__,__SREG__
+ 201 002c F894      		cli
+ 202 002e DEBF      		out __SP_H__,r29
+ 203 0030 0FBE      		out __SREG__,__tmp_reg__
+ 204 0032 CDBF      		out __SP_L__,r28
+ 205               	/* prologue: function */
+ 206               	/* frame size = 14 */
+ 207               	/* stack size = 32 */
+ 208               	.L__stack_usage = 32
+ 209 0034 9E87      		std Y+14,r25
+ 210 0036 8D87      		std Y+13,r24
+ 211 0038 7E83      		std Y+6,r23
+ 212 003a 6D83      		std Y+5,r22
+ 213 003c 1A01      		movw r2,r20
+ 214 003e 3C83      		std Y+4,r19
+ 215 0040 2B83      		std Y+3,r18
+ 216 0042 0896      		adiw r24,8
+ 217 0044 9887      		std Y+8,r25
+ 218 0046 8F83      		std Y+7,r24
+ 219 0048 AD85      		ldd r26,Y+13
+ 220 004a BE85      		ldd r27,Y+14
+ 221 004c 1296      		adiw r26,2
+ 222 004e 6C91      		ld r22,X
+ 223 0050 70E0      		ldi r23,0
+ 224 0052 CA01      		movw r24,r20
+ 225 0054 0E94 0000 		call __udivmodhi4
+ 226 0058 ED85      		ldd r30,Y+13
+ 227 005a FE85      		ldd r31,Y+14
+ 228 005c 8781      		ldd r24,Z+7
+GAS LISTING /tmp/ccTIJMRp.s 			page 5
+
+
+ 229 005e 869F      		mul r24,r22
+ 230 0060 A001      		movw r20,r0
+ 231 0062 879F      		mul r24,r23
+ 232 0064 500D      		add r21,r0
+ 233 0066 1124      		clr __zero_reg__
+ 234 0068 60E0      		ldi r22,0
+ 235 006a 70E0      		ldi r23,0
+ 236 006c 8F81      		ldd r24,Y+7
+ 237 006e 9885      		ldd r25,Y+8
+ 238 0070 0E94 0000 		call NutEventWait
+ 239 0074 7C01      		movw r14,r24
+ 240 0076 892B      		or r24,r25
+ 241 0078 01F0      		breq .+2
+ 242 007a 00C0      		rjmp .L22
+ 243 007c 412C      		mov r4,__zero_reg__
+ 244 007e 512C      		mov r5,__zero_reg__
+ 245 0080 3201      		movw r6,r4
+ 246               	.L15:
+ 247 0082 2114      		cp r2,__zero_reg__
+ 248 0084 3104      		cpc r3,__zero_reg__
+ 249 0086 01F4      		brne .+2
+ 250 0088 00C0      		rjmp .L26
+ 251 008a AD85      		ldd r26,Y+13
+ 252 008c BE85      		ldd r27,Y+14
+ 253 008e 1296      		adiw r26,2
+ 254 0090 2C91      		ld r18,X
+ 255 0092 30E0      		ldi r19,0
+ 256 0094 8B81      		ldd r24,Y+3
+ 257 0096 9C81      		ldd r25,Y+4
+ 258 0098 B901      		movw r22,r18
+ 259 009a 0E94 0000 		call __udivmodhi4
+ 260 009e F901      		movw r30,r18
+ 261 00a0 E81B      		sub r30,r24
+ 262 00a2 F90B      		sbc r31,r25
+ 263 00a4 CF01      		movw r24,r30
+ 264 00a6 A101      		movw r20,r2
+ 265 00a8 60E0      		ldi r22,0
+ 266 00aa 70E0      		ldi r23,0
+ 267 00ac A0E0      		ldi r26,0
+ 268 00ae B0E0      		ldi r27,0
+ 269 00b0 4817      		cp r20,r24
+ 270 00b2 5907      		cpc r21,r25
+ 271 00b4 6A07      		cpc r22,r26
+ 272 00b6 7B07      		cpc r23,r27
+ 273 00b8 00F4      		brsh .L16
+ 274 00ba DB01      		movw r26,r22
+ 275 00bc CA01      		movw r24,r20
+ 276               	.L16:
+ 277 00be 9A83      		std Y+2,r25
+ 278 00c0 8983      		std Y+1,r24
+ 279 00c2 AD85      		ldd r26,Y+13
+ 280 00c4 BE85      		ldd r27,Y+14
+ 281 00c6 1796      		adiw r26,7
+ 282 00c8 1C91      		ld r17,X
+ 283 00ca 4B81      		ldd r20,Y+3
+ 284 00cc 5C81      		ldd r21,Y+4
+ 285 00ce 9A01      		movw r18,r20
+GAS LISTING /tmp/ccTIJMRp.s 			page 6
+
+
+ 286 00d0 40E0      		ldi r20,0
+ 287 00d2 50E0      		ldi r21,0
+ 288 00d4 2987      		std Y+9,r18
+ 289 00d6 3A87      		std Y+10,r19
+ 290 00d8 4B87      		std Y+11,r20
+ 291 00da 5C87      		std Y+12,r21
+ 292               	.L18:
+ 293 00dc AD85      		ldd r26,Y+13
+ 294 00de BE85      		ldd r27,Y+14
+ 295 00e0 1796      		adiw r26,7
+ 296 00e2 8C90      		ld r8,X
+ 297 00e4 1797      		sbiw r26,7
+ 298 00e6 912C      		mov r9,__zero_reg__
+ 299 00e8 A12C      		mov r10,__zero_reg__
+ 300 00ea B12C      		mov r11,__zero_reg__
+ 301 00ec C980      		ldd r12,Y+1
+ 302 00ee DA80      		ldd r13,Y+2
+ 303 00f0 ED80      		ldd r14,Y+5
+ 304 00f2 FE80      		ldd r15,Y+6
+ 305 00f4 1196      		adiw r26,1
+ 306 00f6 0C91      		ld r16,X
+ 307 00f8 1197      		sbiw r26,1
+ 308 00fa 2985      		ldd r18,Y+9
+ 309 00fc 3A85      		ldd r19,Y+10
+ 310 00fe 4B85      		ldd r20,Y+11
+ 311 0100 5C85      		ldd r21,Y+12
+ 312 0102 6C91      		ld r22,X
+ 313 0104 80E0      		ldi r24,lo8(AVRTwiBus)
+ 314 0106 90E0      		ldi r25,hi8(AVRTwiBus)
+ 315 0108 0E94 0000 		call NutTwiMasterRegWrite
+ 316 010c 7C01      		movw r14,r24
+ 317 010e 1816      		cp __zero_reg__,r24
+ 318 0110 1906      		cpc __zero_reg__,r25
+ 319 0112 04F0      		brlt .L17
+ 320 0114 1150      		subi r17,lo8(-(-1))
+ 321 0116 61E0      		ldi r22,lo8(1)
+ 322 0118 70E0      		ldi r23,0
+ 323 011a 80E0      		ldi r24,0
+ 324 011c 90E0      		ldi r25,0
+ 325 011e 0E94 0000 		call NutSleep
+ 326 0122 1111      		cpse r17,__zero_reg__
+ 327 0124 00C0      		rjmp .L18
+ 328 0126 8EEF      		ldi r24,lo8(-2)
+ 329 0128 E82E      		mov r14,r24
+ 330 012a FF24      		clr r15
+ 331 012c FA94      		dec r15
+ 332 012e 00C0      		rjmp .L19
+ 333               	.L26:
+ 334 0130 E114      		cp r14,__zero_reg__
+ 335 0132 F104      		cpc r15,__zero_reg__
+ 336 0134 01F0      		breq .L19
+ 337 0136 7201      		movw r14,r4
+ 338               	.L19:
+ 339 0138 8F81      		ldd r24,Y+7
+ 340 013a 9885      		ldd r25,Y+8
+ 341 013c 0E94 0000 		call NutEventPost
+ 342 0140 00C0      		rjmp .L22
+GAS LISTING /tmp/ccTIJMRp.s 			page 7
+
+
+ 343               	.L17:
+ 344 0142 092E      		mov __tmp_reg__,r25
+ 345 0144 000C      		lsl r0
+ 346 0146 AA0B      		sbc r26,r26
+ 347 0148 BB0B      		sbc r27,r27
+ 348 014a 480E      		add r4,r24
+ 349 014c 591E      		adc r5,r25
+ 350 014e 6A1E      		adc r6,r26
+ 351 0150 7B1E      		adc r7,r27
+ 352 0152 ED81      		ldd r30,Y+5
+ 353 0154 FE81      		ldd r31,Y+6
+ 354 0156 2981      		ldd r18,Y+1
+ 355 0158 3A81      		ldd r19,Y+2
+ 356 015a E20F      		add r30,r18
+ 357 015c F31F      		adc r31,r19
+ 358 015e FE83      		std Y+6,r31
+ 359 0160 ED83      		std Y+5,r30
+ 360 0162 4B81      		ldd r20,Y+3
+ 361 0164 5C81      		ldd r21,Y+4
+ 362 0166 420F      		add r20,r18
+ 363 0168 531F      		adc r21,r19
+ 364 016a 5C83      		std Y+4,r21
+ 365 016c 4B83      		std Y+3,r20
+ 366 016e 221A      		sub r2,r18
+ 367 0170 330A      		sbc r3,r19
+ 368 0172 00C0      		rjmp .L15
+ 369               	.L22:
+ 370 0174 C701      		movw r24,r14
+ 371               	/* epilogue start */
+ 372 0176 2E96      		adiw r28,14
+ 373 0178 0FB6      		in __tmp_reg__,__SREG__
+ 374 017a F894      		cli
+ 375 017c DEBF      		out __SP_H__,r29
+ 376 017e 0FBE      		out __SREG__,__tmp_reg__
+ 377 0180 CDBF      		out __SP_L__,r28
+ 378 0182 DF91      		pop r29
+ 379 0184 CF91      		pop r28
+ 380 0186 1F91      		pop r17
+ 381 0188 0F91      		pop r16
+ 382 018a FF90      		pop r15
+ 383 018c EF90      		pop r14
+ 384 018e DF90      		pop r13
+ 385 0190 CF90      		pop r12
+ 386 0192 BF90      		pop r11
+ 387 0194 AF90      		pop r10
+ 388 0196 9F90      		pop r9
+ 389 0198 8F90      		pop r8
+ 390 019a 7F90      		pop r7
+ 391 019c 6F90      		pop r6
+ 392 019e 5F90      		pop r5
+ 393 01a0 4F90      		pop r4
+ 394 01a2 3F90      		pop r3
+ 395 01a4 2F90      		pop r2
+ 396 01a6 0895      		ret
+ 397               		.size	At24cWrite, .-At24cWrite
+ 398               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccTIJMRp.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 at24c.c
+     /tmp/ccTIJMRp.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccTIJMRp.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccTIJMRp.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccTIJMRp.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccTIJMRp.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccTIJMRp.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccTIJMRp.s:11     .text.At24cRead:0000000000000000 At24cRead
+     /tmp/ccTIJMRp.s:178    .text.At24cWrite:0000000000000000 At24cWrite
+
+UNDEFINED SYMBOLS
+__udivmodhi4
+NutEventWait
+AVRTwiBus
+NutTwiMasterRegRead
+NutSleep
+NutEventPost
+NutTwiMasterRegWrite

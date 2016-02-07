@@ -1,0 +1,50 @@
+GAS LISTING /tmp/ccRgA6Mt.s 			page 1
+
+
+   1               		.file	"realloc.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.realloc,"ax",@progbits
+   9               	.global	realloc
+  10               		.type	realloc, @function
+  11               	realloc:
+  12               	/* prologue: function */
+  13               	/* frame size = 0 */
+  14               	/* stack size = 0 */
+  15               	.L__stack_usage = 0
+  16 0000 AB01      		movw r20,r22
+  17 0002 BC01      		movw r22,r24
+  18 0004 80E0      		ldi r24,lo8(heapFreeList)
+  19 0006 90E0      		ldi r25,hi8(heapFreeList)
+  20 0008 0E94 0000 		call NutHeapRootRealloc
+  21 000c 0097      		sbiw r24,0
+  22 000e 01F4      		brne .L2
+  23 0010 2CE0      		ldi r18,lo8(12)
+  24 0012 30E0      		ldi r19,0
+  25 0014 3093 0000 		sts errno+1,r19
+  26 0018 2093 0000 		sts errno,r18
+  27               	.L2:
+  28 001c 0895      		ret
+  29               		.size	realloc, .-realloc
+  30               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccRgA6Mt.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 realloc.c
+     /tmp/ccRgA6Mt.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccRgA6Mt.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccRgA6Mt.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccRgA6Mt.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccRgA6Mt.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccRgA6Mt.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccRgA6Mt.s:11     .text.realloc:0000000000000000 realloc
+
+UNDEFINED SYMBOLS
+heapFreeList
+NutHeapRootRealloc
+errno

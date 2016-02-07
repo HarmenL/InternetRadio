@@ -1,0 +1,51 @@
+GAS LISTING /tmp/cc5aG5Yg.s 			page 1
+
+
+   1               		.file	"asprintf.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.asprintf,"ax",@progbits
+   9               	.global	asprintf
+  10               		.type	asprintf, @function
+  11               	asprintf:
+  12 0000 CF93      		push r28
+  13 0002 DF93      		push r29
+  14 0004 CDB7      		in r28,__SP_L__
+  15 0006 DEB7      		in r29,__SP_H__
+  16               	/* prologue: function */
+  17               	/* frame size = 0 */
+  18               	/* stack size = 2 */
+  19               	.L__stack_usage = 2
+  20 0008 AE01      		movw r20,r28
+  21 000a 465F      		subi r20,-10
+  22 000c 5F4F      		sbci r21,-1
+  23 000e 6885      		ldd r22,Y+8
+  24 0010 7985      		ldd r23,Y+9
+  25 0012 8E81      		ldd r24,Y+6
+  26 0014 9F81      		ldd r25,Y+7
+  27 0016 0E94 0000 		call vasprintf
+  28               	/* epilogue start */
+  29 001a DF91      		pop r29
+  30 001c CF91      		pop r28
+  31 001e 0895      		ret
+  32               		.size	asprintf, .-asprintf
+  33               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/cc5aG5Yg.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 asprintf.c
+     /tmp/cc5aG5Yg.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cc5aG5Yg.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cc5aG5Yg.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cc5aG5Yg.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cc5aG5Yg.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cc5aG5Yg.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cc5aG5Yg.s:11     .text.asprintf:0000000000000000 asprintf
+
+UNDEFINED SYMBOLS
+vasprintf

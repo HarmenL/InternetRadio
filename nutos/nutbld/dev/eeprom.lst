@@ -1,0 +1,125 @@
+GAS LISTING /tmp/ccCvZTvw.s 			page 1
+
+
+   1               		.file	"eeprom.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.EEInit,"ax",@progbits
+   9               	.global	EEInit
+  10               		.type	EEInit, @function
+  11               	EEInit:
+  12 0000 CF93      		push r28
+  13 0002 DF93      		push r29
+  14 0004 1F92      		push __zero_reg__
+  15 0006 CDB7      		in r28,__SP_L__
+  16 0008 DEB7      		in r29,__SP_H__
+  17               	/* prologue: function */
+  18               	/* frame size = 1 */
+  19               	/* stack size = 3 */
+  20               	.L__stack_usage = 3
+  21 000a 80E2      		ldi r24,lo8(32)
+  22 000c 8093 0000 		sts at24c32s+2,r24
+  23 0010 80E0      		ldi r24,0
+  24 0012 90E2      		ldi r25,lo8(32)
+  25 0014 A0E0      		ldi r26,0
+  26 0016 B0E0      		ldi r27,0
+  27 0018 8093 0000 		sts at24c32s+3,r24
+  28 001c 9093 0000 		sts at24c32s+3+1,r25
+  29 0020 A093 0000 		sts at24c32s+3+2,r26
+  30 0024 B093 0000 		sts at24c32s+3+3,r27
+  31 0028 80E5      		ldi r24,lo8(80)
+  32 002a 8093 0000 		sts at24c32s,r24
+  33 002e 82E0      		ldi r24,lo8(2)
+  34 0030 8093 0000 		sts at24c32s+1,r24
+  35 0034 84E1      		ldi r24,lo8(20)
+  36 0036 8093 0000 		sts at24c32s+7,r24
+  37 003a 80E0      		ldi r24,lo8(at24c32s+8)
+  38 003c 90E0      		ldi r25,hi8(at24c32s+8)
+  39 003e 0E94 0000 		call NutEventPost
+  40 0042 60E0      		ldi r22,0
+  41 0044 80E0      		ldi r24,lo8(AVRTwiBus)
+  42 0046 90E0      		ldi r25,hi8(AVRTwiBus)
+  43 0048 0E94 0000 		call NutRegisterTwiBus
+  44 004c 892B      		or r24,r25
+  45 004e 01F4      		brne .L3
+  46 0050 20E0      		ldi r18,0
+  47 0052 30E0      		ldi r19,0
+  48 0054 41E0      		ldi r20,lo8(1)
+  49 0056 50E0      		ldi r21,0
+  50 0058 BE01      		movw r22,r28
+  51 005a 6F5F      		subi r22,-1
+  52 005c 7F4F      		sbci r23,-1
+  53 005e 80E0      		ldi r24,lo8(at24c32s)
+  54 0060 90E0      		ldi r25,hi8(at24c32s)
+  55 0062 0E94 0000 		call At24cRead
+  56 0066 00C0      		rjmp .L2
+  57               	.L3:
+GAS LISTING /tmp/ccCvZTvw.s 			page 2
+
+
+  58 0068 8FEF      		ldi r24,lo8(-1)
+  59 006a 9FEF      		ldi r25,lo8(-1)
+  60               	.L2:
+  61               	/* epilogue start */
+  62 006c 0F90      		pop __tmp_reg__
+  63 006e DF91      		pop r29
+  64 0070 CF91      		pop r28
+  65 0072 0895      		ret
+  66               		.size	EEInit, .-EEInit
+  67               		.section	.text.EEWriteData,"ax",@progbits
+  68               	.global	EEWriteData
+  69               		.type	EEWriteData, @function
+  70               	EEWriteData:
+  71               	/* prologue: function */
+  72               	/* frame size = 0 */
+  73               	/* stack size = 0 */
+  74               	.L__stack_usage = 0
+  75 0000 9C01      		movw r18,r24
+  76 0002 80E0      		ldi r24,lo8(at24c32s)
+  77 0004 90E0      		ldi r25,hi8(at24c32s)
+  78 0006 0C94 0000 		jmp At24cWrite
+  79               		.size	EEWriteData, .-EEWriteData
+  80               		.section	.text.EEReadData,"ax",@progbits
+  81               	.global	EEReadData
+  82               		.type	EEReadData, @function
+  83               	EEReadData:
+  84               	/* prologue: function */
+  85               	/* frame size = 0 */
+  86               	/* stack size = 0 */
+  87               	.L__stack_usage = 0
+  88 0000 9C01      		movw r18,r24
+  89 0002 80E0      		ldi r24,lo8(at24c32s)
+  90 0004 90E0      		ldi r25,hi8(at24c32s)
+  91 0006 0C94 0000 		jmp At24cRead
+  92               		.size	EEReadData, .-EEReadData
+  93               		.local	at24c32s
+  94               		.comm	at24c32s,10,1
+  95               		.ident	"GCC: (GNU) 5.3.0"
+  96               	.global __do_clear_bss
+GAS LISTING /tmp/ccCvZTvw.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 eeprom.c
+     /tmp/ccCvZTvw.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccCvZTvw.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccCvZTvw.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccCvZTvw.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccCvZTvw.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccCvZTvw.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccCvZTvw.s:11     .text.EEInit:0000000000000000 EEInit
+                             .bss:0000000000000000 at24c32s
+     /tmp/ccCvZTvw.s:70     .text.EEWriteData:0000000000000000 EEWriteData
+     /tmp/ccCvZTvw.s:83     .text.EEReadData:0000000000000000 EEReadData
+
+UNDEFINED SYMBOLS
+NutEventPost
+AVRTwiBus
+NutRegisterTwiBus
+At24cRead
+At24cWrite
+__do_clear_bss

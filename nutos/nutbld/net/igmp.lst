@@ -1,0 +1,138 @@
+GAS LISTING /tmp/ccVn0gTl.s 			page 1
+
+
+   1               		.file	"igmp.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.SendIgmpMessage.isra.0,"ax",@progbits
+   9               		.type	SendIgmpMessage.isra.0, @function
+  10               	SendIgmpMessage.isra.0:
+  11 0000 BF92      		push r11
+  12 0002 CF92      		push r12
+  13 0004 DF92      		push r13
+  14 0006 EF92      		push r14
+  15 0008 FF92      		push r15
+  16 000a 0F93      		push r16
+  17 000c 1F93      		push r17
+  18 000e CF93      		push r28
+  19 0010 DF93      		push r29
+  20               	/* prologue: function */
+  21               	/* frame size = 0 */
+  22               	/* stack size = 9 */
+  23               	.L__stack_usage = 9
+  24 0012 B82E      		mov r11,r24
+  25 0014 6A01      		movw r12,r20
+  26 0016 7B01      		movw r14,r22
+  27 0018 48E0      		ldi r20,lo8(8)
+  28 001a 50E0      		ldi r21,0
+  29 001c 60E4      		ldi r22,lo8(64)
+  30 001e 80E0      		ldi r24,0
+  31 0020 90E0      		ldi r25,0
+  32 0022 0E94 0000 		call NutNetBufAlloc
+  33 0026 EC01      		movw r28,r24
+  34 0028 892B      		or r24,r25
+  35 002a 01F0      		breq .L1
+  36 002c 0B85      		ldd r16,Y+11
+  37 002e 1C85      		ldd r17,Y+12
+  38 0030 88E0      		ldi r24,lo8(8)
+  39 0032 90E0      		ldi r25,0
+  40 0034 9E87      		std Y+14,r25
+  41 0036 8D87      		std Y+13,r24
+  42 0038 F801      		movw r30,r16
+  43 003a B082      		st Z,r11
+  44 003c 1182      		std Z+1,__zero_reg__
+  45 003e C482      		std Z+4,r12
+  46 0040 D582      		std Z+5,r13
+  47 0042 E682      		std Z+6,r14
+  48 0044 F782      		std Z+7,r15
+  49 0046 1382      		std Z+3,__zero_reg__
+  50 0048 1282      		std Z+2,__zero_reg__
+  51 004a 4D85      		ldd r20,Y+13
+  52 004c 5E85      		ldd r21,Y+14
+  53 004e 6B85      		ldd r22,Y+11
+  54 0050 7C85      		ldd r23,Y+12
+  55 0052 80E0      		ldi r24,0
+  56 0054 90E0      		ldi r25,0
+  57 0056 0E94 0000 		call NutIpChkSum
+GAS LISTING /tmp/ccVn0gTl.s 			page 2
+
+
+  58 005a F801      		movw r30,r16
+  59 005c 9383      		std Z+3,r25
+  60 005e 8283      		std Z+2,r24
+  61 0060 9E01      		movw r18,r28
+  62 0062 40EE      		ldi r20,lo8(-32)
+  63 0064 50E0      		ldi r21,0
+  64 0066 60E0      		ldi r22,0
+  65 0068 76E1      		ldi r23,lo8(22)
+  66 006a 82E0      		ldi r24,lo8(2)
+  67               	/* epilogue start */
+  68 006c DF91      		pop r29
+  69 006e CF91      		pop r28
+  70 0070 1F91      		pop r17
+  71 0072 0F91      		pop r16
+  72 0074 FF90      		pop r15
+  73 0076 EF90      		pop r14
+  74 0078 DF90      		pop r13
+  75 007a CF90      		pop r12
+  76 007c BF90      		pop r11
+  77 007e 0C94 0000 		jmp NutIpOutput
+  78               	.L1:
+  79               	/* epilogue start */
+  80 0082 DF91      		pop r29
+  81 0084 CF91      		pop r28
+  82 0086 1F91      		pop r17
+  83 0088 0F91      		pop r16
+  84 008a FF90      		pop r15
+  85 008c EF90      		pop r14
+  86 008e DF90      		pop r13
+  87 0090 CF90      		pop r12
+  88 0092 BF90      		pop r11
+  89 0094 0895      		ret
+  90               		.size	SendIgmpMessage.isra.0, .-SendIgmpMessage.isra.0
+  91               		.section	.text.NutIgmpJoinGroup,"ax",@progbits
+  92               	.global	NutIgmpJoinGroup
+  93               		.type	NutIgmpJoinGroup, @function
+  94               	NutIgmpJoinGroup:
+  95               	/* prologue: function */
+  96               	/* frame size = 0 */
+  97               	/* stack size = 0 */
+  98               	.L__stack_usage = 0
+  99 0000 86E1      		ldi r24,lo8(22)
+ 100 0002 0C94 0000 		jmp SendIgmpMessage.isra.0
+ 101               		.size	NutIgmpJoinGroup, .-NutIgmpJoinGroup
+ 102               		.section	.text.NutIgmpLeaveGroup,"ax",@progbits
+ 103               	.global	NutIgmpLeaveGroup
+ 104               		.type	NutIgmpLeaveGroup, @function
+ 105               	NutIgmpLeaveGroup:
+ 106               	/* prologue: function */
+ 107               	/* frame size = 0 */
+ 108               	/* stack size = 0 */
+ 109               	.L__stack_usage = 0
+ 110 0000 87E1      		ldi r24,lo8(23)
+ 111 0002 0C94 0000 		jmp SendIgmpMessage.isra.0
+ 112               		.size	NutIgmpLeaveGroup, .-NutIgmpLeaveGroup
+ 113               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccVn0gTl.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 igmp.c
+     /tmp/ccVn0gTl.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccVn0gTl.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccVn0gTl.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccVn0gTl.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccVn0gTl.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccVn0gTl.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccVn0gTl.s:10     .text.SendIgmpMessage.isra.0:0000000000000000 SendIgmpMessage.isra.0
+     /tmp/ccVn0gTl.s:94     .text.NutIgmpJoinGroup:0000000000000000 NutIgmpJoinGroup
+     /tmp/ccVn0gTl.s:105    .text.NutIgmpLeaveGroup:0000000000000000 NutIgmpLeaveGroup
+
+UNDEFINED SYMBOLS
+NutNetBufAlloc
+NutIpChkSum
+NutIpOutput

@@ -1,0 +1,458 @@
+GAS LISTING /tmp/ccbVdVj8.s 			page 1
+
+
+   1               		.file	"pathops.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.PathOperation,"ax",@progbits
+   9               		.type	PathOperation, @function
+  10               	PathOperation:
+  11 0000 0F93      		push r16
+  12 0002 1F93      		push r17
+  13 0004 CF93      		push r28
+  14 0006 DF93      		push r29
+  15 0008 CDB7      		in r28,__SP_L__
+  16 000a DEB7      		in r29,__SP_H__
+  17 000c 2B97      		sbiw r28,11
+  18 000e 0FB6      		in __tmp_reg__,__SREG__
+  19 0010 F894      		cli
+  20 0012 DEBF      		out __SP_H__,r29
+  21 0014 0FBE      		out __SREG__,__tmp_reg__
+  22 0016 CDBF      		out __SP_L__,r28
+  23               	/* prologue: function */
+  24               	/* frame size = 11 */
+  25               	/* stack size = 15 */
+  26               	.L__stack_usage = 15
+  27 0018 FC01      		movw r30,r24
+  28 001a DE01      		movw r26,r28
+  29 001c 1196      		adiw r26,1
+  30 001e 90E0      		ldi r25,0
+  31 0020 AD01      		movw r20,r26
+  32               	.L2:
+  33 0022 8F01      		movw r16,r30
+  34 0024 2191      		ld r18,Z+
+  35 0026 2223      		tst r18
+  36 0028 01F0      		breq .L3
+  37 002a 2A33      		cpi r18,lo8(58)
+  38 002c 01F0      		breq .L3
+  39 002e 9830      		cpi r25,lo8(8)
+  40 0030 01F0      		breq .L3
+  41 0032 2D93      		st X+,r18
+  42 0034 9F5F      		subi r25,lo8(-(1))
+  43 0036 00C0      		rjmp .L2
+  44               	.L3:
+  45 0038 FA01      		movw r30,r20
+  46 003a E90F      		add r30,r25
+  47 003c F11D      		adc r31,__zero_reg__
+  48 003e 1082      		st Z,__zero_reg__
+  49 0040 0F5F      		subi r16,-1
+  50 0042 1F4F      		sbci r17,-1
+  51 0044 CA01      		movw r24,r20
+  52 0046 6A87      		std Y+10,r22
+  53 0048 7B87      		std Y+11,r23
+  54 004a 0E94 0000 		call NutDeviceLookup
+  55 004e 6A85      		ldd r22,Y+10
+  56 0050 7B85      		ldd r23,Y+11
+  57 0052 0097      		sbiw r24,0
+GAS LISTING /tmp/ccbVdVj8.s 			page 2
+
+
+  58 0054 01F4      		brne .L5
+  59 0056 82E0      		ldi r24,lo8(2)
+  60 0058 90E0      		ldi r25,0
+  61 005a 9093 0000 		sts errno+1,r25
+  62 005e 8093 0000 		sts errno,r24
+  63 0062 8FEF      		ldi r24,lo8(-1)
+  64 0064 9FEF      		ldi r25,lo8(-1)
+  65 0066 00C0      		rjmp .L6
+  66               	.L5:
+  67 0068 DC01      		movw r26,r24
+  68 006a 5596      		adiw r26,21
+  69 006c ED91      		ld r30,X+
+  70 006e FC91      		ld r31,X
+  71 0070 5697      		sbiw r26,21+1
+  72 0072 A801      		movw r20,r16
+  73 0074 1995      		eicall
+  74               	.L6:
+  75               	/* epilogue start */
+  76 0076 2B96      		adiw r28,11
+  77 0078 0FB6      		in __tmp_reg__,__SREG__
+  78 007a F894      		cli
+  79 007c DEBF      		out __SP_H__,r29
+  80 007e 0FBE      		out __SREG__,__tmp_reg__
+  81 0080 CDBF      		out __SP_L__,r28
+  82 0082 DF91      		pop r29
+  83 0084 CF91      		pop r28
+  84 0086 1F91      		pop r17
+  85 0088 0F91      		pop r16
+  86 008a 0895      		ret
+  87               		.size	PathOperation, .-PathOperation
+  88               		.section	.text.lseek,"ax",@progbits
+  89               	.global	lseek
+  90               		.type	lseek, @function
+  91               	lseek:
+  92               	/* prologue: function */
+  93               	/* frame size = 0 */
+  94               	/* stack size = 0 */
+  95               	.L__stack_usage = 0
+  96 0000 6FEF      		ldi r22,lo8(-1)
+  97 0002 7FEF      		ldi r23,lo8(-1)
+  98 0004 CB01      		movw r24,r22
+  99 0006 0895      		ret
+ 100               		.size	lseek, .-lseek
+ 101               		.section	.text.rmdir,"ax",@progbits
+ 102               	.global	rmdir
+ 103               		.type	rmdir, @function
+ 104               	rmdir:
+ 105               	/* prologue: function */
+ 106               	/* frame size = 0 */
+ 107               	/* stack size = 0 */
+ 108               	.L__stack_usage = 0
+ 109 0000 62E1      		ldi r22,lo8(18)
+ 110 0002 71E1      		ldi r23,lo8(17)
+ 111 0004 0C94 0000 		jmp PathOperation
+ 112               		.size	rmdir, .-rmdir
+ 113               		.section	.text.unlink,"ax",@progbits
+ 114               	.global	unlink
+GAS LISTING /tmp/ccbVdVj8.s 			page 3
+
+
+ 115               		.type	unlink, @function
+ 116               	unlink:
+ 117               	/* prologue: function */
+ 118               	/* frame size = 0 */
+ 119               	/* stack size = 0 */
+ 120               	.L__stack_usage = 0
+ 121 0000 62E2      		ldi r22,lo8(34)
+ 122 0002 71E1      		ldi r23,lo8(17)
+ 123 0004 0C94 0000 		jmp PathOperation
+ 124               		.size	unlink, .-unlink
+ 125               		.section	.text.stat,"ax",@progbits
+ 126               	.global	stat
+ 127               		.type	stat, @function
+ 128               	stat:
+ 129 0000 EF92      		push r14
+ 130 0002 FF92      		push r15
+ 131 0004 0F93      		push r16
+ 132 0006 1F93      		push r17
+ 133 0008 CF93      		push r28
+ 134 000a DF93      		push r29
+ 135 000c CDB7      		in r28,__SP_L__
+ 136 000e DEB7      		in r29,__SP_H__
+ 137 0010 2D97      		sbiw r28,13
+ 138 0012 0FB6      		in __tmp_reg__,__SREG__
+ 139 0014 F894      		cli
+ 140 0016 DEBF      		out __SP_H__,r29
+ 141 0018 0FBE      		out __SREG__,__tmp_reg__
+ 142 001a CDBF      		out __SP_L__,r28
+ 143               	/* prologue: function */
+ 144               	/* frame size = 13 */
+ 145               	/* stack size = 19 */
+ 146               	.L__stack_usage = 19
+ 147 001c 7B01      		movw r14,r22
+ 148 001e FC01      		movw r30,r24
+ 149 0020 DE01      		movw r26,r28
+ 150 0022 1196      		adiw r26,1
+ 151 0024 90E0      		ldi r25,0
+ 152 0026 AD01      		movw r20,r26
+ 153               	.L18:
+ 154 0028 8F01      		movw r16,r30
+ 155 002a 2191      		ld r18,Z+
+ 156 002c 2223      		tst r18
+ 157 002e 01F0      		breq .L19
+ 158 0030 2A33      		cpi r18,lo8(58)
+ 159 0032 01F0      		breq .L19
+ 160 0034 9830      		cpi r25,lo8(8)
+ 161 0036 01F0      		breq .L19
+ 162 0038 2D93      		st X+,r18
+ 163 003a 9F5F      		subi r25,lo8(-(1))
+ 164 003c 00C0      		rjmp .L18
+ 165               	.L19:
+ 166 003e FA01      		movw r30,r20
+ 167 0040 E90F      		add r30,r25
+ 168 0042 F11D      		adc r31,__zero_reg__
+ 169 0044 1082      		st Z,__zero_reg__
+ 170 0046 CA01      		movw r24,r20
+ 171 0048 0E94 0000 		call NutDeviceLookup
+GAS LISTING /tmp/ccbVdVj8.s 			page 4
+
+
+ 172 004c 0097      		sbiw r24,0
+ 173 004e 01F0      		breq .L23
+ 174 0050 D801      		movw r26,r16
+ 175 0052 2C91      		ld r18,X
+ 176 0054 2A33      		cpi r18,lo8(58)
+ 177 0056 01F4      		brne .L22
+ 178 0058 0F5F      		subi r16,-1
+ 179 005a 1F4F      		sbci r17,-1
+ 180               	.L22:
+ 181 005c 1B87      		std Y+11,r17
+ 182 005e 0A87      		std Y+10,r16
+ 183 0060 FD86      		std Y+13,r15
+ 184 0062 EC86      		std Y+12,r14
+ 185 0064 DC01      		movw r26,r24
+ 186 0066 5596      		adiw r26,21
+ 187 0068 ED91      		ld r30,X+
+ 188 006a FC91      		ld r31,X
+ 189 006c 5697      		sbiw r26,21+1
+ 190 006e AE01      		movw r20,r28
+ 191 0070 465F      		subi r20,-10
+ 192 0072 5F4F      		sbci r21,-1
+ 193 0074 61E0      		ldi r22,lo8(1)
+ 194 0076 71E1      		ldi r23,lo8(17)
+ 195 0078 1995      		eicall
+ 196 007a 00C0      		rjmp .L21
+ 197               	.L23:
+ 198 007c 8FEF      		ldi r24,lo8(-1)
+ 199 007e 9FEF      		ldi r25,lo8(-1)
+ 200               	.L21:
+ 201               	/* epilogue start */
+ 202 0080 2D96      		adiw r28,13
+ 203 0082 0FB6      		in __tmp_reg__,__SREG__
+ 204 0084 F894      		cli
+ 205 0086 DEBF      		out __SP_H__,r29
+ 206 0088 0FBE      		out __SREG__,__tmp_reg__
+ 207 008a CDBF      		out __SP_L__,r28
+ 208 008c DF91      		pop r29
+ 209 008e CF91      		pop r28
+ 210 0090 1F91      		pop r17
+ 211 0092 0F91      		pop r16
+ 212 0094 FF90      		pop r15
+ 213 0096 EF90      		pop r14
+ 214 0098 0895      		ret
+ 215               		.size	stat, .-stat
+ 216               		.section	.text.access,"ax",@progbits
+ 217               	.global	access
+ 218               		.type	access, @function
+ 219               	access:
+ 220 0000 CF93      		push r28
+ 221 0002 DF93      		push r29
+ 222 0004 CDB7      		in r28,__SP_L__
+ 223 0006 DEB7      		in r29,__SP_H__
+ 224 0008 2D97      		sbiw r28,13
+ 225 000a 0FB6      		in __tmp_reg__,__SREG__
+ 226 000c F894      		cli
+ 227 000e DEBF      		out __SP_H__,r29
+ 228 0010 0FBE      		out __SREG__,__tmp_reg__
+GAS LISTING /tmp/ccbVdVj8.s 			page 5
+
+
+ 229 0012 CDBF      		out __SP_L__,r28
+ 230               	/* prologue: function */
+ 231               	/* frame size = 13 */
+ 232               	/* stack size = 15 */
+ 233               	.L__stack_usage = 15
+ 234 0014 BE01      		movw r22,r28
+ 235 0016 6F5F      		subi r22,-1
+ 236 0018 7F4F      		sbci r23,-1
+ 237 001a 0E94 0000 		call stat
+ 238 001e 21E0      		ldi r18,lo8(1)
+ 239 0020 30E0      		ldi r19,0
+ 240 0022 892B      		or r24,r25
+ 241 0024 01F4      		brne .L31
+ 242 0026 20E0      		ldi r18,0
+ 243 0028 30E0      		ldi r19,0
+ 244               	.L31:
+ 245 002a 8827      		clr r24
+ 246 002c 9927      		clr r25
+ 247 002e 821B      		sub r24,r18
+ 248 0030 930B      		sbc r25,r19
+ 249               	/* epilogue start */
+ 250 0032 2D96      		adiw r28,13
+ 251 0034 0FB6      		in __tmp_reg__,__SREG__
+ 252 0036 F894      		cli
+ 253 0038 DEBF      		out __SP_H__,r29
+ 254 003a 0FBE      		out __SREG__,__tmp_reg__
+ 255 003c CDBF      		out __SP_L__,r28
+ 256 003e DF91      		pop r29
+ 257 0040 CF91      		pop r28
+ 258 0042 0895      		ret
+ 259               		.size	access, .-access
+ 260               		.section	.text.fstat,"ax",@progbits
+ 261               	.global	fstat
+ 262               		.type	fstat, @function
+ 263               	fstat:
+ 264               	/* prologue: function */
+ 265               	/* frame size = 0 */
+ 266               	/* stack size = 0 */
+ 267               	.L__stack_usage = 0
+ 268 0000 8FEF      		ldi r24,lo8(-1)
+ 269 0002 9FEF      		ldi r25,lo8(-1)
+ 270 0004 0895      		ret
+ 271               		.size	fstat, .-fstat
+ 272               		.section	.text.mkdir,"ax",@progbits
+ 273               	.global	mkdir
+ 274               		.type	mkdir, @function
+ 275               	mkdir:
+ 276               	/* prologue: function */
+ 277               	/* frame size = 0 */
+ 278               	/* stack size = 0 */
+ 279               	.L__stack_usage = 0
+ 280 0000 61E1      		ldi r22,lo8(17)
+ 281 0002 71E1      		ldi r23,lo8(17)
+ 282 0004 0C94 0000 		jmp PathOperation
+ 283               		.size	mkdir, .-mkdir
+ 284               		.section	.text.rename,"ax",@progbits
+ 285               	.global	rename
+GAS LISTING /tmp/ccbVdVj8.s 			page 6
+
+
+ 286               		.type	rename, @function
+ 287               	rename:
+ 288 0000 EF92      		push r14
+ 289 0002 FF92      		push r15
+ 290 0004 0F93      		push r16
+ 291 0006 1F93      		push r17
+ 292 0008 CF93      		push r28
+ 293 000a DF93      		push r29
+ 294 000c CDB7      		in r28,__SP_L__
+ 295 000e DEB7      		in r29,__SP_H__
+ 296 0010 6697      		sbiw r28,22
+ 297 0012 0FB6      		in __tmp_reg__,__SREG__
+ 298 0014 F894      		cli
+ 299 0016 DEBF      		out __SP_H__,r29
+ 300 0018 0FBE      		out __SREG__,__tmp_reg__
+ 301 001a CDBF      		out __SP_L__,r28
+ 302               	/* prologue: function */
+ 303               	/* frame size = 22 */
+ 304               	/* stack size = 28 */
+ 305               	.L__stack_usage = 28
+ 306 001c DC01      		movw r26,r24
+ 307 001e FE01      		movw r30,r28
+ 308 0020 3A96      		adiw r30,10
+ 309 0022 20E0      		ldi r18,0
+ 310 0024 8F01      		movw r16,r30
+ 311               	.L35:
+ 312 0026 AD01      		movw r20,r26
+ 313 0028 9D91      		ld r25,X+
+ 314 002a 9923      		tst r25
+ 315 002c 01F0      		breq .L36
+ 316 002e 9A33      		cpi r25,lo8(58)
+ 317 0030 01F0      		breq .L36
+ 318 0032 2830      		cpi r18,lo8(8)
+ 319 0034 01F0      		breq .L36
+ 320 0036 9193      		st Z+,r25
+ 321 0038 2F5F      		subi r18,lo8(-(1))
+ 322 003a 00C0      		rjmp .L35
+ 323               	.L36:
+ 324 003c F801      		movw r30,r16
+ 325 003e E20F      		add r30,r18
+ 326 0040 F11D      		adc r31,__zero_reg__
+ 327 0042 1082      		st Z,__zero_reg__
+ 328 0044 9A01      		movw r18,r20
+ 329 0046 2F5F      		subi r18,-1
+ 330 0048 3F4F      		sbci r19,-1
+ 331 004a 9A33      		cpi r25,lo8(58)
+ 332 004c 01F4      		brne .L57
+ 333 004e 3C8B      		std Y+20,r19
+ 334 0050 2B8B      		std Y+19,r18
+ 335 0052 FB01      		movw r30,r22
+ 336 0054 DE01      		movw r26,r28
+ 337 0056 1196      		adiw r26,1
+ 338 0058 20E0      		ldi r18,0
+ 339 005a 7D01      		movw r14,r26
+ 340               	.L40:
+ 341 005c AF01      		movw r20,r30
+ 342 005e 9191      		ld r25,Z+
+GAS LISTING /tmp/ccbVdVj8.s 			page 7
+
+
+ 343 0060 9923      		tst r25
+ 344 0062 01F0      		breq .L41
+ 345 0064 9A33      		cpi r25,lo8(58)
+ 346 0066 01F0      		breq .L41
+ 347 0068 2830      		cpi r18,lo8(8)
+ 348 006a 01F0      		breq .L41
+ 349 006c 9D93      		st X+,r25
+ 350 006e 2F5F      		subi r18,lo8(-(1))
+ 351 0070 00C0      		rjmp .L40
+ 352               	.L41:
+ 353 0072 F701      		movw r30,r14
+ 354 0074 E20F      		add r30,r18
+ 355 0076 F11D      		adc r31,__zero_reg__
+ 356 0078 1082      		st Z,__zero_reg__
+ 357 007a 9A01      		movw r18,r20
+ 358 007c 2F5F      		subi r18,-1
+ 359 007e 3F4F      		sbci r19,-1
+ 360 0080 9A33      		cpi r25,lo8(58)
+ 361 0082 01F4      		brne .L57
+ 362 0084 3E8B      		std Y+22,r19
+ 363 0086 2D8B      		std Y+21,r18
+ 364 0088 B801      		movw r22,r16
+ 365 008a C701      		movw r24,r14
+ 366 008c 0E94 0000 		call strcmp
+ 367 0090 892B      		or r24,r25
+ 368 0092 01F4      		brne .L57
+ 369 0094 C801      		movw r24,r16
+ 370 0096 0E94 0000 		call NutDeviceLookup
+ 371 009a 0097      		sbiw r24,0
+ 372 009c 01F4      		brne .L44
+ 373 009e 82E0      		ldi r24,lo8(2)
+ 374 00a0 90E0      		ldi r25,0
+ 375 00a2 9093 0000 		sts errno+1,r25
+ 376 00a6 8093 0000 		sts errno,r24
+ 377               	.L57:
+ 378 00aa 8FEF      		ldi r24,lo8(-1)
+ 379 00ac 9FEF      		ldi r25,lo8(-1)
+ 380 00ae 00C0      		rjmp .L39
+ 381               	.L44:
+ 382 00b0 DC01      		movw r26,r24
+ 383 00b2 5596      		adiw r26,21
+ 384 00b4 ED91      		ld r30,X+
+ 385 00b6 FC91      		ld r31,X
+ 386 00b8 5697      		sbiw r26,21+1
+ 387 00ba AE01      		movw r20,r28
+ 388 00bc 4D5E      		subi r20,-19
+ 389 00be 5F4F      		sbci r21,-1
+ 390 00c0 62E3      		ldi r22,lo8(50)
+ 391 00c2 71E1      		ldi r23,lo8(17)
+ 392 00c4 1995      		eicall
+ 393               	.L39:
+ 394               	/* epilogue start */
+ 395 00c6 6696      		adiw r28,22
+ 396 00c8 0FB6      		in __tmp_reg__,__SREG__
+ 397 00ca F894      		cli
+ 398 00cc DEBF      		out __SP_H__,r29
+ 399 00ce 0FBE      		out __SREG__,__tmp_reg__
+GAS LISTING /tmp/ccbVdVj8.s 			page 8
+
+
+ 400 00d0 CDBF      		out __SP_L__,r28
+ 401 00d2 DF91      		pop r29
+ 402 00d4 CF91      		pop r28
+ 403 00d6 1F91      		pop r17
+ 404 00d8 0F91      		pop r16
+ 405 00da FF90      		pop r15
+ 406 00dc EF90      		pop r14
+ 407 00de 0895      		ret
+ 408               		.size	rename, .-rename
+ 409               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccbVdVj8.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 pathops.c
+     /tmp/ccbVdVj8.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccbVdVj8.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccbVdVj8.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccbVdVj8.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccbVdVj8.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccbVdVj8.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccbVdVj8.s:10     .text.PathOperation:0000000000000000 PathOperation
+     /tmp/ccbVdVj8.s:91     .text.lseek:0000000000000000 lseek
+     /tmp/ccbVdVj8.s:104    .text.rmdir:0000000000000000 rmdir
+     /tmp/ccbVdVj8.s:116    .text.unlink:0000000000000000 unlink
+     /tmp/ccbVdVj8.s:128    .text.stat:0000000000000000 stat
+     /tmp/ccbVdVj8.s:219    .text.access:0000000000000000 access
+     /tmp/ccbVdVj8.s:263    .text.fstat:0000000000000000 fstat
+     /tmp/ccbVdVj8.s:275    .text.mkdir:0000000000000000 mkdir
+     /tmp/ccbVdVj8.s:287    .text.rename:0000000000000000 rename
+
+UNDEFINED SYMBOLS
+NutDeviceLookup
+errno
+strcmp

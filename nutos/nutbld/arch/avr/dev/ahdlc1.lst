@@ -1,0 +1,68 @@
+GAS LISTING /tmp/cctcNPj1.s 			page 1
+
+
+   1               		.file	"ahdlc1.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               	.global	devAhdlc1
+   9               		.data
+  10               		.type	devAhdlc1, @object
+  11               		.size	devAhdlc1, 37
+  12               	devAhdlc1:
+  13 0000 0000      		.word	0
+  14 0002 75        		.byte	117
+  15 0003 61        		.byte	97
+  16 0004 72        		.byte	114
+  17 0005 74        		.byte	116
+  18 0006 31        		.byte	49
+  19 0007 00        		.byte	0
+  20 0008 00        		.byte	0
+  21 0009 00        		.byte	0
+  22 000a 00        		.byte	0
+  23 000b 05        		.byte	5
+  24 000c 0100      		.word	1
+  25 000e 00        		.byte	0
+  26 000f 0000      		.word	0
+  27 0011 0000      		.word	dcb_ahdlc
+  28 0013 0000      		.word	gs(AhdlcAvrInit)
+  29 0015 0000      		.word	gs(AhdlcAvrIOCtl)
+  30 0017 0000      		.word	gs(AhdlcAvrRead)
+  31 0019 0000      		.word	gs(AhdlcAvrWrite)
+  32 001b 0000      		.word	gs(AhdlcAvrWrite_P)
+  33 001d 0000      		.word	gs(AhdlcAvrOpen)
+  34 001f 0000      		.word	gs(AhdlcAvrClose)
+  35 0021 0000      		.word	0
+  36 0023 0000      		.word	0
+  37               		.local	dcb_ahdlc
+  38               		.comm	dcb_ahdlc,43,1
+  39               		.ident	"GCC: (GNU) 5.3.0"
+  40               	.global __do_copy_data
+  41               	.global __do_clear_bss
+GAS LISTING /tmp/cctcNPj1.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 ahdlc1.c
+     /tmp/cctcNPj1.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cctcNPj1.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cctcNPj1.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cctcNPj1.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cctcNPj1.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cctcNPj1.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cctcNPj1.s:12     .data:0000000000000000 devAhdlc1
+                             .bss:0000000000000000 dcb_ahdlc
+
+UNDEFINED SYMBOLS
+AhdlcAvrInit
+AhdlcAvrIOCtl
+AhdlcAvrRead
+AhdlcAvrWrite
+AhdlcAvrWrite_P
+AhdlcAvrOpen
+AhdlcAvrClose
+__do_copy_data
+__do_clear_bss

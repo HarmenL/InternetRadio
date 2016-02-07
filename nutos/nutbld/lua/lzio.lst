@@ -1,0 +1,315 @@
+GAS LISTING /tmp/ccvx2Xmf.s 			page 1
+
+
+   1               		.file	"lzio.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.luaZ_fill,"ax",@progbits
+   9               	.global	luaZ_fill
+  10               		.hidden	luaZ_fill
+  11               		.type	luaZ_fill, @function
+  12               	luaZ_fill:
+  13 0000 0F93      		push r16
+  14 0002 1F93      		push r17
+  15 0004 CF93      		push r28
+  16 0006 DF93      		push r29
+  17 0008 1F92      		push __zero_reg__
+  18 000a 1F92      		push __zero_reg__
+  19 000c CDB7      		in r28,__SP_L__
+  20 000e DEB7      		in r29,__SP_H__
+  21               	/* prologue: function */
+  22               	/* frame size = 2 */
+  23               	/* stack size = 6 */
+  24               	.L__stack_usage = 6
+  25 0010 8C01      		movw r16,r24
+  26 0012 DC01      		movw r26,r24
+  27 0014 1696      		adiw r26,6
+  28 0016 6D91      		ld r22,X+
+  29 0018 7C91      		ld r23,X
+  30 001a 1797      		sbiw r26,6+1
+  31 001c 1496      		adiw r26,4
+  32 001e ED91      		ld r30,X+
+  33 0020 FC91      		ld r31,X
+  34 0022 1597      		sbiw r26,4+1
+  35 0024 AE01      		movw r20,r28
+  36 0026 4F5F      		subi r20,-1
+  37 0028 5F4F      		sbci r21,-1
+  38 002a 1896      		adiw r26,8
+  39 002c 8D91      		ld r24,X+
+  40 002e 9C91      		ld r25,X
+  41 0030 1997      		sbiw r26,8+1
+  42 0032 1995      		eicall
+  43 0034 0097      		sbiw r24,0
+  44 0036 01F0      		breq .L4
+  45 0038 2981      		ldd r18,Y+1
+  46 003a 3A81      		ldd r19,Y+2
+  47 003c 2115      		cp r18,__zero_reg__
+  48 003e 3105      		cpc r19,__zero_reg__
+  49 0040 01F0      		breq .L4
+  50 0042 2150      		subi r18,1
+  51 0044 3109      		sbc r19,__zero_reg__
+  52 0046 F801      		movw r30,r16
+  53 0048 3183      		std Z+1,r19
+  54 004a 2083      		st Z,r18
+  55 004c 9C01      		movw r18,r24
+  56 004e 2F5F      		subi r18,-1
+  57 0050 3F4F      		sbci r19,-1
+GAS LISTING /tmp/ccvx2Xmf.s 			page 2
+
+
+  58 0052 3383      		std Z+3,r19
+  59 0054 2283      		std Z+2,r18
+  60 0056 DC01      		movw r26,r24
+  61 0058 8C91      		ld r24,X
+  62 005a 90E0      		ldi r25,0
+  63 005c 00C0      		rjmp .L2
+  64               	.L4:
+  65 005e 8FEF      		ldi r24,lo8(-1)
+  66 0060 9FEF      		ldi r25,lo8(-1)
+  67               	.L2:
+  68               	/* epilogue start */
+  69 0062 0F90      		pop __tmp_reg__
+  70 0064 0F90      		pop __tmp_reg__
+  71 0066 DF91      		pop r29
+  72 0068 CF91      		pop r28
+  73 006a 1F91      		pop r17
+  74 006c 0F91      		pop r16
+  75 006e 0895      		ret
+  76               		.size	luaZ_fill, .-luaZ_fill
+  77               		.section	.text.luaZ_lookahead,"ax",@progbits
+  78               	.global	luaZ_lookahead
+  79               		.hidden	luaZ_lookahead
+  80               		.type	luaZ_lookahead, @function
+  81               	luaZ_lookahead:
+  82 0000 CF93      		push r28
+  83 0002 DF93      		push r29
+  84               	/* prologue: function */
+  85               	/* frame size = 0 */
+  86               	/* stack size = 2 */
+  87               	.L__stack_usage = 2
+  88 0004 EC01      		movw r28,r24
+  89 0006 8881      		ld r24,Y
+  90 0008 9981      		ldd r25,Y+1
+  91 000a 892B      		or r24,r25
+  92 000c 01F4      		brne .L7
+  93 000e CE01      		movw r24,r28
+  94 0010 0E94 0000 		call luaZ_fill
+  95 0014 8F3F      		cpi r24,-1
+  96 0016 2FEF      		ldi r18,-1
+  97 0018 9207      		cpc r25,r18
+  98 001a 01F0      		breq .L8
+  99 001c 8881      		ld r24,Y
+ 100 001e 9981      		ldd r25,Y+1
+ 101 0020 0196      		adiw r24,1
+ 102 0022 9983      		std Y+1,r25
+ 103 0024 8883      		st Y,r24
+ 104 0026 8A81      		ldd r24,Y+2
+ 105 0028 9B81      		ldd r25,Y+3
+ 106 002a 0197      		sbiw r24,1
+ 107 002c 9B83      		std Y+3,r25
+ 108 002e 8A83      		std Y+2,r24
+ 109               	.L7:
+ 110 0030 EA81      		ldd r30,Y+2
+ 111 0032 FB81      		ldd r31,Y+3
+ 112 0034 8081      		ld r24,Z
+ 113 0036 90E0      		ldi r25,0
+ 114               	.L8:
+GAS LISTING /tmp/ccvx2Xmf.s 			page 3
+
+
+ 115               	/* epilogue start */
+ 116 0038 DF91      		pop r29
+ 117 003a CF91      		pop r28
+ 118 003c 0895      		ret
+ 119               		.size	luaZ_lookahead, .-luaZ_lookahead
+ 120               		.section	.text.luaZ_init,"ax",@progbits
+ 121               	.global	luaZ_init
+ 122               		.hidden	luaZ_init
+ 123               		.type	luaZ_init, @function
+ 124               	luaZ_init:
+ 125               	/* prologue: function */
+ 126               	/* frame size = 0 */
+ 127               	/* stack size = 0 */
+ 128               	.L__stack_usage = 0
+ 129 0000 FB01      		movw r30,r22
+ 130 0002 9187      		std Z+9,r25
+ 131 0004 8087      		std Z+8,r24
+ 132 0006 5583      		std Z+5,r21
+ 133 0008 4483      		std Z+4,r20
+ 134 000a 3783      		std Z+7,r19
+ 135 000c 2683      		std Z+6,r18
+ 136 000e 1182      		std Z+1,__zero_reg__
+ 137 0010 1082      		st Z,__zero_reg__
+ 138 0012 1382      		std Z+3,__zero_reg__
+ 139 0014 1282      		std Z+2,__zero_reg__
+ 140 0016 0895      		ret
+ 141               		.size	luaZ_init, .-luaZ_init
+ 142               		.section	.text.luaZ_read,"ax",@progbits
+ 143               	.global	luaZ_read
+ 144               		.hidden	luaZ_read
+ 145               		.type	luaZ_read, @function
+ 146               	luaZ_read:
+ 147 0000 CF92      		push r12
+ 148 0002 DF92      		push r13
+ 149 0004 EF92      		push r14
+ 150 0006 FF92      		push r15
+ 151 0008 0F93      		push r16
+ 152 000a 1F93      		push r17
+ 153 000c CF93      		push r28
+ 154 000e DF93      		push r29
+ 155               	/* prologue: function */
+ 156               	/* frame size = 0 */
+ 157               	/* stack size = 8 */
+ 158               	.L__stack_usage = 8
+ 159 0010 8C01      		movw r16,r24
+ 160 0012 6B01      		movw r12,r22
+ 161 0014 EA01      		movw r28,r20
+ 162               	.L14:
+ 163 0016 2097      		sbiw r28,0
+ 164 0018 01F0      		breq .L19
+ 165 001a C801      		movw r24,r16
+ 166 001c 0E94 0000 		call luaZ_lookahead
+ 167 0020 0196      		adiw r24,1
+ 168 0022 01F0      		breq .L18
+ 169 0024 F801      		movw r30,r16
+ 170 0026 E080      		ld r14,Z
+ 171 0028 F180      		ldd r15,Z+1
+GAS LISTING /tmp/ccvx2Xmf.s 			page 4
+
+
+ 172 002a CE15      		cp r28,r14
+ 173 002c DF05      		cpc r29,r15
+ 174 002e 00F4      		brsh .L16
+ 175 0030 7E01      		movw r14,r28
+ 176               	.L16:
+ 177 0032 F801      		movw r30,r16
+ 178 0034 6281      		ldd r22,Z+2
+ 179 0036 7381      		ldd r23,Z+3
+ 180 0038 A701      		movw r20,r14
+ 181 003a C601      		movw r24,r12
+ 182 003c 0E94 0000 		call memcpy
+ 183 0040 F801      		movw r30,r16
+ 184 0042 8081      		ld r24,Z
+ 185 0044 9181      		ldd r25,Z+1
+ 186 0046 8E19      		sub r24,r14
+ 187 0048 9F09      		sbc r25,r15
+ 188 004a 9183      		std Z+1,r25
+ 189 004c 8083      		st Z,r24
+ 190 004e 8281      		ldd r24,Z+2
+ 191 0050 9381      		ldd r25,Z+3
+ 192 0052 8E0D      		add r24,r14
+ 193 0054 9F1D      		adc r25,r15
+ 194 0056 9383      		std Z+3,r25
+ 195 0058 8283      		std Z+2,r24
+ 196 005a CE0C      		add r12,r14
+ 197 005c DF1C      		adc r13,r15
+ 198 005e CE19      		sub r28,r14
+ 199 0060 DF09      		sbc r29,r15
+ 200 0062 00C0      		rjmp .L14
+ 201               	.L19:
+ 202 0064 80E0      		ldi r24,0
+ 203 0066 90E0      		ldi r25,0
+ 204 0068 00C0      		rjmp .L15
+ 205               	.L18:
+ 206 006a CE01      		movw r24,r28
+ 207               	.L15:
+ 208               	/* epilogue start */
+ 209 006c DF91      		pop r29
+ 210 006e CF91      		pop r28
+ 211 0070 1F91      		pop r17
+ 212 0072 0F91      		pop r16
+ 213 0074 FF90      		pop r15
+ 214 0076 EF90      		pop r14
+ 215 0078 DF90      		pop r13
+ 216 007a CF90      		pop r12
+ 217 007c 0895      		ret
+ 218               		.size	luaZ_read, .-luaZ_read
+ 219               		.section	.text.luaZ_openspace,"ax",@progbits
+ 220               	.global	luaZ_openspace
+ 221               		.hidden	luaZ_openspace
+ 222               		.type	luaZ_openspace, @function
+ 223               	luaZ_openspace:
+ 224 0000 0F93      		push r16
+ 225 0002 1F93      		push r17
+ 226 0004 CF93      		push r28
+ 227 0006 DF93      		push r29
+ 228               	/* prologue: function */
+GAS LISTING /tmp/ccvx2Xmf.s 			page 5
+
+
+ 229               	/* frame size = 0 */
+ 230               	/* stack size = 4 */
+ 231               	.L__stack_usage = 4
+ 232 0008 8B01      		movw r16,r22
+ 233 000a EA01      		movw r28,r20
+ 234 000c FB01      		movw r30,r22
+ 235 000e 4481      		ldd r20,Z+4
+ 236 0010 5581      		ldd r21,Z+5
+ 237 0012 4C17      		cp r20,r28
+ 238 0014 5D07      		cpc r21,r29
+ 239 0016 00F4      		brsh .L21
+ 240 0018 C032      		cpi r28,32
+ 241 001a D105      		cpc r29,__zero_reg__
+ 242 001c 00F4      		brsh .L22
+ 243 001e C0E2      		ldi r28,lo8(32)
+ 244 0020 D0E0      		ldi r29,0
+ 245               	.L22:
+ 246 0022 9E01      		movw r18,r28
+ 247 0024 2F5F      		subi r18,-1
+ 248 0026 3F4F      		sbci r19,-1
+ 249 0028 2E3F      		cpi r18,-2
+ 250 002a 3F4F      		sbci r19,-1
+ 251 002c 00F4      		brsh .L23
+ 252 002e F801      		movw r30,r16
+ 253 0030 6081      		ld r22,Z
+ 254 0032 7181      		ldd r23,Z+1
+ 255 0034 9E01      		movw r18,r28
+ 256 0036 0E94 0000 		call luaM_realloc_
+ 257 003a 00C0      		rjmp .L24
+ 258               	.L23:
+ 259 003c 0E94 0000 		call luaM_toobig
+ 260               	.L24:
+ 261 0040 F801      		movw r30,r16
+ 262 0042 9183      		std Z+1,r25
+ 263 0044 8083      		st Z,r24
+ 264 0046 D583      		std Z+5,r29
+ 265 0048 C483      		std Z+4,r28
+ 266               	.L21:
+ 267 004a F801      		movw r30,r16
+ 268 004c 8081      		ld r24,Z
+ 269 004e 9181      		ldd r25,Z+1
+ 270               	/* epilogue start */
+ 271 0050 DF91      		pop r29
+ 272 0052 CF91      		pop r28
+ 273 0054 1F91      		pop r17
+ 274 0056 0F91      		pop r16
+ 275 0058 0895      		ret
+ 276               		.size	luaZ_openspace, .-luaZ_openspace
+ 277               		.hidden	luaM_toobig
+ 278               		.hidden	luaM_realloc_
+ 279               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccvx2Xmf.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 lzio.c
+     /tmp/ccvx2Xmf.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccvx2Xmf.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccvx2Xmf.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccvx2Xmf.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccvx2Xmf.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccvx2Xmf.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccvx2Xmf.s:12     .text.luaZ_fill:0000000000000000 luaZ_fill
+     /tmp/ccvx2Xmf.s:81     .text.luaZ_lookahead:0000000000000000 luaZ_lookahead
+     /tmp/ccvx2Xmf.s:124    .text.luaZ_init:0000000000000000 luaZ_init
+     /tmp/ccvx2Xmf.s:146    .text.luaZ_read:0000000000000000 luaZ_read
+     /tmp/ccvx2Xmf.s:223    .text.luaZ_openspace:0000000000000000 luaZ_openspace
+
+UNDEFINED SYMBOLS
+memcpy
+luaM_realloc_
+luaM_toobig

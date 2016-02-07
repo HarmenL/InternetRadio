@@ -1,0 +1,227 @@
+GAS LISTING /tmp/ccE17LCV.s 			page 1
+
+
+   1               		.file	"avrtarget.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.AvrTargetInit,"ax",@progbits
+   9               	.global	AvrTargetInit
+  10               		.type	AvrTargetInit, @function
+  11               	AvrTargetInit:
+  12               	/* prologue: function */
+  13               	/* frame size = 0 */
+  14               	/* stack size = 0 */
+  15               	.L__stack_usage = 0
+  16 0000 8FEF      		ldi r24,lo8(-1)
+  17 0002 9FEF      		ldi r25,lo8(-1)
+  18 0004 0895      		ret
+  19               		.size	AvrTargetInit, .-AvrTargetInit
+  20               		.section	.text.AvrTargetSelect,"ax",@progbits
+  21               	.global	AvrTargetSelect
+  22               		.type	AvrTargetSelect, @function
+  23               	AvrTargetSelect:
+  24               	/* prologue: function */
+  25               	/* frame size = 0 */
+  26               	/* stack size = 0 */
+  27               	.L__stack_usage = 0
+  28 0000 0895      		ret
+  29               		.size	AvrTargetSelect, .-AvrTargetSelect
+  30               		.section	.text.AvrTargetReset,"ax",@progbits
+  31               	.global	AvrTargetReset
+  32               		.type	AvrTargetReset, @function
+  33               	AvrTargetReset:
+  34               	/* prologue: function */
+  35               	/* frame size = 0 */
+  36               	/* stack size = 0 */
+  37               	.L__stack_usage = 0
+  38 0000 0895      		ret
+  39               		.size	AvrTargetReset, .-AvrTargetReset
+  40               		.section	.text.AvrTargetCmd,"ax",@progbits
+  41               	.global	AvrTargetCmd
+  42               		.type	AvrTargetCmd, @function
+  43               	AvrTargetCmd:
+  44               	/* prologue: function */
+  45               	/* frame size = 0 */
+  46               	/* stack size = 0 */
+  47               	.L__stack_usage = 0
+  48 0000 60E0      		ldi r22,0
+  49 0002 70E0      		ldi r23,0
+  50 0004 CB01      		movw r24,r22
+  51 0006 0895      		ret
+  52               		.size	AvrTargetCmd, .-AvrTargetCmd
+  53               		.section	.text.AvrTargetProgEnable,"ax",@progbits
+  54               	.global	AvrTargetProgEnable
+  55               		.type	AvrTargetProgEnable, @function
+  56               	AvrTargetProgEnable:
+  57               	/* prologue: function */
+GAS LISTING /tmp/ccE17LCV.s 			page 2
+
+
+  58               	/* frame size = 0 */
+  59               	/* stack size = 0 */
+  60               	.L__stack_usage = 0
+  61 0000 8FEF      		ldi r24,lo8(-1)
+  62 0002 9FEF      		ldi r25,lo8(-1)
+  63 0004 0895      		ret
+  64               		.size	AvrTargetProgEnable, .-AvrTargetProgEnable
+  65               		.section	.text.AvrTargetSignature,"ax",@progbits
+  66               	.global	AvrTargetSignature
+  67               		.type	AvrTargetSignature, @function
+  68               	AvrTargetSignature:
+  69               	/* prologue: function */
+  70               	/* frame size = 0 */
+  71               	/* stack size = 0 */
+  72               	.L__stack_usage = 0
+  73 0000 60E0      		ldi r22,0
+  74 0002 70E0      		ldi r23,0
+  75 0004 CB01      		movw r24,r22
+  76 0006 0895      		ret
+  77               		.size	AvrTargetSignature, .-AvrTargetSignature
+  78               		.section	.text.AvrTargetFusesRead,"ax",@progbits
+  79               	.global	AvrTargetFusesRead
+  80               		.type	AvrTargetFusesRead, @function
+  81               	AvrTargetFusesRead:
+  82               	/* prologue: function */
+  83               	/* frame size = 0 */
+  84               	/* stack size = 0 */
+  85               	.L__stack_usage = 0
+  86 0000 60E0      		ldi r22,0
+  87 0002 70E0      		ldi r23,0
+  88 0004 CB01      		movw r24,r22
+  89 0006 0895      		ret
+  90               		.size	AvrTargetFusesRead, .-AvrTargetFusesRead
+  91               		.section	.text.AvrTargetFusesWriteSafe,"ax",@progbits
+  92               	.global	AvrTargetFusesWriteSafe
+  93               		.type	AvrTargetFusesWriteSafe, @function
+  94               	AvrTargetFusesWriteSafe:
+  95               	/* prologue: function */
+  96               	/* frame size = 0 */
+  97               	/* stack size = 0 */
+  98               	.L__stack_usage = 0
+  99 0000 DC01      		movw r26,r24
+ 100 0002 CB01      		movw r24,r22
+ 101 0004 827E      		andi r24,226
+ 102 0006 9F7D      		andi r25,223
+ 103 0008 BC01      		movw r22,r24
+ 104 000a CD01      		movw r24,r26
+ 105 000c 6266      		ori r22,98
+ 106 000e 7068      		ori r23,128
+ 107 0010 886F      		ori r24,248
+ 108 0012 0895      		ret
+ 109               		.size	AvrTargetFusesWriteSafe, .-AvrTargetFusesWriteSafe
+ 110               		.section	.text.AvrTargetPollReady,"ax",@progbits
+ 111               	.global	AvrTargetPollReady
+ 112               		.type	AvrTargetPollReady, @function
+ 113               	AvrTargetPollReady:
+ 114               	/* prologue: function */
+GAS LISTING /tmp/ccE17LCV.s 			page 3
+
+
+ 115               	/* frame size = 0 */
+ 116               	/* stack size = 0 */
+ 117               	.L__stack_usage = 0
+ 118 0000 80E0      		ldi r24,0
+ 119 0002 90E0      		ldi r25,0
+ 120 0004 0895      		ret
+ 121               		.size	AvrTargetPollReady, .-AvrTargetPollReady
+ 122               		.section	.text.AvrTargetChipErase,"ax",@progbits
+ 123               	.global	AvrTargetChipErase
+ 124               		.type	AvrTargetChipErase, @function
+ 125               	AvrTargetChipErase:
+ 126               	/* prologue: function */
+ 127               	/* frame size = 0 */
+ 128               	/* stack size = 0 */
+ 129               	.L__stack_usage = 0
+ 130 0000 80E0      		ldi r24,0
+ 131 0002 90E0      		ldi r25,0
+ 132 0004 0895      		ret
+ 133               		.size	AvrTargetChipErase, .-AvrTargetChipErase
+ 134               		.section	.text.AvrTargetPageLoad,"ax",@progbits
+ 135               	.global	AvrTargetPageLoad
+ 136               		.type	AvrTargetPageLoad, @function
+ 137               	AvrTargetPageLoad:
+ 138               	/* prologue: function */
+ 139               	/* frame size = 0 */
+ 140               	/* stack size = 0 */
+ 141               	.L__stack_usage = 0
+ 142 0000 0895      		ret
+ 143               		.size	AvrTargetPageLoad, .-AvrTargetPageLoad
+ 144               		.section	.text.AvrTargetPageWrite,"ax",@progbits
+ 145               	.global	AvrTargetPageWrite
+ 146               		.type	AvrTargetPageWrite, @function
+ 147               	AvrTargetPageWrite:
+ 148               	/* prologue: function */
+ 149               	/* frame size = 0 */
+ 150               	/* stack size = 0 */
+ 151               	.L__stack_usage = 0
+ 152 0000 80E0      		ldi r24,0
+ 153 0002 90E0      		ldi r25,0
+ 154 0004 0895      		ret
+ 155               		.size	AvrTargetPageWrite, .-AvrTargetPageWrite
+ 156               		.section	.text.AvrTargetPageVerify,"ax",@progbits
+ 157               	.global	AvrTargetPageVerify
+ 158               		.type	AvrTargetPageVerify, @function
+ 159               	AvrTargetPageVerify:
+ 160               	/* prologue: function */
+ 161               	/* frame size = 0 */
+ 162               	/* stack size = 0 */
+ 163               	.L__stack_usage = 0
+ 164 0000 CA01      		movw r24,r20
+ 165 0002 8058      		subi r24,-128
+ 166 0004 9F4F      		sbci r25,-1
+ 167               	.L15:
+ 168 0006 FA01      		movw r30,r20
+ 169 0008 2081      		ld r18,Z
+ 170 000a 2111      		cpse r18,__zero_reg__
+ 171 000c 00C0      		rjmp .L17
+GAS LISTING /tmp/ccE17LCV.s 			page 4
+
+
+ 172 000e 4E5F      		subi r20,-2
+ 173 0010 5F4F      		sbci r21,-1
+ 174 0012 3196      		adiw r30,1
+ 175 0014 2081      		ld r18,Z
+ 176 0016 2111      		cpse r18,__zero_reg__
+ 177 0018 00C0      		rjmp .L17
+ 178 001a 8417      		cp r24,r20
+ 179 001c 9507      		cpc r25,r21
+ 180 001e 01F4      		brne .L15
+ 181 0020 80E0      		ldi r24,0
+ 182 0022 90E0      		ldi r25,0
+ 183 0024 0895      		ret
+ 184               	.L17:
+ 185 0026 8FEF      		ldi r24,lo8(-1)
+ 186 0028 9FEF      		ldi r25,lo8(-1)
+ 187 002a 0895      		ret
+ 188               		.size	AvrTargetPageVerify, .-AvrTargetPageVerify
+ 189               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccE17LCV.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 avrtarget.c
+     /tmp/ccE17LCV.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccE17LCV.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccE17LCV.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccE17LCV.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccE17LCV.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccE17LCV.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccE17LCV.s:11     .text.AvrTargetInit:0000000000000000 AvrTargetInit
+     /tmp/ccE17LCV.s:23     .text.AvrTargetSelect:0000000000000000 AvrTargetSelect
+     /tmp/ccE17LCV.s:33     .text.AvrTargetReset:0000000000000000 AvrTargetReset
+     /tmp/ccE17LCV.s:43     .text.AvrTargetCmd:0000000000000000 AvrTargetCmd
+     /tmp/ccE17LCV.s:56     .text.AvrTargetProgEnable:0000000000000000 AvrTargetProgEnable
+     /tmp/ccE17LCV.s:68     .text.AvrTargetSignature:0000000000000000 AvrTargetSignature
+     /tmp/ccE17LCV.s:81     .text.AvrTargetFusesRead:0000000000000000 AvrTargetFusesRead
+     /tmp/ccE17LCV.s:94     .text.AvrTargetFusesWriteSafe:0000000000000000 AvrTargetFusesWriteSafe
+     /tmp/ccE17LCV.s:113    .text.AvrTargetPollReady:0000000000000000 AvrTargetPollReady
+     /tmp/ccE17LCV.s:125    .text.AvrTargetChipErase:0000000000000000 AvrTargetChipErase
+     /tmp/ccE17LCV.s:137    .text.AvrTargetPageLoad:0000000000000000 AvrTargetPageLoad
+     /tmp/ccE17LCV.s:147    .text.AvrTargetPageWrite:0000000000000000 AvrTargetPageWrite
+     /tmp/ccE17LCV.s:159    .text.AvrTargetPageVerify:0000000000000000 AvrTargetPageVerify
+
+NO UNDEFINED SYMBOLS

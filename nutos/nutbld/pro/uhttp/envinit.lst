@@ -1,0 +1,305 @@
+GAS LISTING /tmp/ccfkvh9M.s 			page 1
+
+
+   1               		.file	"envinit.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.EnvInitDefaults,"ax",@progbits
+   9               	.global	EnvInitDefaults
+  10               		.type	EnvInitDefaults, @function
+  11               	EnvInitDefaults:
+  12               	/* prologue: function */
+  13               	/* frame size = 0 */
+  14               	/* stack size = 0 */
+  15               	.L__stack_usage = 0
+  16 0000 1092 0000 		sts envVarList+1,__zero_reg__
+  17 0004 1092 0000 		sts envVarList,__zero_reg__
+  18 0008 E0E0      		ldi r30,lo8(envvar_defaults)
+  19 000a F0E0      		ldi r31,hi8(envvar_defaults)
+  20 000c 20E0      		ldi r18,0
+  21 000e 90E0      		ldi r25,0
+  22 0010 80E0      		ldi r24,0
+  23 0012 A0E0      		ldi r26,0
+  24 0014 B0E0      		ldi r27,0
+  25               	.L4:
+  26 0016 1097      		sbiw r26,0
+  27 0018 01F0      		breq .L2
+  28 001a 1396      		adiw r26,2+1
+  29 001c FC93      		st X,r31
+  30 001e EE93      		st -X,r30
+  31 0020 1297      		sbiw r26,2
+  32 0022 00C0      		rjmp .L3
+  33               	.L2:
+  34 0024 9E2F      		mov r25,r30
+  35 0026 8F2F      		mov r24,r31
+  36 0028 21E0      		ldi r18,lo8(1)
+  37               	.L3:
+  38 002a 4E2F      		mov r20,r30
+  39 002c 3F2F      		mov r19,r31
+  40 002e B183      		std Z+1,r27
+  41 0030 A083      		st Z,r26
+  42 0032 1382      		std Z+3,__zero_reg__
+  43 0034 1282      		std Z+2,__zero_reg__
+  44 0036 3A96      		adiw r30,10
+  45 0038 A42F      		mov r26,r20
+  46 003a B32F      		mov r27,r19
+  47 003c 30E0      		ldi r19,hi8(envvar_defaults+210)
+  48 003e E030      		cpi r30,lo8(envvar_defaults+210)
+  49 0040 F307      		cpc r31,r19
+  50 0042 01F4      		brne .L4
+  51 0044 40E0      		ldi r20,lo8(envvar_defaults+200)
+  52 0046 50E0      		ldi r21,hi8(envvar_defaults+200)
+  53 0048 5093 0000 		sts envVarList+2+1,r21
+  54 004c 4093 0000 		sts envVarList+2,r20
+  55 0050 2223      		tst r18
+  56 0052 01F0      		breq .L5
+  57 0054 9093 0000 		sts envVarList,r25
+GAS LISTING /tmp/ccfkvh9M.s 			page 2
+
+
+  58 0058 8093 0000 		sts envVarList+1,r24
+  59               	.L5:
+  60 005c 80E0      		ldi r24,0
+  61 005e 90E0      		ldi r25,0
+  62 0060 0895      		ret
+  63               		.size	EnvInitDefaults, .-EnvInitDefaults
+  64               		.section	.rodata.str1.1,"aMS",@progbits,1
+  65               	.LC0:
+  66 0000 5345 5256 		.string	"SERVER_PORT"
+  66      4552 5F50 
+  66      4F52 5400 
+  67               	.LC1:
+  68 000c 5345 5256 		.string	"SERVER_NAME"
+  68      4552 5F4E 
+  68      414D 4500 
+  69               	.LC2:
+  70 0018 5345 5256 		.string	"SERVER_ADDR"
+  70      4552 5F41 
+  70      4444 5200 
+  71               	.LC3:
+  72 0024 5343 5249 		.string	"SCRIPT_NAME"
+  72      5054 5F4E 
+  72      414D 4500 
+  73               	.LC4:
+  74 0030 5343 5249 		.string	"SCRIPT_FILENAME"
+  74      5054 5F46 
+  74      494C 454E 
+  74      414D 4500 
+  75               	.LC5:
+  76 0040 5245 5155 		.string	"REQUEST_URI"
+  76      4553 545F 
+  76      5552 4900 
+  77               	.LC6:
+  78 004c 5245 5155 		.string	"REQUEST_METHOD"
+  78      4553 545F 
+  78      4D45 5448 
+  78      4F44 00
+  79               	.LC7:
+  80 005b 5245 4D4F 		.string	"REMOTE_PORT"
+  80      5445 5F50 
+  80      4F52 5400 
+  81               	.LC8:
+  82 0067 5245 4D4F 		.string	"REMOTE_ADDR"
+  82      5445 5F41 
+  82      4444 5200 
+  83               	.LC9:
+  84 0073 5155 4552 		.string	"QUERY_STRING_UNESCAPED"
+  84      595F 5354 
+  84      5249 4E47 
+  84      5F55 4E45 
+  84      5343 4150 
+  85               	.LC10:
+  86 008a 5155 4552 		.string	"QUERY_STRING"
+  86      595F 5354 
+  86      5249 4E47 
+  86      00
+  87               	.LC11:
+GAS LISTING /tmp/ccfkvh9M.s 			page 3
+
+
+  88 0097 4854 5450 		.string	"HTTP_USER_AGENT"
+  88      5F55 5345 
+  88      525F 4147 
+  88      454E 5400 
+  89               	.LC12:
+  90 00a7 4854 5450 		.string	"HTTP_REFERER"
+  90      5F52 4546 
+  90      4552 4552 
+  90      00
+  91               	.LC13:
+  92 00b4 4854 5450 		.string	"HTTP_HOST"
+  92      5F48 4F53 
+  92      5400 
+  93               	.LC14:
+  94 00be 4854 5450 		.string	"HTTP_COOKIE"
+  94      5F43 4F4F 
+  94      4B49 4500 
+  95               	.LC15:
+  96 00ca 4854 5450 		.string	"HTTP_CONNECTION"
+  96      5F43 4F4E 
+  96      4E45 4354 
+  96      494F 4E00 
+  97               	.LC16:
+  98 00da 4854 5450 		.string	"HTTP_ACCEPT_ENCODING"
+  98      5F41 4343 
+  98      4550 545F 
+  98      454E 434F 
+  98      4449 4E47 
+  99               	.LC17:
+ 100 00ef 444F 4355 		.string	"DOCUMENT_ROOT"
+ 100      4D45 4E54 
+ 100      5F52 4F4F 
+ 100      5400 
+ 101               	.LC18:
+ 102 00fd 444F 4355 		.string	"DOCUMENT_NAME"
+ 102      4D45 4E54 
+ 102      5F4E 414D 
+ 102      4500 
+ 103               	.LC19:
+ 104 010b 4441 5445 		.string	"DATE_LOCAL"
+ 104      5F4C 4F43 
+ 104      414C 00
+ 105               	.LC20:
+ 106 0116 4441 5445 		.string	"DATE_GMT"
+ 106      5F47 4D54 
+ 106      00
+ 107               		.data
+ 108               		.type	envvar_defaults, @object
+ 109               		.size	envvar_defaults, 210
+ 110               	envvar_defaults:
+ 111 0000 FFFF      		.word	-1
+ 112 0002 FFFF      		.word	-1
+ 113 0004 0000      		.word	.LC0
+ 114 0006 0000      		.word	gs(HttpStreamInfo)
+ 115 0008 FBFF      		.word	-5
+ 116 000a FFFF      		.word	-1
+ 117 000c FFFF      		.word	-1
+GAS LISTING /tmp/ccfkvh9M.s 			page 4
+
+
+ 118 000e 0000      		.word	.LC1
+ 119 0010 0000      		.word	gs(HttpStreamInfo)
+ 120 0012 FCFF      		.word	-4
+ 121 0014 FFFF      		.word	-1
+ 122 0016 FFFF      		.word	-1
+ 123 0018 0000      		.word	.LC2
+ 124 001a 0000      		.word	gs(HttpStreamInfo)
+ 125 001c FDFF      		.word	-3
+ 126 001e FFFF      		.word	-1
+ 127 0020 FFFF      		.word	-1
+ 128 0022 0000      		.word	.LC3
+ 129 0024 0000      		.word	gs(HttpSessionInfo)
+ 130 0026 F0FF      		.word	-16
+ 131 0028 FFFF      		.word	-1
+ 132 002a FFFF      		.word	-1
+ 133 002c 0000      		.word	.LC4
+ 134 002e 0000      		.word	gs(HttpSessionInfo)
+ 135 0030 F1FF      		.word	-15
+ 136 0032 FFFF      		.word	-1
+ 137 0034 FFFF      		.word	-1
+ 138 0036 0000      		.word	.LC5
+ 139 0038 0000      		.word	gs(HttpSessionInfo)
+ 140 003a F2FF      		.word	-14
+ 141 003c FFFF      		.word	-1
+ 142 003e FFFF      		.word	-1
+ 143 0040 0000      		.word	.LC6
+ 144 0042 0000      		.word	gs(HttpSessionInfo)
+ 145 0044 F3FF      		.word	-13
+ 146 0046 FFFF      		.word	-1
+ 147 0048 FFFF      		.word	-1
+ 148 004a 0000      		.word	.LC7
+ 149 004c 0000      		.word	gs(HttpStreamInfo)
+ 150 004e FEFF      		.word	-2
+ 151 0050 FFFF      		.word	-1
+ 152 0052 FFFF      		.word	-1
+ 153 0054 0000      		.word	.LC8
+ 154 0056 0000      		.word	gs(HttpStreamInfo)
+ 155 0058 FFFF      		.word	-1
+ 156 005a FFFF      		.word	-1
+ 157 005c FFFF      		.word	-1
+ 158 005e 0000      		.word	.LC9
+ 159 0060 0000      		.word	gs(HttpSessionInfo)
+ 160 0062 F4FF      		.word	-12
+ 161 0064 FFFF      		.word	-1
+ 162 0066 FFFF      		.word	-1
+ 163 0068 0000      		.word	.LC10
+ 164 006a 0000      		.word	gs(HttpSessionInfo)
+ 165 006c F5FF      		.word	-11
+ 166 006e FFFF      		.word	-1
+ 167 0070 FFFF      		.word	-1
+ 168 0072 0000      		.word	.LC11
+ 169 0074 0000      		.word	gs(HttpSessionInfo)
+ 170 0076 F6FF      		.word	-10
+ 171 0078 FFFF      		.word	-1
+ 172 007a FFFF      		.word	-1
+ 173 007c 0000      		.word	.LC12
+ 174 007e 0000      		.word	gs(HttpSessionInfo)
+GAS LISTING /tmp/ccfkvh9M.s 			page 5
+
+
+ 175 0080 F7FF      		.word	-9
+ 176 0082 FFFF      		.word	-1
+ 177 0084 FFFF      		.word	-1
+ 178 0086 0000      		.word	.LC13
+ 179 0088 0000      		.word	gs(HttpSessionInfo)
+ 180 008a F8FF      		.word	-8
+ 181 008c FFFF      		.word	-1
+ 182 008e FFFF      		.word	-1
+ 183 0090 0000      		.word	.LC14
+ 184 0092 0000      		.word	gs(HttpSessionInfo)
+ 185 0094 F9FF      		.word	-7
+ 186 0096 FFFF      		.word	-1
+ 187 0098 FFFF      		.word	-1
+ 188 009a 0000      		.word	.LC15
+ 189 009c 0000      		.word	gs(HttpSessionInfo)
+ 190 009e FAFF      		.word	-6
+ 191 00a0 FFFF      		.word	-1
+ 192 00a2 FFFF      		.word	-1
+ 193 00a4 0000      		.word	.LC16
+ 194 00a6 0000      		.word	gs(HttpSessionInfo)
+ 195 00a8 FBFF      		.word	-5
+ 196 00aa FFFF      		.word	-1
+ 197 00ac FFFF      		.word	-1
+ 198 00ae 0000      		.word	.LC17
+ 199 00b0 0000      		.word	gs(HttpSessionInfo)
+ 200 00b2 FCFF      		.word	-4
+ 201 00b4 FFFF      		.word	-1
+ 202 00b6 FFFF      		.word	-1
+ 203 00b8 0000      		.word	.LC18
+ 204 00ba 0000      		.word	gs(HttpSessionInfo)
+ 205 00bc FDFF      		.word	-3
+ 206 00be FFFF      		.word	-1
+ 207 00c0 FFFF      		.word	-1
+ 208 00c2 0000      		.word	.LC19
+ 209 00c4 0000      		.word	gs(HttpSessionInfo)
+ 210 00c6 FEFF      		.word	-2
+ 211 00c8 FFFF      		.word	-1
+ 212 00ca FFFF      		.word	-1
+ 213 00cc 0000      		.word	.LC20
+ 214 00ce 0000      		.word	gs(HttpSessionInfo)
+ 215 00d0 FFFF      		.word	-1
+ 216               		.ident	"GCC: (GNU) 5.3.0"
+ 217               	.global __do_copy_data
+GAS LISTING /tmp/ccfkvh9M.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 envinit.c
+     /tmp/ccfkvh9M.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccfkvh9M.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccfkvh9M.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccfkvh9M.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccfkvh9M.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccfkvh9M.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccfkvh9M.s:11     .text.EnvInitDefaults:0000000000000000 EnvInitDefaults
+     /tmp/ccfkvh9M.s:110    .data:0000000000000000 envvar_defaults
+
+UNDEFINED SYMBOLS
+envVarList
+HttpStreamInfo
+HttpSessionInfo
+__do_copy_data

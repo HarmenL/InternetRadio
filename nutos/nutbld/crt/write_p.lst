@@ -1,0 +1,73 @@
+GAS LISTING /tmp/ccv3viFn.s 			page 1
+
+
+   1               		.file	"write_p.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text._write_P,"ax",@progbits
+   9               	.global	_write_P
+  10               		.type	_write_P, @function
+  11               	_write_P:
+  12               	/* prologue: function */
+  13               	/* frame size = 0 */
+  14               	/* stack size = 0 */
+  15               	.L__stack_usage = 0
+  16 0000 8830      		cpi r24,8
+  17 0002 9105      		cpc r25,__zero_reg__
+  18 0004 00F4      		brsh .L4
+  19 0006 880F      		lsl r24
+  20 0008 991F      		rol r25
+  21 000a FC01      		movw r30,r24
+  22 000c E050      		subi r30,lo8(-(__fds))
+  23 000e F040      		sbci r31,hi8(-(__fds))
+  24 0010 8081      		ld r24,Z
+  25 0012 9181      		ldd r25,Z+1
+  26 0014 0097      		sbiw r24,0
+  27 0016 01F0      		breq .L4
+  28 0018 DC01      		movw r26,r24
+  29 001a ED91      		ld r30,X+
+  30 001c FC91      		ld r31,X
+  31 001e 1197      		sbiw r26,1
+  32 0020 3097      		sbiw r30,0
+  33 0022 01F4      		brne .L5
+  34 0024 1996      		adiw r26,9
+  35 0026 ED91      		ld r30,X+
+  36 0028 FC91      		ld r31,X
+  37 002a 1A97      		sbiw r26,9+1
+  38 002c 00C0      		rjmp .L10
+  39               	.L5:
+  40 002e 038C      		ldd __tmp_reg__,Z+27
+  41 0030 F48D      		ldd r31,Z+28
+  42 0032 E02D      		mov r30,__tmp_reg__
+  43               	.L10:
+  44 0034 1994      		eijmp
+  45               	.L4:
+  46 0036 89E0      		ldi r24,lo8(9)
+  47 0038 90E0      		ldi r25,0
+  48 003a 9093 0000 		sts errno+1,r25
+  49 003e 8093 0000 		sts errno,r24
+  50 0042 8FEF      		ldi r24,lo8(-1)
+  51 0044 9FEF      		ldi r25,lo8(-1)
+  52 0046 0895      		ret
+  53               		.size	_write_P, .-_write_P
+  54               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccv3viFn.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 write_p.c
+     /tmp/ccv3viFn.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccv3viFn.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccv3viFn.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccv3viFn.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccv3viFn.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccv3viFn.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccv3viFn.s:11     .text._write_P:0000000000000000 _write_P
+
+UNDEFINED SYMBOLS
+__fds
+errno

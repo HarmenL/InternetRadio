@@ -1,0 +1,98 @@
+GAS LISTING /tmp/ccrmtQgF.s 			page 1
+
+
+   1               		.file	"getenv.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.getenv,"ax",@progbits
+   9               	.global	getenv
+  10               		.type	getenv, @function
+  11               	getenv:
+  12               	/* prologue: function */
+  13               	/* frame size = 0 */
+  14               	/* stack size = 0 */
+  15               	.L__stack_usage = 0
+  16 0000 0E94 0000 		call findenv
+  17 0004 0097      		sbiw r24,0
+  18 0006 01F0      		breq .L3
+  19 0008 FC01      		movw r30,r24
+  20 000a 8681      		ldd r24,Z+6
+  21 000c 9781      		ldd r25,Z+7
+  22 000e 0097      		sbiw r24,0
+  23 0010 01F4      		brne .L2
+  24 0012 80E0      		ldi r24,lo8(empty_envval)
+  25 0014 90E0      		ldi r25,hi8(empty_envval)
+  26 0016 00C0      		rjmp .L2
+  27               	.L3:
+  28 0018 80E0      		ldi r24,0
+  29 001a 90E0      		ldi r25,0
+  30 001c 0895      		ret
+  31               	.L2:
+  32 001e 0895      		ret
+  33               		.size	getenv, .-getenv
+  34               		.section	.text.nextenv,"ax",@progbits
+  35               	.global	nextenv
+  36               		.type	nextenv, @function
+  37               	nextenv:
+  38               	/* prologue: function */
+  39               	/* frame size = 0 */
+  40               	/* stack size = 0 */
+  41               	.L__stack_usage = 0
+  42 0000 0097      		sbiw r24,0
+  43 0002 01F0      		breq .L7
+  44 0004 DC01      		movw r26,r24
+  45 0006 2C91      		ld r18,X
+  46 0008 2223      		tst r18
+  47 000a 01F0      		breq .L7
+  48 000c 0E94 0000 		call findenv
+  49 0010 0097      		sbiw r24,0
+  50 0012 01F4      		brne .L8
+  51               	.L10:
+  52 0014 80E0      		ldi r24,0
+  53 0016 90E0      		ldi r25,0
+  54 0018 0895      		ret
+  55               	.L8:
+  56 001a DC01      		movw r26,r24
+  57 001c ED91      		ld r30,X+
+GAS LISTING /tmp/ccrmtQgF.s 			page 2
+
+
+  58 001e FC91      		ld r31,X
+  59 0020 00C0      		rjmp .L25
+  60               	.L7:
+  61 0022 E091 0000 		lds r30,nut_environ
+  62 0026 F091 0000 		lds r31,nut_environ+1
+  63               	.L25:
+  64 002a 3097      		sbiw r30,0
+  65 002c 01F0      		breq .L10
+  66 002e 8481      		ldd r24,Z+4
+  67 0030 9581      		ldd r25,Z+5
+  68 0032 0895      		ret
+  69               		.size	nextenv, .-nextenv
+  70               		.local	empty_envval
+  71               		.comm	empty_envval,1,1
+  72               		.ident	"GCC: (GNU) 5.3.0"
+  73               	.global __do_clear_bss
+GAS LISTING /tmp/ccrmtQgF.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 getenv.c
+     /tmp/ccrmtQgF.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccrmtQgF.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccrmtQgF.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccrmtQgF.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccrmtQgF.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccrmtQgF.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccrmtQgF.s:11     .text.getenv:0000000000000000 getenv
+                             .bss:0000000000000000 empty_envval
+     /tmp/ccrmtQgF.s:37     .text.nextenv:0000000000000000 nextenv
+
+UNDEFINED SYMBOLS
+findenv
+nut_environ
+__do_clear_bss

@@ -1,0 +1,866 @@
+GAS LISTING /tmp/cckQyFD0.s 			page 1
+
+
+   1               		.file	"select.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.select_scan,"ax",@progbits
+   9               		.type	select_scan, @function
+  10               	select_scan:
+  11 0000 4F92      		push r4
+  12 0002 5F92      		push r5
+  13 0004 6F92      		push r6
+  14 0006 7F92      		push r7
+  15 0008 8F92      		push r8
+  16 000a 9F92      		push r9
+  17 000c AF92      		push r10
+  18 000e BF92      		push r11
+  19 0010 CF92      		push r12
+  20 0012 DF92      		push r13
+  21 0014 EF92      		push r14
+  22 0016 FF92      		push r15
+  23 0018 0F93      		push r16
+  24 001a 1F93      		push r17
+  25 001c CF93      		push r28
+  26 001e DF93      		push r29
+  27               	/* prologue: function */
+  28               	/* frame size = 0 */
+  29               	/* stack size = 16 */
+  30               	.L__stack_usage = 16
+  31 0020 2C01      		movw r4,r24
+  32 0022 5B01      		movw r10,r22
+  33 0024 4901      		movw r8,r18
+  34 0026 EA01      		movw r28,r20
+  35 0028 80E0      		ldi r24,lo8(__fds)
+  36 002a 682E      		mov r6,r24
+  37 002c 80E0      		ldi r24,hi8(__fds)
+  38 002e 782E      		mov r7,r24
+  39 0030 7B01      		movw r14,r22
+  40 0032 C12C      		mov r12,__zero_reg__
+  41 0034 D12C      		mov r13,__zero_reg__
+  42               	.L2:
+  43 0036 C701      		movw r24,r14
+  44 0038 8A19      		sub r24,r10
+  45 003a 9B09      		sbc r25,r11
+  46 003c 8415      		cp r24,r4
+  47 003e 9505      		cpc r25,r5
+  48 0040 04F4      		brge .L21
+  49 0042 D701      		movw r26,r14
+  50 0044 6C91      		ld r22,X
+  51 0046 6623      		tst r22
+  52 0048 01F0      		breq .L3
+  53 004a F301      		movw r30,r6
+  54 004c 8081      		ld r24,Z
+  55 004e 9181      		ldd r25,Z+1
+  56 0050 DC01      		movw r26,r24
+  57 0052 ED91      		ld r30,X+
+GAS LISTING /tmp/cckQyFD0.s 			page 2
+
+
+  58 0054 FC91      		ld r31,X
+  59 0056 3097      		sbiw r30,0
+  60 0058 01F0      		breq .L4
+  61 005a 03A0      		ldd __tmp_reg__,Z+35
+  62 005c F4A1      		ldd r31,Z+36
+  63 005e E02D      		mov r30,__tmp_reg__
+  64               	.L19:
+  65 0060 3097      		sbiw r30,0
+  66 0062 01F0      		breq .L3
+  67 0064 70E0      		ldi r23,0
+  68 0066 9801      		movw r18,r16
+  69 0068 A401      		movw r20,r8
+  70 006a 1995      		eicall
+  71 006c 8823      		tst r24
+  72 006e 01F0      		breq .L3
+  73 0070 BFEF      		ldi r27,-1
+  74 0072 CB1A      		sub r12,r27
+  75 0074 DB0A      		sbc r13,r27
+  76 0076 F701      		movw r30,r14
+  77 0078 9081      		ld r25,Z
+  78 007a 8923      		and r24,r25
+  79 007c 9881      		ld r25,Y
+  80 007e 892B      		or r24,r25
+  81 0080 8883      		st Y,r24
+  82               	.L3:
+  83 0082 FFEF      		ldi r31,-1
+  84 0084 EF1A      		sub r14,r31
+  85 0086 FF0A      		sbc r15,r31
+  86 0088 2196      		adiw r28,1
+  87 008a 82E0      		ldi r24,2
+  88 008c 680E      		add r6,r24
+  89 008e 711C      		adc r7,__zero_reg__
+  90 0090 00C0      		rjmp .L2
+  91               	.L4:
+  92 0092 DC01      		movw r26,r24
+  93 0094 1D96      		adiw r26,13
+  94 0096 ED91      		ld r30,X+
+  95 0098 FC91      		ld r31,X
+  96 009a 1E97      		sbiw r26,13+1
+  97 009c 00C0      		rjmp .L19
+  98               	.L21:
+  99 009e C601      		movw r24,r12
+ 100               	/* epilogue start */
+ 101 00a0 DF91      		pop r29
+ 102 00a2 CF91      		pop r28
+ 103 00a4 1F91      		pop r17
+ 104 00a6 0F91      		pop r16
+ 105 00a8 FF90      		pop r15
+ 106 00aa EF90      		pop r14
+ 107 00ac DF90      		pop r13
+ 108 00ae CF90      		pop r12
+ 109 00b0 BF90      		pop r11
+ 110 00b2 AF90      		pop r10
+ 111 00b4 9F90      		pop r9
+ 112 00b6 8F90      		pop r8
+ 113 00b8 7F90      		pop r7
+ 114 00ba 6F90      		pop r6
+GAS LISTING /tmp/cckQyFD0.s 			page 3
+
+
+ 115 00bc 5F90      		pop r5
+ 116 00be 4F90      		pop r4
+ 117 00c0 0895      		ret
+ 118               		.size	select_scan, .-select_scan
+ 119               		.section	.text.NutSelectWakeup,"ax",@progbits
+ 120               	.global	NutSelectWakeup
+ 121               		.type	NutSelectWakeup, @function
+ 122               	NutSelectWakeup:
+ 123 0000 0F93      		push r16
+ 124 0002 1F93      		push r17
+ 125 0004 CF93      		push r28
+ 126 0006 DF93      		push r29
+ 127 0008 1F92      		push __zero_reg__
+ 128 000a CDB7      		in r28,__SP_L__
+ 129 000c DEB7      		in r29,__SP_H__
+ 130               	/* prologue: function */
+ 131               	/* frame size = 1 */
+ 132               	/* stack size = 5 */
+ 133               	.L__stack_usage = 5
+ 134 000e 8C01      		movw r16,r24
+ 135               	.L23:
+ 136 0010 0115      		cp r16,__zero_reg__
+ 137 0012 1105      		cpc r17,__zero_reg__
+ 138 0014 01F0      		breq .L29
+ 139 0016 F801      		movw r30,r16
+ 140 0018 8481      		ldd r24,Z+4
+ 141 001a 8623      		and r24,r22
+ 142 001c 01F0      		breq .L24
+ 143 001e 8281      		ldd r24,Z+2
+ 144 0020 9381      		ldd r25,Z+3
+ 145 0022 6983      		std Y+1,r22
+ 146 0024 0E94 0000 		call NutEventPostAsync
+ 147 0028 6981      		ldd r22,Y+1
+ 148               	.L24:
+ 149 002a F801      		movw r30,r16
+ 150 002c 0081      		ld r16,Z
+ 151 002e 1181      		ldd r17,Z+1
+ 152 0030 00C0      		rjmp .L23
+ 153               	.L29:
+ 154               	/* epilogue start */
+ 155 0032 0F90      		pop __tmp_reg__
+ 156 0034 DF91      		pop r29
+ 157 0036 CF91      		pop r28
+ 158 0038 1F91      		pop r17
+ 159 003a 0F91      		pop r16
+ 160 003c 0895      		ret
+ 161               		.size	NutSelectWakeup, .-NutSelectWakeup
+ 162               		.section	.text.NutSelectWakeupFromIrq,"ax",@progbits
+ 163               	.global	NutSelectWakeupFromIrq
+ 164               		.type	NutSelectWakeupFromIrq, @function
+ 165               	NutSelectWakeupFromIrq:
+ 166 0000 CF93      		push r28
+ 167 0002 DF93      		push r29
+ 168               	/* prologue: function */
+ 169               	/* frame size = 0 */
+ 170               	/* stack size = 2 */
+ 171               	.L__stack_usage = 2
+GAS LISTING /tmp/cckQyFD0.s 			page 4
+
+
+ 172 0004 FC01      		movw r30,r24
+ 173 0006 2FEF      		ldi r18,lo8(-1)
+ 174 0008 3FEF      		ldi r19,lo8(-1)
+ 175               	.L31:
+ 176 000a 3097      		sbiw r30,0
+ 177 000c 01F0      		breq .L41
+ 178 000e 8481      		ldd r24,Z+4
+ 179 0010 8623      		and r24,r22
+ 180 0012 01F0      		breq .L32
+ 181 0014 C281      		ldd r28,Z+2
+ 182 0016 D381      		ldd r29,Z+3
+ 183 0018 A881      		ld r26,Y
+ 184 001a B981      		ldd r27,Y+1
+ 185 001c 1097      		sbiw r26,0
+ 186 001e 01F4      		brne .L33
+ 187 0020 3983      		std Y+1,r19
+ 188 0022 2883      		st Y,r18
+ 189 0024 00C0      		rjmp .L32
+ 190               	.L33:
+ 191 0026 AF3F      		cpi r26,-1
+ 192 0028 8FEF      		ldi r24,-1
+ 193 002a B807      		cpc r27,r24
+ 194 002c 01F0      		breq .L32
+ 195 002e 1496      		adiw r26,4
+ 196 0030 8D91      		ld r24,X+
+ 197 0032 9C91      		ld r25,X
+ 198 0034 1597      		sbiw r26,4+1
+ 199 0036 0196      		adiw r24,1
+ 200 0038 1596      		adiw r26,4+1
+ 201 003a 9C93      		st X,r25
+ 202 003c 8E93      		st -X,r24
+ 203 003e 1497      		sbiw r26,4
+ 204               	.L32:
+ 205 0040 0190      		ld __tmp_reg__,Z+
+ 206 0042 F081      		ld r31,Z
+ 207 0044 E02D      		mov r30,__tmp_reg__
+ 208 0046 00C0      		rjmp .L31
+ 209               	.L41:
+ 210               	/* epilogue start */
+ 211 0048 DF91      		pop r29
+ 212 004a CF91      		pop r28
+ 213 004c 0895      		ret
+ 214               		.size	NutSelectWakeupFromIrq, .-NutSelectWakeupFromIrq
+ 215               		.section	.text.NutSelectManageWq,"ax",@progbits
+ 216               	.global	NutSelectManageWq
+ 217               		.type	NutSelectManageWq, @function
+ 218               	NutSelectManageWq:
+ 219 0000 EF92      		push r14
+ 220 0002 FF92      		push r15
+ 221 0004 0F93      		push r16
+ 222 0006 1F93      		push r17
+ 223 0008 CF93      		push r28
+ 224 000a DF93      		push r29
+ 225               	/* prologue: function */
+ 226               	/* frame size = 0 */
+ 227               	/* stack size = 6 */
+ 228               	.L__stack_usage = 6
+GAS LISTING /tmp/cckQyFD0.s 			page 5
+
+
+ 229 000c EC01      		movw r28,r24
+ 230 000e 8B01      		movw r16,r22
+ 231 0010 7A01      		movw r14,r20
+ 232 0012 2115      		cp r18,__zero_reg__
+ 233 0014 3105      		cpc r19,__zero_reg__
+ 234 0016 01F4      		brne .+2
+ 235 0018 00C0      		rjmp .L42
+ 236 001a 892B      		or r24,r25
+ 237 001c 01F4      		brne .+2
+ 238 001e 00C0      		rjmp .L42
+ 239 0020 672B      		or r22,r23
+ 240 0022 01F4      		brne .+2
+ 241 0024 00C0      		rjmp .L42
+ 242 0026 452B      		or r20,r21
+ 243 0028 01F4      		brne .+2
+ 244 002a 00C0      		rjmp .L42
+ 245 002c 2130      		cpi r18,1
+ 246 002e 3105      		cpc r19,__zero_reg__
+ 247 0030 01F0      		breq .L46
+ 248 0032 2230      		cpi r18,2
+ 249 0034 3105      		cpc r19,__zero_reg__
+ 250 0036 01F0      		breq .+2
+ 251 0038 00C0      		rjmp .L42
+ 252               	/* #APP */
+ 253               	 ;  162 "../../nut/crt/select.c" 1
+ 254 003a 0FB6      		in  __tmp_reg__, __SREG__
+ 255 003c F894      		cli
+ 256 003e 0F92      		push __tmp_reg__
+ 257               		
+ 258               	 ;  0 "" 2
+ 259               	/* #NOAPP */
+ 260 0040 00C0      		rjmp .L48
+ 261               	.L46:
+ 262 0042 85E0      		ldi r24,lo8(5)
+ 263 0044 90E0      		ldi r25,0
+ 264 0046 0E94 0000 		call malloc
+ 265 004a FC01      		movw r30,r24
+ 266 004c 1383      		std Z+3,r17
+ 267 004e 0283      		std Z+2,r16
+ 268 0050 E482      		std Z+4,r14
+ 269               	/* #APP */
+ 270               	 ;  151 "../../nut/crt/select.c" 1
+ 271 0052 0FB6      		in  __tmp_reg__, __SREG__
+ 272 0054 F894      		cli
+ 273 0056 0F92      		push __tmp_reg__
+ 274               		
+ 275               	 ;  0 "" 2
+ 276               	/* #NOAPP */
+ 277 0058 8881      		ld r24,Y
+ 278 005a 9981      		ldd r25,Y+1
+ 279 005c 9183      		std Z+1,r25
+ 280 005e 8083      		st Z,r24
+ 281 0060 F983      		std Y+1,r31
+ 282 0062 E883      		st Y,r30
+ 283               	/* #APP */
+ 284               	 ;  154 "../../nut/crt/select.c" 1
+ 285 0064 0F90      		pop __tmp_reg__
+GAS LISTING /tmp/cckQyFD0.s 			page 6
+
+
+ 286 0066 0FBE      		out __SREG__, __tmp_reg__
+ 287               		
+ 288               	 ;  0 "" 2
+ 289               	/* #NOAPP */
+ 290 0068 00C0      		rjmp .L42
+ 291               	.L51:
+ 292 006a FC01      		movw r30,r24
+ 293 006c 4281      		ldd r20,Z+2
+ 294 006e 5381      		ldd r21,Z+3
+ 295 0070 2081      		ld r18,Z
+ 296 0072 3181      		ldd r19,Z+1
+ 297 0074 3983      		std Y+1,r19
+ 298 0076 2883      		st Y,r18
+ 299 0078 0417      		cp r16,r20
+ 300 007a 1507      		cpc r17,r21
+ 301 007c 01F0      		breq .L50
+ 302               	.L48:
+ 303 007e 8881      		ld r24,Y
+ 304 0080 9981      		ldd r25,Y+1
+ 305 0082 0097      		sbiw r24,0
+ 306 0084 01F4      		brne .L51
+ 307               	.L50:
+ 308               	/* #APP */
+ 309               	 ;  177 "../../nut/crt/select.c" 1
+ 310 0086 0F90      		pop __tmp_reg__
+ 311 0088 0FBE      		out __SREG__, __tmp_reg__
+ 312               		
+ 313               	 ;  0 "" 2
+ 314               	/* #NOAPP */
+ 315 008a 0097      		sbiw r24,0
+ 316 008c 01F0      		breq .L42
+ 317               	/* epilogue start */
+ 318 008e DF91      		pop r29
+ 319 0090 CF91      		pop r28
+ 320 0092 1F91      		pop r17
+ 321 0094 0F91      		pop r16
+ 322 0096 FF90      		pop r15
+ 323 0098 EF90      		pop r14
+ 324 009a 0C94 0000 		jmp free
+ 325               	.L42:
+ 326               	/* epilogue start */
+ 327 009e DF91      		pop r29
+ 328 00a0 CF91      		pop r28
+ 329 00a2 1F91      		pop r17
+ 330 00a4 0F91      		pop r16
+ 331 00a6 FF90      		pop r15
+ 332 00a8 EF90      		pop r14
+ 333 00aa 0895      		ret
+ 334               		.size	NutSelectManageWq, .-NutSelectManageWq
+ 335               		.section	.text.select,"ax",@progbits
+ 336               	.global	select
+ 337               		.type	select, @function
+ 338               	select:
+ 339 0000 2F92      		push r2
+ 340 0002 3F92      		push r3
+ 341 0004 4F92      		push r4
+ 342 0006 5F92      		push r5
+GAS LISTING /tmp/cckQyFD0.s 			page 7
+
+
+ 343 0008 6F92      		push r6
+ 344 000a 7F92      		push r7
+ 345 000c 8F92      		push r8
+ 346 000e 9F92      		push r9
+ 347 0010 AF92      		push r10
+ 348 0012 BF92      		push r11
+ 349 0014 CF92      		push r12
+ 350 0016 DF92      		push r13
+ 351 0018 EF92      		push r14
+ 352 001a FF92      		push r15
+ 353 001c 0F93      		push r16
+ 354 001e 1F93      		push r17
+ 355 0020 CF93      		push r28
+ 356 0022 DF93      		push r29
+ 357 0024 00D0      		rcall .
+ 358 0026 1F92      		push __zero_reg__
+ 359 0028 CDB7      		in r28,__SP_L__
+ 360 002a DEB7      		in r29,__SP_H__
+ 361               	/* prologue: function */
+ 362               	/* frame size = 4 */
+ 363               	/* stack size = 22 */
+ 364               	.L__stack_usage = 22
+ 365 002c 1C01      		movw r2,r24
+ 366 002e 6B01      		movw r12,r22
+ 367 0030 5A01      		movw r10,r20
+ 368 0032 4901      		movw r8,r18
+ 369 0034 F801      		movw r30,r16
+ 370 0036 0997      		sbiw r24,9
+ 371 0038 00F0      		brlo .L65
+ 372               	.L68:
+ 373 003a 86E1      		ldi r24,lo8(22)
+ 374 003c 90E0      		ldi r25,0
+ 375 003e 00C0      		rjmp .L144
+ 376               	.L65:
+ 377 0040 3097      		sbiw r30,0
+ 378 0042 01F0      		breq .L92
+ 379 0044 E080      		ld r14,Z
+ 380 0046 F180      		ldd r15,Z+1
+ 381 0048 0281      		ldd r16,Z+2
+ 382 004a 1381      		ldd r17,Z+3
+ 383 004c 67E3      		ldi r22,55
+ 384 004e E616      		cp r14,r22
+ 385 0050 69E8      		ldi r22,-119
+ 386 0052 F606      		cpc r15,r22
+ 387 0054 61E4      		ldi r22,65
+ 388 0056 0607      		cpc r16,r22
+ 389 0058 1105      		cpc r17,__zero_reg__
+ 390 005a 00F4      		brsh .L68
+ 391 005c 8481      		ldd r24,Z+4
+ 392 005e 9581      		ldd r25,Z+5
+ 393 0060 A681      		ldd r26,Z+6
+ 394 0062 B781      		ldd r27,Z+7
+ 395 0064 BC01      		movw r22,r24
+ 396 0066 CD01      		movw r24,r26
+ 397 0068 6C50      		subi r22,12
+ 398 006a 7E4F      		sbci r23,-2
+ 399 006c 8F4F      		sbci r24,-1
+GAS LISTING /tmp/cckQyFD0.s 			page 8
+
+
+ 400 006e 9F4F      		sbci r25,-1
+ 401 0070 28EE      		ldi r18,lo8(-24)
+ 402 0072 33E0      		ldi r19,lo8(3)
+ 403 0074 40E0      		ldi r20,0
+ 404 0076 50E0      		ldi r21,0
+ 405 0078 0E94 0000 		call __divmodsi4
+ 406 007c 2901      		movw r4,r18
+ 407 007e 3A01      		movw r6,r20
+ 408 0080 A8EE      		ldi r26,lo8(-24)
+ 409 0082 B3E0      		ldi r27,lo8(3)
+ 410 0084 A801      		movw r20,r16
+ 411 0086 9701      		movw r18,r14
+ 412 0088 0E94 0000 		call __muluhisi3
+ 413 008c 460E      		add r4,r22
+ 414 008e 571E      		adc r5,r23
+ 415 0090 681E      		adc r6,r24
+ 416 0092 791E      		adc r7,r25
+ 417 0094 4114      		cp r4,__zero_reg__
+ 418 0096 5104      		cpc r5,__zero_reg__
+ 419 0098 6104      		cpc r6,__zero_reg__
+ 420 009a 7104      		cpc r7,__zero_reg__
+ 421 009c 01F4      		brne .L67
+ 422 009e 412C      		mov r4,__zero_reg__
+ 423 00a0 512C      		mov r5,__zero_reg__
+ 424 00a2 3201      		movw r6,r4
+ 425 00a4 4394      		inc r4
+ 426 00a6 00C0      		rjmp .L67
+ 427               	.L92:
+ 428 00a8 412C      		mov r4,__zero_reg__
+ 429 00aa 512C      		mov r5,__zero_reg__
+ 430 00ac 3201      		movw r6,r4
+ 431               	.L67:
+ 432 00ae C114      		cp r12,__zero_reg__
+ 433 00b0 D104      		cpc r13,__zero_reg__
+ 434 00b2 01F0      		breq .L93
+ 435 00b4 F601      		movw r30,r12
+ 436 00b6 8081      		ld r24,Z
+ 437 00b8 00C0      		rjmp .L69
+ 438               	.L93:
+ 439 00ba 80E0      		ldi r24,0
+ 440               	.L69:
+ 441 00bc A114      		cp r10,__zero_reg__
+ 442 00be B104      		cpc r11,__zero_reg__
+ 443 00c0 01F0      		breq .L70
+ 444 00c2 F501      		movw r30,r10
+ 445 00c4 9081      		ld r25,Z
+ 446 00c6 892B      		or r24,r25
+ 447               	.L70:
+ 448 00c8 8114      		cp r8,__zero_reg__
+ 449 00ca 9104      		cpc r9,__zero_reg__
+ 450 00cc 01F0      		breq .L71
+ 451 00ce F401      		movw r30,r8
+ 452 00d0 9081      		ld r25,Z
+ 453 00d2 892B      		or r24,r25
+ 454               	.L71:
+ 455 00d4 E0E0      		ldi r30,lo8(__fds)
+ 456 00d6 F0E0      		ldi r31,hi8(__fds)
+GAS LISTING /tmp/cckQyFD0.s 			page 9
+
+
+ 457 00d8 20E0      		ldi r18,0
+ 458 00da 30E0      		ldi r19,0
+ 459               	.L74:
+ 460 00dc 7901      		movw r14,r18
+ 461 00de 01E0      		ldi r16,1
+ 462 00e0 E01A      		sub r14,r16
+ 463 00e2 F108      		sbc r15,__zero_reg__
+ 464 00e4 8823      		tst r24
+ 465 00e6 01F0      		breq .L72
+ 466 00e8 2216      		cp r2,r18
+ 467 00ea 3306      		cpc r3,r19
+ 468 00ec 01F0      		breq .L72
+ 469 00ee 4191      		ld r20,Z+
+ 470 00f0 5191      		ld r21,Z+
+ 471 00f2 4150      		subi r20,1
+ 472 00f4 5109      		sbc r21,__zero_reg__
+ 473 00f6 4E3F      		cpi r20,-2
+ 474 00f8 5F4F      		sbci r21,-1
+ 475 00fa 00F4      		brsh .L145
+ 476 00fc 8695      		lsr r24
+ 477 00fe 2F5F      		subi r18,-1
+ 478 0100 3F4F      		sbci r19,-1
+ 479 0102 00C0      		rjmp .L74
+ 480               	.L145:
+ 481 0104 89E0      		ldi r24,lo8(9)
+ 482 0106 90E0      		ldi r25,0
+ 483               	.L144:
+ 484 0108 9093 0000 		sts errno+1,r25
+ 485 010c 8093 0000 		sts errno,r24
+ 486 0110 8FEF      		ldi r24,lo8(-1)
+ 487 0112 9FEF      		ldi r25,lo8(-1)
+ 488 0114 00C0      		rjmp .L66
+ 489               	.L72:
+ 490 0116 6FEF      		ldi r22,-1
+ 491 0118 E61A      		sub r14,r22
+ 492 011a F60A      		sbc r15,r22
+ 493 011c C701      		movw r24,r14
+ 494 011e 0E94 0000 		call malloc
+ 495 0122 1C01      		movw r2,r24
+ 496 0124 61E0      		ldi r22,lo8(1)
+ 497 0126 70E0      		ldi r23,0
+ 498 0128 C701      		movw r24,r14
+ 499 012a 0E94 0000 		call calloc
+ 500 012e 8B83      		std Y+3,r24
+ 501 0130 9C83      		std Y+4,r25
+ 502 0132 F101      		movw r30,r2
+ 503 0134 20E0      		ldi r18,0
+ 504 0136 30E0      		ldi r19,0
+ 505               	.L76:
+ 506 0138 2E15      		cp r18,r14
+ 507 013a 3F05      		cpc r19,r15
+ 508 013c 04F0      		brlt .+2
+ 509 013e 00C0      		rjmp .L146
+ 510 0140 C114      		cp r12,__zero_reg__
+ 511 0142 D104      		cpc r13,__zero_reg__
+ 512 0144 01F0      		breq .L94
+ 513 0146 D901      		movw r26,r18
+GAS LISTING /tmp/cckQyFD0.s 			page 10
+
+
+ 514 0148 83E0      		ldi r24,3
+ 515               		1:
+ 516 014a B595      		asr r27
+ 517 014c A795      		ror r26
+ 518 014e 8A95      		dec r24
+ 519 0150 01F4      		brne 1b
+ 520 0152 AC0D      		add r26,r12
+ 521 0154 BD1D      		adc r27,r13
+ 522 0156 8C91      		ld r24,X
+ 523 0158 90E0      		ldi r25,0
+ 524 015a A901      		movw r20,r18
+ 525 015c 4770      		andi r20,7
+ 526 015e 5527      		clr r21
+ 527 0160 00C0      		rjmp 2f
+ 528               		1:
+ 529 0162 9595      		asr r25
+ 530 0164 8795      		ror r24
+ 531               		2:
+ 532 0166 4A95      		dec r20
+ 533 0168 02F4      		brpl 1b
+ 534 016a 8170      		andi r24,lo8(1)
+ 535 016c 00C0      		rjmp .L77
+ 536               	.L94:
+ 537 016e 80E0      		ldi r24,0
+ 538               	.L77:
+ 539 0170 A114      		cp r10,__zero_reg__
+ 540 0172 B104      		cpc r11,__zero_reg__
+ 541 0174 01F0      		breq .L78
+ 542 0176 D901      		movw r26,r18
+ 543 0178 03E0      		ldi r16,3
+ 544               		1:
+ 545 017a B595      		asr r27
+ 546 017c A795      		ror r26
+ 547 017e 0A95      		dec r16
+ 548 0180 01F4      		brne 1b
+ 549 0182 AA0D      		add r26,r10
+ 550 0184 BB1D      		adc r27,r11
+ 551 0186 4C91      		ld r20,X
+ 552 0188 50E0      		ldi r21,0
+ 553 018a B901      		movw r22,r18
+ 554 018c 6770      		andi r22,7
+ 555 018e 7727      		clr r23
+ 556 0190 00C0      		rjmp 2f
+ 557               		1:
+ 558 0192 5595      		asr r21
+ 559 0194 4795      		ror r20
+ 560               		2:
+ 561 0196 6A95      		dec r22
+ 562 0198 02F4      		brpl 1b
+ 563 019a 40FD      		sbrc r20,0
+ 564 019c 8260      		ori r24,lo8(2)
+ 565               	.L78:
+ 566 019e 8114      		cp r8,__zero_reg__
+ 567 01a0 9104      		cpc r9,__zero_reg__
+ 568 01a2 01F0      		breq .L79
+ 569 01a4 D901      		movw r26,r18
+ 570 01a6 13E0      		ldi r17,3
+GAS LISTING /tmp/cckQyFD0.s 			page 11
+
+
+ 571               		1:
+ 572 01a8 B595      		asr r27
+ 573 01aa A795      		ror r26
+ 574 01ac 1A95      		dec r17
+ 575 01ae 01F4      		brne 1b
+ 576 01b0 A80D      		add r26,r8
+ 577 01b2 B91D      		adc r27,r9
+ 578 01b4 4C91      		ld r20,X
+ 579 01b6 50E0      		ldi r21,0
+ 580 01b8 B901      		movw r22,r18
+ 581 01ba 6770      		andi r22,7
+ 582 01bc 7727      		clr r23
+ 583 01be 00C0      		rjmp 2f
+ 584               		1:
+ 585 01c0 5595      		asr r21
+ 586 01c2 4795      		ror r20
+ 587               		2:
+ 588 01c4 6A95      		dec r22
+ 589 01c6 02F4      		brpl 1b
+ 590 01c8 40FD      		sbrc r20,0
+ 591 01ca 8460      		ori r24,lo8(4)
+ 592               	.L79:
+ 593 01cc 8193      		st Z+,r24
+ 594 01ce 2F5F      		subi r18,-1
+ 595 01d0 3F4F      		sbci r19,-1
+ 596 01d2 00C0      		rjmp .L76
+ 597               	.L146:
+ 598 01d4 1A82      		std Y+2,__zero_reg__
+ 599 01d6 1982      		std Y+1,__zero_reg__
+ 600 01d8 01E0      		ldi r16,lo8(1)
+ 601 01da 10E0      		ldi r17,0
+ 602 01dc 9E01      		movw r18,r28
+ 603 01de 2F5F      		subi r18,-1
+ 604 01e0 3F4F      		sbci r19,-1
+ 605 01e2 4B81      		ldd r20,Y+3
+ 606 01e4 5C81      		ldd r21,Y+4
+ 607 01e6 B101      		movw r22,r2
+ 608 01e8 C701      		movw r24,r14
+ 609 01ea 0E94 0000 		call select_scan
+ 610 01ee 892B      		or r24,r25
+ 611 01f0 01F4      		brne .L82
+ 612 01f2 00E0      		ldi r16,0
+ 613 01f4 10E0      		ldi r17,0
+ 614 01f6 20E0      		ldi r18,0
+ 615 01f8 30E0      		ldi r19,0
+ 616 01fa 4B81      		ldd r20,Y+3
+ 617 01fc 5C81      		ldd r21,Y+4
+ 618 01fe B101      		movw r22,r2
+ 619 0200 C701      		movw r24,r14
+ 620 0202 0E94 0000 		call select_scan
+ 621 0206 892B      		or r24,r25
+ 622 0208 01F4      		brne .L82
+ 623 020a B301      		movw r22,r6
+ 624 020c A201      		movw r20,r4
+ 625 020e CE01      		movw r24,r28
+ 626 0210 0196      		adiw r24,1
+ 627 0212 0E94 0000 		call NutEventWait
+GAS LISTING /tmp/cckQyFD0.s 			page 12
+
+
+ 628               	.L82:
+ 629 0216 02E0      		ldi r16,lo8(2)
+ 630 0218 10E0      		ldi r17,0
+ 631 021a 9E01      		movw r18,r28
+ 632 021c 2F5F      		subi r18,-1
+ 633 021e 3F4F      		sbci r19,-1
+ 634 0220 4B81      		ldd r20,Y+3
+ 635 0222 5C81      		ldd r21,Y+4
+ 636 0224 B101      		movw r22,r2
+ 637 0226 C701      		movw r24,r14
+ 638 0228 0E94 0000 		call select_scan
+ 639 022c 782E      		mov r7,r24
+ 640 022e 692E      		mov r6,r25
+ 641 0230 C114      		cp r12,__zero_reg__
+ 642 0232 D104      		cpc r13,__zero_reg__
+ 643 0234 01F0      		breq .L84
+ 644 0236 F601      		movw r30,r12
+ 645 0238 1082      		st Z,__zero_reg__
+ 646               	.L84:
+ 647 023a A114      		cp r10,__zero_reg__
+ 648 023c B104      		cpc r11,__zero_reg__
+ 649 023e 01F0      		breq .L85
+ 650 0240 F501      		movw r30,r10
+ 651 0242 1082      		st Z,__zero_reg__
+ 652               	.L85:
+ 653 0244 8114      		cp r8,__zero_reg__
+ 654 0246 9104      		cpc r9,__zero_reg__
+ 655 0248 01F0      		breq .L86
+ 656 024a F401      		movw r30,r8
+ 657 024c 1082      		st Z,__zero_reg__
+ 658               	.L86:
+ 659 024e EB81      		ldd r30,Y+3
+ 660 0250 FC81      		ldd r31,Y+4
+ 661 0252 80E0      		ldi r24,0
+ 662 0254 90E0      		ldi r25,0
+ 663 0256 21E0      		ldi r18,lo8(1)
+ 664 0258 30E0      		ldi r19,0
+ 665               	.L87:
+ 666 025a 8E15      		cp r24,r14
+ 667 025c 9F05      		cpc r25,r15
+ 668 025e 04F0      		brlt .+2
+ 669 0260 00C0      		rjmp .L147
+ 670 0262 6191      		ld r22,Z+
+ 671 0264 C114      		cp r12,__zero_reg__
+ 672 0266 D104      		cpc r13,__zero_reg__
+ 673 0268 01F0      		breq .L88
+ 674 026a 60FF      		sbrs r22,0
+ 675 026c 00C0      		rjmp .L88
+ 676 026e DC01      		movw r26,r24
+ 677 0270 73E0      		ldi r23,3
+ 678               		1:
+ 679 0272 B595      		asr r27
+ 680 0274 A795      		ror r26
+ 681 0276 7A95      		dec r23
+ 682 0278 01F4      		brne 1b
+ 683 027a AC0D      		add r26,r12
+ 684 027c BD1D      		adc r27,r13
+GAS LISTING /tmp/cckQyFD0.s 			page 13
+
+
+ 685 027e AC01      		movw r20,r24
+ 686 0280 4770      		andi r20,7
+ 687 0282 5527      		clr r21
+ 688 0284 8901      		movw r16,r18
+ 689 0286 00C0      		rjmp 2f
+ 690               		1:
+ 691 0288 000F      		lsl r16
+ 692 028a 111F      		rol r17
+ 693               		2:
+ 694 028c 4A95      		dec r20
+ 695 028e 02F4      		brpl 1b
+ 696 0290 A801      		movw r20,r16
+ 697 0292 5C91      		ld r21,X
+ 698 0294 452B      		or r20,r21
+ 699 0296 4C93      		st X,r20
+ 700               	.L88:
+ 701 0298 A114      		cp r10,__zero_reg__
+ 702 029a B104      		cpc r11,__zero_reg__
+ 703 029c 01F0      		breq .L89
+ 704 029e 61FF      		sbrs r22,1
+ 705 02a0 00C0      		rjmp .L89
+ 706 02a2 DC01      		movw r26,r24
+ 707 02a4 53E0      		ldi r21,3
+ 708               		1:
+ 709 02a6 B595      		asr r27
+ 710 02a8 A795      		ror r26
+ 711 02aa 5A95      		dec r21
+ 712 02ac 01F4      		brne 1b
+ 713 02ae AA0D      		add r26,r10
+ 714 02b0 BB1D      		adc r27,r11
+ 715 02b2 AC01      		movw r20,r24
+ 716 02b4 4770      		andi r20,7
+ 717 02b6 5527      		clr r21
+ 718 02b8 8901      		movw r16,r18
+ 719 02ba 00C0      		rjmp 2f
+ 720               		1:
+ 721 02bc 000F      		lsl r16
+ 722 02be 111F      		rol r17
+ 723               		2:
+ 724 02c0 4A95      		dec r20
+ 725 02c2 02F4      		brpl 1b
+ 726 02c4 A801      		movw r20,r16
+ 727 02c6 5C91      		ld r21,X
+ 728 02c8 452B      		or r20,r21
+ 729 02ca 4C93      		st X,r20
+ 730               	.L89:
+ 731 02cc 8114      		cp r8,__zero_reg__
+ 732 02ce 9104      		cpc r9,__zero_reg__
+ 733 02d0 01F0      		breq .L90
+ 734 02d2 62FF      		sbrs r22,2
+ 735 02d4 00C0      		rjmp .L90
+ 736 02d6 DC01      		movw r26,r24
+ 737 02d8 43E0      		ldi r20,3
+ 738               		1:
+ 739 02da B595      		asr r27
+ 740 02dc A795      		ror r26
+ 741 02de 4A95      		dec r20
+GAS LISTING /tmp/cckQyFD0.s 			page 14
+
+
+ 742 02e0 01F4      		brne 1b
+ 743 02e2 A80D      		add r26,r8
+ 744 02e4 B91D      		adc r27,r9
+ 745 02e6 AC01      		movw r20,r24
+ 746 02e8 4770      		andi r20,7
+ 747 02ea 5527      		clr r21
+ 748 02ec B901      		movw r22,r18
+ 749 02ee 00C0      		rjmp 2f
+ 750               		1:
+ 751 02f0 660F      		lsl r22
+ 752 02f2 771F      		rol r23
+ 753               		2:
+ 754 02f4 4A95      		dec r20
+ 755 02f6 02F4      		brpl 1b
+ 756 02f8 AB01      		movw r20,r22
+ 757 02fa 5C91      		ld r21,X
+ 758 02fc 452B      		or r20,r21
+ 759 02fe 4C93      		st X,r20
+ 760               	.L90:
+ 761 0300 0196      		adiw r24,1
+ 762 0302 00C0      		rjmp .L87
+ 763               	.L147:
+ 764 0304 C101      		movw r24,r2
+ 765 0306 0E94 0000 		call free
+ 766 030a 8B81      		ldd r24,Y+3
+ 767 030c 9C81      		ldd r25,Y+4
+ 768 030e 0E94 0000 		call free
+ 769 0312 872D      		mov r24,r7
+ 770 0314 962D      		mov r25,r6
+ 771               	.L66:
+ 772               	/* epilogue start */
+ 773 0316 0F90      		pop __tmp_reg__
+ 774 0318 0F90      		pop __tmp_reg__
+ 775 031a 0F90      		pop __tmp_reg__
+ 776 031c 0F90      		pop __tmp_reg__
+ 777 031e DF91      		pop r29
+ 778 0320 CF91      		pop r28
+ 779 0322 1F91      		pop r17
+ 780 0324 0F91      		pop r16
+ 781 0326 FF90      		pop r15
+ 782 0328 EF90      		pop r14
+ 783 032a DF90      		pop r13
+ 784 032c CF90      		pop r12
+ 785 032e BF90      		pop r11
+ 786 0330 AF90      		pop r10
+ 787 0332 9F90      		pop r9
+ 788 0334 8F90      		pop r8
+ 789 0336 7F90      		pop r7
+ 790 0338 6F90      		pop r6
+ 791 033a 5F90      		pop r5
+ 792 033c 4F90      		pop r4
+ 793 033e 3F90      		pop r3
+ 794 0340 2F90      		pop r2
+ 795 0342 0895      		ret
+ 796               		.size	select, .-select
+ 797               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/cckQyFD0.s 			page 15
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 select.c
+     /tmp/cckQyFD0.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cckQyFD0.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cckQyFD0.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cckQyFD0.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cckQyFD0.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cckQyFD0.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cckQyFD0.s:10     .text.select_scan:0000000000000000 select_scan
+     /tmp/cckQyFD0.s:122    .text.NutSelectWakeup:0000000000000000 NutSelectWakeup
+     /tmp/cckQyFD0.s:165    .text.NutSelectWakeupFromIrq:0000000000000000 NutSelectWakeupFromIrq
+     /tmp/cckQyFD0.s:218    .text.NutSelectManageWq:0000000000000000 NutSelectManageWq
+     /tmp/cckQyFD0.s:338    .text.select:0000000000000000 select
+
+UNDEFINED SYMBOLS
+__fds
+NutEventPostAsync
+malloc
+free
+__divmodsi4
+__muluhisi3
+errno
+calloc
+NutEventWait

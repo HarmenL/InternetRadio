@@ -1,0 +1,717 @@
+GAS LISTING /tmp/ccTAJB9M.s 			page 1
+
+
+   1               		.file	"xtea.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.XTeaCrypt,"ax",@progbits
+   9               	.global	XTeaCrypt
+  10               		.type	XTeaCrypt, @function
+  11               	XTeaCrypt:
+  12 0000 2F92      		push r2
+  13 0002 3F92      		push r3
+  14 0004 4F92      		push r4
+  15 0006 5F92      		push r5
+  16 0008 6F92      		push r6
+  17 000a 7F92      		push r7
+  18 000c 8F92      		push r8
+  19 000e 9F92      		push r9
+  20 0010 AF92      		push r10
+  21 0012 BF92      		push r11
+  22 0014 CF92      		push r12
+  23 0016 DF92      		push r13
+  24 0018 EF92      		push r14
+  25 001a FF92      		push r15
+  26 001c 0F93      		push r16
+  27 001e 1F93      		push r17
+  28 0020 CF93      		push r28
+  29 0022 DF93      		push r29
+  30 0024 00D0      		rcall .
+  31 0026 00D0      		rcall .
+  32 0028 CDB7      		in r28,__SP_L__
+  33 002a DEB7      		in r29,__SP_H__
+  34               	/* prologue: function */
+  35               	/* frame size = 6 */
+  36               	/* stack size = 24 */
+  37               	.L__stack_usage = 24
+  38 002c 1C01      		movw r2,r24
+  39 002e 5E83      		std Y+6,r21
+  40 0030 4D83      		std Y+5,r20
+  41 0032 FB01      		movw r30,r22
+  42 0034 8080      		ld r8,Z
+  43 0036 9180      		ldd r9,Z+1
+  44 0038 A280      		ldd r10,Z+2
+  45 003a B380      		ldd r11,Z+3
+  46 003c C480      		ldd r12,Z+4
+  47 003e D580      		ldd r13,Z+5
+  48 0040 E680      		ldd r14,Z+6
+  49 0042 F780      		ldd r15,Z+7
+  50 0044 80E0      		ldi r24,0
+  51 0046 90E0      		ldi r25,0
+  52 0048 DC01      		movw r26,r24
+  53               	.L2:
+  54 004a FC01      		movw r30,r24
+  55 004c E370      		andi r30,3
+  56 004e FF27      		clr r31
+  57 0050 EE0F      		lsl r30
+GAS LISTING /tmp/ccTAJB9M.s 			page 2
+
+
+  58 0052 FF1F      		rol r31
+  59 0054 EE0F      		lsl r30
+  60 0056 FF1F      		rol r31
+  61 0058 0D81      		ldd r16,Y+5
+  62 005a 1E81      		ldd r17,Y+6
+  63 005c E00F      		add r30,r16
+  64 005e F11F      		adc r31,r17
+  65 0060 4080      		ld r4,Z
+  66 0062 5180      		ldd r5,Z+1
+  67 0064 6280      		ldd r6,Z+2
+  68 0066 7380      		ldd r7,Z+3
+  69 0068 480E      		add r4,r24
+  70 006a 591E      		adc r5,r25
+  71 006c 6A1E      		adc r6,r26
+  72 006e 7B1E      		adc r7,r27
+  73 0070 A701      		movw r20,r14
+  74 0072 9601      		movw r18,r12
+  75 0074 64E0      		ldi r22,4
+  76               		1:
+  77 0076 220F      		lsl r18
+  78 0078 331F      		rol r19
+  79 007a 441F      		rol r20
+  80 007c 551F      		rol r21
+  81 007e 6A95      		dec r22
+  82 0080 01F4      		brne 1b
+  83 0082 2983      		std Y+1,r18
+  84 0084 3A83      		std Y+2,r19
+  85 0086 4B83      		std Y+3,r20
+  86 0088 5C83      		std Y+4,r21
+  87 008a 9701      		movw r18,r14
+  88 008c 8601      		movw r16,r12
+  89 008e 75E0      		ldi r23,5
+  90               		1:
+  91 0090 3695      		lsr r19
+  92 0092 2795      		ror r18
+  93 0094 1795      		ror r17
+  94 0096 0795      		ror r16
+  95 0098 7A95      		dec r23
+  96 009a 01F4      		brne 1b
+  97 009c 4981      		ldd r20,Y+1
+  98 009e 5A81      		ldd r21,Y+2
+  99 00a0 6B81      		ldd r22,Y+3
+ 100 00a2 7C81      		ldd r23,Y+4
+ 101 00a4 0427      		eor r16,r20
+ 102 00a6 1527      		eor r17,r21
+ 103 00a8 2627      		eor r18,r22
+ 104 00aa 3727      		eor r19,r23
+ 105 00ac 0C0D      		add r16,r12
+ 106 00ae 1D1D      		adc r17,r13
+ 107 00b0 2E1D      		adc r18,r14
+ 108 00b2 3F1D      		adc r19,r15
+ 109 00b4 4026      		eor r4,r16
+ 110 00b6 5126      		eor r5,r17
+ 111 00b8 6226      		eor r6,r18
+ 112 00ba 7326      		eor r7,r19
+ 113 00bc 840C      		add r8,r4
+ 114 00be 951C      		adc r9,r5
+GAS LISTING /tmp/ccTAJB9M.s 			page 3
+
+
+ 115 00c0 A61C      		adc r10,r6
+ 116 00c2 B71C      		adc r11,r7
+ 117 00c4 8754      		subi r24,71
+ 118 00c6 9648      		sbci r25,-122
+ 119 00c8 A84C      		sbci r26,-56
+ 120 00ca B146      		sbci r27,97
+ 121 00cc 8C01      		movw r16,r24
+ 122 00ce 9D01      		movw r18,r26
+ 123 00d0 EBE0      		ldi r30,11
+ 124               		1:
+ 125 00d2 3695      		lsr r19
+ 126 00d4 2795      		ror r18
+ 127 00d6 1795      		ror r17
+ 128 00d8 0795      		ror r16
+ 129 00da EA95      		dec r30
+ 130 00dc 01F4      		brne 1b
+ 131 00de F801      		movw r30,r16
+ 132 00e0 E370      		andi r30,3
+ 133 00e2 FF27      		clr r31
+ 134 00e4 EE0F      		lsl r30
+ 135 00e6 FF1F      		rol r31
+ 136 00e8 EE0F      		lsl r30
+ 137 00ea FF1F      		rol r31
+ 138 00ec 6D81      		ldd r22,Y+5
+ 139 00ee 7E81      		ldd r23,Y+6
+ 140 00f0 E60F      		add r30,r22
+ 141 00f2 F71F      		adc r31,r23
+ 142 00f4 4080      		ld r4,Z
+ 143 00f6 5180      		ldd r5,Z+1
+ 144 00f8 6280      		ldd r6,Z+2
+ 145 00fa 7380      		ldd r7,Z+3
+ 146 00fc 480E      		add r4,r24
+ 147 00fe 591E      		adc r5,r25
+ 148 0100 6A1E      		adc r6,r26
+ 149 0102 7B1E      		adc r7,r27
+ 150 0104 9501      		movw r18,r10
+ 151 0106 8401      		movw r16,r8
+ 152 0108 44E0      		ldi r20,4
+ 153               		1:
+ 154 010a 000F      		lsl r16
+ 155 010c 111F      		rol r17
+ 156 010e 221F      		rol r18
+ 157 0110 331F      		rol r19
+ 158 0112 4A95      		dec r20
+ 159 0114 01F4      		brne 1b
+ 160 0116 0983      		std Y+1,r16
+ 161 0118 1A83      		std Y+2,r17
+ 162 011a 2B83      		std Y+3,r18
+ 163 011c 3C83      		std Y+4,r19
+ 164 011e 9501      		movw r18,r10
+ 165 0120 8401      		movw r16,r8
+ 166 0122 55E0      		ldi r21,5
+ 167               		1:
+ 168 0124 3695      		lsr r19
+ 169 0126 2795      		ror r18
+ 170 0128 1795      		ror r17
+ 171 012a 0795      		ror r16
+GAS LISTING /tmp/ccTAJB9M.s 			page 4
+
+
+ 172 012c 5A95      		dec r21
+ 173 012e 01F4      		brne 1b
+ 174 0130 4981      		ldd r20,Y+1
+ 175 0132 5A81      		ldd r21,Y+2
+ 176 0134 6B81      		ldd r22,Y+3
+ 177 0136 7C81      		ldd r23,Y+4
+ 178 0138 0427      		eor r16,r20
+ 179 013a 1527      		eor r17,r21
+ 180 013c 2627      		eor r18,r22
+ 181 013e 3727      		eor r19,r23
+ 182 0140 080D      		add r16,r8
+ 183 0142 191D      		adc r17,r9
+ 184 0144 2A1D      		adc r18,r10
+ 185 0146 3B1D      		adc r19,r11
+ 186 0148 4026      		eor r4,r16
+ 187 014a 5126      		eor r5,r17
+ 188 014c 6226      		eor r6,r18
+ 189 014e 7326      		eor r7,r19
+ 190 0150 C40C      		add r12,r4
+ 191 0152 D51C      		adc r13,r5
+ 192 0154 E61C      		adc r14,r6
+ 193 0156 F71C      		adc r15,r7
+ 194 0158 8032      		cpi r24,32
+ 195 015a 57E3      		ldi r21,55
+ 196 015c 9507      		cpc r25,r21
+ 197 015e 5FEE      		ldi r21,-17
+ 198 0160 A507      		cpc r26,r21
+ 199 0162 56EC      		ldi r21,-58
+ 200 0164 B507      		cpc r27,r21
+ 201 0166 01F0      		breq .+2
+ 202 0168 00C0      		rjmp .L2
+ 203 016a F101      		movw r30,r2
+ 204 016c 8082      		st Z,r8
+ 205 016e 9182      		std Z+1,r9
+ 206 0170 A282      		std Z+2,r10
+ 207 0172 B382      		std Z+3,r11
+ 208 0174 C482      		std Z+4,r12
+ 209 0176 D582      		std Z+5,r13
+ 210 0178 E682      		std Z+6,r14
+ 211 017a F782      		std Z+7,r15
+ 212               	/* epilogue start */
+ 213 017c 2696      		adiw r28,6
+ 214 017e 0FB6      		in __tmp_reg__,__SREG__
+ 215 0180 F894      		cli
+ 216 0182 DEBF      		out __SP_H__,r29
+ 217 0184 0FBE      		out __SREG__,__tmp_reg__
+ 218 0186 CDBF      		out __SP_L__,r28
+ 219 0188 DF91      		pop r29
+ 220 018a CF91      		pop r28
+ 221 018c 1F91      		pop r17
+ 222 018e 0F91      		pop r16
+ 223 0190 FF90      		pop r15
+ 224 0192 EF90      		pop r14
+ 225 0194 DF90      		pop r13
+ 226 0196 CF90      		pop r12
+ 227 0198 BF90      		pop r11
+ 228 019a AF90      		pop r10
+GAS LISTING /tmp/ccTAJB9M.s 			page 5
+
+
+ 229 019c 9F90      		pop r9
+ 230 019e 8F90      		pop r8
+ 231 01a0 7F90      		pop r7
+ 232 01a2 6F90      		pop r6
+ 233 01a4 5F90      		pop r5
+ 234 01a6 4F90      		pop r4
+ 235 01a8 3F90      		pop r3
+ 236 01aa 2F90      		pop r2
+ 237 01ac 0895      		ret
+ 238               		.size	XTeaCrypt, .-XTeaCrypt
+ 239               		.section	.text.XTeaDecrypt,"ax",@progbits
+ 240               	.global	XTeaDecrypt
+ 241               		.type	XTeaDecrypt, @function
+ 242               	XTeaDecrypt:
+ 243 0000 2F92      		push r2
+ 244 0002 3F92      		push r3
+ 245 0004 4F92      		push r4
+ 246 0006 5F92      		push r5
+ 247 0008 6F92      		push r6
+ 248 000a 7F92      		push r7
+ 249 000c 8F92      		push r8
+ 250 000e 9F92      		push r9
+ 251 0010 AF92      		push r10
+ 252 0012 BF92      		push r11
+ 253 0014 CF92      		push r12
+ 254 0016 DF92      		push r13
+ 255 0018 EF92      		push r14
+ 256 001a FF92      		push r15
+ 257 001c 0F93      		push r16
+ 258 001e 1F93      		push r17
+ 259 0020 CF93      		push r28
+ 260 0022 DF93      		push r29
+ 261 0024 00D0      		rcall .
+ 262 0026 00D0      		rcall .
+ 263 0028 CDB7      		in r28,__SP_L__
+ 264 002a DEB7      		in r29,__SP_H__
+ 265               	/* prologue: function */
+ 266               	/* frame size = 6 */
+ 267               	/* stack size = 24 */
+ 268               	.L__stack_usage = 24
+ 269 002c 1C01      		movw r2,r24
+ 270 002e 5E83      		std Y+6,r21
+ 271 0030 4D83      		std Y+5,r20
+ 272 0032 FB01      		movw r30,r22
+ 273 0034 8080      		ld r8,Z
+ 274 0036 9180      		ldd r9,Z+1
+ 275 0038 A280      		ldd r10,Z+2
+ 276 003a B380      		ldd r11,Z+3
+ 277 003c C480      		ldd r12,Z+4
+ 278 003e D580      		ldd r13,Z+5
+ 279 0040 E680      		ldd r14,Z+6
+ 280 0042 F780      		ldd r15,Z+7
+ 281 0044 80E2      		ldi r24,lo8(32)
+ 282 0046 97E3      		ldi r25,lo8(55)
+ 283 0048 AFEE      		ldi r26,lo8(-17)
+ 284 004a B6EC      		ldi r27,lo8(-58)
+ 285               	.L6:
+GAS LISTING /tmp/ccTAJB9M.s 			page 6
+
+
+ 286 004c 8C01      		movw r16,r24
+ 287 004e 9D01      		movw r18,r26
+ 288 0050 4BE0      		ldi r20,11
+ 289               		1:
+ 290 0052 3695      		lsr r19
+ 291 0054 2795      		ror r18
+ 292 0056 1795      		ror r17
+ 293 0058 0795      		ror r16
+ 294 005a 4A95      		dec r20
+ 295 005c 01F4      		brne 1b
+ 296 005e F801      		movw r30,r16
+ 297 0060 E370      		andi r30,3
+ 298 0062 FF27      		clr r31
+ 299 0064 EE0F      		lsl r30
+ 300 0066 FF1F      		rol r31
+ 301 0068 EE0F      		lsl r30
+ 302 006a FF1F      		rol r31
+ 303 006c 0D81      		ldd r16,Y+5
+ 304 006e 1E81      		ldd r17,Y+6
+ 305 0070 E00F      		add r30,r16
+ 306 0072 F11F      		adc r31,r17
+ 307 0074 4080      		ld r4,Z
+ 308 0076 5180      		ldd r5,Z+1
+ 309 0078 6280      		ldd r6,Z+2
+ 310 007a 7380      		ldd r7,Z+3
+ 311 007c 480E      		add r4,r24
+ 312 007e 591E      		adc r5,r25
+ 313 0080 6A1E      		adc r6,r26
+ 314 0082 7B1E      		adc r7,r27
+ 315 0084 A501      		movw r20,r10
+ 316 0086 9401      		movw r18,r8
+ 317 0088 64E0      		ldi r22,4
+ 318               		1:
+ 319 008a 220F      		lsl r18
+ 320 008c 331F      		rol r19
+ 321 008e 441F      		rol r20
+ 322 0090 551F      		rol r21
+ 323 0092 6A95      		dec r22
+ 324 0094 01F4      		brne 1b
+ 325 0096 2983      		std Y+1,r18
+ 326 0098 3A83      		std Y+2,r19
+ 327 009a 4B83      		std Y+3,r20
+ 328 009c 5C83      		std Y+4,r21
+ 329 009e 9501      		movw r18,r10
+ 330 00a0 8401      		movw r16,r8
+ 331 00a2 75E0      		ldi r23,5
+ 332               		1:
+ 333 00a4 3695      		lsr r19
+ 334 00a6 2795      		ror r18
+ 335 00a8 1795      		ror r17
+ 336 00aa 0795      		ror r16
+ 337 00ac 7A95      		dec r23
+ 338 00ae 01F4      		brne 1b
+ 339 00b0 4981      		ldd r20,Y+1
+ 340 00b2 5A81      		ldd r21,Y+2
+ 341 00b4 6B81      		ldd r22,Y+3
+ 342 00b6 7C81      		ldd r23,Y+4
+GAS LISTING /tmp/ccTAJB9M.s 			page 7
+
+
+ 343 00b8 0427      		eor r16,r20
+ 344 00ba 1527      		eor r17,r21
+ 345 00bc 2627      		eor r18,r22
+ 346 00be 3727      		eor r19,r23
+ 347 00c0 080D      		add r16,r8
+ 348 00c2 191D      		adc r17,r9
+ 349 00c4 2A1D      		adc r18,r10
+ 350 00c6 3B1D      		adc r19,r11
+ 351 00c8 4026      		eor r4,r16
+ 352 00ca 5126      		eor r5,r17
+ 353 00cc 6226      		eor r6,r18
+ 354 00ce 7326      		eor r7,r19
+ 355 00d0 C418      		sub r12,r4
+ 356 00d2 D508      		sbc r13,r5
+ 357 00d4 E608      		sbc r14,r6
+ 358 00d6 F708      		sbc r15,r7
+ 359 00d8 895B      		subi r24,-71
+ 360 00da 9947      		sbci r25,121
+ 361 00dc A743      		sbci r26,55
+ 362 00de BE49      		sbci r27,-98
+ 363 00e0 FC01      		movw r30,r24
+ 364 00e2 E370      		andi r30,3
+ 365 00e4 FF27      		clr r31
+ 366 00e6 EE0F      		lsl r30
+ 367 00e8 FF1F      		rol r31
+ 368 00ea EE0F      		lsl r30
+ 369 00ec FF1F      		rol r31
+ 370 00ee 6D81      		ldd r22,Y+5
+ 371 00f0 7E81      		ldd r23,Y+6
+ 372 00f2 E60F      		add r30,r22
+ 373 00f4 F71F      		adc r31,r23
+ 374 00f6 4080      		ld r4,Z
+ 375 00f8 5180      		ldd r5,Z+1
+ 376 00fa 6280      		ldd r6,Z+2
+ 377 00fc 7380      		ldd r7,Z+3
+ 378 00fe 480E      		add r4,r24
+ 379 0100 591E      		adc r5,r25
+ 380 0102 6A1E      		adc r6,r26
+ 381 0104 7B1E      		adc r7,r27
+ 382 0106 9701      		movw r18,r14
+ 383 0108 8601      		movw r16,r12
+ 384 010a 44E0      		ldi r20,4
+ 385               		1:
+ 386 010c 000F      		lsl r16
+ 387 010e 111F      		rol r17
+ 388 0110 221F      		rol r18
+ 389 0112 331F      		rol r19
+ 390 0114 4A95      		dec r20
+ 391 0116 01F4      		brne 1b
+ 392 0118 0983      		std Y+1,r16
+ 393 011a 1A83      		std Y+2,r17
+ 394 011c 2B83      		std Y+3,r18
+ 395 011e 3C83      		std Y+4,r19
+ 396 0120 9701      		movw r18,r14
+ 397 0122 8601      		movw r16,r12
+ 398 0124 55E0      		ldi r21,5
+ 399               		1:
+GAS LISTING /tmp/ccTAJB9M.s 			page 8
+
+
+ 400 0126 3695      		lsr r19
+ 401 0128 2795      		ror r18
+ 402 012a 1795      		ror r17
+ 403 012c 0795      		ror r16
+ 404 012e 5A95      		dec r21
+ 405 0130 01F4      		brne 1b
+ 406 0132 4981      		ldd r20,Y+1
+ 407 0134 5A81      		ldd r21,Y+2
+ 408 0136 6B81      		ldd r22,Y+3
+ 409 0138 7C81      		ldd r23,Y+4
+ 410 013a 0427      		eor r16,r20
+ 411 013c 1527      		eor r17,r21
+ 412 013e 2627      		eor r18,r22
+ 413 0140 3727      		eor r19,r23
+ 414 0142 0C0D      		add r16,r12
+ 415 0144 1D1D      		adc r17,r13
+ 416 0146 2E1D      		adc r18,r14
+ 417 0148 3F1D      		adc r19,r15
+ 418 014a 4026      		eor r4,r16
+ 419 014c 5126      		eor r5,r17
+ 420 014e 6226      		eor r6,r18
+ 421 0150 7326      		eor r7,r19
+ 422 0152 8418      		sub r8,r4
+ 423 0154 9508      		sbc r9,r5
+ 424 0156 A608      		sbc r10,r6
+ 425 0158 B708      		sbc r11,r7
+ 426 015a 0097      		sbiw r24,0
+ 427 015c A105      		cpc r26,__zero_reg__
+ 428 015e B105      		cpc r27,__zero_reg__
+ 429 0160 01F0      		breq .+2
+ 430 0162 00C0      		rjmp .L6
+ 431 0164 F101      		movw r30,r2
+ 432 0166 8082      		st Z,r8
+ 433 0168 9182      		std Z+1,r9
+ 434 016a A282      		std Z+2,r10
+ 435 016c B382      		std Z+3,r11
+ 436 016e C482      		std Z+4,r12
+ 437 0170 D582      		std Z+5,r13
+ 438 0172 E682      		std Z+6,r14
+ 439 0174 F782      		std Z+7,r15
+ 440               	/* epilogue start */
+ 441 0176 2696      		adiw r28,6
+ 442 0178 0FB6      		in __tmp_reg__,__SREG__
+ 443 017a F894      		cli
+ 444 017c DEBF      		out __SP_H__,r29
+ 445 017e 0FBE      		out __SREG__,__tmp_reg__
+ 446 0180 CDBF      		out __SP_L__,r28
+ 447 0182 DF91      		pop r29
+ 448 0184 CF91      		pop r28
+ 449 0186 1F91      		pop r17
+ 450 0188 0F91      		pop r16
+ 451 018a FF90      		pop r15
+ 452 018c EF90      		pop r14
+ 453 018e DF90      		pop r13
+ 454 0190 CF90      		pop r12
+ 455 0192 BF90      		pop r11
+ 456 0194 AF90      		pop r10
+GAS LISTING /tmp/ccTAJB9M.s 			page 9
+
+
+ 457 0196 9F90      		pop r9
+ 458 0198 8F90      		pop r8
+ 459 019a 7F90      		pop r7
+ 460 019c 6F90      		pop r6
+ 461 019e 5F90      		pop r5
+ 462 01a0 4F90      		pop r4
+ 463 01a2 3F90      		pop r3
+ 464 01a4 2F90      		pop r2
+ 465 01a6 0895      		ret
+ 466               		.size	XTeaDecrypt, .-XTeaDecrypt
+ 467               		.section	.text.XTeaCryptStr,"ax",@progbits
+ 468               	.global	XTeaCryptStr
+ 469               		.type	XTeaCryptStr, @function
+ 470               	XTeaCryptStr:
+ 471 0000 8F92      		push r8
+ 472 0002 9F92      		push r9
+ 473 0004 AF92      		push r10
+ 474 0006 BF92      		push r11
+ 475 0008 CF92      		push r12
+ 476 000a DF92      		push r13
+ 477 000c EF92      		push r14
+ 478 000e FF92      		push r15
+ 479 0010 0F93      		push r16
+ 480 0012 1F93      		push r17
+ 481 0014 CF93      		push r28
+ 482 0016 DF93      		push r29
+ 483 0018 CDB7      		in r28,__SP_L__
+ 484 001a DEB7      		in r29,__SP_H__
+ 485 001c 6097      		sbiw r28,16
+ 486 001e 0FB6      		in __tmp_reg__,__SREG__
+ 487 0020 F894      		cli
+ 488 0022 DEBF      		out __SP_H__,r29
+ 489 0024 0FBE      		out __SREG__,__tmp_reg__
+ 490 0026 CDBF      		out __SP_L__,r28
+ 491               	/* prologue: function */
+ 492               	/* frame size = 16 */
+ 493               	/* stack size = 28 */
+ 494               	.L__stack_usage = 28
+ 495 0028 6C01      		movw r12,r24
+ 496 002a 5B01      		movw r10,r22
+ 497 002c 7A01      		movw r14,r20
+ 498 002e 8E01      		movw r16,r28
+ 499 0030 0F5F      		subi r16,-1
+ 500 0032 1F4F      		sbci r17,-1
+ 501 0034 80E1      		ldi r24,lo8(16)
+ 502 0036 F801      		movw r30,r16
+ 503               		0:
+ 504 0038 1192      		st Z+,__zero_reg__
+ 505 003a 8A95      		dec r24
+ 506 003c 01F4      		brne 0b
+ 507 003e F901      		movw r30,r18
+ 508               		0:
+ 509 0040 0190      		ld __tmp_reg__,Z+
+ 510 0042 0020      		tst __tmp_reg__
+ 511 0044 01F4      		brne 0b
+ 512 0046 3197      		sbiw r30,1
+ 513 0048 AF01      		movw r20,r30
+GAS LISTING /tmp/ccTAJB9M.s 			page 10
+
+
+ 514 004a 421B      		sub r20,r18
+ 515 004c 530B      		sbc r21,r19
+ 516 004e 4131      		cpi r20,17
+ 517 0050 5105      		cpc r21,__zero_reg__
+ 518 0052 00F0      		brlo .L9
+ 519 0054 40E1      		ldi r20,lo8(16)
+ 520 0056 50E0      		ldi r21,0
+ 521               	.L9:
+ 522 0058 B901      		movw r22,r18
+ 523 005a C801      		movw r24,r16
+ 524 005c 0E94 0000 		call memcpy
+ 525 0060 812C      		mov r8,__zero_reg__
+ 526 0062 912C      		mov r9,__zero_reg__
+ 527               	.L10:
+ 528 0064 B501      		movw r22,r10
+ 529 0066 680D      		add r22,r8
+ 530 0068 791D      		adc r23,r9
+ 531 006a C601      		movw r24,r12
+ 532 006c 880D      		add r24,r8
+ 533 006e 991D      		adc r25,r9
+ 534 0070 8E14      		cp r8,r14
+ 535 0072 9F04      		cpc r9,r15
+ 536 0074 00F4      		brsh .L12
+ 537 0076 A801      		movw r20,r16
+ 538 0078 0E94 0000 		call XTeaCrypt
+ 539 007c F8E0      		ldi r31,8
+ 540 007e 8F0E      		add r8,r31
+ 541 0080 911C      		adc r9,__zero_reg__
+ 542 0082 00C0      		rjmp .L10
+ 543               	.L12:
+ 544               	/* epilogue start */
+ 545 0084 6096      		adiw r28,16
+ 546 0086 0FB6      		in __tmp_reg__,__SREG__
+ 547 0088 F894      		cli
+ 548 008a DEBF      		out __SP_H__,r29
+ 549 008c 0FBE      		out __SREG__,__tmp_reg__
+ 550 008e CDBF      		out __SP_L__,r28
+ 551 0090 DF91      		pop r29
+ 552 0092 CF91      		pop r28
+ 553 0094 1F91      		pop r17
+ 554 0096 0F91      		pop r16
+ 555 0098 FF90      		pop r15
+ 556 009a EF90      		pop r14
+ 557 009c DF90      		pop r13
+ 558 009e CF90      		pop r12
+ 559 00a0 BF90      		pop r11
+ 560 00a2 AF90      		pop r10
+ 561 00a4 9F90      		pop r9
+ 562 00a6 8F90      		pop r8
+ 563 00a8 0895      		ret
+ 564               		.size	XTeaCryptStr, .-XTeaCryptStr
+ 565               		.section	.text.XTeaDecryptStr,"ax",@progbits
+ 566               	.global	XTeaDecryptStr
+ 567               		.type	XTeaDecryptStr, @function
+ 568               	XTeaDecryptStr:
+ 569 0000 8F92      		push r8
+ 570 0002 9F92      		push r9
+GAS LISTING /tmp/ccTAJB9M.s 			page 11
+
+
+ 571 0004 AF92      		push r10
+ 572 0006 BF92      		push r11
+ 573 0008 CF92      		push r12
+ 574 000a DF92      		push r13
+ 575 000c EF92      		push r14
+ 576 000e FF92      		push r15
+ 577 0010 0F93      		push r16
+ 578 0012 1F93      		push r17
+ 579 0014 CF93      		push r28
+ 580 0016 DF93      		push r29
+ 581 0018 CDB7      		in r28,__SP_L__
+ 582 001a DEB7      		in r29,__SP_H__
+ 583 001c 6097      		sbiw r28,16
+ 584 001e 0FB6      		in __tmp_reg__,__SREG__
+ 585 0020 F894      		cli
+ 586 0022 DEBF      		out __SP_H__,r29
+ 587 0024 0FBE      		out __SREG__,__tmp_reg__
+ 588 0026 CDBF      		out __SP_L__,r28
+ 589               	/* prologue: function */
+ 590               	/* frame size = 16 */
+ 591               	/* stack size = 28 */
+ 592               	.L__stack_usage = 28
+ 593 0028 6C01      		movw r12,r24
+ 594 002a 5B01      		movw r10,r22
+ 595 002c 7A01      		movw r14,r20
+ 596 002e 8E01      		movw r16,r28
+ 597 0030 0F5F      		subi r16,-1
+ 598 0032 1F4F      		sbci r17,-1
+ 599 0034 80E1      		ldi r24,lo8(16)
+ 600 0036 F801      		movw r30,r16
+ 601               		0:
+ 602 0038 1192      		st Z+,__zero_reg__
+ 603 003a 8A95      		dec r24
+ 604 003c 01F4      		brne 0b
+ 605 003e F901      		movw r30,r18
+ 606               		0:
+ 607 0040 0190      		ld __tmp_reg__,Z+
+ 608 0042 0020      		tst __tmp_reg__
+ 609 0044 01F4      		brne 0b
+ 610 0046 3197      		sbiw r30,1
+ 611 0048 AF01      		movw r20,r30
+ 612 004a 421B      		sub r20,r18
+ 613 004c 530B      		sbc r21,r19
+ 614 004e 4131      		cpi r20,17
+ 615 0050 5105      		cpc r21,__zero_reg__
+ 616 0052 00F0      		brlo .L14
+ 617 0054 40E1      		ldi r20,lo8(16)
+ 618 0056 50E0      		ldi r21,0
+ 619               	.L14:
+ 620 0058 B901      		movw r22,r18
+ 621 005a C801      		movw r24,r16
+ 622 005c 0E94 0000 		call memcpy
+ 623 0060 812C      		mov r8,__zero_reg__
+ 624 0062 912C      		mov r9,__zero_reg__
+ 625               	.L15:
+ 626 0064 B501      		movw r22,r10
+ 627 0066 680D      		add r22,r8
+GAS LISTING /tmp/ccTAJB9M.s 			page 12
+
+
+ 628 0068 791D      		adc r23,r9
+ 629 006a C601      		movw r24,r12
+ 630 006c 880D      		add r24,r8
+ 631 006e 991D      		adc r25,r9
+ 632 0070 8E14      		cp r8,r14
+ 633 0072 9F04      		cpc r9,r15
+ 634 0074 00F4      		brsh .L17
+ 635 0076 A801      		movw r20,r16
+ 636 0078 0E94 0000 		call XTeaDecrypt
+ 637 007c F8E0      		ldi r31,8
+ 638 007e 8F0E      		add r8,r31
+ 639 0080 911C      		adc r9,__zero_reg__
+ 640 0082 00C0      		rjmp .L15
+ 641               	.L17:
+ 642               	/* epilogue start */
+ 643 0084 6096      		adiw r28,16
+ 644 0086 0FB6      		in __tmp_reg__,__SREG__
+ 645 0088 F894      		cli
+ 646 008a DEBF      		out __SP_H__,r29
+ 647 008c 0FBE      		out __SREG__,__tmp_reg__
+ 648 008e CDBF      		out __SP_L__,r28
+ 649 0090 DF91      		pop r29
+ 650 0092 CF91      		pop r28
+ 651 0094 1F91      		pop r17
+ 652 0096 0F91      		pop r16
+ 653 0098 FF90      		pop r15
+ 654 009a EF90      		pop r14
+ 655 009c DF90      		pop r13
+ 656 009e CF90      		pop r12
+ 657 00a0 BF90      		pop r11
+ 658 00a2 AF90      		pop r10
+ 659 00a4 9F90      		pop r9
+ 660 00a6 8F90      		pop r8
+ 661 00a8 0895      		ret
+ 662               		.size	XTeaDecryptStr, .-XTeaDecryptStr
+ 663               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccTAJB9M.s 			page 13
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 xtea.c
+     /tmp/ccTAJB9M.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccTAJB9M.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccTAJB9M.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccTAJB9M.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccTAJB9M.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccTAJB9M.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccTAJB9M.s:11     .text.XTeaCrypt:0000000000000000 XTeaCrypt
+     /tmp/ccTAJB9M.s:242    .text.XTeaDecrypt:0000000000000000 XTeaDecrypt
+     /tmp/ccTAJB9M.s:470    .text.XTeaCryptStr:0000000000000000 XTeaCryptStr
+     /tmp/ccTAJB9M.s:568    .text.XTeaDecryptStr:0000000000000000 XTeaDecryptStr
+
+UNDEFINED SYMBOLS
+memcpy

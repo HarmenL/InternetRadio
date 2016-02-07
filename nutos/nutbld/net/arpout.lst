@@ -1,0 +1,217 @@
+GAS LISTING /tmp/cclKRoFG.s 			page 1
+
+
+   1               		.file	"arpout.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.NutArpAllocNetBuf,"ax",@progbits
+   9               	.global	NutArpAllocNetBuf
+  10               		.type	NutArpAllocNetBuf, @function
+  11               	NutArpAllocNetBuf:
+  12 0000 8F92      		push r8
+  13 0002 9F92      		push r9
+  14 0004 AF92      		push r10
+  15 0006 BF92      		push r11
+  16 0008 CF92      		push r12
+  17 000a DF92      		push r13
+  18 000c EF92      		push r14
+  19 000e FF92      		push r15
+  20 0010 0F93      		push r16
+  21 0012 1F93      		push r17
+  22 0014 CF93      		push r28
+  23 0016 DF93      		push r29
+  24               	/* prologue: function */
+  25               	/* frame size = 0 */
+  26               	/* stack size = 12 */
+  27               	.L__stack_usage = 12
+  28 0018 8C01      		movw r16,r24
+  29 001a 4A01      		movw r8,r20
+  30 001c 5B01      		movw r10,r22
+  31 001e 6901      		movw r12,r18
+  32 0020 4CE1      		ldi r20,lo8(28)
+  33 0022 50E0      		ldi r21,0
+  34 0024 60E2      		ldi r22,lo8(32)
+  35 0026 80E0      		ldi r24,0
+  36 0028 90E0      		ldi r25,0
+  37 002a 0E94 0000 		call NutNetBufAlloc
+  38 002e 7C01      		movw r14,r24
+  39 0030 0097      		sbiw r24,0
+  40 0032 01F4      		brne .+2
+  41 0034 00C0      		rjmp .L5
+  42 0036 FC01      		movw r30,r24
+  43 0038 C781      		ldd r28,Z+7
+  44 003a D085      		ldd r29,Z+8
+  45 003c 81E0      		ldi r24,lo8(1)
+  46 003e 90E0      		ldi r25,0
+  47               	/* #APP */
+  48               	 ;  309 "../../nut/include/sys/types.h" 1
+  49 0040 082E      		mov __tmp_reg__, r24
+  50 0042 892F      		mov r24, r25
+  51 0044 902D      		mov r25, __tmp_reg__
+  52               		
+  53               	 ;  0 "" 2
+  54               	/* #NOAPP */
+  55 0046 9983      		std Y+1,r25
+  56 0048 8883      		st Y,r24
+  57 004a 80E0      		ldi r24,0
+GAS LISTING /tmp/cclKRoFG.s 			page 2
+
+
+  58 004c 98E0      		ldi r25,lo8(8)
+  59               	/* #APP */
+  60               	 ;  309 "../../nut/include/sys/types.h" 1
+  61 004e 082E      		mov __tmp_reg__, r24
+  62 0050 892F      		mov r24, r25
+  63 0052 902D      		mov r25, __tmp_reg__
+  64               		
+  65               	 ;  0 "" 2
+  66               	/* #NOAPP */
+  67 0054 9B83      		std Y+3,r25
+  68 0056 8A83      		std Y+2,r24
+  69 0058 86E0      		ldi r24,lo8(6)
+  70 005a 8C83      		std Y+4,r24
+  71 005c 84E0      		ldi r24,lo8(4)
+  72 005e 8D83      		std Y+5,r24
+  73 0060 C801      		movw r24,r16
+  74               	/* #APP */
+  75               	 ;  309 "../../nut/include/sys/types.h" 1
+  76 0062 082E      		mov __tmp_reg__, r24
+  77 0064 892F      		mov r24, r25
+  78 0066 902D      		mov r25, __tmp_reg__
+  79               		
+  80               	 ;  0 "" 2
+  81               	/* #NOAPP */
+  82 0068 9F83      		std Y+7,r25
+  83 006a 8E83      		std Y+6,r24
+  84 006c CE01      		movw r24,r28
+  85 006e 4296      		adiw r24,18
+  86 0070 C114      		cp r12,__zero_reg__
+  87 0072 D104      		cpc r13,__zero_reg__
+  88 0074 01F0      		breq .L3
+  89 0076 26E0      		ldi r18,lo8(6)
+  90 0078 F601      		movw r30,r12
+  91 007a DC01      		movw r26,r24
+  92               		0:
+  93 007c 0190      		ld r0,Z+
+  94 007e 0D92      		st X+,r0
+  95 0080 2A95      		dec r18
+  96 0082 01F4      		brne 0b
+  97 0084 00C0      		rjmp .L4
+  98               	.L3:
+  99 0086 46E0      		ldi r20,lo8(6)
+ 100 0088 50E0      		ldi r21,0
+ 101 008a 6FEF      		ldi r22,lo8(-1)
+ 102 008c 70E0      		ldi r23,0
+ 103 008e 0E94 0000 		call memset
+ 104               	.L4:
+ 105 0092 888E      		std Y+24,r8
+ 106 0094 998E      		std Y+25,r9
+ 107 0096 AA8E      		std Y+26,r10
+ 108 0098 BB8E      		std Y+27,r11
+ 109 009a C701      		movw r24,r14
+ 110 009c 00C0      		rjmp .L2
+ 111               	.L5:
+ 112 009e 80E0      		ldi r24,0
+ 113 00a0 90E0      		ldi r25,0
+ 114               	.L2:
+GAS LISTING /tmp/cclKRoFG.s 			page 3
+
+
+ 115               	/* epilogue start */
+ 116 00a2 DF91      		pop r29
+ 117 00a4 CF91      		pop r28
+ 118 00a6 1F91      		pop r17
+ 119 00a8 0F91      		pop r16
+ 120 00aa FF90      		pop r15
+ 121 00ac EF90      		pop r14
+ 122 00ae DF90      		pop r13
+ 123 00b0 CF90      		pop r12
+ 124 00b2 BF90      		pop r11
+ 125 00b4 AF90      		pop r10
+ 126 00b6 9F90      		pop r9
+ 127 00b8 8F90      		pop r8
+ 128 00ba 0895      		ret
+ 129               		.size	NutArpAllocNetBuf, .-NutArpAllocNetBuf
+ 130               		.section	.text.NutArpOutput,"ax",@progbits
+ 131               	.global	NutArpOutput
+ 132               		.type	NutArpOutput, @function
+ 133               	NutArpOutput:
+ 134 0000 0F93      		push r16
+ 135 0002 1F93      		push r17
+ 136 0004 CF93      		push r28
+ 137 0006 DF93      		push r29
+ 138               	/* prologue: function */
+ 139               	/* frame size = 0 */
+ 140               	/* stack size = 4 */
+ 141               	.L__stack_usage = 4
+ 142 0008 9B01      		movw r18,r22
+ 143 000a DB01      		movw r26,r22
+ 144 000c 1796      		adiw r26,7
+ 145 000e CD91      		ld r28,X+
+ 146 0010 DC91      		ld r29,X
+ 147 0012 1897      		sbiw r26,7+1
+ 148 0014 FC01      		movw r30,r24
+ 149 0016 0785      		ldd r16,Z+15
+ 150 0018 1089      		ldd r17,Z+16
+ 151 001a DE01      		movw r26,r28
+ 152 001c 1896      		adiw r26,8
+ 153 001e F801      		movw r30,r16
+ 154 0020 3596      		adiw r30,5
+ 155 0022 46E0      		ldi r20,lo8(6)
+ 156               		0:
+ 157 0024 0190      		ld r0,Z+
+ 158 0026 0D92      		st X+,r0
+ 159 0028 4A95      		dec r20
+ 160 002a 01F4      		brne 0b
+ 161 002c D801      		movw r26,r16
+ 162 002e 1B96      		adiw r26,11
+ 163 0030 4D91      		ld r20,X+
+ 164 0032 5D91      		ld r21,X+
+ 165 0034 6D91      		ld r22,X+
+ 166 0036 7C91      		ld r23,X
+ 167 0038 1E97      		sbiw r26,11+3
+ 168 003a 4E87      		std Y+14,r20
+ 169 003c 5F87      		std Y+15,r21
+ 170 003e 688B      		std Y+16,r22
+ 171 0040 798B      		std Y+17,r23
+GAS LISTING /tmp/cclKRoFG.s 			page 4
+
+
+ 172 0042 AE01      		movw r20,r28
+ 173 0044 4E5E      		subi r20,-18
+ 174 0046 5F4F      		sbci r21,-1
+ 175 0048 9396      		adiw r26,35
+ 176 004a ED91      		ld r30,X+
+ 177 004c FC91      		ld r31,X
+ 178 004e 9497      		sbiw r26,35+1
+ 179 0050 66E0      		ldi r22,lo8(6)
+ 180 0052 78E0      		ldi r23,lo8(8)
+ 181               	/* epilogue start */
+ 182 0054 DF91      		pop r29
+ 183 0056 CF91      		pop r28
+ 184 0058 1F91      		pop r17
+ 185 005a 0F91      		pop r16
+ 186 005c 1994      		eijmp
+ 187               		.size	NutArpOutput, .-NutArpOutput
+ 188               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/cclKRoFG.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 arpout.c
+     /tmp/cclKRoFG.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cclKRoFG.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cclKRoFG.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cclKRoFG.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cclKRoFG.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cclKRoFG.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cclKRoFG.s:11     .text.NutArpAllocNetBuf:0000000000000000 NutArpAllocNetBuf
+     /tmp/cclKRoFG.s:133    .text.NutArpOutput:0000000000000000 NutArpOutput
+
+UNDEFINED SYMBOLS
+NutNetBufAlloc
+memset

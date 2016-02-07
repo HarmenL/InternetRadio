@@ -1,0 +1,1514 @@
+GAS LISTING /tmp/cc5vNbiQ.s 			page 1
+
+
+   1               		.file	"rawfs.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.RawFsSectorFlush,"ax",@progbits
+   9               		.type	RawFsSectorFlush, @function
+  10               	RawFsSectorFlush:
+  11 0000 AF92      		push r10
+  12 0002 BF92      		push r11
+  13 0004 CF92      		push r12
+  14 0006 DF92      		push r13
+  15 0008 EF92      		push r14
+  16 000a FF92      		push r15
+  17 000c 0F93      		push r16
+  18 000e 1F93      		push r17
+  19 0010 CF93      		push r28
+  20 0012 DF93      		push r29
+  21 0014 00D0      		rcall .
+  22 0016 00D0      		rcall .
+  23 0018 CDB7      		in r28,__SP_L__
+  24 001a DEB7      		in r29,__SP_H__
+  25               	/* prologue: function */
+  26               	/* frame size = 6 */
+  27               	/* stack size = 16 */
+  28               	.L__stack_usage = 16
+  29 001c DC01      		movw r26,r24
+  30 001e 5196      		adiw r26,17
+  31 0020 ED90      		ld r14,X+
+  32 0022 FC90      		ld r15,X
+  33 0024 5297      		sbiw r26,17+1
+  34 0026 F701      		movw r30,r14
+  35 0028 2489      		ldd r18,Z+20
+  36 002a 3589      		ldd r19,Z+21
+  37 002c 232B      		or r18,r19
+  38 002e 01F0      		breq .L4
+  39 0030 1F96      		adiw r26,15
+  40 0032 CD90      		ld r12,X+
+  41 0034 DC90      		ld r13,X
+  42 0036 5097      		sbiw r26,15+1
+  43 0038 D601      		movw r26,r12
+  44 003a AD90      		ld r10,X+
+  45 003c BC90      		ld r11,X
+  46 003e DA82      		std Y+2,r13
+  47 0040 C982      		std Y+1,r12
+  48 0042 8089      		ldd r24,Z+16
+  49 0044 9189      		ldd r25,Z+17
+  50 0046 A289      		ldd r26,Z+18
+  51 0048 B389      		ldd r27,Z+19
+  52 004a 8B83      		std Y+3,r24
+  53 004c 9C83      		std Y+4,r25
+  54 004e AD83      		std Y+5,r26
+  55 0050 BE83      		std Y+6,r27
+  56 0052 D501      		movw r26,r10
+  57 0054 5596      		adiw r26,21
+GAS LISTING /tmp/cc5vNbiQ.s 			page 2
+
+
+  58 0056 ED91      		ld r30,X+
+  59 0058 FC91      		ld r31,X
+  60 005a 5697      		sbiw r26,21+1
+  61 005c AE01      		movw r20,r28
+  62 005e 4F5F      		subi r20,-1
+  63 0060 5F4F      		sbci r21,-1
+  64 0062 63E0      		ldi r22,lo8(3)
+  65 0064 72E1      		ldi r23,lo8(18)
+  66 0066 C501      		movw r24,r10
+  67 0068 1995      		eicall
+  68 006a 8C01      		movw r16,r24
+  69 006c 892B      		or r24,r25
+  70 006e 01F4      		brne .L2
+  71 0070 F701      		movw r30,r14
+  72 0072 6685      		ldd r22,Z+14
+  73 0074 7785      		ldd r23,Z+15
+  74 0076 D501      		movw r26,r10
+  75 0078 5996      		adiw r26,25
+  76 007a ED91      		ld r30,X+
+  77 007c FC91      		ld r31,X
+  78 007e 5A97      		sbiw r26,25+1
+  79 0080 41E0      		ldi r20,lo8(1)
+  80 0082 50E0      		ldi r21,0
+  81 0084 C601      		movw r24,r12
+  82 0086 1995      		eicall
+  83 0088 0197      		sbiw r24,1
+  84 008a 01F4      		brne .L5
+  85 008c F701      		movw r30,r14
+  86 008e 158A      		std Z+21,__zero_reg__
+  87 0090 148A      		std Z+20,__zero_reg__
+  88 0092 00C0      		rjmp .L2
+  89               	.L5:
+  90 0094 0FEF      		ldi r16,lo8(-1)
+  91 0096 1FEF      		ldi r17,lo8(-1)
+  92 0098 00C0      		rjmp .L2
+  93               	.L4:
+  94 009a 00E0      		ldi r16,0
+  95 009c 10E0      		ldi r17,0
+  96               	.L2:
+  97 009e C801      		movw r24,r16
+  98               	/* epilogue start */
+  99 00a0 2696      		adiw r28,6
+ 100 00a2 0FB6      		in __tmp_reg__,__SREG__
+ 101 00a4 F894      		cli
+ 102 00a6 DEBF      		out __SP_H__,r29
+ 103 00a8 0FBE      		out __SREG__,__tmp_reg__
+ 104 00aa CDBF      		out __SP_L__,r28
+ 105 00ac DF91      		pop r29
+ 106 00ae CF91      		pop r28
+ 107 00b0 1F91      		pop r17
+ 108 00b2 0F91      		pop r16
+ 109 00b4 FF90      		pop r15
+ 110 00b6 EF90      		pop r14
+ 111 00b8 DF90      		pop r13
+ 112 00ba CF90      		pop r12
+ 113 00bc BF90      		pop r11
+ 114 00be AF90      		pop r10
+GAS LISTING /tmp/cc5vNbiQ.s 			page 3
+
+
+ 115 00c0 0895      		ret
+ 116               		.size	RawFsSectorFlush, .-RawFsSectorFlush
+ 117               		.section	.text.RawFsFileSize,"ax",@progbits
+ 118               		.type	RawFsFileSize, @function
+ 119               	RawFsFileSize:
+ 120               	/* prologue: function */
+ 121               	/* frame size = 0 */
+ 122               	/* stack size = 0 */
+ 123               	.L__stack_usage = 0
+ 124 0000 DC01      		movw r26,r24
+ 125 0002 ED91      		ld r30,X+
+ 126 0004 FC91      		ld r31,X
+ 127 0006 0188      		ldd __tmp_reg__,Z+17
+ 128 0008 F289      		ldd r31,Z+18
+ 129 000a E02D      		mov r30,__tmp_reg__
+ 130 000c A485      		ldd r26,Z+12
+ 131 000e B585      		ldd r27,Z+13
+ 132 0010 2085      		ldd r18,Z+8
+ 133 0012 3185      		ldd r19,Z+9
+ 134 0014 4285      		ldd r20,Z+10
+ 135 0016 5385      		ldd r21,Z+11
+ 136 0018 0E94 0000 		call __muluhisi3
+ 137 001c 0895      		ret
+ 138               		.size	RawFsFileSize, .-RawFsFileSize
+ 139               		.section	.text.RawFsInit,"ax",@progbits
+ 140               		.type	RawFsInit, @function
+ 141               	RawFsInit:
+ 142               	/* prologue: function */
+ 143               	/* frame size = 0 */
+ 144               	/* stack size = 0 */
+ 145               	.L__stack_usage = 0
+ 146 0000 80E0      		ldi r24,0
+ 147 0002 90E0      		ldi r25,0
+ 148 0004 0895      		ret
+ 149               		.size	RawFsInit, .-RawFsInit
+ 150               		.section	.text.RawFsApiFileWrite_P,"ax",@progbits
+ 151               		.type	RawFsApiFileWrite_P, @function
+ 152               	RawFsApiFileWrite_P:
+ 153 0000 CF93      		push r28
+ 154 0002 DF93      		push r29
+ 155               	/* prologue: function */
+ 156               	/* frame size = 0 */
+ 157               	/* stack size = 2 */
+ 158               	.L__stack_usage = 2
+ 159 0004 DC01      		movw r26,r24
+ 160 0006 ED91      		ld r30,X+
+ 161 0008 FC91      		ld r31,X
+ 162 000a C189      		ldd r28,Z+17
+ 163 000c D289      		ldd r29,Z+18
+ 164 000e 2496      		adiw r28,4
+ 165 0010 40E0      		ldi r20,0
+ 166 0012 50E0      		ldi r21,0
+ 167 0014 BA01      		movw r22,r20
+ 168 0016 CE01      		movw r24,r28
+ 169 0018 0E94 0000 		call NutEventWait
+ 170 001c CE01      		movw r24,r28
+ 171 001e 0E94 0000 		call NutEventPost
+GAS LISTING /tmp/cc5vNbiQ.s 			page 4
+
+
+ 172 0022 8FEF      		ldi r24,lo8(-1)
+ 173 0024 9FEF      		ldi r25,lo8(-1)
+ 174               	/* epilogue start */
+ 175 0026 DF91      		pop r29
+ 176 0028 CF91      		pop r28
+ 177 002a 0895      		ret
+ 178               		.size	RawFsApiFileWrite_P, .-RawFsApiFileWrite_P
+ 179               		.section	.text.RawFsSectorLoad,"ax",@progbits
+ 180               		.type	RawFsSectorLoad, @function
+ 181               	RawFsSectorLoad:
+ 182 0000 4F92      		push r4
+ 183 0002 5F92      		push r5
+ 184 0004 6F92      		push r6
+ 185 0006 7F92      		push r7
+ 186 0008 AF92      		push r10
+ 187 000a BF92      		push r11
+ 188 000c CF92      		push r12
+ 189 000e DF92      		push r13
+ 190 0010 EF92      		push r14
+ 191 0012 FF92      		push r15
+ 192 0014 0F93      		push r16
+ 193 0016 1F93      		push r17
+ 194 0018 CF93      		push r28
+ 195 001a DF93      		push r29
+ 196 001c 00D0      		rcall .
+ 197 001e 00D0      		rcall .
+ 198 0020 CDB7      		in r28,__SP_L__
+ 199 0022 DEB7      		in r29,__SP_H__
+ 200               	/* prologue: function */
+ 201               	/* frame size = 6 */
+ 202               	/* stack size = 20 */
+ 203               	.L__stack_usage = 20
+ 204 0024 7C01      		movw r14,r24
+ 205 0026 2A01      		movw r4,r20
+ 206 0028 3B01      		movw r6,r22
+ 207 002a DC01      		movw r26,r24
+ 208 002c 5196      		adiw r26,17
+ 209 002e 0D91      		ld r16,X+
+ 210 0030 1C91      		ld r17,X
+ 211 0032 5297      		sbiw r26,17+1
+ 212 0034 5801      		movw r10,r16
+ 213 0036 B6E0      		ldi r27,6
+ 214 0038 AB0E      		add r10,r27
+ 215 003a B11C      		adc r11,__zero_reg__
+ 216 003c 40E0      		ldi r20,0
+ 217 003e 50E0      		ldi r21,0
+ 218 0040 BA01      		movw r22,r20
+ 219 0042 C501      		movw r24,r10
+ 220 0044 0E94 0000 		call NutEventWait
+ 221 0048 F801      		movw r30,r16
+ 222 004a 8089      		ldd r24,Z+16
+ 223 004c 9189      		ldd r25,Z+17
+ 224 004e A289      		ldd r26,Z+18
+ 225 0050 B389      		ldd r27,Z+19
+ 226 0052 8415      		cp r24,r4
+ 227 0054 9505      		cpc r25,r5
+ 228 0056 A605      		cpc r26,r6
+GAS LISTING /tmp/cc5vNbiQ.s 			page 5
+
+
+ 229 0058 B705      		cpc r27,r7
+ 230 005a 01F0      		breq .L15
+ 231 005c C701      		movw r24,r14
+ 232 005e 0E94 0000 		call RawFsSectorFlush
+ 233 0062 892B      		or r24,r25
+ 234 0064 01F4      		brne .L16
+ 235 0066 D701      		movw r26,r14
+ 236 0068 1F96      		adiw r26,15
+ 237 006a ED90      		ld r14,X+
+ 238 006c FC90      		ld r15,X
+ 239 006e 5097      		sbiw r26,15+1
+ 240 0070 F701      		movw r30,r14
+ 241 0072 C080      		ld r12,Z
+ 242 0074 D180      		ldd r13,Z+1
+ 243 0076 FA82      		std Y+2,r15
+ 244 0078 E982      		std Y+1,r14
+ 245 007a 4B82      		std Y+3,r4
+ 246 007c 5C82      		std Y+4,r5
+ 247 007e 6D82      		std Y+5,r6
+ 248 0080 7E82      		std Y+6,r7
+ 249 0082 D601      		movw r26,r12
+ 250 0084 5596      		adiw r26,21
+ 251 0086 ED91      		ld r30,X+
+ 252 0088 FC91      		ld r31,X
+ 253 008a 5697      		sbiw r26,21+1
+ 254 008c AE01      		movw r20,r28
+ 255 008e 4F5F      		subi r20,-1
+ 256 0090 5F4F      		sbci r21,-1
+ 257 0092 63E0      		ldi r22,lo8(3)
+ 258 0094 72E1      		ldi r23,lo8(18)
+ 259 0096 C601      		movw r24,r12
+ 260 0098 1995      		eicall
+ 261 009a 892B      		or r24,r25
+ 262 009c 01F4      		brne .L16
+ 263 009e F801      		movw r30,r16
+ 264 00a0 6685      		ldd r22,Z+14
+ 265 00a2 7785      		ldd r23,Z+15
+ 266 00a4 D601      		movw r26,r12
+ 267 00a6 5796      		adiw r26,23
+ 268 00a8 ED91      		ld r30,X+
+ 269 00aa FC91      		ld r31,X
+ 270 00ac 5897      		sbiw r26,23+1
+ 271 00ae 41E0      		ldi r20,lo8(1)
+ 272 00b0 50E0      		ldi r21,0
+ 273 00b2 C701      		movw r24,r14
+ 274 00b4 1995      		eicall
+ 275 00b6 0197      		sbiw r24,1
+ 276 00b8 01F4      		brne .L16
+ 277 00ba F801      		movw r30,r16
+ 278 00bc 408A      		std Z+16,r4
+ 279 00be 518A      		std Z+17,r5
+ 280 00c0 628A      		std Z+18,r6
+ 281 00c2 738A      		std Z+19,r7
+ 282               	.L15:
+ 283 00c4 00E0      		ldi r16,0
+ 284 00c6 10E0      		ldi r17,0
+ 285 00c8 00C0      		rjmp .L11
+GAS LISTING /tmp/cc5vNbiQ.s 			page 6
+
+
+ 286               	.L16:
+ 287 00ca 0FEF      		ldi r16,lo8(-1)
+ 288 00cc 1FEF      		ldi r17,lo8(-1)
+ 289               	.L11:
+ 290 00ce C501      		movw r24,r10
+ 291 00d0 0E94 0000 		call NutEventPostAsync
+ 292 00d4 C801      		movw r24,r16
+ 293               	/* epilogue start */
+ 294 00d6 2696      		adiw r28,6
+ 295 00d8 0FB6      		in __tmp_reg__,__SREG__
+ 296 00da F894      		cli
+ 297 00dc DEBF      		out __SP_H__,r29
+ 298 00de 0FBE      		out __SREG__,__tmp_reg__
+ 299 00e0 CDBF      		out __SP_L__,r28
+ 300 00e2 DF91      		pop r29
+ 301 00e4 CF91      		pop r28
+ 302 00e6 1F91      		pop r17
+ 303 00e8 0F91      		pop r16
+ 304 00ea FF90      		pop r15
+ 305 00ec EF90      		pop r14
+ 306 00ee DF90      		pop r13
+ 307 00f0 CF90      		pop r12
+ 308 00f2 BF90      		pop r11
+ 309 00f4 AF90      		pop r10
+ 310 00f6 7F90      		pop r7
+ 311 00f8 6F90      		pop r6
+ 312 00fa 5F90      		pop r5
+ 313 00fc 4F90      		pop r4
+ 314 00fe 0895      		ret
+ 315               		.size	RawFsSectorLoad, .-RawFsSectorLoad
+ 316               		.section	.text.RawFsFileOpen,"ax",@progbits
+ 317               	.global	RawFsFileOpen
+ 318               		.type	RawFsFileOpen, @function
+ 319               	RawFsFileOpen:
+ 320 0000 EF92      		push r14
+ 321 0002 FF92      		push r15
+ 322 0004 0F93      		push r16
+ 323 0006 1F93      		push r17
+ 324 0008 CF93      		push r28
+ 325 000a DF93      		push r29
+ 326               	/* prologue: function */
+ 327               	/* frame size = 0 */
+ 328               	/* stack size = 6 */
+ 329               	.L__stack_usage = 6
+ 330 000c 8C01      		movw r16,r24
+ 331 000e 7A01      		movw r14,r20
+ 332 0010 80E1      		ldi r24,lo8(16)
+ 333 0012 90E0      		ldi r25,0
+ 334 0014 0E94 0000 		call malloc
+ 335 0018 EC01      		movw r28,r24
+ 336 001a 892B      		or r24,r25
+ 337 001c 01F0      		breq .L20
+ 338 001e 80E1      		ldi r24,lo8(16)
+ 339 0020 FE01      		movw r30,r28
+ 340               		0:
+ 341 0022 1192      		st Z+,__zero_reg__
+ 342 0024 8A95      		dec r24
+GAS LISTING /tmp/cc5vNbiQ.s 			page 7
+
+
+ 343 0026 01F4      		brne 0b
+ 344 0028 A701      		movw r20,r14
+ 345 002a FF0C      		lsl r15
+ 346 002c 660B      		sbc r22,r22
+ 347 002e 770B      		sbc r23,r23
+ 348 0030 4883      		st Y,r20
+ 349 0032 5983      		std Y+1,r21
+ 350 0034 6A83      		std Y+2,r22
+ 351 0036 7B83      		std Y+3,r23
+ 352 0038 84E0      		ldi r24,lo8(4)
+ 353 003a 90E0      		ldi r25,0
+ 354 003c 0E94 0000 		call malloc
+ 355 0040 FC01      		movw r30,r24
+ 356 0042 0097      		sbiw r24,0
+ 357 0044 01F0      		breq .L19
+ 358 0046 1183      		std Z+1,r17
+ 359 0048 0083      		st Z,r16
+ 360 004a D383      		std Z+3,r29
+ 361 004c C283      		std Z+2,r28
+ 362 004e 00C0      		rjmp .L18
+ 363               	.L19:
+ 364 0050 CE01      		movw r24,r28
+ 365 0052 0E94 0000 		call free
+ 366               	.L20:
+ 367 0056 8FEF      		ldi r24,lo8(-1)
+ 368 0058 9FEF      		ldi r25,lo8(-1)
+ 369               	.L18:
+ 370               	/* epilogue start */
+ 371 005a DF91      		pop r29
+ 372 005c CF91      		pop r28
+ 373 005e 1F91      		pop r17
+ 374 0060 0F91      		pop r16
+ 375 0062 FF90      		pop r15
+ 376 0064 EF90      		pop r14
+ 377 0066 0895      		ret
+ 378               		.size	RawFsFileOpen, .-RawFsFileOpen
+ 379               		.section	.text.RawFsApiFileOpen,"ax",@progbits
+ 380               		.type	RawFsApiFileOpen, @function
+ 381               	RawFsApiFileOpen:
+ 382 0000 AF92      		push r10
+ 383 0002 BF92      		push r11
+ 384 0004 CF92      		push r12
+ 385 0006 DF92      		push r13
+ 386 0008 EF92      		push r14
+ 387 000a FF92      		push r15
+ 388 000c 0F93      		push r16
+ 389 000e 1F93      		push r17
+ 390 0010 CF93      		push r28
+ 391 0012 DF93      		push r29
+ 392 0014 1F92      		push __zero_reg__
+ 393 0016 1F92      		push __zero_reg__
+ 394 0018 CDB7      		in r28,__SP_L__
+ 395 001a DEB7      		in r29,__SP_H__
+ 396               	/* prologue: function */
+ 397               	/* frame size = 2 */
+ 398               	/* stack size = 12 */
+ 399               	.L__stack_usage = 12
+GAS LISTING /tmp/cc5vNbiQ.s 			page 8
+
+
+ 400 001c 8C01      		movw r16,r24
+ 401 001e 7B01      		movw r14,r22
+ 402 0020 6A01      		movw r12,r20
+ 403 0022 FC01      		movw r30,r24
+ 404 0024 A188      		ldd r10,Z+17
+ 405 0026 B288      		ldd r11,Z+18
+ 406 0028 F4E0      		ldi r31,4
+ 407 002a AF0E      		add r10,r31
+ 408 002c B11C      		adc r11,__zero_reg__
+ 409 002e 40E0      		ldi r20,0
+ 410 0030 50E0      		ldi r21,0
+ 411 0032 BA01      		movw r22,r20
+ 412 0034 C501      		movw r24,r10
+ 413 0036 2983      		std Y+1,r18
+ 414 0038 3A83      		std Y+2,r19
+ 415 003a 0E94 0000 		call NutEventWait
+ 416 003e 2981      		ldd r18,Y+1
+ 417 0040 3A81      		ldd r19,Y+2
+ 418 0042 A601      		movw r20,r12
+ 419 0044 B701      		movw r22,r14
+ 420 0046 C801      		movw r24,r16
+ 421 0048 0E94 0000 		call RawFsFileOpen
+ 422 004c 8C01      		movw r16,r24
+ 423 004e C501      		movw r24,r10
+ 424 0050 0E94 0000 		call NutEventPost
+ 425 0054 C801      		movw r24,r16
+ 426               	/* epilogue start */
+ 427 0056 0F90      		pop __tmp_reg__
+ 428 0058 0F90      		pop __tmp_reg__
+ 429 005a DF91      		pop r29
+ 430 005c CF91      		pop r28
+ 431 005e 1F91      		pop r17
+ 432 0060 0F91      		pop r16
+ 433 0062 FF90      		pop r15
+ 434 0064 EF90      		pop r14
+ 435 0066 DF90      		pop r13
+ 436 0068 CF90      		pop r12
+ 437 006a BF90      		pop r11
+ 438 006c AF90      		pop r10
+ 439 006e 0895      		ret
+ 440               		.size	RawFsApiFileOpen, .-RawFsApiFileOpen
+ 441               		.section	.text.RawFsFileClose,"ax",@progbits
+ 442               	.global	RawFsFileClose
+ 443               		.type	RawFsFileClose, @function
+ 444               	RawFsFileClose:
+ 445 0000 EF92      		push r14
+ 446 0002 FF92      		push r15
+ 447 0004 0F93      		push r16
+ 448 0006 1F93      		push r17
+ 449 0008 CF93      		push r28
+ 450 000a DF93      		push r29
+ 451               	/* prologue: function */
+ 452               	/* frame size = 0 */
+ 453               	/* stack size = 6 */
+ 454               	.L__stack_usage = 6
+ 455 000c EC01      		movw r28,r24
+ 456 000e E881      		ld r30,Y
+GAS LISTING /tmp/cc5vNbiQ.s 			page 9
+
+
+ 457 0010 F981      		ldd r31,Y+1
+ 458 0012 0189      		ldd r16,Z+17
+ 459 0014 1289      		ldd r17,Z+18
+ 460 0016 0A5F      		subi r16,-6
+ 461 0018 1F4F      		sbci r17,-1
+ 462 001a 40E0      		ldi r20,0
+ 463 001c 50E0      		ldi r21,0
+ 464 001e BA01      		movw r22,r20
+ 465 0020 C801      		movw r24,r16
+ 466 0022 0E94 0000 		call NutEventWait
+ 467 0026 8881      		ld r24,Y
+ 468 0028 9981      		ldd r25,Y+1
+ 469 002a 0E94 0000 		call RawFsSectorFlush
+ 470 002e 7C01      		movw r14,r24
+ 471 0030 C801      		movw r24,r16
+ 472 0032 0E94 0000 		call NutEventPost
+ 473 0036 8A81      		ldd r24,Y+2
+ 474 0038 9B81      		ldd r25,Y+3
+ 475 003a 0097      		sbiw r24,0
+ 476 003c 01F0      		breq .L23
+ 477 003e 0E94 0000 		call free
+ 478               	.L23:
+ 479 0042 CE01      		movw r24,r28
+ 480 0044 0E94 0000 		call free
+ 481 0048 C701      		movw r24,r14
+ 482               	/* epilogue start */
+ 483 004a DF91      		pop r29
+ 484 004c CF91      		pop r28
+ 485 004e 1F91      		pop r17
+ 486 0050 0F91      		pop r16
+ 487 0052 FF90      		pop r15
+ 488 0054 EF90      		pop r14
+ 489 0056 0895      		ret
+ 490               		.size	RawFsFileClose, .-RawFsFileClose
+ 491               		.section	.text.RawFsApiFileClose,"ax",@progbits
+ 492               		.type	RawFsApiFileClose, @function
+ 493               	RawFsApiFileClose:
+ 494 0000 0F93      		push r16
+ 495 0002 1F93      		push r17
+ 496 0004 CF93      		push r28
+ 497 0006 DF93      		push r29
+ 498               	/* prologue: function */
+ 499               	/* frame size = 0 */
+ 500               	/* stack size = 4 */
+ 501               	.L__stack_usage = 4
+ 502 0008 8C01      		movw r16,r24
+ 503 000a DC01      		movw r26,r24
+ 504 000c ED91      		ld r30,X+
+ 505 000e FC91      		ld r31,X
+ 506 0010 C189      		ldd r28,Z+17
+ 507 0012 D289      		ldd r29,Z+18
+ 508 0014 2496      		adiw r28,4
+ 509 0016 40E0      		ldi r20,0
+ 510 0018 50E0      		ldi r21,0
+ 511 001a BA01      		movw r22,r20
+ 512 001c CE01      		movw r24,r28
+ 513 001e 0E94 0000 		call NutEventWait
+GAS LISTING /tmp/cc5vNbiQ.s 			page 10
+
+
+ 514 0022 C801      		movw r24,r16
+ 515 0024 0E94 0000 		call RawFsFileClose
+ 516 0028 8C01      		movw r16,r24
+ 517 002a CE01      		movw r24,r28
+ 518 002c 0E94 0000 		call NutEventPost
+ 519 0030 C801      		movw r24,r16
+ 520               	/* epilogue start */
+ 521 0032 DF91      		pop r29
+ 522 0034 CF91      		pop r28
+ 523 0036 1F91      		pop r17
+ 524 0038 0F91      		pop r16
+ 525 003a 0895      		ret
+ 526               		.size	RawFsApiFileClose, .-RawFsApiFileClose
+ 527               		.section	.text.RawFsFileWrite,"ax",@progbits
+ 528               	.global	RawFsFileWrite
+ 529               		.type	RawFsFileWrite, @function
+ 530               	RawFsFileWrite:
+ 531 0000 4F92      		push r4
+ 532 0002 5F92      		push r5
+ 533 0004 6F92      		push r6
+ 534 0006 7F92      		push r7
+ 535 0008 8F92      		push r8
+ 536 000a 9F92      		push r9
+ 537 000c AF92      		push r10
+ 538 000e BF92      		push r11
+ 539 0010 CF92      		push r12
+ 540 0012 DF92      		push r13
+ 541 0014 EF92      		push r14
+ 542 0016 FF92      		push r15
+ 543 0018 0F93      		push r16
+ 544 001a 1F93      		push r17
+ 545 001c CF93      		push r28
+ 546 001e DF93      		push r29
+ 547               	/* prologue: function */
+ 548               	/* frame size = 0 */
+ 549               	/* stack size = 16 */
+ 550               	.L__stack_usage = 16
+ 551 0020 7C01      		movw r14,r24
+ 552 0022 4B01      		movw r8,r22
+ 553 0024 5A01      		movw r10,r20
+ 554 0026 DC01      		movw r26,r24
+ 555 0028 672B      		or r22,r23
+ 556 002a 01F0      		breq .L29
+ 557 002c 452B      		or r20,r21
+ 558 002e 01F4      		brne .L30
+ 559               	.L29:
+ 560 0030 ED91      		ld r30,X+
+ 561 0032 FC91      		ld r31,X
+ 562 0034 0189      		ldd r16,Z+17
+ 563 0036 1289      		ldd r17,Z+18
+ 564 0038 0A5F      		subi r16,-6
+ 565 003a 1F4F      		sbci r17,-1
+ 566 003c 40E0      		ldi r20,0
+ 567 003e 50E0      		ldi r21,0
+ 568 0040 BA01      		movw r22,r20
+ 569 0042 C801      		movw r24,r16
+ 570 0044 0E94 0000 		call NutEventWait
+GAS LISTING /tmp/cc5vNbiQ.s 			page 11
+
+
+ 571 0048 F701      		movw r30,r14
+ 572 004a 8081      		ld r24,Z
+ 573 004c 9181      		ldd r25,Z+1
+ 574 004e 0E94 0000 		call RawFsSectorFlush
+ 575 0052 D82F      		mov r29,r24
+ 576 0054 C92F      		mov r28,r25
+ 577 0056 C801      		movw r24,r16
+ 578 0058 0E94 0000 		call NutEventPost
+ 579 005c 8D2F      		mov r24,r29
+ 580 005e 9C2F      		mov r25,r28
+ 581 0060 00C0      		rjmp .L31
+ 582               	.L30:
+ 583 0062 1296      		adiw r26,2
+ 584 0064 CD91      		ld r28,X+
+ 585 0066 DC91      		ld r29,X
+ 586 0068 1397      		sbiw r26,2+1
+ 587 006a ED91      		ld r30,X+
+ 588 006c FC91      		ld r31,X
+ 589 006e C188      		ldd r12,Z+17
+ 590 0070 D288      		ldd r13,Z+18
+ 591 0072 612C      		mov r6,__zero_reg__
+ 592 0074 712C      		mov r7,__zero_reg__
+ 593 0076 4424      		clr r4
+ 594 0078 4394      		inc r4
+ 595 007a 512C      		mov r5,__zero_reg__
+ 596               	.L32:
+ 597 007c 6A14      		cp r6,r10
+ 598 007e 7B04      		cpc r7,r11
+ 599 0080 04F0      		brlt .+2
+ 600 0082 00C0      		rjmp .L40
+ 601 0084 8C85      		ldd r24,Y+12
+ 602 0086 9D85      		ldd r25,Y+13
+ 603 0088 F601      		movw r30,r12
+ 604 008a 2485      		ldd r18,Z+12
+ 605 008c 3585      		ldd r19,Z+13
+ 606 008e 8217      		cp r24,r18
+ 607 0090 9307      		cpc r25,r19
+ 608 0092 00F0      		brlo .L33
+ 609 0094 4885      		ldd r20,Y+8
+ 610 0096 5985      		ldd r21,Y+9
+ 611 0098 6A85      		ldd r22,Y+10
+ 612 009a 7B85      		ldd r23,Y+11
+ 613 009c 4F5F      		subi r20,-1
+ 614 009e 5F4F      		sbci r21,-1
+ 615 00a0 6F4F      		sbci r22,-1
+ 616 00a2 7F4F      		sbci r23,-1
+ 617 00a4 4887      		std Y+8,r20
+ 618 00a6 5987      		std Y+9,r21
+ 619 00a8 6A87      		std Y+10,r22
+ 620 00aa 7B87      		std Y+11,r23
+ 621 00ac 821B      		sub r24,r18
+ 622 00ae 930B      		sbc r25,r19
+ 623 00b0 9D87      		std Y+13,r25
+ 624 00b2 8C87      		std Y+12,r24
+ 625               	.L33:
+ 626 00b4 4885      		ldd r20,Y+8
+ 627 00b6 5985      		ldd r21,Y+9
+GAS LISTING /tmp/cc5vNbiQ.s 			page 12
+
+
+ 628 00b8 6A85      		ldd r22,Y+10
+ 629 00ba 7B85      		ldd r23,Y+11
+ 630 00bc D701      		movw r26,r14
+ 631 00be 8D91      		ld r24,X+
+ 632 00c0 9C91      		ld r25,X
+ 633 00c2 0E94 0000 		call RawFsSectorLoad
+ 634 00c6 892B      		or r24,r25
+ 635 00c8 01F4      		brne .L36
+ 636 00ca 2C85      		ldd r18,Y+12
+ 637 00cc 3D85      		ldd r19,Y+13
+ 638 00ce F601      		movw r30,r12
+ 639 00d0 0485      		ldd r16,Z+12
+ 640 00d2 1585      		ldd r17,Z+13
+ 641 00d4 C501      		movw r24,r10
+ 642 00d6 8619      		sub r24,r6
+ 643 00d8 9709      		sbc r25,r7
+ 644 00da 021B      		sub r16,r18
+ 645 00dc 130B      		sbc r17,r19
+ 646 00de 8017      		cp r24,r16
+ 647 00e0 9107      		cpc r25,r17
+ 648 00e2 04F4      		brge .L34
+ 649 00e4 8C01      		movw r16,r24
+ 650               	.L34:
+ 651 00e6 D601      		movw r26,r12
+ 652 00e8 1E96      		adiw r26,14
+ 653 00ea 8D91      		ld r24,X+
+ 654 00ec 9C91      		ld r25,X
+ 655 00ee 1F97      		sbiw r26,14+1
+ 656 00f0 B401      		movw r22,r8
+ 657 00f2 660D      		add r22,r6
+ 658 00f4 771D      		adc r23,r7
+ 659 00f6 A801      		movw r20,r16
+ 660 00f8 820F      		add r24,r18
+ 661 00fa 931F      		adc r25,r19
+ 662 00fc 0E94 0000 		call memcpy
+ 663 0100 F601      		movw r30,r12
+ 664 0102 558A      		std Z+21,r5
+ 665 0104 448A      		std Z+20,r4
+ 666 0106 C801      		movw r24,r16
+ 667 0108 012E      		mov __tmp_reg__,r17
+ 668 010a 000C      		lsl r0
+ 669 010c AA0B      		sbc r26,r26
+ 670 010e BB0B      		sbc r27,r27
+ 671 0110 4C81      		ldd r20,Y+4
+ 672 0112 5D81      		ldd r21,Y+5
+ 673 0114 6E81      		ldd r22,Y+6
+ 674 0116 7F81      		ldd r23,Y+7
+ 675 0118 840F      		add r24,r20
+ 676 011a 951F      		adc r25,r21
+ 677 011c A61F      		adc r26,r22
+ 678 011e B71F      		adc r27,r23
+ 679 0120 8C83      		std Y+4,r24
+ 680 0122 9D83      		std Y+5,r25
+ 681 0124 AE83      		std Y+6,r26
+ 682 0126 BF83      		std Y+7,r27
+ 683 0128 8C85      		ldd r24,Y+12
+ 684 012a 9D85      		ldd r25,Y+13
+GAS LISTING /tmp/cc5vNbiQ.s 			page 13
+
+
+ 685 012c 800F      		add r24,r16
+ 686 012e 911F      		adc r25,r17
+ 687 0130 9D87      		std Y+13,r25
+ 688 0132 8C87      		std Y+12,r24
+ 689 0134 600E      		add r6,r16
+ 690 0136 711E      		adc r7,r17
+ 691 0138 00C0      		rjmp .L32
+ 692               	.L40:
+ 693 013a C301      		movw r24,r6
+ 694 013c 00C0      		rjmp .L31
+ 695               	.L36:
+ 696 013e 8FEF      		ldi r24,lo8(-1)
+ 697 0140 9FEF      		ldi r25,lo8(-1)
+ 698               	.L31:
+ 699               	/* epilogue start */
+ 700 0142 DF91      		pop r29
+ 701 0144 CF91      		pop r28
+ 702 0146 1F91      		pop r17
+ 703 0148 0F91      		pop r16
+ 704 014a FF90      		pop r15
+ 705 014c EF90      		pop r14
+ 706 014e DF90      		pop r13
+ 707 0150 CF90      		pop r12
+ 708 0152 BF90      		pop r11
+ 709 0154 AF90      		pop r10
+ 710 0156 9F90      		pop r9
+ 711 0158 8F90      		pop r8
+ 712 015a 7F90      		pop r7
+ 713 015c 6F90      		pop r6
+ 714 015e 5F90      		pop r5
+ 715 0160 4F90      		pop r4
+ 716 0162 0895      		ret
+ 717               		.size	RawFsFileWrite, .-RawFsFileWrite
+ 718               		.section	.text.RawFsApiFileWrite,"ax",@progbits
+ 719               		.type	RawFsApiFileWrite, @function
+ 720               	RawFsApiFileWrite:
+ 721 0000 CF92      		push r12
+ 722 0002 DF92      		push r13
+ 723 0004 EF92      		push r14
+ 724 0006 FF92      		push r15
+ 725 0008 0F93      		push r16
+ 726 000a 1F93      		push r17
+ 727 000c CF93      		push r28
+ 728 000e DF93      		push r29
+ 729               	/* prologue: function */
+ 730               	/* frame size = 0 */
+ 731               	/* stack size = 8 */
+ 732               	.L__stack_usage = 8
+ 733 0010 8C01      		movw r16,r24
+ 734 0012 7B01      		movw r14,r22
+ 735 0014 6A01      		movw r12,r20
+ 736 0016 DC01      		movw r26,r24
+ 737 0018 ED91      		ld r30,X+
+ 738 001a FC91      		ld r31,X
+ 739 001c C189      		ldd r28,Z+17
+ 740 001e D289      		ldd r29,Z+18
+ 741 0020 2496      		adiw r28,4
+GAS LISTING /tmp/cc5vNbiQ.s 			page 14
+
+
+ 742 0022 40E0      		ldi r20,0
+ 743 0024 50E0      		ldi r21,0
+ 744 0026 BA01      		movw r22,r20
+ 745 0028 CE01      		movw r24,r28
+ 746 002a 0E94 0000 		call NutEventWait
+ 747 002e A601      		movw r20,r12
+ 748 0030 B701      		movw r22,r14
+ 749 0032 C801      		movw r24,r16
+ 750 0034 0E94 0000 		call RawFsFileWrite
+ 751 0038 8C01      		movw r16,r24
+ 752 003a CE01      		movw r24,r28
+ 753 003c 0E94 0000 		call NutEventPost
+ 754 0040 C801      		movw r24,r16
+ 755               	/* epilogue start */
+ 756 0042 DF91      		pop r29
+ 757 0044 CF91      		pop r28
+ 758 0046 1F91      		pop r17
+ 759 0048 0F91      		pop r16
+ 760 004a FF90      		pop r15
+ 761 004c EF90      		pop r14
+ 762 004e DF90      		pop r13
+ 763 0050 CF90      		pop r12
+ 764 0052 0895      		ret
+ 765               		.size	RawFsApiFileWrite, .-RawFsApiFileWrite
+ 766               		.section	.text.RawFsFileWrite_P,"ax",@progbits
+ 767               	.global	RawFsFileWrite_P
+ 768               		.type	RawFsFileWrite_P, @function
+ 769               	RawFsFileWrite_P:
+ 770               	/* prologue: function */
+ 771               	/* frame size = 0 */
+ 772               	/* stack size = 0 */
+ 773               	.L__stack_usage = 0
+ 774 0000 8FEF      		ldi r24,lo8(-1)
+ 775 0002 9FEF      		ldi r25,lo8(-1)
+ 776 0004 0895      		ret
+ 777               		.size	RawFsFileWrite_P, .-RawFsFileWrite_P
+ 778               		.section	.text.RawFsFileRead,"ax",@progbits
+ 779               	.global	RawFsFileRead
+ 780               		.type	RawFsFileRead, @function
+ 781               	RawFsFileRead:
+ 782 0000 6F92      		push r6
+ 783 0002 7F92      		push r7
+ 784 0004 8F92      		push r8
+ 785 0006 9F92      		push r9
+ 786 0008 AF92      		push r10
+ 787 000a BF92      		push r11
+ 788 000c CF92      		push r12
+ 789 000e DF92      		push r13
+ 790 0010 EF92      		push r14
+ 791 0012 FF92      		push r15
+ 792 0014 0F93      		push r16
+ 793 0016 1F93      		push r17
+ 794 0018 CF93      		push r28
+ 795 001a DF93      		push r29
+ 796               	/* prologue: function */
+ 797               	/* frame size = 0 */
+ 798               	/* stack size = 14 */
+GAS LISTING /tmp/cc5vNbiQ.s 			page 15
+
+
+ 799               	.L__stack_usage = 14
+ 800 001c 5C01      		movw r10,r24
+ 801 001e 4B01      		movw r8,r22
+ 802 0020 7A01      		movw r14,r20
+ 803 0022 672B      		or r22,r23
+ 804 0024 01F4      		brne .+2
+ 805 0026 00C0      		rjmp .L50
+ 806 0028 452B      		or r20,r21
+ 807 002a 01F4      		brne .+2
+ 808 002c 00C0      		rjmp .L50
+ 809 002e DC01      		movw r26,r24
+ 810 0030 1296      		adiw r26,2
+ 811 0032 CD91      		ld r28,X+
+ 812 0034 DC91      		ld r29,X
+ 813 0036 1397      		sbiw r26,2+1
+ 814 0038 ED91      		ld r30,X+
+ 815 003a FC91      		ld r31,X
+ 816 003c C188      		ldd r12,Z+17
+ 817 003e D288      		ldd r13,Z+18
+ 818 0040 612C      		mov r6,__zero_reg__
+ 819 0042 712C      		mov r7,__zero_reg__
+ 820               	.L45:
+ 821 0044 6E14      		cp r6,r14
+ 822 0046 7F04      		cpc r7,r15
+ 823 0048 04F0      		brlt .+2
+ 824 004a 00C0      		rjmp .L52
+ 825 004c 8C85      		ldd r24,Y+12
+ 826 004e 9D85      		ldd r25,Y+13
+ 827 0050 F601      		movw r30,r12
+ 828 0052 2485      		ldd r18,Z+12
+ 829 0054 3585      		ldd r19,Z+13
+ 830 0056 8217      		cp r24,r18
+ 831 0058 9307      		cpc r25,r19
+ 832 005a 00F0      		brlo .L46
+ 833 005c 4885      		ldd r20,Y+8
+ 834 005e 5985      		ldd r21,Y+9
+ 835 0060 6A85      		ldd r22,Y+10
+ 836 0062 7B85      		ldd r23,Y+11
+ 837 0064 4F5F      		subi r20,-1
+ 838 0066 5F4F      		sbci r21,-1
+ 839 0068 6F4F      		sbci r22,-1
+ 840 006a 7F4F      		sbci r23,-1
+ 841 006c 4887      		std Y+8,r20
+ 842 006e 5987      		std Y+9,r21
+ 843 0070 6A87      		std Y+10,r22
+ 844 0072 7B87      		std Y+11,r23
+ 845 0074 821B      		sub r24,r18
+ 846 0076 930B      		sbc r25,r19
+ 847 0078 9D87      		std Y+13,r25
+ 848 007a 8C87      		std Y+12,r24
+ 849               	.L46:
+ 850 007c 4885      		ldd r20,Y+8
+ 851 007e 5985      		ldd r21,Y+9
+ 852 0080 6A85      		ldd r22,Y+10
+ 853 0082 7B85      		ldd r23,Y+11
+ 854 0084 D501      		movw r26,r10
+ 855 0086 8D91      		ld r24,X+
+GAS LISTING /tmp/cc5vNbiQ.s 			page 16
+
+
+ 856 0088 9C91      		ld r25,X
+ 857 008a 0E94 0000 		call RawFsSectorLoad
+ 858 008e 892B      		or r24,r25
+ 859 0090 01F4      		brne .L51
+ 860 0092 6C85      		ldd r22,Y+12
+ 861 0094 7D85      		ldd r23,Y+13
+ 862 0096 F601      		movw r30,r12
+ 863 0098 0485      		ldd r16,Z+12
+ 864 009a 1585      		ldd r17,Z+13
+ 865 009c C701      		movw r24,r14
+ 866 009e 8619      		sub r24,r6
+ 867 00a0 9709      		sbc r25,r7
+ 868 00a2 061B      		sub r16,r22
+ 869 00a4 170B      		sbc r17,r23
+ 870 00a6 8017      		cp r24,r16
+ 871 00a8 9107      		cpc r25,r17
+ 872 00aa 04F4      		brge .L47
+ 873 00ac 8C01      		movw r16,r24
+ 874               	.L47:
+ 875 00ae D601      		movw r26,r12
+ 876 00b0 1E96      		adiw r26,14
+ 877 00b2 8D91      		ld r24,X+
+ 878 00b4 9C91      		ld r25,X
+ 879 00b6 1F97      		sbiw r26,14+1
+ 880 00b8 680F      		add r22,r24
+ 881 00ba 791F      		adc r23,r25
+ 882 00bc A801      		movw r20,r16
+ 883 00be C401      		movw r24,r8
+ 884 00c0 860D      		add r24,r6
+ 885 00c2 971D      		adc r25,r7
+ 886 00c4 0E94 0000 		call memcpy
+ 887 00c8 C801      		movw r24,r16
+ 888 00ca 012E      		mov __tmp_reg__,r17
+ 889 00cc 000C      		lsl r0
+ 890 00ce AA0B      		sbc r26,r26
+ 891 00d0 BB0B      		sbc r27,r27
+ 892 00d2 4C81      		ldd r20,Y+4
+ 893 00d4 5D81      		ldd r21,Y+5
+ 894 00d6 6E81      		ldd r22,Y+6
+ 895 00d8 7F81      		ldd r23,Y+7
+ 896 00da 840F      		add r24,r20
+ 897 00dc 951F      		adc r25,r21
+ 898 00de A61F      		adc r26,r22
+ 899 00e0 B71F      		adc r27,r23
+ 900 00e2 8C83      		std Y+4,r24
+ 901 00e4 9D83      		std Y+5,r25
+ 902 00e6 AE83      		std Y+6,r26
+ 903 00e8 BF83      		std Y+7,r27
+ 904 00ea 8C85      		ldd r24,Y+12
+ 905 00ec 9D85      		ldd r25,Y+13
+ 906 00ee 800F      		add r24,r16
+ 907 00f0 911F      		adc r25,r17
+ 908 00f2 9D87      		std Y+13,r25
+ 909 00f4 8C87      		std Y+12,r24
+ 910 00f6 600E      		add r6,r16
+ 911 00f8 711E      		adc r7,r17
+ 912 00fa 00C0      		rjmp .L45
+GAS LISTING /tmp/cc5vNbiQ.s 			page 17
+
+
+ 913               	.L52:
+ 914 00fc C301      		movw r24,r6
+ 915 00fe 00C0      		rjmp .L44
+ 916               	.L50:
+ 917 0100 80E0      		ldi r24,0
+ 918 0102 90E0      		ldi r25,0
+ 919 0104 00C0      		rjmp .L44
+ 920               	.L51:
+ 921 0106 8FEF      		ldi r24,lo8(-1)
+ 922 0108 9FEF      		ldi r25,lo8(-1)
+ 923               	.L44:
+ 924               	/* epilogue start */
+ 925 010a DF91      		pop r29
+ 926 010c CF91      		pop r28
+ 927 010e 1F91      		pop r17
+ 928 0110 0F91      		pop r16
+ 929 0112 FF90      		pop r15
+ 930 0114 EF90      		pop r14
+ 931 0116 DF90      		pop r13
+ 932 0118 CF90      		pop r12
+ 933 011a BF90      		pop r11
+ 934 011c AF90      		pop r10
+ 935 011e 9F90      		pop r9
+ 936 0120 8F90      		pop r8
+ 937 0122 7F90      		pop r7
+ 938 0124 6F90      		pop r6
+ 939 0126 0895      		ret
+ 940               		.size	RawFsFileRead, .-RawFsFileRead
+ 941               		.section	.text.RawFsApiFileRead,"ax",@progbits
+ 942               		.type	RawFsApiFileRead, @function
+ 943               	RawFsApiFileRead:
+ 944 0000 CF92      		push r12
+ 945 0002 DF92      		push r13
+ 946 0004 EF92      		push r14
+ 947 0006 FF92      		push r15
+ 948 0008 0F93      		push r16
+ 949 000a 1F93      		push r17
+ 950 000c CF93      		push r28
+ 951 000e DF93      		push r29
+ 952               	/* prologue: function */
+ 953               	/* frame size = 0 */
+ 954               	/* stack size = 8 */
+ 955               	.L__stack_usage = 8
+ 956 0010 8C01      		movw r16,r24
+ 957 0012 7B01      		movw r14,r22
+ 958 0014 6A01      		movw r12,r20
+ 959 0016 DC01      		movw r26,r24
+ 960 0018 ED91      		ld r30,X+
+ 961 001a FC91      		ld r31,X
+ 962 001c C189      		ldd r28,Z+17
+ 963 001e D289      		ldd r29,Z+18
+ 964 0020 2496      		adiw r28,4
+ 965 0022 40E0      		ldi r20,0
+ 966 0024 50E0      		ldi r21,0
+ 967 0026 BA01      		movw r22,r20
+ 968 0028 CE01      		movw r24,r28
+ 969 002a 0E94 0000 		call NutEventWait
+GAS LISTING /tmp/cc5vNbiQ.s 			page 18
+
+
+ 970 002e A601      		movw r20,r12
+ 971 0030 B701      		movw r22,r14
+ 972 0032 C801      		movw r24,r16
+ 973 0034 0E94 0000 		call RawFsFileRead
+ 974 0038 8C01      		movw r16,r24
+ 975 003a CE01      		movw r24,r28
+ 976 003c 0E94 0000 		call NutEventPost
+ 977 0040 C801      		movw r24,r16
+ 978               	/* epilogue start */
+ 979 0042 DF91      		pop r29
+ 980 0044 CF91      		pop r28
+ 981 0046 1F91      		pop r17
+ 982 0048 0F91      		pop r16
+ 983 004a FF90      		pop r15
+ 984 004c EF90      		pop r14
+ 985 004e DF90      		pop r13
+ 986 0050 CF90      		pop r12
+ 987 0052 0895      		ret
+ 988               		.size	RawFsApiFileRead, .-RawFsApiFileRead
+ 989               		.section	.text.RawFsUnmount,"ax",@progbits
+ 990               	.global	RawFsUnmount
+ 991               		.type	RawFsUnmount, @function
+ 992               	RawFsUnmount:
+ 993 0000 CF93      		push r28
+ 994 0002 DF93      		push r29
+ 995               	/* prologue: function */
+ 996               	/* frame size = 0 */
+ 997               	/* stack size = 2 */
+ 998               	.L__stack_usage = 2
+ 999 0004 FC01      		movw r30,r24
+ 1000 0006 C189      		ldd r28,Z+17
+ 1001 0008 D289      		ldd r29,Z+18
+ 1002 000a 0E94 0000 		call RawFsSectorFlush
+ 1003 000e 2097      		sbiw r28,0
+ 1004 0010 01F0      		breq .L55
+ 1005 0012 CE01      		movw r24,r28
+ 1006 0014 0E94 0000 		call free
+ 1007               	.L55:
+ 1008 0018 80E0      		ldi r24,0
+ 1009 001a 90E0      		ldi r25,0
+ 1010               	/* epilogue start */
+ 1011 001c DF91      		pop r29
+ 1012 001e CF91      		pop r28
+ 1013 0020 0895      		ret
+ 1014               		.size	RawFsUnmount, .-RawFsUnmount
+ 1015               		.section	.text.RawFsMount,"ax",@progbits
+ 1016               	.global	RawFsMount
+ 1017               		.type	RawFsMount, @function
+ 1018               	RawFsMount:
+ 1019 0000 AF92      		push r10
+ 1020 0002 BF92      		push r11
+ 1021 0004 CF92      		push r12
+ 1022 0006 DF92      		push r13
+ 1023 0008 EF92      		push r14
+ 1024 000a FF92      		push r15
+ 1025 000c 0F93      		push r16
+ 1026 000e 1F93      		push r17
+GAS LISTING /tmp/cc5vNbiQ.s 			page 19
+
+
+ 1027 0010 CF93      		push r28
+ 1028 0012 DF93      		push r29
+ 1029 0014 CDB7      		in r28,__SP_L__
+ 1030 0016 DEB7      		in r29,__SP_H__
+ 1031 0018 2C97      		sbiw r28,12
+ 1032 001a 0FB6      		in __tmp_reg__,__SREG__
+ 1033 001c F894      		cli
+ 1034 001e DEBF      		out __SP_H__,r29
+ 1035 0020 0FBE      		out __SREG__,__tmp_reg__
+ 1036 0022 CDBF      		out __SP_L__,r28
+ 1037               	/* prologue: function */
+ 1038               	/* frame size = 12 */
+ 1039               	/* stack size = 22 */
+ 1040               	.L__stack_usage = 22
+ 1041 0024 5C01      		movw r10,r24
+ 1042 0026 6B01      		movw r12,r22
+ 1043 0028 86E1      		ldi r24,lo8(22)
+ 1044 002a 90E0      		ldi r25,0
+ 1045 002c 0E94 0000 		call malloc
+ 1046 0030 8C01      		movw r16,r24
+ 1047 0032 D501      		movw r26,r10
+ 1048 0034 5296      		adiw r26,17+1
+ 1049 0036 9C93      		st X,r25
+ 1050 0038 8E93      		st -X,r24
+ 1051 003a 5197      		sbiw r26,17
+ 1052 003c 892B      		or r24,r25
+ 1053 003e 01F4      		brne .+2
+ 1054 0040 00C0      		rjmp .L62
+ 1055 0042 86E1      		ldi r24,lo8(22)
+ 1056 0044 F801      		movw r30,r16
+ 1057               		0:
+ 1058 0046 1192      		st Z+,__zero_reg__
+ 1059 0048 8A95      		dec r24
+ 1060 004a 01F4      		brne 0b
+ 1061 004c DA82      		std Y+2,r13
+ 1062 004e C982      		std Y+1,r12
+ 1063 0050 D601      		movw r26,r12
+ 1064 0052 8D91      		ld r24,X+
+ 1065 0054 9C91      		ld r25,X
+ 1066 0056 DC01      		movw r26,r24
+ 1067 0058 5596      		adiw r26,21
+ 1068 005a ED91      		ld r30,X+
+ 1069 005c FC91      		ld r31,X
+ 1070 005e 5697      		sbiw r26,21+1
+ 1071 0060 AE01      		movw r20,r28
+ 1072 0062 4F5F      		subi r20,-1
+ 1073 0064 5F4F      		sbci r21,-1
+ 1074 0066 62E0      		ldi r22,lo8(2)
+ 1075 0068 72E1      		ldi r23,lo8(18)
+ 1076 006a 1995      		eicall
+ 1077 006c 7C01      		movw r14,r24
+ 1078 006e 892B      		or r24,r25
+ 1079 0070 01F0      		breq .L61
+ 1080 0072 C801      		movw r24,r16
+ 1081 0074 0E94 0000 		call free
+ 1082 0078 83E1      		ldi r24,lo8(19)
+ 1083 007a 90E0      		ldi r25,0
+GAS LISTING /tmp/cc5vNbiQ.s 			page 20
+
+
+ 1084 007c 9093 0000 		sts errno+1,r25
+ 1085 0080 8093 0000 		sts errno,r24
+ 1086 0084 00C0      		rjmp .L62
+ 1087               	.L61:
+ 1088 0086 8B81      		ldd r24,Y+3
+ 1089 0088 9C81      		ldd r25,Y+4
+ 1090 008a AD81      		ldd r26,Y+5
+ 1091 008c BE81      		ldd r27,Y+6
+ 1092 008e F801      		movw r30,r16
+ 1093 0090 808B      		std Z+16,r24
+ 1094 0092 918B      		std Z+17,r25
+ 1095 0094 A28B      		std Z+18,r26
+ 1096 0096 B38B      		std Z+19,r27
+ 1097 0098 8087      		std Z+8,r24
+ 1098 009a 9187      		std Z+9,r25
+ 1099 009c A287      		std Z+10,r26
+ 1100 009e B387      		std Z+11,r27
+ 1101 00a0 8F81      		ldd r24,Y+7
+ 1102 00a2 9885      		ldd r25,Y+8
+ 1103 00a4 9587      		std Z+13,r25
+ 1104 00a6 8487      		std Z+12,r24
+ 1105 00a8 8B85      		ldd r24,Y+11
+ 1106 00aa 9C85      		ldd r25,Y+12
+ 1107 00ac 9787      		std Z+15,r25
+ 1108 00ae 8687      		std Z+14,r24
+ 1109 00b0 C801      		movw r24,r16
+ 1110 00b2 0496      		adiw r24,4
+ 1111 00b4 0E94 0000 		call NutEventPost
+ 1112 00b8 C801      		movw r24,r16
+ 1113 00ba 0696      		adiw r24,6
+ 1114 00bc 0E94 0000 		call NutEventPost
+ 1115 00c0 D501      		movw r26,r10
+ 1116 00c2 5096      		adiw r26,15+1
+ 1117 00c4 DC92      		st X,r13
+ 1118 00c6 CE92      		st -X,r12
+ 1119 00c8 1F97      		sbiw r26,15
+ 1120 00ca 00C0      		rjmp .L60
+ 1121               	.L62:
+ 1122 00cc EE24      		clr r14
+ 1123 00ce EA94      		dec r14
+ 1124 00d0 FE2C      		mov r15,r14
+ 1125               	.L60:
+ 1126 00d2 C701      		movw r24,r14
+ 1127               	/* epilogue start */
+ 1128 00d4 2C96      		adiw r28,12
+ 1129 00d6 0FB6      		in __tmp_reg__,__SREG__
+ 1130 00d8 F894      		cli
+ 1131 00da DEBF      		out __SP_H__,r29
+ 1132 00dc 0FBE      		out __SREG__,__tmp_reg__
+ 1133 00de CDBF      		out __SP_L__,r28
+ 1134 00e0 DF91      		pop r29
+ 1135 00e2 CF91      		pop r28
+ 1136 00e4 1F91      		pop r17
+ 1137 00e6 0F91      		pop r16
+ 1138 00e8 FF90      		pop r15
+ 1139 00ea EF90      		pop r14
+ 1140 00ec DF90      		pop r13
+GAS LISTING /tmp/cc5vNbiQ.s 			page 21
+
+
+ 1141 00ee CF90      		pop r12
+ 1142 00f0 BF90      		pop r11
+ 1143 00f2 AF90      		pop r10
+ 1144 00f4 0895      		ret
+ 1145               		.size	RawFsMount, .-RawFsMount
+ 1146               		.section	.text.RawFsApiIOCtl,"ax",@progbits
+ 1147               		.type	RawFsApiIOCtl, @function
+ 1148               	RawFsApiIOCtl:
+ 1149 0000 4F92      		push r4
+ 1150 0002 5F92      		push r5
+ 1151 0004 6F92      		push r6
+ 1152 0006 7F92      		push r7
+ 1153 0008 8F92      		push r8
+ 1154 000a 9F92      		push r9
+ 1155 000c AF92      		push r10
+ 1156 000e BF92      		push r11
+ 1157 0010 CF92      		push r12
+ 1158 0012 DF92      		push r13
+ 1159 0014 EF92      		push r14
+ 1160 0016 FF92      		push r15
+ 1161 0018 0F93      		push r16
+ 1162 001a 1F93      		push r17
+ 1163 001c CF93      		push r28
+ 1164 001e DF93      		push r29
+ 1165               	/* prologue: function */
+ 1166               	/* frame size = 0 */
+ 1167               	/* stack size = 16 */
+ 1168               	.L__stack_usage = 16
+ 1169 0020 5C01      		movw r10,r24
+ 1170 0022 EB01      		movw r28,r22
+ 1171 0024 7A01      		movw r14,r20
+ 1172 0026 DC01      		movw r26,r24
+ 1173 0028 5196      		adiw r26,17
+ 1174 002a CD90      		ld r12,X+
+ 1175 002c DC90      		ld r13,X
+ 1176 002e 5297      		sbiw r26,17+1
+ 1177 0030 6033      		cpi r22,48
+ 1178 0032 7141      		sbci r23,17
+ 1179 0034 01F4      		brne .+2
+ 1180 0036 00C0      		rjmp .L64
+ 1181 0038 C114      		cp r12,__zero_reg__
+ 1182 003a D104      		cpc r13,__zero_reg__
+ 1183 003c 01F0      		breq .L65
+ 1184 003e 40E0      		ldi r20,0
+ 1185 0040 50E0      		ldi r21,0
+ 1186 0042 BA01      		movw r22,r20
+ 1187 0044 C601      		movw r24,r12
+ 1188 0046 0496      		adiw r24,4
+ 1189 0048 0E94 0000 		call NutEventWait
+ 1190               	.L65:
+ 1191 004c C332      		cpi r28,35
+ 1192 004e E1E1      		ldi r30,17
+ 1193 0050 DE07      		cpc r29,r30
+ 1194 0052 01F0      		breq .L67
+ 1195 0054 C133      		cpi r28,49
+ 1196 0056 F1E1      		ldi r31,17
+ 1197 0058 DF07      		cpc r29,r31
+GAS LISTING /tmp/cc5vNbiQ.s 			page 22
+
+
+ 1198 005a 01F0      		breq .+2
+ 1199 005c 00C0      		rjmp .L87
+ 1200 005e C501      		movw r24,r10
+ 1201 0060 0E94 0000 		call RawFsUnmount
+ 1202 0064 8C01      		movw r16,r24
+ 1203 0066 00C0      		rjmp .L66
+ 1204               	.L67:
+ 1205 0068 D701      		movw r26,r14
+ 1206 006a 1296      		adiw r26,2
+ 1207 006c 8D90      		ld r8,X+
+ 1208 006e 9C90      		ld r9,X
+ 1209 0070 1397      		sbiw r26,2+1
+ 1210 0072 AD90      		ld r10,X+
+ 1211 0074 BC90      		ld r11,X
+ 1212 0076 F501      		movw r30,r10
+ 1213 0078 0281      		ldd r16,Z+2
+ 1214 007a 1381      		ldd r17,Z+3
+ 1215 007c D401      		movw r26,r8
+ 1216 007e 4D90      		ld r4,X+
+ 1217 0080 5D90      		ld r5,X+
+ 1218 0082 6D90      		ld r6,X+
+ 1219 0084 7C90      		ld r7,X
+ 1220 0086 F701      		movw r30,r14
+ 1221 0088 8481      		ldd r24,Z+4
+ 1222 008a 9581      		ldd r25,Z+5
+ 1223 008c 8130      		cpi r24,1
+ 1224 008e 9105      		cpc r25,__zero_reg__
+ 1225 0090 01F0      		breq .L70
+ 1226 0092 0297      		sbiw r24,2
+ 1227 0094 01F4      		brne .L69
+ 1228 0096 C501      		movw r24,r10
+ 1229 0098 0E94 0000 		call RawFsFileSize
+ 1230 009c 460E      		add r4,r22
+ 1231 009e 571E      		adc r5,r23
+ 1232 00a0 681E      		adc r6,r24
+ 1233 00a2 791E      		adc r7,r25
+ 1234 00a4 00C0      		rjmp .L69
+ 1235               	.L70:
+ 1236 00a6 F801      		movw r30,r16
+ 1237 00a8 8481      		ldd r24,Z+4
+ 1238 00aa 9581      		ldd r25,Z+5
+ 1239 00ac A681      		ldd r26,Z+6
+ 1240 00ae B781      		ldd r27,Z+7
+ 1241 00b0 480E      		add r4,r24
+ 1242 00b2 591E      		adc r5,r25
+ 1243 00b4 6A1E      		adc r6,r26
+ 1244 00b6 7B1E      		adc r7,r27
+ 1245               	.L69:
+ 1246 00b8 77FC      		sbrc r7,7
+ 1247 00ba 00C0      		rjmp .L72
+ 1248 00bc C501      		movw r24,r10
+ 1249 00be 0E94 0000 		call RawFsFileSize
+ 1250 00c2 6415      		cp r22,r4
+ 1251 00c4 7505      		cpc r23,r5
+ 1252 00c6 8605      		cpc r24,r6
+ 1253 00c8 9705      		cpc r25,r7
+ 1254 00ca 04F4      		brge .L73
+GAS LISTING /tmp/cc5vNbiQ.s 			page 23
+
+
+ 1255               	.L72:
+ 1256 00cc 86E1      		ldi r24,lo8(22)
+ 1257 00ce 90E0      		ldi r25,0
+ 1258 00d0 9093 0000 		sts errno+1,r25
+ 1259 00d4 8093 0000 		sts errno,r24
+ 1260 00d8 00C0      		rjmp .L87
+ 1261               	.L73:
+ 1262 00da D501      		movw r26,r10
+ 1263 00dc ED91      		ld r30,X+
+ 1264 00de FC91      		ld r31,X
+ 1265 00e0 0188      		ldd __tmp_reg__,Z+17
+ 1266 00e2 F289      		ldd r31,Z+18
+ 1267 00e4 E02D      		mov r30,__tmp_reg__
+ 1268 00e6 D401      		movw r26,r8
+ 1269 00e8 4D92      		st X+,r4
+ 1270 00ea 5D92      		st X+,r5
+ 1271 00ec 6D92      		st X+,r6
+ 1272 00ee 7C92      		st X,r7
+ 1273 00f0 1397      		sbiw r26,3
+ 1274 00f2 D801      		movw r26,r16
+ 1275 00f4 1496      		adiw r26,4
+ 1276 00f6 4D92      		st X+,r4
+ 1277 00f8 5D92      		st X+,r5
+ 1278 00fa 6D92      		st X+,r6
+ 1279 00fc 7C92      		st X,r7
+ 1280 00fe 1797      		sbiw r26,4+3
+ 1281 0100 1896      		adiw r26,8
+ 1282 0102 1D92      		st X+,__zero_reg__
+ 1283 0104 1D92      		st X+,__zero_reg__
+ 1284 0106 1D92      		st X+,__zero_reg__
+ 1285 0108 1C92      		st X,__zero_reg__
+ 1286 010a 1B97      		sbiw r26,8+3
+ 1287 010c 8485      		ldd r24,Z+12
+ 1288 010e 9585      		ldd r25,Z+13
+ 1289 0110 A0E0      		ldi r26,0
+ 1290 0112 B0E0      		ldi r27,0
+ 1291               	.L74:
+ 1292 0114 4816      		cp r4,r24
+ 1293 0116 5906      		cpc r5,r25
+ 1294 0118 6A06      		cpc r6,r26
+ 1295 011a 7B06      		cpc r7,r27
+ 1296 011c 04F0      		brlt .L88
+ 1297 011e F801      		movw r30,r16
+ 1298 0120 4085      		ldd r20,Z+8
+ 1299 0122 5185      		ldd r21,Z+9
+ 1300 0124 6285      		ldd r22,Z+10
+ 1301 0126 7385      		ldd r23,Z+11
+ 1302 0128 4F5F      		subi r20,-1
+ 1303 012a 5F4F      		sbci r21,-1
+ 1304 012c 6F4F      		sbci r22,-1
+ 1305 012e 7F4F      		sbci r23,-1
+ 1306 0130 4087      		std Z+8,r20
+ 1307 0132 5187      		std Z+9,r21
+ 1308 0134 6287      		std Z+10,r22
+ 1309 0136 7387      		std Z+11,r23
+ 1310 0138 481A      		sub r4,r24
+ 1311 013a 590A      		sbc r5,r25
+GAS LISTING /tmp/cc5vNbiQ.s 			page 24
+
+
+ 1312 013c 6A0A      		sbc r6,r26
+ 1313 013e 7B0A      		sbc r7,r27
+ 1314 0140 00C0      		rjmp .L74
+ 1315               	.L88:
+ 1316 0142 D801      		movw r26,r16
+ 1317 0144 1D96      		adiw r26,12+1
+ 1318 0146 5C92      		st X,r5
+ 1319 0148 4E92      		st -X,r4
+ 1320 014a 1C97      		sbiw r26,12
+ 1321 014c 00C0      		rjmp .L87
+ 1322               	.L64:
+ 1323 014e FA01      		movw r30,r20
+ 1324 0150 6081      		ld r22,Z
+ 1325 0152 7181      		ldd r23,Z+1
+ 1326 0154 4281      		ldd r20,Z+2
+ 1327 0156 0E94 0000 		call RawFsMount
+ 1328 015a 8C01      		movw r16,r24
+ 1329 015c 892B      		or r24,r25
+ 1330 015e 01F0      		breq .L66
+ 1331 0160 C501      		movw r24,r10
+ 1332 0162 0E94 0000 		call RawFsUnmount
+ 1333 0166 00C0      		rjmp .L66
+ 1334               	.L87:
+ 1335 0168 0FEF      		ldi r16,lo8(-1)
+ 1336 016a 1FEF      		ldi r17,lo8(-1)
+ 1337               	.L66:
+ 1338 016c C053      		subi r28,48
+ 1339 016e D141      		sbci r29,17
+ 1340 0170 2297      		sbiw r28,2
+ 1341 0172 00F0      		brlo .L76
+ 1342 0174 C114      		cp r12,__zero_reg__
+ 1343 0176 D104      		cpc r13,__zero_reg__
+ 1344 0178 01F0      		breq .L76
+ 1345 017a C601      		movw r24,r12
+ 1346 017c 0496      		adiw r24,4
+ 1347 017e 0E94 0000 		call NutEventPost
+ 1348               	.L76:
+ 1349 0182 C801      		movw r24,r16
+ 1350               	/* epilogue start */
+ 1351 0184 DF91      		pop r29
+ 1352 0186 CF91      		pop r28
+ 1353 0188 1F91      		pop r17
+ 1354 018a 0F91      		pop r16
+ 1355 018c FF90      		pop r15
+ 1356 018e EF90      		pop r14
+ 1357 0190 DF90      		pop r13
+ 1358 0192 CF90      		pop r12
+ 1359 0194 BF90      		pop r11
+ 1360 0196 AF90      		pop r10
+ 1361 0198 9F90      		pop r9
+ 1362 019a 8F90      		pop r8
+ 1363 019c 7F90      		pop r7
+ 1364 019e 6F90      		pop r6
+ 1365 01a0 5F90      		pop r5
+ 1366 01a2 4F90      		pop r4
+ 1367 01a4 0895      		ret
+ 1368               		.size	RawFsApiIOCtl, .-RawFsApiIOCtl
+GAS LISTING /tmp/cc5vNbiQ.s 			page 25
+
+
+ 1369               	.global	devRawFs0
+ 1370               		.data
+ 1371               		.type	devRawFs0, @object
+ 1372               		.size	devRawFs0, 37
+ 1373               	devRawFs0:
+ 1374 0000 0000      		.word	0
+ 1375 0002 52        		.byte	82
+ 1376 0003 41        		.byte	65
+ 1377 0004 57        		.byte	87
+ 1378 0005 46        		.byte	70
+ 1379 0006 53        		.byte	83
+ 1380 0007 30        		.byte	48
+ 1381 0008 00        		.byte	0
+ 1382 0009 00        		.byte	0
+ 1383 000a 00        		.byte	0
+ 1384 000b 10        		.byte	16
+ 1385 000c 0000      		.word	0
+ 1386 000e 00        		.byte	0
+ 1387 000f 0000      		.word	0
+ 1388 0011 0000      		.word	0
+ 1389 0013 0000      		.word	gs(RawFsInit)
+ 1390 0015 0000      		.word	gs(RawFsApiIOCtl)
+ 1391 0017 0000      		.word	gs(RawFsApiFileRead)
+ 1392 0019 0000      		.word	gs(RawFsApiFileWrite)
+ 1393 001b 0000      		.word	gs(RawFsApiFileWrite_P)
+ 1394 001d 0000      		.word	gs(RawFsApiFileOpen)
+ 1395 001f 0000      		.word	gs(RawFsApiFileClose)
+ 1396 0021 0000      		.word	gs(RawFsFileSize)
+ 1397 0023 0000      		.word	0
+ 1398               		.ident	"GCC: (GNU) 5.3.0"
+ 1399               	.global __do_copy_data
+GAS LISTING /tmp/cc5vNbiQ.s 			page 26
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 rawfs.c
+     /tmp/cc5vNbiQ.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cc5vNbiQ.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cc5vNbiQ.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cc5vNbiQ.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cc5vNbiQ.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cc5vNbiQ.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cc5vNbiQ.s:10     .text.RawFsSectorFlush:0000000000000000 RawFsSectorFlush
+     /tmp/cc5vNbiQ.s:119    .text.RawFsFileSize:0000000000000000 RawFsFileSize
+     /tmp/cc5vNbiQ.s:141    .text.RawFsInit:0000000000000000 RawFsInit
+     /tmp/cc5vNbiQ.s:152    .text.RawFsApiFileWrite_P:0000000000000000 RawFsApiFileWrite_P
+     /tmp/cc5vNbiQ.s:181    .text.RawFsSectorLoad:0000000000000000 RawFsSectorLoad
+     /tmp/cc5vNbiQ.s:319    .text.RawFsFileOpen:0000000000000000 RawFsFileOpen
+     /tmp/cc5vNbiQ.s:381    .text.RawFsApiFileOpen:0000000000000000 RawFsApiFileOpen
+     /tmp/cc5vNbiQ.s:444    .text.RawFsFileClose:0000000000000000 RawFsFileClose
+     /tmp/cc5vNbiQ.s:493    .text.RawFsApiFileClose:0000000000000000 RawFsApiFileClose
+     /tmp/cc5vNbiQ.s:530    .text.RawFsFileWrite:0000000000000000 RawFsFileWrite
+     /tmp/cc5vNbiQ.s:720    .text.RawFsApiFileWrite:0000000000000000 RawFsApiFileWrite
+     /tmp/cc5vNbiQ.s:769    .text.RawFsFileWrite_P:0000000000000000 RawFsFileWrite_P
+     /tmp/cc5vNbiQ.s:781    .text.RawFsFileRead:0000000000000000 RawFsFileRead
+     /tmp/cc5vNbiQ.s:943    .text.RawFsApiFileRead:0000000000000000 RawFsApiFileRead
+     /tmp/cc5vNbiQ.s:992    .text.RawFsUnmount:0000000000000000 RawFsUnmount
+     /tmp/cc5vNbiQ.s:1018   .text.RawFsMount:0000000000000000 RawFsMount
+     /tmp/cc5vNbiQ.s:1148   .text.RawFsApiIOCtl:0000000000000000 RawFsApiIOCtl
+     /tmp/cc5vNbiQ.s:1373   .data:0000000000000000 devRawFs0
+
+UNDEFINED SYMBOLS
+__muluhisi3
+NutEventWait
+NutEventPost
+NutEventPostAsync
+malloc
+free
+memcpy
+errno
+__do_copy_data

@@ -1,0 +1,3298 @@
+GAS LISTING /tmp/ccarDIh4.s 			page 1
+
+
+   1               		.file	"dhcpc.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.__byte_swap4,"ax",@progbits
+   9               		.type	__byte_swap4, @function
+  10               	__byte_swap4:
+  11               	/* prologue: function */
+  12               	/* frame size = 0 */
+  13               	/* stack size = 0 */
+  14               	.L__stack_usage = 0
+  15               	/* #APP */
+  16               	 ;  319 "../../nut/include/sys/types.h" 1
+  17 0000 062E      		mov __tmp_reg__, r22
+  18 0002 692F      		mov r22, r25
+  19 0004 902D      		mov r25, __tmp_reg__
+  20 0006 072E      		mov __tmp_reg__, r23
+  21 0008 782F      		mov r23, r24
+  22 000a 802D      		mov r24, __tmp_reg__
+  23               		
+  24               	 ;  0 "" 2
+  25               	/* #NOAPP */
+  26 000c 0895      		ret
+  27               		.size	__byte_swap4, .-__byte_swap4
+  28               		.section	.text.ReleaseDynCfg,"ax",@progbits
+  29               		.type	ReleaseDynCfg, @function
+  30               	ReleaseDynCfg:
+  31 0000 CF93      		push r28
+  32 0002 DF93      		push r29
+  33               	/* prologue: function */
+  34               	/* frame size = 0 */
+  35               	/* stack size = 2 */
+  36               	.L__stack_usage = 2
+  37 0004 EC01      		movw r28,r24
+  38 0006 892B      		or r24,r25
+  39 0008 01F0      		breq .L2
+  40 000a 89A5      		ldd r24,Y+41
+  41 000c 9AA5      		ldd r25,Y+42
+  42 000e 0E94 0000 		call free
+  43 0012 8BA5      		ldd r24,Y+43
+  44 0014 9CA5      		ldd r25,Y+44
+  45 0016 0E94 0000 		call free
+  46 001a CE01      		movw r24,r28
+  47               	/* epilogue start */
+  48 001c DF91      		pop r29
+  49 001e CF91      		pop r28
+  50 0020 0C94 0000 		jmp free
+  51               	.L2:
+  52               	/* epilogue start */
+  53 0024 DF91      		pop r29
+  54 0026 CF91      		pop r28
+  55 0028 0895      		ret
+  56               		.size	ReleaseDynCfg, .-ReleaseDynCfg
+  57               		.section	.text.copy_str,"ax",@progbits
+GAS LISTING /tmp/ccarDIh4.s 			page 2
+
+
+  58               		.type	copy_str, @function
+  59               	copy_str:
+  60 0000 CF92      		push r12
+  61 0002 DF92      		push r13
+  62 0004 EF92      		push r14
+  63 0006 FF92      		push r15
+  64 0008 0F93      		push r16
+  65 000a 1F93      		push r17
+  66 000c CF93      		push r28
+  67 000e DF93      		push r29
+  68 0010 1F92      		push __zero_reg__
+  69 0012 1F92      		push __zero_reg__
+  70 0014 CDB7      		in r28,__SP_L__
+  71 0016 DEB7      		in r29,__SP_H__
+  72               	/* prologue: function */
+  73               	/* frame size = 2 */
+  74               	/* stack size = 10 */
+  75               	.L__stack_usage = 10
+  76 0018 7C01      		movw r14,r24
+  77 001a 6A01      		movw r12,r20
+  78 001c FC01      		movw r30,r24
+  79 001e 8081      		ld r24,Z
+  80 0020 9181      		ldd r25,Z+1
+  81 0022 6983      		std Y+1,r22
+  82 0024 7A83      		std Y+2,r23
+  83 0026 0E94 0000 		call free
+  84 002a C601      		movw r24,r12
+  85 002c 0196      		adiw r24,1
+  86 002e 0E94 0000 		call malloc
+  87 0032 8C01      		movw r16,r24
+  88 0034 F701      		movw r30,r14
+  89 0036 9183      		std Z+1,r25
+  90 0038 8083      		st Z,r24
+  91 003a 6981      		ldd r22,Y+1
+  92 003c 7A81      		ldd r23,Y+2
+  93 003e 0097      		sbiw r24,0
+  94 0040 01F0      		breq .L5
+  95 0042 C114      		cp r12,__zero_reg__
+  96 0044 D104      		cpc r13,__zero_reg__
+  97 0046 01F0      		breq .L7
+  98 0048 A601      		movw r20,r12
+  99 004a 0E94 0000 		call memcpy
+ 100               	.L7:
+ 101 004e F601      		movw r30,r12
+ 102 0050 E00F      		add r30,r16
+ 103 0052 F11F      		adc r31,r17
+ 104 0054 1082      		st Z,__zero_reg__
+ 105               	.L5:
+ 106               	/* epilogue start */
+ 107 0056 0F90      		pop __tmp_reg__
+ 108 0058 0F90      		pop __tmp_reg__
+ 109 005a DF91      		pop r29
+ 110 005c CF91      		pop r28
+ 111 005e 1F91      		pop r17
+ 112 0060 0F91      		pop r16
+ 113 0062 FF90      		pop r15
+ 114 0064 EF90      		pop r14
+GAS LISTING /tmp/ccarDIh4.s 			page 3
+
+
+ 115 0066 DF90      		pop r13
+ 116 0068 CF90      		pop r12
+ 117 006a 0895      		ret
+ 118               		.size	copy_str, .-copy_str
+ 119               		.section	.text.ParseReply,"ax",@progbits
+ 120               		.type	ParseReply, @function
+ 121               	ParseReply:
+ 122 0000 4F92      		push r4
+ 123 0002 5F92      		push r5
+ 124 0004 6F92      		push r6
+ 125 0006 7F92      		push r7
+ 126 0008 8F92      		push r8
+ 127 000a 9F92      		push r9
+ 128 000c AF92      		push r10
+ 129 000e BF92      		push r11
+ 130 0010 CF92      		push r12
+ 131 0012 DF92      		push r13
+ 132 0014 EF92      		push r14
+ 133 0016 FF92      		push r15
+ 134 0018 0F93      		push r16
+ 135 001a 1F93      		push r17
+ 136 001c CF93      		push r28
+ 137 001e DF93      		push r29
+ 138               	/* prologue: function */
+ 139               	/* frame size = 0 */
+ 140               	/* stack size = 16 */
+ 141               	.L__stack_usage = 16
+ 142 0020 8C01      		movw r16,r24
+ 143 0022 7B01      		movw r14,r22
+ 144 0024 8DE2      		ldi r24,lo8(45)
+ 145 0026 90E0      		ldi r25,0
+ 146 0028 0E94 0000 		call malloc
+ 147 002c EC01      		movw r28,r24
+ 148 002e 892B      		or r24,r25
+ 149 0030 01F4      		brne .+2
+ 150 0032 00C0      		rjmp .L38
+ 151 0034 8DE2      		ldi r24,lo8(45)
+ 152 0036 DE01      		movw r26,r28
+ 153               		0:
+ 154 0038 1D92      		st X+,__zero_reg__
+ 155 003a 8A95      		dec r24
+ 156 003c 01F4      		brne 0b
+ 157 003e 80EC      		ldi r24,lo8(-64)
+ 158 0040 98EA      		ldi r25,lo8(-88)
+ 159 0042 A0E0      		ldi r26,0
+ 160 0044 B0E0      		ldi r27,0
+ 161 0046 8DA3      		std Y+37,r24
+ 162 0048 9EA3      		std Y+38,r25
+ 163 004a AFA3      		std Y+39,r26
+ 164 004c B8A7      		std Y+40,r27
+ 165 004e F801      		movw r30,r16
+ 166 0050 8089      		ldd r24,Z+16
+ 167 0052 9189      		ldd r25,Z+17
+ 168 0054 A289      		ldd r26,Z+18
+ 169 0056 B389      		ldd r27,Z+19
+ 170 0058 8983      		std Y+1,r24
+ 171 005a 9A83      		std Y+2,r25
+GAS LISTING /tmp/ccarDIh4.s 			page 4
+
+
+ 172 005c AB83      		std Y+3,r26
+ 173 005e BC83      		std Y+4,r27
+ 174 0060 0051      		subi r16,16
+ 175 0062 1F4F      		sbci r17,-1
+ 176 0064 F0EF      		ldi r31,-16
+ 177 0066 EF1A      		sub r14,r31
+ 178 0068 F108      		sbc r15,__zero_reg__
+ 179 006a 5E01      		movw r10,r28
+ 180 006c 8BE2      		ldi r24,43
+ 181 006e A80E      		add r10,r24
+ 182 0070 B11C      		adc r11,__zero_reg__
+ 183 0072 4E01      		movw r8,r28
+ 184 0074 A9E2      		ldi r26,41
+ 185 0076 8A0E      		add r8,r26
+ 186 0078 911C      		adc r9,__zero_reg__
+ 187               	.L16:
+ 188 007a D801      		movw r26,r16
+ 189 007c 2C91      		ld r18,X
+ 190 007e 2F3F      		cpi r18,lo8(-1)
+ 191 0080 01F4      		brne .+2
+ 192 0082 00C0      		rjmp .L33
+ 193 0084 1E14      		cp __zero_reg__,r14
+ 194 0086 1F04      		cpc __zero_reg__,r15
+ 195 0088 04F0      		brlt .+2
+ 196 008a 00C0      		rjmp .L19
+ 197 008c 2111      		cpse r18,__zero_reg__
+ 198 008e 00C0      		rjmp .L17
+ 199 0090 0F5F      		subi r16,-1
+ 200 0092 1F4F      		sbci r17,-1
+ 201 0094 B1E0      		ldi r27,1
+ 202 0096 EB1A      		sub r14,r27
+ 203 0098 F108      		sbc r15,__zero_reg__
+ 204 009a 00C0      		rjmp .L16
+ 205               	.L17:
+ 206 009c F801      		movw r30,r16
+ 207 009e 3181      		ldd r19,Z+1
+ 208 00a0 C32E      		mov r12,r19
+ 209 00a2 D12C      		mov r13,__zero_reg__
+ 210 00a4 EC14      		cp r14,r12
+ 211 00a6 FD04      		cpc r15,r13
+ 212 00a8 04F4      		brge .+2
+ 213 00aa 00C0      		rjmp .L19
+ 214 00ac 2533      		cpi r18,lo8(53)
+ 215 00ae 01F4      		brne .L20
+ 216 00b0 3130      		cpi r19,lo8(1)
+ 217 00b2 01F0      		breq .+2
+ 218 00b4 00C0      		rjmp .L19
+ 219 00b6 8281      		ldd r24,Z+2
+ 220 00b8 8883      		st Y,r24
+ 221 00ba 00C0      		rjmp .L21
+ 222               	.L20:
+ 223 00bc 2C30      		cpi r18,lo8(12)
+ 224 00be 01F4      		brne .L22
+ 225 00c0 A601      		movw r20,r12
+ 226 00c2 B801      		movw r22,r16
+ 227 00c4 6E5F      		subi r22,-2
+ 228 00c6 7F4F      		sbci r23,-1
+GAS LISTING /tmp/ccarDIh4.s 			page 5
+
+
+ 229 00c8 C401      		movw r24,r8
+ 230 00ca 00C0      		rjmp .L41
+ 231               	.L22:
+ 232 00cc 2F30      		cpi r18,lo8(15)
+ 233 00ce 01F4      		brne .L23
+ 234 00d0 A601      		movw r20,r12
+ 235 00d2 B801      		movw r22,r16
+ 236 00d4 6E5F      		subi r22,-2
+ 237 00d6 7F4F      		sbci r23,-1
+ 238 00d8 C501      		movw r24,r10
+ 239               	.L41:
+ 240 00da 0E94 0000 		call copy_str
+ 241 00de 00C0      		rjmp .L21
+ 242               	.L23:
+ 243 00e0 3430      		cpi r19,lo8(4)
+ 244 00e2 00F4      		brsh .+2
+ 245 00e4 00C0      		rjmp .L21
+ 246 00e6 D801      		movw r26,r16
+ 247 00e8 E281      		ldd r30,Z+2
+ 248 00ea 1396      		adiw r26,3
+ 249 00ec 6C91      		ld r22,X
+ 250 00ee 862F      		mov r24,r22
+ 251 00f0 90E0      		ldi r25,0
+ 252 00f2 A0E0      		ldi r26,0
+ 253 00f4 B0E0      		ldi r27,0
+ 254 00f6 4427      		clr r20
+ 255 00f8 582F      		mov r21,r24
+ 256 00fa 692F      		mov r22,r25
+ 257 00fc 7A2F      		mov r23,r26
+ 258 00fe D801      		movw r26,r16
+ 259 0100 1496      		adiw r26,4
+ 260 0102 8C91      		ld r24,X
+ 261 0104 90E0      		ldi r25,0
+ 262 0106 A0E0      		ldi r26,0
+ 263 0108 B0E0      		ldi r27,0
+ 264 010a DC01      		movw r26,r24
+ 265 010c 9927      		clr r25
+ 266 010e 8827      		clr r24
+ 267 0110 840F      		add r24,r20
+ 268 0112 951F      		adc r25,r21
+ 269 0114 A61F      		adc r26,r22
+ 270 0116 B71F      		adc r27,r23
+ 271 0118 8E0F      		add r24,r30
+ 272 011a 911D      		adc r25,__zero_reg__
+ 273 011c A11D      		adc r26,__zero_reg__
+ 274 011e B11D      		adc r27,__zero_reg__
+ 275 0120 F801      		movw r30,r16
+ 276 0122 4581      		ldd r20,Z+5
+ 277 0124 50E0      		ldi r21,0
+ 278 0126 60E0      		ldi r22,0
+ 279 0128 70E0      		ldi r23,0
+ 280 012a 742F      		mov r23,r20
+ 281 012c 6627      		clr r22
+ 282 012e 5527      		clr r21
+ 283 0130 4427      		clr r20
+ 284 0132 2A01      		movw r4,r20
+ 285 0134 3B01      		movw r6,r22
+GAS LISTING /tmp/ccarDIh4.s 			page 6
+
+
+ 286 0136 480E      		add r4,r24
+ 287 0138 591E      		adc r5,r25
+ 288 013a 6A1E      		adc r6,r26
+ 289 013c 7B1E      		adc r7,r27
+ 290 013e C301      		movw r24,r6
+ 291 0140 B201      		movw r22,r4
+ 292 0142 2130      		cpi r18,lo8(1)
+ 293 0144 01F4      		brne .L25
+ 294 0146 4D82      		std Y+5,r4
+ 295 0148 5E82      		std Y+6,r5
+ 296 014a 6F82      		std Y+7,r6
+ 297 014c 7886      		std Y+8,r7
+ 298 014e 00C0      		rjmp .L21
+ 299               	.L25:
+ 300 0150 2C31      		cpi r18,lo8(28)
+ 301 0152 01F4      		brne .L26
+ 302 0154 4986      		std Y+9,r4
+ 303 0156 5A86      		std Y+10,r5
+ 304 0158 6B86      		std Y+11,r6
+ 305 015a 7C86      		std Y+12,r7
+ 306 015c 00C0      		rjmp .L21
+ 307               	.L26:
+ 308 015e 2330      		cpi r18,lo8(3)
+ 309 0160 01F4      		brne .L27
+ 310 0162 4D86      		std Y+13,r4
+ 311 0164 5E86      		std Y+14,r5
+ 312 0166 6F86      		std Y+15,r6
+ 313 0168 788A      		std Y+16,r7
+ 314 016a 00C0      		rjmp .L21
+ 315               	.L27:
+ 316 016c 2630      		cpi r18,lo8(6)
+ 317 016e 01F4      		brne .L28
+ 318 0170 498A      		std Y+17,r4
+ 319 0172 5A8A      		std Y+18,r5
+ 320 0174 6B8A      		std Y+19,r6
+ 321 0176 7C8A      		std Y+20,r7
+ 322 0178 3830      		cpi r19,lo8(8)
+ 323 017a 00F4      		brsh .+2
+ 324 017c 00C0      		rjmp .L21
+ 325 017e D801      		movw r26,r16
+ 326 0180 1696      		adiw r26,6
+ 327 0182 8C91      		ld r24,X
+ 328 0184 1697      		sbiw r26,6
+ 329 0186 1796      		adiw r26,7
+ 330 0188 4C91      		ld r20,X
+ 331 018a 1797      		sbiw r26,7
+ 332 018c 50E0      		ldi r21,0
+ 333 018e 60E0      		ldi r22,0
+ 334 0190 70E0      		ldi r23,0
+ 335 0192 762F      		mov r23,r22
+ 336 0194 652F      		mov r22,r21
+ 337 0196 542F      		mov r21,r20
+ 338 0198 4427      		clr r20
+ 339 019a 2A01      		movw r4,r20
+ 340 019c 3B01      		movw r6,r22
+ 341 019e 480E      		add r4,r24
+ 342 01a0 511C      		adc r5,__zero_reg__
+GAS LISTING /tmp/ccarDIh4.s 			page 7
+
+
+ 343 01a2 611C      		adc r6,__zero_reg__
+ 344 01a4 711C      		adc r7,__zero_reg__
+ 345 01a6 1896      		adiw r26,8
+ 346 01a8 8C91      		ld r24,X
+ 347 01aa 90E0      		ldi r25,0
+ 348 01ac A0E0      		ldi r26,0
+ 349 01ae B0E0      		ldi r27,0
+ 350 01b0 DC01      		movw r26,r24
+ 351 01b2 9927      		clr r25
+ 352 01b4 8827      		clr r24
+ 353 01b6 AC01      		movw r20,r24
+ 354 01b8 BD01      		movw r22,r26
+ 355 01ba 440D      		add r20,r4
+ 356 01bc 551D      		adc r21,r5
+ 357 01be 661D      		adc r22,r6
+ 358 01c0 771D      		adc r23,r7
+ 359 01c2 F801      		movw r30,r16
+ 360 01c4 8185      		ldd r24,Z+9
+ 361 01c6 90E0      		ldi r25,0
+ 362 01c8 A0E0      		ldi r26,0
+ 363 01ca B0E0      		ldi r27,0
+ 364 01cc B82F      		mov r27,r24
+ 365 01ce AA27      		clr r26
+ 366 01d0 9927      		clr r25
+ 367 01d2 8827      		clr r24
+ 368 01d4 840F      		add r24,r20
+ 369 01d6 951F      		adc r25,r21
+ 370 01d8 A61F      		adc r26,r22
+ 371 01da B71F      		adc r27,r23
+ 372 01dc 8D8B      		std Y+21,r24
+ 373 01de 9E8B      		std Y+22,r25
+ 374 01e0 AF8B      		std Y+23,r26
+ 375 01e2 B88F      		std Y+24,r27
+ 376 01e4 00C0      		rjmp .L21
+ 377               	.L28:
+ 378 01e6 2633      		cpi r18,lo8(54)
+ 379 01e8 01F4      		brne .L30
+ 380 01ea 498E      		std Y+25,r4
+ 381 01ec 5A8E      		std Y+26,r5
+ 382 01ee 6B8E      		std Y+27,r6
+ 383 01f0 7C8E      		std Y+28,r7
+ 384 01f2 00C0      		rjmp .L21
+ 385               	.L30:
+ 386 01f4 2A33      		cpi r18,lo8(58)
+ 387 01f6 01F4      		brne .L31
+ 388 01f8 0E94 0000 		call __byte_swap4
+ 389 01fc 6D8F      		std Y+29,r22
+ 390 01fe 7E8F      		std Y+30,r23
+ 391 0200 8F8F      		std Y+31,r24
+ 392 0202 98A3      		std Y+32,r25
+ 393 0204 00C0      		rjmp .L21
+ 394               	.L31:
+ 395 0206 2B33      		cpi r18,lo8(59)
+ 396 0208 01F4      		brne .L32
+ 397 020a 0E94 0000 		call __byte_swap4
+ 398 020e 69A3      		std Y+33,r22
+ 399 0210 7AA3      		std Y+34,r23
+GAS LISTING /tmp/ccarDIh4.s 			page 8
+
+
+ 400 0212 8BA3      		std Y+35,r24
+ 401 0214 9CA3      		std Y+36,r25
+ 402 0216 00C0      		rjmp .L21
+ 403               	.L32:
+ 404 0218 2333      		cpi r18,lo8(51)
+ 405 021a 01F4      		brne .L21
+ 406 021c 0E94 0000 		call __byte_swap4
+ 407 0220 6DA3      		std Y+37,r22
+ 408 0222 7EA3      		std Y+38,r23
+ 409 0224 8FA3      		std Y+39,r24
+ 410 0226 98A7      		std Y+40,r25
+ 411               	.L21:
+ 412 0228 F2E0      		ldi r31,2
+ 413 022a CF0E      		add r12,r31
+ 414 022c D11C      		adc r13,__zero_reg__
+ 415 022e 0C0D      		add r16,r12
+ 416 0230 1D1D      		adc r17,r13
+ 417 0232 EC18      		sub r14,r12
+ 418 0234 FD08      		sbc r15,r13
+ 419 0236 00C0      		rjmp .L16
+ 420               	.L33:
+ 421 0238 8881      		ld r24,Y
+ 422 023a 8230      		cpi r24,lo8(2)
+ 423 023c 01F0      		breq .L35
+ 424 023e 8550      		subi r24,lo8(-(-5))
+ 425 0240 8230      		cpi r24,lo8(2)
+ 426 0242 00F0      		brlo .L35
+ 427               	.L19:
+ 428 0244 CE01      		movw r24,r28
+ 429 0246 0E94 0000 		call ReleaseDynCfg
+ 430               	.L38:
+ 431 024a 80E0      		ldi r24,0
+ 432 024c 90E0      		ldi r25,0
+ 433 024e 00C0      		rjmp .L40
+ 434               	.L35:
+ 435 0250 8D8D      		ldd r24,Y+29
+ 436 0252 9E8D      		ldd r25,Y+30
+ 437 0254 AF8D      		ldd r26,Y+31
+ 438 0256 B8A1      		ldd r27,Y+32
+ 439 0258 892B      		or r24,r25
+ 440 025a 8A2B      		or r24,r26
+ 441 025c 8B2B      		or r24,r27
+ 442 025e 01F4      		brne .L36
+ 443 0260 8DA1      		ldd r24,Y+37
+ 444 0262 9EA1      		ldd r25,Y+38
+ 445 0264 AFA1      		ldd r26,Y+39
+ 446 0266 B8A5      		ldd r27,Y+40
+ 447 0268 B695      		lsr r27
+ 448 026a A795      		ror r26
+ 449 026c 9795      		ror r25
+ 450 026e 8795      		ror r24
+ 451 0270 8D8F      		std Y+29,r24
+ 452 0272 9E8F      		std Y+30,r25
+ 453 0274 AF8F      		std Y+31,r26
+ 454 0276 B8A3      		std Y+32,r27
+ 455               	.L36:
+ 456 0278 89A1      		ldd r24,Y+33
+GAS LISTING /tmp/ccarDIh4.s 			page 9
+
+
+ 457 027a 9AA1      		ldd r25,Y+34
+ 458 027c ABA1      		ldd r26,Y+35
+ 459 027e BCA1      		ldd r27,Y+36
+ 460 0280 892B      		or r24,r25
+ 461 0282 8A2B      		or r24,r26
+ 462 0284 8B2B      		or r24,r27
+ 463 0286 01F4      		brne .L39
+ 464 0288 8D8D      		ldd r24,Y+29
+ 465 028a 9E8D      		ldd r25,Y+30
+ 466 028c AF8D      		ldd r26,Y+31
+ 467 028e B8A1      		ldd r27,Y+32
+ 468 0290 8C01      		movw r16,r24
+ 469 0292 9D01      		movw r18,r26
+ 470 0294 3695      		lsr r19
+ 471 0296 2795      		ror r18
+ 472 0298 1795      		ror r17
+ 473 029a 0795      		ror r16
+ 474 029c AC01      		movw r20,r24
+ 475 029e BD01      		movw r22,r26
+ 476 02a0 E2E0      		ldi r30,2
+ 477               		1:
+ 478 02a2 7695      		lsr r23
+ 479 02a4 6795      		ror r22
+ 480 02a6 5795      		ror r21
+ 481 02a8 4795      		ror r20
+ 482 02aa EA95      		dec r30
+ 483 02ac 01F4      		brne 1b
+ 484 02ae 400F      		add r20,r16
+ 485 02b0 511F      		adc r21,r17
+ 486 02b2 621F      		adc r22,r18
+ 487 02b4 731F      		adc r23,r19
+ 488 02b6 840F      		add r24,r20
+ 489 02b8 951F      		adc r25,r21
+ 490 02ba A61F      		adc r26,r22
+ 491 02bc B71F      		adc r27,r23
+ 492 02be 89A3      		std Y+33,r24
+ 493 02c0 9AA3      		std Y+34,r25
+ 494 02c2 ABA3      		std Y+35,r26
+ 495 02c4 BCA3      		std Y+36,r27
+ 496               	.L39:
+ 497 02c6 CE01      		movw r24,r28
+ 498               	.L40:
+ 499               	/* epilogue start */
+ 500 02c8 DF91      		pop r29
+ 501 02ca CF91      		pop r28
+ 502 02cc 1F91      		pop r17
+ 503 02ce 0F91      		pop r16
+ 504 02d0 FF90      		pop r15
+ 505 02d2 EF90      		pop r14
+ 506 02d4 DF90      		pop r13
+ 507 02d6 CF90      		pop r12
+ 508 02d8 BF90      		pop r11
+ 509 02da AF90      		pop r10
+ 510 02dc 9F90      		pop r9
+ 511 02de 8F90      		pop r8
+ 512 02e0 7F90      		pop r7
+ 513 02e2 6F90      		pop r6
+GAS LISTING /tmp/ccarDIh4.s 			page 10
+
+
+ 514 02e4 5F90      		pop r5
+ 515 02e6 4F90      		pop r4
+ 516 02e8 0895      		ret
+ 517               		.size	ParseReply, .-ParseReply
+ 518               		.section	.text.DhcpSendMessage,"ax",@progbits
+ 519               		.type	DhcpSendMessage, @function
+ 520               	DhcpSendMessage:
+ 521 0000 EF92      		push r14
+ 522 0002 FF92      		push r15
+ 523 0004 0F93      		push r16
+ 524 0006 1F93      		push r17
+ 525               	/* prologue: function */
+ 526               	/* frame size = 0 */
+ 527               	/* stack size = 4 */
+ 528               	.L__stack_usage = 4
+ 529 0008 F901      		movw r30,r18
+ 530 000a E00F      		add r30,r16
+ 531 000c F11F      		adc r31,r17
+ 532 000e E451      		subi r30,20
+ 533 0010 FF4F      		sbci r31,-1
+ 534 0012 AFEF      		ldi r26,lo8(-1)
+ 535 0014 A083      		st Z,r26
+ 536 0016 7801      		movw r14,r16
+ 537 0018 EDEE      		ldi r30,-19
+ 538 001a EE0E      		add r14,r30
+ 539 001c F11C      		adc r15,__zero_reg__
+ 540 001e ECE2      		ldi r30,44
+ 541 0020 EE16      		cp r14,r30
+ 542 0022 E1E0      		ldi r30,1
+ 543 0024 FE06      		cpc r15,r30
+ 544 0026 00F4      		brsh .L43
+ 545 0028 ECE2      		ldi r30,lo8(44)
+ 546 002a EE2E      		mov r14,r30
+ 547 002c FF24      		clr r15
+ 548 002e F394      		inc r15
+ 549               	.L43:
+ 550 0030 8901      		movw r16,r18
+ 551 0032 23E4      		ldi r18,lo8(67)
+ 552 0034 30E0      		ldi r19,0
+ 553 0036 0E94 0000 		call NutUdpSendTo
+ 554 003a 97FF      		sbrs r25,7
+ 555 003c 00C0      		rjmp .L45
+ 556 003e 83E1      		ldi r24,lo8(19)
+ 557 0040 90E0      		ldi r25,0
+ 558 0042 9093 0000 		sts dhcpError+1,r25
+ 559 0046 8093 0000 		sts dhcpError,r24
+ 560 004a 8FEF      		ldi r24,lo8(-1)
+ 561 004c 9FEF      		ldi r25,lo8(-1)
+ 562 004e 00C0      		rjmp .L44
+ 563               	.L45:
+ 564 0050 80E0      		ldi r24,0
+ 565 0052 90E0      		ldi r25,0
+ 566               	.L44:
+ 567               	/* epilogue start */
+ 568 0054 1F91      		pop r17
+ 569 0056 0F91      		pop r16
+ 570 0058 FF90      		pop r15
+GAS LISTING /tmp/ccarDIh4.s 			page 11
+
+
+ 571 005a EF90      		pop r14
+ 572 005c 0895      		ret
+ 573               		.size	DhcpSendMessage, .-DhcpSendMessage
+ 574               		.section	.text.DhcpRecvMessage,"ax",@progbits
+ 575               		.type	DhcpRecvMessage, @function
+ 576               	DhcpRecvMessage:
+ 577 0000 2F92      		push r2
+ 578 0002 3F92      		push r3
+ 579 0004 4F92      		push r4
+ 580 0006 5F92      		push r5
+ 581 0008 6F92      		push r6
+ 582 000a 7F92      		push r7
+ 583 000c 8F92      		push r8
+ 584 000e 9F92      		push r9
+ 585 0010 AF92      		push r10
+ 586 0012 BF92      		push r11
+ 587 0014 CF92      		push r12
+ 588 0016 DF92      		push r13
+ 589 0018 EF92      		push r14
+ 590 001a FF92      		push r15
+ 591 001c 0F93      		push r16
+ 592 001e 1F93      		push r17
+ 593 0020 CF93      		push r28
+ 594 0022 DF93      		push r29
+ 595 0024 CDB7      		in r28,__SP_L__
+ 596 0026 DEB7      		in r29,__SP_H__
+ 597 0028 6097      		sbiw r28,16
+ 598 002a 0FB6      		in __tmp_reg__,__SREG__
+ 599 002c F894      		cli
+ 600 002e DEBF      		out __SP_H__,r29
+ 601 0030 0FBE      		out __SREG__,__tmp_reg__
+ 602 0032 CDBF      		out __SP_L__,r28
+ 603               	/* prologue: function */
+ 604               	/* frame size = 16 */
+ 605               	/* stack size = 34 */
+ 606               	.L__stack_usage = 34
+ 607 0034 9C87      		std Y+12,r25
+ 608 0036 8B87      		std Y+11,r24
+ 609 0038 2A01      		movw r4,r20
+ 610 003a 3B01      		movw r6,r22
+ 611 003c 1901      		movw r2,r18
+ 612 003e 4701      		movw r8,r14
+ 613 0040 5801      		movw r10,r16
+ 614 0042 0E94 0000 		call NutGetMillis
+ 615 0046 6F83      		std Y+7,r22
+ 616 0048 7887      		std Y+8,r23
+ 617 004a 8987      		std Y+9,r24
+ 618 004c 9A87      		std Y+10,r25
+ 619 004e 6701      		movw r12,r14
+ 620 0050 7801      		movw r14,r16
+ 621 0052 A501      		movw r20,r10
+ 622 0054 9401      		movw r18,r8
+ 623 0056 2A5F      		subi r18,-6
+ 624 0058 3109      		sbc r19,__zero_reg__
+ 625 005a 4109      		sbc r20,__zero_reg__
+ 626 005c 5109      		sbc r21,__zero_reg__
+ 627 005e 2D87      		std Y+13,r18
+GAS LISTING /tmp/ccarDIh4.s 			page 12
+
+
+ 628 0060 3E87      		std Y+14,r19
+ 629 0062 4F87      		std Y+15,r20
+ 630 0064 588B      		std Y+16,r21
+ 631               	.L50:
+ 632 0066 04E2      		ldi r16,lo8(36)
+ 633 0068 12E0      		ldi r17,lo8(2)
+ 634 006a 9101      		movw r18,r2
+ 635 006c AE01      		movw r20,r28
+ 636 006e 4B5F      		subi r20,-5
+ 637 0070 5F4F      		sbci r21,-1
+ 638 0072 BE01      		movw r22,r28
+ 639 0074 6F5F      		subi r22,-1
+ 640 0076 7F4F      		sbci r23,-1
+ 641 0078 8B85      		ldd r24,Y+11
+ 642 007a 9C85      		ldd r25,Y+12
+ 643 007c 0E94 0000 		call NutUdpReceiveFrom
+ 644 0080 1816      		cp __zero_reg__,r24
+ 645 0082 1906      		cpc __zero_reg__,r25
+ 646 0084 04F0      		brlt .L47
+ 647 0086 0097      		sbiw r24,0
+ 648 0088 01F0      		breq .L48
+ 649 008a 24E1      		ldi r18,lo8(20)
+ 650 008c 30E0      		ldi r19,0
+ 651 008e 3093 0000 		sts dhcpError+1,r19
+ 652 0092 2093 0000 		sts dhcpError,r18
+ 653 0096 00C0      		rjmp .L48
+ 654               	.L47:
+ 655 0098 823F      		cpi r24,-14
+ 656 009a 9105      		cpc r25,__zero_reg__
+ 657 009c 04F0      		brlt .L49
+ 658 009e D101      		movw r26,r2
+ 659 00a0 2C91      		ld r18,X
+ 660 00a2 2230      		cpi r18,lo8(2)
+ 661 00a4 01F4      		brne .L49
+ 662 00a6 1496      		adiw r26,4
+ 663 00a8 4D91      		ld r20,X+
+ 664 00aa 5D91      		ld r21,X+
+ 665 00ac 6D91      		ld r22,X+
+ 666 00ae 7C91      		ld r23,X
+ 667 00b0 1797      		sbiw r26,4+3
+ 668 00b2 4415      		cp r20,r4
+ 669 00b4 5505      		cpc r21,r5
+ 670 00b6 6605      		cpc r22,r6
+ 671 00b8 7705      		cpc r23,r7
+ 672 00ba 01F0      		breq .L48
+ 673               	.L49:
+ 674 00bc 0E94 0000 		call NutGetMillis
+ 675 00c0 DC01      		movw r26,r24
+ 676 00c2 CB01      		movw r24,r22
+ 677 00c4 2F81      		ldd r18,Y+7
+ 678 00c6 3885      		ldd r19,Y+8
+ 679 00c8 4985      		ldd r20,Y+9
+ 680 00ca 5A85      		ldd r21,Y+10
+ 681 00cc 821B      		sub r24,r18
+ 682 00ce 930B      		sbc r25,r19
+ 683 00d0 A40B      		sbc r26,r20
+ 684 00d2 B50B      		sbc r27,r21
+GAS LISTING /tmp/ccarDIh4.s 			page 13
+
+
+ 685 00d4 2D85      		ldd r18,Y+13
+ 686 00d6 3E85      		ldd r19,Y+14
+ 687 00d8 4F85      		ldd r20,Y+15
+ 688 00da 5889      		ldd r21,Y+16
+ 689 00dc 8217      		cp r24,r18
+ 690 00de 9307      		cpc r25,r19
+ 691 00e0 A407      		cpc r26,r20
+ 692 00e2 B507      		cpc r27,r21
+ 693 00e4 00F4      		brsh .L51
+ 694 00e6 7501      		movw r14,r10
+ 695 00e8 6401      		movw r12,r8
+ 696 00ea C81A      		sub r12,r24
+ 697 00ec D90A      		sbc r13,r25
+ 698 00ee EA0A      		sbc r14,r26
+ 699 00f0 FB0A      		sbc r15,r27
+ 700 00f2 00C0      		rjmp .L50
+ 701               	.L51:
+ 702 00f4 80E0      		ldi r24,0
+ 703 00f6 90E0      		ldi r25,0
+ 704               	.L48:
+ 705               	/* epilogue start */
+ 706 00f8 6096      		adiw r28,16
+ 707 00fa 0FB6      		in __tmp_reg__,__SREG__
+ 708 00fc F894      		cli
+ 709 00fe DEBF      		out __SP_H__,r29
+ 710 0100 0FBE      		out __SREG__,__tmp_reg__
+ 711 0102 CDBF      		out __SP_L__,r28
+ 712 0104 DF91      		pop r29
+ 713 0106 CF91      		pop r28
+ 714 0108 1F91      		pop r17
+ 715 010a 0F91      		pop r16
+ 716 010c FF90      		pop r15
+ 717 010e EF90      		pop r14
+ 718 0110 DF90      		pop r13
+ 719 0112 CF90      		pop r12
+ 720 0114 BF90      		pop r11
+ 721 0116 AF90      		pop r10
+ 722 0118 9F90      		pop r9
+ 723 011a 8F90      		pop r8
+ 724 011c 7F90      		pop r7
+ 725 011e 6F90      		pop r6
+ 726 0120 5F90      		pop r5
+ 727 0122 4F90      		pop r4
+ 728 0124 3F90      		pop r3
+ 729 0126 2F90      		pop r2
+ 730 0128 0895      		ret
+ 731               		.size	DhcpRecvMessage, .-DhcpRecvMessage
+ 732               		.section	.rodata.str1.1,"aMS",@progbits,1
+ 733               	.LC0:
+ 734 0000 6468 6370 		.string	"dhcpc"
+ 734      6300 
+ 735               		.section	.text.DhcpKick,"ax",@progbits
+ 736               		.type	DhcpKick, @function
+ 737               	DhcpKick:
+ 738 0000 EF92      		push r14
+ 739 0002 FF92      		push r15
+ 740 0004 1F93      		push r17
+GAS LISTING /tmp/ccarDIh4.s 			page 14
+
+
+ 741 0006 CF93      		push r28
+ 742 0008 DF93      		push r29
+ 743 000a 00D0      		rcall .
+ 744 000c 1F92      		push __zero_reg__
+ 745 000e CDB7      		in r28,__SP_L__
+ 746 0010 DEB7      		in r29,__SP_H__
+ 747               	/* prologue: function */
+ 748               	/* frame size = 4 */
+ 749               	/* stack size = 9 */
+ 750               	.L__stack_usage = 9
+ 751 0012 162F      		mov r17,r22
+ 752 0014 2983      		std Y+1,r18
+ 753 0016 3A83      		std Y+2,r19
+ 754 0018 4B83      		std Y+3,r20
+ 755 001a 5C83      		std Y+4,r21
+ 756 001c 0E94 0000 		call NutDeviceLookup
+ 757 0020 7C01      		movw r14,r24
+ 758 0022 2981      		ldd r18,Y+1
+ 759 0024 3A81      		ldd r19,Y+2
+ 760 0026 4B81      		ldd r20,Y+3
+ 761 0028 5C81      		ldd r21,Y+4
+ 762 002a 0097      		sbiw r24,0
+ 763 002c 01F0      		breq .L56
+ 764 002e DC01      		movw r26,r24
+ 765 0030 1B96      		adiw r26,11
+ 766 0032 8C91      		ld r24,X
+ 767 0034 8330      		cpi r24,lo8(3)
+ 768 0036 01F0      		breq .L57
+ 769               	.L56:
+ 770 0038 81E1      		ldi r24,lo8(17)
+ 771 003a 90E0      		ldi r25,0
+ 772 003c 9093 0000 		sts dhcpError+1,r25
+ 773 0040 8093 0000 		sts dhcpError,r24
+ 774 0044 8FEF      		ldi r24,lo8(-1)
+ 775 0046 9FEF      		ldi r25,lo8(-1)
+ 776 0048 00C0      		rjmp .L58
+ 777               	.L57:
+ 778 004a D701      		movw r26,r14
+ 779 004c 1F96      		adiw r26,15
+ 780 004e ED91      		ld r30,X+
+ 781 0050 FC91      		ld r31,X
+ 782 0052 5097      		sbiw r26,15+1
+ 783 0054 3097      		sbiw r30,0
+ 784 0056 01F0      		breq .L56
+ 785 0058 8081      		ld r24,Z
+ 786 005a 8630      		cpi r24,lo8(6)
+ 787 005c 01F4      		brne .L56
+ 788 005e 2983      		std Y+1,r18
+ 789 0060 3A83      		std Y+2,r19
+ 790 0062 4B83      		std Y+3,r20
+ 791 0064 5C83      		std Y+4,r21
+ 792 0066 0E94 0000 		call NutGetMillis
+ 793 006a 6093 0000 		sts dhcpApiStart,r22
+ 794 006e 7093 0000 		sts dhcpApiStart+1,r23
+ 795 0072 8093 0000 		sts dhcpApiStart+2,r24
+ 796 0076 9093 0000 		sts dhcpApiStart+3,r25
+ 797 007a 2981      		ldd r18,Y+1
+GAS LISTING /tmp/ccarDIh4.s 			page 15
+
+
+ 798 007c 3A81      		ldd r19,Y+2
+ 799 007e 4B81      		ldd r20,Y+3
+ 800 0080 5C81      		ldd r21,Y+4
+ 801 0082 2093 0000 		sts dhcpApiTimeout,r18
+ 802 0086 3093 0000 		sts dhcpApiTimeout+1,r19
+ 803 008a 4093 0000 		sts dhcpApiTimeout+2,r20
+ 804 008e 5093 0000 		sts dhcpApiTimeout+3,r21
+ 805 0092 1093 0000 		sts dhcpState,r17
+ 806 0096 8091 0000 		lds r24,dhcpThread
+ 807 009a 9091 0000 		lds r25,dhcpThread+1
+ 808 009e 892B      		or r24,r25
+ 809 00a0 01F4      		brne .L59
+ 810 00a2 20E2      		ldi r18,lo8(32)
+ 811 00a4 31E0      		ldi r19,lo8(1)
+ 812 00a6 A701      		movw r20,r14
+ 813 00a8 60E0      		ldi r22,lo8(gs(NutDhcpClient))
+ 814 00aa 70E0      		ldi r23,hi8(gs(NutDhcpClient))
+ 815 00ac 80E0      		ldi r24,lo8(.LC0)
+ 816 00ae 90E0      		ldi r25,hi8(.LC0)
+ 817 00b0 0E94 0000 		call NutThreadCreate
+ 818 00b4 9093 0000 		sts dhcpThread+1,r25
+ 819 00b8 8093 0000 		sts dhcpThread,r24
+ 820               	.L59:
+ 821 00bc 80E0      		ldi r24,lo8(dhcpWake)
+ 822 00be 90E0      		ldi r25,hi8(dhcpWake)
+ 823 00c0 0E94 0000 		call NutEventPostAsync
+ 824 00c4 40E0      		ldi r20,0
+ 825 00c6 50E0      		ldi r21,0
+ 826 00c8 BA01      		movw r22,r20
+ 827 00ca 80E0      		ldi r24,lo8(dhcpDone)
+ 828 00cc 90E0      		ldi r25,hi8(dhcpDone)
+ 829 00ce 0E94 0000 		call NutEventWait
+ 830 00d2 80E0      		ldi r24,0
+ 831 00d4 90E0      		ldi r25,0
+ 832               	.L58:
+ 833               	/* epilogue start */
+ 834 00d6 0F90      		pop __tmp_reg__
+ 835 00d8 0F90      		pop __tmp_reg__
+ 836 00da 0F90      		pop __tmp_reg__
+ 837 00dc 0F90      		pop __tmp_reg__
+ 838 00de DF91      		pop r29
+ 839 00e0 CF91      		pop r28
+ 840 00e2 1F91      		pop r17
+ 841 00e4 FF90      		pop r15
+ 842 00e6 EF90      		pop r14
+ 843 00e8 0895      		ret
+ 844               		.size	DhcpKick, .-DhcpKick
+ 845               		.section	.text.DhcpPrepHeader,"ax",@progbits
+ 846               		.type	DhcpPrepHeader, @function
+ 847               	DhcpPrepHeader:
+ 848 0000 CF92      		push r12
+ 849 0002 DF92      		push r13
+ 850 0004 EF92      		push r14
+ 851 0006 FF92      		push r15
+ 852 0008 0F93      		push r16
+ 853 000a 1F93      		push r17
+ 854 000c CF93      		push r28
+GAS LISTING /tmp/ccarDIh4.s 			page 16
+
+
+ 855 000e DF93      		push r29
+ 856               	/* prologue: function */
+ 857               	/* frame size = 0 */
+ 858               	/* stack size = 8 */
+ 859               	.L__stack_usage = 8
+ 860 0010 EC01      		movw r28,r24
+ 861 0012 84E2      		ldi r24,lo8(36)
+ 862 0014 92E0      		ldi r25,lo8(2)
+ 863 0016 DE01      		movw r26,r28
+ 864 0018 FC01      		movw r30,r24
+ 865               		0:
+ 866 001a 1D92      		st X+,__zero_reg__
+ 867 001c 3197      		sbiw r30,1
+ 868 001e 01F4      		brne 0b
+ 869 0020 81E0      		ldi r24,lo8(1)
+ 870 0022 8883      		st Y,r24
+ 871 0024 8983      		std Y+1,r24
+ 872 0026 96E0      		ldi r25,lo8(6)
+ 873 0028 9A83      		std Y+2,r25
+ 874 002a E0E0      		ldi r30,lo8(confnet+10)
+ 875 002c F0E0      		ldi r31,hi8(confnet+10)
+ 876 002e DE01      		movw r26,r28
+ 877 0030 5C96      		adiw r26,28
+ 878               		0:
+ 879 0032 0190      		ld r0,Z+
+ 880 0034 0D92      		st X+,r0
+ 881 0036 9A95      		dec r25
+ 882 0038 01F4      		brne 0b
+ 883 003a 2C83      		std Y+4,r18
+ 884 003c 3D83      		std Y+5,r19
+ 885 003e 4E83      		std Y+6,r20
+ 886 0040 5F83      		std Y+7,r21
+ 887               	/* #APP */
+ 888               	 ;  309 "../../nut/include/sys/types.h" 1
+ 889 0042 0C2C      		mov __tmp_reg__, r12
+ 890 0044 CD2C      		mov r12, r13
+ 891 0046 D02C      		mov r13, __tmp_reg__
+ 892               		
+ 893               	 ;  0 "" 2
+ 894               	/* #NOAPP */
+ 895 0048 D986      		std Y+9,r13
+ 896 004a C886      		std Y+8,r12
+ 897 004c EC86      		std Y+12,r14
+ 898 004e FD86      		std Y+13,r15
+ 899 0050 0E87      		std Y+14,r16
+ 900 0052 1F87      		std Y+15,r17
+ 901 0054 FE01      		movw r30,r28
+ 902 0056 E451      		subi r30,20
+ 903 0058 FF4F      		sbci r31,-1
+ 904 005a 93E6      		ldi r25,lo8(99)
+ 905 005c 9083      		st Z,r25
+ 906 005e 3196      		adiw r30,1
+ 907 0060 22E8      		ldi r18,lo8(-126)
+ 908 0062 2083      		st Z,r18
+ 909 0064 3196      		adiw r30,1
+ 910 0066 23E5      		ldi r18,lo8(83)
+ 911 0068 2083      		st Z,r18
+GAS LISTING /tmp/ccarDIh4.s 			page 17
+
+
+ 912 006a 3196      		adiw r30,1
+ 913 006c 9083      		st Z,r25
+ 914 006e 3196      		adiw r30,1
+ 915 0070 95E3      		ldi r25,lo8(53)
+ 916 0072 9083      		st Z,r25
+ 917 0074 3196      		adiw r30,1
+ 918 0076 8083      		st Z,r24
+ 919 0078 CE50      		subi r28,14
+ 920 007a DF4F      		sbci r29,-1
+ 921 007c 6883      		st Y,r22
+ 922 007e 87E0      		ldi r24,lo8(7)
+ 923 0080 90E0      		ldi r25,0
+ 924               	/* epilogue start */
+ 925 0082 DF91      		pop r29
+ 926 0084 CF91      		pop r28
+ 927 0086 1F91      		pop r17
+ 928 0088 0F91      		pop r16
+ 929 008a FF90      		pop r15
+ 930 008c EF90      		pop r14
+ 931 008e DF90      		pop r13
+ 932 0090 CF90      		pop r12
+ 933 0092 0895      		ret
+ 934               		.size	DhcpPrepHeader, .-DhcpPrepHeader
+ 935               		.section	.text.DhcpSendRequest,"ax",@progbits
+ 936               		.type	DhcpSendRequest, @function
+ 937               	DhcpSendRequest:
+ 938 0000 2F92      		push r2
+ 939 0002 3F92      		push r3
+ 940 0004 4F92      		push r4
+ 941 0006 5F92      		push r5
+ 942 0008 6F92      		push r6
+ 943 000a 7F92      		push r7
+ 944 000c 8F92      		push r8
+ 945 000e 9F92      		push r9
+ 946 0010 AF92      		push r10
+ 947 0012 BF92      		push r11
+ 948 0014 CF92      		push r12
+ 949 0016 DF92      		push r13
+ 950 0018 EF92      		push r14
+ 951 001a FF92      		push r15
+ 952 001c 0F93      		push r16
+ 953 001e 1F93      		push r17
+ 954 0020 CF93      		push r28
+ 955 0022 DF93      		push r29
+ 956 0024 CDB7      		in r28,__SP_L__
+ 957 0026 DEB7      		in r29,__SP_H__
+ 958               	/* prologue: function */
+ 959               	/* frame size = 0 */
+ 960               	/* stack size = 18 */
+ 961               	.L__stack_usage = 18
+ 962 0028 3C01      		movw r6,r24
+ 963 002a 1A01      		movw r2,r20
+ 964 002c 2B01      		movw r4,r22
+ 965 002e 4901      		movw r8,r18
+ 966 0030 A801      		movw r20,r16
+ 967 0032 9701      		movw r18,r14
+ 968 0034 8601      		movw r16,r12
+GAS LISTING /tmp/ccarDIh4.s 			page 18
+
+
+ 969 0036 7501      		movw r14,r10
+ 970 0038 5401      		movw r10,r8
+ 971 003a 8CEE      		ldi r24,-20
+ 972 003c A80E      		add r10,r24
+ 973 003e B11C      		adc r11,__zero_reg__
+ 974 0040 CE8C      		ldd r12,Y+30
+ 975 0042 DF8C      		ldd r13,Y+31
+ 976 0044 63E0      		ldi r22,lo8(3)
+ 977 0046 C401      		movw r24,r8
+ 978 0048 0E94 0000 		call DhcpPrepHeader
+ 979 004c 2E89      		ldd r18,Y+22
+ 980 004e 3F89      		ldd r19,Y+23
+ 981 0050 488D      		ldd r20,Y+24
+ 982 0052 598D      		ldd r21,Y+25
+ 983 0054 232B      		or r18,r19
+ 984 0056 242B      		or r18,r20
+ 985 0058 252B      		or r18,r21
+ 986 005a 01F0      		breq .L68
+ 987 005c F501      		movw r30,r10
+ 988 005e E80F      		add r30,r24
+ 989 0060 F91F      		adc r31,r25
+ 990 0062 22E3      		ldi r18,lo8(50)
+ 991 0064 2083      		st Z,r18
+ 992 0066 24E0      		ldi r18,lo8(4)
+ 993 0068 2183      		std Z+1,r18
+ 994 006a 2E89      		ldd r18,Y+22
+ 995 006c 3F89      		ldd r19,Y+23
+ 996 006e 488D      		ldd r20,Y+24
+ 997 0070 598D      		ldd r21,Y+25
+ 998 0072 2283      		std Z+2,r18
+ 999 0074 3383      		std Z+3,r19
+ 1000 0076 4483      		std Z+4,r20
+ 1001 0078 5583      		std Z+5,r21
+ 1002 007a 0696      		adiw r24,6
+ 1003               	.L68:
+ 1004 007c 2A8D      		ldd r18,Y+26
+ 1005 007e 3B8D      		ldd r19,Y+27
+ 1006 0080 4C8D      		ldd r20,Y+28
+ 1007 0082 5D8D      		ldd r21,Y+29
+ 1008 0084 232B      		or r18,r19
+ 1009 0086 242B      		or r18,r20
+ 1010 0088 252B      		or r18,r21
+ 1011 008a 01F0      		breq .L69
+ 1012 008c F501      		movw r30,r10
+ 1013 008e E80F      		add r30,r24
+ 1014 0090 F91F      		adc r31,r25
+ 1015 0092 26E3      		ldi r18,lo8(54)
+ 1016 0094 2083      		st Z,r18
+ 1017 0096 24E0      		ldi r18,lo8(4)
+ 1018 0098 2183      		std Z+1,r18
+ 1019 009a 2A8D      		ldd r18,Y+26
+ 1020 009c 3B8D      		ldd r19,Y+27
+ 1021 009e 4C8D      		ldd r20,Y+28
+ 1022 00a0 5D8D      		ldd r21,Y+29
+ 1023 00a2 2283      		std Z+2,r18
+ 1024 00a4 3383      		std Z+3,r19
+ 1025 00a6 4483      		std Z+4,r20
+GAS LISTING /tmp/ccarDIh4.s 			page 19
+
+
+ 1026 00a8 5583      		std Z+5,r21
+ 1027 00aa 0696      		adiw r24,6
+ 1028               	.L69:
+ 1029 00ac F501      		movw r30,r10
+ 1030 00ae E80F      		add r30,r24
+ 1031 00b0 F91F      		adc r31,r25
+ 1032 00b2 27E3      		ldi r18,lo8(55)
+ 1033 00b4 2083      		st Z,r18
+ 1034 00b6 23E0      		ldi r18,lo8(3)
+ 1035 00b8 2183      		std Z+1,r18
+ 1036 00ba 31E0      		ldi r19,lo8(1)
+ 1037 00bc 3283      		std Z+2,r19
+ 1038 00be 2383      		std Z+3,r18
+ 1039 00c0 26E0      		ldi r18,lo8(6)
+ 1040 00c2 2483      		std Z+4,r18
+ 1041 00c4 8C01      		movw r16,r24
+ 1042 00c6 0B5F      		subi r16,-5
+ 1043 00c8 1F4F      		sbci r17,-1
+ 1044 00ca E0E0      		ldi r30,lo8(confos+3)
+ 1045 00cc F0E0      		ldi r31,hi8(confos+3)
+ 1046               		0:
+ 1047 00ce 0190      		ld __tmp_reg__,Z+
+ 1048 00d0 0020      		tst __tmp_reg__
+ 1049 00d2 01F4      		brne 0b
+ 1050 00d4 AF01      		movw r20,r30
+ 1051 00d6 4050      		subi r20,lo8(confos+4)
+ 1052 00d8 5040      		sbci r21,hi8(confos+4)
+ 1053 00da 1416      		cp __zero_reg__,r20
+ 1054 00dc 1506      		cpc __zero_reg__,r21
+ 1055 00de 04F4      		brge .L70
+ 1056 00e0 F501      		movw r30,r10
+ 1057 00e2 E00F      		add r30,r16
+ 1058 00e4 F11F      		adc r31,r17
+ 1059 00e6 8CE0      		ldi r24,lo8(12)
+ 1060 00e8 8083      		st Z,r24
+ 1061 00ea 4183      		std Z+1,r20
+ 1062 00ec 7A01      		movw r14,r20
+ 1063 00ee FF24      		clr r15
+ 1064 00f0 A701      		movw r20,r14
+ 1065 00f2 60E0      		ldi r22,lo8(confos+3)
+ 1066 00f4 70E0      		ldi r23,hi8(confos+3)
+ 1067 00f6 CF01      		movw r24,r30
+ 1068 00f8 0296      		adiw r24,2
+ 1069 00fa 0E94 0000 		call memcpy
+ 1070 00fe A701      		movw r20,r14
+ 1071 0100 4E5F      		subi r20,-2
+ 1072 0102 5F4F      		sbci r21,-1
+ 1073 0104 040F      		add r16,r20
+ 1074 0106 151F      		adc r17,r21
+ 1075               	.L70:
+ 1076 0108 9401      		movw r18,r8
+ 1077 010a B201      		movw r22,r4
+ 1078 010c A101      		movw r20,r2
+ 1079 010e C301      		movw r24,r6
+ 1080 0110 0E94 0000 		call DhcpSendMessage
+ 1081               	/* epilogue start */
+ 1082 0114 DF91      		pop r29
+GAS LISTING /tmp/ccarDIh4.s 			page 20
+
+
+ 1083 0116 CF91      		pop r28
+ 1084 0118 1F91      		pop r17
+ 1085 011a 0F91      		pop r16
+ 1086 011c FF90      		pop r15
+ 1087 011e EF90      		pop r14
+ 1088 0120 DF90      		pop r13
+ 1089 0122 CF90      		pop r12
+ 1090 0124 BF90      		pop r11
+ 1091 0126 AF90      		pop r10
+ 1092 0128 9F90      		pop r9
+ 1093 012a 8F90      		pop r8
+ 1094 012c 7F90      		pop r7
+ 1095 012e 6F90      		pop r6
+ 1096 0130 5F90      		pop r5
+ 1097 0132 4F90      		pop r4
+ 1098 0134 3F90      		pop r3
+ 1099 0136 2F90      		pop r2
+ 1100 0138 0895      		ret
+ 1101               		.size	DhcpSendRequest, .-DhcpSendRequest
+ 1102               		.section	.text.NutDhcpClient,"ax",@progbits
+ 1103               	.global	NutDhcpClient
+ 1104               		.type	NutDhcpClient, @function
+ 1105               	NutDhcpClient:
+ 1106 0000 CF93      		push r28
+ 1107 0002 DF93      		push r29
+ 1108 0004 CDB7      		in r28,__SP_L__
+ 1109 0006 DEB7      		in r29,__SP_H__
+ 1110 0008 A097      		sbiw r28,32
+ 1111 000a 0FB6      		in __tmp_reg__,__SREG__
+ 1112 000c F894      		cli
+ 1113 000e DEBF      		out __SP_H__,r29
+ 1114 0010 0FBE      		out __SREG__,__tmp_reg__
+ 1115 0012 CDBF      		out __SP_L__,r28
+ 1116               	/* prologue: function */
+ 1117               	/* frame size = 32 */
+ 1118               	/* stack size = 34 */
+ 1119               	.L__stack_usage = 34
+ 1120 0014 8C01      		movw r16,r24
+ 1121 0016 0E94 0000 		call NutGetSeconds
+ 1122 001a 6A8F      		std Y+26,r22
+ 1123 001c 7B8F      		std Y+27,r23
+ 1124 001e 8C8F      		std Y+28,r24
+ 1125 0020 9D8F      		std Y+29,r25
+ 1126 0022 2091 0000 		lds r18,confnet+16
+ 1127 0026 3091 0000 		lds r19,confnet+16+1
+ 1128 002a 4091 0000 		lds r20,confnet+16+2
+ 1129 002e 5091 0000 		lds r21,confnet+16+3
+ 1130 0032 2E8B      		std Y+22,r18
+ 1131 0034 3F8B      		std Y+23,r19
+ 1132 0036 488F      		std Y+24,r20
+ 1133 0038 598F      		std Y+25,r21
+ 1134 003a D801      		movw r26,r16
+ 1135 003c 1F96      		adiw r26,15
+ 1136 003e 0D90      		ld __tmp_reg__,X+
+ 1137 0040 BC91      		ld r27,X
+ 1138 0042 A02D      		mov r26,__tmp_reg__
+ 1139 0044 BF8F      		std Y+31,r27
+GAS LISTING /tmp/ccarDIh4.s 			page 21
+
+
+ 1140 0046 AE8F      		std Y+30,r26
+ 1141 0048 FD01      		movw r30,r26
+ 1142 004a 3B96      		adiw r30,11
+ 1143 004c CD01      		movw r24,r26
+ 1144 004e 0796      		adiw r24,7
+ 1145 0050 1F82      		std Y+7,__zero_reg__
+ 1146 0052 1886      		std Y+8,__zero_reg__
+ 1147 0054 1986      		std Y+9,__zero_reg__
+ 1148 0056 1A86      		std Y+10,__zero_reg__
+ 1149               	.L78:
+ 1150 0058 EF80      		ldd r14,Y+7
+ 1151 005a F884      		ldd r15,Y+8
+ 1152 005c 0985      		ldd r16,Y+9
+ 1153 005e 1A85      		ldd r17,Y+10
+ 1154 0060 702F      		mov r23,r16
+ 1155 0062 6F2D      		mov r22,r15
+ 1156 0064 5E2D      		mov r21,r14
+ 1157 0066 4427      		clr r20
+ 1158 0068 2291      		ld r18,-Z
+ 1159 006a 7A01      		movw r14,r20
+ 1160 006c 8B01      		movw r16,r22
+ 1161 006e E20E      		add r14,r18
+ 1162 0070 F11C      		adc r15,__zero_reg__
+ 1163 0072 011D      		adc r16,__zero_reg__
+ 1164 0074 111D      		adc r17,__zero_reg__
+ 1165 0076 EF82      		std Y+7,r14
+ 1166 0078 F886      		std Y+8,r15
+ 1167 007a 0987      		std Y+9,r16
+ 1168 007c 1A87      		std Y+10,r17
+ 1169 007e E817      		cp r30,r24
+ 1170 0080 F907      		cpc r31,r25
+ 1171 0082 01F4      		brne .L78
+ 1172 0084 00EA      		ldi r16,lo8(-96)
+ 1173 0086 1FE0      		ldi r17,lo8(15)
+ 1174 0088 20E0      		ldi r18,0
+ 1175 008a 30E0      		ldi r19,0
+ 1176 008c 0B83      		std Y+3,r16
+ 1177 008e 1C83      		std Y+4,r17
+ 1178 0090 2D83      		std Y+5,r18
+ 1179 0092 3E83      		std Y+6,r19
+ 1180 0094 1B86      		std Y+11,__zero_reg__
+ 1181 0096 1A8A      		std Y+18,__zero_reg__
+ 1182 0098 1B8A      		std Y+19,__zero_reg__
+ 1183 009a 1C8A      		std Y+20,__zero_reg__
+ 1184 009c 1D8A      		std Y+21,__zero_reg__
+ 1185 009e 198A      		std Y+17,__zero_reg__
+ 1186 00a0 188A      		std Y+16,__zero_reg__
+ 1187 00a2 212C      		mov r2,__zero_reg__
+ 1188 00a4 312C      		mov r3,__zero_reg__
+ 1189 00a6 812C      		mov r8,__zero_reg__
+ 1190 00a8 912C      		mov r9,__zero_reg__
+ 1191               	.L79:
+ 1192 00aa 0E94 0000 		call NutGetSeconds
+ 1193 00ae 6B01      		movw r12,r22
+ 1194 00b0 7C01      		movw r14,r24
+ 1195 00b2 1B85      		ldd r17,Y+11
+ 1196 00b4 1123      		tst r17
+GAS LISTING /tmp/ccarDIh4.s 			page 22
+
+
+ 1197 00b6 01F0      		breq .L80
+ 1198 00b8 2B81      		ldd r18,Y+3
+ 1199 00ba 3C81      		ldd r19,Y+4
+ 1200 00bc 4D81      		ldd r20,Y+5
+ 1201 00be 5E81      		ldd r21,Y+6
+ 1202 00c0 220F      		lsl r18
+ 1203 00c2 331F      		rol r19
+ 1204 00c4 441F      		rol r20
+ 1205 00c6 551F      		rol r21
+ 1206 00c8 2B83      		std Y+3,r18
+ 1207 00ca 3C83      		std Y+4,r19
+ 1208 00cc 4D83      		std Y+5,r20
+ 1209 00ce 5E83      		std Y+6,r21
+ 1210 00d0 2130      		cpi r18,1
+ 1211 00d2 3A4F      		sbci r19,-6
+ 1212 00d4 4105      		cpc r20,__zero_reg__
+ 1213 00d6 5105      		cpc r21,__zero_reg__
+ 1214 00d8 00F0      		brlo .L81
+ 1215 00da 00E0      		ldi r16,0
+ 1216 00dc 1AEF      		ldi r17,lo8(-6)
+ 1217 00de 20E0      		ldi r18,0
+ 1218 00e0 30E0      		ldi r19,0
+ 1219 00e2 0B83      		std Y+3,r16
+ 1220 00e4 1C83      		std Y+4,r17
+ 1221 00e6 2D83      		std Y+5,r18
+ 1222 00e8 3E83      		std Y+6,r19
+ 1223               	.L81:
+ 1224 00ea 2FEF      		ldi r18,lo8(-1)
+ 1225 00ec 3FEF      		ldi r19,lo8(-1)
+ 1226 00ee A901      		movw r20,r18
+ 1227 00f0 2C87      		std Y+12,r18
+ 1228 00f2 3D87      		std Y+13,r19
+ 1229 00f4 4E87      		std Y+14,r20
+ 1230 00f6 5F87      		std Y+15,r21
+ 1231 00f8 00C0      		rjmp .L82
+ 1232               	.L80:
+ 1233 00fa 8091 0000 		lds r24,dhcpState
+ 1234 00fe 8330      		cpi r24,lo8(3)
+ 1235 0100 01F0      		breq .L83
+ 1236 0102 8F81      		ldd r24,Y+7
+ 1237 0104 9885      		ldd r25,Y+8
+ 1238 0106 A985      		ldd r26,Y+9
+ 1239 0108 BA85      		ldd r27,Y+10
+ 1240 010a 0196      		adiw r24,1
+ 1241 010c A11D      		adc r26,__zero_reg__
+ 1242 010e B11D      		adc r27,__zero_reg__
+ 1243 0110 8F83      		std Y+7,r24
+ 1244 0112 9887      		std Y+8,r25
+ 1245 0114 A987      		std Y+9,r26
+ 1246 0116 BA87      		std Y+10,r27
+ 1247               	.L83:
+ 1248 0118 E091 0000 		lds r30,dhcpConfig
+ 1249 011c F091 0000 		lds r31,dhcpConfig+1
+ 1250 0120 3097      		sbiw r30,0
+ 1251 0122 01F0      		breq .L158
+ 1252 0124 018D      		ldd r16,Z+25
+ 1253 0126 128D      		ldd r17,Z+26
+GAS LISTING /tmp/ccarDIh4.s 			page 23
+
+
+ 1254 0128 238D      		ldd r18,Z+27
+ 1255 012a 348D      		ldd r19,Z+28
+ 1256 012c 0C87      		std Y+12,r16
+ 1257 012e 1D87      		std Y+13,r17
+ 1258 0130 2E87      		std Y+14,r18
+ 1259 0132 3F87      		std Y+15,r19
+ 1260 0134 012B      		or r16,r17
+ 1261 0136 022B      		or r16,r18
+ 1262 0138 032B      		or r16,r19
+ 1263 013a 01F0      		breq .L159
+ 1264 013c 20EA      		ldi r18,lo8(-96)
+ 1265 013e 3FE0      		ldi r19,lo8(15)
+ 1266 0140 40E0      		ldi r20,0
+ 1267 0142 50E0      		ldi r21,0
+ 1268 0144 2B83      		std Y+3,r18
+ 1269 0146 3C83      		std Y+4,r19
+ 1270 0148 4D83      		std Y+5,r20
+ 1271 014a 5E83      		std Y+6,r21
+ 1272 014c 00C0      		rjmp .L82
+ 1273               	.L158:
+ 1274 014e 8FEF      		ldi r24,lo8(-1)
+ 1275 0150 9FEF      		ldi r25,lo8(-1)
+ 1276 0152 DC01      		movw r26,r24
+ 1277 0154 8C87      		std Y+12,r24
+ 1278 0156 9D87      		std Y+13,r25
+ 1279 0158 AE87      		std Y+14,r26
+ 1280 015a BF87      		std Y+15,r27
+ 1281 015c 00EA      		ldi r16,lo8(-96)
+ 1282 015e 1FE0      		ldi r17,lo8(15)
+ 1283 0160 20E0      		ldi r18,0
+ 1284 0162 30E0      		ldi r19,0
+ 1285 0164 0B83      		std Y+3,r16
+ 1286 0166 1C83      		std Y+4,r17
+ 1287 0168 2D83      		std Y+5,r18
+ 1288 016a 3E83      		std Y+6,r19
+ 1289 016c 00C0      		rjmp .L82
+ 1290               	.L159:
+ 1291 016e 2FEF      		ldi r18,lo8(-1)
+ 1292 0170 3FEF      		ldi r19,lo8(-1)
+ 1293 0172 A901      		movw r20,r18
+ 1294 0174 2C87      		std Y+12,r18
+ 1295 0176 3D87      		std Y+13,r19
+ 1296 0178 4E87      		std Y+14,r20
+ 1297 017a 5F87      		std Y+15,r21
+ 1298 017c 80EA      		ldi r24,lo8(-96)
+ 1299 017e 9FE0      		ldi r25,lo8(15)
+ 1300 0180 A0E0      		ldi r26,0
+ 1301 0182 B0E0      		ldi r27,0
+ 1302 0184 8B83      		std Y+3,r24
+ 1303 0186 9C83      		std Y+4,r25
+ 1304 0188 AD83      		std Y+5,r26
+ 1305 018a BE83      		std Y+6,r27
+ 1306               	.L82:
+ 1307 018c 8091 0000 		lds r24,dhcpState
+ 1308 0190 8823      		tst r24
+ 1309 0192 01F4      		brne .+2
+ 1310 0194 00C0      		rjmp .L84
+GAS LISTING /tmp/ccarDIh4.s 			page 24
+
+
+ 1311 0196 8530      		cpi r24,lo8(5)
+ 1312 0198 01F4      		brne .+2
+ 1313 019a 00C0      		rjmp .L84
+ 1314 019c 8091 0000 		lds r24,dhcpApiTimeout
+ 1315 01a0 9091 0000 		lds r25,dhcpApiTimeout+1
+ 1316 01a4 A091 0000 		lds r26,dhcpApiTimeout+2
+ 1317 01a8 B091 0000 		lds r27,dhcpApiTimeout+3
+ 1318 01ac 892B      		or r24,r25
+ 1319 01ae 8A2B      		or r24,r26
+ 1320 01b0 8B2B      		or r24,r27
+ 1321 01b2 01F0      		breq .L84
+ 1322 01b4 0E94 0000 		call NutGetMillis
+ 1323 01b8 0091 0000 		lds r16,dhcpApiStart
+ 1324 01bc 1091 0000 		lds r17,dhcpApiStart+1
+ 1325 01c0 2091 0000 		lds r18,dhcpApiStart+2
+ 1326 01c4 3091 0000 		lds r19,dhcpApiStart+3
+ 1327 01c8 AB01      		movw r20,r22
+ 1328 01ca BC01      		movw r22,r24
+ 1329 01cc 401B      		sub r20,r16
+ 1330 01ce 510B      		sbc r21,r17
+ 1331 01d0 620B      		sbc r22,r18
+ 1332 01d2 730B      		sbc r23,r19
+ 1333 01d4 8091 0000 		lds r24,dhcpApiTimeout
+ 1334 01d8 9091 0000 		lds r25,dhcpApiTimeout+1
+ 1335 01dc A091 0000 		lds r26,dhcpApiTimeout+2
+ 1336 01e0 B091 0000 		lds r27,dhcpApiTimeout+3
+ 1337 01e4 4817      		cp r20,r24
+ 1338 01e6 5907      		cpc r21,r25
+ 1339 01e8 6A07      		cpc r22,r26
+ 1340 01ea 7B07      		cpc r23,r27
+ 1341 01ec 00F0      		brlo .L85
+ 1342 01ee A1E0      		ldi r26,lo8(1)
+ 1343 01f0 B0E0      		ldi r27,0
+ 1344 01f2 B093 0000 		sts dhcpError+1,r27
+ 1345 01f6 A093 0000 		sts dhcpError,r26
+ 1346 01fa 00C0      		rjmp .L249
+ 1347               	.L85:
+ 1348 01fc 841B      		sub r24,r20
+ 1349 01fe 950B      		sbc r25,r21
+ 1350 0200 A60B      		sbc r26,r22
+ 1351 0202 B70B      		sbc r27,r23
+ 1352 0204 0B81      		ldd r16,Y+3
+ 1353 0206 1C81      		ldd r17,Y+4
+ 1354 0208 2D81      		ldd r18,Y+5
+ 1355 020a 3E81      		ldd r19,Y+6
+ 1356 020c 8017      		cp r24,r16
+ 1357 020e 9107      		cpc r25,r17
+ 1358 0210 A207      		cpc r26,r18
+ 1359 0212 B307      		cpc r27,r19
+ 1360 0214 00F4      		brsh .L84
+ 1361 0216 8B83      		std Y+3,r24
+ 1362 0218 9C83      		std Y+4,r25
+ 1363 021a AD83      		std Y+5,r26
+ 1364 021c BE83      		std Y+6,r27
+ 1365               	.L84:
+ 1366 021e 8091 0000 		lds r24,dhcpState
+ 1367 0222 8230      		cpi r24,lo8(2)
+GAS LISTING /tmp/ccarDIh4.s 			page 25
+
+
+ 1368 0224 01F0      		breq .L88
+ 1369 0226 9AEF      		ldi r25,lo8(-6)
+ 1370 0228 980F      		add r25,r24
+ 1371 022a 9230      		cpi r25,lo8(2)
+ 1372 022c 00F4      		brsh .L89
+ 1373               	.L88:
+ 1374 022e BB85      		ldd r27,Y+11
+ 1375 0230 BB23      		tst r27
+ 1376 0232 01F0      		breq .L274
+ 1377 0234 B701      		movw r22,r14
+ 1378 0236 A601      		movw r20,r12
+ 1379 0238 0A8D      		ldd r16,Y+26
+ 1380 023a 1B8D      		ldd r17,Y+27
+ 1381 023c 2C8D      		ldd r18,Y+28
+ 1382 023e 3D8D      		ldd r19,Y+29
+ 1383 0240 401B      		sub r20,r16
+ 1384 0242 510B      		sbc r21,r17
+ 1385 0244 620B      		sbc r22,r18
+ 1386 0246 730B      		sbc r23,r19
+ 1387 0248 4115      		cp r20,__zero_reg__
+ 1388 024a 5105      		cpc r21,__zero_reg__
+ 1389 024c 6140      		sbci r22,1
+ 1390 024e 7105      		cpc r23,__zero_reg__
+ 1391 0250 00F0      		brlo .+2
+ 1392 0252 00C0      		rjmp .L160
+ 1393 0254 9601      		movw r18,r12
+ 1394 0256 4A8D      		ldd r20,Y+26
+ 1395 0258 5B8D      		ldd r21,Y+27
+ 1396 025a 241B      		sub r18,r20
+ 1397 025c 350B      		sbc r19,r21
+ 1398 025e 398B      		std Y+17,r19
+ 1399 0260 288B      		std Y+16,r18
+ 1400               	.L89:
+ 1401 0262 8530      		cpi r24,lo8(5)
+ 1402 0264 01F0      		breq .L90
+ 1403 0266 8111      		cpse r24,__zero_reg__
+ 1404 0268 00C0      		rjmp .L91
+ 1405               	.L90:
+ 1406 026a 8114      		cp r8,__zero_reg__
+ 1407 026c 9104      		cpc r9,__zero_reg__
+ 1408 026e 01F0      		breq .L92
+ 1409 0270 C401      		movw r24,r8
+ 1410 0272 0E94 0000 		call NutUdpDestroySocket
+ 1411               	.L92:
+ 1412 0276 C101      		movw r24,r2
+ 1413 0278 0E94 0000 		call free
+ 1414 027c 212C      		mov r2,__zero_reg__
+ 1415 027e 312C      		mov r3,__zero_reg__
+ 1416 0280 812C      		mov r8,__zero_reg__
+ 1417 0282 912C      		mov r9,__zero_reg__
+ 1418 0284 00C0      		rjmp .L93
+ 1419               	.L274:
+ 1420 0286 CA8E      		std Y+26,r12
+ 1421 0288 DB8E      		std Y+27,r13
+ 1422 028a EC8E      		std Y+28,r14
+ 1423 028c FD8E      		std Y+29,r15
+ 1424 028e 198A      		std Y+17,__zero_reg__
+GAS LISTING /tmp/ccarDIh4.s 			page 26
+
+
+ 1425 0290 188A      		std Y+16,__zero_reg__
+ 1426               	.L91:
+ 1427 0292 8091 0000 		lds r24,dhcpConfig
+ 1428 0296 9091 0000 		lds r25,dhcpConfig+1
+ 1429 029a 892B      		or r24,r25
+ 1430 029c 01F4      		brne .L94
+ 1431 029e EE8D      		ldd r30,Y+30
+ 1432 02a0 FF8D      		ldd r31,Y+31
+ 1433 02a2 8385      		ldd r24,Z+11
+ 1434 02a4 9485      		ldd r25,Z+12
+ 1435 02a6 A585      		ldd r26,Z+13
+ 1436 02a8 B685      		ldd r27,Z+14
+ 1437 02aa 892B      		or r24,r25
+ 1438 02ac 8A2B      		or r24,r26
+ 1439 02ae 8B2B      		or r24,r27
+ 1440 02b0 01F4      		brne .L249
+ 1441               	.L94:
+ 1442 02b2 8114      		cp r8,__zero_reg__
+ 1443 02b4 9104      		cpc r9,__zero_reg__
+ 1444 02b6 01F0      		breq .L95
+ 1445 02b8 2114      		cp r2,__zero_reg__
+ 1446 02ba 3104      		cpc r3,__zero_reg__
+ 1447 02bc 01F4      		brne .L93
+ 1448 02be 00C0      		rjmp .L96
+ 1449               	.L95:
+ 1450 02c0 84E4      		ldi r24,lo8(68)
+ 1451 02c2 90E0      		ldi r25,0
+ 1452 02c4 0E94 0000 		call NutUdpCreateSocket
+ 1453 02c8 4C01      		movw r8,r24
+ 1454 02ca 2114      		cp r2,__zero_reg__
+ 1455 02cc 3104      		cpc r3,__zero_reg__
+ 1456 02ce 01F4      		brne .L97
+ 1457               	.L96:
+ 1458 02d0 84E2      		ldi r24,lo8(36)
+ 1459 02d2 92E0      		ldi r25,lo8(2)
+ 1460 02d4 0E94 0000 		call malloc
+ 1461 02d8 1C01      		movw r2,r24
+ 1462 02da 8114      		cp r8,__zero_reg__
+ 1463 02dc 9104      		cpc r9,__zero_reg__
+ 1464 02de 01F0      		breq .L98
+ 1465 02e0 892B      		or r24,r25
+ 1466 02e2 01F4      		brne .L99
+ 1467               	.L98:
+ 1468 02e4 92E1      		ldi r25,lo8(18)
+ 1469 02e6 E92E      		mov r14,r25
+ 1470 02e8 F12C      		mov r15,__zero_reg__
+ 1471 02ea F092 0000 		sts dhcpError+1,r15
+ 1472 02ee E092 0000 		sts dhcpError,r14
+ 1473               	.L249:
+ 1474 02f2 1092 0000 		sts dhcpState,__zero_reg__
+ 1475 02f6 00C0      		rjmp .L79
+ 1476               	.L97:
+ 1477 02f8 892B      		or r24,r25
+ 1478 02fa 01F0      		breq .L98
+ 1479               	.L99:
+ 1480 02fc 00EC      		ldi r16,lo8(-64)
+ 1481 02fe 16E0      		ldi r17,lo8(6)
+GAS LISTING /tmp/ccarDIh4.s 			page 27
+
+
+ 1482 0300 1A83      		std Y+2,r17
+ 1483 0302 0983      		std Y+1,r16
+ 1484 0304 22E0      		ldi r18,lo8(2)
+ 1485 0306 30E0      		ldi r19,0
+ 1486 0308 AE01      		movw r20,r28
+ 1487 030a 4F5F      		subi r20,-1
+ 1488 030c 5F4F      		sbci r21,-1
+ 1489 030e 62E0      		ldi r22,lo8(2)
+ 1490 0310 70E1      		ldi r23,lo8(16)
+ 1491 0312 C401      		movw r24,r8
+ 1492 0314 0E94 0000 		call NutUdpSetSockOpt
+ 1493               	.L93:
+ 1494 0318 8091 0000 		lds r24,dhcpState
+ 1495 031c 8130      		cpi r24,lo8(1)
+ 1496 031e 01F4      		brne .L100
+ 1497 0320 2F81      		ldd r18,Y+7
+ 1498 0322 3885      		ldd r19,Y+8
+ 1499 0324 4985      		ldd r20,Y+9
+ 1500 0326 5A85      		ldd r21,Y+10
+ 1501 0328 2F5F      		subi r18,-1
+ 1502 032a 3F4F      		sbci r19,-1
+ 1503 032c 4F4F      		sbci r20,-1
+ 1504 032e 5F4F      		sbci r21,-1
+ 1505 0330 2F83      		std Y+7,r18
+ 1506 0332 3887      		std Y+8,r19
+ 1507 0334 4987      		std Y+9,r20
+ 1508 0336 5A87      		std Y+10,r21
+ 1509 0338 8091 0000 		lds r24,confnet+20
+ 1510 033c 9091 0000 		lds r25,confnet+20+1
+ 1511 0340 A091 0000 		lds r26,confnet+20+2
+ 1512 0344 B091 0000 		lds r27,confnet+20+3
+ 1513 0348 EE88      		ldd r14,Y+22
+ 1514 034a FF88      		ldd r15,Y+23
+ 1515 034c 088D      		ldd r16,Y+24
+ 1516 034e 198D      		ldd r17,Y+25
+ 1517 0350 8E21      		and r24,r14
+ 1518 0352 9F21      		and r25,r15
+ 1519 0354 A023      		and r26,r16
+ 1520 0356 B123      		and r27,r17
+ 1521 0358 892B      		or r24,r25
+ 1522 035a 8A2B      		or r24,r26
+ 1523 035c 8B2B      		or r24,r27
+ 1524 035e 01F4      		brne .L101
+ 1525 0360 82E0      		ldi r24,lo8(2)
+ 1526 0362 00C0      		rjmp .L263
+ 1527               	.L101:
+ 1528 0364 84E0      		ldi r24,lo8(4)
+ 1529 0366 00C0      		rjmp .L263
+ 1530               	.L100:
+ 1531 0368 8230      		cpi r24,lo8(2)
+ 1532 036a 01F0      		breq .+2
+ 1533 036c 00C0      		rjmp .L103
+ 1534 036e 7B84      		ldd r7,Y+11
+ 1535 0370 7394      		inc r7
+ 1536 0372 0B85      		ldd r16,Y+11
+ 1537 0374 0430      		cpi r16,lo8(4)
+ 1538 0376 00F0      		brlo .L104
+GAS LISTING /tmp/ccarDIh4.s 			page 28
+
+
+ 1539 0378 21E0      		ldi r18,lo8(1)
+ 1540 037a 30E0      		ldi r19,0
+ 1541 037c 3093 0000 		sts dhcpError+1,r19
+ 1542 0380 2093 0000 		sts dhcpError,r18
+ 1543 0384 00C0      		rjmp .L253
+ 1544               	.L104:
+ 1545 0386 2101      		movw r4,r2
+ 1546 0388 3CEE      		ldi r19,-20
+ 1547 038a 430E      		add r4,r19
+ 1548 038c 511C      		adc r5,__zero_reg__
+ 1549 038e C888      		ldd r12,Y+16
+ 1550 0390 D988      		ldd r13,Y+17
+ 1551 0392 E12C      		mov r14,__zero_reg__
+ 1552 0394 F12C      		mov r15,__zero_reg__
+ 1553 0396 8701      		movw r16,r14
+ 1554 0398 2F81      		ldd r18,Y+7
+ 1555 039a 3885      		ldd r19,Y+8
+ 1556 039c 4985      		ldd r20,Y+9
+ 1557 039e 5A85      		ldd r21,Y+10
+ 1558 03a0 61E0      		ldi r22,lo8(1)
+ 1559 03a2 C101      		movw r24,r2
+ 1560 03a4 0E94 0000 		call DhcpPrepHeader
+ 1561 03a8 EE88      		ldd r14,Y+22
+ 1562 03aa FF88      		ldd r15,Y+23
+ 1563 03ac 088D      		ldd r16,Y+24
+ 1564 03ae 198D      		ldd r17,Y+25
+ 1565 03b0 E114      		cp r14,__zero_reg__
+ 1566 03b2 F104      		cpc r15,__zero_reg__
+ 1567 03b4 0105      		cpc r16,__zero_reg__
+ 1568 03b6 1105      		cpc r17,__zero_reg__
+ 1569 03b8 01F0      		breq .L105
+ 1570 03ba F201      		movw r30,r4
+ 1571 03bc E80F      		add r30,r24
+ 1572 03be F91F      		adc r31,r25
+ 1573 03c0 22E3      		ldi r18,lo8(50)
+ 1574 03c2 2083      		st Z,r18
+ 1575 03c4 24E0      		ldi r18,lo8(4)
+ 1576 03c6 2183      		std Z+1,r18
+ 1577 03c8 E282      		std Z+2,r14
+ 1578 03ca F382      		std Z+3,r15
+ 1579 03cc 0483      		std Z+4,r16
+ 1580 03ce 1583      		std Z+5,r17
+ 1581 03d0 0696      		adiw r24,6
+ 1582               	.L105:
+ 1583 03d2 F201      		movw r30,r4
+ 1584 03d4 E80F      		add r30,r24
+ 1585 03d6 F91F      		adc r31,r25
+ 1586 03d8 27E3      		ldi r18,lo8(55)
+ 1587 03da 2083      		st Z,r18
+ 1588 03dc 23E0      		ldi r18,lo8(3)
+ 1589 03de 2183      		std Z+1,r18
+ 1590 03e0 FF24      		clr r15
+ 1591 03e2 F394      		inc r15
+ 1592 03e4 F282      		std Z+2,r15
+ 1593 03e6 2383      		std Z+3,r18
+ 1594 03e8 26E0      		ldi r18,lo8(6)
+ 1595 03ea 2483      		std Z+4,r18
+GAS LISTING /tmp/ccarDIh4.s 			page 29
+
+
+ 1596 03ec 8C01      		movw r16,r24
+ 1597 03ee 0B5F      		subi r16,-5
+ 1598 03f0 1F4F      		sbci r17,-1
+ 1599 03f2 E0E0      		ldi r30,lo8(confos+3)
+ 1600 03f4 F0E0      		ldi r31,hi8(confos+3)
+ 1601               		0:
+ 1602 03f6 0190      		ld __tmp_reg__,Z+
+ 1603 03f8 0020      		tst __tmp_reg__
+ 1604 03fa 01F4      		brne 0b
+ 1605 03fc AF01      		movw r20,r30
+ 1606 03fe 4050      		subi r20,lo8(confos+4)
+ 1607 0400 5040      		sbci r21,hi8(confos+4)
+ 1608 0402 1416      		cp __zero_reg__,r20
+ 1609 0404 1506      		cpc __zero_reg__,r21
+ 1610 0406 04F4      		brge .L106
+ 1611 0408 F201      		movw r30,r4
+ 1612 040a E00F      		add r30,r16
+ 1613 040c F11F      		adc r31,r17
+ 1614 040e 8CE0      		ldi r24,lo8(12)
+ 1615 0410 8083      		st Z,r24
+ 1616 0412 4183      		std Z+1,r20
+ 1617 0414 7A01      		movw r14,r20
+ 1618 0416 FF24      		clr r15
+ 1619 0418 A701      		movw r20,r14
+ 1620 041a 60E0      		ldi r22,lo8(confos+3)
+ 1621 041c 70E0      		ldi r23,hi8(confos+3)
+ 1622 041e CF01      		movw r24,r30
+ 1623 0420 0296      		adiw r24,2
+ 1624 0422 0E94 0000 		call memcpy
+ 1625 0426 A701      		movw r20,r14
+ 1626 0428 4E5F      		subi r20,-2
+ 1627 042a 5F4F      		sbci r21,-1
+ 1628 042c 040F      		add r16,r20
+ 1629 042e 151F      		adc r17,r21
+ 1630               	.L106:
+ 1631 0430 F201      		movw r30,r4
+ 1632 0432 E00F      		add r30,r16
+ 1633 0434 F11F      		adc r31,r17
+ 1634 0436 89E3      		ldi r24,lo8(57)
+ 1635 0438 8083      		st Z,r24
+ 1636 043a 82E0      		ldi r24,lo8(2)
+ 1637 043c 8183      		std Z+1,r24
+ 1638 043e 80E4      		ldi r24,lo8(64)
+ 1639 0440 92E0      		ldi r25,lo8(2)
+ 1640               	/* #APP */
+ 1641               	 ;  309 "../../nut/include/sys/types.h" 1
+ 1642 0442 082E      		mov __tmp_reg__, r24
+ 1643 0444 892F      		mov r24, r25
+ 1644 0446 902D      		mov r25, __tmp_reg__
+ 1645               		
+ 1646               	 ;  0 "" 2
+ 1647               	/* #NOAPP */
+ 1648 0448 9383      		std Z+3,r25
+ 1649 044a 8283      		std Z+2,r24
+ 1650 044c 0C5F      		subi r16,-4
+ 1651 044e 1F4F      		sbci r17,-1
+ 1652 0450 9101      		movw r18,r2
+GAS LISTING /tmp/ccarDIh4.s 			page 30
+
+
+ 1653 0452 4FEF      		ldi r20,lo8(-1)
+ 1654 0454 5FEF      		ldi r21,lo8(-1)
+ 1655 0456 BA01      		movw r22,r20
+ 1656 0458 C401      		movw r24,r8
+ 1657 045a 0E94 0000 		call DhcpSendMessage
+ 1658 045e 97FD      		sbrc r25,7
+ 1659 0460 00C0      		rjmp .L253
+ 1660               	.L108:
+ 1661 0462 EB80      		ldd r14,Y+3
+ 1662 0464 FC80      		ldd r15,Y+4
+ 1663 0466 0D81      		ldd r16,Y+5
+ 1664 0468 1E81      		ldd r17,Y+6
+ 1665 046a 9101      		movw r18,r2
+ 1666 046c 4F81      		ldd r20,Y+7
+ 1667 046e 5885      		ldd r21,Y+8
+ 1668 0470 6985      		ldd r22,Y+9
+ 1669 0472 7A85      		ldd r23,Y+10
+ 1670 0474 C401      		movw r24,r8
+ 1671 0476 0E94 0000 		call DhcpRecvMessage
+ 1672 047a 1816      		cp __zero_reg__,r24
+ 1673 047c 1906      		cpc __zero_reg__,r25
+ 1674 047e 04F0      		brlt .+2
+ 1675 0480 00C0      		rjmp .L275
+ 1676 0482 0091 0000 		lds r16,dhcpConfig
+ 1677 0486 1091 0000 		lds r17,dhcpConfig+1
+ 1678 048a BC01      		movw r22,r24
+ 1679 048c C101      		movw r24,r2
+ 1680 048e 0E94 0000 		call ParseReply
+ 1681 0492 7C01      		movw r14,r24
+ 1682 0494 0097      		sbiw r24,0
+ 1683 0496 01F4      		brne .+2
+ 1684 0498 00C0      		rjmp .L109
+ 1685 049a DC01      		movw r26,r24
+ 1686 049c 8C91      		ld r24,X
+ 1687 049e 8230      		cpi r24,lo8(2)
+ 1688 04a0 01F0      		breq .+2
+ 1689 04a2 00C0      		rjmp .L112
+ 1690 04a4 0115      		cp r16,__zero_reg__
+ 1691 04a6 1105      		cpc r17,__zero_reg__
+ 1692 04a8 01F4      		brne .+2
+ 1693 04aa 00C0      		rjmp .L161
+ 1694 04ac 8091 0000 		lds r24,confnet+16
+ 1695 04b0 9091 0000 		lds r25,confnet+16+1
+ 1696 04b4 A091 0000 		lds r26,confnet+16+2
+ 1697 04b8 B091 0000 		lds r27,confnet+16+3
+ 1698 04bc 4091 0000 		lds r20,confnet+20
+ 1699 04c0 5091 0000 		lds r21,confnet+20+1
+ 1700 04c4 6091 0000 		lds r22,confnet+20+2
+ 1701 04c8 7091 0000 		lds r23,confnet+20+3
+ 1702 04cc 4823      		and r20,r24
+ 1703 04ce 5923      		and r21,r25
+ 1704 04d0 6A23      		and r22,r26
+ 1705 04d2 7B23      		and r23,r27
+ 1706 04d4 452B      		or r20,r21
+ 1707 04d6 462B      		or r20,r22
+ 1708 04d8 472B      		or r20,r23
+ 1709 04da 01F0      		breq .L111
+GAS LISTING /tmp/ccarDIh4.s 			page 31
+
+
+ 1710 04dc F801      		movw r30,r16
+ 1711 04de 4181      		ldd r20,Z+1
+ 1712 04e0 5281      		ldd r21,Z+2
+ 1713 04e2 6381      		ldd r22,Z+3
+ 1714 04e4 7481      		ldd r23,Z+4
+ 1715 04e6 8417      		cp r24,r20
+ 1716 04e8 9507      		cpc r25,r21
+ 1717 04ea A607      		cpc r26,r22
+ 1718 04ec B707      		cpc r27,r23
+ 1719 04ee 01F0      		breq .L109
+ 1720 04f0 F701      		movw r30,r14
+ 1721 04f2 4181      		ldd r20,Z+1
+ 1722 04f4 5281      		ldd r21,Z+2
+ 1723 04f6 6381      		ldd r22,Z+3
+ 1724 04f8 7481      		ldd r23,Z+4
+ 1725 04fa 8417      		cp r24,r20
+ 1726 04fc 9507      		cpc r25,r21
+ 1727 04fe A607      		cpc r26,r22
+ 1728 0500 B707      		cpc r27,r23
+ 1729 0502 01F4      		brne .L109
+ 1730 0504 00C0      		rjmp .L260
+ 1731               	.L111:
+ 1732 0506 D701      		movw r26,r14
+ 1733 0508 9596      		adiw r26,37
+ 1734 050a 4D91      		ld r20,X+
+ 1735 050c 5D91      		ld r21,X+
+ 1736 050e 6D91      		ld r22,X+
+ 1737 0510 7C91      		ld r23,X
+ 1738 0512 9897      		sbiw r26,37+3
+ 1739 0514 F801      		movw r30,r16
+ 1740 0516 85A1      		ldd r24,Z+37
+ 1741 0518 96A1      		ldd r25,Z+38
+ 1742 051a A7A1      		ldd r26,Z+39
+ 1743 051c B0A5      		ldd r27,Z+40
+ 1744 051e 8417      		cp r24,r20
+ 1745 0520 9507      		cpc r25,r21
+ 1746 0522 A607      		cpc r26,r22
+ 1747 0524 B707      		cpc r27,r23
+ 1748 0526 00F4      		brsh .L112
+ 1749               	.L260:
+ 1750 0528 C801      		movw r24,r16
+ 1751 052a 0E94 0000 		call ReleaseDynCfg
+ 1752 052e 00C0      		rjmp .L161
+ 1753               	.L112:
+ 1754 0530 C701      		movw r24,r14
+ 1755 0532 0E94 0000 		call ReleaseDynCfg
+ 1756 0536 00C0      		rjmp .L109
+ 1757               	.L161:
+ 1758 0538 8701      		movw r16,r14
+ 1759               	.L109:
+ 1760 053a 1093 0000 		sts dhcpConfig+1,r17
+ 1761 053e 0093 0000 		sts dhcpConfig,r16
+ 1762 0542 012B      		or r16,r17
+ 1763 0544 01F4      		brne .+2
+ 1764 0546 00C0      		rjmp .L108
+ 1765 0548 8091 0000 		lds r24,dhcpApiTimeout
+ 1766 054c 9091 0000 		lds r25,dhcpApiTimeout+1
+GAS LISTING /tmp/ccarDIh4.s 			page 32
+
+
+ 1767 0550 A091 0000 		lds r26,dhcpApiTimeout+2
+ 1768 0554 B091 0000 		lds r27,dhcpApiTimeout+3
+ 1769 0558 803E      		cpi r24,-32
+ 1770 055a 9E42      		sbci r25,46
+ 1771 055c A105      		cpc r26,__zero_reg__
+ 1772 055e B105      		cpc r27,__zero_reg__
+ 1773 0560 00F0      		brlo .L114
+ 1774 0562 10EA      		ldi r17,lo8(-96)
+ 1775 0564 E12E      		mov r14,r17
+ 1776 0566 1FE0      		ldi r17,lo8(15)
+ 1777 0568 F12E      		mov r15,r17
+ 1778 056a 00E0      		ldi r16,0
+ 1779 056c 10E0      		ldi r17,0
+ 1780 056e EB82      		std Y+3,r14
+ 1781 0570 FC82      		std Y+4,r15
+ 1782 0572 0D83      		std Y+5,r16
+ 1783 0574 1E83      		std Y+6,r17
+ 1784 0576 00C0      		rjmp .L108
+ 1785               	.L275:
+ 1786 0578 892B      		or r24,r25
+ 1787 057a 01F0      		breq .+2
+ 1788 057c 00C0      		rjmp .L253
+ 1789               	.L114:
+ 1790 057e 8091 0000 		lds r24,dhcpConfig
+ 1791 0582 9091 0000 		lds r25,dhcpConfig+1
+ 1792 0586 892B      		or r24,r25
+ 1793 0588 01F4      		brne .+2
+ 1794 058a 00C0      		rjmp .L102
+ 1795 058c 83E0      		ldi r24,lo8(3)
+ 1796 058e 00C0      		rjmp .L263
+ 1797               	.L103:
+ 1798 0590 8330      		cpi r24,lo8(3)
+ 1799 0592 01F4      		brne .L116
+ 1800 0594 7B84      		ldd r7,Y+11
+ 1801 0596 7394      		inc r7
+ 1802 0598 0B85      		ldd r16,Y+11
+ 1803 059a 0430      		cpi r16,lo8(4)
+ 1804 059c 00F0      		brlo .L117
+ 1805 059e 11E0      		ldi r17,lo8(1)
+ 1806 05a0 1093 0000 		sts dhcpState,r17
+ 1807 05a4 00C0      		rjmp .L102
+ 1808               	.L117:
+ 1809 05a6 E091 0000 		lds r30,dhcpConfig
+ 1810 05aa F091 0000 		lds r31,dhcpConfig+1
+ 1811 05ae 2989      		ldd r18,Y+17
+ 1812 05b0 2F93      		push r18
+ 1813 05b2 3889      		ldd r19,Y+16
+ 1814 05b4 3F93      		push r19
+ 1815 05b6 848D      		ldd r24,Z+28
+ 1816 05b8 8F93      		push r24
+ 1817 05ba 838D      		ldd r24,Z+27
+ 1818 05bc 8F93      		push r24
+ 1819 05be 828D      		ldd r24,Z+26
+ 1820 05c0 8F93      		push r24
+ 1821 05c2 818D      		ldd r24,Z+25
+ 1822 05c4 8F93      		push r24
+ 1823 05c6 8481      		ldd r24,Z+4
+GAS LISTING /tmp/ccarDIh4.s 			page 33
+
+
+ 1824 05c8 8F93      		push r24
+ 1825 05ca 8381      		ldd r24,Z+3
+ 1826 05cc 8F93      		push r24
+ 1827 05ce 8281      		ldd r24,Z+2
+ 1828 05d0 8F93      		push r24
+ 1829 05d2 8181      		ldd r24,Z+1
+ 1830 05d4 8F93      		push r24
+ 1831 05d6 A12C      		mov r10,__zero_reg__
+ 1832 05d8 B12C      		mov r11,__zero_reg__
+ 1833 05da 6501      		movw r12,r10
+ 1834 05dc 00C0      		rjmp .L273
+ 1835               	.L116:
+ 1836 05de 8430      		cpi r24,lo8(4)
+ 1837 05e0 01F0      		breq .+2
+ 1838 05e2 00C0      		rjmp .L122
+ 1839 05e4 7B84      		ldd r7,Y+11
+ 1840 05e6 7394      		inc r7
+ 1841 05e8 03E0      		ldi r16,lo8(3)
+ 1842 05ea 0715      		cp r16,r7
+ 1843 05ec 00F4      		brsh .L123
+ 1844 05ee 11E0      		ldi r17,lo8(1)
+ 1845 05f0 1093 0000 		sts dhcpState,r17
+ 1846 05f4 1E8A      		std Y+22,__zero_reg__
+ 1847 05f6 1F8A      		std Y+23,__zero_reg__
+ 1848 05f8 188E      		std Y+24,__zero_reg__
+ 1849 05fa 198E      		std Y+25,__zero_reg__
+ 1850 05fc 00C0      		rjmp .L102
+ 1851               	.L123:
+ 1852 05fe 2989      		ldd r18,Y+17
+ 1853 0600 2F93      		push r18
+ 1854 0602 3889      		ldd r19,Y+16
+ 1855 0604 3F93      		push r19
+ 1856 0606 1F92      		push __zero_reg__
+ 1857 0608 1F92      		push __zero_reg__
+ 1858 060a 1F92      		push __zero_reg__
+ 1859 060c 1F92      		push __zero_reg__
+ 1860 060e 498D      		ldd r20,Y+25
+ 1861 0610 4F93      		push r20
+ 1862 0612 588D      		ldd r21,Y+24
+ 1863 0614 5F93      		push r21
+ 1864 0616 8F89      		ldd r24,Y+23
+ 1865 0618 8F93      		push r24
+ 1866 061a 9E89      		ldd r25,Y+22
+ 1867 061c 9F93      		push r25
+ 1868 061e A12C      		mov r10,__zero_reg__
+ 1869 0620 B12C      		mov r11,__zero_reg__
+ 1870 0622 6501      		movw r12,r10
+ 1871 0624 EF80      		ldd r14,Y+7
+ 1872 0626 F884      		ldd r15,Y+8
+ 1873 0628 0985      		ldd r16,Y+9
+ 1874 062a 1A85      		ldd r17,Y+10
+ 1875 062c 9101      		movw r18,r2
+ 1876 062e 4FEF      		ldi r20,lo8(-1)
+ 1877 0630 5FEF      		ldi r21,lo8(-1)
+ 1878 0632 BA01      		movw r22,r20
+ 1879 0634 C401      		movw r24,r8
+ 1880 0636 0E94 0000 		call DhcpSendRequest
+GAS LISTING /tmp/ccarDIh4.s 			page 34
+
+
+ 1881 063a 0FB6      		in __tmp_reg__,__SREG__
+ 1882 063c F894      		cli
+ 1883 063e DEBF      		out __SP_H__,r29
+ 1884 0640 0FBE      		out __SREG__,__tmp_reg__
+ 1885 0642 CDBF      		out __SP_L__,r28
+ 1886 0644 97FD      		sbrc r25,7
+ 1887 0646 00C0      		rjmp .L253
+ 1888 0648 EB80      		ldd r14,Y+3
+ 1889 064a FC80      		ldd r15,Y+4
+ 1890 064c 0D81      		ldd r16,Y+5
+ 1891 064e 1E81      		ldd r17,Y+6
+ 1892 0650 9101      		movw r18,r2
+ 1893 0652 4F81      		ldd r20,Y+7
+ 1894 0654 5885      		ldd r21,Y+8
+ 1895 0656 6985      		ldd r22,Y+9
+ 1896 0658 7A85      		ldd r23,Y+10
+ 1897 065a C401      		movw r24,r8
+ 1898 065c 0E94 0000 		call DhcpRecvMessage
+ 1899 0660 97FD      		sbrc r25,7
+ 1900 0662 00C0      		rjmp .L253
+ 1901 0664 0097      		sbiw r24,0
+ 1902 0666 01F4      		brne .+2
+ 1903 0668 00C0      		rjmp .L102
+ 1904 066a BC01      		movw r22,r24
+ 1905 066c C101      		movw r24,r2
+ 1906 066e 0E94 0000 		call ParseReply
+ 1907 0672 8C01      		movw r16,r24
+ 1908 0674 0097      		sbiw r24,0
+ 1909 0676 01F4      		brne .+2
+ 1910 0678 00C0      		rjmp .L102
+ 1911 067a FC01      		movw r30,r24
+ 1912 067c 8081      		ld r24,Z
+ 1913 067e 8530      		cpi r24,lo8(5)
+ 1914 0680 01F4      		brne .L126
+ 1915 0682 8091 0000 		lds r24,dhcpConfig
+ 1916 0686 9091 0000 		lds r25,dhcpConfig+1
+ 1917 068a 0E94 0000 		call ReleaseDynCfg
+ 1918 068e 1093 0000 		sts dhcpConfig+1,r17
+ 1919 0692 0093 0000 		sts dhcpConfig,r16
+ 1920 0696 85E0      		ldi r24,lo8(5)
+ 1921 0698 8093 0000 		sts dhcpState,r24
+ 1922 069c 00C0      		rjmp .L258
+ 1923               	.L126:
+ 1924 069e 8630      		cpi r24,lo8(6)
+ 1925 06a0 01F0      		breq .+2
+ 1926 06a2 00C0      		rjmp .L149
+ 1927 06a4 FF24      		clr r15
+ 1928 06a6 F394      		inc r15
+ 1929 06a8 F092 0000 		sts dhcpState,r15
+ 1930 06ac 1E8A      		std Y+22,__zero_reg__
+ 1931 06ae 1F8A      		std Y+23,__zero_reg__
+ 1932 06b0 188E      		std Y+24,__zero_reg__
+ 1933 06b2 198E      		std Y+25,__zero_reg__
+ 1934 06b4 00C0      		rjmp .L149
+ 1935               	.L122:
+ 1936 06b6 8530      		cpi r24,lo8(5)
+ 1937 06b8 01F0      		breq .+2
+GAS LISTING /tmp/ccarDIh4.s 			page 35
+
+
+ 1938 06ba 00C0      		rjmp .L127
+ 1939 06bc 1092 0000 		sts dhcpApiTimeout,__zero_reg__
+ 1940 06c0 1092 0000 		sts dhcpApiTimeout+1,__zero_reg__
+ 1941 06c4 1092 0000 		sts dhcpApiTimeout+2,__zero_reg__
+ 1942 06c8 1092 0000 		sts dhcpApiTimeout+3,__zero_reg__
+ 1943 06cc 80E0      		ldi r24,lo8(dhcpDone)
+ 1944 06ce 90E0      		ldi r25,hi8(dhcpDone)
+ 1945 06d0 0E94 0000 		call NutEventBroadcast
+ 1946 06d4 E091 0000 		lds r30,dhcpConfig
+ 1947 06d8 F091 0000 		lds r31,dhcpConfig+1
+ 1948 06dc 458D      		ldd r20,Z+29
+ 1949 06de 568D      		ldd r21,Z+30
+ 1950 06e0 678D      		ldd r22,Z+31
+ 1951 06e2 70A1      		ldd r23,Z+32
+ 1952 06e4 D701      		movw r26,r14
+ 1953 06e6 C601      		movw r24,r12
+ 1954 06e8 0A89      		ldd r16,Y+18
+ 1955 06ea 1B89      		ldd r17,Y+19
+ 1956 06ec 2C89      		ldd r18,Y+20
+ 1957 06ee 3D89      		ldd r19,Y+21
+ 1958 06f0 801B      		sub r24,r16
+ 1959 06f2 910B      		sbc r25,r17
+ 1960 06f4 A20B      		sbc r26,r18
+ 1961 06f6 B30B      		sbc r27,r19
+ 1962 06f8 8417      		cp r24,r20
+ 1963 06fa 9507      		cpc r25,r21
+ 1964 06fc A607      		cpc r26,r22
+ 1965 06fe B707      		cpc r27,r23
+ 1966 0700 00F0      		brlo .L128
+ 1967 0702 86E0      		ldi r24,lo8(6)
+ 1968 0704 00C0      		rjmp .L263
+ 1969               	.L128:
+ 1970 0706 8A89      		ldd r24,Y+18
+ 1971 0708 9B89      		ldd r25,Y+19
+ 1972 070a AC89      		ldd r26,Y+20
+ 1973 070c BD89      		ldd r27,Y+21
+ 1974 070e 840F      		add r24,r20
+ 1975 0710 951F      		adc r25,r21
+ 1976 0712 A61F      		adc r26,r22
+ 1977 0714 B71F      		adc r27,r23
+ 1978 0716 9C01      		movw r18,r24
+ 1979 0718 AD01      		movw r20,r26
+ 1980 071a 2C19      		sub r18,r12
+ 1981 071c 3D09      		sbc r19,r13
+ 1982 071e 4E09      		sbc r20,r14
+ 1983 0720 5F09      		sbc r21,r15
+ 1984 0722 2833      		cpi r18,56
+ 1985 0724 19E8      		ldi r17,-119
+ 1986 0726 3107      		cpc r19,r17
+ 1987 0728 11E4      		ldi r17,65
+ 1988 072a 4107      		cpc r20,r17
+ 1989 072c 5105      		cpc r21,__zero_reg__
+ 1990 072e 00F0      		brlo .L129
+ 1991 0730 27E3      		ldi r18,lo8(55)
+ 1992 0732 39E8      		ldi r19,lo8(-119)
+ 1993 0734 41E4      		ldi r20,lo8(65)
+ 1994 0736 50E0      		ldi r21,0
+GAS LISTING /tmp/ccarDIh4.s 			page 36
+
+
+ 1995               	.L129:
+ 1996 0738 A8EE      		ldi r26,lo8(-24)
+ 1997 073a B3E0      		ldi r27,lo8(3)
+ 1998 073c 0E94 0000 		call __muluhisi3
+ 1999 0740 AB01      		movw r20,r22
+ 2000 0742 BC01      		movw r22,r24
+ 2001 0744 00C0      		rjmp .L257
+ 2002               	.L127:
+ 2003 0746 8630      		cpi r24,lo8(6)
+ 2004 0748 01F0      		breq .+2
+ 2005 074a 00C0      		rjmp .L130
+ 2006 074c 0091 0000 		lds r16,dhcpConfig
+ 2007 0750 1091 0000 		lds r17,dhcpConfig+1
+ 2008 0754 D801      		movw r26,r16
+ 2009 0756 9196      		adiw r26,33
+ 2010 0758 2D91      		ld r18,X+
+ 2011 075a 3D91      		ld r19,X+
+ 2012 075c 4D91      		ld r20,X+
+ 2013 075e 5C91      		ld r21,X
+ 2014 0760 9497      		sbiw r26,33+3
+ 2015 0762 2C87      		std Y+12,r18
+ 2016 0764 3D87      		std Y+13,r19
+ 2017 0766 4E87      		std Y+14,r20
+ 2018 0768 5F87      		std Y+15,r21
+ 2019 076a 4A88      		ldd r4,Y+18
+ 2020 076c 5B88      		ldd r5,Y+19
+ 2021 076e 6C88      		ldd r6,Y+20
+ 2022 0770 7D88      		ldd r7,Y+21
+ 2023 0772 420E      		add r4,r18
+ 2024 0774 531E      		adc r5,r19
+ 2025 0776 641E      		adc r6,r20
+ 2026 0778 751E      		adc r7,r21
+ 2027 077a 4C18      		sub r4,r12
+ 2028 077c 5D08      		sbc r5,r13
+ 2029 077e 6E08      		sbc r6,r14
+ 2030 0780 7F08      		sbc r7,r15
+ 2031 0782 6B81      		ldd r22,Y+3
+ 2032 0784 7C81      		ldd r23,Y+4
+ 2033 0786 8D81      		ldd r24,Y+5
+ 2034 0788 9E81      		ldd r25,Y+6
+ 2035 078a 28EE      		ldi r18,lo8(-24)
+ 2036 078c 33E0      		ldi r19,lo8(3)
+ 2037 078e 40E0      		ldi r20,0
+ 2038 0790 50E0      		ldi r21,0
+ 2039 0792 0E94 0000 		call __udivmodsi4
+ 2040 0796 4216      		cp r4,r18
+ 2041 0798 5306      		cpc r5,r19
+ 2042 079a 6406      		cpc r6,r20
+ 2043 079c 7506      		cpc r7,r21
+ 2044 079e 00F4      		brsh .L131
+ 2045 07a0 A8EE      		ldi r26,lo8(-24)
+ 2046 07a2 B3E0      		ldi r27,lo8(3)
+ 2047 07a4 A301      		movw r20,r6
+ 2048 07a6 9201      		movw r18,r4
+ 2049 07a8 0E94 0000 		call __muluhisi3
+ 2050 07ac 6B83      		std Y+3,r22
+ 2051 07ae 7C83      		std Y+4,r23
+GAS LISTING /tmp/ccarDIh4.s 			page 37
+
+
+ 2052 07b0 8D83      		std Y+5,r24
+ 2053 07b2 9E83      		std Y+6,r25
+ 2054               	.L131:
+ 2055 07b4 2A89      		ldd r18,Y+18
+ 2056 07b6 3B89      		ldd r19,Y+19
+ 2057 07b8 4C89      		ldd r20,Y+20
+ 2058 07ba 5D89      		ldd r21,Y+21
+ 2059 07bc C21A      		sub r12,r18
+ 2060 07be D30A      		sbc r13,r19
+ 2061 07c0 E40A      		sbc r14,r20
+ 2062 07c2 F50A      		sbc r15,r21
+ 2063 07c4 8C85      		ldd r24,Y+12
+ 2064 07c6 9D85      		ldd r25,Y+13
+ 2065 07c8 AE85      		ldd r26,Y+14
+ 2066 07ca BF85      		ldd r27,Y+15
+ 2067 07cc C816      		cp r12,r24
+ 2068 07ce D906      		cpc r13,r25
+ 2069 07d0 EA06      		cpc r14,r26
+ 2070 07d2 FB06      		cpc r15,r27
+ 2071 07d4 00F4      		brsh .L264
+ 2072 07d6 D801      		movw r26,r16
+ 2073 07d8 1196      		adiw r26,1
+ 2074 07da AC90      		ld r10,X
+ 2075 07dc 1197      		sbiw r26,1
+ 2076 07de 1296      		adiw r26,2
+ 2077 07e0 BC90      		ld r11,X
+ 2078 07e2 1297      		sbiw r26,2
+ 2079 07e4 1396      		adiw r26,3
+ 2080 07e6 CC90      		ld r12,X
+ 2081 07e8 1397      		sbiw r26,3
+ 2082 07ea 1496      		adiw r26,4
+ 2083 07ec DC90      		ld r13,X
+ 2084 07ee 1497      		sbiw r26,4
+ 2085 07f0 5996      		adiw r26,25
+ 2086 07f2 4D91      		ld r20,X+
+ 2087 07f4 5D91      		ld r21,X+
+ 2088 07f6 6D91      		ld r22,X+
+ 2089 07f8 7C91      		ld r23,X
+ 2090 07fa 5C97      		sbiw r26,25+3
+ 2091 07fc B989      		ldd r27,Y+17
+ 2092 07fe BF93      		push r27
+ 2093 0800 E889      		ldd r30,Y+16
+ 2094 0802 EF93      		push r30
+ 2095 0804 1F92      		push __zero_reg__
+ 2096 0806 1F92      		push __zero_reg__
+ 2097 0808 1F92      		push __zero_reg__
+ 2098 080a 1F92      		push __zero_reg__
+ 2099 080c DF92      		push r13
+ 2100 080e CF92      		push r12
+ 2101 0810 BF92      		push r11
+ 2102 0812 AF92      		push r10
+ 2103 0814 EF80      		ldd r14,Y+7
+ 2104 0816 F884      		ldd r15,Y+8
+ 2105 0818 0985      		ldd r16,Y+9
+ 2106 081a 1A85      		ldd r17,Y+10
+ 2107 081c 9101      		movw r18,r2
+ 2108 081e C401      		movw r24,r8
+GAS LISTING /tmp/ccarDIh4.s 			page 38
+
+
+ 2109 0820 0E94 0000 		call DhcpSendRequest
+ 2110 0824 0FB6      		in __tmp_reg__,__SREG__
+ 2111 0826 F894      		cli
+ 2112 0828 DEBF      		out __SP_H__,r29
+ 2113 082a 0FBE      		out __SREG__,__tmp_reg__
+ 2114 082c CDBF      		out __SP_L__,r28
+ 2115 082e 97FF      		sbrs r25,7
+ 2116 0830 00C0      		rjmp .L133
+ 2117               	.L264:
+ 2118 0832 87E0      		ldi r24,lo8(7)
+ 2119               	.L263:
+ 2120 0834 8093 0000 		sts dhcpState,r24
+ 2121 0838 00C0      		rjmp .L252
+ 2122               	.L133:
+ 2123 083a 7B84      		ldd r7,Y+11
+ 2124 083c 7394      		inc r7
+ 2125 083e EB80      		ldd r14,Y+3
+ 2126 0840 FC80      		ldd r15,Y+4
+ 2127 0842 0D81      		ldd r16,Y+5
+ 2128 0844 1E81      		ldd r17,Y+6
+ 2129 0846 9101      		movw r18,r2
+ 2130 0848 4F81      		ldd r20,Y+7
+ 2131 084a 5885      		ldd r21,Y+8
+ 2132 084c 6985      		ldd r22,Y+9
+ 2133 084e 7A85      		ldd r23,Y+10
+ 2134 0850 C401      		movw r24,r8
+ 2135 0852 0E94 0000 		call DhcpRecvMessage
+ 2136 0856 97FD      		sbrc r25,7
+ 2137 0858 00C0      		rjmp .L253
+ 2138 085a 0097      		sbiw r24,0
+ 2139 085c 01F4      		brne .+2
+ 2140 085e 00C0      		rjmp .L102
+ 2141 0860 BC01      		movw r22,r24
+ 2142 0862 C101      		movw r24,r2
+ 2143 0864 0E94 0000 		call ParseReply
+ 2144 0868 8C01      		movw r16,r24
+ 2145 086a 0097      		sbiw r24,0
+ 2146 086c 01F4      		brne .+2
+ 2147 086e 00C0      		rjmp .L102
+ 2148 0870 DC01      		movw r26,r24
+ 2149 0872 2C91      		ld r18,X
+ 2150 0874 2530      		cpi r18,lo8(5)
+ 2151 0876 01F4      		brne .+2
+ 2152 0878 00C0      		rjmp .L256
+ 2153 087a 2630      		cpi r18,lo8(6)
+ 2154 087c 01F0      		breq .+2
+ 2155 087e 00C0      		rjmp .L149
+ 2156 0880 87E0      		ldi r24,lo8(7)
+ 2157 0882 8093 0000 		sts dhcpState,r24
+ 2158 0886 712C      		mov r7,__zero_reg__
+ 2159 0888 00C0      		rjmp .L149
+ 2160               	.L130:
+ 2161 088a 8730      		cpi r24,lo8(7)
+ 2162 088c 01F0      		breq .+2
+ 2163 088e 00C0      		rjmp .L136
+ 2164 0890 0091 0000 		lds r16,dhcpConfig
+ 2165 0894 1091 0000 		lds r17,dhcpConfig+1
+GAS LISTING /tmp/ccarDIh4.s 			page 39
+
+
+ 2166 0898 D801      		movw r26,r16
+ 2167 089a 9596      		adiw r26,37
+ 2168 089c 2D91      		ld r18,X+
+ 2169 089e 3D91      		ld r19,X+
+ 2170 08a0 4D91      		ld r20,X+
+ 2171 08a2 5C91      		ld r21,X
+ 2172 08a4 9897      		sbiw r26,37+3
+ 2173 08a6 2C87      		std Y+12,r18
+ 2174 08a8 3D87      		std Y+13,r19
+ 2175 08aa 4E87      		std Y+14,r20
+ 2176 08ac 5F87      		std Y+15,r21
+ 2177 08ae 4A88      		ldd r4,Y+18
+ 2178 08b0 5B88      		ldd r5,Y+19
+ 2179 08b2 6C88      		ldd r6,Y+20
+ 2180 08b4 7D88      		ldd r7,Y+21
+ 2181 08b6 420E      		add r4,r18
+ 2182 08b8 531E      		adc r5,r19
+ 2183 08ba 641E      		adc r6,r20
+ 2184 08bc 751E      		adc r7,r21
+ 2185 08be 4C18      		sub r4,r12
+ 2186 08c0 5D08      		sbc r5,r13
+ 2187 08c2 6E08      		sbc r6,r14
+ 2188 08c4 7F08      		sbc r7,r15
+ 2189 08c6 6B81      		ldd r22,Y+3
+ 2190 08c8 7C81      		ldd r23,Y+4
+ 2191 08ca 8D81      		ldd r24,Y+5
+ 2192 08cc 9E81      		ldd r25,Y+6
+ 2193 08ce 28EE      		ldi r18,lo8(-24)
+ 2194 08d0 33E0      		ldi r19,lo8(3)
+ 2195 08d2 40E0      		ldi r20,0
+ 2196 08d4 50E0      		ldi r21,0
+ 2197 08d6 0E94 0000 		call __udivmodsi4
+ 2198 08da 4216      		cp r4,r18
+ 2199 08dc 5306      		cpc r5,r19
+ 2200 08de 6406      		cpc r6,r20
+ 2201 08e0 7506      		cpc r7,r21
+ 2202 08e2 00F4      		brsh .L137
+ 2203 08e4 A8EE      		ldi r26,lo8(-24)
+ 2204 08e6 B3E0      		ldi r27,lo8(3)
+ 2205 08e8 A301      		movw r20,r6
+ 2206 08ea 9201      		movw r18,r4
+ 2207 08ec 0E94 0000 		call __muluhisi3
+ 2208 08f0 6B83      		std Y+3,r22
+ 2209 08f2 7C83      		std Y+4,r23
+ 2210 08f4 8D83      		std Y+5,r24
+ 2211 08f6 9E83      		std Y+6,r25
+ 2212               	.L137:
+ 2213 08f8 2A89      		ldd r18,Y+18
+ 2214 08fa 3B89      		ldd r19,Y+19
+ 2215 08fc 4C89      		ldd r20,Y+20
+ 2216 08fe 5D89      		ldd r21,Y+21
+ 2217 0900 C21A      		sub r12,r18
+ 2218 0902 D30A      		sbc r13,r19
+ 2219 0904 E40A      		sbc r14,r20
+ 2220 0906 F50A      		sbc r15,r21
+ 2221 0908 8C85      		ldd r24,Y+12
+ 2222 090a 9D85      		ldd r25,Y+13
+GAS LISTING /tmp/ccarDIh4.s 			page 40
+
+
+ 2223 090c AE85      		ldd r26,Y+14
+ 2224 090e BF85      		ldd r27,Y+15
+ 2225 0910 C816      		cp r12,r24
+ 2226 0912 D906      		cpc r13,r25
+ 2227 0914 EA06      		cpc r14,r26
+ 2228 0916 FB06      		cpc r15,r27
+ 2229 0918 00F0      		brlo .L138
+ 2230 091a 1092 0000 		sts dhcpState,__zero_reg__
+ 2231 091e 00C0      		rjmp .L252
+ 2232               	.L138:
+ 2233 0920 7B84      		ldd r7,Y+11
+ 2234 0922 7394      		inc r7
+ 2235 0924 D801      		movw r26,r16
+ 2236 0926 1196      		adiw r26,1
+ 2237 0928 AC90      		ld r10,X
+ 2238 092a 1197      		sbiw r26,1
+ 2239 092c 1296      		adiw r26,2
+ 2240 092e BC90      		ld r11,X
+ 2241 0930 1297      		sbiw r26,2
+ 2242 0932 1396      		adiw r26,3
+ 2243 0934 CC90      		ld r12,X
+ 2244 0936 1397      		sbiw r26,3
+ 2245 0938 1496      		adiw r26,4
+ 2246 093a DC90      		ld r13,X
+ 2247 093c B989      		ldd r27,Y+17
+ 2248 093e BF93      		push r27
+ 2249 0940 E889      		ldd r30,Y+16
+ 2250 0942 EF93      		push r30
+ 2251 0944 1F92      		push __zero_reg__
+ 2252 0946 1F92      		push __zero_reg__
+ 2253 0948 1F92      		push __zero_reg__
+ 2254 094a 1F92      		push __zero_reg__
+ 2255 094c DF92      		push r13
+ 2256 094e CF92      		push r12
+ 2257 0950 BF92      		push r11
+ 2258 0952 AF92      		push r10
+ 2259               	.L273:
+ 2260 0954 EF80      		ldd r14,Y+7
+ 2261 0956 F884      		ldd r15,Y+8
+ 2262 0958 0985      		ldd r16,Y+9
+ 2263 095a 1A85      		ldd r17,Y+10
+ 2264 095c 9101      		movw r18,r2
+ 2265 095e 4FEF      		ldi r20,lo8(-1)
+ 2266 0960 5FEF      		ldi r21,lo8(-1)
+ 2267 0962 BA01      		movw r22,r20
+ 2268 0964 C401      		movw r24,r8
+ 2269 0966 0E94 0000 		call DhcpSendRequest
+ 2270 096a 0FB6      		in __tmp_reg__,__SREG__
+ 2271 096c F894      		cli
+ 2272 096e DEBF      		out __SP_H__,r29
+ 2273 0970 0FBE      		out __SREG__,__tmp_reg__
+ 2274 0972 CDBF      		out __SP_L__,r28
+ 2275 0974 97FD      		sbrc r25,7
+ 2276 0976 00C0      		rjmp .L253
+ 2277 0978 EB80      		ldd r14,Y+3
+ 2278 097a FC80      		ldd r15,Y+4
+ 2279 097c 0D81      		ldd r16,Y+5
+GAS LISTING /tmp/ccarDIh4.s 			page 41
+
+
+ 2280 097e 1E81      		ldd r17,Y+6
+ 2281 0980 9101      		movw r18,r2
+ 2282 0982 4F81      		ldd r20,Y+7
+ 2283 0984 5885      		ldd r21,Y+8
+ 2284 0986 6985      		ldd r22,Y+9
+ 2285 0988 7A85      		ldd r23,Y+10
+ 2286 098a C401      		movw r24,r8
+ 2287 098c 0E94 0000 		call DhcpRecvMessage
+ 2288 0990 97FD      		sbrc r25,7
+ 2289 0992 00C0      		rjmp .L253
+ 2290 0994 0097      		sbiw r24,0
+ 2291 0996 01F4      		brne .+2
+ 2292 0998 00C0      		rjmp .L102
+ 2293 099a BC01      		movw r22,r24
+ 2294 099c C101      		movw r24,r2
+ 2295 099e 0E94 0000 		call ParseReply
+ 2296 09a2 8C01      		movw r16,r24
+ 2297 09a4 0097      		sbiw r24,0
+ 2298 09a6 01F4      		brne .+2
+ 2299 09a8 00C0      		rjmp .L102
+ 2300 09aa DC01      		movw r26,r24
+ 2301 09ac 2C91      		ld r18,X
+ 2302 09ae 2530      		cpi r18,lo8(5)
+ 2303 09b0 01F4      		brne .L141
+ 2304               	.L256:
+ 2305 09b2 8091 0000 		lds r24,dhcpConfig
+ 2306 09b6 9091 0000 		lds r25,dhcpConfig+1
+ 2307 09ba 28A3      		std Y+32,r18
+ 2308 09bc 0E94 0000 		call ReleaseDynCfg
+ 2309 09c0 1093 0000 		sts dhcpConfig+1,r17
+ 2310 09c4 0093 0000 		sts dhcpConfig,r16
+ 2311 09c8 28A1      		ldd r18,Y+32
+ 2312 09ca 2093 0000 		sts dhcpState,r18
+ 2313               	.L258:
+ 2314 09ce EA8C      		ldd r14,Y+26
+ 2315 09d0 FB8C      		ldd r15,Y+27
+ 2316 09d2 0C8D      		ldd r16,Y+28
+ 2317 09d4 1D8D      		ldd r17,Y+29
+ 2318 09d6 EA8A      		std Y+18,r14
+ 2319 09d8 FB8A      		std Y+19,r15
+ 2320 09da 0C8B      		std Y+20,r16
+ 2321 09dc 1D8B      		std Y+21,r17
+ 2322 09de 00C0      		rjmp .L102
+ 2323               	.L141:
+ 2324 09e0 2630      		cpi r18,lo8(6)
+ 2325 09e2 01F0      		breq .+2
+ 2326 09e4 00C0      		rjmp .L149
+ 2327 09e6 FF24      		clr r15
+ 2328 09e8 F394      		inc r15
+ 2329 09ea F092 0000 		sts dhcpState,r15
+ 2330 09ee 00C0      		rjmp .L149
+ 2331               	.L136:
+ 2332 09f0 8830      		cpi r24,lo8(8)
+ 2333 09f2 01F0      		breq .+2
+ 2334 09f4 00C0      		rjmp .L142
+ 2335 09f6 7B84      		ldd r7,Y+11
+ 2336 09f8 7394      		inc r7
+GAS LISTING /tmp/ccarDIh4.s 			page 42
+
+
+ 2337 09fa 0B85      		ldd r16,Y+11
+ 2338 09fc 0430      		cpi r16,lo8(4)
+ 2339 09fe 00F0      		brlo .+2
+ 2340 0a00 00C0      		rjmp .L253
+ 2341 0a02 2101      		movw r4,r2
+ 2342 0a04 1CEE      		ldi r17,-20
+ 2343 0a06 410E      		add r4,r17
+ 2344 0a08 511C      		adc r5,__zero_reg__
+ 2345 0a0a AE8D      		ldd r26,Y+30
+ 2346 0a0c BF8D      		ldd r27,Y+31
+ 2347 0a0e 1B96      		adiw r26,11
+ 2348 0a10 ED90      		ld r14,X+
+ 2349 0a12 FD90      		ld r15,X+
+ 2350 0a14 0D91      		ld r16,X+
+ 2351 0a16 1C91      		ld r17,X
+ 2352 0a18 1E97      		sbiw r26,11+3
+ 2353 0a1a C12C      		mov r12,__zero_reg__
+ 2354 0a1c D12C      		mov r13,__zero_reg__
+ 2355 0a1e 2F81      		ldd r18,Y+7
+ 2356 0a20 3885      		ldd r19,Y+8
+ 2357 0a22 4985      		ldd r20,Y+9
+ 2358 0a24 5A85      		ldd r21,Y+10
+ 2359 0a26 68E0      		ldi r22,lo8(8)
+ 2360 0a28 C101      		movw r24,r2
+ 2361 0a2a 0E94 0000 		call DhcpPrepHeader
+ 2362 0a2e F201      		movw r30,r4
+ 2363 0a30 E80F      		add r30,r24
+ 2364 0a32 F91F      		adc r31,r25
+ 2365 0a34 27E3      		ldi r18,lo8(55)
+ 2366 0a36 2083      		st Z,r18
+ 2367 0a38 23E0      		ldi r18,lo8(3)
+ 2368 0a3a 2183      		std Z+1,r18
+ 2369 0a3c B1E0      		ldi r27,lo8(1)
+ 2370 0a3e B283      		std Z+2,r27
+ 2371 0a40 2383      		std Z+3,r18
+ 2372 0a42 26E0      		ldi r18,lo8(6)
+ 2373 0a44 2483      		std Z+4,r18
+ 2374 0a46 8C01      		movw r16,r24
+ 2375 0a48 0B5F      		subi r16,-5
+ 2376 0a4a 1F4F      		sbci r17,-1
+ 2377 0a4c E0E0      		ldi r30,lo8(confos+3)
+ 2378 0a4e F0E0      		ldi r31,hi8(confos+3)
+ 2379               		0:
+ 2380 0a50 0190      		ld __tmp_reg__,Z+
+ 2381 0a52 0020      		tst __tmp_reg__
+ 2382 0a54 01F4      		brne 0b
+ 2383 0a56 AF01      		movw r20,r30
+ 2384 0a58 4050      		subi r20,lo8(confos+4)
+ 2385 0a5a 5040      		sbci r21,hi8(confos+4)
+ 2386 0a5c 01F0      		breq .L144
+ 2387 0a5e F201      		movw r30,r4
+ 2388 0a60 E00F      		add r30,r16
+ 2389 0a62 F11F      		adc r31,r17
+ 2390 0a64 8CE0      		ldi r24,lo8(12)
+ 2391 0a66 8083      		st Z,r24
+ 2392 0a68 4183      		std Z+1,r20
+ 2393 0a6a 7A01      		movw r14,r20
+GAS LISTING /tmp/ccarDIh4.s 			page 43
+
+
+ 2394 0a6c FF24      		clr r15
+ 2395 0a6e A701      		movw r20,r14
+ 2396 0a70 60E0      		ldi r22,lo8(confos+3)
+ 2397 0a72 70E0      		ldi r23,hi8(confos+3)
+ 2398 0a74 CF01      		movw r24,r30
+ 2399 0a76 0296      		adiw r24,2
+ 2400 0a78 0E94 0000 		call memcpy
+ 2401 0a7c A701      		movw r20,r14
+ 2402 0a7e 4E5F      		subi r20,-2
+ 2403 0a80 5F4F      		sbci r21,-1
+ 2404 0a82 040F      		add r16,r20
+ 2405 0a84 151F      		adc r17,r21
+ 2406               	.L144:
+ 2407 0a86 F201      		movw r30,r4
+ 2408 0a88 E00F      		add r30,r16
+ 2409 0a8a F11F      		adc r31,r17
+ 2410 0a8c 89E3      		ldi r24,lo8(57)
+ 2411 0a8e 8083      		st Z,r24
+ 2412 0a90 82E0      		ldi r24,lo8(2)
+ 2413 0a92 8183      		std Z+1,r24
+ 2414 0a94 80E4      		ldi r24,lo8(64)
+ 2415 0a96 92E0      		ldi r25,lo8(2)
+ 2416               	/* #APP */
+ 2417               	 ;  309 "../../nut/include/sys/types.h" 1
+ 2418 0a98 082E      		mov __tmp_reg__, r24
+ 2419 0a9a 892F      		mov r24, r25
+ 2420 0a9c 902D      		mov r25, __tmp_reg__
+ 2421               		
+ 2422               	 ;  0 "" 2
+ 2423               	/* #NOAPP */
+ 2424 0a9e 9383      		std Z+3,r25
+ 2425 0aa0 8283      		std Z+2,r24
+ 2426 0aa2 0C5F      		subi r16,-4
+ 2427 0aa4 1F4F      		sbci r17,-1
+ 2428 0aa6 9101      		movw r18,r2
+ 2429 0aa8 4C85      		ldd r20,Y+12
+ 2430 0aaa 5D85      		ldd r21,Y+13
+ 2431 0aac 6E85      		ldd r22,Y+14
+ 2432 0aae 7F85      		ldd r23,Y+15
+ 2433 0ab0 C401      		movw r24,r8
+ 2434 0ab2 0E94 0000 		call DhcpSendMessage
+ 2435 0ab6 97FD      		sbrc r25,7
+ 2436 0ab8 00C0      		rjmp .L151
+ 2437 0aba EB80      		ldd r14,Y+3
+ 2438 0abc FC80      		ldd r15,Y+4
+ 2439 0abe 0D81      		ldd r16,Y+5
+ 2440 0ac0 1E81      		ldd r17,Y+6
+ 2441 0ac2 9101      		movw r18,r2
+ 2442 0ac4 4F81      		ldd r20,Y+7
+ 2443 0ac6 5885      		ldd r21,Y+8
+ 2444 0ac8 6985      		ldd r22,Y+9
+ 2445 0aca 7A85      		ldd r23,Y+10
+ 2446 0acc C401      		movw r24,r8
+ 2447 0ace 0E94 0000 		call DhcpRecvMessage
+ 2448 0ad2 1816      		cp __zero_reg__,r24
+ 2449 0ad4 1906      		cpc __zero_reg__,r25
+ 2450 0ad6 04F4      		brge .L250
+GAS LISTING /tmp/ccarDIh4.s 			page 44
+
+
+ 2451 0ad8 BC01      		movw r22,r24
+ 2452 0ada C101      		movw r24,r2
+ 2453 0adc 0E94 0000 		call ParseReply
+ 2454 0ae0 8C01      		movw r16,r24
+ 2455 0ae2 0097      		sbiw r24,0
+ 2456 0ae4 01F0      		breq .L250
+ 2457 0ae6 DC01      		movw r26,r24
+ 2458 0ae8 8C91      		ld r24,X
+ 2459 0aea 8530      		cpi r24,lo8(5)
+ 2460 0aec 01F4      		brne .L147
+ 2461 0aee 8091 0000 		lds r24,dhcpConfig
+ 2462 0af2 9091 0000 		lds r25,dhcpConfig+1
+ 2463 0af6 0E94 0000 		call ReleaseDynCfg
+ 2464 0afa 1093 0000 		sts dhcpConfig+1,r17
+ 2465 0afe 0093 0000 		sts dhcpConfig,r16
+ 2466               	.L250:
+ 2467 0b02 00E0      		ldi r16,0
+ 2468 0b04 10E0      		ldi r17,0
+ 2469               	.L147:
+ 2470 0b06 1092 0000 		sts dhcpState,__zero_reg__
+ 2471 0b0a 0115      		cp r16,__zero_reg__
+ 2472 0b0c 1105      		cpc r17,__zero_reg__
+ 2473 0b0e 01F0      		breq .+2
+ 2474 0b10 00C0      		rjmp .L149
+ 2475 0b12 00C0      		rjmp .L102
+ 2476               	.L142:
+ 2477 0b14 8930      		cpi r24,lo8(9)
+ 2478 0b16 01F0      		breq .+2
+ 2479 0b18 00C0      		rjmp .L150
+ 2480 0b1a E091 0000 		lds r30,dhcpConfig
+ 2481 0b1e F091 0000 		lds r31,dhcpConfig+1
+ 2482 0b22 3097      		sbiw r30,0
+ 2483 0b24 01F0      		breq .L162
+ 2484 0b26 BB85      		ldd r27,Y+11
+ 2485 0b28 BB23      		tst r27
+ 2486 0b2a 01F0      		breq .L152
+ 2487 0b2c 7B2E      		mov r7,r27
+ 2488 0b2e 7394      		inc r7
+ 2489 0b30 00C0      		rjmp .L151
+ 2490               	.L152:
+ 2491 0b32 418C      		ldd r4,Z+25
+ 2492 0b34 528C      		ldd r5,Z+26
+ 2493 0b36 638C      		ldd r6,Z+27
+ 2494 0b38 748C      		ldd r7,Z+28
+ 2495 0b3a E180      		ldd r14,Z+1
+ 2496 0b3c F280      		ldd r15,Z+2
+ 2497 0b3e 0381      		ldd r16,Z+3
+ 2498 0b40 1481      		ldd r17,Z+4
+ 2499 0b42 C12C      		mov r12,__zero_reg__
+ 2500 0b44 D12C      		mov r13,__zero_reg__
+ 2501 0b46 2F81      		ldd r18,Y+7
+ 2502 0b48 3885      		ldd r19,Y+8
+ 2503 0b4a 4985      		ldd r20,Y+9
+ 2504 0b4c 5A85      		ldd r21,Y+10
+ 2505 0b4e 67E0      		ldi r22,lo8(7)
+ 2506 0b50 C101      		movw r24,r2
+ 2507 0b52 0E94 0000 		call DhcpPrepHeader
+GAS LISTING /tmp/ccarDIh4.s 			page 45
+
+
+ 2508 0b56 4114      		cp r4,__zero_reg__
+ 2509 0b58 5104      		cpc r5,__zero_reg__
+ 2510 0b5a 6104      		cpc r6,__zero_reg__
+ 2511 0b5c 7104      		cpc r7,__zero_reg__
+ 2512 0b5e 01F0      		breq .L153
+ 2513 0b60 F101      		movw r30,r2
+ 2514 0b62 E451      		subi r30,20
+ 2515 0b64 FF4F      		sbci r31,-1
+ 2516 0b66 E80F      		add r30,r24
+ 2517 0b68 F91F      		adc r31,r25
+ 2518 0b6a 26E3      		ldi r18,lo8(54)
+ 2519 0b6c 2083      		st Z,r18
+ 2520 0b6e 24E0      		ldi r18,lo8(4)
+ 2521 0b70 2183      		std Z+1,r18
+ 2522 0b72 4282      		std Z+2,r4
+ 2523 0b74 5382      		std Z+3,r5
+ 2524 0b76 6482      		std Z+4,r6
+ 2525 0b78 7582      		std Z+5,r7
+ 2526 0b7a 0696      		adiw r24,6
+ 2527               	.L153:
+ 2528 0b7c 8C01      		movw r16,r24
+ 2529 0b7e 9101      		movw r18,r2
+ 2530 0b80 4C85      		ldd r20,Y+12
+ 2531 0b82 5D85      		ldd r21,Y+13
+ 2532 0b84 6E85      		ldd r22,Y+14
+ 2533 0b86 7F85      		ldd r23,Y+15
+ 2534 0b88 C401      		movw r24,r8
+ 2535 0b8a 0E94 0000 		call DhcpSendMessage
+ 2536 0b8e 97FF      		sbrs r25,7
+ 2537 0b90 00C0      		rjmp .L154
+ 2538 0b92 7724      		clr r7
+ 2539 0b94 7394      		inc r7
+ 2540 0b96 00C0      		rjmp .L151
+ 2541               	.L162:
+ 2542 0b98 7B84      		ldd r7,Y+11
+ 2543               	.L151:
+ 2544 0b9a EC84      		ldd r14,Y+12
+ 2545 0b9c FD84      		ldd r15,Y+13
+ 2546 0b9e 0E85      		ldd r16,Y+14
+ 2547 0ba0 1F85      		ldd r17,Y+15
+ 2548 0ba2 E122      		and r14,r17
+ 2549 0ba4 E022      		and r14,r16
+ 2550 0ba6 EF20      		and r14,r15
+ 2551 0ba8 E094      		com r14
+ 2552 0baa 01F0      		breq .+2
+ 2553 0bac 00C0      		rjmp .L102
+ 2554               	.L253:
+ 2555 0bae 1092 0000 		sts dhcpState,__zero_reg__
+ 2556 0bb2 00C0      		rjmp .L102
+ 2557               	.L154:
+ 2558 0bb4 EB80      		ldd r14,Y+3
+ 2559 0bb6 FC80      		ldd r15,Y+4
+ 2560 0bb8 0D81      		ldd r16,Y+5
+ 2561 0bba 1E81      		ldd r17,Y+6
+ 2562 0bbc 9101      		movw r18,r2
+ 2563 0bbe 4F81      		ldd r20,Y+7
+ 2564 0bc0 5885      		ldd r21,Y+8
+GAS LISTING /tmp/ccarDIh4.s 			page 46
+
+
+ 2565 0bc2 6985      		ldd r22,Y+9
+ 2566 0bc4 7A85      		ldd r23,Y+10
+ 2567 0bc6 C401      		movw r24,r8
+ 2568 0bc8 0E94 0000 		call DhcpRecvMessage
+ 2569 0bcc 97FF      		sbrs r25,7
+ 2570 0bce 00C0      		rjmp .L155
+ 2571 0bd0 1092 0000 		sts dhcpState,__zero_reg__
+ 2572 0bd4 00C0      		rjmp .L164
+ 2573               	.L155:
+ 2574 0bd6 0097      		sbiw r24,0
+ 2575 0bd8 01F0      		breq .L164
+ 2576 0bda BC01      		movw r22,r24
+ 2577 0bdc C101      		movw r24,r2
+ 2578 0bde 0E94 0000 		call ParseReply
+ 2579 0be2 8C01      		movw r16,r24
+ 2580 0be4 0097      		sbiw r24,0
+ 2581 0be6 01F0      		breq .L164
+ 2582 0be8 DC01      		movw r26,r24
+ 2583 0bea 8C91      		ld r24,X
+ 2584 0bec 8530      		cpi r24,lo8(5)
+ 2585 0bee 01F0      		breq .L259
+ 2586 0bf0 8630      		cpi r24,lo8(6)
+ 2587 0bf2 01F4      		brne .L165
+ 2588               	.L259:
+ 2589 0bf4 1092 0000 		sts dhcpState,__zero_reg__
+ 2590 0bf8 00C0      		rjmp .L165
+ 2591               	.L150:
+ 2592 0bfa 8111      		cpse r24,__zero_reg__
+ 2593 0bfc 00C0      		rjmp .L166
+ 2594 0bfe 8091 0000 		lds r24,dhcpConfig
+ 2595 0c02 9091 0000 		lds r25,dhcpConfig+1
+ 2596 0c06 0E94 0000 		call ReleaseDynCfg
+ 2597 0c0a 1092 0000 		sts dhcpConfig+1,__zero_reg__
+ 2598 0c0e 1092 0000 		sts dhcpConfig,__zero_reg__
+ 2599 0c12 1092 0000 		sts dhcpApiTimeout,__zero_reg__
+ 2600 0c16 1092 0000 		sts dhcpApiTimeout+1,__zero_reg__
+ 2601 0c1a 1092 0000 		sts dhcpApiTimeout+2,__zero_reg__
+ 2602 0c1e 1092 0000 		sts dhcpApiTimeout+3,__zero_reg__
+ 2603 0c22 80E0      		ldi r24,lo8(dhcpDone)
+ 2604 0c24 90E0      		ldi r25,hi8(dhcpDone)
+ 2605 0c26 0E94 0000 		call NutEventBroadcast
+ 2606 0c2a 40E0      		ldi r20,0
+ 2607 0c2c 50E0      		ldi r21,0
+ 2608 0c2e BA01      		movw r22,r20
+ 2609               	.L257:
+ 2610 0c30 80E0      		ldi r24,lo8(dhcpWake)
+ 2611 0c32 90E0      		ldi r25,hi8(dhcpWake)
+ 2612 0c34 0E94 0000 		call NutEventWait
+ 2613               	.L252:
+ 2614 0c38 712C      		mov r7,__zero_reg__
+ 2615 0c3a 00C0      		rjmp .L102
+ 2616               	.L165:
+ 2617 0c3c 7724      		clr r7
+ 2618 0c3e 7394      		inc r7
+ 2619               	.L149:
+ 2620 0c40 C801      		movw r24,r16
+ 2621 0c42 0E94 0000 		call ReleaseDynCfg
+GAS LISTING /tmp/ccarDIh4.s 			page 47
+
+
+ 2622 0c46 00C0      		rjmp .L102
+ 2623               	.L164:
+ 2624 0c48 7724      		clr r7
+ 2625 0c4a 7394      		inc r7
+ 2626 0c4c 00C0      		rjmp .L102
+ 2627               	.L166:
+ 2628 0c4e 7B84      		ldd r7,Y+11
+ 2629               	.L102:
+ 2630 0c50 7B86      		std Y+11,r7
+ 2631 0c52 00C0      		rjmp .L79
+ 2632               	.L160:
+ 2633 0c54 AFEF      		ldi r26,lo8(-1)
+ 2634 0c56 BFEF      		ldi r27,lo8(-1)
+ 2635 0c58 B98B      		std Y+17,r27
+ 2636 0c5a A88B      		std Y+16,r26
+ 2637 0c5c 00C0      		rjmp .L89
+ 2638               		.size	NutDhcpClient, .-NutDhcpClient
+ 2639               		.section	.text.NutDhcpRelease,"ax",@progbits
+ 2640               	.global	NutDhcpRelease
+ 2641               		.type	NutDhcpRelease, @function
+ 2642               	NutDhcpRelease:
+ 2643               	/* prologue: function */
+ 2644               	/* frame size = 0 */
+ 2645               	/* stack size = 0 */
+ 2646               	.L__stack_usage = 0
+ 2647 0000 2091 0000 		lds r18,dhcpState
+ 2648 0004 2530      		cpi r18,lo8(5)
+ 2649 0006 01F4      		brne .L280
+ 2650 0008 9A01      		movw r18,r20
+ 2651 000a AB01      		movw r20,r22
+ 2652 000c 69E0      		ldi r22,lo8(9)
+ 2653 000e 0C94 0000 		jmp DhcpKick
+ 2654               	.L280:
+ 2655 0012 83E0      		ldi r24,lo8(3)
+ 2656 0014 90E0      		ldi r25,0
+ 2657 0016 9093 0000 		sts dhcpError+1,r25
+ 2658 001a 8093 0000 		sts dhcpError,r24
+ 2659 001e 8FEF      		ldi r24,lo8(-1)
+ 2660 0020 9FEF      		ldi r25,lo8(-1)
+ 2661 0022 0895      		ret
+ 2662               		.size	NutDhcpRelease, .-NutDhcpRelease
+ 2663               		.section	.text.NutDhcpIfConfig,"ax",@progbits
+ 2664               	.global	NutDhcpIfConfig
+ 2665               		.type	NutDhcpIfConfig, @function
+ 2666               	NutDhcpIfConfig:
+ 2667 0000 6F92      		push r6
+ 2668 0002 7F92      		push r7
+ 2669 0004 8F92      		push r8
+ 2670 0006 9F92      		push r9
+ 2671 0008 AF92      		push r10
+ 2672 000a BF92      		push r11
+ 2673 000c CF92      		push r12
+ 2674 000e DF92      		push r13
+ 2675 0010 EF92      		push r14
+ 2676 0012 FF92      		push r15
+ 2677 0014 0F93      		push r16
+ 2678 0016 1F93      		push r17
+GAS LISTING /tmp/ccarDIh4.s 			page 48
+
+
+ 2679 0018 CF93      		push r28
+ 2680 001a DF93      		push r29
+ 2681 001c 00D0      		rcall .
+ 2682 001e 1F92      		push __zero_reg__
+ 2683 0020 CDB7      		in r28,__SP_L__
+ 2684 0022 DEB7      		in r29,__SP_H__
+ 2685               	/* prologue: function */
+ 2686               	/* frame size = 4 */
+ 2687               	/* stack size = 18 */
+ 2688               	.L__stack_usage = 18
+ 2689 0024 3C01      		movw r6,r24
+ 2690 0026 4B01      		movw r8,r22
+ 2691 0028 2983      		std Y+1,r18
+ 2692 002a 3A83      		std Y+2,r19
+ 2693 002c 4B83      		std Y+3,r20
+ 2694 002e 5C83      		std Y+4,r21
+ 2695 0030 0E94 0000 		call NutDeviceLookup
+ 2696 0034 5C01      		movw r10,r24
+ 2697 0036 2981      		ldd r18,Y+1
+ 2698 0038 3A81      		ldd r19,Y+2
+ 2699 003a 4B81      		ldd r20,Y+3
+ 2700 003c 5C81      		ldd r21,Y+4
+ 2701 003e 0097      		sbiw r24,0
+ 2702 0040 01F0      		breq .L282
+ 2703 0042 FC01      		movw r30,r24
+ 2704 0044 8385      		ldd r24,Z+11
+ 2705 0046 8330      		cpi r24,lo8(3)
+ 2706 0048 01F4      		brne .L282
+ 2707 004a 0785      		ldd r16,Z+15
+ 2708 004c 1089      		ldd r17,Z+16
+ 2709 004e 0115      		cp r16,__zero_reg__
+ 2710 0050 1105      		cpc r17,__zero_reg__
+ 2711 0052 01F0      		breq .L282
+ 2712 0054 F801      		movw r30,r16
+ 2713 0056 8081      		ld r24,Z
+ 2714 0058 8630      		cpi r24,lo8(6)
+ 2715 005a 01F0      		breq .L283
+ 2716               	.L282:
+ 2717 005c 81E1      		ldi r24,lo8(17)
+ 2718 005e 90E0      		ldi r25,0
+ 2719 0060 00C0      		rjmp .L308
+ 2720               	.L283:
+ 2721 0062 8114      		cp r8,__zero_reg__
+ 2722 0064 9104      		cpc r9,__zero_reg__
+ 2723 0066 01F0      		breq .L285
+ 2724 0068 F401      		movw r30,r8
+ 2725 006a 9081      		ld r25,Z
+ 2726 006c 8181      		ldd r24,Z+1
+ 2727 006e 8923      		and r24,r25
+ 2728 0070 9281      		ldd r25,Z+2
+ 2729 0072 8923      		and r24,r25
+ 2730 0074 9381      		ldd r25,Z+3
+ 2731 0076 8923      		and r24,r25
+ 2732 0078 9481      		ldd r25,Z+4
+ 2733 007a 8923      		and r24,r25
+ 2734 007c 9581      		ldd r25,Z+5
+ 2735 007e 8923      		and r24,r25
+GAS LISTING /tmp/ccarDIh4.s 			page 49
+
+
+ 2736 0080 8F3F      		cpi r24,lo8(-1)
+ 2737 0082 01F0      		breq .L285
+ 2738 0084 86E0      		ldi r24,lo8(6)
+ 2739 0086 A0E0      		ldi r26,lo8(confnet+10)
+ 2740 0088 B0E0      		ldi r27,hi8(confnet+10)
+ 2741               		0:
+ 2742 008a 0190      		ld r0,Z+
+ 2743 008c 0D92      		st X+,r0
+ 2744 008e 8A95      		dec r24
+ 2745 0090 01F4      		brne 0b
+ 2746 0092 00C0      		rjmp .L286
+ 2747               	.L285:
+ 2748 0094 F801      		movw r30,r16
+ 2749 0096 9581      		ldd r25,Z+5
+ 2750 0098 8681      		ldd r24,Z+6
+ 2751 009a 892B      		or r24,r25
+ 2752 009c 9781      		ldd r25,Z+7
+ 2753 009e 892B      		or r24,r25
+ 2754 00a0 9085      		ldd r25,Z+8
+ 2755 00a2 892B      		or r24,r25
+ 2756 00a4 9185      		ldd r25,Z+9
+ 2757 00a6 892B      		or r24,r25
+ 2758 00a8 9285      		ldd r25,Z+10
+ 2759 00aa 892B      		or r24,r25
+ 2760 00ac 01F4      		brne .L286
+ 2761 00ae C301      		movw r24,r6
+ 2762 00b0 2983      		std Y+1,r18
+ 2763 00b2 3A83      		std Y+2,r19
+ 2764 00b4 4B83      		std Y+3,r20
+ 2765 00b6 5C83      		std Y+4,r21
+ 2766 00b8 0E94 0000 		call NutNetLoadConfig
+ 2767 00bc 5C81      		ldd r21,Y+4
+ 2768 00be 4B81      		ldd r20,Y+3
+ 2769 00c0 3A81      		ldd r19,Y+2
+ 2770 00c2 2981      		ldd r18,Y+1
+ 2771               	.L286:
+ 2772 00c4 A091 0000 		lds r26,confnet+10
+ 2773 00c8 F091 0000 		lds r31,confnet+11
+ 2774 00cc E091 0000 		lds r30,confnet+12
+ 2775 00d0 7091 0000 		lds r23,confnet+13
+ 2776 00d4 6091 0000 		lds r22,confnet+14
+ 2777 00d8 9091 0000 		lds r25,confnet+15
+ 2778 00dc 8A2F      		mov r24,r26
+ 2779 00de 8F2B      		or r24,r31
+ 2780 00e0 8E2B      		or r24,r30
+ 2781 00e2 872B      		or r24,r23
+ 2782 00e4 862B      		or r24,r22
+ 2783 00e6 892B      		or r24,r25
+ 2784 00e8 01F0      		breq .L287
+ 2785 00ea FA23      		and r31,r26
+ 2786 00ec EF23      		and r30,r31
+ 2787 00ee 7E23      		and r23,r30
+ 2788 00f0 6723      		and r22,r23
+ 2789 00f2 9623      		and r25,r22
+ 2790 00f4 9F3F      		cpi r25,lo8(-1)
+ 2791 00f6 01F4      		brne .L288
+ 2792               	.L287:
+GAS LISTING /tmp/ccarDIh4.s 			page 50
+
+
+ 2793 00f8 82E0      		ldi r24,lo8(2)
+ 2794 00fa 90E0      		ldi r25,0
+ 2795               	.L308:
+ 2796 00fc 9093 0000 		sts dhcpError+1,r25
+ 2797 0100 8093 0000 		sts dhcpError,r24
+ 2798 0104 00C0      		rjmp .L292
+ 2799               	.L288:
+ 2800 0106 86E0      		ldi r24,lo8(6)
+ 2801 0108 E0E0      		ldi r30,lo8(confnet+10)
+ 2802 010a F0E0      		ldi r31,hi8(confnet+10)
+ 2803 010c D801      		movw r26,r16
+ 2804 010e 1596      		adiw r26,5
+ 2805               		0:
+ 2806 0110 0190      		ld r0,Z+
+ 2807 0112 0D92      		st X+,r0
+ 2808 0114 8A95      		dec r24
+ 2809 0116 01F4      		brne 0b
+ 2810 0118 64EF      		ldi r22,lo8(-12)
+ 2811 011a 71E0      		ldi r23,lo8(1)
+ 2812 011c 80E0      		ldi r24,0
+ 2813 011e 90E0      		ldi r25,0
+ 2814 0120 2983      		std Y+1,r18
+ 2815 0122 3A83      		std Y+2,r19
+ 2816 0124 4B83      		std Y+3,r20
+ 2817 0126 5C83      		std Y+4,r21
+ 2818 0128 0E94 0000 		call NutSleep
+ 2819 012c F801      		movw r30,r16
+ 2820 012e 1386      		std Z+11,__zero_reg__
+ 2821 0130 1486      		std Z+12,__zero_reg__
+ 2822 0132 1586      		std Z+13,__zero_reg__
+ 2823 0134 1686      		std Z+14,__zero_reg__
+ 2824 0136 C090 0000 		lds r12,confnet+20
+ 2825 013a D090 0000 		lds r13,confnet+20+1
+ 2826 013e E090 0000 		lds r14,confnet+20+2
+ 2827 0142 F090 0000 		lds r15,confnet+20+3
+ 2828 0146 C38A      		std Z+19,r12
+ 2829 0148 D48A      		std Z+20,r13
+ 2830 014a E58A      		std Z+21,r14
+ 2831 014c F68A      		std Z+22,r15
+ 2832 014e 8091 0000 		lds r24,confnet+28
+ 2833 0152 9091 0000 		lds r25,confnet+28+1
+ 2834 0156 A091 0000 		lds r26,confnet+28+2
+ 2835 015a B091 0000 		lds r27,confnet+28+3
+ 2836 015e 8C21      		and r24,r12
+ 2837 0160 9D21      		and r25,r13
+ 2838 0162 AE21      		and r26,r14
+ 2839 0164 BF21      		and r27,r15
+ 2840 0166 2981      		ldd r18,Y+1
+ 2841 0168 3A81      		ldd r19,Y+2
+ 2842 016a 4B81      		ldd r20,Y+3
+ 2843 016c 5C81      		ldd r21,Y+4
+ 2844 016e 892B      		or r24,r25
+ 2845 0170 8A2B      		or r24,r26
+ 2846 0172 8B2B      		or r24,r27
+ 2847 0174 01F0      		breq .L289
+ 2848 0176 40EE      		ldi r20,lo8(-32)
+ 2849 0178 5EE2      		ldi r21,lo8(46)
+GAS LISTING /tmp/ccarDIh4.s 			page 51
+
+
+ 2850 017a 60E0      		ldi r22,0
+ 2851 017c 70E0      		ldi r23,0
+ 2852 017e C301      		movw r24,r6
+ 2853 0180 0E94 0000 		call NutDhcpRelease
+ 2854 0184 2091 0000 		lds r18,confnet+28
+ 2855 0188 3091 0000 		lds r19,confnet+28+1
+ 2856 018c 4091 0000 		lds r20,confnet+28+2
+ 2857 0190 5091 0000 		lds r21,confnet+28+3
+ 2858 0194 2093 0000 		sts confnet+16,r18
+ 2859 0198 3093 0000 		sts confnet+16+1,r19
+ 2860 019c 4093 0000 		sts confnet+16+2,r20
+ 2861 01a0 5093 0000 		sts confnet+16+3,r21
+ 2862 01a4 A090 0000 		lds r10,confnet+24
+ 2863 01a8 B090 0000 		lds r11,confnet+24+1
+ 2864 01ac C090 0000 		lds r12,confnet+24+2
+ 2865 01b0 D090 0000 		lds r13,confnet+24+3
+ 2866 01b4 E090 0000 		lds r14,confnet+20
+ 2867 01b8 F090 0000 		lds r15,confnet+20+1
+ 2868 01bc 0091 0000 		lds r16,confnet+20+2
+ 2869 01c0 1091 0000 		lds r17,confnet+20+3
+ 2870 01c4 60E0      		ldi r22,lo8(confnet+10)
+ 2871 01c6 70E0      		ldi r23,hi8(confnet+10)
+ 2872 01c8 C301      		movw r24,r6
+ 2873 01ca 0E94 0000 		call NutNetIfConfig2
+ 2874 01ce 4C01      		movw r8,r24
+ 2875 01d0 00C0      		rjmp .L284
+ 2876               	.L289:
+ 2877 01d2 61E0      		ldi r22,lo8(1)
+ 2878 01d4 C301      		movw r24,r6
+ 2879 01d6 0E94 0000 		call DhcpKick
+ 2880 01da 4C01      		movw r8,r24
+ 2881 01dc 892B      		or r24,r25
+ 2882 01de 01F0      		breq .+2
+ 2883 01e0 00C0      		rjmp .L292
+ 2884 01e2 8091 0000 		lds r24,dhcpState
+ 2885 01e6 8530      		cpi r24,lo8(5)
+ 2886 01e8 01F4      		brne .L290
+ 2887 01ea E091 0000 		lds r30,dhcpConfig
+ 2888 01ee F091 0000 		lds r31,dhcpConfig+1
+ 2889 01f2 C584      		ldd r12,Z+13
+ 2890 01f4 D684      		ldd r13,Z+14
+ 2891 01f6 E784      		ldd r14,Z+15
+ 2892 01f8 F088      		ldd r15,Z+16
+ 2893 01fa 0581      		ldd r16,Z+5
+ 2894 01fc 1681      		ldd r17,Z+6
+ 2895 01fe 2781      		ldd r18,Z+7
+ 2896 0200 3085      		ldd r19,Z+8
+ 2897 0202 4181      		ldd r20,Z+1
+ 2898 0204 5281      		ldd r21,Z+2
+ 2899 0206 6381      		ldd r22,Z+3
+ 2900 0208 7481      		ldd r23,Z+4
+ 2901 020a C501      		movw r24,r10
+ 2902 020c 0E94 0000 		call NutNetIfSetup
+ 2903 0210 E091 0000 		lds r30,dhcpConfig
+ 2904 0214 F091 0000 		lds r31,dhcpConfig+1
+ 2905 0218 E588      		ldd r14,Z+21
+ 2906 021a F688      		ldd r15,Z+22
+GAS LISTING /tmp/ccarDIh4.s 			page 52
+
+
+ 2907 021c 0789      		ldd r16,Z+23
+ 2908 021e 108D      		ldd r17,Z+24
+ 2909 0220 2189      		ldd r18,Z+17
+ 2910 0222 3289      		ldd r19,Z+18
+ 2911 0224 4389      		ldd r20,Z+19
+ 2912 0226 5489      		ldd r21,Z+20
+ 2913 0228 60E0      		ldi r22,0
+ 2914 022a 70E0      		ldi r23,0
+ 2915 022c 80E0      		ldi r24,0
+ 2916 022e 90E0      		ldi r25,0
+ 2917 0230 0E94 0000 		call NutDnsConfig2
+ 2918 0234 00C0      		rjmp .L284
+ 2919               	.L290:
+ 2920 0236 F801      		movw r30,r16
+ 2921 0238 8385      		ldd r24,Z+11
+ 2922 023a 9485      		ldd r25,Z+12
+ 2923 023c A585      		ldd r26,Z+13
+ 2924 023e B685      		ldd r27,Z+14
+ 2925 0240 892B      		or r24,r25
+ 2926 0242 8A2B      		or r24,r26
+ 2927 0244 8B2B      		or r24,r27
+ 2928 0246 01F4      		brne .L284
+ 2929 0248 2091 0000 		lds r18,confnet+16
+ 2930 024c 3091 0000 		lds r19,confnet+16+1
+ 2931 0250 4091 0000 		lds r20,confnet+16+2
+ 2932 0254 5091 0000 		lds r21,confnet+16+3
+ 2933 0258 E090 0000 		lds r14,confnet+20
+ 2934 025c F090 0000 		lds r15,confnet+20+1
+ 2935 0260 0091 0000 		lds r16,confnet+20+2
+ 2936 0264 1091 0000 		lds r17,confnet+20+3
+ 2937 0268 DA01      		movw r26,r20
+ 2938 026a C901      		movw r24,r18
+ 2939 026c 8E21      		and r24,r14
+ 2940 026e 9F21      		and r25,r15
+ 2941 0270 A023      		and r26,r16
+ 2942 0272 B123      		and r27,r17
+ 2943 0274 892B      		or r24,r25
+ 2944 0276 8A2B      		or r24,r26
+ 2945 0278 8B2B      		or r24,r27
+ 2946 027a 01F0      		breq .L292
+ 2947 027c A090 0000 		lds r10,confnet+24
+ 2948 0280 B090 0000 		lds r11,confnet+24+1
+ 2949 0284 C090 0000 		lds r12,confnet+24+2
+ 2950 0288 D090 0000 		lds r13,confnet+24+3
+ 2951 028c 60E0      		ldi r22,lo8(confnet+10)
+ 2952 028e 70E0      		ldi r23,hi8(confnet+10)
+ 2953 0290 C301      		movw r24,r6
+ 2954 0292 0E94 0000 		call NutNetIfConfig2
+ 2955 0296 00C0      		rjmp .L284
+ 2956               	.L292:
+ 2957 0298 8824      		clr r8
+ 2958 029a 8A94      		dec r8
+ 2959 029c 982C      		mov r9,r8
+ 2960               	.L284:
+ 2961 029e C401      		movw r24,r8
+ 2962               	/* epilogue start */
+ 2963 02a0 0F90      		pop __tmp_reg__
+GAS LISTING /tmp/ccarDIh4.s 			page 53
+
+
+ 2964 02a2 0F90      		pop __tmp_reg__
+ 2965 02a4 0F90      		pop __tmp_reg__
+ 2966 02a6 0F90      		pop __tmp_reg__
+ 2967 02a8 DF91      		pop r29
+ 2968 02aa CF91      		pop r28
+ 2969 02ac 1F91      		pop r17
+ 2970 02ae 0F91      		pop r16
+ 2971 02b0 FF90      		pop r15
+ 2972 02b2 EF90      		pop r14
+ 2973 02b4 DF90      		pop r13
+ 2974 02b6 CF90      		pop r12
+ 2975 02b8 BF90      		pop r11
+ 2976 02ba AF90      		pop r10
+ 2977 02bc 9F90      		pop r9
+ 2978 02be 8F90      		pop r8
+ 2979 02c0 7F90      		pop r7
+ 2980 02c2 6F90      		pop r6
+ 2981 02c4 0895      		ret
+ 2982               		.size	NutDhcpIfConfig, .-NutDhcpIfConfig
+ 2983               		.section	.text.NutDhcpInform,"ax",@progbits
+ 2984               	.global	NutDhcpInform
+ 2985               		.type	NutDhcpInform, @function
+ 2986               	NutDhcpInform:
+ 2987               	/* prologue: function */
+ 2988               	/* frame size = 0 */
+ 2989               	/* stack size = 0 */
+ 2990               	.L__stack_usage = 0
+ 2991 0000 2091 0000 		lds r18,dhcpState
+ 2992 0004 2111      		cpse r18,__zero_reg__
+ 2993 0006 00C0      		rjmp .L313
+ 2994 0008 9A01      		movw r18,r20
+ 2995 000a AB01      		movw r20,r22
+ 2996 000c 68E0      		ldi r22,lo8(8)
+ 2997 000e 0C94 0000 		jmp DhcpKick
+ 2998               	.L313:
+ 2999 0012 83E0      		ldi r24,lo8(3)
+ 3000 0014 90E0      		ldi r25,0
+ 3001 0016 9093 0000 		sts dhcpError+1,r25
+ 3002 001a 8093 0000 		sts dhcpError,r24
+ 3003 001e 8FEF      		ldi r24,lo8(-1)
+ 3004 0020 9FEF      		ldi r25,lo8(-1)
+ 3005 0022 0895      		ret
+ 3006               		.size	NutDhcpInform, .-NutDhcpInform
+ 3007               		.section	.text.NutDhcpStatus,"ax",@progbits
+ 3008               	.global	NutDhcpStatus
+ 3009               		.type	NutDhcpStatus, @function
+ 3010               	NutDhcpStatus:
+ 3011               	/* prologue: function */
+ 3012               	/* frame size = 0 */
+ 3013               	/* stack size = 0 */
+ 3014               	.L__stack_usage = 0
+ 3015 0000 8091 0000 		lds r24,dhcpState
+ 3016 0004 90E0      		ldi r25,0
+ 3017 0006 0895      		ret
+ 3018               		.size	NutDhcpStatus, .-NutDhcpStatus
+ 3019               		.section	.text.NutDhcpError,"ax",@progbits
+ 3020               	.global	NutDhcpError
+GAS LISTING /tmp/ccarDIh4.s 			page 54
+
+
+ 3021               		.type	NutDhcpError, @function
+ 3022               	NutDhcpError:
+ 3023               	/* prologue: function */
+ 3024               	/* frame size = 0 */
+ 3025               	/* stack size = 0 */
+ 3026               	.L__stack_usage = 0
+ 3027 0000 8091 0000 		lds r24,dhcpError
+ 3028 0004 9091 0000 		lds r25,dhcpError+1
+ 3029 0008 1092 0000 		sts dhcpError+1,__zero_reg__
+ 3030 000c 1092 0000 		sts dhcpError,__zero_reg__
+ 3031 0010 0895      		ret
+ 3032               		.size	NutDhcpError, .-NutDhcpError
+ 3033               		.section	.text.NutDhcpIsConfigured,"ax",@progbits
+ 3034               	.global	NutDhcpIsConfigured
+ 3035               		.type	NutDhcpIsConfigured, @function
+ 3036               	NutDhcpIsConfigured:
+ 3037               	/* prologue: function */
+ 3038               	/* frame size = 0 */
+ 3039               	/* stack size = 0 */
+ 3040               	.L__stack_usage = 0
+ 3041 0000 81E0      		ldi r24,lo8(1)
+ 3042 0002 90E0      		ldi r25,0
+ 3043 0004 2091 0000 		lds r18,dhcpState
+ 3044 0008 2530      		cpi r18,lo8(5)
+ 3045 000a 01F0      		breq .L317
+ 3046 000c 80E0      		ldi r24,0
+ 3047 000e 90E0      		ldi r25,0
+ 3048               	.L317:
+ 3049 0010 0895      		ret
+ 3050               		.size	NutDhcpIsConfigured, .-NutDhcpIsConfigured
+ 3051               		.local	dhcpApiStart
+ 3052               		.comm	dhcpApiStart,4,1
+ 3053               		.local	dhcpApiTimeout
+ 3054               		.comm	dhcpApiTimeout,4,1
+ 3055               		.local	dhcpDone
+ 3056               		.comm	dhcpDone,2,1
+ 3057               		.local	dhcpWake
+ 3058               		.comm	dhcpWake,2,1
+ 3059               		.local	dhcpError
+ 3060               		.comm	dhcpError,2,1
+ 3061               		.local	dhcpState
+ 3062               		.comm	dhcpState,1,1
+ 3063               		.local	dhcpThread
+ 3064               		.comm	dhcpThread,2,1
+ 3065               		.local	dhcpConfig
+ 3066               		.comm	dhcpConfig,2,1
+ 3067               		.ident	"GCC: (GNU) 5.3.0"
+ 3068               	.global __do_copy_data
+ 3069               	.global __do_clear_bss
+GAS LISTING /tmp/ccarDIh4.s 			page 55
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 dhcpc.c
+     /tmp/ccarDIh4.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccarDIh4.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccarDIh4.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccarDIh4.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccarDIh4.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccarDIh4.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccarDIh4.s:10     .text.__byte_swap4:0000000000000000 __byte_swap4
+     /tmp/ccarDIh4.s:30     .text.ReleaseDynCfg:0000000000000000 ReleaseDynCfg
+     /tmp/ccarDIh4.s:59     .text.copy_str:0000000000000000 copy_str
+     /tmp/ccarDIh4.s:121    .text.ParseReply:0000000000000000 ParseReply
+     /tmp/ccarDIh4.s:520    .text.DhcpSendMessage:0000000000000000 DhcpSendMessage
+     /tmp/ccarDIh4.s:3058   .bss:000000000000000c dhcpError
+     /tmp/ccarDIh4.s:576    .text.DhcpRecvMessage:0000000000000000 DhcpRecvMessage
+     /tmp/ccarDIh4.s:737    .text.DhcpKick:0000000000000000 DhcpKick
+                             .bss:0000000000000000 dhcpApiStart
+     /tmp/ccarDIh4.s:3052   .bss:0000000000000004 dhcpApiTimeout
+     /tmp/ccarDIh4.s:3060   .bss:000000000000000e dhcpState
+     /tmp/ccarDIh4.s:3062   .bss:000000000000000f dhcpThread
+     /tmp/ccarDIh4.s:1105   .text.NutDhcpClient:0000000000000000 NutDhcpClient
+     /tmp/ccarDIh4.s:3056   .bss:000000000000000a dhcpWake
+     /tmp/ccarDIh4.s:3054   .bss:0000000000000008 dhcpDone
+     /tmp/ccarDIh4.s:847    .text.DhcpPrepHeader:0000000000000000 DhcpPrepHeader
+     /tmp/ccarDIh4.s:937    .text.DhcpSendRequest:0000000000000000 DhcpSendRequest
+     /tmp/ccarDIh4.s:3064   .bss:0000000000000011 dhcpConfig
+     /tmp/ccarDIh4.s:2642   .text.NutDhcpRelease:0000000000000000 NutDhcpRelease
+     /tmp/ccarDIh4.s:2666   .text.NutDhcpIfConfig:0000000000000000 NutDhcpIfConfig
+     /tmp/ccarDIh4.s:2986   .text.NutDhcpInform:0000000000000000 NutDhcpInform
+     /tmp/ccarDIh4.s:3010   .text.NutDhcpStatus:0000000000000000 NutDhcpStatus
+     /tmp/ccarDIh4.s:3022   .text.NutDhcpError:0000000000000000 NutDhcpError
+     /tmp/ccarDIh4.s:3036   .text.NutDhcpIsConfigured:0000000000000000 NutDhcpIsConfigured
+
+UNDEFINED SYMBOLS
+free
+malloc
+memcpy
+NutUdpSendTo
+NutGetMillis
+NutUdpReceiveFrom
+NutDeviceLookup
+NutThreadCreate
+NutEventPostAsync
+NutEventWait
+confnet
+confos
+NutGetSeconds
+NutUdpDestroySocket
+NutUdpCreateSocket
+NutUdpSetSockOpt
+NutEventBroadcast
+__muluhisi3
+__udivmodsi4
+NutNetLoadConfig
+NutSleep
+NutNetIfConfig2
+NutNetIfSetup
+GAS LISTING /tmp/ccarDIh4.s 			page 56
+
+
+NutDnsConfig2
+__do_copy_data
+__do_clear_bss

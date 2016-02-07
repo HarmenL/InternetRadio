@@ -1,0 +1,39 @@
+GAS LISTING /tmp/ccEj9F7p.s 			page 1
+
+
+   1               		.file	"getchar.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.getchar,"ax",@progbits
+   9               	.global	getchar
+  10               		.type	getchar, @function
+  11               	getchar:
+  12               	/* prologue: function */
+  13               	/* frame size = 0 */
+  14               	/* stack size = 0 */
+  15               	.L__stack_usage = 0
+  16 0000 8091 0000 		lds r24,__iob
+  17 0004 9091 0000 		lds r25,__iob+1
+  18 0008 0C94 0000 		jmp fgetc
+  19               		.size	getchar, .-getchar
+  20               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccEj9F7p.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 getchar.c
+     /tmp/ccEj9F7p.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccEj9F7p.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccEj9F7p.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccEj9F7p.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccEj9F7p.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccEj9F7p.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccEj9F7p.s:11     .text.getchar:0000000000000000 getchar
+
+UNDEFINED SYMBOLS
+__iob
+fgetc

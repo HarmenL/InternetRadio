@@ -1,0 +1,89 @@
+GAS LISTING /tmp/ccJZDIzo.s 			page 1
+
+
+   1               		.file	"panic.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.NUTPANIC,"ax",@progbits
+   9               	.global	NUTPANIC
+  10               		.type	NUTPANIC, @function
+  11               	NUTPANIC:
+  12 0000 CF93      		push r28
+  13 0002 DF93      		push r29
+  14 0004 CDB7      		in r28,__SP_L__
+  15 0006 DEB7      		in r29,__SP_H__
+  16               	/* prologue: function */
+  17               	/* frame size = 0 */
+  18               	/* stack size = 2 */
+  19               	.L__stack_usage = 2
+  20 0008 AE01      		movw r20,r28
+  21 000a 4A5F      		subi r20,-6
+  22 000c 5F4F      		sbci r21,-1
+  23 000e FA01      		movw r30,r20
+  24 0010 6191      		ld r22,Z+
+  25 0012 7191      		ld r23,Z+
+  26 0014 AF01      		movw r20,r30
+  27               	/* #APP */
+  28               	 ;  67 "../../nut/os/panic.c" 1
+  29 0016 0FB6      		in  __tmp_reg__, __SREG__
+  30 0018 F894      		cli
+  31 001a 0F92      		push __tmp_reg__
+  32               		
+  33               	 ;  0 "" 2
+  34               	/* #NOAPP */
+  35 001c 8091 0000 		lds r24,__iob+2
+  36 0020 9091 0000 		lds r25,__iob+2+1
+  37 0024 0E94 0000 		call vfprintf
+  38 0028 8091 0000 		lds r24,__iob+2
+  39 002c 9091 0000 		lds r25,__iob+2+1
+  40 0030 0E94 0000 		call fflush
+  41               	.L2:
+  42 0034 00C0      		rjmp .L2
+  43               		.size	NUTPANIC, .-NUTPANIC
+  44               		.section	.rodata.str1.1,"aMS",@progbits,1
+  45               	.LC0:
+  46 0000 0A41 424F 		.string	"\nABORT!!!\n"
+  46      5254 2121 
+  46      210A 00
+  47               		.section	.text.abort,"ax",@progbits
+  48               	.global	abort
+  49               		.type	abort, @function
+  50               	abort:
+  51               	/* prologue: function */
+  52               	/* frame size = 0 */
+  53               	/* stack size = 0 */
+  54               	.L__stack_usage = 0
+  55 0000 80E0      		ldi r24,lo8(.LC0)
+GAS LISTING /tmp/ccJZDIzo.s 			page 2
+
+
+  56 0002 90E0      		ldi r25,hi8(.LC0)
+  57 0004 9F93      		push r25
+  58 0006 8F93      		push r24
+  59 0008 0E94 0000 		call NUTPANIC
+  60               		.size	abort, .-abort
+  61               		.ident	"GCC: (GNU) 5.3.0"
+  62               	.global __do_copy_data
+GAS LISTING /tmp/ccJZDIzo.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 panic.c
+     /tmp/ccJZDIzo.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccJZDIzo.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccJZDIzo.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccJZDIzo.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccJZDIzo.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccJZDIzo.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccJZDIzo.s:11     .text.NUTPANIC:0000000000000000 NUTPANIC
+     /tmp/ccJZDIzo.s:50     .text.abort:0000000000000000 abort
+
+UNDEFINED SYMBOLS
+__iob
+vfprintf
+fflush
+__do_copy_data

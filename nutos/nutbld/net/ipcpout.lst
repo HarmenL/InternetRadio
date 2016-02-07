@@ -1,0 +1,245 @@
+GAS LISTING /tmp/cc7dZBMf.s 			page 1
+
+
+   1               		.file	"ipcpout.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.NutIpcpOutput,"ax",@progbits
+   9               	.global	NutIpcpOutput
+  10               		.type	NutIpcpOutput, @function
+  11               	NutIpcpOutput:
+  12 0000 EF92      		push r14
+  13 0002 FF92      		push r15
+  14 0004 0F93      		push r16
+  15 0006 1F93      		push r17
+  16 0008 CF93      		push r28
+  17 000a DF93      		push r29
+  18               	/* prologue: function */
+  19               	/* frame size = 0 */
+  20               	/* stack size = 6 */
+  21               	.L__stack_usage = 6
+  22 000c 8C01      		movw r16,r24
+  23 000e E62E      		mov r14,r22
+  24 0010 F42E      		mov r15,r20
+  25 0012 C901      		movw r24,r18
+  26 0014 44E0      		ldi r20,lo8(4)
+  27 0016 50E0      		ldi r21,0
+  28 0018 60E2      		ldi r22,lo8(32)
+  29 001a 0E94 0000 		call NutNetBufAlloc
+  30 001e EC01      		movw r28,r24
+  31 0020 892B      		or r24,r25
+  32 0022 01F4      		brne .L2
+  33               	.L4:
+  34 0024 0FEF      		ldi r16,lo8(-1)
+  35 0026 1FEF      		ldi r17,lo8(-1)
+  36 0028 00C0      		rjmp .L3
+  37               	.L2:
+  38 002a EF81      		ldd r30,Y+7
+  39 002c F885      		ldd r31,Y+8
+  40 002e E082      		st Z,r14
+  41 0030 F182      		std Z+1,r15
+  42 0032 2985      		ldd r18,Y+9
+  43 0034 3A85      		ldd r19,Y+10
+  44 0036 8D85      		ldd r24,Y+13
+  45 0038 9E85      		ldd r25,Y+14
+  46 003a 820F      		add r24,r18
+  47 003c 931F      		adc r25,r19
+  48 003e 2989      		ldd r18,Y+17
+  49 0040 3A89      		ldd r19,Y+18
+  50 0042 820F      		add r24,r18
+  51 0044 931F      		adc r25,r19
+  52               	/* #APP */
+  53               	 ;  309 "../../nut/include/sys/types.h" 1
+  54 0046 082E      		mov __tmp_reg__, r24
+  55 0048 892F      		mov r24, r25
+  56 004a 902D      		mov r25, __tmp_reg__
+  57               		
+GAS LISTING /tmp/cc7dZBMf.s 			page 2
+
+
+  58               	 ;  0 "" 2
+  59               	/* #NOAPP */
+  60 004c 9383      		std Z+3,r25
+  61 004e 8283      		std Z+2,r24
+  62 0050 9E01      		movw r18,r28
+  63 0052 40E0      		ldi r20,0
+  64 0054 50E0      		ldi r21,0
+  65 0056 61E2      		ldi r22,lo8(33)
+  66 0058 70E8      		ldi r23,lo8(-128)
+  67 005a C801      		movw r24,r16
+  68 005c 0E94 0000 		call NutPppOutput
+  69 0060 8C01      		movw r16,r24
+  70 0062 892B      		or r24,r25
+  71 0064 01F4      		brne .L4
+  72 0066 CE01      		movw r24,r28
+  73 0068 0E94 0000 		call NutNetBufFree
+  74               	.L3:
+  75 006c C801      		movw r24,r16
+  76               	/* epilogue start */
+  77 006e DF91      		pop r29
+  78 0070 CF91      		pop r28
+  79 0072 1F91      		pop r17
+  80 0074 0F91      		pop r16
+  81 0076 FF90      		pop r15
+  82 0078 EF90      		pop r14
+  83 007a 0895      		ret
+  84               		.size	NutIpcpOutput, .-NutIpcpOutput
+  85               		.section	.text.IpcpTxConfReq,"ax",@progbits
+  86               	.global	IpcpTxConfReq
+  87               		.type	IpcpTxConfReq, @function
+  88               	IpcpTxConfReq:
+  89 0000 FF92      		push r15
+  90 0002 0F93      		push r16
+  91 0004 1F93      		push r17
+  92 0006 CF93      		push r28
+  93 0008 DF93      		push r29
+  94               	/* prologue: function */
+  95               	/* frame size = 0 */
+  96               	/* stack size = 5 */
+  97               	.L__stack_usage = 5
+  98 000a 8C01      		movw r16,r24
+  99 000c F62E      		mov r15,r22
+ 100 000e DC01      		movw r26,r24
+ 101 0010 5196      		adiw r26,17
+ 102 0012 CD91      		ld r28,X+
+ 103 0014 DC91      		ld r29,X
+ 104 0016 5297      		sbiw r26,17+1
+ 105 0018 8CAD      		ldd r24,Y+60
+ 106 001a 8650      		subi r24,lo8(-(-6))
+ 107 001c 8330      		cpi r24,lo8(3)
+ 108 001e 00F0      		brlo .L7
+ 109 0020 1DAE      		std Y+61,__zero_reg__
+ 110               	.L7:
+ 111 0022 1D82      		std Y+5,__zero_reg__
+ 112 0024 8DA9      		ldd r24,Y+53
+ 113 0026 9EA9      		ldd r25,Y+54
+ 114 0028 AFA9      		ldd r26,Y+55
+GAS LISTING /tmp/cc7dZBMf.s 			page 3
+
+
+ 115 002a B8AD      		ldd r27,Y+56
+ 116 002c 90FD      		sbrc r25,0
+ 117 002e 00C0      		rjmp .L13
+ 118 0030 4CE0      		ldi r20,lo8(12)
+ 119 0032 50E0      		ldi r21,0
+ 120 0034 00C0      		rjmp .L8
+ 121               	.L13:
+ 122 0036 46E0      		ldi r20,lo8(6)
+ 123 0038 50E0      		ldi r21,0
+ 124               	.L8:
+ 125 003a 91FD      		sbrc r25,1
+ 126 003c 00C0      		rjmp .L9
+ 127 003e 4A5F      		subi r20,-6
+ 128 0040 5F4F      		sbci r21,-1
+ 129               	.L9:
+ 130 0042 60E8      		ldi r22,lo8(-128)
+ 131 0044 80E0      		ldi r24,0
+ 132 0046 90E0      		ldi r25,0
+ 133 0048 0E94 0000 		call NutNetBufAlloc
+ 134 004c 0097      		sbiw r24,0
+ 135 004e 01F4      		brne .+2
+ 136 0050 00C0      		rjmp .L6
+ 137 0052 DC01      		movw r26,r24
+ 138 0054 1F96      		adiw r26,15
+ 139 0056 ED91      		ld r30,X+
+ 140 0058 FC91      		ld r31,X
+ 141 005a 5097      		sbiw r26,15+1
+ 142 005c 23E0      		ldi r18,lo8(3)
+ 143 005e 2083      		st Z,r18
+ 144 0060 26E0      		ldi r18,lo8(6)
+ 145 0062 2183      		std Z+1,r18
+ 146 0064 49A1      		ldd r20,Y+33
+ 147 0066 5AA1      		ldd r21,Y+34
+ 148 0068 6BA1      		ldd r22,Y+35
+ 149 006a 7CA1      		ldd r23,Y+36
+ 150 006c 4283      		std Z+2,r20
+ 151 006e 5383      		std Z+3,r21
+ 152 0070 6483      		std Z+4,r22
+ 153 0072 7583      		std Z+5,r23
+ 154 0074 4DA9      		ldd r20,Y+53
+ 155 0076 5EA9      		ldd r21,Y+54
+ 156 0078 6FA9      		ldd r22,Y+55
+ 157 007a 78AD      		ldd r23,Y+56
+ 158 007c 50FD      		sbrc r21,0
+ 159 007e 00C0      		rjmp .L11
+ 160 0080 31E8      		ldi r19,lo8(-127)
+ 161 0082 3683      		std Z+6,r19
+ 162 0084 2783      		std Z+7,r18
+ 163 0086 4DA5      		ldd r20,Y+45
+ 164 0088 5EA5      		ldd r21,Y+46
+ 165 008a 6FA5      		ldd r22,Y+47
+ 166 008c 78A9      		ldd r23,Y+48
+ 167 008e 4087      		std Z+8,r20
+ 168 0090 5187      		std Z+9,r21
+ 169 0092 6287      		std Z+10,r22
+ 170 0094 7387      		std Z+11,r23
+ 171 0096 3696      		adiw r30,6
+GAS LISTING /tmp/cc7dZBMf.s 			page 4
+
+
+ 172               	.L11:
+ 173 0098 4DA9      		ldd r20,Y+53
+ 174 009a 5EA9      		ldd r21,Y+54
+ 175 009c 6FA9      		ldd r22,Y+55
+ 176 009e 78AD      		ldd r23,Y+56
+ 177 00a0 51FD      		sbrc r21,1
+ 178 00a2 00C0      		rjmp .L12
+ 179 00a4 2181      		ldd r18,Z+1
+ 180 00a6 E20F      		add r30,r18
+ 181 00a8 F11D      		adc r31,__zero_reg__
+ 182 00aa 23E8      		ldi r18,lo8(-125)
+ 183 00ac 2083      		st Z,r18
+ 184 00ae 26E0      		ldi r18,lo8(6)
+ 185 00b0 2183      		std Z+1,r18
+ 186 00b2 49A9      		ldd r20,Y+49
+ 187 00b4 5AA9      		ldd r21,Y+50
+ 188 00b6 6BA9      		ldd r22,Y+51
+ 189 00b8 7CA9      		ldd r23,Y+52
+ 190 00ba 4283      		std Z+2,r20
+ 191 00bc 5383      		std Z+3,r21
+ 192 00be 6483      		std Z+4,r22
+ 193 00c0 7583      		std Z+5,r23
+ 194               	.L12:
+ 195 00c2 9C01      		movw r18,r24
+ 196 00c4 4F2D      		mov r20,r15
+ 197 00c6 61E0      		ldi r22,lo8(1)
+ 198 00c8 C801      		movw r24,r16
+ 199               	/* epilogue start */
+ 200 00ca DF91      		pop r29
+ 201 00cc CF91      		pop r28
+ 202 00ce 1F91      		pop r17
+ 203 00d0 0F91      		pop r16
+ 204 00d2 FF90      		pop r15
+ 205 00d4 0C94 0000 		jmp NutIpcpOutput
+ 206               	.L6:
+ 207               	/* epilogue start */
+ 208 00d8 DF91      		pop r29
+ 209 00da CF91      		pop r28
+ 210 00dc 1F91      		pop r17
+ 211 00de 0F91      		pop r16
+ 212 00e0 FF90      		pop r15
+ 213 00e2 0895      		ret
+ 214               		.size	IpcpTxConfReq, .-IpcpTxConfReq
+ 215               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/cc7dZBMf.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 ipcpout.c
+     /tmp/cc7dZBMf.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cc7dZBMf.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cc7dZBMf.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cc7dZBMf.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cc7dZBMf.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cc7dZBMf.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cc7dZBMf.s:11     .text.NutIpcpOutput:0000000000000000 NutIpcpOutput
+     /tmp/cc7dZBMf.s:88     .text.IpcpTxConfReq:0000000000000000 IpcpTxConfReq
+
+UNDEFINED SYMBOLS
+NutNetBufAlloc
+NutPppOutput
+NutNetBufFree

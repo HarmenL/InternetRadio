@@ -1,0 +1,295 @@
+GAS LISTING /tmp/cc2VopaT.s 			page 1
+
+
+   1               		.file	"envreg.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.EnvVarGetEntry,"ax",@progbits
+   9               	.global	EnvVarGetEntry
+  10               		.type	EnvVarGetEntry, @function
+  11               	EnvVarGetEntry:
+  12 0000 0F93      		push r16
+  13 0002 1F93      		push r17
+  14 0004 CF93      		push r28
+  15 0006 DF93      		push r29
+  16               	/* prologue: function */
+  17               	/* frame size = 0 */
+  18               	/* stack size = 4 */
+  19               	.L__stack_usage = 4
+  20 0008 8C01      		movw r16,r24
+  21 000a C091 0000 		lds r28,envVarList
+  22 000e D091 0000 		lds r29,envVarList+1
+  23               	.L2:
+  24 0012 2097      		sbiw r28,0
+  25 0014 01F0      		breq .L4
+  26 0016 B801      		movw r22,r16
+  27 0018 8C81      		ldd r24,Y+4
+  28 001a 9D81      		ldd r25,Y+5
+  29 001c 0E94 0000 		call strcasecmp
+  30 0020 1816      		cp __zero_reg__,r24
+  31 0022 1906      		cpc __zero_reg__,r25
+  32 0024 04F0      		brlt .L3
+  33 0026 892B      		or r24,r25
+  34 0028 01F0      		breq .L4
+  35 002a C0E0      		ldi r28,0
+  36 002c D0E0      		ldi r29,0
+  37 002e 00C0      		rjmp .L4
+  38               	.L3:
+  39 0030 0A80      		ldd __tmp_reg__,Y+2
+  40 0032 DB81      		ldd r29,Y+3
+  41 0034 C02D      		mov r28,__tmp_reg__
+  42 0036 00C0      		rjmp .L2
+  43               	.L4:
+  44 0038 CE01      		movw r24,r28
+  45               	/* epilogue start */
+  46 003a DF91      		pop r29
+  47 003c CF91      		pop r28
+  48 003e 1F91      		pop r17
+  49 0040 0F91      		pop r16
+  50 0042 0895      		ret
+  51               		.size	EnvVarGetEntry, .-EnvVarGetEntry
+  52               		.section	.text.EnvRegisterVariable,"ax",@progbits
+  53               	.global	EnvRegisterVariable
+  54               		.type	EnvRegisterVariable, @function
+  55               	EnvRegisterVariable:
+  56 0000 8F92      		push r8
+  57 0002 9F92      		push r9
+GAS LISTING /tmp/cc2VopaT.s 			page 2
+
+
+  58 0004 AF92      		push r10
+  59 0006 BF92      		push r11
+  60 0008 CF92      		push r12
+  61 000a DF92      		push r13
+  62 000c EF92      		push r14
+  63 000e FF92      		push r15
+  64 0010 0F93      		push r16
+  65 0012 1F93      		push r17
+  66 0014 CF93      		push r28
+  67 0016 DF93      		push r29
+  68               	/* prologue: function */
+  69               	/* frame size = 0 */
+  70               	/* stack size = 12 */
+  71               	.L__stack_usage = 12
+  72 0018 5C01      		movw r10,r24
+  73 001a 6B01      		movw r12,r22
+  74 001c 4A01      		movw r8,r20
+  75 001e E090 0000 		lds r14,envVarList
+  76 0022 F090 0000 		lds r15,envVarList+1
+  77 0026 8701      		movw r16,r14
+  78 0028 8FEF      		ldi r24,lo8(-1)
+  79 002a 9FEF      		ldi r25,lo8(-1)
+  80               	.L9:
+  81 002c 0115      		cp r16,__zero_reg__
+  82 002e 1105      		cpc r17,__zero_reg__
+  83 0030 01F0      		breq .L10
+  84 0032 B501      		movw r22,r10
+  85 0034 D801      		movw r26,r16
+  86 0036 1496      		adiw r26,4
+  87 0038 8D91      		ld r24,X+
+  88 003a 9C91      		ld r25,X
+  89 003c 1597      		sbiw r26,4+1
+  90 003e 0E94 0000 		call strcasecmp
+  91 0042 1816      		cp __zero_reg__,r24
+  92 0044 1906      		cpc __zero_reg__,r25
+  93 0046 04F4      		brge .L10
+  94 0048 E801      		movw r28,r16
+  95 004a 0A81      		ldd r16,Y+2
+  96 004c 1B81      		ldd r17,Y+3
+  97 004e 00C0      		rjmp .L9
+  98               	.L10:
+  99 0050 892B      		or r24,r25
+ 100 0052 01F4      		brne .L12
+ 101 0054 C114      		cp r12,__zero_reg__
+ 102 0056 D104      		cpc r13,__zero_reg__
+ 103 0058 01F0      		breq .L13
+ 104 005a F801      		movw r30,r16
+ 105 005c D782      		std Z+7,r13
+ 106 005e C682      		std Z+6,r12
+ 107 0060 00C0      		rjmp .L19
+ 108               	.L13:
+ 109 0062 D801      		movw r26,r16
+ 110 0064 1296      		adiw r26,2
+ 111 0066 ED91      		ld r30,X+
+ 112 0068 FC91      		ld r31,X
+ 113 006a 1397      		sbiw r26,2+1
+ 114 006c 8D91      		ld r24,X+
+GAS LISTING /tmp/cc2VopaT.s 			page 3
+
+
+ 115 006e 9C91      		ld r25,X
+ 116 0070 3097      		sbiw r30,0
+ 117 0072 01F0      		breq .L15
+ 118 0074 9183      		std Z+1,r25
+ 119 0076 8083      		st Z,r24
+ 120 0078 00C0      		rjmp .L16
+ 121               	.L15:
+ 122 007a 9093 0000 		sts envVarList+2+1,r25
+ 123 007e 8093 0000 		sts envVarList+2,r24
+ 124               	.L16:
+ 125 0082 E801      		movw r28,r16
+ 126 0084 A881      		ld r26,Y
+ 127 0086 B981      		ldd r27,Y+1
+ 128 0088 1097      		sbiw r26,0
+ 129 008a 01F0      		breq .L17
+ 130 008c 1396      		adiw r26,2+1
+ 131 008e FC93      		st X,r31
+ 132 0090 EE93      		st -X,r30
+ 133 0092 1297      		sbiw r26,2
+ 134 0094 00C0      		rjmp .L18
+ 135               	.L17:
+ 136 0096 F093 0000 		sts envVarList+1,r31
+ 137 009a E093 0000 		sts envVarList,r30
+ 138               	.L18:
+ 139 009e 8FEF      		ldi r24,lo8(-1)
+ 140 00a0 9FEF      		ldi r25,lo8(-1)
+ 141 00a2 F801      		movw r30,r16
+ 142 00a4 9183      		std Z+1,r25
+ 143 00a6 8083      		st Z,r24
+ 144 00a8 9383      		std Z+3,r25
+ 145 00aa 8283      		std Z+2,r24
+ 146 00ac 8085      		ldd r24,Z+8
+ 147 00ae 9185      		ldd r25,Z+9
+ 148 00b0 97FF      		sbrs r25,7
+ 149 00b2 00C0      		rjmp .L19
+ 150 00b4 8481      		ldd r24,Z+4
+ 151 00b6 9581      		ldd r25,Z+5
+ 152 00b8 0E94 0000 		call free
+ 153 00bc C801      		movw r24,r16
+ 154 00be 0E94 0000 		call free
+ 155 00c2 00C0      		rjmp .L19
+ 156               	.L12:
+ 157 00c4 C114      		cp r12,__zero_reg__
+ 158 00c6 D104      		cpc r13,__zero_reg__
+ 159 00c8 01F4      		brne .L20
+ 160               	.L21:
+ 161 00ca 8FEF      		ldi r24,lo8(-1)
+ 162 00cc 9FEF      		ldi r25,lo8(-1)
+ 163 00ce 00C0      		rjmp .L32
+ 164               	.L20:
+ 165 00d0 6AE0      		ldi r22,lo8(10)
+ 166 00d2 70E0      		ldi r23,0
+ 167 00d4 81E0      		ldi r24,lo8(1)
+ 168 00d6 90E0      		ldi r25,0
+ 169 00d8 0E94 0000 		call calloc
+ 170 00dc EC01      		movw r28,r24
+ 171 00de 892B      		or r24,r25
+GAS LISTING /tmp/cc2VopaT.s 			page 4
+
+
+ 172 00e0 01F0      		breq .L21
+ 173 00e2 C501      		movw r24,r10
+ 174 00e4 0E94 0000 		call strdup
+ 175 00e8 9D83      		std Y+5,r25
+ 176 00ea 8C83      		std Y+4,r24
+ 177 00ec 892B      		or r24,r25
+ 178 00ee 01F0      		breq .L21
+ 179 00f0 DF82      		std Y+7,r13
+ 180 00f2 CE82      		std Y+6,r12
+ 181 00f4 9986      		std Y+9,r9
+ 182 00f6 8886      		std Y+8,r8
+ 183 00f8 0115      		cp r16,__zero_reg__
+ 184 00fa 1105      		cpc r17,__zero_reg__
+ 185 00fc 01F0      		breq .L22
+ 186 00fe D801      		movw r26,r16
+ 187 0100 8D91      		ld r24,X+
+ 188 0102 9C91      		ld r25,X
+ 189 0104 0097      		sbiw r24,0
+ 190 0106 01F4      		brne .L23
+ 191 0108 E114      		cp r14,__zero_reg__
+ 192 010a F104      		cpc r15,__zero_reg__
+ 193 010c 01F0      		breq .L24
+ 194 010e F701      		movw r30,r14
+ 195 0110 D183      		std Z+1,r29
+ 196 0112 C083      		st Z,r28
+ 197               	.L25:
+ 198 0114 1982      		std Y+1,__zero_reg__
+ 199 0116 1882      		st Y,__zero_reg__
+ 200 0118 FB82      		std Y+3,r15
+ 201 011a EA82      		std Y+2,r14
+ 202 011c D093 0000 		sts envVarList+1,r29
+ 203 0120 C093 0000 		sts envVarList,r28
+ 204               	.L19:
+ 205 0124 80E0      		ldi r24,0
+ 206 0126 90E0      		ldi r25,0
+ 207 0128 00C0      		rjmp .L32
+ 208               	.L24:
+ 209 012a D093 0000 		sts envVarList+2+1,r29
+ 210 012e C093 0000 		sts envVarList+2,r28
+ 211 0132 00C0      		rjmp .L25
+ 212               	.L23:
+ 213 0134 9983      		std Y+1,r25
+ 214 0136 8883      		st Y,r24
+ 215 0138 D801      		movw r26,r16
+ 216 013a CD93      		st X+,r28
+ 217 013c DC93      		st X,r29
+ 218 013e E881      		ld r30,Y
+ 219 0140 F981      		ldd r31,Y+1
+ 220 0142 D383      		std Z+3,r29
+ 221 0144 C283      		std Z+2,r28
+ 222 0146 1B83      		std Y+3,r17
+ 223 0148 0A83      		std Y+2,r16
+ 224 014a 00C0      		rjmp .L19
+ 225               	.L22:
+ 226 014c E091 0000 		lds r30,envVarList+2
+ 227 0150 F091 0000 		lds r31,envVarList+2+1
+ 228 0154 3097      		sbiw r30,0
+GAS LISTING /tmp/cc2VopaT.s 			page 5
+
+
+ 229 0156 01F0      		breq .L26
+ 230 0158 D383      		std Z+3,r29
+ 231 015a C283      		std Z+2,r28
+ 232 015c 00C0      		rjmp .L27
+ 233               	.L26:
+ 234 015e D093 0000 		sts envVarList+1,r29
+ 235 0162 C093 0000 		sts envVarList,r28
+ 236               	.L27:
+ 237 0166 F983      		std Y+1,r31
+ 238 0168 E883      		st Y,r30
+ 239 016a 1B82      		std Y+3,__zero_reg__
+ 240 016c 1A82      		std Y+2,__zero_reg__
+ 241 016e D093 0000 		sts envVarList+2+1,r29
+ 242 0172 C093 0000 		sts envVarList+2,r28
+ 243 0176 00C0      		rjmp .L19
+ 244               	.L32:
+ 245               	/* epilogue start */
+ 246 0178 DF91      		pop r29
+ 247 017a CF91      		pop r28
+ 248 017c 1F91      		pop r17
+ 249 017e 0F91      		pop r16
+ 250 0180 FF90      		pop r15
+ 251 0182 EF90      		pop r14
+ 252 0184 DF90      		pop r13
+ 253 0186 CF90      		pop r12
+ 254 0188 BF90      		pop r11
+ 255 018a AF90      		pop r10
+ 256 018c 9F90      		pop r9
+ 257 018e 8F90      		pop r8
+ 258 0190 0895      		ret
+ 259               		.size	EnvRegisterVariable, .-EnvRegisterVariable
+ 260               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/cc2VopaT.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 envreg.c
+     /tmp/cc2VopaT.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cc2VopaT.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cc2VopaT.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cc2VopaT.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cc2VopaT.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cc2VopaT.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cc2VopaT.s:11     .text.EnvVarGetEntry:0000000000000000 EnvVarGetEntry
+     /tmp/cc2VopaT.s:55     .text.EnvRegisterVariable:0000000000000000 EnvRegisterVariable
+
+UNDEFINED SYMBOLS
+envVarList
+strcasecmp
+free
+calloc
+strdup

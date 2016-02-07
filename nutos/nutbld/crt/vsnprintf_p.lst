@@ -1,0 +1,283 @@
+GAS LISTING /tmp/ccNIwcOD.s 			page 1
+
+
+   1               		.file	"vsnprintf_p.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text._snputb_P,"ax",@progbits
+   9               	.global	_snputb_P
+  10               		.type	_snputb_P, @function
+  11               	_snputb_P:
+  12 0000 0F93      		push r16
+  13 0002 1F93      		push r17
+  14 0004 CF93      		push r28
+  15 0006 DF93      		push r29
+  16               	/* prologue: function */
+  17               	/* frame size = 0 */
+  18               	/* stack size = 4 */
+  19               	.L__stack_usage = 4
+  20 0008 8C01      		movw r16,r24
+  21 000a DC01      		movw r26,r24
+  22 000c 1296      		adiw r26,2
+  23 000e CD91      		ld r28,X+
+  24 0010 DC91      		ld r29,X
+  25 0012 1397      		sbiw r26,2+1
+  26 0014 2097      		sbiw r28,0
+  27 0016 01F0      		breq .L4
+  28 0018 4C17      		cp r20,r28
+  29 001a 5D07      		cpc r21,r29
+  30 001c 00F4      		brsh .L3
+  31 001e EA01      		movw r28,r20
+  32               	.L3:
+  33 0020 D801      		movw r26,r16
+  34 0022 ED91      		ld r30,X+
+  35 0024 FC91      		ld r31,X
+  36 0026 AE01      		movw r20,r28
+  37 0028 8081      		ld r24,Z
+  38 002a 9181      		ldd r25,Z+1
+  39 002c 0E94 0000 		call memcpy_P
+  40 0030 D801      		movw r26,r16
+  41 0032 ED91      		ld r30,X+
+  42 0034 FC91      		ld r31,X
+  43 0036 1197      		sbiw r26,1
+  44 0038 8081      		ld r24,Z
+  45 003a 9181      		ldd r25,Z+1
+  46 003c 8C0F      		add r24,r28
+  47 003e 9D1F      		adc r25,r29
+  48 0040 9183      		std Z+1,r25
+  49 0042 8083      		st Z,r24
+  50 0044 1296      		adiw r26,2
+  51 0046 8D91      		ld r24,X+
+  52 0048 9C91      		ld r25,X
+  53 004a 1397      		sbiw r26,2+1
+  54 004c 8C1B      		sub r24,r28
+  55 004e 9D0B      		sbc r25,r29
+  56 0050 1396      		adiw r26,2+1
+  57 0052 9C93      		st X,r25
+GAS LISTING /tmp/ccNIwcOD.s 			page 2
+
+
+  58 0054 8E93      		st -X,r24
+  59 0056 1297      		sbiw r26,2
+  60 0058 00C0      		rjmp .L2
+  61               	.L4:
+  62 005a C0E0      		ldi r28,0
+  63 005c D0E0      		ldi r29,0
+  64               	.L2:
+  65 005e CE01      		movw r24,r28
+  66               	/* epilogue start */
+  67 0060 DF91      		pop r29
+  68 0062 CF91      		pop r28
+  69 0064 1F91      		pop r17
+  70 0066 0F91      		pop r16
+  71 0068 0895      		ret
+  72               		.size	_snputb_P, .-_snputb_P
+  73               		.section	.text._snputb,"ax",@progbits
+  74               		.type	_snputb, @function
+  75               	_snputb:
+  76 0000 0F93      		push r16
+  77 0002 1F93      		push r17
+  78 0004 CF93      		push r28
+  79 0006 DF93      		push r29
+  80               	/* prologue: function */
+  81               	/* frame size = 0 */
+  82               	/* stack size = 4 */
+  83               	.L__stack_usage = 4
+  84 0008 8C01      		movw r16,r24
+  85 000a DC01      		movw r26,r24
+  86 000c 1296      		adiw r26,2
+  87 000e CD91      		ld r28,X+
+  88 0010 DC91      		ld r29,X
+  89 0012 1397      		sbiw r26,2+1
+  90 0014 2097      		sbiw r28,0
+  91 0016 01F0      		breq .L9
+  92 0018 4C17      		cp r20,r28
+  93 001a 5D07      		cpc r21,r29
+  94 001c 00F4      		brsh .L8
+  95 001e EA01      		movw r28,r20
+  96               	.L8:
+  97 0020 D801      		movw r26,r16
+  98 0022 ED91      		ld r30,X+
+  99 0024 FC91      		ld r31,X
+ 100 0026 AE01      		movw r20,r28
+ 101 0028 8081      		ld r24,Z
+ 102 002a 9181      		ldd r25,Z+1
+ 103 002c 0E94 0000 		call memcpy
+ 104 0030 D801      		movw r26,r16
+ 105 0032 ED91      		ld r30,X+
+ 106 0034 FC91      		ld r31,X
+ 107 0036 1197      		sbiw r26,1
+ 108 0038 8081      		ld r24,Z
+ 109 003a 9181      		ldd r25,Z+1
+ 110 003c 8C0F      		add r24,r28
+ 111 003e 9D1F      		adc r25,r29
+ 112 0040 9183      		std Z+1,r25
+ 113 0042 8083      		st Z,r24
+ 114 0044 1296      		adiw r26,2
+GAS LISTING /tmp/ccNIwcOD.s 			page 3
+
+
+ 115 0046 8D91      		ld r24,X+
+ 116 0048 9C91      		ld r25,X
+ 117 004a 1397      		sbiw r26,2+1
+ 118 004c 8C1B      		sub r24,r28
+ 119 004e 9D0B      		sbc r25,r29
+ 120 0050 1396      		adiw r26,2+1
+ 121 0052 9C93      		st X,r25
+ 122 0054 8E93      		st -X,r24
+ 123 0056 1297      		sbiw r26,2
+ 124 0058 00C0      		rjmp .L7
+ 125               	.L9:
+ 126 005a C0E0      		ldi r28,0
+ 127 005c D0E0      		ldi r29,0
+ 128               	.L7:
+ 129 005e CE01      		movw r24,r28
+ 130               	/* epilogue start */
+ 131 0060 DF91      		pop r29
+ 132 0062 CF91      		pop r28
+ 133 0064 1F91      		pop r17
+ 134 0066 0F91      		pop r16
+ 135 0068 0895      		ret
+ 136               		.size	_snputb, .-_snputb
+ 137               		.section	.text.vsnprintf_P,"ax",@progbits
+ 138               	.global	vsnprintf_P
+ 139               		.type	vsnprintf_P, @function
+ 140               	vsnprintf_P:
+ 141 0000 8F92      		push r8
+ 142 0002 9F92      		push r9
+ 143 0004 AF92      		push r10
+ 144 0006 BF92      		push r11
+ 145 0008 CF92      		push r12
+ 146 000a DF92      		push r13
+ 147 000c EF92      		push r14
+ 148 000e FF92      		push r15
+ 149 0010 0F93      		push r16
+ 150 0012 1F93      		push r17
+ 151 0014 CF93      		push r28
+ 152 0016 DF93      		push r29
+ 153 0018 00D0      		rcall .
+ 154 001a 00D0      		rcall .
+ 155 001c CDB7      		in r28,__SP_L__
+ 156 001e DEB7      		in r29,__SP_H__
+ 157               	/* prologue: function */
+ 158               	/* frame size = 6 */
+ 159               	/* stack size = 18 */
+ 160               	.L__stack_usage = 18
+ 161 0020 9E83      		std Y+6,r25
+ 162 0022 8D83      		std Y+5,r24
+ 163 0024 7B01      		movw r14,r22
+ 164 0026 5A01      		movw r10,r20
+ 165 0028 8901      		movw r16,r18
+ 166 002a 6115      		cp r22,__zero_reg__
+ 167 002c 7105      		cpc r23,__zero_reg__
+ 168 002e 01F0      		breq .L13
+ 169 0030 CE01      		movw r24,r28
+ 170 0032 0596      		adiw r24,5
+ 171 0034 9A83      		std Y+2,r25
+GAS LISTING /tmp/ccNIwcOD.s 			page 4
+
+
+ 172 0036 8983      		std Y+1,r24
+ 173 0038 CB01      		movw r24,r22
+ 174 003a 0197      		sbiw r24,1
+ 175 003c 9C83      		std Y+4,r25
+ 176 003e 8B83      		std Y+3,r24
+ 177 0040 CA01      		movw r24,r20
+ 178 0042 0E94 0000 		call __strlen_P
+ 179 0046 0196      		adiw r24,1
+ 180 0048 4C01      		movw r8,r24
+ 181 004a BC01      		movw r22,r24
+ 182 004c 80E0      		ldi r24,lo8(heapFreeList)
+ 183 004e 90E0      		ldi r25,hi8(heapFreeList)
+ 184 0050 0E94 0000 		call NutHeapRootAlloc
+ 185 0054 6C01      		movw r12,r24
+ 186 0056 0097      		sbiw r24,0
+ 187 0058 01F0      		breq .L14
+ 188 005a A401      		movw r20,r8
+ 189 005c B501      		movw r22,r10
+ 190 005e 0E94 0000 		call memcpy_P
+ 191 0062 9601      		movw r18,r12
+ 192 0064 AE01      		movw r20,r28
+ 193 0066 4F5F      		subi r20,-1
+ 194 0068 5F4F      		sbci r21,-1
+ 195 006a 60E0      		ldi r22,lo8(gs(_snputb_P))
+ 196 006c 70E0      		ldi r23,hi8(gs(_snputb_P))
+ 197 006e 80E0      		ldi r24,lo8(gs(_snputb))
+ 198 0070 90E0      		ldi r25,hi8(gs(_snputb))
+ 199 0072 0E94 0000 		call _putf
+ 200 0076 5C01      		movw r10,r24
+ 201 0078 B601      		movw r22,r12
+ 202 007a 80E0      		ldi r24,lo8(heapFreeList)
+ 203 007c 90E0      		ldi r25,hi8(heapFreeList)
+ 204 007e 0E94 0000 		call NutHeapRootFree
+ 205 0082 9501      		movw r18,r10
+ 206 0084 EA14      		cp r14,r10
+ 207 0086 FB04      		cpc r15,r11
+ 208 0088 00F4      		brsh .L12
+ 209 008a 9701      		movw r18,r14
+ 210               	.L12:
+ 211 008c ED81      		ldd r30,Y+5
+ 212 008e FE81      		ldd r31,Y+6
+ 213 0090 1082      		st Z,__zero_reg__
+ 214 0092 C901      		movw r24,r18
+ 215 0094 00C0      		rjmp .L11
+ 216               	.L13:
+ 217 0096 80E0      		ldi r24,0
+ 218 0098 90E0      		ldi r25,0
+ 219 009a 00C0      		rjmp .L11
+ 220               	.L14:
+ 221 009c 8FEF      		ldi r24,lo8(-1)
+ 222 009e 9FEF      		ldi r25,lo8(-1)
+ 223               	.L11:
+ 224               	/* epilogue start */
+ 225 00a0 2696      		adiw r28,6
+ 226 00a2 0FB6      		in __tmp_reg__,__SREG__
+ 227 00a4 F894      		cli
+ 228 00a6 DEBF      		out __SP_H__,r29
+GAS LISTING /tmp/ccNIwcOD.s 			page 5
+
+
+ 229 00a8 0FBE      		out __SREG__,__tmp_reg__
+ 230 00aa CDBF      		out __SP_L__,r28
+ 231 00ac DF91      		pop r29
+ 232 00ae CF91      		pop r28
+ 233 00b0 1F91      		pop r17
+ 234 00b2 0F91      		pop r16
+ 235 00b4 FF90      		pop r15
+ 236 00b6 EF90      		pop r14
+ 237 00b8 DF90      		pop r13
+ 238 00ba CF90      		pop r12
+ 239 00bc BF90      		pop r11
+ 240 00be AF90      		pop r10
+ 241 00c0 9F90      		pop r9
+ 242 00c2 8F90      		pop r8
+ 243 00c4 0895      		ret
+ 244               		.size	vsnprintf_P, .-vsnprintf_P
+ 245               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccNIwcOD.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 vsnprintf_p.c
+     /tmp/ccNIwcOD.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccNIwcOD.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccNIwcOD.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccNIwcOD.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccNIwcOD.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccNIwcOD.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccNIwcOD.s:11     .text._snputb_P:0000000000000000 _snputb_P
+     /tmp/ccNIwcOD.s:75     .text._snputb:0000000000000000 _snputb
+     /tmp/ccNIwcOD.s:140    .text.vsnprintf_P:0000000000000000 vsnprintf_P
+
+UNDEFINED SYMBOLS
+memcpy_P
+memcpy
+__strlen_P
+heapFreeList
+NutHeapRootAlloc
+_putf
+NutHeapRootFree

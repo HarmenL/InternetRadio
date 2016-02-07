@@ -1,0 +1,80 @@
+GAS LISTING /tmp/ccJZXPXO.s 			page 1
+
+
+   1               		.file	"owibus0uart.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.Uart_OwiSetup,"ax",@progbits
+   9               		.type	Uart_OwiSetup, @function
+  10               	Uart_OwiSetup:
+  11               	/* prologue: function */
+  12               	/* frame size = 0 */
+  13               	/* stack size = 0 */
+  14               	.L__stack_usage = 0
+  15 0000 40E0      		ldi r20,0
+  16 0002 60E0      		ldi r22,0
+  17 0004 70E0      		ldi r23,0
+  18 0006 80E0      		ldi r24,lo8(devUsartStm32_2)
+  19 0008 90E0      		ldi r25,hi8(devUsartStm32_2)
+  20 000a 0E94 0000 		call NutRegisterDevice
+  21 000e 892B      		or r24,r25
+  22 0010 01F4      		brne .L2
+  23 0012 40E0      		ldi r20,0
+  24 0014 50E0      		ldi r21,0
+  25 0016 60E0      		ldi r22,lo8(devUsartStm32_2)
+  26 0018 70E0      		ldi r23,hi8(devUsartStm32_2)
+  27 001a 80E0      		ldi r24,lo8(owcb0)
+  28 001c 90E0      		ldi r25,hi8(owcb0)
+  29 001e 0C94 0000 		jmp Uart_OwiInit
+  30               	.L2:
+  31 0022 8EEF      		ldi r24,lo8(-2)
+  32 0024 9FEF      		ldi r25,lo8(-1)
+  33 0026 0895      		ret
+  34               		.size	Uart_OwiSetup, .-Uart_OwiSetup
+  35               	.global	owiBus0Uart
+  36               		.data
+  37               		.type	owiBus0Uart, @object
+  38               		.size	owiBus0Uart, 14
+  39               	owiBus0Uart:
+  40 0000 0000      		.word	owcb0
+  41 0002 00        		.byte	0
+  42 0003 00        		.byte	0
+  43 0004 00        		.byte	0
+  44 0005 00        		.byte	0
+  45 0006 0000      		.word	gs(Uart_OwiSetup)
+  46 0008 0000      		.word	gs(Uart_OwiTouchReset)
+  47 000a 0000      		.word	gs(Uart_OwiReadBlock)
+  48 000c 0000      		.word	gs(Uart_OwiWriteBlock)
+  49               		.local	owcb0
+  50               		.comm	owcb0,6,1
+  51               		.ident	"GCC: (GNU) 5.3.0"
+  52               	.global __do_copy_data
+  53               	.global __do_clear_bss
+GAS LISTING /tmp/ccJZXPXO.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 owibus0uart.c
+     /tmp/ccJZXPXO.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccJZXPXO.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccJZXPXO.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccJZXPXO.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccJZXPXO.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccJZXPXO.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccJZXPXO.s:10     .text.Uart_OwiSetup:0000000000000000 Uart_OwiSetup
+                             .bss:0000000000000000 owcb0
+     /tmp/ccJZXPXO.s:39     .data:0000000000000000 owiBus0Uart
+
+UNDEFINED SYMBOLS
+devUsartStm32_2
+NutRegisterDevice
+Uart_OwiInit
+Uart_OwiTouchReset
+Uart_OwiReadBlock
+Uart_OwiWriteBlock
+__do_copy_data
+__do_clear_bss

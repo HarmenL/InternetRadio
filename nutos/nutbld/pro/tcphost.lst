@@ -1,0 +1,188 @@
+GAS LISTING /tmp/ccXpDxU7.s 			page 1
+
+
+   1               		.file	"tcphost.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.TcpHostConnect,"ax",@progbits
+   9               	.global	TcpHostConnect
+  10               		.type	TcpHostConnect, @function
+  11               	TcpHostConnect:
+  12 0000 8F92      		push r8
+  13 0002 9F92      		push r9
+  14 0004 AF92      		push r10
+  15 0006 BF92      		push r11
+  16 0008 EF92      		push r14
+  17 000a FF92      		push r15
+  18 000c 0F93      		push r16
+  19 000e 1F93      		push r17
+  20 0010 CF93      		push r28
+  21 0012 DF93      		push r29
+  22               	/* prologue: function */
+  23               	/* frame size = 0 */
+  24               	/* stack size = 10 */
+  25               	.L__stack_usage = 10
+  26 0014 8C01      		movw r16,r24
+  27 0016 EB01      		movw r28,r22
+  28 0018 7A01      		movw r14,r20
+  29 001a CB01      		movw r24,r22
+  30 001c 0E94 0000 		call inet_addr
+  31 0020 4B01      		movw r8,r22
+  32 0022 5C01      		movw r10,r24
+  33 0024 21E0      		ldi r18,1
+  34 0026 821A      		sub r8,r18
+  35 0028 9108      		sbc r9,__zero_reg__
+  36 002a A108      		sbc r10,__zero_reg__
+  37 002c B108      		sbc r11,__zero_reg__
+  38 002e 2EEF      		ldi r18,-2
+  39 0030 8216      		cp r8,r18
+  40 0032 2FEF      		ldi r18,-1
+  41 0034 9206      		cpc r9,r18
+  42 0036 A206      		cpc r10,r18
+  43 0038 B206      		cpc r11,r18
+  44 003a 00F0      		brlo .L2
+  45 003c CE01      		movw r24,r28
+  46 003e 0E94 0000 		call NutDnsGetHostByName
+  47 0042 6115      		cp r22,__zero_reg__
+  48 0044 7105      		cpc r23,__zero_reg__
+  49 0046 8105      		cpc r24,__zero_reg__
+  50 0048 9105      		cpc r25,__zero_reg__
+  51 004a 01F0      		breq .L3
+  52               	.L2:
+  53 004c 9701      		movw r18,r14
+  54 004e AB01      		movw r20,r22
+  55 0050 BC01      		movw r22,r24
+  56 0052 C801      		movw r24,r16
+  57               	/* epilogue start */
+GAS LISTING /tmp/ccXpDxU7.s 			page 2
+
+
+  58 0054 DF91      		pop r29
+  59 0056 CF91      		pop r28
+  60 0058 1F91      		pop r17
+  61 005a 0F91      		pop r16
+  62 005c FF90      		pop r15
+  63 005e EF90      		pop r14
+  64 0060 BF90      		pop r11
+  65 0062 AF90      		pop r10
+  66 0064 9F90      		pop r9
+  67 0066 8F90      		pop r8
+  68 0068 0C94 0000 		jmp NutTcpConnect
+  69               	.L3:
+  70 006c 8FEF      		ldi r24,lo8(-1)
+  71 006e 9FEF      		ldi r25,lo8(-1)
+  72               	/* epilogue start */
+  73 0070 DF91      		pop r29
+  74 0072 CF91      		pop r28
+  75 0074 1F91      		pop r17
+  76 0076 0F91      		pop r16
+  77 0078 FF90      		pop r15
+  78 007a EF90      		pop r14
+  79 007c BF90      		pop r11
+  80 007e AF90      		pop r10
+  81 0080 9F90      		pop r9
+  82 0082 8F90      		pop r8
+  83 0084 0895      		ret
+  84               		.size	TcpHostConnect, .-TcpHostConnect
+  85               		.section	.rodata.str1.1,"aMS",@progbits,1
+  86               	.LC0:
+  87 0000 722B 6200 		.string	"r+b"
+  88               		.section	.text.TcpHostConnectStream,"ax",@progbits
+  89               	.global	TcpHostConnectStream
+  90               		.type	TcpHostConnectStream, @function
+  91               	TcpHostConnectStream:
+  92 0000 AF92      		push r10
+  93 0002 BF92      		push r11
+  94 0004 CF92      		push r12
+  95 0006 DF92      		push r13
+  96 0008 EF92      		push r14
+  97 000a FF92      		push r15
+  98 000c 0F93      		push r16
+  99 000e 1F93      		push r17
+ 100 0010 CF93      		push r28
+ 101 0012 DF93      		push r29
+ 102 0014 00D0      		rcall .
+ 103 0016 1F92      		push __zero_reg__
+ 104 0018 CDB7      		in r28,__SP_L__
+ 105 001a DEB7      		in r29,__SP_H__
+ 106               	/* prologue: function */
+ 107               	/* frame size = 4 */
+ 108               	/* stack size = 14 */
+ 109               	.L__stack_usage = 14
+ 110 001c 7C01      		movw r14,r24
+ 111 001e 6B01      		movw r12,r22
+ 112 0020 5A01      		movw r10,r20
+ 113 0022 0983      		std Y+1,r16
+ 114 0024 1A83      		std Y+2,r17
+GAS LISTING /tmp/ccXpDxU7.s 			page 3
+
+
+ 115 0026 2B83      		std Y+3,r18
+ 116 0028 3C83      		std Y+4,r19
+ 117 002a 24E0      		ldi r18,lo8(4)
+ 118 002c 30E0      		ldi r19,0
+ 119 002e AE01      		movw r20,r28
+ 120 0030 4F5F      		subi r20,-1
+ 121 0032 5F4F      		sbci r21,-1
+ 122 0034 66E0      		ldi r22,lo8(6)
+ 123 0036 70E1      		ldi r23,lo8(16)
+ 124 0038 0E94 0000 		call NutTcpSetSockOpt
+ 125 003c A501      		movw r20,r10
+ 126 003e B601      		movw r22,r12
+ 127 0040 C701      		movw r24,r14
+ 128 0042 0E94 0000 		call TcpHostConnect
+ 129 0046 892B      		or r24,r25
+ 130 0048 01F4      		brne .L7
+ 131 004a 60E0      		ldi r22,lo8(.LC0)
+ 132 004c 70E0      		ldi r23,hi8(.LC0)
+ 133 004e C701      		movw r24,r14
+ 134 0050 0E94 0000 		call _fdopen
+ 135 0054 00C0      		rjmp .L6
+ 136               	.L7:
+ 137 0056 80E0      		ldi r24,0
+ 138 0058 90E0      		ldi r25,0
+ 139               	.L6:
+ 140               	/* epilogue start */
+ 141 005a 0F90      		pop __tmp_reg__
+ 142 005c 0F90      		pop __tmp_reg__
+ 143 005e 0F90      		pop __tmp_reg__
+ 144 0060 0F90      		pop __tmp_reg__
+ 145 0062 DF91      		pop r29
+ 146 0064 CF91      		pop r28
+ 147 0066 1F91      		pop r17
+ 148 0068 0F91      		pop r16
+ 149 006a FF90      		pop r15
+ 150 006c EF90      		pop r14
+ 151 006e DF90      		pop r13
+ 152 0070 CF90      		pop r12
+ 153 0072 BF90      		pop r11
+ 154 0074 AF90      		pop r10
+ 155 0076 0895      		ret
+ 156               		.size	TcpHostConnectStream, .-TcpHostConnectStream
+ 157               		.ident	"GCC: (GNU) 5.3.0"
+ 158               	.global __do_copy_data
+GAS LISTING /tmp/ccXpDxU7.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 tcphost.c
+     /tmp/ccXpDxU7.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccXpDxU7.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccXpDxU7.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccXpDxU7.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccXpDxU7.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccXpDxU7.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccXpDxU7.s:11     .text.TcpHostConnect:0000000000000000 TcpHostConnect
+     /tmp/ccXpDxU7.s:91     .text.TcpHostConnectStream:0000000000000000 TcpHostConnectStream
+
+UNDEFINED SYMBOLS
+inet_addr
+NutDnsGetHostByName
+NutTcpConnect
+NutTcpSetSockOpt
+_fdopen
+__do_copy_data

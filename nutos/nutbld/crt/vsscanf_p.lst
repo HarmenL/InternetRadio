@@ -1,0 +1,154 @@
+GAS LISTING /tmp/ccMlOXMJ.s 			page 1
+
+
+   1               		.file	"vsscanf_p.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text._sgetb,"ax",@progbits
+   9               		.type	_sgetb, @function
+  10               	_sgetb:
+  11 0000 CF93      		push r28
+  12 0002 DF93      		push r29
+  13               	/* prologue: function */
+  14               	/* frame size = 0 */
+  15               	/* stack size = 2 */
+  16               	.L__stack_usage = 2
+  17 0004 FB01      		movw r30,r22
+  18 0006 20E0      		ldi r18,0
+  19 0008 30E0      		ldi r19,0
+  20               	.L2:
+  21 000a 2417      		cp r18,r20
+  22 000c 3507      		cpc r19,r21
+  23 000e 01F0      		breq .L6
+  24 0010 EC01      		movw r28,r24
+  25 0012 A881      		ld r26,Y
+  26 0014 B981      		ldd r27,Y+1
+  27 0016 6C91      		ld r22,X
+  28 0018 6623      		tst r22
+  29 001a 01F0      		breq .L8
+  30 001c BD01      		movw r22,r26
+  31 001e 6F5F      		subi r22,-1
+  32 0020 7F4F      		sbci r23,-1
+  33 0022 EC01      		movw r28,r24
+  34 0024 7983      		std Y+1,r23
+  35 0026 6883      		st Y,r22
+  36 0028 6C91      		ld r22,X
+  37 002a 6193      		st Z+,r22
+  38 002c 2F5F      		subi r18,-1
+  39 002e 3F4F      		sbci r19,-1
+  40 0030 00C0      		rjmp .L2
+  41               	.L8:
+  42 0032 A901      		movw r20,r18
+  43               	.L6:
+  44 0034 CA01      		movw r24,r20
+  45               	/* epilogue start */
+  46 0036 DF91      		pop r29
+  47 0038 CF91      		pop r28
+  48 003a 0895      		ret
+  49               		.size	_sgetb, .-_sgetb
+  50               		.section	.text.vsscanf_P,"ax",@progbits
+  51               	.global	vsscanf_P
+  52               		.type	vsscanf_P, @function
+  53               	vsscanf_P:
+  54 0000 AF92      		push r10
+  55 0002 BF92      		push r11
+  56 0004 CF92      		push r12
+  57 0006 DF92      		push r13
+GAS LISTING /tmp/ccMlOXMJ.s 			page 2
+
+
+  58 0008 EF92      		push r14
+  59 000a FF92      		push r15
+  60 000c 0F93      		push r16
+  61 000e 1F93      		push r17
+  62 0010 CF93      		push r28
+  63 0012 DF93      		push r29
+  64 0014 1F92      		push __zero_reg__
+  65 0016 1F92      		push __zero_reg__
+  66 0018 CDB7      		in r28,__SP_L__
+  67 001a DEB7      		in r29,__SP_H__
+  68               	/* prologue: function */
+  69               	/* frame size = 2 */
+  70               	/* stack size = 12 */
+  71               	.L__stack_usage = 12
+  72 001c 8B01      		movw r16,r22
+  73 001e 5A01      		movw r10,r20
+  74 0020 9A83      		std Y+2,r25
+  75 0022 8983      		std Y+1,r24
+  76 0024 CB01      		movw r24,r22
+  77 0026 0E94 0000 		call __strlen_P
+  78 002a 0196      		adiw r24,1
+  79 002c 6C01      		movw r12,r24
+  80 002e BC01      		movw r22,r24
+  81 0030 80E0      		ldi r24,lo8(heapFreeList)
+  82 0032 90E0      		ldi r25,hi8(heapFreeList)
+  83 0034 0E94 0000 		call NutHeapRootAlloc
+  84 0038 7C01      		movw r14,r24
+  85 003a 0097      		sbiw r24,0
+  86 003c 01F0      		breq .L11
+  87 003e A601      		movw r20,r12
+  88 0040 B801      		movw r22,r16
+  89 0042 0E94 0000 		call memcpy_P
+  90 0046 9501      		movw r18,r10
+  91 0048 A701      		movw r20,r14
+  92 004a BE01      		movw r22,r28
+  93 004c 6F5F      		subi r22,-1
+  94 004e 7F4F      		sbci r23,-1
+  95 0050 80E0      		ldi r24,lo8(gs(_sgetb))
+  96 0052 90E0      		ldi r25,hi8(gs(_sgetb))
+  97 0054 0E94 0000 		call _getf
+  98 0058 8C01      		movw r16,r24
+  99 005a B701      		movw r22,r14
+ 100 005c 80E0      		ldi r24,lo8(heapFreeList)
+ 101 005e 90E0      		ldi r25,hi8(heapFreeList)
+ 102 0060 0E94 0000 		call NutHeapRootFree
+ 103 0064 C801      		movw r24,r16
+ 104 0066 00C0      		rjmp .L10
+ 105               	.L11:
+ 106 0068 8FEF      		ldi r24,lo8(-1)
+ 107 006a 9FEF      		ldi r25,lo8(-1)
+ 108               	.L10:
+ 109               	/* epilogue start */
+ 110 006c 0F90      		pop __tmp_reg__
+ 111 006e 0F90      		pop __tmp_reg__
+ 112 0070 DF91      		pop r29
+ 113 0072 CF91      		pop r28
+ 114 0074 1F91      		pop r17
+GAS LISTING /tmp/ccMlOXMJ.s 			page 3
+
+
+ 115 0076 0F91      		pop r16
+ 116 0078 FF90      		pop r15
+ 117 007a EF90      		pop r14
+ 118 007c DF90      		pop r13
+ 119 007e CF90      		pop r12
+ 120 0080 BF90      		pop r11
+ 121 0082 AF90      		pop r10
+ 122 0084 0895      		ret
+ 123               		.size	vsscanf_P, .-vsscanf_P
+ 124               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccMlOXMJ.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 vsscanf_p.c
+     /tmp/ccMlOXMJ.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccMlOXMJ.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccMlOXMJ.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccMlOXMJ.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccMlOXMJ.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccMlOXMJ.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccMlOXMJ.s:10     .text._sgetb:0000000000000000 _sgetb
+     /tmp/ccMlOXMJ.s:53     .text.vsscanf_P:0000000000000000 vsscanf_P
+
+UNDEFINED SYMBOLS
+__strlen_P
+heapFreeList
+NutHeapRootAlloc
+memcpy_P
+_getf
+NutHeapRootFree

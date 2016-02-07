@@ -1,0 +1,2735 @@
+GAS LISTING /tmp/ccAnO6a9.s 			page 1
+
+
+   1               		.file	"asn1.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.AsnLenParse,"ax",@progbits
+   9               		.type	AsnLenParse, @function
+  10               	AsnLenParse:
+  11 0000 0F93      		push r16
+  12 0002 1F93      		push r17
+  13               	/* prologue: function */
+  14               	/* frame size = 0 */
+  15               	/* stack size = 2 */
+  16               	.L__stack_usage = 2
+  17 0004 DC01      		movw r26,r24
+  18 0006 FB01      		movw r30,r22
+  19 0008 0196      		adiw r24,1
+  20 000a 4C91      		ld r20,X
+  21 000c 47FF      		sbrs r20,7
+  22 000e 00C0      		rjmp .L2
+  23 0010 4F77      		andi r20,lo8(127)
+  24 0012 2FEF      		ldi r18,lo8(-1)
+  25 0014 240F      		add r18,r20
+  26 0016 2430      		cpi r18,lo8(4)
+  27 0018 00F4      		brsh .L6
+  28 001a 1082      		st Z,__zero_reg__
+  29 001c 1182      		std Z+1,__zero_reg__
+  30 001e 1282      		std Z+2,__zero_reg__
+  31 0020 1382      		std Z+3,__zero_reg__
+  32 0022 DC01      		movw r26,r24
+  33 0024 542F      		mov r21,r20
+  34               	.L4:
+  35 0026 5150      		subi r21,1
+  36 0028 00F0      		brcs .L8
+  37 002a 0081      		ld r16,Z
+  38 002c 1181      		ldd r17,Z+1
+  39 002e 2281      		ldd r18,Z+2
+  40 0030 3381      		ldd r19,Z+3
+  41 0032 322F      		mov r19,r18
+  42 0034 212F      		mov r18,r17
+  43 0036 102F      		mov r17,r16
+  44 0038 0027      		clr r16
+  45 003a 0083      		st Z,r16
+  46 003c 1183      		std Z+1,r17
+  47 003e 2283      		std Z+2,r18
+  48 0040 3383      		std Z+3,r19
+  49 0042 6D91      		ld r22,X+
+  50 0044 062B      		or r16,r22
+  51 0046 0083      		st Z,r16
+  52 0048 1183      		std Z+1,r17
+  53 004a 2283      		std Z+2,r18
+  54 004c 3383      		std Z+3,r19
+  55 004e 00C0      		rjmp .L4
+  56               	.L8:
+  57 0050 840F      		add r24,r20
+GAS LISTING /tmp/ccAnO6a9.s 			page 2
+
+
+  58 0052 911D      		adc r25,__zero_reg__
+  59 0054 00C0      		rjmp .L3
+  60               	.L2:
+  61 0056 50E0      		ldi r21,0
+  62 0058 60E0      		ldi r22,0
+  63 005a 70E0      		ldi r23,0
+  64 005c 4083      		st Z,r20
+  65 005e 5183      		std Z+1,r21
+  66 0060 6283      		std Z+2,r22
+  67 0062 7383      		std Z+3,r23
+  68 0064 00C0      		rjmp .L3
+  69               	.L6:
+  70 0066 80E0      		ldi r24,0
+  71 0068 90E0      		ldi r25,0
+  72               	.L3:
+  73               	/* epilogue start */
+  74 006a 1F91      		pop r17
+  75 006c 0F91      		pop r16
+  76 006e 0895      		ret
+  77               		.size	AsnLenParse, .-AsnLenParse
+  78               		.section	.text.AsnHeaderParse,"ax",@progbits
+  79               	.global	AsnHeaderParse
+  80               		.type	AsnHeaderParse, @function
+  81               	AsnHeaderParse:
+  82 0000 8F92      		push r8
+  83 0002 9F92      		push r9
+  84 0004 AF92      		push r10
+  85 0006 BF92      		push r11
+  86 0008 CF92      		push r12
+  87 000a DF92      		push r13
+  88 000c EF92      		push r14
+  89 000e FF92      		push r15
+  90 0010 0F93      		push r16
+  91 0012 1F93      		push r17
+  92 0014 CF93      		push r28
+  93 0016 DF93      		push r29
+  94 0018 00D0      		rcall .
+  95 001a 1F92      		push __zero_reg__
+  96 001c CDB7      		in r28,__SP_L__
+  97 001e DEB7      		in r29,__SP_H__
+  98               	/* prologue: function */
+  99               	/* frame size = 4 */
+ 100               	/* stack size = 16 */
+ 101               	.L__stack_usage = 16
+ 102 0020 7C01      		movw r14,r24
+ 103 0022 8B01      		movw r16,r22
+ 104 0024 FB01      		movw r30,r22
+ 105 0026 8081      		ld r24,Z
+ 106 0028 9181      		ldd r25,Z+1
+ 107 002a 892B      		or r24,r25
+ 108 002c 01F4      		brne .L10
+ 109               	.L12:
+ 110 002e 80E0      		ldi r24,0
+ 111 0030 90E0      		ldi r25,0
+ 112 0032 00C0      		rjmp .L11
+ 113               	.L10:
+ 114 0034 F701      		movw r30,r14
+GAS LISTING /tmp/ccAnO6a9.s 			page 3
+
+
+ 115 0036 8081      		ld r24,Z
+ 116 0038 FA01      		movw r30,r20
+ 117 003a 8083      		st Z,r24
+ 118 003c 8F71      		andi r24,lo8(31)
+ 119 003e 8F31      		cpi r24,lo8(31)
+ 120 0040 01F0      		breq .L12
+ 121 0042 BE01      		movw r22,r28
+ 122 0044 6F5F      		subi r22,-1
+ 123 0046 7F4F      		sbci r23,-1
+ 124 0048 C701      		movw r24,r14
+ 125 004a 0196      		adiw r24,1
+ 126 004c 0E94 0000 		call AsnLenParse
+ 127 0050 0097      		sbiw r24,0
+ 128 0052 01F0      		breq .L12
+ 129 0054 8980      		ldd r8,Y+1
+ 130 0056 9A80      		ldd r9,Y+2
+ 131 0058 AB80      		ldd r10,Y+3
+ 132 005a BC80      		ldd r11,Y+4
+ 133 005c 9C01      		movw r18,r24
+ 134 005e 2E19      		sub r18,r14
+ 135 0060 3F09      		sbc r19,r15
+ 136 0062 7501      		movw r14,r10
+ 137 0064 6401      		movw r12,r8
+ 138 0066 C20E      		add r12,r18
+ 139 0068 D31E      		adc r13,r19
+ 140 006a E11C      		adc r14,__zero_reg__
+ 141 006c F11C      		adc r15,__zero_reg__
+ 142 006e F801      		movw r30,r16
+ 143 0070 4081      		ld r20,Z
+ 144 0072 5181      		ldd r21,Z+1
+ 145 0074 60E0      		ldi r22,0
+ 146 0076 70E0      		ldi r23,0
+ 147 0078 4C15      		cp r20,r12
+ 148 007a 5D05      		cpc r21,r13
+ 149 007c 6E05      		cpc r22,r14
+ 150 007e 7F05      		cpc r23,r15
+ 151 0080 00F0      		brlo .L12
+ 152 0082 9182      		std Z+1,r9
+ 153 0084 8082      		st Z,r8
+ 154               	.L11:
+ 155               	/* epilogue start */
+ 156 0086 0F90      		pop __tmp_reg__
+ 157 0088 0F90      		pop __tmp_reg__
+ 158 008a 0F90      		pop __tmp_reg__
+ 159 008c 0F90      		pop __tmp_reg__
+ 160 008e DF91      		pop r29
+ 161 0090 CF91      		pop r28
+ 162 0092 1F91      		pop r17
+ 163 0094 0F91      		pop r16
+ 164 0096 FF90      		pop r15
+ 165 0098 EF90      		pop r14
+ 166 009a DF90      		pop r13
+ 167 009c CF90      		pop r12
+ 168 009e BF90      		pop r11
+ 169 00a0 AF90      		pop r10
+ 170 00a2 9F90      		pop r9
+ 171 00a4 8F90      		pop r8
+GAS LISTING /tmp/ccAnO6a9.s 			page 4
+
+
+ 172 00a6 0895      		ret
+ 173               		.size	AsnHeaderParse, .-AsnHeaderParse
+ 174               		.section	.text.AsnHeaderBuild,"ax",@progbits
+ 175               	.global	AsnHeaderBuild
+ 176               		.type	AsnHeaderBuild, @function
+ 177               	AsnHeaderBuild:
+ 178               	/* prologue: function */
+ 179               	/* frame size = 0 */
+ 180               	/* stack size = 0 */
+ 181               	.L__stack_usage = 0
+ 182 0000 FC01      		movw r30,r24
+ 183 0002 DB01      		movw r26,r22
+ 184 0004 8D91      		ld r24,X+
+ 185 0006 9C91      		ld r25,X
+ 186 0008 1197      		sbiw r26,1
+ 187 000a 892B      		or r24,r25
+ 188 000c 01F4      		brne .L20
+ 189               	.L23:
+ 190 000e 80E0      		ldi r24,0
+ 191 0010 90E0      		ldi r25,0
+ 192 0012 0895      		ret
+ 193               	.L20:
+ 194 0014 4083      		st Z,r20
+ 195 0016 8D91      		ld r24,X+
+ 196 0018 9C91      		ld r25,X
+ 197 001a 1197      		sbiw r26,1
+ 198 001c AC01      		movw r20,r24
+ 199 001e 4150      		subi r20,1
+ 200 0020 5109      		sbc r21,__zero_reg__
+ 201 0022 1196      		adiw r26,1
+ 202 0024 5C93      		st X,r21
+ 203 0026 4E93      		st -X,r20
+ 204 0028 2038      		cpi r18,-128
+ 205 002a 3105      		cpc r19,__zero_reg__
+ 206 002c 00F4      		brsh .L22
+ 207 002e 452B      		or r20,r21
+ 208 0030 01F0      		breq .L23
+ 209 0032 0297      		sbiw r24,2
+ 210 0034 8D93      		st X+,r24
+ 211 0036 9C93      		st X,r25
+ 212 0038 2183      		std Z+1,r18
+ 213 003a CF01      		movw r24,r30
+ 214 003c 0296      		adiw r24,2
+ 215 003e 0895      		ret
+ 216               	.L22:
+ 217 0040 2F3F      		cpi r18,-1
+ 218 0042 3105      		cpc r19,__zero_reg__
+ 219 0044 01F0      		breq .+2
+ 220 0046 00F4      		brsh .L24
+ 221 0048 4230      		cpi r20,2
+ 222 004a 5105      		cpc r21,__zero_reg__
+ 223 004c 00F0      		brlo .L23
+ 224 004e 0397      		sbiw r24,3
+ 225 0050 8D93      		st X+,r24
+ 226 0052 9C93      		st X,r25
+ 227 0054 81E8      		ldi r24,lo8(-127)
+ 228 0056 8183      		std Z+1,r24
+GAS LISTING /tmp/ccAnO6a9.s 			page 5
+
+
+ 229 0058 2283      		std Z+2,r18
+ 230 005a CF01      		movw r24,r30
+ 231 005c 0396      		adiw r24,3
+ 232 005e 0895      		ret
+ 233               	.L24:
+ 234 0060 4330      		cpi r20,3
+ 235 0062 5105      		cpc r21,__zero_reg__
+ 236 0064 00F0      		brlo .L23
+ 237 0066 0497      		sbiw r24,4
+ 238 0068 8D93      		st X+,r24
+ 239 006a 9C93      		st X,r25
+ 240 006c 82E8      		ldi r24,lo8(-126)
+ 241 006e 8183      		std Z+1,r24
+ 242 0070 3283      		std Z+2,r19
+ 243 0072 2383      		std Z+3,r18
+ 244 0074 CF01      		movw r24,r30
+ 245 0076 0496      		adiw r24,4
+ 246 0078 0895      		ret
+ 247               		.size	AsnHeaderBuild, .-AsnHeaderBuild
+ 248               		.section	.text.AsnSequenceParse,"ax",@progbits
+ 249               	.global	AsnSequenceParse
+ 250               		.type	AsnSequenceParse, @function
+ 251               	AsnSequenceParse:
+ 252 0000 1F93      		push r17
+ 253 0002 CF93      		push r28
+ 254 0004 DF93      		push r29
+ 255 0006 1F92      		push __zero_reg__
+ 256 0008 CDB7      		in r28,__SP_L__
+ 257 000a DEB7      		in r29,__SP_H__
+ 258               	/* prologue: function */
+ 259               	/* frame size = 1 */
+ 260               	/* stack size = 4 */
+ 261               	.L__stack_usage = 4
+ 262 000c 142F      		mov r17,r20
+ 263 000e AE01      		movw r20,r28
+ 264 0010 4F5F      		subi r20,-1
+ 265 0012 5F4F      		sbci r21,-1
+ 266 0014 0E94 0000 		call AsnHeaderParse
+ 267 0018 0097      		sbiw r24,0
+ 268 001a 01F0      		breq .L29
+ 269 001c 2981      		ldd r18,Y+1
+ 270 001e 2117      		cp r18,r17
+ 271 0020 01F0      		breq .L29
+ 272 0022 80E0      		ldi r24,0
+ 273 0024 90E0      		ldi r25,0
+ 274               	.L29:
+ 275               	/* epilogue start */
+ 276 0026 0F90      		pop __tmp_reg__
+ 277 0028 DF91      		pop r29
+ 278 002a CF91      		pop r28
+ 279 002c 1F91      		pop r17
+ 280 002e 0895      		ret
+ 281               		.size	AsnSequenceParse, .-AsnSequenceParse
+ 282               		.section	.text.AsnSequenceBuild,"ax",@progbits
+ 283               	.global	AsnSequenceBuild
+ 284               		.type	AsnSequenceBuild, @function
+ 285               	AsnSequenceBuild:
+GAS LISTING /tmp/ccAnO6a9.s 			page 6
+
+
+ 286               	/* prologue: function */
+ 287               	/* frame size = 0 */
+ 288               	/* stack size = 0 */
+ 289               	.L__stack_usage = 0
+ 290 0000 FC01      		movw r30,r24
+ 291 0002 DB01      		movw r26,r22
+ 292 0004 8D91      		ld r24,X+
+ 293 0006 9C91      		ld r25,X
+ 294 0008 1197      		sbiw r26,1
+ 295 000a 8430      		cpi r24,4
+ 296 000c 9105      		cpc r25,__zero_reg__
+ 297 000e 00F0      		brlo .L36
+ 298 0010 0497      		sbiw r24,4
+ 299 0012 8D93      		st X+,r24
+ 300 0014 9C93      		st X,r25
+ 301 0016 4083      		st Z,r20
+ 302 0018 82E8      		ldi r24,lo8(-126)
+ 303 001a 8183      		std Z+1,r24
+ 304 001c 3283      		std Z+2,r19
+ 305 001e 2383      		std Z+3,r18
+ 306 0020 CF01      		movw r24,r30
+ 307 0022 0496      		adiw r24,4
+ 308 0024 0895      		ret
+ 309               	.L36:
+ 310 0026 80E0      		ldi r24,0
+ 311 0028 90E0      		ldi r25,0
+ 312 002a 0895      		ret
+ 313               		.size	AsnSequenceBuild, .-AsnSequenceBuild
+ 314               		.section	.text.AsnIntegerParse,"ax",@progbits
+ 315               	.global	AsnIntegerParse
+ 316               		.type	AsnIntegerParse, @function
+ 317               	AsnIntegerParse:
+ 318 0000 4F92      		push r4
+ 319 0002 5F92      		push r5
+ 320 0004 6F92      		push r6
+ 321 0006 7F92      		push r7
+ 322 0008 8F92      		push r8
+ 323 000a 9F92      		push r9
+ 324 000c AF92      		push r10
+ 325 000e BF92      		push r11
+ 326 0010 CF92      		push r12
+ 327 0012 DF92      		push r13
+ 328 0014 EF92      		push r14
+ 329 0016 FF92      		push r15
+ 330 0018 0F93      		push r16
+ 331 001a 1F93      		push r17
+ 332 001c CF93      		push r28
+ 333 001e DF93      		push r29
+ 334 0020 00D0      		rcall .
+ 335 0022 1F92      		push __zero_reg__
+ 336 0024 CDB7      		in r28,__SP_L__
+ 337 0026 DEB7      		in r29,__SP_H__
+ 338               	/* prologue: function */
+ 339               	/* frame size = 4 */
+ 340               	/* stack size = 20 */
+ 341               	.L__stack_usage = 20
+ 342 0028 6C01      		movw r12,r24
+GAS LISTING /tmp/ccAnO6a9.s 			page 7
+
+
+ 343 002a 7B01      		movw r14,r22
+ 344 002c 8901      		movw r16,r18
+ 345 002e DC01      		movw r26,r24
+ 346 0030 8C91      		ld r24,X
+ 347 0032 FA01      		movw r30,r20
+ 348 0034 8083      		st Z,r24
+ 349 0036 BE01      		movw r22,r28
+ 350 0038 6F5F      		subi r22,-1
+ 351 003a 7F4F      		sbci r23,-1
+ 352 003c C601      		movw r24,r12
+ 353 003e 0196      		adiw r24,1
+ 354 0040 0E94 0000 		call AsnLenParse
+ 355 0044 0097      		sbiw r24,0
+ 356 0046 01F4      		brne .+2
+ 357 0048 00C0      		rjmp .L45
+ 358 004a 4981      		ldd r20,Y+1
+ 359 004c 5A81      		ldd r21,Y+2
+ 360 004e 6B81      		ldd r22,Y+3
+ 361 0050 7C81      		ldd r23,Y+4
+ 362 0052 4530      		cpi r20,5
+ 363 0054 5105      		cpc r21,__zero_reg__
+ 364 0056 6105      		cpc r22,__zero_reg__
+ 365 0058 7105      		cpc r23,__zero_reg__
+ 366 005a 00F0      		brlo .+2
+ 367 005c 00C0      		rjmp .L45
+ 368 005e FC01      		movw r30,r24
+ 369 0060 EC19      		sub r30,r12
+ 370 0062 FD09      		sbc r31,r13
+ 371 0064 D701      		movw r26,r14
+ 372 0066 2D91      		ld r18,X+
+ 373 0068 3C91      		ld r19,X
+ 374 006a 1197      		sbiw r26,1
+ 375 006c 4F01      		movw r8,r30
+ 376 006e 0F2E      		mov __tmp_reg__,r31
+ 377 0070 000C      		lsl r0
+ 378 0072 AA08      		sbc r10,r10
+ 379 0074 BB08      		sbc r11,r11
+ 380 0076 840E      		add r8,r20
+ 381 0078 951E      		adc r9,r21
+ 382 007a A61E      		adc r10,r22
+ 383 007c B71E      		adc r11,r23
+ 384 007e 2901      		movw r4,r18
+ 385 0080 612C      		mov r6,__zero_reg__
+ 386 0082 712C      		mov r7,__zero_reg__
+ 387 0084 4814      		cp r4,r8
+ 388 0086 5904      		cpc r5,r9
+ 389 0088 6A04      		cpc r6,r10
+ 390 008a 7B04      		cpc r7,r11
+ 391 008c 00F4      		brsh .+2
+ 392 008e 00C0      		rjmp .L45
+ 393 0090 241B      		sub r18,r20
+ 394 0092 350B      		sbc r19,r21
+ 395 0094 2E1B      		sub r18,r30
+ 396 0096 3F0B      		sbc r19,r31
+ 397 0098 2D93      		st X+,r18
+ 398 009a 3C93      		st X,r19
+ 399 009c FC01      		movw r30,r24
+GAS LISTING /tmp/ccAnO6a9.s 			page 8
+
+
+ 400 009e 2081      		ld r18,Z
+ 401 00a0 27FF      		sbrs r18,7
+ 402 00a2 00C0      		rjmp .L39
+ 403 00a4 4FEF      		ldi r20,lo8(-1)
+ 404 00a6 5FEF      		ldi r21,lo8(-1)
+ 405 00a8 BA01      		movw r22,r20
+ 406 00aa D801      		movw r26,r16
+ 407 00ac 4D93      		st X+,r20
+ 408 00ae 5D93      		st X+,r21
+ 409 00b0 6D93      		st X+,r22
+ 410 00b2 7C93      		st X,r23
+ 411 00b4 1397      		sbiw r26,3
+ 412 00b6 00C0      		rjmp .L40
+ 413               	.L39:
+ 414 00b8 F801      		movw r30,r16
+ 415 00ba 1082      		st Z,__zero_reg__
+ 416 00bc 1182      		std Z+1,__zero_reg__
+ 417 00be 1282      		std Z+2,__zero_reg__
+ 418 00c0 1382      		std Z+3,__zero_reg__
+ 419               	.L40:
+ 420 00c2 AC01      		movw r20,r24
+ 421               	.L41:
+ 422 00c4 BA01      		movw r22,r20
+ 423 00c6 8981      		ldd r24,Y+1
+ 424 00c8 9A81      		ldd r25,Y+2
+ 425 00ca AB81      		ldd r26,Y+3
+ 426 00cc BC81      		ldd r27,Y+4
+ 427 00ce 6C01      		movw r12,r24
+ 428 00d0 7D01      		movw r14,r26
+ 429 00d2 F1E0      		ldi r31,1
+ 430 00d4 CF1A      		sub r12,r31
+ 431 00d6 D108      		sbc r13,__zero_reg__
+ 432 00d8 E108      		sbc r14,__zero_reg__
+ 433 00da F108      		sbc r15,__zero_reg__
+ 434 00dc C982      		std Y+1,r12
+ 435 00de DA82      		std Y+2,r13
+ 436 00e0 EB82      		std Y+3,r14
+ 437 00e2 FC82      		std Y+4,r15
+ 438 00e4 892B      		or r24,r25
+ 439 00e6 8A2B      		or r24,r26
+ 440 00e8 8B2B      		or r24,r27
+ 441 00ea 01F0      		breq .L46
+ 442 00ec F801      		movw r30,r16
+ 443 00ee 8081      		ld r24,Z
+ 444 00f0 9181      		ldd r25,Z+1
+ 445 00f2 A281      		ldd r26,Z+2
+ 446 00f4 B381      		ldd r27,Z+3
+ 447 00f6 BA2F      		mov r27,r26
+ 448 00f8 A92F      		mov r26,r25
+ 449 00fa 982F      		mov r25,r24
+ 450 00fc 8827      		clr r24
+ 451 00fe 8083      		st Z,r24
+ 452 0100 9183      		std Z+1,r25
+ 453 0102 A283      		std Z+2,r26
+ 454 0104 B383      		std Z+3,r27
+ 455 0106 4F5F      		subi r20,-1
+ 456 0108 5F4F      		sbci r21,-1
+GAS LISTING /tmp/ccAnO6a9.s 			page 9
+
+
+ 457 010a FB01      		movw r30,r22
+ 458 010c 2081      		ld r18,Z
+ 459 010e 822B      		or r24,r18
+ 460 0110 F801      		movw r30,r16
+ 461 0112 8083      		st Z,r24
+ 462 0114 9183      		std Z+1,r25
+ 463 0116 A283      		std Z+2,r26
+ 464 0118 B383      		std Z+3,r27
+ 465 011a 00C0      		rjmp .L41
+ 466               	.L46:
+ 467 011c CA01      		movw r24,r20
+ 468 011e 00C0      		rjmp .L38
+ 469               	.L45:
+ 470 0120 80E0      		ldi r24,0
+ 471 0122 90E0      		ldi r25,0
+ 472               	.L38:
+ 473               	/* epilogue start */
+ 474 0124 0F90      		pop __tmp_reg__
+ 475 0126 0F90      		pop __tmp_reg__
+ 476 0128 0F90      		pop __tmp_reg__
+ 477 012a 0F90      		pop __tmp_reg__
+ 478 012c DF91      		pop r29
+ 479 012e CF91      		pop r28
+ 480 0130 1F91      		pop r17
+ 481 0132 0F91      		pop r16
+ 482 0134 FF90      		pop r15
+ 483 0136 EF90      		pop r14
+ 484 0138 DF90      		pop r13
+ 485 013a CF90      		pop r12
+ 486 013c BF90      		pop r11
+ 487 013e AF90      		pop r10
+ 488 0140 9F90      		pop r9
+ 489 0142 8F90      		pop r8
+ 490 0144 7F90      		pop r7
+ 491 0146 6F90      		pop r6
+ 492 0148 5F90      		pop r5
+ 493 014a 4F90      		pop r4
+ 494 014c 0895      		ret
+ 495               		.size	AsnIntegerParse, .-AsnIntegerParse
+ 496               		.section	.text.AsnIntegerBuild,"ax",@progbits
+ 497               	.global	AsnIntegerBuild
+ 498               		.type	AsnIntegerBuild, @function
+ 499               	AsnIntegerBuild:
+ 500 0000 8F92      		push r8
+ 501 0002 9F92      		push r9
+ 502 0004 AF92      		push r10
+ 503 0006 BF92      		push r11
+ 504 0008 CF92      		push r12
+ 505 000a DF92      		push r13
+ 506 000c EF92      		push r14
+ 507 000e FF92      		push r15
+ 508 0010 0F93      		push r16
+ 509 0012 1F93      		push r17
+ 510 0014 CF93      		push r28
+ 511 0016 DF93      		push r29
+ 512               	/* prologue: function */
+ 513               	/* frame size = 0 */
+GAS LISTING /tmp/ccAnO6a9.s 			page 10
+
+
+ 514               	/* stack size = 12 */
+ 515               	.L__stack_usage = 12
+ 516 0018 8B01      		movw r16,r22
+ 517 001a F901      		movw r30,r18
+ 518 001c C080      		ld r12,Z
+ 519 001e D180      		ldd r13,Z+1
+ 520 0020 E280      		ldd r14,Z+2
+ 521 0022 F380      		ldd r15,Z+3
+ 522 0024 C4E0      		ldi r28,lo8(4)
+ 523 0026 D0E0      		ldi r29,0
+ 524               	.L48:
+ 525 0028 4601      		movw r8,r12
+ 526 002a 5701      		movw r10,r14
+ 527 002c 8824      		clr r8
+ 528 002e 9924      		clr r9
+ 529 0030 F0E8      		ldi r31,128
+ 530 0032 AF22      		and r10,r31
+ 531 0034 8114      		cp r8,__zero_reg__
+ 532 0036 9104      		cpc r9,__zero_reg__
+ 533 0038 A104      		cpc r10,__zero_reg__
+ 534 003a B104      		cpc r11,__zero_reg__
+ 535 003c 01F0      		breq .L49
+ 536 003e 8114      		cp r8,__zero_reg__
+ 537 0040 9104      		cpc r9,__zero_reg__
+ 538 0042 20E8      		ldi r18,-128
+ 539 0044 A206      		cpc r10,r18
+ 540 0046 2FEF      		ldi r18,-1
+ 541 0048 B206      		cpc r11,r18
+ 542 004a 01F4      		brne .L50
+ 543               	.L49:
+ 544 004c 2197      		sbiw r28,1
+ 545 004e 01F0      		breq .L60
+ 546 0050 FE2C      		mov r15,r14
+ 547 0052 ED2C      		mov r14,r13
+ 548 0054 DC2C      		mov r13,r12
+ 549 0056 CC24      		clr r12
+ 550 0058 00C0      		rjmp .L48
+ 551               	.L60:
+ 552 005a C1E0      		ldi r28,lo8(1)
+ 553 005c D0E0      		ldi r29,0
+ 554               	.L50:
+ 555 005e 9E01      		movw r18,r28
+ 556 0060 B801      		movw r22,r16
+ 557 0062 0E94 0000 		call AsnHeaderBuild
+ 558 0066 0097      		sbiw r24,0
+ 559 0068 01F0      		breq .L56
+ 560 006a F801      		movw r30,r16
+ 561 006c 2081      		ld r18,Z
+ 562 006e 3181      		ldd r19,Z+1
+ 563 0070 2C17      		cp r18,r28
+ 564 0072 3D07      		cpc r19,r29
+ 565 0074 00F0      		brlo .L56
+ 566 0076 2C1B      		sub r18,r28
+ 567 0078 3D0B      		sbc r19,r29
+ 568 007a 3183      		std Z+1,r19
+ 569 007c 2083      		st Z,r18
+ 570 007e FC01      		movw r30,r24
+GAS LISTING /tmp/ccAnO6a9.s 			page 11
+
+
+ 571 0080 8C0F      		add r24,r28
+ 572 0082 9D1F      		adc r25,r29
+ 573               	.L53:
+ 574 0084 E817      		cp r30,r24
+ 575 0086 F907      		cpc r31,r25
+ 576 0088 01F0      		breq .L52
+ 577 008a F192      		st Z+,r15
+ 578 008c FE2C      		mov r15,r14
+ 579 008e ED2C      		mov r14,r13
+ 580 0090 DC2C      		mov r13,r12
+ 581 0092 CC24      		clr r12
+ 582 0094 00C0      		rjmp .L53
+ 583               	.L56:
+ 584 0096 80E0      		ldi r24,0
+ 585 0098 90E0      		ldi r25,0
+ 586               	.L52:
+ 587               	/* epilogue start */
+ 588 009a DF91      		pop r29
+ 589 009c CF91      		pop r28
+ 590 009e 1F91      		pop r17
+ 591 00a0 0F91      		pop r16
+ 592 00a2 FF90      		pop r15
+ 593 00a4 EF90      		pop r14
+ 594 00a6 DF90      		pop r13
+ 595 00a8 CF90      		pop r12
+ 596 00aa BF90      		pop r11
+ 597 00ac AF90      		pop r10
+ 598 00ae 9F90      		pop r9
+ 599 00b0 8F90      		pop r8
+ 600 00b2 0895      		ret
+ 601               		.size	AsnIntegerBuild, .-AsnIntegerBuild
+ 602               		.section	.text.AsnUnsignedParse,"ax",@progbits
+ 603               	.global	AsnUnsignedParse
+ 604               		.type	AsnUnsignedParse, @function
+ 605               	AsnUnsignedParse:
+ 606 0000 2F92      		push r2
+ 607 0002 3F92      		push r3
+ 608 0004 4F92      		push r4
+ 609 0006 5F92      		push r5
+ 610 0008 6F92      		push r6
+ 611 000a 7F92      		push r7
+ 612 000c 8F92      		push r8
+ 613 000e 9F92      		push r9
+ 614 0010 AF92      		push r10
+ 615 0012 BF92      		push r11
+ 616 0014 CF92      		push r12
+ 617 0016 DF92      		push r13
+ 618 0018 EF92      		push r14
+ 619 001a FF92      		push r15
+ 620 001c 0F93      		push r16
+ 621 001e 1F93      		push r17
+ 622 0020 CF93      		push r28
+ 623 0022 DF93      		push r29
+ 624 0024 00D0      		rcall .
+ 625 0026 1F92      		push __zero_reg__
+ 626 0028 CDB7      		in r28,__SP_L__
+ 627 002a DEB7      		in r29,__SP_H__
+GAS LISTING /tmp/ccAnO6a9.s 			page 12
+
+
+ 628               	/* prologue: function */
+ 629               	/* frame size = 4 */
+ 630               	/* stack size = 22 */
+ 631               	.L__stack_usage = 22
+ 632 002c 4C01      		movw r8,r24
+ 633 002e 1B01      		movw r2,r22
+ 634 0030 8901      		movw r16,r18
+ 635 0032 FC01      		movw r30,r24
+ 636 0034 8081      		ld r24,Z
+ 637 0036 FA01      		movw r30,r20
+ 638 0038 8083      		st Z,r24
+ 639 003a BE01      		movw r22,r28
+ 640 003c 6F5F      		subi r22,-1
+ 641 003e 7F4F      		sbci r23,-1
+ 642 0040 C401      		movw r24,r8
+ 643 0042 0196      		adiw r24,1
+ 644 0044 0E94 0000 		call AsnLenParse
+ 645 0048 0097      		sbiw r24,0
+ 646 004a 01F4      		brne .+2
+ 647 004c 00C0      		rjmp .L71
+ 648 004e C980      		ldd r12,Y+1
+ 649 0050 DA80      		ldd r13,Y+2
+ 650 0052 EB80      		ldd r14,Y+3
+ 651 0054 FC80      		ldd r15,Y+4
+ 652 0056 F6E0      		ldi r31,6
+ 653 0058 CF16      		cp r12,r31
+ 654 005a D104      		cpc r13,__zero_reg__
+ 655 005c E104      		cpc r14,__zero_reg__
+ 656 005e F104      		cpc r15,__zero_reg__
+ 657 0060 00F0      		brlo .+2
+ 658 0062 00C0      		rjmp .L71
+ 659 0064 25E0      		ldi r18,5
+ 660 0066 C216      		cp r12,r18
+ 661 0068 D104      		cpc r13,__zero_reg__
+ 662 006a E104      		cpc r14,__zero_reg__
+ 663 006c F104      		cpc r15,__zero_reg__
+ 664 006e 01F4      		brne .L63
+ 665 0070 FC01      		movw r30,r24
+ 666 0072 2081      		ld r18,Z
+ 667 0074 2111      		cpse r18,__zero_reg__
+ 668 0076 00C0      		rjmp .L71
+ 669               	.L63:
+ 670 0078 AC01      		movw r20,r24
+ 671 007a 4819      		sub r20,r8
+ 672 007c 5909      		sbc r21,r9
+ 673 007e F101      		movw r30,r2
+ 674 0080 2081      		ld r18,Z
+ 675 0082 3181      		ldd r19,Z+1
+ 676 0084 2A01      		movw r4,r20
+ 677 0086 052E      		mov __tmp_reg__,r21
+ 678 0088 000C      		lsl r0
+ 679 008a 6608      		sbc r6,r6
+ 680 008c 7708      		sbc r7,r7
+ 681 008e 4C0C      		add r4,r12
+ 682 0090 5D1C      		adc r5,r13
+ 683 0092 6E1C      		adc r6,r14
+ 684 0094 7F1C      		adc r7,r15
+GAS LISTING /tmp/ccAnO6a9.s 			page 13
+
+
+ 685 0096 4901      		movw r8,r18
+ 686 0098 A12C      		mov r10,__zero_reg__
+ 687 009a B12C      		mov r11,__zero_reg__
+ 688 009c 8414      		cp r8,r4
+ 689 009e 9504      		cpc r9,r5
+ 690 00a0 A604      		cpc r10,r6
+ 691 00a2 B704      		cpc r11,r7
+ 692 00a4 00F4      		brsh .+2
+ 693 00a6 00C0      		rjmp .L71
+ 694 00a8 C40E      		add r12,r20
+ 695 00aa D51E      		adc r13,r21
+ 696 00ac 2C19      		sub r18,r12
+ 697 00ae 3D09      		sbc r19,r13
+ 698 00b0 3183      		std Z+1,r19
+ 699 00b2 2083      		st Z,r18
+ 700 00b4 FC01      		movw r30,r24
+ 701 00b6 2081      		ld r18,Z
+ 702 00b8 27FF      		sbrs r18,7
+ 703 00ba 00C0      		rjmp .L64
+ 704 00bc 4FEF      		ldi r20,lo8(-1)
+ 705 00be 5FEF      		ldi r21,lo8(-1)
+ 706 00c0 BA01      		movw r22,r20
+ 707 00c2 F801      		movw r30,r16
+ 708 00c4 4083      		st Z,r20
+ 709 00c6 5183      		std Z+1,r21
+ 710 00c8 6283      		std Z+2,r22
+ 711 00ca 7383      		std Z+3,r23
+ 712 00cc 00C0      		rjmp .L65
+ 713               	.L64:
+ 714 00ce F801      		movw r30,r16
+ 715 00d0 1082      		st Z,__zero_reg__
+ 716 00d2 1182      		std Z+1,__zero_reg__
+ 717 00d4 1282      		std Z+2,__zero_reg__
+ 718 00d6 1382      		std Z+3,__zero_reg__
+ 719               	.L65:
+ 720 00d8 AC01      		movw r20,r24
+ 721               	.L66:
+ 722 00da BA01      		movw r22,r20
+ 723 00dc 8981      		ldd r24,Y+1
+ 724 00de 9A81      		ldd r25,Y+2
+ 725 00e0 AB81      		ldd r26,Y+3
+ 726 00e2 BC81      		ldd r27,Y+4
+ 727 00e4 6C01      		movw r12,r24
+ 728 00e6 7D01      		movw r14,r26
+ 729 00e8 F1E0      		ldi r31,1
+ 730 00ea CF1A      		sub r12,r31
+ 731 00ec D108      		sbc r13,__zero_reg__
+ 732 00ee E108      		sbc r14,__zero_reg__
+ 733 00f0 F108      		sbc r15,__zero_reg__
+ 734 00f2 C982      		std Y+1,r12
+ 735 00f4 DA82      		std Y+2,r13
+ 736 00f6 EB82      		std Y+3,r14
+ 737 00f8 FC82      		std Y+4,r15
+ 738 00fa 892B      		or r24,r25
+ 739 00fc 8A2B      		or r24,r26
+ 740 00fe 8B2B      		or r24,r27
+ 741 0100 01F0      		breq .L72
+GAS LISTING /tmp/ccAnO6a9.s 			page 14
+
+
+ 742 0102 F801      		movw r30,r16
+ 743 0104 8081      		ld r24,Z
+ 744 0106 9181      		ldd r25,Z+1
+ 745 0108 A281      		ldd r26,Z+2
+ 746 010a B381      		ldd r27,Z+3
+ 747 010c BA2F      		mov r27,r26
+ 748 010e A92F      		mov r26,r25
+ 749 0110 982F      		mov r25,r24
+ 750 0112 8827      		clr r24
+ 751 0114 8083      		st Z,r24
+ 752 0116 9183      		std Z+1,r25
+ 753 0118 A283      		std Z+2,r26
+ 754 011a B383      		std Z+3,r27
+ 755 011c 4F5F      		subi r20,-1
+ 756 011e 5F4F      		sbci r21,-1
+ 757 0120 FB01      		movw r30,r22
+ 758 0122 2081      		ld r18,Z
+ 759 0124 822B      		or r24,r18
+ 760 0126 F801      		movw r30,r16
+ 761 0128 8083      		st Z,r24
+ 762 012a 9183      		std Z+1,r25
+ 763 012c A283      		std Z+2,r26
+ 764 012e B383      		std Z+3,r27
+ 765 0130 00C0      		rjmp .L66
+ 766               	.L72:
+ 767 0132 CA01      		movw r24,r20
+ 768 0134 00C0      		rjmp .L62
+ 769               	.L71:
+ 770 0136 80E0      		ldi r24,0
+ 771 0138 90E0      		ldi r25,0
+ 772               	.L62:
+ 773               	/* epilogue start */
+ 774 013a 0F90      		pop __tmp_reg__
+ 775 013c 0F90      		pop __tmp_reg__
+ 776 013e 0F90      		pop __tmp_reg__
+ 777 0140 0F90      		pop __tmp_reg__
+ 778 0142 DF91      		pop r29
+ 779 0144 CF91      		pop r28
+ 780 0146 1F91      		pop r17
+ 781 0148 0F91      		pop r16
+ 782 014a FF90      		pop r15
+ 783 014c EF90      		pop r14
+ 784 014e DF90      		pop r13
+ 785 0150 CF90      		pop r12
+ 786 0152 BF90      		pop r11
+ 787 0154 AF90      		pop r10
+ 788 0156 9F90      		pop r9
+ 789 0158 8F90      		pop r8
+ 790 015a 7F90      		pop r7
+ 791 015c 6F90      		pop r6
+ 792 015e 5F90      		pop r5
+ 793 0160 4F90      		pop r4
+ 794 0162 3F90      		pop r3
+ 795 0164 2F90      		pop r2
+ 796 0166 0895      		ret
+ 797               		.size	AsnUnsignedParse, .-AsnUnsignedParse
+ 798               		.section	.text.AsnUnsignedBuild,"ax",@progbits
+GAS LISTING /tmp/ccAnO6a9.s 			page 15
+
+
+ 799               	.global	AsnUnsignedBuild
+ 800               		.type	AsnUnsignedBuild, @function
+ 801               	AsnUnsignedBuild:
+ 802 0000 AF92      		push r10
+ 803 0002 BF92      		push r11
+ 804 0004 CF92      		push r12
+ 805 0006 DF92      		push r13
+ 806 0008 EF92      		push r14
+ 807 000a FF92      		push r15
+ 808 000c 0F93      		push r16
+ 809 000e 1F93      		push r17
+ 810 0010 CF93      		push r28
+ 811 0012 DF93      		push r29
+ 812               	/* prologue: function */
+ 813               	/* frame size = 0 */
+ 814               	/* stack size = 10 */
+ 815               	.L__stack_usage = 10
+ 816 0014 5B01      		movw r10,r22
+ 817 0016 F901      		movw r30,r18
+ 818 0018 C080      		ld r12,Z
+ 819 001a D180      		ldd r13,Z+1
+ 820 001c E280      		ldd r14,Z+2
+ 821 001e F380      		ldd r15,Z+3
+ 822 0020 F7FC      		sbrc r15,7
+ 823 0022 00C0      		rjmp .L82
+ 824 0024 C4E0      		ldi r28,lo8(4)
+ 825 0026 D0E0      		ldi r29,0
+ 826               	.L75:
+ 827 0028 9701      		movw r18,r14
+ 828 002a 8601      		movw r16,r12
+ 829 002c 0027      		clr r16
+ 830 002e 1127      		clr r17
+ 831 0030 2078      		andi r18,128
+ 832 0032 0115      		cp r16,__zero_reg__
+ 833 0034 1105      		cpc r17,__zero_reg__
+ 834 0036 2105      		cpc r18,__zero_reg__
+ 835 0038 3105      		cpc r19,__zero_reg__
+ 836 003a 01F0      		breq .L76
+ 837 003c 0115      		cp r16,__zero_reg__
+ 838 003e 1105      		cpc r17,__zero_reg__
+ 839 0040 2048      		sbci r18,-128
+ 840 0042 3F4F      		sbci r19,-1
+ 841 0044 01F4      		brne .L83
+ 842               	.L76:
+ 843 0046 2197      		sbiw r28,1
+ 844 0048 01F0      		breq .L92
+ 845 004a FE2C      		mov r15,r14
+ 846 004c ED2C      		mov r14,r13
+ 847 004e DC2C      		mov r13,r12
+ 848 0050 CC24      		clr r12
+ 849 0052 00C0      		rjmp .L75
+ 850               	.L92:
+ 851 0054 C1E0      		ldi r28,lo8(1)
+ 852 0056 D0E0      		ldi r29,0
+ 853 0058 00C0      		rjmp .L83
+ 854               	.L82:
+ 855 005a C5E0      		ldi r28,lo8(5)
+GAS LISTING /tmp/ccAnO6a9.s 			page 16
+
+
+ 856 005c D0E0      		ldi r29,0
+ 857 005e 01E0      		ldi r16,lo8(1)
+ 858 0060 10E0      		ldi r17,0
+ 859 0062 00C0      		rjmp .L74
+ 860               	.L83:
+ 861 0064 00E0      		ldi r16,0
+ 862 0066 10E0      		ldi r17,0
+ 863               	.L74:
+ 864 0068 9E01      		movw r18,r28
+ 865 006a B501      		movw r22,r10
+ 866 006c 0E94 0000 		call AsnHeaderBuild
+ 867 0070 0097      		sbiw r24,0
+ 868 0072 01F0      		breq .L85
+ 869 0074 F501      		movw r30,r10
+ 870 0076 2081      		ld r18,Z
+ 871 0078 3181      		ldd r19,Z+1
+ 872 007a 2C17      		cp r18,r28
+ 873 007c 3D07      		cpc r19,r29
+ 874 007e 00F0      		brlo .L85
+ 875 0080 2C1B      		sub r18,r28
+ 876 0082 3D0B      		sbc r19,r29
+ 877 0084 3183      		std Z+1,r19
+ 878 0086 2083      		st Z,r18
+ 879 0088 012B      		or r16,r17
+ 880 008a 01F0      		breq .L79
+ 881 008c FC01      		movw r30,r24
+ 882 008e 1082      		st Z,__zero_reg__
+ 883 0090 2197      		sbiw r28,1
+ 884 0092 0196      		adiw r24,1
+ 885               	.L79:
+ 886 0094 FC01      		movw r30,r24
+ 887 0096 8C0F      		add r24,r28
+ 888 0098 9D1F      		adc r25,r29
+ 889               	.L80:
+ 890 009a 8E17      		cp r24,r30
+ 891 009c 9F07      		cpc r25,r31
+ 892 009e 01F0      		breq .L78
+ 893 00a0 F192      		st Z+,r15
+ 894 00a2 FE2C      		mov r15,r14
+ 895 00a4 ED2C      		mov r14,r13
+ 896 00a6 DC2C      		mov r13,r12
+ 897 00a8 CC24      		clr r12
+ 898 00aa 00C0      		rjmp .L80
+ 899               	.L85:
+ 900 00ac 80E0      		ldi r24,0
+ 901 00ae 90E0      		ldi r25,0
+ 902               	.L78:
+ 903               	/* epilogue start */
+ 904 00b0 DF91      		pop r29
+ 905 00b2 CF91      		pop r28
+ 906 00b4 1F91      		pop r17
+ 907 00b6 0F91      		pop r16
+ 908 00b8 FF90      		pop r15
+ 909 00ba EF90      		pop r14
+ 910 00bc DF90      		pop r13
+ 911 00be CF90      		pop r12
+ 912 00c0 BF90      		pop r11
+GAS LISTING /tmp/ccAnO6a9.s 			page 17
+
+
+ 913 00c2 AF90      		pop r10
+ 914 00c4 0895      		ret
+ 915               		.size	AsnUnsignedBuild, .-AsnUnsignedBuild
+ 916               		.section	.text.AsnOctetStringParse,"ax",@progbits
+ 917               	.global	AsnOctetStringParse
+ 918               		.type	AsnOctetStringParse, @function
+ 919               	AsnOctetStringParse:
+ 920 0000 4F92      		push r4
+ 921 0002 5F92      		push r5
+ 922 0004 6F92      		push r6
+ 923 0006 7F92      		push r7
+ 924 0008 8F92      		push r8
+ 925 000a 9F92      		push r9
+ 926 000c AF92      		push r10
+ 927 000e BF92      		push r11
+ 928 0010 CF92      		push r12
+ 929 0012 DF92      		push r13
+ 930 0014 EF92      		push r14
+ 931 0016 FF92      		push r15
+ 932 0018 0F93      		push r16
+ 933 001a 1F93      		push r17
+ 934 001c CF93      		push r28
+ 935 001e DF93      		push r29
+ 936 0020 00D0      		rcall .
+ 937 0022 1F92      		push __zero_reg__
+ 938 0024 CDB7      		in r28,__SP_L__
+ 939 0026 DEB7      		in r29,__SP_H__
+ 940               	/* prologue: function */
+ 941               	/* frame size = 4 */
+ 942               	/* stack size = 20 */
+ 943               	.L__stack_usage = 20
+ 944 0028 5C01      		movw r10,r24
+ 945 002a 6B01      		movw r12,r22
+ 946 002c 4901      		movw r8,r18
+ 947 002e FC01      		movw r30,r24
+ 948 0030 8081      		ld r24,Z
+ 949 0032 FA01      		movw r30,r20
+ 950 0034 8083      		st Z,r24
+ 951 0036 BE01      		movw r22,r28
+ 952 0038 6F5F      		subi r22,-1
+ 953 003a 7F4F      		sbci r23,-1
+ 954 003c C501      		movw r24,r10
+ 955 003e 0196      		adiw r24,1
+ 956 0040 0E94 0000 		call AsnLenParse
+ 957 0044 7C01      		movw r14,r24
+ 958 0046 892B      		or r24,r25
+ 959 0048 01F0      		breq .L98
+ 960 004a 4980      		ldd r4,Y+1
+ 961 004c 5A80      		ldd r5,Y+2
+ 962 004e 6B80      		ldd r6,Y+3
+ 963 0050 7C80      		ldd r7,Y+4
+ 964 0052 F801      		movw r30,r16
+ 965 0054 8081      		ld r24,Z
+ 966 0056 9181      		ldd r25,Z+1
+ 967 0058 A0E0      		ldi r26,0
+ 968 005a B0E0      		ldi r27,0
+ 969 005c 8415      		cp r24,r4
+GAS LISTING /tmp/ccAnO6a9.s 			page 18
+
+
+ 970 005e 9505      		cpc r25,r5
+ 971 0060 A605      		cpc r26,r6
+ 972 0062 B705      		cpc r27,r7
+ 973 0064 00F0      		brlo .L98
+ 974 0066 C701      		movw r24,r14
+ 975 0068 8A19      		sub r24,r10
+ 976 006a 9B09      		sbc r25,r11
+ 977 006c 5C01      		movw r10,r24
+ 978 006e AC01      		movw r20,r24
+ 979 0070 990F      		lsl r25
+ 980 0072 660B      		sbc r22,r22
+ 981 0074 770B      		sbc r23,r23
+ 982 0076 440D      		add r20,r4
+ 983 0078 551D      		adc r21,r5
+ 984 007a 661D      		adc r22,r6
+ 985 007c 771D      		adc r23,r7
+ 986 007e F601      		movw r30,r12
+ 987 0080 8081      		ld r24,Z
+ 988 0082 9181      		ldd r25,Z+1
+ 989 0084 A0E0      		ldi r26,0
+ 990 0086 B0E0      		ldi r27,0
+ 991 0088 8417      		cp r24,r20
+ 992 008a 9507      		cpc r25,r21
+ 993 008c A607      		cpc r26,r22
+ 994 008e B707      		cpc r27,r23
+ 995 0090 00F0      		brlo .L98
+ 996 0092 4114      		cp r4,__zero_reg__
+ 997 0094 5104      		cpc r5,__zero_reg__
+ 998 0096 6104      		cpc r6,__zero_reg__
+ 999 0098 7104      		cpc r7,__zero_reg__
+ 1000 009a 01F0      		breq .L95
+ 1001 009c A201      		movw r20,r4
+ 1002 009e B701      		movw r22,r14
+ 1003 00a0 C401      		movw r24,r8
+ 1004 00a2 0E94 0000 		call memcpy
+ 1005 00a6 F801      		movw r30,r16
+ 1006 00a8 5182      		std Z+1,r5
+ 1007 00aa 4082      		st Z,r4
+ 1008               	.L95:
+ 1009 00ac F601      		movw r30,r12
+ 1010 00ae 8081      		ld r24,Z
+ 1011 00b0 9181      		ldd r25,Z+1
+ 1012 00b2 8419      		sub r24,r4
+ 1013 00b4 9509      		sbc r25,r5
+ 1014 00b6 8A19      		sub r24,r10
+ 1015 00b8 9B09      		sbc r25,r11
+ 1016 00ba 9183      		std Z+1,r25
+ 1017 00bc 8083      		st Z,r24
+ 1018 00be C701      		movw r24,r14
+ 1019 00c0 840D      		add r24,r4
+ 1020 00c2 951D      		adc r25,r5
+ 1021 00c4 00C0      		rjmp .L94
+ 1022               	.L98:
+ 1023 00c6 80E0      		ldi r24,0
+ 1024 00c8 90E0      		ldi r25,0
+ 1025               	.L94:
+ 1026               	/* epilogue start */
+GAS LISTING /tmp/ccAnO6a9.s 			page 19
+
+
+ 1027 00ca 0F90      		pop __tmp_reg__
+ 1028 00cc 0F90      		pop __tmp_reg__
+ 1029 00ce 0F90      		pop __tmp_reg__
+ 1030 00d0 0F90      		pop __tmp_reg__
+ 1031 00d2 DF91      		pop r29
+ 1032 00d4 CF91      		pop r28
+ 1033 00d6 1F91      		pop r17
+ 1034 00d8 0F91      		pop r16
+ 1035 00da FF90      		pop r15
+ 1036 00dc EF90      		pop r14
+ 1037 00de DF90      		pop r13
+ 1038 00e0 CF90      		pop r12
+ 1039 00e2 BF90      		pop r11
+ 1040 00e4 AF90      		pop r10
+ 1041 00e6 9F90      		pop r9
+ 1042 00e8 8F90      		pop r8
+ 1043 00ea 7F90      		pop r7
+ 1044 00ec 6F90      		pop r6
+ 1045 00ee 5F90      		pop r5
+ 1046 00f0 4F90      		pop r4
+ 1047 00f2 0895      		ret
+ 1048               		.size	AsnOctetStringParse, .-AsnOctetStringParse
+ 1049               		.section	.text.AsnOctetStringBuild,"ax",@progbits
+ 1050               	.global	AsnOctetStringBuild
+ 1051               		.type	AsnOctetStringBuild, @function
+ 1052               	AsnOctetStringBuild:
+ 1053 0000 CF92      		push r12
+ 1054 0002 DF92      		push r13
+ 1055 0004 EF92      		push r14
+ 1056 0006 FF92      		push r15
+ 1057 0008 0F93      		push r16
+ 1058 000a 1F93      		push r17
+ 1059 000c CF93      		push r28
+ 1060 000e DF93      		push r29
+ 1061               	/* prologue: function */
+ 1062               	/* frame size = 0 */
+ 1063               	/* stack size = 8 */
+ 1064               	.L__stack_usage = 8
+ 1065 0010 6B01      		movw r12,r22
+ 1066 0012 7901      		movw r14,r18
+ 1067 0014 9801      		movw r18,r16
+ 1068 0016 0E94 0000 		call AsnHeaderBuild
+ 1069 001a EC01      		movw r28,r24
+ 1070 001c 0097      		sbiw r24,0
+ 1071 001e 01F0      		breq .L108
+ 1072 0020 0115      		cp r16,__zero_reg__
+ 1073 0022 1105      		cpc r17,__zero_reg__
+ 1074 0024 01F0      		breq .L103
+ 1075 0026 F601      		movw r30,r12
+ 1076 0028 8081      		ld r24,Z
+ 1077 002a 9181      		ldd r25,Z+1
+ 1078 002c 8017      		cp r24,r16
+ 1079 002e 9107      		cpc r25,r17
+ 1080 0030 00F0      		brlo .L108
+ 1081 0032 801B      		sub r24,r16
+ 1082 0034 910B      		sbc r25,r17
+ 1083 0036 9183      		std Z+1,r25
+GAS LISTING /tmp/ccAnO6a9.s 			page 20
+
+
+ 1084 0038 8083      		st Z,r24
+ 1085 003a A801      		movw r20,r16
+ 1086 003c E114      		cp r14,__zero_reg__
+ 1087 003e F104      		cpc r15,__zero_reg__
+ 1088 0040 01F0      		breq .L104
+ 1089 0042 B701      		movw r22,r14
+ 1090 0044 CE01      		movw r24,r28
+ 1091 0046 0E94 0000 		call memcpy
+ 1092 004a 00C0      		rjmp .L105
+ 1093               	.L104:
+ 1094 004c 60E0      		ldi r22,0
+ 1095 004e 70E0      		ldi r23,0
+ 1096 0050 CE01      		movw r24,r28
+ 1097 0052 0E94 0000 		call memset
+ 1098               	.L105:
+ 1099 0056 CE01      		movw r24,r28
+ 1100 0058 800F      		add r24,r16
+ 1101 005a 911F      		adc r25,r17
+ 1102 005c 00C0      		rjmp .L103
+ 1103               	.L108:
+ 1104 005e 80E0      		ldi r24,0
+ 1105 0060 90E0      		ldi r25,0
+ 1106               	.L103:
+ 1107               	/* epilogue start */
+ 1108 0062 DF91      		pop r29
+ 1109 0064 CF91      		pop r28
+ 1110 0066 1F91      		pop r17
+ 1111 0068 0F91      		pop r16
+ 1112 006a FF90      		pop r15
+ 1113 006c EF90      		pop r14
+ 1114 006e DF90      		pop r13
+ 1115 0070 CF90      		pop r12
+ 1116 0072 0895      		ret
+ 1117               		.size	AsnOctetStringBuild, .-AsnOctetStringBuild
+ 1118               		.section	.text.AsnOidParse,"ax",@progbits
+ 1119               	.global	AsnOidParse
+ 1120               		.type	AsnOidParse, @function
+ 1121               	AsnOidParse:
+ 1122 0000 2F92      		push r2
+ 1123 0002 3F92      		push r3
+ 1124 0004 4F92      		push r4
+ 1125 0006 5F92      		push r5
+ 1126 0008 6F92      		push r6
+ 1127 000a 7F92      		push r7
+ 1128 000c 8F92      		push r8
+ 1129 000e 9F92      		push r9
+ 1130 0010 AF92      		push r10
+ 1131 0012 BF92      		push r11
+ 1132 0014 CF92      		push r12
+ 1133 0016 DF92      		push r13
+ 1134 0018 EF92      		push r14
+ 1135 001a FF92      		push r15
+ 1136 001c 0F93      		push r16
+ 1137 001e 1F93      		push r17
+ 1138 0020 CF93      		push r28
+ 1139 0022 DF93      		push r29
+ 1140 0024 00D0      		rcall .
+GAS LISTING /tmp/ccAnO6a9.s 			page 21
+
+
+ 1141 0026 00D0      		rcall .
+ 1142 0028 CDB7      		in r28,__SP_L__
+ 1143 002a DEB7      		in r29,__SP_H__
+ 1144               	/* prologue: function */
+ 1145               	/* frame size = 6 */
+ 1146               	/* stack size = 24 */
+ 1147               	.L__stack_usage = 24
+ 1148 002c 3C01      		movw r6,r24
+ 1149 002e 7E83      		std Y+6,r23
+ 1150 0030 6D83      		std Y+5,r22
+ 1151 0032 5901      		movw r10,r18
+ 1152 0034 7901      		movw r14,r18
+ 1153 0036 24E0      		ldi r18,4
+ 1154 0038 E20E      		add r14,r18
+ 1155 003a F11C      		adc r15,__zero_reg__
+ 1156 003c FC01      		movw r30,r24
+ 1157 003e 8081      		ld r24,Z
+ 1158 0040 FA01      		movw r30,r20
+ 1159 0042 8083      		st Z,r24
+ 1160 0044 BE01      		movw r22,r28
+ 1161 0046 6F5F      		subi r22,-1
+ 1162 0048 7F4F      		sbci r23,-1
+ 1163 004a C301      		movw r24,r6
+ 1164 004c 0196      		adiw r24,1
+ 1165 004e 0E94 0000 		call AsnLenParse
+ 1166 0052 6C01      		movw r12,r24
+ 1167 0054 0097      		sbiw r24,0
+ 1168 0056 01F4      		brne .+2
+ 1169 0058 00C0      		rjmp .L120
+ 1170 005a AC01      		movw r20,r24
+ 1171 005c 4619      		sub r20,r6
+ 1172 005e 5709      		sbc r21,r7
+ 1173 0060 8981      		ldd r24,Y+1
+ 1174 0062 9A81      		ldd r25,Y+2
+ 1175 0064 AB81      		ldd r26,Y+3
+ 1176 0066 BC81      		ldd r27,Y+4
+ 1177 0068 ED81      		ldd r30,Y+5
+ 1178 006a FE81      		ldd r31,Y+6
+ 1179 006c 2081      		ld r18,Z
+ 1180 006e 3181      		ldd r19,Z+1
+ 1181 0070 2A01      		movw r4,r20
+ 1182 0072 052E      		mov __tmp_reg__,r21
+ 1183 0074 000C      		lsl r0
+ 1184 0076 6608      		sbc r6,r6
+ 1185 0078 7708      		sbc r7,r7
+ 1186 007a 4301      		movw r8,r6
+ 1187 007c 3201      		movw r6,r4
+ 1188 007e 680E      		add r6,r24
+ 1189 0080 791E      		adc r7,r25
+ 1190 0082 8A1E      		adc r8,r26
+ 1191 0084 9B1E      		adc r9,r27
+ 1192 0086 1901      		movw r2,r18
+ 1193 0088 412C      		mov r4,__zero_reg__
+ 1194 008a 512C      		mov r5,__zero_reg__
+ 1195 008c 2614      		cp r2,r6
+ 1196 008e 3704      		cpc r3,r7
+ 1197 0090 4804      		cpc r4,r8
+GAS LISTING /tmp/ccAnO6a9.s 			page 22
+
+
+ 1198 0092 5904      		cpc r5,r9
+ 1199 0094 00F4      		brsh .+2
+ 1200 0096 00C0      		rjmp .L120
+ 1201 0098 480F      		add r20,r24
+ 1202 009a 591F      		adc r21,r25
+ 1203 009c 241B      		sub r18,r20
+ 1204 009e 350B      		sbc r19,r21
+ 1205 00a0 3183      		std Z+1,r19
+ 1206 00a2 2083      		st Z,r18
+ 1207 00a4 0097      		sbiw r24,0
+ 1208 00a6 A105      		cpc r26,__zero_reg__
+ 1209 00a8 B105      		cpc r27,__zero_reg__
+ 1210 00aa 01F4      		brne .L111
+ 1211 00ac F501      		movw r30,r10
+ 1212 00ae 1482      		std Z+4,__zero_reg__
+ 1213 00b0 1582      		std Z+5,__zero_reg__
+ 1214 00b2 1682      		std Z+6,__zero_reg__
+ 1215 00b4 1782      		std Z+7,__zero_reg__
+ 1216 00b6 1082      		st Z,__zero_reg__
+ 1217 00b8 1182      		std Z+1,__zero_reg__
+ 1218 00ba 1282      		std Z+2,__zero_reg__
+ 1219 00bc 1382      		std Z+3,__zero_reg__
+ 1220               	.L111:
+ 1221 00be AC01      		movw r20,r24
+ 1222 00c0 BD01      		movw r22,r26
+ 1223 00c2 F801      		movw r30,r16
+ 1224 00c4 8081      		ld r24,Z
+ 1225 00c6 9181      		ldd r25,Z+1
+ 1226 00c8 0197      		sbiw r24,1
+ 1227 00ca 9183      		std Z+1,r25
+ 1228 00cc 8083      		st Z,r24
+ 1229               	.L112:
+ 1230 00ce 1416      		cp __zero_reg__,r20
+ 1231 00d0 1506      		cpc __zero_reg__,r21
+ 1232 00d2 1606      		cpc __zero_reg__,r22
+ 1233 00d4 1706      		cpc __zero_reg__,r23
+ 1234 00d6 04F0      		brlt .L114
+ 1235               	.L117:
+ 1236 00d8 F501      		movw r30,r10
+ 1237 00da 4480      		ldd r4,Z+4
+ 1238 00dc 5580      		ldd r5,Z+5
+ 1239 00de 6680      		ldd r6,Z+6
+ 1240 00e0 7780      		ldd r7,Z+7
+ 1241 00e2 FBE2      		ldi r31,43
+ 1242 00e4 4F16      		cp r4,r31
+ 1243 00e6 5104      		cpc r5,__zero_reg__
+ 1244 00e8 6104      		cpc r6,__zero_reg__
+ 1245 00ea 7104      		cpc r7,__zero_reg__
+ 1246 00ec 01F4      		brne .L125
+ 1247 00ee 81E0      		ldi r24,lo8(1)
+ 1248 00f0 90E0      		ldi r25,0
+ 1249 00f2 A0E0      		ldi r26,0
+ 1250 00f4 B0E0      		ldi r27,0
+ 1251 00f6 F501      		movw r30,r10
+ 1252 00f8 8083      		st Z,r24
+ 1253 00fa 9183      		std Z+1,r25
+ 1254 00fc A283      		std Z+2,r26
+GAS LISTING /tmp/ccAnO6a9.s 			page 23
+
+
+ 1255 00fe B383      		std Z+3,r27
+ 1256 0100 83E0      		ldi r24,lo8(3)
+ 1257 0102 90E0      		ldi r25,0
+ 1258 0104 A0E0      		ldi r26,0
+ 1259 0106 B0E0      		ldi r27,0
+ 1260 0108 8483      		std Z+4,r24
+ 1261 010a 9583      		std Z+5,r25
+ 1262 010c A683      		std Z+6,r26
+ 1263 010e B783      		std Z+7,r27
+ 1264 0110 00C0      		rjmp .L118
+ 1265               	.L114:
+ 1266 0112 F801      		movw r30,r16
+ 1267 0114 8081      		ld r24,Z
+ 1268 0116 9181      		ldd r25,Z+1
+ 1269 0118 9C01      		movw r18,r24
+ 1270 011a 2150      		subi r18,1
+ 1271 011c 3109      		sbc r19,__zero_reg__
+ 1272 011e 3183      		std Z+1,r19
+ 1273 0120 2083      		st Z,r18
+ 1274 0122 892B      		or r24,r25
+ 1275 0124 01F0      		breq .L117
+ 1276 0126 F601      		movw r30,r12
+ 1277 0128 80E0      		ldi r24,0
+ 1278 012a 90E0      		ldi r25,0
+ 1279 012c DC01      		movw r26,r24
+ 1280               	.L113:
+ 1281 012e 27E0      		ldi r18,7
+ 1282               		1:
+ 1283 0130 880F      		lsl r24
+ 1284 0132 991F      		rol r25
+ 1285 0134 AA1F      		rol r26
+ 1286 0136 BB1F      		rol r27
+ 1287 0138 2A95      		dec r18
+ 1288 013a 01F4      		brne 1b
+ 1289 013c 2191      		ld r18,Z+
+ 1290 013e 322F      		mov r19,r18
+ 1291 0140 3F77      		andi r19,lo8(127)
+ 1292 0142 830F      		add r24,r19
+ 1293 0144 911D      		adc r25,__zero_reg__
+ 1294 0146 A11D      		adc r26,__zero_reg__
+ 1295 0148 B11D      		adc r27,__zero_reg__
+ 1296 014a 4150      		subi r20,1
+ 1297 014c 5109      		sbc r21,__zero_reg__
+ 1298 014e 6109      		sbc r22,__zero_reg__
+ 1299 0150 7109      		sbc r23,__zero_reg__
+ 1300 0152 6F01      		movw r12,r30
+ 1301 0154 27FD      		sbrc r18,7
+ 1302 0156 00C0      		rjmp .L113
+ 1303 0158 F701      		movw r30,r14
+ 1304 015a 8193      		st Z+,r24
+ 1305 015c 9193      		st Z+,r25
+ 1306 015e A193      		st Z+,r26
+ 1307 0160 B193      		st Z+,r27
+ 1308 0162 7F01      		movw r14,r30
+ 1309 0164 00C0      		rjmp .L112
+ 1310               	.L125:
+ 1311 0166 C301      		movw r24,r6
+GAS LISTING /tmp/ccAnO6a9.s 			page 24
+
+
+ 1312 0168 B201      		movw r22,r4
+ 1313 016a 28E2      		ldi r18,lo8(40)
+ 1314 016c 30E0      		ldi r19,0
+ 1315 016e 40E0      		ldi r20,0
+ 1316 0170 50E0      		ldi r21,0
+ 1317 0172 0E94 0000 		call __udivmodsi4
+ 1318 0176 F501      		movw r30,r10
+ 1319 0178 6483      		std Z+4,r22
+ 1320 017a 7583      		std Z+5,r23
+ 1321 017c 8683      		std Z+6,r24
+ 1322 017e 9783      		std Z+7,r25
+ 1323 0180 A301      		movw r20,r6
+ 1324 0182 9201      		movw r18,r4
+ 1325 0184 261B      		sub r18,r22
+ 1326 0186 370B      		sbc r19,r23
+ 1327 0188 480B      		sbc r20,r24
+ 1328 018a 590B      		sbc r21,r25
+ 1329 018c CA01      		movw r24,r20
+ 1330 018e B901      		movw r22,r18
+ 1331 0190 28E2      		ldi r18,lo8(40)
+ 1332 0192 30E0      		ldi r19,0
+ 1333 0194 40E0      		ldi r20,0
+ 1334 0196 50E0      		ldi r21,0
+ 1335 0198 0E94 0000 		call __udivmodsi4
+ 1336 019c DA01      		movw r26,r20
+ 1337 019e C901      		movw r24,r18
+ 1338 01a0 9927      		clr r25
+ 1339 01a2 AA27      		clr r26
+ 1340 01a4 BB27      		clr r27
+ 1341 01a6 F501      		movw r30,r10
+ 1342 01a8 8083      		st Z,r24
+ 1343 01aa 9183      		std Z+1,r25
+ 1344 01ac A283      		std Z+2,r26
+ 1345 01ae B383      		std Z+3,r27
+ 1346               	.L118:
+ 1347 01b0 EA18      		sub r14,r10
+ 1348 01b2 FB08      		sbc r15,r11
+ 1349 01b4 F594      		asr r15
+ 1350 01b6 E794      		ror r14
+ 1351 01b8 F594      		asr r15
+ 1352 01ba E794      		ror r14
+ 1353 01bc F801      		movw r30,r16
+ 1354 01be F182      		std Z+1,r15
+ 1355 01c0 E082      		st Z,r14
+ 1356 01c2 C601      		movw r24,r12
+ 1357 01c4 00C0      		rjmp .L110
+ 1358               	.L120:
+ 1359 01c6 80E0      		ldi r24,0
+ 1360 01c8 90E0      		ldi r25,0
+ 1361               	.L110:
+ 1362               	/* epilogue start */
+ 1363 01ca 2696      		adiw r28,6
+ 1364 01cc 0FB6      		in __tmp_reg__,__SREG__
+ 1365 01ce F894      		cli
+ 1366 01d0 DEBF      		out __SP_H__,r29
+ 1367 01d2 0FBE      		out __SREG__,__tmp_reg__
+ 1368 01d4 CDBF      		out __SP_L__,r28
+GAS LISTING /tmp/ccAnO6a9.s 			page 25
+
+
+ 1369 01d6 DF91      		pop r29
+ 1370 01d8 CF91      		pop r28
+ 1371 01da 1F91      		pop r17
+ 1372 01dc 0F91      		pop r16
+ 1373 01de FF90      		pop r15
+ 1374 01e0 EF90      		pop r14
+ 1375 01e2 DF90      		pop r13
+ 1376 01e4 CF90      		pop r12
+ 1377 01e6 BF90      		pop r11
+ 1378 01e8 AF90      		pop r10
+ 1379 01ea 9F90      		pop r9
+ 1380 01ec 8F90      		pop r8
+ 1381 01ee 7F90      		pop r7
+ 1382 01f0 6F90      		pop r6
+ 1383 01f2 5F90      		pop r5
+ 1384 01f4 4F90      		pop r4
+ 1385 01f6 3F90      		pop r3
+ 1386 01f8 2F90      		pop r2
+ 1387 01fa 0895      		ret
+ 1388               		.size	AsnOidParse, .-AsnOidParse
+ 1389               		.section	.text.AsnOidBuild,"ax",@progbits
+ 1390               	.global	AsnOidBuild
+ 1391               		.type	AsnOidBuild, @function
+ 1392               	AsnOidBuild:
+ 1393 0000 2F92      		push r2
+ 1394 0002 3F92      		push r3
+ 1395 0004 4F92      		push r4
+ 1396 0006 5F92      		push r5
+ 1397 0008 6F92      		push r6
+ 1398 000a 7F92      		push r7
+ 1399 000c 8F92      		push r8
+ 1400 000e 9F92      		push r9
+ 1401 0010 AF92      		push r10
+ 1402 0012 BF92      		push r11
+ 1403 0014 CF92      		push r12
+ 1404 0016 DF92      		push r13
+ 1405 0018 EF92      		push r14
+ 1406 001a FF92      		push r15
+ 1407 001c 0F93      		push r16
+ 1408 001e 1F93      		push r17
+ 1409 0020 CF93      		push r28
+ 1410 0022 DF93      		push r29
+ 1411 0024 CDB7      		in r28,__SP_L__
+ 1412 0026 DEB7      		in r29,__SP_H__
+ 1413 0028 2A97      		sbiw r28,10
+ 1414 002a 0FB6      		in __tmp_reg__,__SREG__
+ 1415 002c F894      		cli
+ 1416 002e DEBF      		out __SP_H__,r29
+ 1417 0030 0FBE      		out __SREG__,__tmp_reg__
+ 1418 0032 CDBF      		out __SP_L__,r28
+ 1419               	/* prologue: function */
+ 1420               	/* frame size = 10 */
+ 1421               	/* stack size = 28 */
+ 1422               	.L__stack_usage = 28
+ 1423 0034 9A83      		std Y+2,r25
+ 1424 0036 8983      		std Y+1,r24
+ 1425 0038 1B01      		movw r2,r22
+GAS LISTING /tmp/ccAnO6a9.s 			page 26
+
+
+ 1426 003a 4F83      		std Y+7,r20
+ 1427 003c 4901      		movw r8,r18
+ 1428 003e 0115      		cp r16,__zero_reg__
+ 1429 0040 1105      		cpc r17,__zero_reg__
+ 1430 0042 01F0      		breq .L152
+ 1431 0044 D901      		movw r26,r18
+ 1432 0046 2D91      		ld r18,X+
+ 1433 0048 3D91      		ld r19,X+
+ 1434 004a 4D91      		ld r20,X+
+ 1435 004c 5C91      		ld r21,X
+ 1436 004e 2330      		cpi r18,3
+ 1437 0050 3105      		cpc r19,__zero_reg__
+ 1438 0052 4105      		cpc r20,__zero_reg__
+ 1439 0054 5105      		cpc r21,__zero_reg__
+ 1440 0056 00F0      		brlo .+2
+ 1441 0058 00C0      		rjmp .L163
+ 1442 005a 0130      		cpi r16,1
+ 1443 005c 1105      		cpc r17,__zero_reg__
+ 1444 005e 01F4      		brne .L130
+ 1445 0060 A8E2      		ldi r26,lo8(40)
+ 1446 0062 B0E0      		ldi r27,0
+ 1447 0064 0E94 0000 		call __muluhisi3
+ 1448 0068 2B01      		movw r4,r22
+ 1449 006a 3C01      		movw r6,r24
+ 1450 006c 00C0      		rjmp .L127
+ 1451               	.L130:
+ 1452 006e F401      		movw r30,r8
+ 1453 0070 C480      		ldd r12,Z+4
+ 1454 0072 D580      		ldd r13,Z+5
+ 1455 0074 E680      		ldd r14,Z+6
+ 1456 0076 F780      		ldd r15,Z+7
+ 1457 0078 F9E2      		ldi r31,41
+ 1458 007a CF16      		cp r12,r31
+ 1459 007c D104      		cpc r13,__zero_reg__
+ 1460 007e E104      		cpc r14,__zero_reg__
+ 1461 0080 F104      		cpc r15,__zero_reg__
+ 1462 0082 00F0      		brlo .L131
+ 1463 0084 2230      		cpi r18,2
+ 1464 0086 3105      		cpc r19,__zero_reg__
+ 1465 0088 4105      		cpc r20,__zero_reg__
+ 1466 008a 5105      		cpc r21,__zero_reg__
+ 1467 008c 01F0      		breq .+2
+ 1468 008e 00C0      		rjmp .L163
+ 1469               	.L131:
+ 1470 0090 0132      		cpi r16,33
+ 1471 0092 1105      		cpc r17,__zero_reg__
+ 1472 0094 00F0      		brlo .+2
+ 1473 0096 00C0      		rjmp .L163
+ 1474 0098 A8E2      		ldi r26,lo8(40)
+ 1475 009a B0E0      		ldi r27,0
+ 1476 009c 0E94 0000 		call __muluhisi3
+ 1477 00a0 2B01      		movw r4,r22
+ 1478 00a2 3C01      		movw r6,r24
+ 1479 00a4 4C0C      		add r4,r12
+ 1480 00a6 5D1C      		adc r5,r13
+ 1481 00a8 6E1C      		adc r6,r14
+ 1482 00aa 7F1C      		adc r7,r15
+GAS LISTING /tmp/ccAnO6a9.s 			page 27
+
+
+ 1483 00ac 0150      		subi r16,1
+ 1484 00ae 1109      		sbc r17,__zero_reg__
+ 1485 00b0 00C0      		rjmp .L127
+ 1486               	.L152:
+ 1487 00b2 412C      		mov r4,__zero_reg__
+ 1488 00b4 512C      		mov r5,__zero_reg__
+ 1489 00b6 3201      		movw r6,r4
+ 1490 00b8 01E0      		ldi r16,lo8(1)
+ 1491 00ba 10E0      		ldi r17,0
+ 1492               	.L127:
+ 1493 00bc 80E8      		ldi r24,lo8(-128)
+ 1494 00be 90E0      		ldi r25,0
+ 1495 00c0 0E94 0000 		call malloc
+ 1496 00c4 5C01      		movw r10,r24
+ 1497 00c6 0097      		sbiw r24,0
+ 1498 00c8 01F4      		brne .+2
+ 1499 00ca 00C0      		rjmp .L163
+ 1500 00cc 9E83      		std Y+6,r25
+ 1501 00ce 8D83      		std Y+5,r24
+ 1502 00d0 FC01      		movw r30,r24
+ 1503 00d2 6401      		movw r12,r8
+ 1504 00d4 80E0      		ldi r24,0
+ 1505 00d6 90E0      		ldi r25,0
+ 1506 00d8 E12C      		mov r14,__zero_reg__
+ 1507 00da F12C      		mov r15,__zero_reg__
+ 1508 00dc 9401      		movw r18,r8
+ 1509 00de 285F      		subi r18,-8
+ 1510 00e0 3F4F      		sbci r19,-1
+ 1511               	.L140:
+ 1512 00e2 0097      		sbiw r24,0
+ 1513 00e4 01F0      		breq .L133
+ 1514 00e6 D601      		movw r26,r12
+ 1515 00e8 4D91      		ld r20,X+
+ 1516 00ea 5D91      		ld r21,X+
+ 1517 00ec 6D91      		ld r22,X+
+ 1518 00ee 7C91      		ld r23,X
+ 1519 00f0 1397      		sbiw r26,3
+ 1520 00f2 1496      		adiw r26,4
+ 1521 00f4 6D01      		movw r12,r26
+ 1522 00f6 00C0      		rjmp .L134
+ 1523               	.L133:
+ 1524 00f8 6901      		movw r12,r18
+ 1525 00fa B301      		movw r22,r6
+ 1526 00fc A201      		movw r20,r4
+ 1527               	.L134:
+ 1528 00fe 4038      		cpi r20,-128
+ 1529 0100 5105      		cpc r21,__zero_reg__
+ 1530 0102 6105      		cpc r22,__zero_reg__
+ 1531 0104 7105      		cpc r23,__zero_reg__
+ 1532 0106 00F4      		brsh .L135
+ 1533 0108 B1E0      		ldi r27,lo8(1)
+ 1534 010a B083      		st Z,r27
+ 1535 010c 4FEF      		ldi r20,-1
+ 1536 010e E41A      		sub r14,r20
+ 1537 0110 F40A      		sbc r15,r20
+ 1538 0112 00C0      		rjmp .L136
+ 1539               	.L135:
+GAS LISTING /tmp/ccAnO6a9.s 			page 28
+
+
+ 1540 0114 4115      		cp r20,__zero_reg__
+ 1541 0116 A0E4      		ldi r26,64
+ 1542 0118 5A07      		cpc r21,r26
+ 1543 011a 6105      		cpc r22,__zero_reg__
+ 1544 011c 7105      		cpc r23,__zero_reg__
+ 1545 011e 00F4      		brsh .L137
+ 1546 0120 B2E0      		ldi r27,lo8(2)
+ 1547 0122 B083      		st Z,r27
+ 1548 0124 42E0      		ldi r20,2
+ 1549 0126 E40E      		add r14,r20
+ 1550 0128 F11C      		adc r15,__zero_reg__
+ 1551 012a 00C0      		rjmp .L136
+ 1552               	.L137:
+ 1553 012c 4115      		cp r20,__zero_reg__
+ 1554 012e 5105      		cpc r21,__zero_reg__
+ 1555 0130 A0E2      		ldi r26,32
+ 1556 0132 6A07      		cpc r22,r26
+ 1557 0134 7105      		cpc r23,__zero_reg__
+ 1558 0136 00F4      		brsh .L138
+ 1559 0138 B3E0      		ldi r27,lo8(3)
+ 1560 013a B083      		st Z,r27
+ 1561 013c 43E0      		ldi r20,3
+ 1562 013e E40E      		add r14,r20
+ 1563 0140 F11C      		adc r15,__zero_reg__
+ 1564 0142 00C0      		rjmp .L136
+ 1565               	.L138:
+ 1566 0144 4115      		cp r20,__zero_reg__
+ 1567 0146 5105      		cpc r21,__zero_reg__
+ 1568 0148 6105      		cpc r22,__zero_reg__
+ 1569 014a 7041      		sbci r23,16
+ 1570 014c 00F4      		brsh .L139
+ 1571 014e B4E0      		ldi r27,lo8(4)
+ 1572 0150 B083      		st Z,r27
+ 1573 0152 44E0      		ldi r20,4
+ 1574 0154 E40E      		add r14,r20
+ 1575 0156 F11C      		adc r15,__zero_reg__
+ 1576 0158 00C0      		rjmp .L136
+ 1577               	.L139:
+ 1578 015a A5E0      		ldi r26,lo8(5)
+ 1579 015c A083      		st Z,r26
+ 1580 015e B5E0      		ldi r27,5
+ 1581 0160 EB0E      		add r14,r27
+ 1582 0162 F11C      		adc r15,__zero_reg__
+ 1583               	.L136:
+ 1584 0164 0196      		adiw r24,1
+ 1585 0166 3196      		adiw r30,1
+ 1586 0168 0817      		cp r16,r24
+ 1587 016a 1907      		cpc r17,r25
+ 1588 016c 01F0      		breq .+2
+ 1589 016e 00C0      		rjmp .L140
+ 1590 0170 9701      		movw r18,r14
+ 1591 0172 4F81      		ldd r20,Y+7
+ 1592 0174 B101      		movw r22,r2
+ 1593 0176 8981      		ldd r24,Y+1
+ 1594 0178 9A81      		ldd r25,Y+2
+ 1595 017a 0E94 0000 		call AsnHeaderBuild
+ 1596 017e 9887      		std Y+8,r25
+GAS LISTING /tmp/ccAnO6a9.s 			page 29
+
+
+ 1597 0180 8F83      		std Y+7,r24
+ 1598 0182 892B      		or r24,r25
+ 1599 0184 01F0      		breq .L141
+ 1600 0186 F101      		movw r30,r2
+ 1601 0188 8081      		ld r24,Z
+ 1602 018a 9181      		ldd r25,Z+1
+ 1603 018c 8E15      		cp r24,r14
+ 1604 018e 9F05      		cpc r25,r15
+ 1605 0190 00F4      		brsh .L153
+ 1606               	.L141:
+ 1607 0192 C501      		movw r24,r10
+ 1608 0194 0E94 0000 		call free
+ 1609               	.L163:
+ 1610 0198 80E0      		ldi r24,0
+ 1611 019a 90E0      		ldi r25,0
+ 1612 019c 00C0      		rjmp .L129
+ 1613               	.L153:
+ 1614 019e 1A86      		std Y+10,__zero_reg__
+ 1615 01a0 1986      		std Y+9,__zero_reg__
+ 1616 01a2 F8E0      		ldi r31,8
+ 1617 01a4 8F0E      		add r8,r31
+ 1618 01a6 911C      		adc r9,__zero_reg__
+ 1619               	.L142:
+ 1620 01a8 2985      		ldd r18,Y+9
+ 1621 01aa 3A85      		ldd r19,Y+10
+ 1622 01ac 232B      		or r18,r19
+ 1623 01ae 01F0      		breq .L143
+ 1624 01b0 D601      		movw r26,r12
+ 1625 01b2 4D91      		ld r20,X+
+ 1626 01b4 5D91      		ld r21,X+
+ 1627 01b6 6D91      		ld r22,X+
+ 1628 01b8 7C91      		ld r23,X
+ 1629 01ba F601      		movw r30,r12
+ 1630 01bc 3496      		adiw r30,4
+ 1631 01be 6F01      		movw r12,r30
+ 1632 01c0 00C0      		rjmp .L144
+ 1633               	.L143:
+ 1634 01c2 6401      		movw r12,r8
+ 1635 01c4 B301      		movw r22,r6
+ 1636 01c6 A201      		movw r20,r4
+ 1637               	.L144:
+ 1638 01c8 AD81      		ldd r26,Y+5
+ 1639 01ca BE81      		ldd r27,Y+6
+ 1640 01cc 2D91      		ld r18,X+
+ 1641 01ce BE83      		std Y+6,r27
+ 1642 01d0 AD83      		std Y+5,r26
+ 1643 01d2 2330      		cpi r18,lo8(3)
+ 1644 01d4 01F4      		brne .+2
+ 1645 01d6 00C0      		rjmp .L146
+ 1646 01d8 00F4      		brsh .L147
+ 1647 01da 2130      		cpi r18,lo8(1)
+ 1648 01dc 01F4      		brne .+2
+ 1649 01de 00C0      		rjmp .L148
+ 1650 01e0 2230      		cpi r18,lo8(2)
+ 1651 01e2 01F0      		breq .+2
+ 1652 01e4 00C0      		rjmp .L145
+ 1653 01e6 DB01      		movw r26,r22
+GAS LISTING /tmp/ccAnO6a9.s 			page 30
+
+
+ 1654 01e8 CA01      		movw r24,r20
+ 1655 01ea 27E0      		ldi r18,7
+ 1656               		1:
+ 1657 01ec B695      		lsr r27
+ 1658 01ee A795      		ror r26
+ 1659 01f0 9795      		ror r25
+ 1660 01f2 8795      		ror r24
+ 1661 01f4 2A95      		dec r18
+ 1662 01f6 01F4      		brne 1b
+ 1663 01f8 8983      		std Y+1,r24
+ 1664 01fa 9A83      		std Y+2,r25
+ 1665 01fc AB83      		std Y+3,r26
+ 1666 01fe BC83      		std Y+4,r27
+ 1667 0200 282F      		mov r18,r24
+ 1668 0202 2068      		ori r18,lo8(-128)
+ 1669 0204 AF81      		ldd r26,Y+7
+ 1670 0206 B885      		ldd r27,Y+8
+ 1671 0208 2C93      		st X,r18
+ 1672 020a 4F77      		andi r20,lo8(127)
+ 1673 020c 1196      		adiw r26,1
+ 1674 020e 4C93      		st X,r20
+ 1675 0210 1197      		sbiw r26,1
+ 1676 0212 1296      		adiw r26,2
+ 1677 0214 00C0      		rjmp .L162
+ 1678               	.L147:
+ 1679 0216 2430      		cpi r18,lo8(4)
+ 1680 0218 01F4      		brne .+2
+ 1681 021a 00C0      		rjmp .L150
+ 1682 021c 2530      		cpi r18,lo8(5)
+ 1683 021e 01F0      		breq .+2
+ 1684 0220 00C0      		rjmp .L145
+ 1685 0222 DB01      		movw r26,r22
+ 1686 0224 CA01      		movw r24,r20
+ 1687 0226 2CE1      		ldi r18,28
+ 1688               		1:
+ 1689 0228 B695      		lsr r27
+ 1690 022a A795      		ror r26
+ 1691 022c 9795      		ror r25
+ 1692 022e 8795      		ror r24
+ 1693 0230 2A95      		dec r18
+ 1694 0232 01F4      		brne 1b
+ 1695 0234 8983      		std Y+1,r24
+ 1696 0236 9A83      		std Y+2,r25
+ 1697 0238 AB83      		std Y+3,r26
+ 1698 023a BC83      		std Y+4,r27
+ 1699 023c 282F      		mov r18,r24
+ 1700 023e 2068      		ori r18,lo8(-128)
+ 1701 0240 AF81      		ldd r26,Y+7
+ 1702 0242 B885      		ldd r27,Y+8
+ 1703 0244 2C93      		st X,r18
+ 1704 0246 DB01      		movw r26,r22
+ 1705 0248 CA01      		movw r24,r20
+ 1706 024a 35E1      		ldi r19,21
+ 1707               		1:
+ 1708 024c B695      		lsr r27
+ 1709 024e A795      		ror r26
+ 1710 0250 9795      		ror r25
+GAS LISTING /tmp/ccAnO6a9.s 			page 31
+
+
+ 1711 0252 8795      		ror r24
+ 1712 0254 3A95      		dec r19
+ 1713 0256 01F4      		brne 1b
+ 1714 0258 8983      		std Y+1,r24
+ 1715 025a 9A83      		std Y+2,r25
+ 1716 025c AB83      		std Y+3,r26
+ 1717 025e BC83      		std Y+4,r27
+ 1718 0260 282F      		mov r18,r24
+ 1719 0262 2068      		ori r18,lo8(-128)
+ 1720 0264 AF81      		ldd r26,Y+7
+ 1721 0266 B885      		ldd r27,Y+8
+ 1722 0268 1196      		adiw r26,1
+ 1723 026a 2C93      		st X,r18
+ 1724 026c DB01      		movw r26,r22
+ 1725 026e CA01      		movw r24,r20
+ 1726 0270 EEE0      		ldi r30,14
+ 1727               		1:
+ 1728 0272 B695      		lsr r27
+ 1729 0274 A795      		ror r26
+ 1730 0276 9795      		ror r25
+ 1731 0278 8795      		ror r24
+ 1732 027a EA95      		dec r30
+ 1733 027c 01F4      		brne 1b
+ 1734 027e 8983      		std Y+1,r24
+ 1735 0280 9A83      		std Y+2,r25
+ 1736 0282 AB83      		std Y+3,r26
+ 1737 0284 BC83      		std Y+4,r27
+ 1738 0286 282F      		mov r18,r24
+ 1739 0288 2068      		ori r18,lo8(-128)
+ 1740 028a AF81      		ldd r26,Y+7
+ 1741 028c B885      		ldd r27,Y+8
+ 1742 028e 1296      		adiw r26,2
+ 1743 0290 2C93      		st X,r18
+ 1744 0292 DB01      		movw r26,r22
+ 1745 0294 CA01      		movw r24,r20
+ 1746 0296 F7E0      		ldi r31,7
+ 1747               		1:
+ 1748 0298 B695      		lsr r27
+ 1749 029a A795      		ror r26
+ 1750 029c 9795      		ror r25
+ 1751 029e 8795      		ror r24
+ 1752 02a0 FA95      		dec r31
+ 1753 02a2 01F4      		brne 1b
+ 1754 02a4 8983      		std Y+1,r24
+ 1755 02a6 9A83      		std Y+2,r25
+ 1756 02a8 AB83      		std Y+3,r26
+ 1757 02aa BC83      		std Y+4,r27
+ 1758 02ac 282F      		mov r18,r24
+ 1759 02ae 2068      		ori r18,lo8(-128)
+ 1760 02b0 AF81      		ldd r26,Y+7
+ 1761 02b2 B885      		ldd r27,Y+8
+ 1762 02b4 1396      		adiw r26,3
+ 1763 02b6 2C93      		st X,r18
+ 1764 02b8 1397      		sbiw r26,3
+ 1765 02ba 4F77      		andi r20,lo8(127)
+ 1766 02bc 1496      		adiw r26,4
+ 1767 02be 4C93      		st X,r20
+GAS LISTING /tmp/ccAnO6a9.s 			page 32
+
+
+ 1768 02c0 1497      		sbiw r26,4
+ 1769 02c2 1596      		adiw r26,5
+ 1770 02c4 00C0      		rjmp .L162
+ 1771               	.L148:
+ 1772 02c6 EF81      		ldd r30,Y+7
+ 1773 02c8 F885      		ldd r31,Y+8
+ 1774 02ca 4083      		st Z,r20
+ 1775 02cc 3196      		adiw r30,1
+ 1776 02ce F887      		std Y+8,r31
+ 1777 02d0 EF83      		std Y+7,r30
+ 1778 02d2 00C0      		rjmp .L145
+ 1779               	.L146:
+ 1780 02d4 DB01      		movw r26,r22
+ 1781 02d6 CA01      		movw r24,r20
+ 1782 02d8 EEE0      		ldi r30,14
+ 1783               		1:
+ 1784 02da B695      		lsr r27
+ 1785 02dc A795      		ror r26
+ 1786 02de 9795      		ror r25
+ 1787 02e0 8795      		ror r24
+ 1788 02e2 EA95      		dec r30
+ 1789 02e4 01F4      		brne 1b
+ 1790 02e6 8983      		std Y+1,r24
+ 1791 02e8 9A83      		std Y+2,r25
+ 1792 02ea AB83      		std Y+3,r26
+ 1793 02ec BC83      		std Y+4,r27
+ 1794 02ee 282F      		mov r18,r24
+ 1795 02f0 2068      		ori r18,lo8(-128)
+ 1796 02f2 AF81      		ldd r26,Y+7
+ 1797 02f4 B885      		ldd r27,Y+8
+ 1798 02f6 2C93      		st X,r18
+ 1799 02f8 DB01      		movw r26,r22
+ 1800 02fa CA01      		movw r24,r20
+ 1801 02fc F7E0      		ldi r31,7
+ 1802               		1:
+ 1803 02fe B695      		lsr r27
+ 1804 0300 A795      		ror r26
+ 1805 0302 9795      		ror r25
+ 1806 0304 8795      		ror r24
+ 1807 0306 FA95      		dec r31
+ 1808 0308 01F4      		brne 1b
+ 1809 030a 8983      		std Y+1,r24
+ 1810 030c 9A83      		std Y+2,r25
+ 1811 030e AB83      		std Y+3,r26
+ 1812 0310 BC83      		std Y+4,r27
+ 1813 0312 282F      		mov r18,r24
+ 1814 0314 2068      		ori r18,lo8(-128)
+ 1815 0316 AF81      		ldd r26,Y+7
+ 1816 0318 B885      		ldd r27,Y+8
+ 1817 031a 1196      		adiw r26,1
+ 1818 031c 2C93      		st X,r18
+ 1819 031e 1197      		sbiw r26,1
+ 1820 0320 4F77      		andi r20,lo8(127)
+ 1821 0322 1296      		adiw r26,2
+ 1822 0324 4C93      		st X,r20
+ 1823 0326 1297      		sbiw r26,2
+ 1824 0328 1396      		adiw r26,3
+GAS LISTING /tmp/ccAnO6a9.s 			page 33
+
+
+ 1825 032a 00C0      		rjmp .L162
+ 1826               	.L150:
+ 1827 032c DB01      		movw r26,r22
+ 1828 032e CA01      		movw r24,r20
+ 1829 0330 25E1      		ldi r18,21
+ 1830               		1:
+ 1831 0332 B695      		lsr r27
+ 1832 0334 A795      		ror r26
+ 1833 0336 9795      		ror r25
+ 1834 0338 8795      		ror r24
+ 1835 033a 2A95      		dec r18
+ 1836 033c 01F4      		brne 1b
+ 1837 033e 8983      		std Y+1,r24
+ 1838 0340 9A83      		std Y+2,r25
+ 1839 0342 AB83      		std Y+3,r26
+ 1840 0344 BC83      		std Y+4,r27
+ 1841 0346 282F      		mov r18,r24
+ 1842 0348 2068      		ori r18,lo8(-128)
+ 1843 034a AF81      		ldd r26,Y+7
+ 1844 034c B885      		ldd r27,Y+8
+ 1845 034e 2C93      		st X,r18
+ 1846 0350 DB01      		movw r26,r22
+ 1847 0352 CA01      		movw r24,r20
+ 1848 0354 3EE0      		ldi r19,14
+ 1849               		1:
+ 1850 0356 B695      		lsr r27
+ 1851 0358 A795      		ror r26
+ 1852 035a 9795      		ror r25
+ 1853 035c 8795      		ror r24
+ 1854 035e 3A95      		dec r19
+ 1855 0360 01F4      		brne 1b
+ 1856 0362 8983      		std Y+1,r24
+ 1857 0364 9A83      		std Y+2,r25
+ 1858 0366 AB83      		std Y+3,r26
+ 1859 0368 BC83      		std Y+4,r27
+ 1860 036a 282F      		mov r18,r24
+ 1861 036c 2068      		ori r18,lo8(-128)
+ 1862 036e AF81      		ldd r26,Y+7
+ 1863 0370 B885      		ldd r27,Y+8
+ 1864 0372 1196      		adiw r26,1
+ 1865 0374 2C93      		st X,r18
+ 1866 0376 DB01      		movw r26,r22
+ 1867 0378 CA01      		movw r24,r20
+ 1868 037a 57E0      		ldi r21,7
+ 1869               		1:
+ 1870 037c B695      		lsr r27
+ 1871 037e A795      		ror r26
+ 1872 0380 9795      		ror r25
+ 1873 0382 8795      		ror r24
+ 1874 0384 5A95      		dec r21
+ 1875 0386 01F4      		brne 1b
+ 1876 0388 8983      		std Y+1,r24
+ 1877 038a 9A83      		std Y+2,r25
+ 1878 038c AB83      		std Y+3,r26
+ 1879 038e BC83      		std Y+4,r27
+ 1880 0390 282F      		mov r18,r24
+ 1881 0392 2068      		ori r18,lo8(-128)
+GAS LISTING /tmp/ccAnO6a9.s 			page 34
+
+
+ 1882 0394 AF81      		ldd r26,Y+7
+ 1883 0396 B885      		ldd r27,Y+8
+ 1884 0398 1296      		adiw r26,2
+ 1885 039a 2C93      		st X,r18
+ 1886 039c 1297      		sbiw r26,2
+ 1887 039e 4F77      		andi r20,lo8(127)
+ 1888 03a0 1396      		adiw r26,3
+ 1889 03a2 4C93      		st X,r20
+ 1890 03a4 1397      		sbiw r26,3
+ 1891 03a6 1496      		adiw r26,4
+ 1892               	.L162:
+ 1893 03a8 B887      		std Y+8,r27
+ 1894 03aa AF83      		std Y+7,r26
+ 1895               	.L145:
+ 1896 03ac E985      		ldd r30,Y+9
+ 1897 03ae FA85      		ldd r31,Y+10
+ 1898 03b0 3196      		adiw r30,1
+ 1899 03b2 FA87      		std Y+10,r31
+ 1900 03b4 E987      		std Y+9,r30
+ 1901 03b6 0E17      		cp r16,r30
+ 1902 03b8 1F07      		cpc r17,r31
+ 1903 03ba 01F0      		breq .+2
+ 1904 03bc 00C0      		rjmp .L142
+ 1905 03be D101      		movw r26,r2
+ 1906 03c0 8D91      		ld r24,X+
+ 1907 03c2 9C91      		ld r25,X
+ 1908 03c4 1197      		sbiw r26,1
+ 1909 03c6 8E19      		sub r24,r14
+ 1910 03c8 9F09      		sbc r25,r15
+ 1911 03ca 8D93      		st X+,r24
+ 1912 03cc 9C93      		st X,r25
+ 1913 03ce C501      		movw r24,r10
+ 1914 03d0 0E94 0000 		call free
+ 1915 03d4 8F81      		ldd r24,Y+7
+ 1916 03d6 9885      		ldd r25,Y+8
+ 1917               	.L129:
+ 1918               	/* epilogue start */
+ 1919 03d8 2A96      		adiw r28,10
+ 1920 03da 0FB6      		in __tmp_reg__,__SREG__
+ 1921 03dc F894      		cli
+ 1922 03de DEBF      		out __SP_H__,r29
+ 1923 03e0 0FBE      		out __SREG__,__tmp_reg__
+ 1924 03e2 CDBF      		out __SP_L__,r28
+ 1925 03e4 DF91      		pop r29
+ 1926 03e6 CF91      		pop r28
+ 1927 03e8 1F91      		pop r17
+ 1928 03ea 0F91      		pop r16
+ 1929 03ec FF90      		pop r15
+ 1930 03ee EF90      		pop r14
+ 1931 03f0 DF90      		pop r13
+ 1932 03f2 CF90      		pop r12
+ 1933 03f4 BF90      		pop r11
+ 1934 03f6 AF90      		pop r10
+ 1935 03f8 9F90      		pop r9
+ 1936 03fa 8F90      		pop r8
+ 1937 03fc 7F90      		pop r7
+ 1938 03fe 6F90      		pop r6
+GAS LISTING /tmp/ccAnO6a9.s 			page 35
+
+
+ 1939 0400 5F90      		pop r5
+ 1940 0402 4F90      		pop r4
+ 1941 0404 3F90      		pop r3
+ 1942 0406 2F90      		pop r2
+ 1943 0408 0895      		ret
+ 1944               		.size	AsnOidBuild, .-AsnOidBuild
+ 1945               		.section	.text.AsnNullParse,"ax",@progbits
+ 1946               	.global	AsnNullParse
+ 1947               		.type	AsnNullParse, @function
+ 1948               	AsnNullParse:
+ 1949 0000 EF92      		push r14
+ 1950 0002 FF92      		push r15
+ 1951 0004 0F93      		push r16
+ 1952 0006 1F93      		push r17
+ 1953 0008 CF93      		push r28
+ 1954 000a DF93      		push r29
+ 1955 000c 00D0      		rcall .
+ 1956 000e 1F92      		push __zero_reg__
+ 1957 0010 CDB7      		in r28,__SP_L__
+ 1958 0012 DEB7      		in r29,__SP_H__
+ 1959               	/* prologue: function */
+ 1960               	/* frame size = 4 */
+ 1961               	/* stack size = 10 */
+ 1962               	.L__stack_usage = 10
+ 1963 0014 8C01      		movw r16,r24
+ 1964 0016 7B01      		movw r14,r22
+ 1965 0018 FC01      		movw r30,r24
+ 1966 001a 8081      		ld r24,Z
+ 1967 001c FA01      		movw r30,r20
+ 1968 001e 8083      		st Z,r24
+ 1969 0020 BE01      		movw r22,r28
+ 1970 0022 6F5F      		subi r22,-1
+ 1971 0024 7F4F      		sbci r23,-1
+ 1972 0026 C801      		movw r24,r16
+ 1973 0028 0196      		adiw r24,1
+ 1974 002a 0E94 0000 		call AsnLenParse
+ 1975 002e 0097      		sbiw r24,0
+ 1976 0030 01F0      		breq .L167
+ 1977 0032 4981      		ldd r20,Y+1
+ 1978 0034 5A81      		ldd r21,Y+2
+ 1979 0036 6B81      		ldd r22,Y+3
+ 1980 0038 7C81      		ldd r23,Y+4
+ 1981 003a 452B      		or r20,r21
+ 1982 003c 462B      		or r20,r22
+ 1983 003e 472B      		or r20,r23
+ 1984 0040 01F4      		brne .L167
+ 1985 0042 AC01      		movw r20,r24
+ 1986 0044 401B      		sub r20,r16
+ 1987 0046 510B      		sbc r21,r17
+ 1988 0048 F701      		movw r30,r14
+ 1989 004a 2081      		ld r18,Z
+ 1990 004c 3181      		ldd r19,Z+1
+ 1991 004e 241B      		sub r18,r20
+ 1992 0050 350B      		sbc r19,r21
+ 1993 0052 3183      		std Z+1,r19
+ 1994 0054 2083      		st Z,r18
+ 1995 0056 00C0      		rjmp .L165
+GAS LISTING /tmp/ccAnO6a9.s 			page 36
+
+
+ 1996               	.L167:
+ 1997 0058 80E0      		ldi r24,0
+ 1998 005a 90E0      		ldi r25,0
+ 1999               	.L165:
+ 2000               	/* epilogue start */
+ 2001 005c 0F90      		pop __tmp_reg__
+ 2002 005e 0F90      		pop __tmp_reg__
+ 2003 0060 0F90      		pop __tmp_reg__
+ 2004 0062 0F90      		pop __tmp_reg__
+ 2005 0064 DF91      		pop r29
+ 2006 0066 CF91      		pop r28
+ 2007 0068 1F91      		pop r17
+ 2008 006a 0F91      		pop r16
+ 2009 006c FF90      		pop r15
+ 2010 006e EF90      		pop r14
+ 2011 0070 0895      		ret
+ 2012               		.size	AsnNullParse, .-AsnNullParse
+ 2013               		.section	.text.AsnNullBuild,"ax",@progbits
+ 2014               	.global	AsnNullBuild
+ 2015               		.type	AsnNullBuild, @function
+ 2016               	AsnNullBuild:
+ 2017               	/* prologue: function */
+ 2018               	/* frame size = 0 */
+ 2019               	/* stack size = 0 */
+ 2020               	.L__stack_usage = 0
+ 2021 0000 20E0      		ldi r18,0
+ 2022 0002 30E0      		ldi r19,0
+ 2023 0004 0C94 0000 		jmp AsnHeaderBuild
+ 2024               		.size	AsnNullBuild, .-AsnNullBuild
+ 2025               		.section	.text.AsnBitStringParse,"ax",@progbits
+ 2026               	.global	AsnBitStringParse
+ 2027               		.type	AsnBitStringParse, @function
+ 2028               	AsnBitStringParse:
+ 2029 0000 4F92      		push r4
+ 2030 0002 5F92      		push r5
+ 2031 0004 6F92      		push r6
+ 2032 0006 7F92      		push r7
+ 2033 0008 8F92      		push r8
+ 2034 000a 9F92      		push r9
+ 2035 000c AF92      		push r10
+ 2036 000e BF92      		push r11
+ 2037 0010 CF92      		push r12
+ 2038 0012 DF92      		push r13
+ 2039 0014 EF92      		push r14
+ 2040 0016 FF92      		push r15
+ 2041 0018 0F93      		push r16
+ 2042 001a 1F93      		push r17
+ 2043 001c CF93      		push r28
+ 2044 001e DF93      		push r29
+ 2045 0020 00D0      		rcall .
+ 2046 0022 1F92      		push __zero_reg__
+ 2047 0024 CDB7      		in r28,__SP_L__
+ 2048 0026 DEB7      		in r29,__SP_H__
+ 2049               	/* prologue: function */
+ 2050               	/* frame size = 4 */
+ 2051               	/* stack size = 20 */
+ 2052               	.L__stack_usage = 20
+GAS LISTING /tmp/ccAnO6a9.s 			page 37
+
+
+ 2053 0028 5C01      		movw r10,r24
+ 2054 002a 6B01      		movw r12,r22
+ 2055 002c 4901      		movw r8,r18
+ 2056 002e FC01      		movw r30,r24
+ 2057 0030 8081      		ld r24,Z
+ 2058 0032 FA01      		movw r30,r20
+ 2059 0034 8083      		st Z,r24
+ 2060 0036 BE01      		movw r22,r28
+ 2061 0038 6F5F      		subi r22,-1
+ 2062 003a 7F4F      		sbci r23,-1
+ 2063 003c C501      		movw r24,r10
+ 2064 003e 0196      		adiw r24,1
+ 2065 0040 0E94 0000 		call AsnLenParse
+ 2066 0044 7C01      		movw r14,r24
+ 2067 0046 0097      		sbiw r24,0
+ 2068 0048 01F0      		breq .L175
+ 2069 004a 8A19      		sub r24,r10
+ 2070 004c 9B09      		sbc r25,r11
+ 2071 004e 5C01      		movw r10,r24
+ 2072 0050 4980      		ldd r4,Y+1
+ 2073 0052 5A80      		ldd r5,Y+2
+ 2074 0054 6B80      		ldd r6,Y+3
+ 2075 0056 7C80      		ldd r7,Y+4
+ 2076 0058 AC01      		movw r20,r24
+ 2077 005a 990F      		lsl r25
+ 2078 005c 660B      		sbc r22,r22
+ 2079 005e 770B      		sbc r23,r23
+ 2080 0060 440D      		add r20,r4
+ 2081 0062 551D      		adc r21,r5
+ 2082 0064 661D      		adc r22,r6
+ 2083 0066 771D      		adc r23,r7
+ 2084 0068 F601      		movw r30,r12
+ 2085 006a 8081      		ld r24,Z
+ 2086 006c 9181      		ldd r25,Z+1
+ 2087 006e A0E0      		ldi r26,0
+ 2088 0070 B0E0      		ldi r27,0
+ 2089 0072 8417      		cp r24,r20
+ 2090 0074 9507      		cpc r25,r21
+ 2091 0076 A607      		cpc r26,r22
+ 2092 0078 B707      		cpc r27,r23
+ 2093 007a 00F0      		brlo .L175
+ 2094 007c 4114      		cp r4,__zero_reg__
+ 2095 007e 5104      		cpc r5,__zero_reg__
+ 2096 0080 6104      		cpc r6,__zero_reg__
+ 2097 0082 7104      		cpc r7,__zero_reg__
+ 2098 0084 01F0      		breq .L175
+ 2099 0086 F801      		movw r30,r16
+ 2100 0088 8081      		ld r24,Z
+ 2101 008a 9181      		ldd r25,Z+1
+ 2102 008c 8415      		cp r24,r4
+ 2103 008e 9505      		cpc r25,r5
+ 2104 0090 00F0      		brlo .L175
+ 2105 0092 F701      		movw r30,r14
+ 2106 0094 8081      		ld r24,Z
+ 2107 0096 8830      		cpi r24,lo8(8)
+ 2108 0098 00F4      		brsh .L175
+ 2109 009a A201      		movw r20,r4
+GAS LISTING /tmp/ccAnO6a9.s 			page 38
+
+
+ 2110 009c B701      		movw r22,r14
+ 2111 009e C401      		movw r24,r8
+ 2112 00a0 0E94 0000 		call memcpy
+ 2113 00a4 F801      		movw r30,r16
+ 2114 00a6 5182      		std Z+1,r5
+ 2115 00a8 4082      		st Z,r4
+ 2116 00aa F601      		movw r30,r12
+ 2117 00ac 8081      		ld r24,Z
+ 2118 00ae 9181      		ldd r25,Z+1
+ 2119 00b0 8419      		sub r24,r4
+ 2120 00b2 9509      		sbc r25,r5
+ 2121 00b4 8A19      		sub r24,r10
+ 2122 00b6 9B09      		sbc r25,r11
+ 2123 00b8 9183      		std Z+1,r25
+ 2124 00ba 8083      		st Z,r24
+ 2125 00bc C701      		movw r24,r14
+ 2126 00be 840D      		add r24,r4
+ 2127 00c0 951D      		adc r25,r5
+ 2128 00c2 00C0      		rjmp .L170
+ 2129               	.L175:
+ 2130 00c4 80E0      		ldi r24,0
+ 2131 00c6 90E0      		ldi r25,0
+ 2132               	.L170:
+ 2133               	/* epilogue start */
+ 2134 00c8 0F90      		pop __tmp_reg__
+ 2135 00ca 0F90      		pop __tmp_reg__
+ 2136 00cc 0F90      		pop __tmp_reg__
+ 2137 00ce 0F90      		pop __tmp_reg__
+ 2138 00d0 DF91      		pop r29
+ 2139 00d2 CF91      		pop r28
+ 2140 00d4 1F91      		pop r17
+ 2141 00d6 0F91      		pop r16
+ 2142 00d8 FF90      		pop r15
+ 2143 00da EF90      		pop r14
+ 2144 00dc DF90      		pop r13
+ 2145 00de CF90      		pop r12
+ 2146 00e0 BF90      		pop r11
+ 2147 00e2 AF90      		pop r10
+ 2148 00e4 9F90      		pop r9
+ 2149 00e6 8F90      		pop r8
+ 2150 00e8 7F90      		pop r7
+ 2151 00ea 6F90      		pop r6
+ 2152 00ec 5F90      		pop r5
+ 2153 00ee 4F90      		pop r4
+ 2154 00f0 0895      		ret
+ 2155               		.size	AsnBitStringParse, .-AsnBitStringParse
+ 2156               		.section	.text.AsnBitStringBuild,"ax",@progbits
+ 2157               	.global	AsnBitStringBuild
+ 2158               		.type	AsnBitStringBuild, @function
+ 2159               	AsnBitStringBuild:
+ 2160 0000 CF92      		push r12
+ 2161 0002 DF92      		push r13
+ 2162 0004 EF92      		push r14
+ 2163 0006 FF92      		push r15
+ 2164 0008 0F93      		push r16
+ 2165 000a 1F93      		push r17
+ 2166 000c CF93      		push r28
+GAS LISTING /tmp/ccAnO6a9.s 			page 39
+
+
+ 2167 000e DF93      		push r29
+ 2168               	/* prologue: function */
+ 2169               	/* frame size = 0 */
+ 2170               	/* stack size = 8 */
+ 2171               	.L__stack_usage = 8
+ 2172 0010 7B01      		movw r14,r22
+ 2173 0012 6901      		movw r12,r18
+ 2174 0014 9801      		movw r18,r16
+ 2175 0016 0E94 0000 		call AsnHeaderBuild
+ 2176 001a EC01      		movw r28,r24
+ 2177 001c 0097      		sbiw r24,0
+ 2178 001e 01F0      		breq .L180
+ 2179 0020 0115      		cp r16,__zero_reg__
+ 2180 0022 1105      		cpc r17,__zero_reg__
+ 2181 0024 01F0      		breq .L177
+ 2182 0026 F701      		movw r30,r14
+ 2183 0028 8081      		ld r24,Z
+ 2184 002a 9181      		ldd r25,Z+1
+ 2185 002c 8017      		cp r24,r16
+ 2186 002e 9107      		cpc r25,r17
+ 2187 0030 00F0      		brlo .L180
+ 2188 0032 A801      		movw r20,r16
+ 2189 0034 B601      		movw r22,r12
+ 2190 0036 CE01      		movw r24,r28
+ 2191 0038 0E94 0000 		call memcpy
+ 2192 003c F701      		movw r30,r14
+ 2193 003e 8081      		ld r24,Z
+ 2194 0040 9181      		ldd r25,Z+1
+ 2195 0042 801B      		sub r24,r16
+ 2196 0044 910B      		sbc r25,r17
+ 2197 0046 9183      		std Z+1,r25
+ 2198 0048 8083      		st Z,r24
+ 2199 004a CE01      		movw r24,r28
+ 2200 004c 800F      		add r24,r16
+ 2201 004e 911F      		adc r25,r17
+ 2202 0050 00C0      		rjmp .L177
+ 2203               	.L180:
+ 2204 0052 80E0      		ldi r24,0
+ 2205 0054 90E0      		ldi r25,0
+ 2206               	.L177:
+ 2207               	/* epilogue start */
+ 2208 0056 DF91      		pop r29
+ 2209 0058 CF91      		pop r28
+ 2210 005a 1F91      		pop r17
+ 2211 005c 0F91      		pop r16
+ 2212 005e FF90      		pop r15
+ 2213 0060 EF90      		pop r14
+ 2214 0062 DF90      		pop r13
+ 2215 0064 CF90      		pop r12
+ 2216 0066 0895      		ret
+ 2217               		.size	AsnBitStringBuild, .-AsnBitStringBuild
+ 2218               		.section	.text.AsnUnsigned64Parse,"ax",@progbits
+ 2219               	.global	AsnUnsigned64Parse
+ 2220               		.type	AsnUnsigned64Parse, @function
+ 2221               	AsnUnsigned64Parse:
+ 2222 0000 4F92      		push r4
+ 2223 0002 5F92      		push r5
+GAS LISTING /tmp/ccAnO6a9.s 			page 40
+
+
+ 2224 0004 6F92      		push r6
+ 2225 0006 7F92      		push r7
+ 2226 0008 8F92      		push r8
+ 2227 000a 9F92      		push r9
+ 2228 000c AF92      		push r10
+ 2229 000e BF92      		push r11
+ 2230 0010 CF92      		push r12
+ 2231 0012 DF92      		push r13
+ 2232 0014 EF92      		push r14
+ 2233 0016 FF92      		push r15
+ 2234 0018 0F93      		push r16
+ 2235 001a 1F93      		push r17
+ 2236 001c CF93      		push r28
+ 2237 001e DF93      		push r29
+ 2238 0020 00D0      		rcall .
+ 2239 0022 1F92      		push __zero_reg__
+ 2240 0024 CDB7      		in r28,__SP_L__
+ 2241 0026 DEB7      		in r29,__SP_H__
+ 2242               	/* prologue: function */
+ 2243               	/* frame size = 4 */
+ 2244               	/* stack size = 20 */
+ 2245               	.L__stack_usage = 20
+ 2246 0028 6C01      		movw r12,r24
+ 2247 002a 7B01      		movw r14,r22
+ 2248 002c 8901      		movw r16,r18
+ 2249 002e DC01      		movw r26,r24
+ 2250 0030 8C91      		ld r24,X
+ 2251 0032 FA01      		movw r30,r20
+ 2252 0034 8083      		st Z,r24
+ 2253 0036 BE01      		movw r22,r28
+ 2254 0038 6F5F      		subi r22,-1
+ 2255 003a 7F4F      		sbci r23,-1
+ 2256 003c C601      		movw r24,r12
+ 2257 003e 0196      		adiw r24,1
+ 2258 0040 0E94 0000 		call AsnLenParse
+ 2259 0044 0097      		sbiw r24,0
+ 2260 0046 01F4      		brne .+2
+ 2261 0048 00C0      		rjmp .L189
+ 2262 004a FC01      		movw r30,r24
+ 2263 004c EC19      		sub r30,r12
+ 2264 004e FD09      		sbc r31,r13
+ 2265 0050 4981      		ldd r20,Y+1
+ 2266 0052 5A81      		ldd r21,Y+2
+ 2267 0054 6B81      		ldd r22,Y+3
+ 2268 0056 7C81      		ldd r23,Y+4
+ 2269 0058 D701      		movw r26,r14
+ 2270 005a 2D91      		ld r18,X+
+ 2271 005c 3C91      		ld r19,X
+ 2272 005e 4F01      		movw r8,r30
+ 2273 0060 0F2E      		mov __tmp_reg__,r31
+ 2274 0062 000C      		lsl r0
+ 2275 0064 AA08      		sbc r10,r10
+ 2276 0066 BB08      		sbc r11,r11
+ 2277 0068 840E      		add r8,r20
+ 2278 006a 951E      		adc r9,r21
+ 2279 006c A61E      		adc r10,r22
+ 2280 006e B71E      		adc r11,r23
+GAS LISTING /tmp/ccAnO6a9.s 			page 41
+
+
+ 2281 0070 2901      		movw r4,r18
+ 2282 0072 612C      		mov r6,__zero_reg__
+ 2283 0074 712C      		mov r7,__zero_reg__
+ 2284 0076 4814      		cp r4,r8
+ 2285 0078 5904      		cpc r5,r9
+ 2286 007a 6A04      		cpc r6,r10
+ 2287 007c 7B04      		cpc r7,r11
+ 2288 007e 00F4      		brsh .+2
+ 2289 0080 00C0      		rjmp .L189
+ 2290 0082 4A30      		cpi r20,10
+ 2291 0084 5105      		cpc r21,__zero_reg__
+ 2292 0086 6105      		cpc r22,__zero_reg__
+ 2293 0088 7105      		cpc r23,__zero_reg__
+ 2294 008a 00F0      		brlo .+2
+ 2295 008c 00C0      		rjmp .L189
+ 2296 008e 4930      		cpi r20,9
+ 2297 0090 5105      		cpc r21,__zero_reg__
+ 2298 0092 6105      		cpc r22,__zero_reg__
+ 2299 0094 7105      		cpc r23,__zero_reg__
+ 2300 0096 01F4      		brne .L183
+ 2301 0098 DC01      		movw r26,r24
+ 2302 009a DC90      		ld r13,X
+ 2303 009c D110      		cpse r13,__zero_reg__
+ 2304 009e 00C0      		rjmp .L189
+ 2305               	.L183:
+ 2306 00a0 4E0F      		add r20,r30
+ 2307 00a2 5F1F      		adc r21,r31
+ 2308 00a4 241B      		sub r18,r20
+ 2309 00a6 350B      		sbc r19,r21
+ 2310 00a8 F701      		movw r30,r14
+ 2311 00aa 3183      		std Z+1,r19
+ 2312 00ac 2083      		st Z,r18
+ 2313 00ae DC01      		movw r26,r24
+ 2314 00b0 4C91      		ld r20,X
+ 2315 00b2 042E      		mov __tmp_reg__,r20
+ 2316 00b4 000C      		lsl r0
+ 2317 00b6 550B      		sbc r21,r21
+ 2318 00b8 660B      		sbc r22,r22
+ 2319 00ba 770B      		sbc r23,r23
+ 2320 00bc 770F      		lsl r23
+ 2321 00be 440B      		sbc r20,r20
+ 2322 00c0 542F      		mov r21,r20
+ 2323 00c2 BA01      		movw r22,r20
+ 2324 00c4 6A01      		movw r12,r20
+ 2325 00c6 7B01      		movw r14,r22
+ 2326               	.L184:
+ 2327 00c8 FC01      		movw r30,r24
+ 2328 00ca 8980      		ldd r8,Y+1
+ 2329 00cc 9A80      		ldd r9,Y+2
+ 2330 00ce AB80      		ldd r10,Y+3
+ 2331 00d0 BC80      		ldd r11,Y+4
+ 2332 00d2 2401      		movw r4,r8
+ 2333 00d4 3501      		movw r6,r10
+ 2334 00d6 B1E0      		ldi r27,1
+ 2335 00d8 4B1A      		sub r4,r27
+ 2336 00da 5108      		sbc r5,__zero_reg__
+ 2337 00dc 6108      		sbc r6,__zero_reg__
+GAS LISTING /tmp/ccAnO6a9.s 			page 42
+
+
+ 2338 00de 7108      		sbc r7,__zero_reg__
+ 2339 00e0 4982      		std Y+1,r4
+ 2340 00e2 5A82      		std Y+2,r5
+ 2341 00e4 6B82      		std Y+3,r6
+ 2342 00e6 7C82      		std Y+4,r7
+ 2343 00e8 8928      		or r8,r9
+ 2344 00ea 8A28      		or r8,r10
+ 2345 00ec 8B28      		or r8,r11
+ 2346 00ee 01F0      		breq .L190
+ 2347 00f0 762F      		mov r23,r22
+ 2348 00f2 652F      		mov r22,r21
+ 2349 00f4 542F      		mov r21,r20
+ 2350 00f6 4427      		clr r20
+ 2351 00f8 8F2C      		mov r8,r15
+ 2352 00fa 9924      		clr r9
+ 2353 00fc AA24      		clr r10
+ 2354 00fe BB24      		clr r11
+ 2355 0100 4829      		or r20,r8
+ 2356 0102 5929      		or r21,r9
+ 2357 0104 6A29      		or r22,r10
+ 2358 0106 7B29      		or r23,r11
+ 2359 0108 FE2C      		mov r15,r14
+ 2360 010a ED2C      		mov r14,r13
+ 2361 010c DC2C      		mov r13,r12
+ 2362 010e CC24      		clr r12
+ 2363 0110 0196      		adiw r24,1
+ 2364 0112 2081      		ld r18,Z
+ 2365 0114 C22A      		or r12,r18
+ 2366 0116 00C0      		rjmp .L184
+ 2367               	.L190:
+ 2368 0118 F801      		movw r30,r16
+ 2369 011a C482      		std Z+4,r12
+ 2370 011c D582      		std Z+5,r13
+ 2371 011e E682      		std Z+6,r14
+ 2372 0120 F782      		std Z+7,r15
+ 2373 0122 4083      		st Z,r20
+ 2374 0124 5183      		std Z+1,r21
+ 2375 0126 6283      		std Z+2,r22
+ 2376 0128 7383      		std Z+3,r23
+ 2377 012a 00C0      		rjmp .L182
+ 2378               	.L189:
+ 2379 012c 80E0      		ldi r24,0
+ 2380 012e 90E0      		ldi r25,0
+ 2381               	.L182:
+ 2382               	/* epilogue start */
+ 2383 0130 0F90      		pop __tmp_reg__
+ 2384 0132 0F90      		pop __tmp_reg__
+ 2385 0134 0F90      		pop __tmp_reg__
+ 2386 0136 0F90      		pop __tmp_reg__
+ 2387 0138 DF91      		pop r29
+ 2388 013a CF91      		pop r28
+ 2389 013c 1F91      		pop r17
+ 2390 013e 0F91      		pop r16
+ 2391 0140 FF90      		pop r15
+ 2392 0142 EF90      		pop r14
+ 2393 0144 DF90      		pop r13
+ 2394 0146 CF90      		pop r12
+GAS LISTING /tmp/ccAnO6a9.s 			page 43
+
+
+ 2395 0148 BF90      		pop r11
+ 2396 014a AF90      		pop r10
+ 2397 014c 9F90      		pop r9
+ 2398 014e 8F90      		pop r8
+ 2399 0150 7F90      		pop r7
+ 2400 0152 6F90      		pop r6
+ 2401 0154 5F90      		pop r5
+ 2402 0156 4F90      		pop r4
+ 2403 0158 0895      		ret
+ 2404               		.size	AsnUnsigned64Parse, .-AsnUnsigned64Parse
+ 2405               		.section	.text.AsnUnsigned64Build,"ax",@progbits
+ 2406               	.global	AsnUnsigned64Build
+ 2407               		.type	AsnUnsigned64Build, @function
+ 2408               	AsnUnsigned64Build:
+ 2409 0000 4F92      		push r4
+ 2410 0002 5F92      		push r5
+ 2411 0004 6F92      		push r6
+ 2412 0006 7F92      		push r7
+ 2413 0008 AF92      		push r10
+ 2414 000a BF92      		push r11
+ 2415 000c CF92      		push r12
+ 2416 000e DF92      		push r13
+ 2417 0010 EF92      		push r14
+ 2418 0012 FF92      		push r15
+ 2419 0014 0F93      		push r16
+ 2420 0016 1F93      		push r17
+ 2421 0018 CF93      		push r28
+ 2422 001a DF93      		push r29
+ 2423               	/* prologue: function */
+ 2424               	/* frame size = 0 */
+ 2425               	/* stack size = 14 */
+ 2426               	.L__stack_usage = 14
+ 2427 001c 8B01      		movw r16,r22
+ 2428 001e 642F      		mov r22,r20
+ 2429 0020 F901      		movw r30,r18
+ 2430 0022 4480      		ldd r4,Z+4
+ 2431 0024 5580      		ldd r5,Z+5
+ 2432 0026 6680      		ldd r6,Z+6
+ 2433 0028 7780      		ldd r7,Z+7
+ 2434 002a C080      		ld r12,Z
+ 2435 002c D180      		ldd r13,Z+1
+ 2436 002e E280      		ldd r14,Z+2
+ 2437 0030 F380      		ldd r15,Z+3
+ 2438 0032 F7FE      		sbrs r15,7
+ 2439 0034 00C0      		rjmp .L201
+ 2440 0036 C9E0      		ldi r28,lo8(9)
+ 2441 0038 D0E0      		ldi r29,0
+ 2442 003a AA24      		clr r10
+ 2443 003c A394      		inc r10
+ 2444 003e B12C      		mov r11,__zero_reg__
+ 2445 0040 00C0      		rjmp .L193
+ 2446               	.L201:
+ 2447 0042 C8E0      		ldi r28,lo8(8)
+ 2448 0044 D0E0      		ldi r29,0
+ 2449 0046 A12C      		mov r10,__zero_reg__
+ 2450 0048 B12C      		mov r11,__zero_reg__
+ 2451 004a 00C0      		rjmp .L193
+GAS LISTING /tmp/ccAnO6a9.s 			page 44
+
+
+ 2452               	.L207:
+ 2453 004c 2115      		cp r18,__zero_reg__
+ 2454 004e 3105      		cpc r19,__zero_reg__
+ 2455 0050 4048      		sbci r20,-128
+ 2456 0052 5F4F      		sbci r21,-1
+ 2457 0054 01F4      		brne .L195
+ 2458               	.L194:
+ 2459 0056 C130      		cpi r28,1
+ 2460 0058 D105      		cpc r29,__zero_reg__
+ 2461 005a 01F0      		breq .L195
+ 2462 005c 2197      		sbiw r28,1
+ 2463 005e FE2C      		mov r15,r14
+ 2464 0060 ED2C      		mov r14,r13
+ 2465 0062 DC2C      		mov r13,r12
+ 2466 0064 CC24      		clr r12
+ 2467 0066 272D      		mov r18,r7
+ 2468 0068 3327      		clr r19
+ 2469 006a 4427      		clr r20
+ 2470 006c 5527      		clr r21
+ 2471 006e C22A      		or r12,r18
+ 2472 0070 D32A      		or r13,r19
+ 2473 0072 E42A      		or r14,r20
+ 2474 0074 F52A      		or r15,r21
+ 2475 0076 762C      		mov r7,r6
+ 2476 0078 652C      		mov r6,r5
+ 2477 007a 542C      		mov r5,r4
+ 2478 007c 4424      		clr r4
+ 2479               	.L193:
+ 2480 007e A701      		movw r20,r14
+ 2481 0080 9601      		movw r18,r12
+ 2482 0082 2227      		clr r18
+ 2483 0084 3327      		clr r19
+ 2484 0086 4078      		andi r20,128
+ 2485 0088 2115      		cp r18,__zero_reg__
+ 2486 008a 3105      		cpc r19,__zero_reg__
+ 2487 008c 4105      		cpc r20,__zero_reg__
+ 2488 008e 5105      		cpc r21,__zero_reg__
+ 2489 0090 01F0      		breq .L194
+ 2490 0092 00C0      		rjmp .L207
+ 2491               	.L195:
+ 2492 0094 9E01      		movw r18,r28
+ 2493 0096 462F      		mov r20,r22
+ 2494 0098 B801      		movw r22,r16
+ 2495 009a 0E94 0000 		call AsnHeaderBuild
+ 2496 009e 0097      		sbiw r24,0
+ 2497 00a0 01F0      		breq .L203
+ 2498 00a2 F801      		movw r30,r16
+ 2499 00a4 2081      		ld r18,Z
+ 2500 00a6 3181      		ldd r19,Z+1
+ 2501 00a8 2C17      		cp r18,r28
+ 2502 00aa 3D07      		cpc r19,r29
+ 2503 00ac 00F0      		brlo .L203
+ 2504 00ae 2C1B      		sub r18,r28
+ 2505 00b0 3D0B      		sbc r19,r29
+ 2506 00b2 3183      		std Z+1,r19
+ 2507 00b4 2083      		st Z,r18
+ 2508 00b6 AA94      		dec r10
+GAS LISTING /tmp/ccAnO6a9.s 			page 45
+
+
+ 2509 00b8 AB28      		or r10,r11
+ 2510 00ba 01F4      		brne .L198
+ 2511 00bc FC01      		movw r30,r24
+ 2512 00be 1082      		st Z,__zero_reg__
+ 2513 00c0 2197      		sbiw r28,1
+ 2514 00c2 0196      		adiw r24,1
+ 2515               	.L198:
+ 2516 00c4 FC01      		movw r30,r24
+ 2517 00c6 8C0F      		add r24,r28
+ 2518 00c8 9D1F      		adc r25,r29
+ 2519               	.L199:
+ 2520 00ca 8E17      		cp r24,r30
+ 2521 00cc 9F07      		cpc r25,r31
+ 2522 00ce 01F0      		breq .L197
+ 2523 00d0 F192      		st Z+,r15
+ 2524 00d2 FE2C      		mov r15,r14
+ 2525 00d4 ED2C      		mov r14,r13
+ 2526 00d6 DC2C      		mov r13,r12
+ 2527 00d8 CC24      		clr r12
+ 2528 00da 472D      		mov r20,r7
+ 2529 00dc 5527      		clr r21
+ 2530 00de 6627      		clr r22
+ 2531 00e0 7727      		clr r23
+ 2532 00e2 C42A      		or r12,r20
+ 2533 00e4 D52A      		or r13,r21
+ 2534 00e6 E62A      		or r14,r22
+ 2535 00e8 F72A      		or r15,r23
+ 2536 00ea 762C      		mov r7,r6
+ 2537 00ec 652C      		mov r6,r5
+ 2538 00ee 542C      		mov r5,r4
+ 2539 00f0 4424      		clr r4
+ 2540 00f2 00C0      		rjmp .L199
+ 2541               	.L203:
+ 2542 00f4 80E0      		ldi r24,0
+ 2543 00f6 90E0      		ldi r25,0
+ 2544               	.L197:
+ 2545               	/* epilogue start */
+ 2546 00f8 DF91      		pop r29
+ 2547 00fa CF91      		pop r28
+ 2548 00fc 1F91      		pop r17
+ 2549 00fe 0F91      		pop r16
+ 2550 0100 FF90      		pop r15
+ 2551 0102 EF90      		pop r14
+ 2552 0104 DF90      		pop r13
+ 2553 0106 CF90      		pop r12
+ 2554 0108 BF90      		pop r11
+ 2555 010a AF90      		pop r10
+ 2556 010c 7F90      		pop r7
+ 2557 010e 6F90      		pop r6
+ 2558 0110 5F90      		pop r5
+ 2559 0112 4F90      		pop r4
+ 2560 0114 0895      		ret
+ 2561               		.size	AsnUnsigned64Build, .-AsnUnsigned64Build
+ 2562               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccAnO6a9.s 			page 46
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 asn1.c
+     /tmp/ccAnO6a9.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccAnO6a9.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccAnO6a9.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccAnO6a9.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccAnO6a9.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccAnO6a9.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccAnO6a9.s:10     .text.AsnLenParse:0000000000000000 AsnLenParse
+     /tmp/ccAnO6a9.s:81     .text.AsnHeaderParse:0000000000000000 AsnHeaderParse
+     /tmp/ccAnO6a9.s:177    .text.AsnHeaderBuild:0000000000000000 AsnHeaderBuild
+     /tmp/ccAnO6a9.s:251    .text.AsnSequenceParse:0000000000000000 AsnSequenceParse
+     /tmp/ccAnO6a9.s:285    .text.AsnSequenceBuild:0000000000000000 AsnSequenceBuild
+     /tmp/ccAnO6a9.s:317    .text.AsnIntegerParse:0000000000000000 AsnIntegerParse
+     /tmp/ccAnO6a9.s:499    .text.AsnIntegerBuild:0000000000000000 AsnIntegerBuild
+     /tmp/ccAnO6a9.s:605    .text.AsnUnsignedParse:0000000000000000 AsnUnsignedParse
+     /tmp/ccAnO6a9.s:801    .text.AsnUnsignedBuild:0000000000000000 AsnUnsignedBuild
+     /tmp/ccAnO6a9.s:919    .text.AsnOctetStringParse:0000000000000000 AsnOctetStringParse
+     /tmp/ccAnO6a9.s:1052   .text.AsnOctetStringBuild:0000000000000000 AsnOctetStringBuild
+     /tmp/ccAnO6a9.s:1121   .text.AsnOidParse:0000000000000000 AsnOidParse
+     /tmp/ccAnO6a9.s:1392   .text.AsnOidBuild:0000000000000000 AsnOidBuild
+     /tmp/ccAnO6a9.s:1948   .text.AsnNullParse:0000000000000000 AsnNullParse
+     /tmp/ccAnO6a9.s:2016   .text.AsnNullBuild:0000000000000000 AsnNullBuild
+     /tmp/ccAnO6a9.s:2028   .text.AsnBitStringParse:0000000000000000 AsnBitStringParse
+     /tmp/ccAnO6a9.s:2159   .text.AsnBitStringBuild:0000000000000000 AsnBitStringBuild
+     /tmp/ccAnO6a9.s:2221   .text.AsnUnsigned64Parse:0000000000000000 AsnUnsigned64Parse
+     /tmp/ccAnO6a9.s:2408   .text.AsnUnsigned64Build:0000000000000000 AsnUnsigned64Build
+
+UNDEFINED SYMBOLS
+memcpy
+memset
+__udivmodsi4
+__muluhisi3
+malloc
+free

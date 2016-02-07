@@ -1,0 +1,35 @@
+GAS LISTING /tmp/cc8DhzbP.s 			page 1
+
+
+   1               		.file	"clrerr.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.clearerr,"ax",@progbits
+   9               	.global	clearerr
+  10               		.type	clearerr, @function
+  11               	clearerr:
+  12               	/* prologue: function */
+  13               	/* frame size = 0 */
+  14               	/* stack size = 0 */
+  15               	.L__stack_usage = 0
+  16 0000 0895      		ret
+  17               		.size	clearerr, .-clearerr
+  18               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/cc8DhzbP.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 clrerr.c
+     /tmp/cc8DhzbP.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cc8DhzbP.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cc8DhzbP.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cc8DhzbP.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cc8DhzbP.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cc8DhzbP.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cc8DhzbP.s:11     .text.clearerr:0000000000000000 clearerr
+
+NO UNDEFINED SYMBOLS

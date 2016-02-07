@@ -1,0 +1,64 @@
+GAS LISTING /tmp/ccIhQdwj.s 			page 1
+
+
+   1               		.file	"calloc.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.calloc,"ax",@progbits
+   9               	.global	calloc
+  10               		.type	calloc, @function
+  11               	calloc:
+  12 0000 0F93      		push r16
+  13 0002 1F93      		push r17
+  14 0004 CF93      		push r28
+  15 0006 DF93      		push r29
+  16               	/* prologue: function */
+  17               	/* frame size = 0 */
+  18               	/* stack size = 4 */
+  19               	.L__stack_usage = 4
+  20 0008 689F      		mul r22,r24
+  21 000a 8001      		movw r16,r0
+  22 000c 699F      		mul r22,r25
+  23 000e 100D      		add r17,r0
+  24 0010 789F      		mul r23,r24
+  25 0012 100D      		add r17,r0
+  26 0014 1124      		clr r1
+  27 0016 C801      		movw r24,r16
+  28 0018 0E94 0000 		call malloc
+  29 001c EC01      		movw r28,r24
+  30 001e 0097      		sbiw r24,0
+  31 0020 01F0      		breq .L2
+  32 0022 A801      		movw r20,r16
+  33 0024 60E0      		ldi r22,0
+  34 0026 70E0      		ldi r23,0
+  35 0028 0E94 0000 		call memset
+  36               	.L2:
+  37 002c CE01      		movw r24,r28
+  38               	/* epilogue start */
+  39 002e DF91      		pop r29
+  40 0030 CF91      		pop r28
+  41 0032 1F91      		pop r17
+  42 0034 0F91      		pop r16
+  43 0036 0895      		ret
+  44               		.size	calloc, .-calloc
+  45               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccIhQdwj.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 calloc.c
+     /tmp/ccIhQdwj.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccIhQdwj.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccIhQdwj.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccIhQdwj.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccIhQdwj.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccIhQdwj.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccIhQdwj.s:11     .text.calloc:0000000000000000 calloc
+
+UNDEFINED SYMBOLS
+malloc
+memset

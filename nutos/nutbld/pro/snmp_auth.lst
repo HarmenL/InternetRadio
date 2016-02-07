@@ -1,0 +1,182 @@
+GAS LISTING /tmp/ccRyI5NV.s 			page 1
+
+
+   1               		.file	"snmp_auth.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.SnmpAuthParse,"ax",@progbits
+   9               	.global	SnmpAuthParse
+  10               		.type	SnmpAuthParse, @function
+  11               	SnmpAuthParse:
+  12 0000 8F92      		push r8
+  13 0002 9F92      		push r9
+  14 0004 AF92      		push r10
+  15 0006 BF92      		push r11
+  16 0008 CF92      		push r12
+  17 000a DF92      		push r13
+  18 000c EF92      		push r14
+  19 000e FF92      		push r15
+  20 0010 0F93      		push r16
+  21 0012 1F93      		push r17
+  22 0014 CF93      		push r28
+  23 0016 DF93      		push r29
+  24 0018 1F92      		push __zero_reg__
+  25 001a CDB7      		in r28,__SP_L__
+  26 001c DEB7      		in r29,__SP_H__
+  27               	/* prologue: function */
+  28               	/* frame size = 1 */
+  29               	/* stack size = 13 */
+  30               	.L__stack_usage = 13
+  31 001e 7B01      		movw r14,r22
+  32 0020 6A01      		movw r12,r20
+  33 0022 5901      		movw r10,r18
+  34 0024 4801      		movw r8,r16
+  35 0026 20E3      		ldi r18,lo8(48)
+  36 0028 2983      		std Y+1,r18
+  37 002a 40E3      		ldi r20,lo8(48)
+  38 002c 0E94 0000 		call AsnSequenceParse
+  39 0030 0097      		sbiw r24,0
+  40 0032 01F4      		brne .L2
+  41               	.L4:
+  42 0034 80E0      		ldi r24,0
+  43 0036 90E0      		ldi r25,0
+  44 0038 00C0      		rjmp .L3
+  45               	.L2:
+  46 003a 9801      		movw r18,r16
+  47 003c AE01      		movw r20,r28
+  48 003e 4F5F      		subi r20,-1
+  49 0040 5F4F      		sbci r21,-1
+  50 0042 B701      		movw r22,r14
+  51 0044 0E94 0000 		call AsnIntegerParse
+  52 0048 0097      		sbiw r24,0
+  53 004a 01F0      		breq .L4
+  54 004c 8501      		movw r16,r10
+  55 004e 9601      		movw r18,r12
+  56 0050 AE01      		movw r20,r28
+  57 0052 4F5F      		subi r20,-1
+GAS LISTING /tmp/ccRyI5NV.s 			page 2
+
+
+  58 0054 5F4F      		sbci r21,-1
+  59 0056 B701      		movw r22,r14
+  60 0058 0E94 0000 		call AsnOctetStringParse
+  61 005c 0097      		sbiw r24,0
+  62 005e 01F0      		breq .L4
+  63 0060 D401      		movw r26,r8
+  64 0062 4D91      		ld r20,X+
+  65 0064 5D91      		ld r21,X+
+  66 0066 6D91      		ld r22,X+
+  67 0068 7C91      		ld r23,X
+  68 006a 452B      		or r20,r21
+  69 006c 462B      		or r20,r22
+  70 006e 472B      		or r20,r23
+  71 0070 01F4      		brne .L3
+  72 0072 D501      		movw r26,r10
+  73 0074 ED91      		ld r30,X+
+  74 0076 FC91      		ld r31,X
+  75 0078 EC0D      		add r30,r12
+  76 007a FD1D      		adc r31,r13
+  77 007c 1082      		st Z,__zero_reg__
+  78               	.L3:
+  79               	/* epilogue start */
+  80 007e 0F90      		pop __tmp_reg__
+  81 0080 DF91      		pop r29
+  82 0082 CF91      		pop r28
+  83 0084 1F91      		pop r17
+  84 0086 0F91      		pop r16
+  85 0088 FF90      		pop r15
+  86 008a EF90      		pop r14
+  87 008c DF90      		pop r13
+  88 008e CF90      		pop r12
+  89 0090 BF90      		pop r11
+  90 0092 AF90      		pop r10
+  91 0094 9F90      		pop r9
+  92 0096 8F90      		pop r8
+  93 0098 0895      		ret
+  94               		.size	SnmpAuthParse, .-SnmpAuthParse
+  95               		.section	.text.SnmpAuthBuild,"ax",@progbits
+  96               	.global	SnmpAuthBuild
+  97               		.type	SnmpAuthBuild, @function
+  98               	SnmpAuthBuild:
+  99 0000 EF92      		push r14
+ 100 0002 FF92      		push r15
+ 101 0004 0F93      		push r16
+ 102 0006 1F93      		push r17
+ 103 0008 CF93      		push r28
+ 104 000a DF93      		push r29
+ 105               	/* prologue: function */
+ 106               	/* frame size = 0 */
+ 107               	/* stack size = 6 */
+ 108               	.L__stack_usage = 6
+ 109 000c EC01      		movw r28,r24
+ 110 000e CB01      		movw r24,r22
+ 111 0010 7A01      		movw r14,r20
+ 112 0012 4C81      		ldd r20,Y+4
+ 113 0014 5D81      		ldd r21,Y+5
+ 114 0016 4B5F      		subi r20,-5
+GAS LISTING /tmp/ccRyI5NV.s 			page 3
+
+
+ 115 0018 5F4F      		sbci r21,-1
+ 116 001a 240F      		add r18,r20
+ 117 001c 351F      		adc r19,r21
+ 118 001e 40E3      		ldi r20,lo8(48)
+ 119 0020 B701      		movw r22,r14
+ 120 0022 0E94 0000 		call AsnSequenceBuild
+ 121 0026 0097      		sbiw r24,0
+ 122 0028 01F4      		brne .L14
+ 123               	.L16:
+ 124 002a 80E0      		ldi r24,0
+ 125 002c 90E0      		ldi r25,0
+ 126 002e 00C0      		rjmp .L15
+ 127               	.L14:
+ 128 0030 9E01      		movw r18,r28
+ 129 0032 42E0      		ldi r20,lo8(2)
+ 130 0034 B701      		movw r22,r14
+ 131 0036 0E94 0000 		call AsnIntegerBuild
+ 132 003a 0097      		sbiw r24,0
+ 133 003c 01F0      		breq .L16
+ 134 003e 0C81      		ldd r16,Y+4
+ 135 0040 1D81      		ldd r17,Y+5
+ 136 0042 9E01      		movw r18,r28
+ 137 0044 2A5F      		subi r18,-6
+ 138 0046 3F4F      		sbci r19,-1
+ 139 0048 44E0      		ldi r20,lo8(4)
+ 140 004a B701      		movw r22,r14
+ 141 004c 0E94 0000 		call AsnOctetStringBuild
+ 142               	.L15:
+ 143               	/* epilogue start */
+ 144 0050 DF91      		pop r29
+ 145 0052 CF91      		pop r28
+ 146 0054 1F91      		pop r17
+ 147 0056 0F91      		pop r16
+ 148 0058 FF90      		pop r15
+ 149 005a EF90      		pop r14
+ 150 005c 0895      		ret
+ 151               		.size	SnmpAuthBuild, .-SnmpAuthBuild
+ 152               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccRyI5NV.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 snmp_auth.c
+     /tmp/ccRyI5NV.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccRyI5NV.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccRyI5NV.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccRyI5NV.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccRyI5NV.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccRyI5NV.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccRyI5NV.s:11     .text.SnmpAuthParse:0000000000000000 SnmpAuthParse
+     /tmp/ccRyI5NV.s:98     .text.SnmpAuthBuild:0000000000000000 SnmpAuthBuild
+
+UNDEFINED SYMBOLS
+AsnSequenceParse
+AsnIntegerParse
+AsnOctetStringParse
+AsnSequenceBuild
+AsnIntegerBuild
+AsnOctetStringBuild

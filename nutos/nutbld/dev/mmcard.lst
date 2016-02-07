@@ -1,0 +1,1726 @@
+GAS LISTING /tmp/ccan3UjN.s 			page 1
+
+
+   1               		.file	"mmcard.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.MmCardTxCmd,"ax",@progbits
+   9               		.type	MmCardTxCmd, @function
+  10               	MmCardTxCmd:
+  11 0000 BF92      		push r11
+  12 0002 CF92      		push r12
+  13 0004 DF92      		push r13
+  14 0006 EF92      		push r14
+  15 0008 FF92      		push r15
+  16 000a 0F93      		push r16
+  17 000c 1F93      		push r17
+  18 000e CF93      		push r28
+  19 0010 DF93      		push r29
+  20               	/* prologue: function */
+  21               	/* frame size = 0 */
+  22               	/* stack size = 9 */
+  23               	.L__stack_usage = 9
+  24 0012 EC01      		movw r28,r24
+  25 0014 F62E      		mov r15,r22
+  26 0016 E22E      		mov r14,r18
+  27 0018 D32E      		mov r13,r19
+  28 001a C42E      		mov r12,r20
+  29 001c B52E      		mov r11,r21
+  30 001e EC81      		ldd r30,Y+4
+  31 0020 FD81      		ldd r31,Y+5
+  32 0022 81E0      		ldi r24,lo8(1)
+  33 0024 90E0      		ldi r25,0
+  34 0026 1995      		eicall
+  35 0028 00E0      		ldi r16,0
+  36 002a 14E0      		ldi r17,lo8(4)
+  37               	.L2:
+  38 002c EA81      		ldd r30,Y+2
+  39 002e FB81      		ldd r31,Y+3
+  40 0030 8FEF      		ldi r24,lo8(-1)
+  41 0032 1995      		eicall
+  42 0034 8F3F      		cpi r24,lo8(-1)
+  43 0036 01F0      		breq .L3
+  44 0038 0150      		subi r16,1
+  45 003a 1109      		sbc r17,__zero_reg__
+  46 003c 01F0      		breq .L3
+  47 003e 0F3F      		cpi r16,-1
+  48 0040 1105      		cpc r17,__zero_reg__
+  49 0042 01F0      		breq .+2
+  50 0044 00F4      		brsh .L2
+  51 0046 61E0      		ldi r22,lo8(1)
+  52 0048 70E0      		ldi r23,0
+  53 004a 80E0      		ldi r24,0
+  54 004c 90E0      		ldi r25,0
+  55 004e 0E94 0000 		call NutSleep
+  56 0052 00C0      		rjmp .L2
+  57               	.L3:
+GAS LISTING /tmp/ccan3UjN.s 			page 2
+
+
+  58 0054 EA81      		ldd r30,Y+2
+  59 0056 FB81      		ldd r31,Y+3
+  60 0058 8F2D      		mov r24,r15
+  61 005a 8064      		ori r24,lo8(64)
+  62 005c 1995      		eicall
+  63 005e EA81      		ldd r30,Y+2
+  64 0060 FB81      		ldd r31,Y+3
+  65 0062 8B2D      		mov r24,r11
+  66 0064 1995      		eicall
+  67 0066 EA81      		ldd r30,Y+2
+  68 0068 FB81      		ldd r31,Y+3
+  69 006a 8C2D      		mov r24,r12
+  70 006c 1995      		eicall
+  71 006e EA81      		ldd r30,Y+2
+  72 0070 FB81      		ldd r31,Y+3
+  73 0072 8D2D      		mov r24,r13
+  74 0074 1995      		eicall
+  75 0076 EA81      		ldd r30,Y+2
+  76 0078 FB81      		ldd r31,Y+3
+  77 007a 8E2D      		mov r24,r14
+  78 007c 1995      		eicall
+  79 007e EA81      		ldd r30,Y+2
+  80 0080 FB81      		ldd r31,Y+3
+  81 0082 88E0      		ldi r24,lo8(8)
+  82 0084 F812      		cpse r15,r24
+  83 0086 00C0      		rjmp .L6
+  84 0088 87E8      		ldi r24,lo8(-121)
+  85 008a 00C0      		rjmp .L10
+  86               	.L6:
+  87 008c 85E9      		ldi r24,lo8(-107)
+  88               	.L10:
+  89               	/* epilogue start */
+  90 008e DF91      		pop r29
+  91 0090 CF91      		pop r28
+  92 0092 1F91      		pop r17
+  93 0094 0F91      		pop r16
+  94 0096 FF90      		pop r15
+  95 0098 EF90      		pop r14
+  96 009a DF90      		pop r13
+  97 009c CF90      		pop r12
+  98 009e BF90      		pop r11
+  99 00a0 1994      		eijmp
+ 100               		.size	MmCardTxCmd, .-MmCardTxCmd
+ 101               		.section	.text.MmCardRxR1.isra.0,"ax",@progbits
+ 102               		.type	MmCardRxR1.isra.0, @function
+ 103               	MmCardRxR1.isra.0:
+ 104 0000 0F93      		push r16
+ 105 0002 1F93      		push r17
+ 106 0004 CF93      		push r28
+ 107 0006 DF93      		push r29
+ 108               	/* prologue: function */
+ 109               	/* frame size = 0 */
+ 110               	/* stack size = 4 */
+ 111               	.L__stack_usage = 4
+ 112 0008 8C01      		movw r16,r24
+ 113 000a C0E0      		ldi r28,0
+ 114 000c D4E0      		ldi r29,lo8(4)
+GAS LISTING /tmp/ccan3UjN.s 			page 3
+
+
+ 115               	.L14:
+ 116 000e D801      		movw r26,r16
+ 117 0010 ED91      		ld r30,X+
+ 118 0012 FC91      		ld r31,X
+ 119 0014 8FEF      		ldi r24,lo8(-1)
+ 120 0016 1995      		eicall
+ 121 0018 8F3F      		cpi r24,lo8(-1)
+ 122 001a 01F4      		brne .L13
+ 123 001c 2197      		sbiw r28,1
+ 124 001e 01F4      		brne .L14
+ 125               	.L13:
+ 126               	/* epilogue start */
+ 127 0020 DF91      		pop r29
+ 128 0022 CF91      		pop r28
+ 129 0024 1F91      		pop r17
+ 130 0026 0F91      		pop r16
+ 131 0028 0895      		ret
+ 132               		.size	MmCardRxR1.isra.0, .-MmCardRxR1.isra.0
+ 133               		.section	.text.MmCardReset,"ax",@progbits
+ 134               		.type	MmCardReset, @function
+ 135               	MmCardReset:
+ 136 0000 BF92      		push r11
+ 137 0002 CF92      		push r12
+ 138 0004 DF92      		push r13
+ 139 0006 EF92      		push r14
+ 140 0008 FF92      		push r15
+ 141 000a 0F93      		push r16
+ 142 000c 1F93      		push r17
+ 143 000e CF93      		push r28
+ 144 0010 DF93      		push r29
+ 145               	/* prologue: function */
+ 146               	/* frame size = 0 */
+ 147               	/* stack size = 9 */
+ 148               	.L__stack_usage = 9
+ 149 0012 EC01      		movw r28,r24
+ 150 0014 E881      		ld r30,Y
+ 151 0016 F981      		ldd r31,Y+1
+ 152 0018 1995      		eicall
+ 153 001a 8C01      		movw r16,r24
+ 154 001c 892B      		or r24,r25
+ 155 001e 01F0      		breq .L17
+ 156               	.L21:
+ 157 0020 0FEF      		ldi r16,lo8(-1)
+ 158 0022 1FEF      		ldi r17,lo8(-1)
+ 159 0024 00C0      		rjmp .L18
+ 160               	.L17:
+ 161 0026 EC81      		ldd r30,Y+4
+ 162 0028 FD81      		ldd r31,Y+5
+ 163 002a 80E0      		ldi r24,0
+ 164 002c 90E0      		ldi r25,0
+ 165 002e 1995      		eicall
+ 166 0030 9AE0      		ldi r25,lo8(10)
+ 167 0032 E92E      		mov r14,r25
+ 168 0034 F12C      		mov r15,__zero_reg__
+ 169               	.L19:
+ 170 0036 EA81      		ldd r30,Y+2
+ 171 0038 FB81      		ldd r31,Y+3
+GAS LISTING /tmp/ccan3UjN.s 			page 4
+
+
+ 172 003a 8FEF      		ldi r24,lo8(-1)
+ 173 003c 1995      		eicall
+ 174 003e 81E0      		ldi r24,1
+ 175 0040 E81A      		sub r14,r24
+ 176 0042 F108      		sbc r15,__zero_reg__
+ 177 0044 01F4      		brne .L19
+ 178 0046 EE24      		clr r14
+ 179 0048 EA94      		dec r14
+ 180 004a F12C      		mov r15,__zero_reg__
+ 181 004c 6E01      		movw r12,r28
+ 182 004e 82E0      		ldi r24,2
+ 183 0050 C80E      		add r12,r24
+ 184 0052 D11C      		adc r13,__zero_reg__
+ 185               	.L20:
+ 186 0054 20E0      		ldi r18,0
+ 187 0056 30E0      		ldi r19,0
+ 188 0058 A901      		movw r20,r18
+ 189 005a 60E0      		ldi r22,0
+ 190 005c CE01      		movw r24,r28
+ 191 005e 0E94 0000 		call MmCardTxCmd
+ 192 0062 C601      		movw r24,r12
+ 193 0064 0E94 0000 		call MmCardRxR1.isra.0
+ 194 0068 B82E      		mov r11,r24
+ 195 006a EC81      		ldd r30,Y+4
+ 196 006c FD81      		ldd r31,Y+5
+ 197 006e 80E0      		ldi r24,0
+ 198 0070 90E0      		ldi r25,0
+ 199 0072 1995      		eicall
+ 200 0074 81E0      		ldi r24,lo8(1)
+ 201 0076 8B15      		cp r24,r11
+ 202 0078 00F4      		brsh .L18
+ 203 007a 81E0      		ldi r24,1
+ 204 007c E81A      		sub r14,r24
+ 205 007e F108      		sbc r15,__zero_reg__
+ 206 0080 01F4      		brne .L20
+ 207 0082 00C0      		rjmp .L21
+ 208               	.L18:
+ 209 0084 C801      		movw r24,r16
+ 210               	/* epilogue start */
+ 211 0086 DF91      		pop r29
+ 212 0088 CF91      		pop r28
+ 213 008a 1F91      		pop r17
+ 214 008c 0F91      		pop r16
+ 215 008e FF90      		pop r15
+ 216 0090 EF90      		pop r14
+ 217 0092 DF90      		pop r13
+ 218 0094 CF90      		pop r12
+ 219 0096 BF90      		pop r11
+ 220 0098 0895      		ret
+ 221               		.size	MmCardReset, .-MmCardReset
+ 222               		.section	.text.MmCardGetReg.constprop.2,"ax",@progbits
+ 223               		.type	MmCardGetReg.constprop.2, @function
+ 224               	MmCardGetReg.constprop.2:
+ 225 0000 BF92      		push r11
+ 226 0002 CF92      		push r12
+ 227 0004 DF92      		push r13
+ 228 0006 EF92      		push r14
+GAS LISTING /tmp/ccan3UjN.s 			page 5
+
+
+ 229 0008 FF92      		push r15
+ 230 000a 0F93      		push r16
+ 231 000c 1F93      		push r17
+ 232 000e CF93      		push r28
+ 233 0010 DF93      		push r29
+ 234               	/* prologue: function */
+ 235               	/* frame size = 0 */
+ 236               	/* stack size = 9 */
+ 237               	.L__stack_usage = 9
+ 238 0012 EC01      		movw r28,r24
+ 239 0014 D62E      		mov r13,r22
+ 240 0016 C42E      		mov r12,r20
+ 241 0018 B52E      		mov r11,r21
+ 242 001a 40E0      		ldi r20,0
+ 243 001c 50E0      		ldi r21,0
+ 244 001e BA01      		movw r22,r20
+ 245 0020 80E0      		ldi r24,lo8(mutex)
+ 246 0022 90E0      		ldi r25,hi8(mutex)
+ 247 0024 0E94 0000 		call NutEventWait
+ 248 0028 01E0      		ldi r16,lo8(1)
+ 249 002a 12E0      		ldi r17,lo8(2)
+ 250 002c 7E01      		movw r14,r28
+ 251 002e 82E0      		ldi r24,2
+ 252 0030 E80E      		add r14,r24
+ 253 0032 F11C      		adc r15,__zero_reg__
+ 254               	.L25:
+ 255 0034 0150      		subi r16,1
+ 256 0036 1109      		sbc r17,__zero_reg__
+ 257 0038 01F0      		breq .L31
+ 258 003a 20E0      		ldi r18,0
+ 259 003c 30E0      		ldi r19,0
+ 260 003e A901      		movw r20,r18
+ 261 0040 6D2D      		mov r22,r13
+ 262 0042 CE01      		movw r24,r28
+ 263 0044 0E94 0000 		call MmCardTxCmd
+ 264 0048 C701      		movw r24,r14
+ 265 004a 0E94 0000 		call MmCardRxR1.isra.0
+ 266 004e 8111      		cpse r24,__zero_reg__
+ 267 0050 00C0      		rjmp .L26
+ 268 0052 C701      		movw r24,r14
+ 269 0054 0E94 0000 		call MmCardRxR1.isra.0
+ 270 0058 8E3F      		cpi r24,lo8(-2)
+ 271 005a 01F4      		brne .L26
+ 272 005c 0C2D      		mov r16,r12
+ 273 005e 1B2D      		mov r17,r11
+ 274 0060 7801      		movw r14,r16
+ 275 0062 E0E1      		ldi r30,16
+ 276 0064 EE0E      		add r14,r30
+ 277 0066 F11C      		adc r15,__zero_reg__
+ 278               	.L27:
+ 279 0068 EA81      		ldd r30,Y+2
+ 280 006a FB81      		ldd r31,Y+3
+ 281 006c 8FEF      		ldi r24,lo8(-1)
+ 282 006e 1995      		eicall
+ 283 0070 F801      		movw r30,r16
+ 284 0072 8193      		st Z+,r24
+ 285 0074 8F01      		movw r16,r30
+GAS LISTING /tmp/ccan3UjN.s 			page 6
+
+
+ 286 0076 EE15      		cp r30,r14
+ 287 0078 FF05      		cpc r31,r15
+ 288 007a 01F4      		brne .L27
+ 289 007c EA81      		ldd r30,Y+2
+ 290 007e FB81      		ldd r31,Y+3
+ 291 0080 8FEF      		ldi r24,lo8(-1)
+ 292 0082 1995      		eicall
+ 293 0084 EA81      		ldd r30,Y+2
+ 294 0086 FB81      		ldd r31,Y+3
+ 295 0088 8FEF      		ldi r24,lo8(-1)
+ 296 008a 1995      		eicall
+ 297 008c EC81      		ldd r30,Y+4
+ 298 008e FD81      		ldd r31,Y+5
+ 299 0090 80E0      		ldi r24,0
+ 300 0092 90E0      		ldi r25,0
+ 301 0094 1995      		eicall
+ 302 0096 C0E0      		ldi r28,0
+ 303 0098 D0E0      		ldi r29,0
+ 304 009a 00C0      		rjmp .L28
+ 305               	.L26:
+ 306 009c EC81      		ldd r30,Y+4
+ 307 009e FD81      		ldd r31,Y+5
+ 308 00a0 80E0      		ldi r24,0
+ 309 00a2 90E0      		ldi r25,0
+ 310 00a4 1995      		eicall
+ 311 00a6 00C0      		rjmp .L25
+ 312               	.L31:
+ 313 00a8 CFEF      		ldi r28,lo8(-1)
+ 314 00aa DFEF      		ldi r29,lo8(-1)
+ 315               	.L28:
+ 316 00ac 80E0      		ldi r24,lo8(mutex)
+ 317 00ae 90E0      		ldi r25,hi8(mutex)
+ 318 00b0 0E94 0000 		call NutEventPost
+ 319 00b4 CE01      		movw r24,r28
+ 320               	/* epilogue start */
+ 321 00b6 DF91      		pop r29
+ 322 00b8 CF91      		pop r28
+ 323 00ba 1F91      		pop r17
+ 324 00bc 0F91      		pop r16
+ 325 00be FF90      		pop r15
+ 326 00c0 EF90      		pop r14
+ 327 00c2 DF90      		pop r13
+ 328 00c4 CF90      		pop r12
+ 329 00c6 BF90      		pop r11
+ 330 00c8 0895      		ret
+ 331               		.size	MmCardGetReg.constprop.2, .-MmCardGetReg.constprop.2
+ 332               		.section	.text.MmCardReadOrVerify.constprop.3,"ax",@progbits
+ 333               		.type	MmCardReadOrVerify.constprop.3, @function
+ 334               	MmCardReadOrVerify.constprop.3:
+ 335 0000 8F92      		push r8
+ 336 0002 9F92      		push r9
+ 337 0004 AF92      		push r10
+ 338 0006 BF92      		push r11
+ 339 0008 CF92      		push r12
+ 340 000a DF92      		push r13
+ 341 000c EF92      		push r14
+ 342 000e FF92      		push r15
+GAS LISTING /tmp/ccan3UjN.s 			page 7
+
+
+ 343 0010 0F93      		push r16
+ 344 0012 1F93      		push r17
+ 345 0014 CF93      		push r28
+ 346 0016 DF93      		push r29
+ 347               	/* prologue: function */
+ 348               	/* frame size = 0 */
+ 349               	/* stack size = 12 */
+ 350               	.L__stack_usage = 12
+ 351 0018 EC01      		movw r28,r24
+ 352 001a 4A01      		movw r8,r20
+ 353 001c 5B01      		movw r10,r22
+ 354 001e 8901      		movw r16,r18
+ 355 0020 40E0      		ldi r20,0
+ 356 0022 50E0      		ldi r21,0
+ 357 0024 BA01      		movw r22,r20
+ 358 0026 80E0      		ldi r24,lo8(mutex)
+ 359 0028 90E0      		ldi r25,hi8(mutex)
+ 360 002a 0E94 0000 		call NutEventWait
+ 361 002e EC85      		ldd r30,Y+12
+ 362 0030 FD85      		ldd r31,Y+13
+ 363 0032 1995      		eicall
+ 364 0034 892B      		or r24,r25
+ 365 0036 01F4      		brne .L33
+ 366 0038 99E0      		ldi r25,9
+ 367               		1:
+ 368 003a 880C      		lsl r8
+ 369 003c 991C      		rol r9
+ 370 003e AA1C      		rol r10
+ 371 0040 BB1C      		rol r11
+ 372 0042 9A95      		dec r25
+ 373 0044 01F4      		brne 1b
+ 374               	.L33:
+ 375 0046 81E4      		ldi r24,lo8(65)
+ 376 0048 E82E      		mov r14,r24
+ 377 004a F12C      		mov r15,__zero_reg__
+ 378 004c 6E01      		movw r12,r28
+ 379 004e 82E0      		ldi r24,2
+ 380 0050 C80E      		add r12,r24
+ 381 0052 D11C      		adc r13,__zero_reg__
+ 382               	.L34:
+ 383 0054 F1E0      		ldi r31,1
+ 384 0056 EF1A      		sub r14,r31
+ 385 0058 F108      		sbc r15,__zero_reg__
+ 386 005a 01F0      		breq .L40
+ 387 005c A501      		movw r20,r10
+ 388 005e 9401      		movw r18,r8
+ 389 0060 61E1      		ldi r22,lo8(17)
+ 390 0062 CE01      		movw r24,r28
+ 391 0064 0E94 0000 		call MmCardTxCmd
+ 392 0068 C601      		movw r24,r12
+ 393 006a 0E94 0000 		call MmCardRxR1.isra.0
+ 394 006e 8111      		cpse r24,__zero_reg__
+ 395 0070 00C0      		rjmp .L35
+ 396 0072 C601      		movw r24,r12
+ 397 0074 0E94 0000 		call MmCardRxR1.isra.0
+ 398 0078 8E3F      		cpi r24,lo8(-2)
+ 399 007a 01F4      		brne .L35
+GAS LISTING /tmp/ccan3UjN.s 			page 8
+
+
+ 400 007c 7801      		movw r14,r16
+ 401 007e EEEF      		ldi r30,-2
+ 402 0080 FE1A      		sub r15,r30
+ 403               	.L36:
+ 404 0082 EA81      		ldd r30,Y+2
+ 405 0084 FB81      		ldd r31,Y+3
+ 406 0086 8FEF      		ldi r24,lo8(-1)
+ 407 0088 1995      		eicall
+ 408 008a F801      		movw r30,r16
+ 409 008c 8193      		st Z+,r24
+ 410 008e 8F01      		movw r16,r30
+ 411 0090 EE15      		cp r30,r14
+ 412 0092 FF05      		cpc r31,r15
+ 413 0094 01F4      		brne .L36
+ 414 0096 EA81      		ldd r30,Y+2
+ 415 0098 FB81      		ldd r31,Y+3
+ 416 009a 8FEF      		ldi r24,lo8(-1)
+ 417 009c 1995      		eicall
+ 418 009e EA81      		ldd r30,Y+2
+ 419 00a0 FB81      		ldd r31,Y+3
+ 420 00a2 8FEF      		ldi r24,lo8(-1)
+ 421 00a4 1995      		eicall
+ 422 00a6 EC81      		ldd r30,Y+4
+ 423 00a8 FD81      		ldd r31,Y+5
+ 424 00aa 80E0      		ldi r24,0
+ 425 00ac 90E0      		ldi r25,0
+ 426 00ae 1995      		eicall
+ 427 00b0 C0E0      		ldi r28,0
+ 428 00b2 D0E0      		ldi r29,0
+ 429 00b4 00C0      		rjmp .L37
+ 430               	.L35:
+ 431 00b6 EC81      		ldd r30,Y+4
+ 432 00b8 FD81      		ldd r31,Y+5
+ 433 00ba 80E0      		ldi r24,0
+ 434 00bc 90E0      		ldi r25,0
+ 435 00be 1995      		eicall
+ 436 00c0 00C0      		rjmp .L34
+ 437               	.L40:
+ 438 00c2 CFEF      		ldi r28,lo8(-1)
+ 439 00c4 DFEF      		ldi r29,lo8(-1)
+ 440               	.L37:
+ 441 00c6 80E0      		ldi r24,lo8(mutex)
+ 442 00c8 90E0      		ldi r25,hi8(mutex)
+ 443 00ca 0E94 0000 		call NutEventPost
+ 444 00ce CE01      		movw r24,r28
+ 445               	/* epilogue start */
+ 446 00d0 DF91      		pop r29
+ 447 00d2 CF91      		pop r28
+ 448 00d4 1F91      		pop r17
+ 449 00d6 0F91      		pop r16
+ 450 00d8 FF90      		pop r15
+ 451 00da EF90      		pop r14
+ 452 00dc DF90      		pop r13
+ 453 00de CF90      		pop r12
+ 454 00e0 BF90      		pop r11
+ 455 00e2 AF90      		pop r10
+ 456 00e4 9F90      		pop r9
+GAS LISTING /tmp/ccan3UjN.s 			page 9
+
+
+ 457 00e6 8F90      		pop r8
+ 458 00e8 0895      		ret
+ 459               		.size	MmCardReadOrVerify.constprop.3, .-MmCardReadOrVerify.constprop.3
+ 460               		.section	.text.MmCardBlockRead,"ax",@progbits
+ 461               	.global	MmCardBlockRead
+ 462               		.type	MmCardBlockRead, @function
+ 463               	MmCardBlockRead:
+ 464 0000 8F92      		push r8
+ 465 0002 9F92      		push r9
+ 466 0004 AF92      		push r10
+ 467 0006 BF92      		push r11
+ 468 0008 CF92      		push r12
+ 469 000a DF92      		push r13
+ 470 000c EF92      		push r14
+ 471 000e FF92      		push r15
+ 472 0010 0F93      		push r16
+ 473 0012 1F93      		push r17
+ 474 0014 CF93      		push r28
+ 475 0016 DF93      		push r29
+ 476               	/* prologue: function */
+ 477               	/* frame size = 0 */
+ 478               	/* stack size = 12 */
+ 479               	.L__stack_usage = 12
+ 480 0018 7B01      		movw r14,r22
+ 481 001a DC01      		movw r26,r24
+ 482 001c 1296      		adiw r26,2
+ 483 001e CD90      		ld r12,X+
+ 484 0020 DC90      		ld r13,X
+ 485 0022 1397      		sbiw r26,2+1
+ 486 0024 F601      		movw r30,r12
+ 487 0026 8288      		ldd r8,Z+18
+ 488 0028 9388      		ldd r9,Z+19
+ 489 002a A488      		ldd r10,Z+20
+ 490 002c B588      		ldd r11,Z+21
+ 491 002e ED91      		ld r30,X+
+ 492 0030 FC91      		ld r31,X
+ 493 0032 0785      		ldd r16,Z+15
+ 494 0034 1089      		ldd r17,Z+16
+ 495 0036 D801      		movw r26,r16
+ 496 0038 1696      		adiw r26,6
+ 497 003a ED91      		ld r30,X+
+ 498 003c FC91      		ld r31,X
+ 499 003e 1797      		sbiw r26,6+1
+ 500 0040 1995      		eicall
+ 501 0042 EC01      		movw r28,r24
+ 502 0044 0197      		sbiw r24,1
+ 503 0046 01F4      		brne .L42
+ 504 0048 E114      		cp r14,__zero_reg__
+ 505 004a F104      		cpc r15,__zero_reg__
+ 506 004c 01F4      		brne .L43
+ 507 004e 7601      		movw r14,r12
+ 508 0050 B6E1      		ldi r27,22
+ 509 0052 EB0E      		add r14,r27
+ 510 0054 F11C      		adc r15,__zero_reg__
+ 511               	.L43:
+ 512 0056 F601      		movw r30,r12
+ 513 0058 8285      		ldd r24,Z+10
+GAS LISTING /tmp/ccan3UjN.s 			page 10
+
+
+ 514 005a 9385      		ldd r25,Z+11
+ 515 005c A485      		ldd r26,Z+12
+ 516 005e B585      		ldd r27,Z+13
+ 517 0060 B501      		movw r22,r10
+ 518 0062 A401      		movw r20,r8
+ 519 0064 480F      		add r20,r24
+ 520 0066 591F      		adc r21,r25
+ 521 0068 6A1F      		adc r22,r26
+ 522 006a 7B1F      		adc r23,r27
+ 523 006c 9701      		movw r18,r14
+ 524 006e C801      		movw r24,r16
+ 525 0070 0E94 0000 		call MmCardReadOrVerify.constprop.3
+ 526 0074 892B      		or r24,r25
+ 527 0076 01F0      		breq .L44
+ 528               	.L42:
+ 529 0078 CFEF      		ldi r28,lo8(-1)
+ 530 007a DFEF      		ldi r29,lo8(-1)
+ 531               	.L44:
+ 532 007c CE01      		movw r24,r28
+ 533               	/* epilogue start */
+ 534 007e DF91      		pop r29
+ 535 0080 CF91      		pop r28
+ 536 0082 1F91      		pop r17
+ 537 0084 0F91      		pop r16
+ 538 0086 FF90      		pop r15
+ 539 0088 EF90      		pop r14
+ 540 008a DF90      		pop r13
+ 541 008c CF90      		pop r12
+ 542 008e BF90      		pop r11
+ 543 0090 AF90      		pop r10
+ 544 0092 9F90      		pop r9
+ 545 0094 8F90      		pop r8
+ 546 0096 0895      		ret
+ 547               		.size	MmCardBlockRead, .-MmCardBlockRead
+ 548               		.section	.text.MmCardBlockWrite,"ax",@progbits
+ 549               	.global	MmCardBlockWrite
+ 550               		.type	MmCardBlockWrite, @function
+ 551               	MmCardBlockWrite:
+ 552 0000 4F92      		push r4
+ 553 0002 5F92      		push r5
+ 554 0004 6F92      		push r6
+ 555 0006 7F92      		push r7
+ 556 0008 8F92      		push r8
+ 557 000a 9F92      		push r9
+ 558 000c AF92      		push r10
+ 559 000e BF92      		push r11
+ 560 0010 CF92      		push r12
+ 561 0012 DF92      		push r13
+ 562 0014 EF92      		push r14
+ 563 0016 FF92      		push r15
+ 564 0018 0F93      		push r16
+ 565 001a 1F93      		push r17
+ 566 001c CF93      		push r28
+ 567 001e DF93      		push r29
+ 568               	/* prologue: function */
+ 569               	/* frame size = 0 */
+ 570               	/* stack size = 16 */
+GAS LISTING /tmp/ccan3UjN.s 			page 11
+
+
+ 571               	.L__stack_usage = 16
+ 572 0020 8B01      		movw r16,r22
+ 573 0022 DC01      		movw r26,r24
+ 574 0024 1296      		adiw r26,2
+ 575 0026 CD90      		ld r12,X+
+ 576 0028 DC90      		ld r13,X
+ 577 002a 1397      		sbiw r26,2+1
+ 578 002c F601      		movw r30,r12
+ 579 002e 8288      		ldd r8,Z+18
+ 580 0030 9388      		ldd r9,Z+19
+ 581 0032 A488      		ldd r10,Z+20
+ 582 0034 B588      		ldd r11,Z+21
+ 583 0036 ED91      		ld r30,X+
+ 584 0038 FC91      		ld r31,X
+ 585 003a C785      		ldd r28,Z+15
+ 586 003c D089      		ldd r29,Z+16
+ 587 003e EE81      		ldd r30,Y+6
+ 588 0040 FF81      		ldd r31,Y+7
+ 589 0042 1995      		eicall
+ 590 0044 7C01      		movw r14,r24
+ 591 0046 0197      		sbiw r24,1
+ 592 0048 01F0      		breq .+2
+ 593 004a 00C0      		rjmp .L49
+ 594 004c 0115      		cp r16,__zero_reg__
+ 595 004e 1105      		cpc r17,__zero_reg__
+ 596 0050 01F4      		brne .L50
+ 597 0052 8601      		movw r16,r12
+ 598 0054 0A5E      		subi r16,-22
+ 599 0056 1F4F      		sbci r17,-1
+ 600               	.L50:
+ 601 0058 D601      		movw r26,r12
+ 602 005a 1A96      		adiw r26,10
+ 603 005c 4D90      		ld r4,X+
+ 604 005e 5D90      		ld r5,X+
+ 605 0060 6D90      		ld r6,X+
+ 606 0062 7C90      		ld r7,X
+ 607 0064 1D97      		sbiw r26,10+3
+ 608 0066 480C      		add r4,r8
+ 609 0068 591C      		adc r5,r9
+ 610 006a 6A1C      		adc r6,r10
+ 611 006c 7B1C      		adc r7,r11
+ 612 006e 40E0      		ldi r20,0
+ 613 0070 50E0      		ldi r21,0
+ 614 0072 BA01      		movw r22,r20
+ 615 0074 80E0      		ldi r24,lo8(mutex)
+ 616 0076 90E0      		ldi r25,hi8(mutex)
+ 617 0078 0E94 0000 		call NutEventWait
+ 618 007c EC85      		ldd r30,Y+12
+ 619 007e FD85      		ldd r31,Y+13
+ 620 0080 1995      		eicall
+ 621 0082 892B      		or r24,r25
+ 622 0084 01F4      		brne .L51
+ 623 0086 29E0      		ldi r18,9
+ 624               		1:
+ 625 0088 440C      		lsl r4
+ 626 008a 551C      		rol r5
+ 627 008c 661C      		rol r6
+GAS LISTING /tmp/ccan3UjN.s 			page 12
+
+
+ 628 008e 771C      		rol r7
+ 629 0090 2A95      		dec r18
+ 630 0092 01F4      		brne 1b
+ 631               	.L51:
+ 632 0094 91E2      		ldi r25,lo8(33)
+ 633 0096 C92E      		mov r12,r25
+ 634 0098 D12C      		mov r13,__zero_reg__
+ 635 009a 4E01      		movw r8,r28
+ 636 009c B2E0      		ldi r27,2
+ 637 009e 8B0E      		add r8,r27
+ 638 00a0 911C      		adc r9,__zero_reg__
+ 639               	.L52:
+ 640 00a2 F1E0      		ldi r31,1
+ 641 00a4 CF1A      		sub r12,r31
+ 642 00a6 D108      		sbc r13,__zero_reg__
+ 643 00a8 01F4      		brne .+2
+ 644 00aa 00C0      		rjmp .L68
+ 645 00ac A301      		movw r20,r6
+ 646 00ae 9201      		movw r18,r4
+ 647 00b0 68E1      		ldi r22,lo8(24)
+ 648 00b2 CE01      		movw r24,r28
+ 649 00b4 0E94 0000 		call MmCardTxCmd
+ 650 00b8 C401      		movw r24,r8
+ 651 00ba 0E94 0000 		call MmCardRxR1.isra.0
+ 652 00be 8111      		cpse r24,__zero_reg__
+ 653 00c0 00C0      		rjmp .L62
+ 654 00c2 EA81      		ldd r30,Y+2
+ 655 00c4 FB81      		ldd r31,Y+3
+ 656 00c6 8FEF      		ldi r24,lo8(-1)
+ 657 00c8 1995      		eicall
+ 658 00ca EA81      		ldd r30,Y+2
+ 659 00cc FB81      		ldd r31,Y+3
+ 660 00ce 8EEF      		ldi r24,lo8(-2)
+ 661 00d0 1995      		eicall
+ 662 00d2 5801      		movw r10,r16
+ 663 00d4 EEEF      		ldi r30,-2
+ 664 00d6 BE1A      		sub r11,r30
+ 665               	.L54:
+ 666 00d8 EA81      		ldd r30,Y+2
+ 667 00da FB81      		ldd r31,Y+3
+ 668 00dc D801      		movw r26,r16
+ 669 00de 8D91      		ld r24,X+
+ 670 00e0 8D01      		movw r16,r26
+ 671 00e2 1995      		eicall
+ 672 00e4 0A15      		cp r16,r10
+ 673 00e6 1B05      		cpc r17,r11
+ 674 00e8 01F4      		brne .L54
+ 675 00ea C401      		movw r24,r8
+ 676 00ec 0E94 0000 		call MmCardRxR1.isra.0
+ 677 00f0 853E      		cpi r24,lo8(-27)
+ 678 00f2 01F4      		brne .L53
+ 679 00f4 00E0      		ldi r16,0
+ 680 00f6 10E0      		ldi r17,0
+ 681               	.L57:
+ 682 00f8 EA81      		ldd r30,Y+2
+ 683 00fa FB81      		ldd r31,Y+3
+ 684 00fc 8FEF      		ldi r24,lo8(-1)
+GAS LISTING /tmp/ccan3UjN.s 			page 13
+
+
+ 685 00fe 1995      		eicall
+ 686 0100 8F3F      		cpi r24,lo8(-1)
+ 687 0102 01F0      		breq .L55
+ 688 0104 013E      		cpi r16,-31
+ 689 0106 B3E0      		ldi r27,3
+ 690 0108 1B07      		cpc r17,r27
+ 691 010a 04F0      		brlt .L56
+ 692 010c 61E0      		ldi r22,lo8(1)
+ 693 010e 70E0      		ldi r23,0
+ 694 0110 80E0      		ldi r24,0
+ 695 0112 90E0      		ldi r25,0
+ 696 0114 0E94 0000 		call NutSleep
+ 697               	.L56:
+ 698 0118 0F5F      		subi r16,-1
+ 699 011a 1F4F      		sbci r17,-1
+ 700 011c 0115      		cp r16,__zero_reg__
+ 701 011e E4E0      		ldi r30,4
+ 702 0120 1E07      		cpc r17,r30
+ 703 0122 01F4      		brne .L57
+ 704               	.L59:
+ 705 0124 00E0      		ldi r16,0
+ 706 0126 10E0      		ldi r17,0
+ 707 0128 00C0      		rjmp .L58
+ 708               	.L55:
+ 709 012a 012B      		or r16,r17
+ 710 012c 01F0      		breq .L53
+ 711 012e 00C0      		rjmp .L59
+ 712               	.L62:
+ 713 0130 5801      		movw r10,r16
+ 714               	.L53:
+ 715 0132 EC81      		ldd r30,Y+4
+ 716 0134 FD81      		ldd r31,Y+5
+ 717 0136 80E0      		ldi r24,0
+ 718 0138 90E0      		ldi r25,0
+ 719 013a 1995      		eicall
+ 720 013c 8501      		movw r16,r10
+ 721 013e 00C0      		rjmp .L52
+ 722               	.L68:
+ 723 0140 0FEF      		ldi r16,lo8(-1)
+ 724 0142 1FEF      		ldi r17,lo8(-1)
+ 725               	.L58:
+ 726 0144 EC81      		ldd r30,Y+4
+ 727 0146 FD81      		ldd r31,Y+5
+ 728 0148 80E0      		ldi r24,0
+ 729 014a 90E0      		ldi r25,0
+ 730 014c 1995      		eicall
+ 731 014e 80E0      		ldi r24,lo8(mutex)
+ 732 0150 90E0      		ldi r25,hi8(mutex)
+ 733 0152 0E94 0000 		call NutEventPost
+ 734 0156 012B      		or r16,r17
+ 735 0158 01F0      		breq .L61
+ 736               	.L49:
+ 737 015a EE24      		clr r14
+ 738 015c EA94      		dec r14
+ 739 015e FE2C      		mov r15,r14
+ 740               	.L61:
+ 741 0160 C701      		movw r24,r14
+GAS LISTING /tmp/ccan3UjN.s 			page 14
+
+
+ 742               	/* epilogue start */
+ 743 0162 DF91      		pop r29
+ 744 0164 CF91      		pop r28
+ 745 0166 1F91      		pop r17
+ 746 0168 0F91      		pop r16
+ 747 016a FF90      		pop r15
+ 748 016c EF90      		pop r14
+ 749 016e DF90      		pop r13
+ 750 0170 CF90      		pop r12
+ 751 0172 BF90      		pop r11
+ 752 0174 AF90      		pop r10
+ 753 0176 9F90      		pop r9
+ 754 0178 8F90      		pop r8
+ 755 017a 7F90      		pop r7
+ 756 017c 6F90      		pop r6
+ 757 017e 5F90      		pop r5
+ 758 0180 4F90      		pop r4
+ 759 0182 0895      		ret
+ 760               		.size	MmCardBlockWrite, .-MmCardBlockWrite
+ 761               		.section	.text.MmCardBlockWrite_P,"ax",@progbits
+ 762               	.global	MmCardBlockWrite_P
+ 763               		.type	MmCardBlockWrite_P, @function
+ 764               	MmCardBlockWrite_P:
+ 765               	/* prologue: function */
+ 766               	/* frame size = 0 */
+ 767               	/* stack size = 0 */
+ 768               	.L__stack_usage = 0
+ 769 0000 8FEF      		ldi r24,lo8(-1)
+ 770 0002 9FEF      		ldi r25,lo8(-1)
+ 771 0004 0895      		ret
+ 772               		.size	MmCardBlockWrite_P, .-MmCardBlockWrite_P
+ 773               		.section	.text.MmCardUnmount,"ax",@progbits
+ 774               	.global	MmCardUnmount
+ 775               		.type	MmCardUnmount, @function
+ 776               	MmCardUnmount:
+ 777 0000 EF92      		push r14
+ 778 0002 FF92      		push r15
+ 779 0004 0F93      		push r16
+ 780 0006 1F93      		push r17
+ 781 0008 CF93      		push r28
+ 782 000a DF93      		push r29
+ 783               	/* prologue: function */
+ 784               	/* frame size = 0 */
+ 785               	/* stack size = 6 */
+ 786               	.L__stack_usage = 6
+ 787 000c 8C01      		movw r16,r24
+ 788 000e 0097      		sbiw r24,0
+ 789 0010 01F0      		breq .L74
+ 790 0012 DC01      		movw r26,r24
+ 791 0014 1296      		adiw r26,2
+ 792 0016 ED90      		ld r14,X+
+ 793 0018 FC90      		ld r15,X
+ 794 001a 1397      		sbiw r26,2+1
+ 795 001c E114      		cp r14,__zero_reg__
+ 796 001e F104      		cpc r15,__zero_reg__
+ 797 0020 01F0      		breq .L75
+ 798 0022 ED91      		ld r30,X+
+GAS LISTING /tmp/ccan3UjN.s 			page 15
+
+
+ 799 0024 FC91      		ld r31,X
+ 800 0026 0784      		ldd __tmp_reg__,Z+15
+ 801 0028 F089      		ldd r31,Z+16
+ 802 002a E02D      		mov r30,__tmp_reg__
+ 803 002c 0680      		ldd __tmp_reg__,Z+6
+ 804 002e F781      		ldd r31,Z+7
+ 805 0030 E02D      		mov r30,__tmp_reg__
+ 806 0032 1995      		eicall
+ 807 0034 0197      		sbiw r24,1
+ 808 0036 01F4      		brne .L76
+ 809 0038 F701      		movw r30,r14
+ 810 003a 8081      		ld r24,Z
+ 811 003c 9181      		ldd r25,Z+1
+ 812 003e DC01      		movw r26,r24
+ 813 0040 5596      		adiw r26,21
+ 814 0042 ED91      		ld r30,X+
+ 815 0044 FC91      		ld r31,X
+ 816 0046 5697      		sbiw r26,21+1
+ 817 0048 40E0      		ldi r20,0
+ 818 004a 50E0      		ldi r21,0
+ 819 004c 61E3      		ldi r22,lo8(49)
+ 820 004e 71E1      		ldi r23,lo8(17)
+ 821 0050 1995      		eicall
+ 822 0052 EC01      		movw r28,r24
+ 823 0054 00C0      		rjmp .L73
+ 824               	.L76:
+ 825 0056 CFEF      		ldi r28,lo8(-1)
+ 826 0058 DFEF      		ldi r29,lo8(-1)
+ 827               	.L73:
+ 828 005a C701      		movw r24,r14
+ 829 005c 0E94 0000 		call free
+ 830 0060 00C0      		rjmp .L72
+ 831               	.L75:
+ 832 0062 CFEF      		ldi r28,lo8(-1)
+ 833 0064 DFEF      		ldi r29,lo8(-1)
+ 834               	.L72:
+ 835 0066 C801      		movw r24,r16
+ 836 0068 0E94 0000 		call free
+ 837 006c 00C0      		rjmp .L71
+ 838               	.L74:
+ 839 006e CFEF      		ldi r28,lo8(-1)
+ 840 0070 DFEF      		ldi r29,lo8(-1)
+ 841               	.L71:
+ 842 0072 CE01      		movw r24,r28
+ 843               	/* epilogue start */
+ 844 0074 DF91      		pop r29
+ 845 0076 CF91      		pop r28
+ 846 0078 1F91      		pop r17
+ 847 007a 0F91      		pop r16
+ 848 007c FF90      		pop r15
+ 849 007e EF90      		pop r14
+ 850 0080 0895      		ret
+ 851               		.size	MmCardUnmount, .-MmCardUnmount
+ 852               		.section	.text.MmCardMount,"ax",@progbits
+ 853               	.global	MmCardMount
+ 854               		.type	MmCardMount, @function
+ 855               	MmCardMount:
+GAS LISTING /tmp/ccan3UjN.s 			page 16
+
+
+ 856 0000 4F92      		push r4
+ 857 0002 5F92      		push r5
+ 858 0004 6F92      		push r6
+ 859 0006 7F92      		push r7
+ 860 0008 8F92      		push r8
+ 861 000a 9F92      		push r9
+ 862 000c AF92      		push r10
+ 863 000e BF92      		push r11
+ 864 0010 CF92      		push r12
+ 865 0012 DF92      		push r13
+ 866 0014 EF92      		push r14
+ 867 0016 FF92      		push r15
+ 868 0018 0F93      		push r16
+ 869 001a 1F93      		push r17
+ 870 001c CF93      		push r28
+ 871 001e DF93      		push r29
+ 872 0020 00D0      		rcall .
+ 873 0022 1F92      		push __zero_reg__
+ 874 0024 CDB7      		in r28,__SP_L__
+ 875 0026 DEB7      		in r29,__SP_H__
+ 876               	/* prologue: function */
+ 877               	/* frame size = 4 */
+ 878               	/* stack size = 20 */
+ 879               	.L__stack_usage = 20
+ 880 0028 3C01      		movw r6,r24
+ 881 002a 7B01      		movw r14,r22
+ 882 002c DC01      		movw r26,r24
+ 883 002e 1F96      		adiw r26,15
+ 884 0030 0D91      		ld r16,X+
+ 885 0032 1C91      		ld r17,X
+ 886 0034 5097      		sbiw r26,15+1
+ 887 0036 D801      		movw r26,r16
+ 888 0038 1696      		adiw r26,6
+ 889 003a ED91      		ld r30,X+
+ 890 003c FC91      		ld r31,X
+ 891 003e 1797      		sbiw r26,6+1
+ 892 0040 1995      		eicall
+ 893 0042 892B      		or r24,r25
+ 894 0044 01F4      		brne .L78
+ 895               	.L92:
+ 896 0046 83E1      		ldi r24,lo8(19)
+ 897 0048 90E0      		ldi r25,0
+ 898 004a 00C0      		rjmp .L146
+ 899               	.L78:
+ 900 004c D801      		movw r26,r16
+ 901 004e 1A96      		adiw r26,10
+ 902 0050 ED91      		ld r30,X+
+ 903 0052 FC91      		ld r31,X
+ 904 0054 1B97      		sbiw r26,10+1
+ 905 0056 80E0      		ldi r24,0
+ 906 0058 90E0      		ldi r25,0
+ 907 005a 1995      		eicall
+ 908 005c C801      		movw r24,r16
+ 909 005e 0E94 0000 		call MmCardReset
+ 910 0062 892B      		or r24,r25
+ 911 0064 01F4      		brne .L80
+ 912               	.L82:
+GAS LISTING /tmp/ccan3UjN.s 			page 17
+
+
+ 913 0066 2AEA      		ldi r18,lo8(-86)
+ 914 0068 31E0      		ldi r19,lo8(1)
+ 915 006a 40E0      		ldi r20,0
+ 916 006c 50E0      		ldi r21,0
+ 917 006e 68E0      		ldi r22,lo8(8)
+ 918 0070 C801      		movw r24,r16
+ 919 0072 0E94 0000 		call MmCardTxCmd
+ 920 0076 6801      		movw r12,r16
+ 921 0078 B2E0      		ldi r27,2
+ 922 007a CB0E      		add r12,r27
+ 923 007c D11C      		adc r13,__zero_reg__
+ 924 007e C601      		movw r24,r12
+ 925 0080 0E94 0000 		call MmCardRxR1.isra.0
+ 926 0084 FE01      		movw r30,r28
+ 927 0086 3196      		adiw r30,1
+ 928 0088 5F01      		movw r10,r30
+ 929 008a 2E01      		movw r4,r28
+ 930 008c F5E0      		ldi r31,5
+ 931 008e 4F0E      		add r4,r31
+ 932 0090 511C      		adc r5,__zero_reg__
+ 933 0092 4501      		movw r8,r10
+ 934 0094 00C0      		rjmp .L81
+ 935               	.L80:
+ 936 0096 C801      		movw r24,r16
+ 937 0098 0E94 0000 		call MmCardReset
+ 938 009c 892B      		or r24,r25
+ 939 009e 01F0      		breq .L82
+ 940               	.L89:
+ 941 00a0 8FEF      		ldi r24,lo8(-1)
+ 942 00a2 9FEF      		ldi r25,lo8(-1)
+ 943 00a4 00C0      		rjmp .L83
+ 944               	.L81:
+ 945 00a6 D801      		movw r26,r16
+ 946 00a8 1296      		adiw r26,2
+ 947 00aa ED91      		ld r30,X+
+ 948 00ac FC91      		ld r31,X
+ 949 00ae 1397      		sbiw r26,2+1
+ 950 00b0 8FEF      		ldi r24,lo8(-1)
+ 951 00b2 1995      		eicall
+ 952 00b4 F401      		movw r30,r8
+ 953 00b6 8193      		st Z+,r24
+ 954 00b8 4F01      		movw r8,r30
+ 955 00ba E415      		cp r30,r4
+ 956 00bc F505      		cpc r31,r5
+ 957 00be 01F4      		brne .L81
+ 958 00c0 8B81      		ldd r24,Y+3
+ 959 00c2 8130      		cpi r24,lo8(1)
+ 960 00c4 01F0      		breq .+2
+ 961 00c6 00C0      		rjmp .L114
+ 962 00c8 8C81      		ldd r24,Y+4
+ 963 00ca 8A3A      		cpi r24,lo8(-86)
+ 964 00cc 01F0      		breq .+2
+ 965 00ce 00C0      		rjmp .L114
+ 966 00d0 812C      		mov r8,__zero_reg__
+ 967 00d2 80E1      		ldi r24,lo8(16)
+ 968 00d4 982E      		mov r9,r24
+ 969               	.L88:
+GAS LISTING /tmp/ccan3UjN.s 			page 18
+
+
+ 970 00d6 20E0      		ldi r18,0
+ 971 00d8 30E0      		ldi r19,0
+ 972 00da A901      		movw r20,r18
+ 973 00dc 67E3      		ldi r22,lo8(55)
+ 974 00de C801      		movw r24,r16
+ 975 00e0 0E94 0000 		call MmCardTxCmd
+ 976 00e4 C601      		movw r24,r12
+ 977 00e6 0E94 0000 		call MmCardRxR1.isra.0
+ 978 00ea 8230      		cpi r24,lo8(2)
+ 979 00ec 00F4      		brsh .L85
+ 980 00ee 6AE0      		ldi r22,lo8(10)
+ 981 00f0 70E0      		ldi r23,0
+ 982 00f2 80E0      		ldi r24,0
+ 983 00f4 90E0      		ldi r25,0
+ 984 00f6 0E94 0000 		call NutSleep
+ 985 00fa 20E0      		ldi r18,0
+ 986 00fc 30E0      		ldi r19,0
+ 987 00fe 40E0      		ldi r20,0
+ 988 0100 50E4      		ldi r21,lo8(64)
+ 989 0102 69E2      		ldi r22,lo8(41)
+ 990 0104 C801      		movw r24,r16
+ 991 0106 0E94 0000 		call MmCardTxCmd
+ 992 010a C601      		movw r24,r12
+ 993 010c 0E94 0000 		call MmCardRxR1.isra.0
+ 994 0110 8111      		cpse r24,__zero_reg__
+ 995 0112 00C0      		rjmp .L85
+ 996 0114 20E0      		ldi r18,0
+ 997 0116 30E0      		ldi r19,0
+ 998 0118 A901      		movw r20,r18
+ 999 011a 6AE3      		ldi r22,lo8(58)
+ 1000 011c C801      		movw r24,r16
+ 1001 011e 0E94 0000 		call MmCardTxCmd
+ 1002 0122 C601      		movw r24,r12
+ 1003 0124 0E94 0000 		call MmCardRxR1.isra.0
+ 1004               	.L86:
+ 1005 0128 D801      		movw r26,r16
+ 1006 012a 1296      		adiw r26,2
+ 1007 012c ED91      		ld r30,X+
+ 1008 012e FC91      		ld r31,X
+ 1009 0130 1397      		sbiw r26,2+1
+ 1010 0132 8FEF      		ldi r24,lo8(-1)
+ 1011 0134 1995      		eicall
+ 1012 0136 F501      		movw r30,r10
+ 1013 0138 8193      		st Z+,r24
+ 1014 013a 5F01      		movw r10,r30
+ 1015 013c E415      		cp r30,r4
+ 1016 013e F505      		cpc r31,r5
+ 1017 0140 01F4      		brne .L86
+ 1018 0142 8981      		ldd r24,Y+1
+ 1019 0144 86FF      		sbrs r24,6
+ 1020 0146 00C0      		rjmp .L87
+ 1021 0148 D801      		movw r26,r16
+ 1022 014a 1A96      		adiw r26,10
+ 1023 014c ED91      		ld r30,X+
+ 1024 014e FC91      		ld r31,X
+ 1025 0150 1B97      		sbiw r26,10+1
+ 1026 0152 81E0      		ldi r24,lo8(1)
+GAS LISTING /tmp/ccan3UjN.s 			page 19
+
+
+ 1027 0154 90E0      		ldi r25,0
+ 1028 0156 1995      		eicall
+ 1029               	.L87:
+ 1030 0158 80E0      		ldi r24,lo8(mutex)
+ 1031 015a 90E0      		ldi r25,hi8(mutex)
+ 1032 015c 0E94 0000 		call NutEventPost
+ 1033 0160 80E0      		ldi r24,0
+ 1034 0162 90E0      		ldi r25,0
+ 1035 0164 00C0      		rjmp .L83
+ 1036               	.L85:
+ 1037 0166 B1E0      		ldi r27,1
+ 1038 0168 8B1A      		sub r8,r27
+ 1039 016a 9108      		sbc r9,__zero_reg__
+ 1040 016c 01F0      		breq .+2
+ 1041 016e 00C0      		rjmp .L88
+ 1042 0170 00C0      		rjmp .L89
+ 1043               	.L114:
+ 1044 0172 A12C      		mov r10,__zero_reg__
+ 1045 0174 B12C      		mov r11,__zero_reg__
+ 1046               	.L91:
+ 1047 0176 20E0      		ldi r18,0
+ 1048 0178 30E0      		ldi r19,0
+ 1049 017a A901      		movw r20,r18
+ 1050 017c 61E0      		ldi r22,lo8(1)
+ 1051 017e C801      		movw r24,r16
+ 1052 0180 0E94 0000 		call MmCardTxCmd
+ 1053 0184 C601      		movw r24,r12
+ 1054 0186 0E94 0000 		call MmCardRxR1.isra.0
+ 1055 018a 982E      		mov r9,r24
+ 1056 018c D801      		movw r26,r16
+ 1057 018e 1496      		adiw r26,4
+ 1058 0190 ED91      		ld r30,X+
+ 1059 0192 FC91      		ld r31,X
+ 1060 0194 1597      		sbiw r26,4+1
+ 1061 0196 80E0      		ldi r24,0
+ 1062 0198 90E0      		ldi r25,0
+ 1063 019a 1995      		eicall
+ 1064 019c 9920      		tst r9
+ 1065 019e 01F0      		breq .L87
+ 1066 01a0 B1E8      		ldi r27,-127
+ 1067 01a2 AB16      		cp r10,r27
+ 1068 01a4 B104      		cpc r11,__zero_reg__
+ 1069 01a6 04F0      		brlt .L90
+ 1070 01a8 61E0      		ldi r22,lo8(1)
+ 1071 01aa 70E0      		ldi r23,0
+ 1072 01ac 80E0      		ldi r24,0
+ 1073 01ae 90E0      		ldi r25,0
+ 1074 01b0 0E94 0000 		call NutSleep
+ 1075               	.L90:
+ 1076 01b4 EFEF      		ldi r30,-1
+ 1077 01b6 AE1A      		sub r10,r30
+ 1078 01b8 BE0A      		sbc r11,r30
+ 1079 01ba A114      		cp r10,__zero_reg__
+ 1080 01bc F2E0      		ldi r31,2
+ 1081 01be BF06      		cpc r11,r31
+ 1082 01c0 01F4      		brne .L91
+ 1083 01c2 00C0      		rjmp .L89
+GAS LISTING /tmp/ccan3UjN.s 			page 20
+
+
+ 1084               	.L83:
+ 1085 01c4 892B      		or r24,r25
+ 1086 01c6 01F0      		breq .+2
+ 1087 01c8 00C0      		rjmp .L92
+ 1088 01ca D701      		movw r26,r14
+ 1089 01cc 8C91      		ld r24,X
+ 1090 01ce 8823      		tst r24
+ 1091 01d0 01F0      		breq .L115
+ 1092 01d2 C701      		movw r24,r14
+ 1093 01d4 0E94 0000 		call atoi
+ 1094 01d8 5C01      		movw r10,r24
+ 1095 01da C701      		movw r24,r14
+ 1096 01dc 0196      		adiw r24,1
+ 1097               	.L94:
+ 1098 01de 7C01      		movw r14,r24
+ 1099 01e0 FC01      		movw r30,r24
+ 1100 01e2 2081      		ld r18,Z
+ 1101 01e4 0196      		adiw r24,1
+ 1102 01e6 2223      		tst r18
+ 1103 01e8 01F0      		breq .L93
+ 1104 01ea 2F32      		cpi r18,lo8(47)
+ 1105 01ec 01F4      		brne .L94
+ 1106 01ee 7C01      		movw r14,r24
+ 1107 01f0 00C0      		rjmp .L93
+ 1108               	.L115:
+ 1109 01f2 A12C      		mov r10,__zero_reg__
+ 1110 01f4 B12C      		mov r11,__zero_reg__
+ 1111               	.L93:
+ 1112 01f6 C090 0000 		lds r12,nutDeviceList
+ 1113 01fa D090 0000 		lds r13,nutDeviceList+1
+ 1114               	.L96:
+ 1115 01fe C114      		cp r12,__zero_reg__
+ 1116 0200 D104      		cpc r13,__zero_reg__
+ 1117 0202 01F4      		brne .+2
+ 1118 0204 00C0      		rjmp .L92
+ 1119 0206 D701      		movw r26,r14
+ 1120 0208 8C91      		ld r24,X
+ 1121 020a 8111      		cpse r24,__zero_reg__
+ 1122 020c 00C0      		rjmp .L97
+ 1123 020e F601      		movw r30,r12
+ 1124 0210 8385      		ldd r24,Z+11
+ 1125 0212 8031      		cpi r24,lo8(16)
+ 1126 0214 01F4      		brne .L99
+ 1127 0216 00C0      		rjmp .L98
+ 1128               	.L97:
+ 1129 0218 B701      		movw r22,r14
+ 1130 021a C601      		movw r24,r12
+ 1131 021c 0296      		adiw r24,2
+ 1132 021e 0E94 0000 		call strcmp
+ 1133 0222 892B      		or r24,r25
+ 1134 0224 01F0      		breq .L98
+ 1135               	.L99:
+ 1136 0226 D601      		movw r26,r12
+ 1137 0228 CD90      		ld r12,X+
+ 1138 022a DC90      		ld r13,X
+ 1139 022c 00C0      		rjmp .L96
+ 1140               	.L98:
+GAS LISTING /tmp/ccan3UjN.s 			page 21
+
+
+ 1141 022e 66E1      		ldi r22,lo8(22)
+ 1142 0230 72E0      		ldi r23,lo8(2)
+ 1143 0232 81E0      		ldi r24,lo8(1)
+ 1144 0234 90E0      		ldi r25,0
+ 1145 0236 0E94 0000 		call calloc
+ 1146 023a 7C01      		movw r14,r24
+ 1147 023c 892B      		or r24,r25
+ 1148 023e 01F4      		brne .+2
+ 1149 0240 00C0      		rjmp .L147
+ 1150 0242 F701      		movw r30,r14
+ 1151 0244 D182      		std Z+1,r13
+ 1152 0246 C082      		st Z,r12
+ 1153 0248 9701      		movw r18,r14
+ 1154 024a 2A5E      		subi r18,-22
+ 1155 024c 3F4F      		sbci r19,-1
+ 1156 024e 40E0      		ldi r20,0
+ 1157 0250 50E0      		ldi r21,0
+ 1158 0252 BA01      		movw r22,r20
+ 1159 0254 C801      		movw r24,r16
+ 1160 0256 0E94 0000 		call MmCardReadOrVerify.constprop.3
+ 1161 025a 892B      		or r24,r25
+ 1162 025c 01F0      		breq .+2
+ 1163 025e 00C0      		rjmp .L148
+ 1164 0260 F701      		movw r30,r14
+ 1165 0262 EC5E      		subi r30,-20
+ 1166 0264 FD4F      		sbci r31,-3
+ 1167 0266 8081      		ld r24,Z
+ 1168 0268 8535      		cpi r24,lo8(85)
+ 1169 026a 01F0      		breq .+2
+ 1170 026c 00C0      		rjmp .L148
+ 1171 026e 3196      		adiw r30,1
+ 1172 0270 8081      		ld r24,Z
+ 1173 0272 8A3A      		cpi r24,lo8(-86)
+ 1174 0274 01F0      		breq .+2
+ 1175 0276 00C0      		rjmp .L148
+ 1176 0278 F701      		movw r30,r14
+ 1177 027a E45B      		subi r30,-76
+ 1178 027c FF4F      		sbci r31,-1
+ 1179 027e 8081      		ld r24,Z
+ 1180 0280 8634      		cpi r24,lo8(70)
+ 1181 0282 01F4      		brne .L104
+ 1182 0284 3196      		adiw r30,1
+ 1183 0286 8081      		ld r24,Z
+ 1184 0288 8134      		cpi r24,lo8(65)
+ 1185 028a 01F4      		brne .L104
+ 1186 028c 3196      		adiw r30,1
+ 1187 028e 8081      		ld r24,Z
+ 1188 0290 8435      		cpi r24,lo8(84)
+ 1189 0292 01F4      		brne .L104
+ 1190 0294 81E0      		ldi r24,lo8(1)
+ 1191 0296 D701      		movw r26,r14
+ 1192 0298 1696      		adiw r26,6
+ 1193 029a 8C93      		st X,r24
+ 1194 029c F701      		movw r30,r14
+ 1195 029e 1286      		std Z+10,__zero_reg__
+ 1196 02a0 1386      		std Z+11,__zero_reg__
+ 1197 02a2 1486      		std Z+12,__zero_reg__
+GAS LISTING /tmp/ccan3UjN.s 			page 22
+
+
+ 1198 02a4 1586      		std Z+13,__zero_reg__
+ 1199 02a6 80E0      		ldi r24,0
+ 1200 02a8 90E0      		ldi r25,0
+ 1201 02aa A1E0      		ldi r26,lo8(1)
+ 1202 02ac B0E0      		ldi r27,0
+ 1203 02ae 8687      		std Z+14,r24
+ 1204 02b0 9787      		std Z+15,r25
+ 1205 02b2 A08B      		std Z+16,r26
+ 1206 02b4 B18B      		std Z+17,r27
+ 1207               	.L105:
+ 1208 02b6 64E0      		ldi r22,lo8(4)
+ 1209 02b8 70E0      		ldi r23,0
+ 1210 02ba 80E0      		ldi r24,lo8(heapFreeList)
+ 1211 02bc 90E0      		ldi r25,hi8(heapFreeList)
+ 1212 02be 0E94 0000 		call NutHeapRootAlloc
+ 1213 02c2 8C01      		movw r16,r24
+ 1214 02c4 0097      		sbiw r24,0
+ 1215 02c6 01F4      		brne .L110
+ 1216 02c8 C701      		movw r24,r14
+ 1217 02ca 0E94 0000 		call free
+ 1218               	.L147:
+ 1219 02ce 8CE0      		ldi r24,lo8(12)
+ 1220 02d0 90E0      		ldi r25,0
+ 1221               	.L146:
+ 1222 02d2 9093 0000 		sts errno+1,r25
+ 1223 02d6 8093 0000 		sts errno,r24
+ 1224 02da 00C0      		rjmp .L145
+ 1225               	.L104:
+ 1226 02dc F701      		movw r30,r14
+ 1227 02de EC52      		subi r30,44
+ 1228 02e0 FE4F      		sbci r31,-2
+ 1229 02e2 81E0      		ldi r24,lo8(1)
+ 1230 02e4 90E0      		ldi r25,0
+ 1231               	.L109:
+ 1232 02e6 A114      		cp r10,__zero_reg__
+ 1233 02e8 B104      		cpc r11,__zero_reg__
+ 1234 02ea 01F0      		breq .L106
+ 1235 02ec A816      		cp r10,r24
+ 1236 02ee B906      		cpc r11,r25
+ 1237 02f0 01F4      		brne .L107
+ 1238               	.L144:
+ 1239 02f2 80E1      		ldi r24,lo8(16)
+ 1240 02f4 D701      		movw r26,r14
+ 1241 02f6 1296      		adiw r26,2
+ 1242               		0:
+ 1243 02f8 0190      		ld r0,Z+
+ 1244 02fa 0D92      		st X+,r0
+ 1245 02fc 8A95      		dec r24
+ 1246 02fe 01F4      		brne 0b
+ 1247               	.L108:
+ 1248 0300 D701      		movw r26,r14
+ 1249 0302 1696      		adiw r26,6
+ 1250 0304 8C91      		ld r24,X
+ 1251 0306 8111      		cpse r24,__zero_reg__
+ 1252 0308 00C0      		rjmp .L105
+ 1253               	.L148:
+ 1254 030a C701      		movw r24,r14
+GAS LISTING /tmp/ccan3UjN.s 			page 23
+
+
+ 1255 030c 0E94 0000 		call free
+ 1256               	.L145:
+ 1257 0310 8FEF      		ldi r24,lo8(-1)
+ 1258 0312 9FEF      		ldi r25,lo8(-1)
+ 1259 0314 00C0      		rjmp .L141
+ 1260               	.L106:
+ 1261 0316 2081      		ld r18,Z
+ 1262 0318 27FD      		sbrc r18,7
+ 1263 031a 00C0      		rjmp .L144
+ 1264               	.L107:
+ 1265 031c 7096      		adiw r30,16
+ 1266 031e 0196      		adiw r24,1
+ 1267 0320 8530      		cpi r24,5
+ 1268 0322 9105      		cpc r25,__zero_reg__
+ 1269 0324 01F4      		brne .L109
+ 1270 0326 00C0      		rjmp .L108
+ 1271               	.L110:
+ 1272 0328 FC01      		movw r30,r24
+ 1273 032a 7182      		std Z+1,r7
+ 1274 032c 6082      		st Z,r6
+ 1275 032e F382      		std Z+3,r15
+ 1276 0330 E282      		std Z+2,r14
+ 1277 0332 9A83      		std Y+2,r25
+ 1278 0334 8983      		std Y+1,r24
+ 1279 0336 D701      		movw r26,r14
+ 1280 0338 1696      		adiw r26,6
+ 1281 033a 8C91      		ld r24,X
+ 1282 033c 8B83      		std Y+3,r24
+ 1283 033e D601      		movw r26,r12
+ 1284 0340 5596      		adiw r26,21
+ 1285 0342 ED91      		ld r30,X+
+ 1286 0344 FC91      		ld r31,X
+ 1287 0346 5697      		sbiw r26,21+1
+ 1288 0348 AE01      		movw r20,r28
+ 1289 034a 4F5F      		subi r20,-1
+ 1290 034c 5F4F      		sbci r21,-1
+ 1291 034e 60E3      		ldi r22,lo8(48)
+ 1292 0350 71E1      		ldi r23,lo8(17)
+ 1293 0352 C601      		movw r24,r12
+ 1294 0354 1995      		eicall
+ 1295 0356 892B      		or r24,r25
+ 1296 0358 01F0      		breq .L116
+ 1297 035a C801      		movw r24,r16
+ 1298 035c 0E94 0000 		call MmCardUnmount
+ 1299 0360 00C0      		rjmp .L145
+ 1300               	.L116:
+ 1301 0362 C801      		movw r24,r16
+ 1302               	.L141:
+ 1303               	/* epilogue start */
+ 1304 0364 0F90      		pop __tmp_reg__
+ 1305 0366 0F90      		pop __tmp_reg__
+ 1306 0368 0F90      		pop __tmp_reg__
+ 1307 036a 0F90      		pop __tmp_reg__
+ 1308 036c DF91      		pop r29
+ 1309 036e CF91      		pop r28
+ 1310 0370 1F91      		pop r17
+ 1311 0372 0F91      		pop r16
+GAS LISTING /tmp/ccan3UjN.s 			page 24
+
+
+ 1312 0374 FF90      		pop r15
+ 1313 0376 EF90      		pop r14
+ 1314 0378 DF90      		pop r13
+ 1315 037a CF90      		pop r12
+ 1316 037c BF90      		pop r11
+ 1317 037e AF90      		pop r10
+ 1318 0380 9F90      		pop r9
+ 1319 0382 8F90      		pop r8
+ 1320 0384 7F90      		pop r7
+ 1321 0386 6F90      		pop r6
+ 1322 0388 5F90      		pop r5
+ 1323 038a 4F90      		pop r4
+ 1324 038c 0895      		ret
+ 1325               		.size	MmCardMount, .-MmCardMount
+ 1326               		.section	.text.MmCardIOCtl,"ax",@progbits
+ 1327               	.global	MmCardIOCtl
+ 1328               		.type	MmCardIOCtl, @function
+ 1329               	MmCardIOCtl:
+ 1330 0000 DF92      		push r13
+ 1331 0002 EF92      		push r14
+ 1332 0004 FF92      		push r15
+ 1333 0006 0F93      		push r16
+ 1334 0008 1F93      		push r17
+ 1335 000a CF93      		push r28
+ 1336 000c DF93      		push r29
+ 1337               	/* prologue: function */
+ 1338               	/* frame size = 0 */
+ 1339               	/* stack size = 7 */
+ 1340               	.L__stack_usage = 7
+ 1341 000e EA01      		movw r28,r20
+ 1342 0010 DC01      		movw r26,r24
+ 1343 0012 1F96      		adiw r26,15
+ 1344 0014 0D91      		ld r16,X+
+ 1345 0016 1C91      		ld r17,X
+ 1346 0018 5097      		sbiw r26,15+1
+ 1347 001a 6330      		cpi r22,3
+ 1348 001c B2E1      		ldi r27,18
+ 1349 001e 7B07      		cpc r23,r27
+ 1350 0020 01F4      		brne .+2
+ 1351 0022 00C0      		rjmp .L151
+ 1352 0024 04F4      		brge .L152
+ 1353 0026 6130      		cpi r22,1
+ 1354 0028 F2E1      		ldi r31,18
+ 1355 002a 7F07      		cpc r23,r31
+ 1356 002c 01F4      		brne .+2
+ 1357 002e 00C0      		rjmp .L153
+ 1358 0030 04F0      		brlt .+2
+ 1359 0032 00C0      		rjmp .L154
+ 1360 0034 6115      		cp r22,__zero_reg__
+ 1361 0036 7241      		sbci r23,18
+ 1362 0038 01F0      		breq .+2
+ 1363 003a 00C0      		rjmp .L164
+ 1364 003c D801      		movw r26,r16
+ 1365 003e 1696      		adiw r26,6
+ 1366 0040 ED91      		ld r30,X+
+ 1367 0042 FC91      		ld r31,X
+ 1368 0044 1797      		sbiw r26,6+1
+GAS LISTING /tmp/ccan3UjN.s 			page 25
+
+
+ 1369 0046 1995      		eicall
+ 1370 0048 00C0      		rjmp .L168
+ 1371               	.L152:
+ 1372 004a 6230      		cpi r22,2
+ 1373 004c B0E2      		ldi r27,32
+ 1374 004e 7B07      		cpc r23,r27
+ 1375 0050 01F4      		brne .+2
+ 1376 0052 00C0      		rjmp .L156
+ 1377 0054 04F4      		brge .L157
+ 1378 0056 6130      		cpi r22,1
+ 1379 0058 7042      		sbci r23,32
+ 1380 005a 01F0      		breq .+2
+ 1381 005c 00C0      		rjmp .L164
+ 1382 005e 40E0      		ldi r20,0
+ 1383 0060 50E0      		ldi r21,0
+ 1384 0062 BA01      		movw r22,r20
+ 1385 0064 80E0      		ldi r24,lo8(mutex)
+ 1386 0066 90E0      		ldi r25,hi8(mutex)
+ 1387 0068 0E94 0000 		call NutEventWait
+ 1388 006c 20E0      		ldi r18,0
+ 1389 006e 30E0      		ldi r19,0
+ 1390 0070 A901      		movw r20,r18
+ 1391 0072 6DE0      		ldi r22,lo8(13)
+ 1392 0074 C801      		movw r24,r16
+ 1393 0076 0E94 0000 		call MmCardTxCmd
+ 1394 007a C801      		movw r24,r16
+ 1395 007c 0296      		adiw r24,2
+ 1396 007e 0E94 0000 		call MmCardRxR1.isra.0
+ 1397 0082 E82E      		mov r14,r24
+ 1398 0084 F12C      		mov r15,__zero_reg__
+ 1399 0086 FE2C      		mov r15,r14
+ 1400 0088 EE24      		clr r14
+ 1401 008a D801      		movw r26,r16
+ 1402 008c 1296      		adiw r26,2
+ 1403 008e ED91      		ld r30,X+
+ 1404 0090 FC91      		ld r31,X
+ 1405 0092 1397      		sbiw r26,2+1
+ 1406 0094 8FEF      		ldi r24,lo8(-1)
+ 1407 0096 1995      		eicall
+ 1408 0098 E80E      		add r14,r24
+ 1409 009a F11C      		adc r15,__zero_reg__
+ 1410 009c F982      		std Y+1,r15
+ 1411 009e E882      		st Y,r14
+ 1412 00a0 80E0      		ldi r24,lo8(mutex)
+ 1413 00a2 90E0      		ldi r25,hi8(mutex)
+ 1414 00a4 0E94 0000 		call NutEventPost
+ 1415 00a8 00C0      		rjmp .L166
+ 1416               	.L157:
+ 1417 00aa 6330      		cpi r22,3
+ 1418 00ac 80E2      		ldi r24,32
+ 1419 00ae 7807      		cpc r23,r24
+ 1420 00b0 01F4      		brne .+2
+ 1421 00b2 00C0      		rjmp .L159
+ 1422 00b4 6430      		cpi r22,4
+ 1423 00b6 7042      		sbci r23,32
+ 1424 00b8 01F0      		breq .+2
+ 1425 00ba 00C0      		rjmp .L164
+GAS LISTING /tmp/ccan3UjN.s 			page 26
+
+
+ 1426 00bc 69E0      		ldi r22,lo8(9)
+ 1427 00be 00C0      		rjmp .L167
+ 1428               	.L153:
+ 1429 00c0 D801      		movw r26,r16
+ 1430 00c2 1696      		adiw r26,6
+ 1431 00c4 ED91      		ld r30,X+
+ 1432 00c6 FC91      		ld r31,X
+ 1433 00c8 1797      		sbiw r26,6+1
+ 1434 00ca 1995      		eicall
+ 1435 00cc 0197      		sbiw r24,1
+ 1436 00ce 01F0      		breq .L161
+ 1437 00d0 81E0      		ldi r24,lo8(1)
+ 1438 00d2 90E0      		ldi r25,0
+ 1439               	.L168:
+ 1440 00d4 9983      		std Y+1,r25
+ 1441 00d6 8883      		st Y,r24
+ 1442 00d8 00C0      		rjmp .L166
+ 1443               	.L161:
+ 1444 00da 1982      		std Y+1,__zero_reg__
+ 1445 00dc 1882      		st Y,__zero_reg__
+ 1446               	.L166:
+ 1447 00de C0E0      		ldi r28,0
+ 1448 00e0 D0E0      		ldi r29,0
+ 1449 00e2 00C0      		rjmp .L150
+ 1450               	.L154:
+ 1451 00e4 E881      		ld r30,Y
+ 1452 00e6 F981      		ldd r31,Y+1
+ 1453 00e8 0280      		ldd __tmp_reg__,Z+2
+ 1454 00ea F381      		ldd r31,Z+3
+ 1455 00ec E02D      		mov r30,__tmp_reg__
+ 1456 00ee 8685      		ldd r24,Z+14
+ 1457 00f0 9785      		ldd r25,Z+15
+ 1458 00f2 A089      		ldd r26,Z+16
+ 1459 00f4 B189      		ldd r27,Z+17
+ 1460 00f6 8A83      		std Y+2,r24
+ 1461 00f8 9B83      		std Y+3,r25
+ 1462 00fa AC83      		std Y+4,r26
+ 1463 00fc BD83      		std Y+5,r27
+ 1464 00fe 80E0      		ldi r24,0
+ 1465 0100 92E0      		ldi r25,lo8(2)
+ 1466 0102 A0E0      		ldi r26,0
+ 1467 0104 B0E0      		ldi r27,0
+ 1468 0106 8E83      		std Y+6,r24
+ 1469 0108 9F83      		std Y+7,r25
+ 1470 010a A887      		std Y+8,r26
+ 1471 010c B987      		std Y+9,r27
+ 1472 010e 7696      		adiw r30,22
+ 1473 0110 FB87      		std Y+11,r31
+ 1474 0112 EA87      		std Y+10,r30
+ 1475 0114 00C0      		rjmp .L166
+ 1476               	.L151:
+ 1477 0116 E881      		ld r30,Y
+ 1478 0118 F981      		ldd r31,Y+1
+ 1479 011a 0280      		ldd __tmp_reg__,Z+2
+ 1480 011c F381      		ldd r31,Z+3
+ 1481 011e E02D      		mov r30,__tmp_reg__
+ 1482 0120 8A81      		ldd r24,Y+2
+GAS LISTING /tmp/ccan3UjN.s 			page 27
+
+
+ 1483 0122 9B81      		ldd r25,Y+3
+ 1484 0124 AC81      		ldd r26,Y+4
+ 1485 0126 BD81      		ldd r27,Y+5
+ 1486 0128 828B      		std Z+18,r24
+ 1487 012a 938B      		std Z+19,r25
+ 1488 012c A48B      		std Z+20,r26
+ 1489 012e B58B      		std Z+21,r27
+ 1490 0130 00C0      		rjmp .L166
+ 1491               	.L156:
+ 1492 0132 40E0      		ldi r20,0
+ 1493 0134 50E0      		ldi r21,0
+ 1494 0136 BA01      		movw r22,r20
+ 1495 0138 80E0      		ldi r24,lo8(mutex)
+ 1496 013a 90E0      		ldi r25,hi8(mutex)
+ 1497 013c 0E94 0000 		call NutEventWait
+ 1498 0140 20E0      		ldi r18,0
+ 1499 0142 30E0      		ldi r19,0
+ 1500 0144 A901      		movw r20,r18
+ 1501 0146 6AE3      		ldi r22,lo8(58)
+ 1502 0148 C801      		movw r24,r16
+ 1503 014a 0E94 0000 		call MmCardTxCmd
+ 1504 014e C801      		movw r24,r16
+ 1505 0150 0296      		adiw r24,2
+ 1506 0152 0E94 0000 		call MmCardRxR1.isra.0
+ 1507 0156 D82E      		mov r13,r24
+ 1508 0158 34E0      		ldi r19,lo8(4)
+ 1509 015a E32E      		mov r14,r19
+ 1510 015c F12C      		mov r15,__zero_reg__
+ 1511               	.L162:
+ 1512 015e 8881      		ld r24,Y
+ 1513 0160 9981      		ldd r25,Y+1
+ 1514 0162 AA81      		ldd r26,Y+2
+ 1515 0164 BB81      		ldd r27,Y+3
+ 1516 0166 BA2F      		mov r27,r26
+ 1517 0168 A92F      		mov r26,r25
+ 1518 016a 982F      		mov r25,r24
+ 1519 016c 8827      		clr r24
+ 1520 016e 8883      		st Y,r24
+ 1521 0170 9983      		std Y+1,r25
+ 1522 0172 AA83      		std Y+2,r26
+ 1523 0174 BB83      		std Y+3,r27
+ 1524 0176 D801      		movw r26,r16
+ 1525 0178 1296      		adiw r26,2
+ 1526 017a ED91      		ld r30,X+
+ 1527 017c FC91      		ld r31,X
+ 1528 017e 1397      		sbiw r26,2+1
+ 1529 0180 8FEF      		ldi r24,lo8(-1)
+ 1530 0182 1995      		eicall
+ 1531 0184 4881      		ld r20,Y
+ 1532 0186 5981      		ldd r21,Y+1
+ 1533 0188 6A81      		ldd r22,Y+2
+ 1534 018a 7B81      		ldd r23,Y+3
+ 1535 018c 482B      		or r20,r24
+ 1536 018e 4883      		st Y,r20
+ 1537 0190 5983      		std Y+1,r21
+ 1538 0192 6A83      		std Y+2,r22
+ 1539 0194 7B83      		std Y+3,r23
+GAS LISTING /tmp/ccan3UjN.s 			page 28
+
+
+ 1540 0196 B1E0      		ldi r27,1
+ 1541 0198 EB1A      		sub r14,r27
+ 1542 019a F108      		sbc r15,__zero_reg__
+ 1543 019c 01F4      		brne .L162
+ 1544 019e C1E0      		ldi r28,lo8(1)
+ 1545 01a0 D0E0      		ldi r29,0
+ 1546 01a2 D110      		cpse r13,__zero_reg__
+ 1547 01a4 00C0      		rjmp .L163
+ 1548 01a6 C0E0      		ldi r28,0
+ 1549 01a8 D0E0      		ldi r29,0
+ 1550               	.L163:
+ 1551 01aa D195      		neg r29
+ 1552 01ac C195      		neg r28
+ 1553 01ae D109      		sbc r29,__zero_reg__
+ 1554 01b0 80E0      		ldi r24,lo8(mutex)
+ 1555 01b2 90E0      		ldi r25,hi8(mutex)
+ 1556 01b4 0E94 0000 		call NutEventPost
+ 1557 01b8 00C0      		rjmp .L150
+ 1558               	.L159:
+ 1559 01ba 6AE0      		ldi r22,lo8(10)
+ 1560               	.L167:
+ 1561 01bc C801      		movw r24,r16
+ 1562               	/* epilogue start */
+ 1563 01be DF91      		pop r29
+ 1564 01c0 CF91      		pop r28
+ 1565 01c2 1F91      		pop r17
+ 1566 01c4 0F91      		pop r16
+ 1567 01c6 FF90      		pop r15
+ 1568 01c8 EF90      		pop r14
+ 1569 01ca DF90      		pop r13
+ 1570 01cc 0C94 0000 		jmp MmCardGetReg.constprop.2
+ 1571               	.L164:
+ 1572 01d0 CFEF      		ldi r28,lo8(-1)
+ 1573 01d2 DFEF      		ldi r29,lo8(-1)
+ 1574               	.L150:
+ 1575 01d4 CE01      		movw r24,r28
+ 1576               	/* epilogue start */
+ 1577 01d6 DF91      		pop r29
+ 1578 01d8 CF91      		pop r28
+ 1579 01da 1F91      		pop r17
+ 1580 01dc 0F91      		pop r16
+ 1581 01de FF90      		pop r15
+ 1582 01e0 EF90      		pop r14
+ 1583 01e2 DF90      		pop r13
+ 1584 01e4 0895      		ret
+ 1585               		.size	MmCardIOCtl, .-MmCardIOCtl
+ 1586               		.section	.text.MmCardDevInit,"ax",@progbits
+ 1587               	.global	MmCardDevInit
+ 1588               		.type	MmCardDevInit, @function
+ 1589               	MmCardDevInit:
+ 1590               	/* prologue: function */
+ 1591               	/* frame size = 0 */
+ 1592               	/* stack size = 0 */
+ 1593               	.L__stack_usage = 0
+ 1594 0000 80E0      		ldi r24,0
+ 1595 0002 90E0      		ldi r25,0
+ 1596 0004 0895      		ret
+GAS LISTING /tmp/ccan3UjN.s 			page 29
+
+
+ 1597               		.size	MmCardDevInit, .-MmCardDevInit
+ 1598               		.local	mutex
+ 1599               		.comm	mutex,2,1
+ 1600               		.ident	"GCC: (GNU) 5.3.0"
+ 1601               	.global __do_clear_bss
+GAS LISTING /tmp/ccan3UjN.s 			page 30
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 mmcard.c
+     /tmp/ccan3UjN.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccan3UjN.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccan3UjN.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccan3UjN.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccan3UjN.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccan3UjN.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccan3UjN.s:10     .text.MmCardTxCmd:0000000000000000 MmCardTxCmd
+     /tmp/ccan3UjN.s:103    .text.MmCardRxR1.isra.0:0000000000000000 MmCardRxR1.isra.0
+     /tmp/ccan3UjN.s:135    .text.MmCardReset:0000000000000000 MmCardReset
+     /tmp/ccan3UjN.s:224    .text.MmCardGetReg.constprop.2:0000000000000000 MmCardGetReg.constprop.2
+                             .bss:0000000000000000 mutex
+     /tmp/ccan3UjN.s:334    .text.MmCardReadOrVerify.constprop.3:0000000000000000 MmCardReadOrVerify.constprop.3
+     /tmp/ccan3UjN.s:463    .text.MmCardBlockRead:0000000000000000 MmCardBlockRead
+     /tmp/ccan3UjN.s:551    .text.MmCardBlockWrite:0000000000000000 MmCardBlockWrite
+     /tmp/ccan3UjN.s:764    .text.MmCardBlockWrite_P:0000000000000000 MmCardBlockWrite_P
+     /tmp/ccan3UjN.s:776    .text.MmCardUnmount:0000000000000000 MmCardUnmount
+     /tmp/ccan3UjN.s:855    .text.MmCardMount:0000000000000000 MmCardMount
+     /tmp/ccan3UjN.s:1329   .text.MmCardIOCtl:0000000000000000 MmCardIOCtl
+     /tmp/ccan3UjN.s:1589   .text.MmCardDevInit:0000000000000000 MmCardDevInit
+
+UNDEFINED SYMBOLS
+NutSleep
+NutEventWait
+NutEventPost
+free
+atoi
+nutDeviceList
+strcmp
+calloc
+heapFreeList
+NutHeapRootAlloc
+errno
+__do_clear_bss

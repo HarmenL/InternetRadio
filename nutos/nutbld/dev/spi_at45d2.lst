@@ -1,0 +1,111 @@
+GAS LISTING /tmp/cc1ifV78.s 			page 1
+
+
+   1               		.file	"spi_at45d2.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               	.global	devSpiAt45d2
+   9               		.data
+  10               		.type	devSpiAt45d2, @object
+  11               		.size	devSpiAt45d2, 37
+  12               	devSpiAt45d2:
+  13 0000 0000      		.word	0
+  14 0002 41        		.byte	65
+  15 0003 54        		.byte	84
+  16 0004 34        		.byte	52
+  17 0005 35        		.byte	53
+  18 0006 44        		.byte	68
+  19 0007 32        		.byte	50
+  20 0008 00        		.byte	0
+  21 0009 00        		.byte	0
+  22 000a 00        		.byte	0
+  23 000b 07        		.byte	7
+  24 000c 0000      		.word	0
+  25 000e 00        		.byte	0
+  26 000f 0000      		.word	nodeSpiAt45d2
+  27 0011 0000      		.word	blkIoAt45d2
+  28 0013 0000      		.word	gs(SpiAt45dInit)
+  29 0015 0000      		.word	gs(NutBlockDeviceIOCtl)
+  30 0017 0000      		.word	gs(NutBlockDeviceRead)
+  31 0019 0000      		.word	gs(NutBlockDeviceWrite)
+  32 001b 0000      		.word	gs(NutBlockDeviceWrite_P)
+  33 001d 0000      		.word	gs(NutBlockDeviceOpen)
+  34 001f 0000      		.word	gs(NutBlockDeviceClose)
+  35 0021 0000      		.word	gs(NutBlockDeviceSize)
+  36 0023 0000      		.word	0
+  37               		.type	blkIoAt45d2, @object
+  38               		.size	blkIoAt45d2, 26
+  39               	blkIoAt45d2:
+  40 0025 0000      		.word	0
+  41 0027 00        		.byte	0
+  42 0028 00        		.byte	0
+  43 0029 00        		.byte	0
+  44 002a 00        		.byte	0
+  45 002b 00        		.byte	0
+  46 002c 00        		.byte	0
+  47 002d 00        		.byte	0
+  48 002e 00        		.byte	0
+  49 002f 00        		.byte	0
+  50 0030 00        		.byte	0
+  51 0031 00        		.byte	0
+  52 0032 00        		.byte	0
+  53 0033 00        		.byte	0
+  54 0034 00        		.byte	0
+  55 0035 00        		.byte	0
+  56 0036 00        		.byte	0
+  57 0037 0000      		.word	gs(SpiAt45dPageRead)
+GAS LISTING /tmp/cc1ifV78.s 			page 2
+
+
+  58 0039 0000      		.word	gs(SpiAt45dPageWrite)
+  59 003b 0000      		.word	gs(SpiAt45dPageWrite_P)
+  60 003d 0000      		.word	gs(SpiAt45dIOCtl)
+  61               	.global	nodeSpiAt45d2
+  62               		.type	nodeSpiAt45d2, @object
+  63               		.size	nodeSpiAt45d2, 14
+  64               	nodeSpiAt45d2:
+  65 003f 0000      		.word	0
+  66 0041 0000      		.word	0
+  67 0043 40        		.byte	64
+  68 0044 8A        		.byte	-118
+  69 0045 F7        		.byte	-9
+  70 0046 01        		.byte	1
+  71 0047 0340      		.word	16387
+  72 0049 08        		.byte	8
+  73 004a 00        		.byte	0
+  74 004b 0000      		.zero	2
+  75               		.ident	"GCC: (GNU) 5.3.0"
+  76               	.global __do_copy_data
+GAS LISTING /tmp/cc1ifV78.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 spi_at45d2.c
+     /tmp/cc1ifV78.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cc1ifV78.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cc1ifV78.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cc1ifV78.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cc1ifV78.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cc1ifV78.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cc1ifV78.s:12     .data:0000000000000000 devSpiAt45d2
+     /tmp/cc1ifV78.s:64     .data:000000000000003f nodeSpiAt45d2
+     /tmp/cc1ifV78.s:39     .data:0000000000000025 blkIoAt45d2
+
+UNDEFINED SYMBOLS
+SpiAt45dInit
+NutBlockDeviceIOCtl
+NutBlockDeviceRead
+NutBlockDeviceWrite
+NutBlockDeviceWrite_P
+NutBlockDeviceOpen
+NutBlockDeviceClose
+NutBlockDeviceSize
+SpiAt45dPageRead
+SpiAt45dPageWrite
+SpiAt45dPageWrite_P
+SpiAt45dIOCtl
+__do_copy_data

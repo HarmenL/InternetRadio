@@ -1,0 +1,123 @@
+GAS LISTING /tmp/ccJhlhhY.s 			page 1
+
+
+   1               		.file	"pppout.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.NutPppOutput,"ax",@progbits
+   9               	.global	NutPppOutput
+  10               		.type	NutPppOutput, @function
+  11               	NutPppOutput:
+  12 0000 CF92      		push r12
+  13 0002 DF92      		push r13
+  14 0004 EF92      		push r14
+  15 0006 FF92      		push r15
+  16 0008 0F93      		push r16
+  17 000a 1F93      		push r17
+  18 000c CF93      		push r28
+  19 000e DF93      		push r29
+  20               	/* prologue: function */
+  21               	/* frame size = 0 */
+  22               	/* stack size = 8 */
+  23               	.L__stack_usage = 8
+  24 0010 EB01      		movw r28,r22
+  25 0012 8901      		movw r16,r18
+  26 0014 DC01      		movw r26,r24
+  27 0016 1F96      		adiw r26,15
+  28 0018 CD90      		ld r12,X+
+  29 001a DC90      		ld r13,X
+  30 001c 5097      		sbiw r26,15+1
+  31 001e 5196      		adiw r26,17
+  32 0020 ED90      		ld r14,X+
+  33 0022 FC90      		ld r15,X
+  34 0024 5297      		sbiw r26,17+1
+  35 0026 44E0      		ldi r20,lo8(4)
+  36 0028 50E0      		ldi r21,0
+  37 002a 60E1      		ldi r22,lo8(16)
+  38 002c C901      		movw r24,r18
+  39 002e 0E94 0000 		call NutNetBufAlloc
+  40 0032 892B      		or r24,r25
+  41 0034 01F0      		breq .L5
+  42 0036 D801      		movw r26,r16
+  43 0038 1396      		adiw r26,3
+  44 003a ED91      		ld r30,X+
+  45 003c FC91      		ld r31,X
+  46 003e 1497      		sbiw r26,3+1
+  47 0040 8FEF      		ldi r24,lo8(-1)
+  48 0042 8083      		st Z,r24
+  49 0044 83E0      		ldi r24,lo8(3)
+  50 0046 8183      		std Z+1,r24
+  51 0048 BE01      		movw r22,r28
+  52               	/* #APP */
+  53               	 ;  309 "../../nut/include/sys/types.h" 1
+  54 004a 062E      		mov __tmp_reg__, r22
+  55 004c 672F      		mov r22, r23
+  56 004e 702D      		mov r23, __tmp_reg__
+  57               		
+GAS LISTING /tmp/ccJhlhhY.s 			page 2
+
+
+  58               	 ;  0 "" 2
+  59               	/* #NOAPP */
+  60 0050 7383      		std Z+3,r23
+  61 0052 6283      		std Z+2,r22
+  62 0054 D601      		movw r26,r12
+  63 0056 9196      		adiw r26,33
+  64 0058 ED91      		ld r30,X+
+  65 005a FC91      		ld r31,X
+  66 005c 9297      		sbiw r26,33+1
+  67 005e 3097      		sbiw r30,0
+  68 0060 01F4      		brne .L3
+  69               	.L4:
+  70 0062 C801      		movw r24,r16
+  71 0064 0E94 0000 		call NutNetBufFree
+  72 0068 00C0      		rjmp .L5
+  73               	.L3:
+  74 006a D701      		movw r26,r14
+  75 006c DF96      		adiw r26,63
+  76 006e 0D90      		ld __tmp_reg__,X+
+  77 0070 BC91      		ld r27,X
+  78 0072 A02D      		mov r26,__tmp_reg__
+  79 0074 B801      		movw r22,r16
+  80 0076 8D91      		ld r24,X+
+  81 0078 9C91      		ld r25,X
+  82 007a 1995      		eicall
+  83 007c 0097      		sbiw r24,0
+  84 007e 01F0      		breq .L2
+  85 0080 00C0      		rjmp .L4
+  86               	.L5:
+  87 0082 8FEF      		ldi r24,lo8(-1)
+  88 0084 9FEF      		ldi r25,lo8(-1)
+  89               	.L2:
+  90               	/* epilogue start */
+  91 0086 DF91      		pop r29
+  92 0088 CF91      		pop r28
+  93 008a 1F91      		pop r17
+  94 008c 0F91      		pop r16
+  95 008e FF90      		pop r15
+  96 0090 EF90      		pop r14
+  97 0092 DF90      		pop r13
+  98 0094 CF90      		pop r12
+  99 0096 0895      		ret
+ 100               		.size	NutPppOutput, .-NutPppOutput
+ 101               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccJhlhhY.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 pppout.c
+     /tmp/ccJhlhhY.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccJhlhhY.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccJhlhhY.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccJhlhhY.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccJhlhhY.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccJhlhhY.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccJhlhhY.s:11     .text.NutPppOutput:0000000000000000 NutPppOutput
+
+UNDEFINED SYMBOLS
+NutNetBufAlloc
+NutNetBufFree

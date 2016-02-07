@@ -1,0 +1,296 @@
+GAS LISTING /tmp/ccCHcmOk.s 			page 1
+
+
+   1               		.file	"dirent.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.opendir,"ax",@progbits
+   9               	.global	opendir
+  10               		.type	opendir, @function
+  11               	opendir:
+  12 0000 AF92      		push r10
+  13 0002 BF92      		push r11
+  14 0004 CF92      		push r12
+  15 0006 DF92      		push r13
+  16 0008 EF92      		push r14
+  17 000a FF92      		push r15
+  18 000c 0F93      		push r16
+  19 000e 1F93      		push r17
+  20 0010 CF93      		push r28
+  21 0012 DF93      		push r29
+  22 0014 CDB7      		in r28,__SP_L__
+  23 0016 DEB7      		in r29,__SP_H__
+  24 0018 2997      		sbiw r28,9
+  25 001a 0FB6      		in __tmp_reg__,__SREG__
+  26 001c F894      		cli
+  27 001e DEBF      		out __SP_H__,r29
+  28 0020 0FBE      		out __SREG__,__tmp_reg__
+  29 0022 CDBF      		out __SP_L__,r28
+  30               	/* prologue: function */
+  31               	/* frame size = 9 */
+  32               	/* stack size = 19 */
+  33               	.L__stack_usage = 19
+  34 0024 5C01      		movw r10,r24
+  35 0026 FC01      		movw r30,r24
+  36 0028 DE01      		movw r26,r28
+  37 002a 1196      		adiw r26,1
+  38 002c 90E0      		ldi r25,0
+  39 002e AD01      		movw r20,r26
+  40               	.L2:
+  41 0030 7F01      		movw r14,r30
+  42 0032 2191      		ld r18,Z+
+  43 0034 2223      		tst r18
+  44 0036 01F0      		breq .L3
+  45 0038 2A33      		cpi r18,lo8(58)
+  46 003a 01F0      		breq .L3
+  47 003c 9830      		cpi r25,lo8(8)
+  48 003e 01F0      		breq .L3
+  49 0040 2D93      		st X+,r18
+  50 0042 9F5F      		subi r25,lo8(-(1))
+  51 0044 00C0      		rjmp .L2
+  52               	.L3:
+  53 0046 FA01      		movw r30,r20
+  54 0048 E90F      		add r30,r25
+  55 004a F11D      		adc r31,__zero_reg__
+  56 004c 1082      		st Z,__zero_reg__
+  57 004e CA01      		movw r24,r20
+GAS LISTING /tmp/ccCHcmOk.s 			page 2
+
+
+  58 0050 0E94 0000 		call NutDeviceLookup
+  59 0054 6C01      		movw r12,r24
+  60 0056 892B      		or r24,r25
+  61 0058 01F4      		brne .L5
+  62 005a 83E1      		ldi r24,lo8(19)
+  63 005c 90E0      		ldi r25,0
+  64 005e 00C0      		rjmp .L20
+  65               	.L5:
+  66 0060 86E0      		ldi r24,lo8(6)
+  67 0062 90E0      		ldi r25,0
+  68 0064 0E94 0000 		call malloc
+  69 0068 8C01      		movw r16,r24
+  70 006a 892B      		or r24,r25
+  71 006c 01F0      		breq .L21
+  72 006e 86E0      		ldi r24,lo8(6)
+  73 0070 D801      		movw r26,r16
+  74               		0:
+  75 0072 1D92      		st X+,__zero_reg__
+  76 0074 8A95      		dec r24
+  77 0076 01F4      		brne 0b
+  78 0078 D501      		movw r26,r10
+  79 007a 1196      		adiw r26,1
+  80 007c FD01      		movw r30,r26
+  81               		0:
+  82 007e 0190      		ld __tmp_reg__,Z+
+  83 0080 0020      		tst __tmp_reg__
+  84 0082 01F4      		brne 0b
+  85 0084 3197      		sbiw r30,1
+  86 0086 EA1B      		sub r30,r26
+  87 0088 FB0B      		sbc r31,r27
+  88 008a E830      		cpi r30,8
+  89 008c B1E0      		ldi r27,1
+  90 008e FB07      		cpc r31,r27
+  91 0090 00F0      		brlo .L8
+  92 0092 D801      		movw r26,r16
+  93 0094 1596      		adiw r26,4+1
+  94 0096 FC93      		st X,r31
+  95 0098 EE93      		st -X,r30
+  96 009a 1497      		sbiw r26,4
+  97 009c 00C0      		rjmp .L9
+  98               	.L8:
+  99 009e 88E0      		ldi r24,lo8(8)
+ 100 00a0 91E0      		ldi r25,lo8(1)
+ 101 00a2 F801      		movw r30,r16
+ 102 00a4 9583      		std Z+5,r25
+ 103 00a6 8483      		std Z+4,r24
+ 104               	.L9:
+ 105 00a8 D801      		movw r26,r16
+ 106 00aa 1496      		adiw r26,4
+ 107 00ac 8D91      		ld r24,X+
+ 108 00ae 9C91      		ld r25,X
+ 109 00b0 1597      		sbiw r26,4+1
+ 110 00b2 0E94 0000 		call malloc
+ 111 00b6 F801      		movw r30,r16
+ 112 00b8 9383      		std Z+3,r25
+ 113 00ba 8283      		std Z+2,r24
+ 114 00bc 0097      		sbiw r24,0
+GAS LISTING /tmp/ccCHcmOk.s 			page 3
+
+
+ 115 00be 01F4      		brne .L10
+ 116 00c0 C801      		movw r24,r16
+ 117 00c2 0E94 0000 		call free
+ 118               	.L21:
+ 119 00c6 8CE0      		ldi r24,lo8(12)
+ 120 00c8 90E0      		ldi r25,0
+ 121               	.L20:
+ 122 00ca 9093 0000 		sts errno+1,r25
+ 123 00ce 8093 0000 		sts errno,r24
+ 124 00d2 00C0      		rjmp .L19
+ 125               	.L10:
+ 126 00d4 D701      		movw r26,r14
+ 127 00d6 2C91      		ld r18,X
+ 128 00d8 2A33      		cpi r18,lo8(58)
+ 129 00da 01F4      		brne .L11
+ 130 00dc BFEF      		ldi r27,-1
+ 131 00de EB1A      		sub r14,r27
+ 132 00e0 FB0A      		sbc r15,r27
+ 133               	.L11:
+ 134 00e2 B701      		movw r22,r14
+ 135 00e4 0E94 0000 		call strcpy
+ 136 00e8 D601      		movw r26,r12
+ 137 00ea 5596      		adiw r26,21
+ 138 00ec ED91      		ld r30,X+
+ 139 00ee FC91      		ld r31,X
+ 140 00f0 5697      		sbiw r26,21+1
+ 141 00f2 A801      		movw r20,r16
+ 142 00f4 63E1      		ldi r22,lo8(19)
+ 143 00f6 71E1      		ldi r23,lo8(17)
+ 144 00f8 C601      		movw r24,r12
+ 145 00fa 1995      		eicall
+ 146 00fc 892B      		or r24,r25
+ 147 00fe 01F0      		breq .L12
+ 148 0100 F801      		movw r30,r16
+ 149 0102 8281      		ldd r24,Z+2
+ 150 0104 9381      		ldd r25,Z+3
+ 151 0106 0E94 0000 		call free
+ 152 010a C801      		movw r24,r16
+ 153 010c 0E94 0000 		call free
+ 154               	.L19:
+ 155 0110 80E0      		ldi r24,0
+ 156 0112 90E0      		ldi r25,0
+ 157 0114 00C0      		rjmp .L6
+ 158               	.L12:
+ 159 0116 C801      		movw r24,r16
+ 160               	.L6:
+ 161               	/* epilogue start */
+ 162 0118 2996      		adiw r28,9
+ 163 011a 0FB6      		in __tmp_reg__,__SREG__
+ 164 011c F894      		cli
+ 165 011e DEBF      		out __SP_H__,r29
+ 166 0120 0FBE      		out __SREG__,__tmp_reg__
+ 167 0122 CDBF      		out __SP_L__,r28
+ 168 0124 DF91      		pop r29
+ 169 0126 CF91      		pop r28
+ 170 0128 1F91      		pop r17
+ 171 012a 0F91      		pop r16
+GAS LISTING /tmp/ccCHcmOk.s 			page 4
+
+
+ 172 012c FF90      		pop r15
+ 173 012e EF90      		pop r14
+ 174 0130 DF90      		pop r13
+ 175 0132 CF90      		pop r12
+ 176 0134 BF90      		pop r11
+ 177 0136 AF90      		pop r10
+ 178 0138 0895      		ret
+ 179               		.size	opendir, .-opendir
+ 180               		.section	.text.closedir,"ax",@progbits
+ 181               	.global	closedir
+ 182               		.type	closedir, @function
+ 183               	closedir:
+ 184 0000 CF93      		push r28
+ 185 0002 DF93      		push r29
+ 186               	/* prologue: function */
+ 187               	/* frame size = 0 */
+ 188               	/* stack size = 2 */
+ 189               	.L__stack_usage = 2
+ 190 0004 EC01      		movw r28,r24
+ 191 0006 892B      		or r24,r25
+ 192 0008 01F0      		breq .L24
+ 193 000a E881      		ld r30,Y
+ 194 000c F981      		ldd r31,Y+1
+ 195 000e 8081      		ld r24,Z
+ 196 0010 9181      		ldd r25,Z+1
+ 197 0012 DC01      		movw r26,r24
+ 198 0014 5596      		adiw r26,21
+ 199 0016 ED91      		ld r30,X+
+ 200 0018 FC91      		ld r31,X
+ 201 001a 5697      		sbiw r26,21+1
+ 202 001c AE01      		movw r20,r28
+ 203 001e 64E1      		ldi r22,lo8(20)
+ 204 0020 71E1      		ldi r23,lo8(17)
+ 205 0022 1995      		eicall
+ 206 0024 8A81      		ldd r24,Y+2
+ 207 0026 9B81      		ldd r25,Y+3
+ 208 0028 0097      		sbiw r24,0
+ 209 002a 01F0      		breq .L25
+ 210 002c 0E94 0000 		call free
+ 211               	.L25:
+ 212 0030 CE01      		movw r24,r28
+ 213 0032 0E94 0000 		call free
+ 214               	.L24:
+ 215 0036 80E0      		ldi r24,0
+ 216 0038 90E0      		ldi r25,0
+ 217               	/* epilogue start */
+ 218 003a DF91      		pop r29
+ 219 003c CF91      		pop r28
+ 220 003e 0895      		ret
+ 221               		.size	closedir, .-closedir
+ 222               		.section	.text.readdir,"ax",@progbits
+ 223               	.global	readdir
+ 224               		.type	readdir, @function
+ 225               	readdir:
+ 226 0000 CF93      		push r28
+ 227 0002 DF93      		push r29
+ 228               	/* prologue: function */
+GAS LISTING /tmp/ccCHcmOk.s 			page 5
+
+
+ 229               	/* frame size = 0 */
+ 230               	/* stack size = 2 */
+ 231               	.L__stack_usage = 2
+ 232 0004 EC01      		movw r28,r24
+ 233 0006 E881      		ld r30,Y
+ 234 0008 F981      		ldd r31,Y+1
+ 235 000a 8081      		ld r24,Z
+ 236 000c 9181      		ldd r25,Z+1
+ 237 000e DC01      		movw r26,r24
+ 238 0010 5596      		adiw r26,21
+ 239 0012 ED91      		ld r30,X+
+ 240 0014 FC91      		ld r31,X
+ 241 0016 5697      		sbiw r26,21+1
+ 242 0018 AE01      		movw r20,r28
+ 243 001a 65E1      		ldi r22,lo8(21)
+ 244 001c 71E1      		ldi r23,lo8(17)
+ 245 001e 1995      		eicall
+ 246 0020 892B      		or r24,r25
+ 247 0022 01F4      		brne .L34
+ 248 0024 8A81      		ldd r24,Y+2
+ 249 0026 9B81      		ldd r25,Y+3
+ 250 0028 00C0      		rjmp .L33
+ 251               	.L34:
+ 252 002a 80E0      		ldi r24,0
+ 253 002c 90E0      		ldi r25,0
+ 254               	.L33:
+ 255               	/* epilogue start */
+ 256 002e DF91      		pop r29
+ 257 0030 CF91      		pop r28
+ 258 0032 0895      		ret
+ 259               		.size	readdir, .-readdir
+ 260               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccCHcmOk.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 dirent.c
+     /tmp/ccCHcmOk.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccCHcmOk.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccCHcmOk.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccCHcmOk.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccCHcmOk.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccCHcmOk.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccCHcmOk.s:11     .text.opendir:0000000000000000 opendir
+     /tmp/ccCHcmOk.s:183    .text.closedir:0000000000000000 closedir
+     /tmp/ccCHcmOk.s:225    .text.readdir:0000000000000000 readdir
+
+UNDEFINED SYMBOLS
+NutDeviceLookup
+malloc
+free
+errno
+strcpy

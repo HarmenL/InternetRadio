@@ -1,0 +1,952 @@
+GAS LISTING /tmp/ccdIDRX3.s 			page 1
+
+
+   1               		.file	"edline.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.PrintString,"ax",@progbits
+   9               		.type	PrintString, @function
+  10               	PrintString:
+  11 0000 0F93      		push r16
+  12 0002 1F93      		push r17
+  13 0004 CF93      		push r28
+  14 0006 DF93      		push r29
+  15               	/* prologue: function */
+  16               	/* frame size = 0 */
+  17               	/* stack size = 4 */
+  18               	.L__stack_usage = 4
+  19 0008 8C01      		movw r16,r24
+  20 000a EB01      		movw r28,r22
+  21               	.L2:
+  22 000c 6991      		ld r22,Y+
+  23 000e 6623      		tst r22
+  24 0010 01F0      		breq .L5
+  25 0012 062E      		mov __tmp_reg__,r22
+  26 0014 000C      		lsl r0
+  27 0016 770B      		sbc r23,r23
+  28 0018 D801      		movw r26,r16
+  29 001a 1496      		adiw r26,4
+  30 001c ED91      		ld r30,X+
+  31 001e FC91      		ld r31,X
+  32 0020 1597      		sbiw r26,4+1
+  33 0022 1696      		adiw r26,6
+  34 0024 8D91      		ld r24,X+
+  35 0026 9C91      		ld r25,X
+  36 0028 1797      		sbiw r26,6+1
+  37 002a 1995      		eicall
+  38 002c 00C0      		rjmp .L2
+  39               	.L5:
+  40 002e 80E0      		ldi r24,0
+  41 0030 90E0      		ldi r25,0
+  42               	/* epilogue start */
+  43 0032 DF91      		pop r29
+  44 0034 CF91      		pop r28
+  45 0036 1F91      		pop r17
+  46 0038 0F91      		pop r16
+  47 003a 0895      		ret
+  48               		.size	PrintString, .-PrintString
+  49               		.section	.text.PrintCharacter,"ax",@progbits
+  50               		.type	PrintCharacter, @function
+  51               	PrintCharacter:
+  52 0000 EF92      		push r14
+  53 0002 FF92      		push r15
+  54 0004 0F93      		push r16
+  55 0006 1F93      		push r17
+  56 0008 CF93      		push r28
+  57 000a DF93      		push r29
+GAS LISTING /tmp/ccdIDRX3.s 			page 2
+
+
+  58               	/* prologue: function */
+  59               	/* frame size = 0 */
+  60               	/* stack size = 6 */
+  61               	.L__stack_usage = 6
+  62 000c 8C01      		movw r16,r24
+  63 000e 7B01      		movw r14,r22
+  64 0010 EA01      		movw r28,r20
+  65               	.L7:
+  66 0012 1C16      		cp __zero_reg__,r28
+  67 0014 1D06      		cpc __zero_reg__,r29
+  68 0016 04F4      		brge .L9
+  69 0018 D801      		movw r26,r16
+  70 001a 1496      		adiw r26,4
+  71 001c ED91      		ld r30,X+
+  72 001e FC91      		ld r31,X
+  73 0020 1597      		sbiw r26,4+1
+  74 0022 B701      		movw r22,r14
+  75 0024 1696      		adiw r26,6
+  76 0026 8D91      		ld r24,X+
+  77 0028 9C91      		ld r25,X
+  78 002a 1797      		sbiw r26,6+1
+  79 002c 1995      		eicall
+  80 002e 2197      		sbiw r28,1
+  81 0030 00C0      		rjmp .L7
+  82               	.L9:
+  83               	/* epilogue start */
+  84 0032 DF91      		pop r29
+  85 0034 CF91      		pop r28
+  86 0036 1F91      		pop r17
+  87 0038 0F91      		pop r16
+  88 003a FF90      		pop r15
+  89 003c EF90      		pop r14
+  90 003e 0895      		ret
+  91               		.size	PrintCharacter, .-PrintCharacter
+  92               		.section	.text.EdLineGetChar,"ax",@progbits
+  93               		.type	EdLineGetChar, @function
+  94               	EdLineGetChar:
+  95               	/* prologue: function */
+  96               	/* frame size = 0 */
+  97               	/* stack size = 0 */
+  98               	.L__stack_usage = 0
+  99 0000 0C94 0000 		jmp getchar
+ 100               		.size	EdLineGetChar, .-EdLineGetChar
+ 101               		.section	.text.EdLinePutChar,"ax",@progbits
+ 102               		.type	EdLinePutChar, @function
+ 103               	EdLinePutChar:
+ 104               	/* prologue: function */
+ 105               	/* frame size = 0 */
+ 106               	/* stack size = 0 */
+ 107               	.L__stack_usage = 0
+ 108 0000 CB01      		movw r24,r22
+ 109 0002 0C94 0000 		jmp putchar
+ 110               		.size	EdLinePutChar, .-EdLinePutChar
+ 111               		.section	.text.EdLineKeyMap,"ax",@progbits
+ 112               	.global	EdLineKeyMap
+ 113               		.type	EdLineKeyMap, @function
+ 114               	EdLineKeyMap:
+GAS LISTING /tmp/ccdIDRX3.s 			page 3
+
+
+ 115               	/* prologue: function */
+ 116               	/* frame size = 0 */
+ 117               	/* stack size = 0 */
+ 118               	.L__stack_usage = 0
+ 119 0000 FB01      		movw r30,r22
+ 120 0002 8D30      		cpi r24,13
+ 121 0004 9105      		cpc r25,__zero_reg__
+ 122 0006 01F4      		brne .L13
+ 123 0008 8FEF      		ldi r24,lo8(-1)
+ 124 000a 9FEF      		ldi r25,lo8(-1)
+ 125 000c 9183      		std Z+1,r25
+ 126 000e 8083      		st Z,r24
+ 127 0010 8AE0      		ldi r24,lo8(10)
+ 128 0012 90E0      		ldi r25,0
+ 129 0014 0895      		ret
+ 130               	.L13:
+ 131 0016 8A30      		cpi r24,10
+ 132 0018 9105      		cpc r25,__zero_reg__
+ 133 001a 01F4      		brne .L15
+ 134 001c 2081      		ld r18,Z
+ 135 001e 3181      		ldd r19,Z+1
+ 136 0020 37FF      		sbrs r19,7
+ 137 0022 00C0      		rjmp .L15
+ 138 0024 80E0      		ldi r24,0
+ 139 0026 90E0      		ldi r25,0
+ 140               	.L15:
+ 141 0028 1182      		std Z+1,__zero_reg__
+ 142 002a 1082      		st Z,__zero_reg__
+ 143 002c 0895      		ret
+ 144               		.size	EdLineKeyMap, .-EdLineKeyMap
+ 145               		.section	.text.EdLineRegisterInput,"ax",@progbits
+ 146               	.global	EdLineRegisterInput
+ 147               		.type	EdLineRegisterInput, @function
+ 148               	EdLineRegisterInput:
+ 149               	/* prologue: function */
+ 150               	/* frame size = 0 */
+ 151               	/* stack size = 0 */
+ 152               	.L__stack_usage = 0
+ 153 0000 FC01      		movw r30,r24
+ 154 0002 6115      		cp r22,__zero_reg__
+ 155 0004 7105      		cpc r23,__zero_reg__
+ 156 0006 01F0      		breq .L18
+ 157 0008 7183      		std Z+1,r23
+ 158 000a 6083      		st Z,r22
+ 159 000c 00C0      		rjmp .L19
+ 160               	.L18:
+ 161 000e 80E0      		ldi r24,lo8(gs(EdLineGetChar))
+ 162 0010 90E0      		ldi r25,hi8(gs(EdLineGetChar))
+ 163 0012 9183      		std Z+1,r25
+ 164 0014 8083      		st Z,r24
+ 165               	.L19:
+ 166 0016 5383      		std Z+3,r21
+ 167 0018 4283      		std Z+2,r20
+ 168 001a 0895      		ret
+ 169               		.size	EdLineRegisterInput, .-EdLineRegisterInput
+ 170               		.section	.text.EdLineRegisterOutput,"ax",@progbits
+ 171               	.global	EdLineRegisterOutput
+GAS LISTING /tmp/ccdIDRX3.s 			page 4
+
+
+ 172               		.type	EdLineRegisterOutput, @function
+ 173               	EdLineRegisterOutput:
+ 174               	/* prologue: function */
+ 175               	/* frame size = 0 */
+ 176               	/* stack size = 0 */
+ 177               	.L__stack_usage = 0
+ 178 0000 FC01      		movw r30,r24
+ 179 0002 6115      		cp r22,__zero_reg__
+ 180 0004 7105      		cpc r23,__zero_reg__
+ 181 0006 01F0      		breq .L21
+ 182 0008 7583      		std Z+5,r23
+ 183 000a 6483      		std Z+4,r22
+ 184 000c 00C0      		rjmp .L22
+ 185               	.L21:
+ 186 000e 80E0      		ldi r24,lo8(gs(EdLinePutChar))
+ 187 0010 90E0      		ldi r25,hi8(gs(EdLinePutChar))
+ 188 0012 9583      		std Z+5,r25
+ 189 0014 8483      		std Z+4,r24
+ 190               	.L22:
+ 191 0016 5783      		std Z+7,r21
+ 192 0018 4683      		std Z+6,r20
+ 193 001a 0895      		ret
+ 194               		.size	EdLineRegisterOutput, .-EdLineRegisterOutput
+ 195               		.section	.text.EdLineRegisterKeymap,"ax",@progbits
+ 196               	.global	EdLineRegisterKeymap
+ 197               		.type	EdLineRegisterKeymap, @function
+ 198               	EdLineRegisterKeymap:
+ 199               	/* prologue: function */
+ 200               	/* frame size = 0 */
+ 201               	/* stack size = 0 */
+ 202               	.L__stack_usage = 0
+ 203 0000 6115      		cp r22,__zero_reg__
+ 204 0002 7105      		cpc r23,__zero_reg__
+ 205 0004 01F0      		breq .L24
+ 206 0006 FC01      		movw r30,r24
+ 207 0008 7187      		std Z+9,r23
+ 208 000a 6087      		std Z+8,r22
+ 209 000c 0895      		ret
+ 210               	.L24:
+ 211 000e 20E0      		ldi r18,lo8(gs(EdLineKeyMap))
+ 212 0010 30E0      		ldi r19,hi8(gs(EdLineKeyMap))
+ 213 0012 FC01      		movw r30,r24
+ 214 0014 3187      		std Z+9,r19
+ 215 0016 2087      		std Z+8,r18
+ 216 0018 0895      		ret
+ 217               		.size	EdLineRegisterKeymap, .-EdLineRegisterKeymap
+ 218               		.section	.text.EdLineOpen,"ax",@progbits
+ 219               	.global	EdLineOpen
+ 220               		.type	EdLineOpen, @function
+ 221               	EdLineOpen:
+ 222 0000 0F93      		push r16
+ 223 0002 1F93      		push r17
+ 224 0004 CF93      		push r28
+ 225 0006 DF93      		push r29
+ 226               	/* prologue: function */
+ 227               	/* frame size = 0 */
+ 228               	/* stack size = 4 */
+GAS LISTING /tmp/ccdIDRX3.s 			page 5
+
+
+ 229               	.L__stack_usage = 4
+ 230 0008 182F      		mov r17,r24
+ 231 000a 092F      		mov r16,r25
+ 232 000c 60E1      		ldi r22,lo8(16)
+ 233 000e 70E0      		ldi r23,0
+ 234 0010 81E0      		ldi r24,lo8(1)
+ 235 0012 90E0      		ldi r25,0
+ 236 0014 0E94 0000 		call calloc
+ 237 0018 EC01      		movw r28,r24
+ 238 001a 892B      		or r24,r25
+ 239 001c 01F0      		breq .L28
+ 240 001e 1A87      		std Y+10,r17
+ 241 0020 0B87      		std Y+11,r16
+ 242 0022 8091 0000 		lds r24,__iob
+ 243 0026 9091 0000 		lds r25,__iob+1
+ 244 002a 20E0      		ldi r18,lo8(gs(EdLineGetChar))
+ 245 002c 30E0      		ldi r19,hi8(gs(EdLineGetChar))
+ 246 002e 3983      		std Y+1,r19
+ 247 0030 2883      		st Y,r18
+ 248 0032 9B83      		std Y+3,r25
+ 249 0034 8A83      		std Y+2,r24
+ 250 0036 8091 0000 		lds r24,__iob+2
+ 251 003a 9091 0000 		lds r25,__iob+2+1
+ 252 003e 20E0      		ldi r18,lo8(gs(EdLinePutChar))
+ 253 0040 30E0      		ldi r19,hi8(gs(EdLinePutChar))
+ 254 0042 3D83      		std Y+5,r19
+ 255 0044 2C83      		std Y+4,r18
+ 256 0046 9F83      		std Y+7,r25
+ 257 0048 8E83      		std Y+6,r24
+ 258 004a 80E0      		ldi r24,lo8(gs(EdLineKeyMap))
+ 259 004c 90E0      		ldi r25,hi8(gs(EdLineKeyMap))
+ 260 004e 9987      		std Y+9,r25
+ 261 0050 8887      		std Y+8,r24
+ 262 0052 12FF      		sbrs r17,2
+ 263 0054 00C0      		rjmp .L28
+ 264 0056 80E1      		ldi r24,lo8(16)
+ 265 0058 90E0      		ldi r25,0
+ 266 005a 0E94 0000 		call EditHistoryCreate
+ 267 005e 9F87      		std Y+15,r25
+ 268 0060 8E87      		std Y+14,r24
+ 269               	.L28:
+ 270 0062 CE01      		movw r24,r28
+ 271               	/* epilogue start */
+ 272 0064 DF91      		pop r29
+ 273 0066 CF91      		pop r28
+ 274 0068 1F91      		pop r17
+ 275 006a 0F91      		pop r16
+ 276 006c 0895      		ret
+ 277               		.size	EdLineOpen, .-EdLineOpen
+ 278               		.section	.text.EdLineClose,"ax",@progbits
+ 279               	.global	EdLineClose
+ 280               		.type	EdLineClose, @function
+ 281               	EdLineClose:
+ 282 0000 CF93      		push r28
+ 283 0002 DF93      		push r29
+ 284               	/* prologue: function */
+ 285               	/* frame size = 0 */
+GAS LISTING /tmp/ccdIDRX3.s 			page 6
+
+
+ 286               	/* stack size = 2 */
+ 287               	.L__stack_usage = 2
+ 288 0004 EC01      		movw r28,r24
+ 289 0006 892B      		or r24,r25
+ 290 0008 01F0      		breq .L33
+ 291 000a 8E85      		ldd r24,Y+14
+ 292 000c 9F85      		ldd r25,Y+15
+ 293 000e 0E94 0000 		call EditHistoryDestroy
+ 294 0012 CE01      		movw r24,r28
+ 295               	/* epilogue start */
+ 296 0014 DF91      		pop r29
+ 297 0016 CF91      		pop r28
+ 298 0018 0C94 0000 		jmp free
+ 299               	.L33:
+ 300               	/* epilogue start */
+ 301 001c DF91      		pop r29
+ 302 001e CF91      		pop r28
+ 303 0020 0895      		ret
+ 304               		.size	EdLineClose, .-EdLineClose
+ 305               		.section	.rodata.str1.1,"aMS",@progbits,1
+ 306               	.LC0:
+ 307 0000 0D0A 00   		.string	"\r\n"
+ 308               		.section	.text.EdLineRead,"ax",@progbits
+ 309               	.global	EdLineRead
+ 310               		.type	EdLineRead, @function
+ 311               	EdLineRead:
+ 312 0000 2F92      		push r2
+ 313 0002 3F92      		push r3
+ 314 0004 4F92      		push r4
+ 315 0006 5F92      		push r5
+ 316 0008 6F92      		push r6
+ 317 000a 7F92      		push r7
+ 318 000c 8F92      		push r8
+ 319 000e 9F92      		push r9
+ 320 0010 AF92      		push r10
+ 321 0012 BF92      		push r11
+ 322 0014 CF92      		push r12
+ 323 0016 DF92      		push r13
+ 324 0018 EF92      		push r14
+ 325 001a FF92      		push r15
+ 326 001c 0F93      		push r16
+ 327 001e 1F93      		push r17
+ 328 0020 CF93      		push r28
+ 329 0022 DF93      		push r29
+ 330 0024 00D0      		rcall .
+ 331 0026 00D0      		rcall .
+ 332 0028 CDB7      		in r28,__SP_L__
+ 333 002a DEB7      		in r29,__SP_H__
+ 334               	/* prologue: function */
+ 335               	/* frame size = 6 */
+ 336               	/* stack size = 24 */
+ 337               	.L__stack_usage = 24
+ 338 002c 8C01      		movw r16,r24
+ 339 002e 7B01      		movw r14,r22
+ 340 0030 4A01      		movw r8,r20
+ 341 0032 1B01      		movw r2,r22
+ 342 0034 240E      		add r2,r20
+GAS LISTING /tmp/ccdIDRX3.s 			page 7
+
+
+ 343 0036 351E      		adc r3,r21
+ 344 0038 F101      		movw r30,r2
+ 345 003a 3197      		sbiw r30,1
+ 346 003c 1082      		st Z,__zero_reg__
+ 347 003e AB01      		movw r20,r22
+ 348 0040 60E0      		ldi r22,0
+ 349 0042 70E0      		ldi r23,0
+ 350 0044 DC01      		movw r26,r24
+ 351 0046 1E96      		adiw r26,14
+ 352 0048 8D91      		ld r24,X+
+ 353 004a 9C91      		ld r25,X
+ 354 004c 1F97      		sbiw r26,14+1
+ 355 004e 0E94 0000 		call EditHistorySet
+ 356 0052 B701      		movw r22,r14
+ 357 0054 C801      		movw r24,r16
+ 358 0056 0E94 0000 		call PrintString
+ 359 005a F701      		movw r30,r14
+ 360               		0:
+ 361 005c 0190      		ld __tmp_reg__,Z+
+ 362 005e 0020      		tst __tmp_reg__
+ 363 0060 01F4      		brne 0b
+ 364 0062 3197      		sbiw r30,1
+ 365 0064 9F01      		movw r18,r30
+ 366 0066 2E19      		sub r18,r14
+ 367 0068 3F09      		sbc r19,r15
+ 368 006a 3E83      		std Y+6,r19
+ 369 006c 2D83      		std Y+5,r18
+ 370 006e 612C      		mov r6,__zero_reg__
+ 371 0070 712C      		mov r7,__zero_reg__
+ 372 0072 C12C      		mov r12,__zero_reg__
+ 373 0074 D12C      		mov r13,__zero_reg__
+ 374 0076 C801      		movw r24,r16
+ 375 0078 0C96      		adiw r24,12
+ 376 007a 9A83      		std Y+2,r25
+ 377 007c 8983      		std Y+1,r24
+ 378 007e 2401      		movw r4,r8
+ 379 0080 91E0      		ldi r25,1
+ 380 0082 491A      		sub r4,r25
+ 381 0084 5108      		sbc r5,__zero_reg__
+ 382               	.L36:
+ 383 0086 D801      		movw r26,r16
+ 384 0088 ED91      		ld r30,X+
+ 385 008a FC91      		ld r31,X
+ 386 008c 1197      		sbiw r26,1
+ 387 008e 1296      		adiw r26,2
+ 388 0090 8D91      		ld r24,X+
+ 389 0092 9C91      		ld r25,X
+ 390 0094 1397      		sbiw r26,2+1
+ 391 0096 1995      		eicall
+ 392 0098 8F3F      		cpi r24,-1
+ 393 009a BFEF      		ldi r27,-1
+ 394 009c 9B07      		cpc r25,r27
+ 395 009e 01F4      		brne .+2
+ 396 00a0 00C0      		rjmp .L59
+ 397 00a2 D801      		movw r26,r16
+ 398 00a4 1896      		adiw r26,8
+ 399 00a6 ED91      		ld r30,X+
+GAS LISTING /tmp/ccdIDRX3.s 			page 8
+
+
+ 400 00a8 FC91      		ld r31,X
+ 401 00aa 1997      		sbiw r26,8+1
+ 402 00ac 6981      		ldd r22,Y+1
+ 403 00ae 7A81      		ldd r23,Y+2
+ 404 00b0 1995      		eicall
+ 405 00b2 BC01      		movw r22,r24
+ 406 00b4 8A30      		cpi r24,10
+ 407 00b6 9105      		cpc r25,__zero_reg__
+ 408 00b8 01F4      		brne .+2
+ 409 00ba 00C0      		rjmp .L38
+ 410 00bc 8830      		cpi r24,8
+ 411 00be 9105      		cpc r25,__zero_reg__
+ 412 00c0 01F0      		breq .+2
+ 413 00c2 00C0      		rjmp .L39
+ 414 00c4 ED81      		ldd r30,Y+5
+ 415 00c6 FE81      		ldd r31,Y+6
+ 416 00c8 3097      		sbiw r30,0
+ 417 00ca 01F4      		brne .+2
+ 418 00cc 00C0      		rjmp .L40
+ 419 00ce 5F01      		movw r10,r30
+ 420 00d0 F1E0      		ldi r31,1
+ 421 00d2 AF1A      		sub r10,r31
+ 422 00d4 B108      		sbc r11,__zero_reg__
+ 423 00d6 AD81      		ldd r26,Y+5
+ 424 00d8 BE81      		ldd r27,Y+6
+ 425 00da AE0D      		add r26,r14
+ 426 00dc BF1D      		adc r27,r15
+ 427 00de C501      		movw r24,r10
+ 428               	.L41:
+ 429 00e0 8415      		cp r24,r4
+ 430 00e2 9505      		cpc r25,r5
+ 431 00e4 04F4      		brge .L92
+ 432 00e6 2D91      		ld r18,X+
+ 433 00e8 FD01      		movw r30,r26
+ 434 00ea 3297      		sbiw r30,2
+ 435 00ec 2083      		st Z,r18
+ 436 00ee 0196      		adiw r24,1
+ 437 00f0 00C0      		rjmp .L41
+ 438               	.L92:
+ 439 00f2 D801      		movw r26,r16
+ 440 00f4 1A96      		adiw r26,10
+ 441 00f6 8C91      		ld r24,X
+ 442 00f8 1A97      		sbiw r26,10
+ 443 00fa 80FF      		sbrs r24,0
+ 444 00fc 00C0      		rjmp .L43
+ 445 00fe 1496      		adiw r26,4
+ 446 0100 ED91      		ld r30,X+
+ 447 0102 FC91      		ld r31,X
+ 448 0104 1597      		sbiw r26,4+1
+ 449 0106 68E0      		ldi r22,lo8(8)
+ 450 0108 70E0      		ldi r23,0
+ 451 010a 1696      		adiw r26,6
+ 452 010c 8D91      		ld r24,X+
+ 453 010e 9C91      		ld r25,X
+ 454 0110 1797      		sbiw r26,6+1
+ 455 0112 1995      		eicall
+ 456               	.L43:
+GAS LISTING /tmp/ccdIDRX3.s 			page 9
+
+
+ 457 0114 B701      		movw r22,r14
+ 458 0116 6A0D      		add r22,r10
+ 459 0118 7B1D      		adc r23,r11
+ 460 011a C801      		movw r24,r16
+ 461 011c 0E94 0000 		call PrintString
+ 462 0120 D801      		movw r26,r16
+ 463 0122 1496      		adiw r26,4
+ 464 0124 ED91      		ld r30,X+
+ 465 0126 FC91      		ld r31,X
+ 466 0128 1597      		sbiw r26,4+1
+ 467 012a 60E2      		ldi r22,lo8(32)
+ 468 012c 70E0      		ldi r23,0
+ 469 012e 1696      		adiw r26,6
+ 470 0130 8D91      		ld r24,X+
+ 471 0132 9C91      		ld r25,X
+ 472 0134 1797      		sbiw r26,6+1
+ 473 0136 1995      		eicall
+ 474 0138 F701      		movw r30,r14
+ 475               		0:
+ 476 013a 0190      		ld __tmp_reg__,Z+
+ 477 013c 0020      		tst __tmp_reg__
+ 478 013e 01F4      		brne 0b
+ 479 0140 3197      		sbiw r30,1
+ 480 0142 EE19      		sub r30,r14
+ 481 0144 FF09      		sbc r31,r15
+ 482 0146 41E0      		ldi r20,lo8(1)
+ 483 0148 50E0      		ldi r21,0
+ 484 014a 4A19      		sub r20,r10
+ 485 014c 5B09      		sbc r21,r11
+ 486 014e 4E0F      		add r20,r30
+ 487 0150 5F1F      		adc r21,r31
+ 488 0152 00C0      		rjmp .L90
+ 489               	.L39:
+ 490 0154 8B31      		cpi r24,27
+ 491 0156 9105      		cpc r25,__zero_reg__
+ 492 0158 01F4      		brne .+2
+ 493 015a 00C0      		rjmp .L60
+ 494 015c 8231      		cpi r24,18
+ 495 015e 9105      		cpc r25,__zero_reg__
+ 496 0160 01F4      		brne .L45
+ 497 0162 5601      		movw r10,r12
+ 498 0164 BFEF      		ldi r27,-1
+ 499 0166 AB1A      		sub r10,r27
+ 500 0168 BB0A      		sbc r11,r27
+ 501 016a 20E0      		ldi r18,0
+ 502 016c 30E0      		ldi r19,0
+ 503 016e 40E0      		ldi r20,0
+ 504 0170 50E0      		ldi r21,0
+ 505 0172 B501      		movw r22,r10
+ 506 0174 F801      		movw r30,r16
+ 507 0176 8685      		ldd r24,Z+14
+ 508 0178 9785      		ldd r25,Z+15
+ 509 017a 0E94 0000 		call EditHistoryGet
+ 510 017e 97FF      		sbrs r25,7
+ 511 0180 00C0      		rjmp .L44
+ 512 0182 00C0      		rjmp .L40
+ 513               	.L45:
+GAS LISTING /tmp/ccdIDRX3.s 			page 10
+
+
+ 514 0184 8631      		cpi r24,22
+ 515 0186 9105      		cpc r25,__zero_reg__
+ 516 0188 01F4      		brne .L46
+ 517 018a C114      		cp r12,__zero_reg__
+ 518 018c D104      		cpc r13,__zero_reg__
+ 519 018e 01F4      		brne .+2
+ 520 0190 00C0      		rjmp .L40
+ 521 0192 5601      		movw r10,r12
+ 522 0194 F1E0      		ldi r31,1
+ 523 0196 AF1A      		sub r10,r31
+ 524 0198 B108      		sbc r11,__zero_reg__
+ 525 019a 00C0      		rjmp .L44
+ 526               	.L46:
+ 527 019c 8630      		cpi r24,6
+ 528 019e 9105      		cpc r25,__zero_reg__
+ 529 01a0 01F4      		brne .L47
+ 530 01a2 F701      		movw r30,r14
+ 531               		0:
+ 532 01a4 0190      		ld __tmp_reg__,Z+
+ 533 01a6 0020      		tst __tmp_reg__
+ 534 01a8 01F4      		brne 0b
+ 535 01aa 3197      		sbiw r30,1
+ 536 01ac EE19      		sub r30,r14
+ 537 01ae FF09      		sbc r31,r15
+ 538 01b0 2D81      		ldd r18,Y+5
+ 539 01b2 3E81      		ldd r19,Y+6
+ 540 01b4 2E17      		cp r18,r30
+ 541 01b6 3F07      		cpc r19,r31
+ 542 01b8 00F0      		brlo .+2
+ 543 01ba 00C0      		rjmp .L40
+ 544 01bc D801      		movw r26,r16
+ 545 01be 1A96      		adiw r26,10
+ 546 01c0 8C91      		ld r24,X
+ 547 01c2 1A97      		sbiw r26,10
+ 548 01c4 80FF      		sbrs r24,0
+ 549 01c6 00C0      		rjmp .L48
+ 550 01c8 F901      		movw r30,r18
+ 551 01ca EE0D      		add r30,r14
+ 552 01cc FF1D      		adc r31,r15
+ 553 01ce 6081      		ld r22,Z
+ 554 01d0 062E      		mov __tmp_reg__,r22
+ 555 01d2 000C      		lsl r0
+ 556 01d4 770B      		sbc r23,r23
+ 557 01d6 1496      		adiw r26,4
+ 558 01d8 ED91      		ld r30,X+
+ 559 01da FC91      		ld r31,X
+ 560 01dc 1597      		sbiw r26,4+1
+ 561 01de 1696      		adiw r26,6
+ 562 01e0 8D91      		ld r24,X+
+ 563 01e2 9C91      		ld r25,X
+ 564 01e4 1797      		sbiw r26,6+1
+ 565 01e6 1995      		eicall
+ 566               	.L48:
+ 567 01e8 ED81      		ldd r30,Y+5
+ 568 01ea FE81      		ldd r31,Y+6
+ 569 01ec 3196      		adiw r30,1
+ 570 01ee 00C0      		rjmp .L91
+GAS LISTING /tmp/ccdIDRX3.s 			page 11
+
+
+ 571               	.L47:
+ 572 01f0 8230      		cpi r24,2
+ 573 01f2 9105      		cpc r25,__zero_reg__
+ 574 01f4 01F4      		brne .L49
+ 575 01f6 2D81      		ldd r18,Y+5
+ 576 01f8 3E81      		ldd r19,Y+6
+ 577 01fa 232B      		or r18,r19
+ 578 01fc 01F4      		brne .+2
+ 579 01fe 00C0      		rjmp .L40
+ 580 0200 D801      		movw r26,r16
+ 581 0202 1A96      		adiw r26,10
+ 582 0204 8C91      		ld r24,X
+ 583 0206 1A97      		sbiw r26,10
+ 584 0208 80FF      		sbrs r24,0
+ 585 020a 00C0      		rjmp .L50
+ 586 020c 1496      		adiw r26,4
+ 587 020e ED91      		ld r30,X+
+ 588 0210 FC91      		ld r31,X
+ 589 0212 1597      		sbiw r26,4+1
+ 590 0214 68E0      		ldi r22,lo8(8)
+ 591 0216 70E0      		ldi r23,0
+ 592 0218 1696      		adiw r26,6
+ 593 021a 8D91      		ld r24,X+
+ 594 021c 9C91      		ld r25,X
+ 595 021e 1797      		sbiw r26,6+1
+ 596 0220 1995      		eicall
+ 597               	.L50:
+ 598 0222 ED81      		ldd r30,Y+5
+ 599 0224 FE81      		ldd r31,Y+6
+ 600 0226 3197      		sbiw r30,1
+ 601               	.L91:
+ 602 0228 FE83      		std Y+6,r31
+ 603 022a ED83      		std Y+5,r30
+ 604 022c 00C0      		rjmp .L40
+ 605               	.L49:
+ 606 022e 8130      		cpi r24,1
+ 607 0230 9105      		cpc r25,__zero_reg__
+ 608 0232 01F4      		brne .L51
+ 609 0234 4D81      		ldd r20,Y+5
+ 610 0236 5E81      		ldd r21,Y+6
+ 611 0238 68E0      		ldi r22,lo8(8)
+ 612 023a 70E0      		ldi r23,0
+ 613 023c C801      		movw r24,r16
+ 614 023e 0E94 0000 		call PrintCharacter
+ 615 0242 1E82      		std Y+6,__zero_reg__
+ 616 0244 1D82      		std Y+5,__zero_reg__
+ 617 0246 00C0      		rjmp .L40
+ 618               	.L51:
+ 619 0248 8530      		cpi r24,5
+ 620 024a 9105      		cpc r25,__zero_reg__
+ 621 024c 01F4      		brne .L52
+ 622 024e 6D81      		ldd r22,Y+5
+ 623 0250 7E81      		ldd r23,Y+6
+ 624 0252 6E0D      		add r22,r14
+ 625 0254 7F1D      		adc r23,r15
+ 626 0256 C801      		movw r24,r16
+ 627 0258 0E94 0000 		call PrintString
+GAS LISTING /tmp/ccdIDRX3.s 			page 12
+
+
+ 628 025c F701      		movw r30,r14
+ 629               		0:
+ 630 025e 0190      		ld __tmp_reg__,Z+
+ 631 0260 0020      		tst __tmp_reg__
+ 632 0262 01F4      		brne 0b
+ 633 0264 3197      		sbiw r30,1
+ 634 0266 9F01      		movw r18,r30
+ 635 0268 2E19      		sub r18,r14
+ 636 026a 3F09      		sbc r19,r15
+ 637 026c 3E83      		std Y+6,r19
+ 638 026e 2D83      		std Y+5,r18
+ 639 0270 00C0      		rjmp .L40
+ 640               	.L52:
+ 641 0272 8B83      		std Y+3,r24
+ 642 0274 7C83      		std Y+4,r23
+ 643 0276 0E94 0000 		call isprint
+ 644 027a 6B81      		ldd r22,Y+3
+ 645 027c 7C81      		ldd r23,Y+4
+ 646 027e 892B      		or r24,r25
+ 647 0280 01F4      		brne .+2
+ 648 0282 00C0      		rjmp .L53
+ 649 0284 F701      		movw r30,r14
+ 650               		0:
+ 651 0286 0190      		ld __tmp_reg__,Z+
+ 652 0288 0020      		tst __tmp_reg__
+ 653 028a 01F4      		brne 0b
+ 654 028c 3197      		sbiw r30,1
+ 655 028e EE19      		sub r30,r14
+ 656 0290 FF09      		sbc r31,r15
+ 657 0292 E415      		cp r30,r4
+ 658 0294 F505      		cpc r31,r5
+ 659 0296 00F4      		brsh .L53
+ 660 0298 F101      		movw r30,r2
+ 661 029a C401      		movw r24,r8
+ 662               	.L54:
+ 663 029c 0197      		sbiw r24,1
+ 664 029e AD81      		ldd r26,Y+5
+ 665 02a0 BE81      		ldd r27,Y+6
+ 666 02a2 A817      		cp r26,r24
+ 667 02a4 B907      		cpc r27,r25
+ 668 02a6 04F4      		brge .L93
+ 669 02a8 DF01      		movw r26,r30
+ 670 02aa 1297      		sbiw r26,2
+ 671 02ac 2C91      		ld r18,X
+ 672 02ae 2293      		st -Z,r18
+ 673 02b0 00C0      		rjmp .L54
+ 674               	.L93:
+ 675 02b2 5D01      		movw r10,r26
+ 676 02b4 BFEF      		ldi r27,-1
+ 677 02b6 AB1A      		sub r10,r27
+ 678 02b8 BB0A      		sbc r11,r27
+ 679 02ba ED81      		ldd r30,Y+5
+ 680 02bc FE81      		ldd r31,Y+6
+ 681 02be EE0D      		add r30,r14
+ 682 02c0 FF1D      		adc r31,r15
+ 683 02c2 6083      		st Z,r22
+ 684 02c4 F801      		movw r30,r16
+GAS LISTING /tmp/ccdIDRX3.s 			page 13
+
+
+ 685 02c6 8285      		ldd r24,Z+10
+ 686 02c8 80FF      		sbrs r24,0
+ 687 02ca 00C0      		rjmp .L56
+ 688 02cc 0480      		ldd __tmp_reg__,Z+4
+ 689 02ce F581      		ldd r31,Z+5
+ 690 02d0 E02D      		mov r30,__tmp_reg__
+ 691 02d2 D801      		movw r26,r16
+ 692 02d4 1696      		adiw r26,6
+ 693 02d6 8D91      		ld r24,X+
+ 694 02d8 9C91      		ld r25,X
+ 695 02da 1797      		sbiw r26,6+1
+ 696 02dc 1995      		eicall
+ 697               	.L56:
+ 698 02de B701      		movw r22,r14
+ 699 02e0 6A0D      		add r22,r10
+ 700 02e2 7B1D      		adc r23,r11
+ 701 02e4 C801      		movw r24,r16
+ 702 02e6 0E94 0000 		call PrintString
+ 703 02ea F701      		movw r30,r14
+ 704               		0:
+ 705 02ec 0190      		ld __tmp_reg__,Z+
+ 706 02ee 0020      		tst __tmp_reg__
+ 707 02f0 01F4      		brne 0b
+ 708 02f2 3197      		sbiw r30,1
+ 709 02f4 AF01      		movw r20,r30
+ 710 02f6 4E19      		sub r20,r14
+ 711 02f8 5F09      		sbc r21,r15
+ 712 02fa 4A19      		sub r20,r10
+ 713 02fc 5B09      		sbc r21,r11
+ 714               	.L90:
+ 715 02fe 68E0      		ldi r22,lo8(8)
+ 716 0300 70E0      		ldi r23,0
+ 717 0302 C801      		movw r24,r16
+ 718 0304 0E94 0000 		call PrintCharacter
+ 719 0308 BE82      		std Y+6,r11
+ 720 030a AD82      		std Y+5,r10
+ 721 030c 00C0      		rjmp .L40
+ 722               	.L53:
+ 723 030e D801      		movw r26,r16
+ 724 0310 1496      		adiw r26,4
+ 725 0312 ED91      		ld r30,X+
+ 726 0314 FC91      		ld r31,X
+ 727 0316 1597      		sbiw r26,4+1
+ 728 0318 67E0      		ldi r22,lo8(7)
+ 729 031a 70E0      		ldi r23,0
+ 730 031c 1696      		adiw r26,6
+ 731 031e 8D91      		ld r24,X+
+ 732 0320 9C91      		ld r25,X
+ 733 0322 1797      		sbiw r26,6+1
+ 734 0324 1995      		eicall
+ 735               	.L40:
+ 736 0326 6114      		cp r6,__zero_reg__
+ 737 0328 7104      		cpc r7,__zero_reg__
+ 738 032a 01F4      		brne .+2
+ 739 032c 00C0      		rjmp .L36
+ 740               	.L58:
+ 741 032e F801      		movw r30,r16
+GAS LISTING /tmp/ccdIDRX3.s 			page 14
+
+
+ 742 0330 8285      		ldd r24,Z+10
+ 743 0332 82FD      		sbrc r24,2
+ 744 0334 00C0      		rjmp .L94
+ 745 0336 6624      		clr r6
+ 746 0338 6394      		inc r6
+ 747 033a 712C      		mov r7,__zero_reg__
+ 748 033c 00C0      		rjmp .L36
+ 749               	.L94:
+ 750 033e 4D81      		ldd r20,Y+5
+ 751 0340 5E81      		ldd r21,Y+6
+ 752 0342 68E0      		ldi r22,lo8(8)
+ 753 0344 70E0      		ldi r23,0
+ 754 0346 C801      		movw r24,r16
+ 755 0348 0E94 0000 		call PrintCharacter
+ 756 034c F701      		movw r30,r14
+ 757               		0:
+ 758 034e 0190      		ld __tmp_reg__,Z+
+ 759 0350 0020      		tst __tmp_reg__
+ 760 0352 01F4      		brne 0b
+ 761 0354 3197      		sbiw r30,1
+ 762 0356 5F01      		movw r10,r30
+ 763 0358 AE18      		sub r10,r14
+ 764 035a BF08      		sbc r11,r15
+ 765 035c 9401      		movw r18,r8
+ 766 035e A701      		movw r20,r14
+ 767 0360 B601      		movw r22,r12
+ 768 0362 D801      		movw r26,r16
+ 769 0364 1E96      		adiw r26,14
+ 770 0366 8D91      		ld r24,X+
+ 771 0368 9C91      		ld r25,X
+ 772 036a 1F97      		sbiw r26,14+1
+ 773 036c 0E94 0000 		call EditHistoryGet
+ 774 0370 F701      		movw r30,r14
+ 775               		0:
+ 776 0372 0190      		ld __tmp_reg__,Z+
+ 777 0374 0020      		tst __tmp_reg__
+ 778 0376 01F4      		brne 0b
+ 779 0378 3197      		sbiw r30,1
+ 780 037a 9F01      		movw r18,r30
+ 781 037c 2E19      		sub r18,r14
+ 782 037e 3F09      		sbc r19,r15
+ 783 0380 3E83      		std Y+6,r19
+ 784 0382 2D83      		std Y+5,r18
+ 785 0384 B701      		movw r22,r14
+ 786 0386 C801      		movw r24,r16
+ 787 0388 0E94 0000 		call PrintString
+ 788 038c 8D81      		ldd r24,Y+5
+ 789 038e 9E81      		ldd r25,Y+6
+ 790 0390 A81A      		sub r10,r24
+ 791 0392 B90A      		sbc r11,r25
+ 792 0394 A501      		movw r20,r10
+ 793 0396 60E2      		ldi r22,lo8(32)
+ 794 0398 70E0      		ldi r23,0
+ 795 039a C801      		movw r24,r16
+ 796 039c 0E94 0000 		call PrintCharacter
+ 797 03a0 A501      		movw r20,r10
+ 798 03a2 68E0      		ldi r22,lo8(8)
+GAS LISTING /tmp/ccdIDRX3.s 			page 15
+
+
+ 799 03a4 70E0      		ldi r23,0
+ 800 03a6 C801      		movw r24,r16
+ 801 03a8 0E94 0000 		call PrintCharacter
+ 802 03ac 612C      		mov r6,__zero_reg__
+ 803 03ae 712C      		mov r7,__zero_reg__
+ 804 03b0 00C0      		rjmp .L36
+ 805               	.L38:
+ 806 03b2 60E0      		ldi r22,lo8(.LC0)
+ 807 03b4 70E0      		ldi r23,hi8(.LC0)
+ 808 03b6 C801      		movw r24,r16
+ 809 03b8 0E94 0000 		call PrintString
+ 810 03bc A701      		movw r20,r14
+ 811 03be 61E0      		ldi r22,lo8(1)
+ 812 03c0 70E0      		ldi r23,0
+ 813 03c2 D801      		movw r26,r16
+ 814 03c4 1E96      		adiw r26,14
+ 815 03c6 8D91      		ld r24,X+
+ 816 03c8 9C91      		ld r25,X
+ 817 03ca 1F97      		sbiw r26,14+1
+ 818 03cc 0E94 0000 		call EditHistoryInsert
+ 819 03d0 F701      		movw r30,r14
+ 820               		0:
+ 821 03d2 0190      		ld __tmp_reg__,Z+
+ 822 03d4 0020      		tst __tmp_reg__
+ 823 03d6 01F4      		brne 0b
+ 824 03d8 3197      		sbiw r30,1
+ 825 03da CF01      		movw r24,r30
+ 826 03dc 8E19      		sub r24,r14
+ 827 03de 9F09      		sbc r25,r15
+ 828 03e0 00C0      		rjmp .L89
+ 829               	.L59:
+ 830 03e2 8FEF      		ldi r24,lo8(-1)
+ 831 03e4 9FEF      		ldi r25,lo8(-1)
+ 832 03e6 00C0      		rjmp .L89
+ 833               	.L60:
+ 834 03e8 A12C      		mov r10,__zero_reg__
+ 835 03ea B12C      		mov r11,__zero_reg__
+ 836               	.L44:
+ 837 03ec 6501      		movw r12,r10
+ 838 03ee 00C0      		rjmp .L58
+ 839               	.L89:
+ 840               	/* epilogue start */
+ 841 03f0 2696      		adiw r28,6
+ 842 03f2 0FB6      		in __tmp_reg__,__SREG__
+ 843 03f4 F894      		cli
+ 844 03f6 DEBF      		out __SP_H__,r29
+ 845 03f8 0FBE      		out __SREG__,__tmp_reg__
+ 846 03fa CDBF      		out __SP_L__,r28
+ 847 03fc DF91      		pop r29
+ 848 03fe CF91      		pop r28
+ 849 0400 1F91      		pop r17
+ 850 0402 0F91      		pop r16
+ 851 0404 FF90      		pop r15
+ 852 0406 EF90      		pop r14
+ 853 0408 DF90      		pop r13
+ 854 040a CF90      		pop r12
+ 855 040c BF90      		pop r11
+GAS LISTING /tmp/ccdIDRX3.s 			page 16
+
+
+ 856 040e AF90      		pop r10
+ 857 0410 9F90      		pop r9
+ 858 0412 8F90      		pop r8
+ 859 0414 7F90      		pop r7
+ 860 0416 6F90      		pop r6
+ 861 0418 5F90      		pop r5
+ 862 041a 4F90      		pop r4
+ 863 041c 3F90      		pop r3
+ 864 041e 2F90      		pop r2
+ 865 0420 0895      		ret
+ 866               		.size	EdLineRead, .-EdLineRead
+ 867               		.ident	"GCC: (GNU) 5.3.0"
+ 868               	.global __do_copy_data
+GAS LISTING /tmp/ccdIDRX3.s 			page 17
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 edline.c
+     /tmp/ccdIDRX3.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccdIDRX3.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccdIDRX3.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccdIDRX3.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccdIDRX3.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccdIDRX3.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccdIDRX3.s:10     .text.PrintString:0000000000000000 PrintString
+     /tmp/ccdIDRX3.s:51     .text.PrintCharacter:0000000000000000 PrintCharacter
+     /tmp/ccdIDRX3.s:94     .text.EdLineGetChar:0000000000000000 EdLineGetChar
+     /tmp/ccdIDRX3.s:103    .text.EdLinePutChar:0000000000000000 EdLinePutChar
+     /tmp/ccdIDRX3.s:114    .text.EdLineKeyMap:0000000000000000 EdLineKeyMap
+     /tmp/ccdIDRX3.s:148    .text.EdLineRegisterInput:0000000000000000 EdLineRegisterInput
+     /tmp/ccdIDRX3.s:173    .text.EdLineRegisterOutput:0000000000000000 EdLineRegisterOutput
+     /tmp/ccdIDRX3.s:198    .text.EdLineRegisterKeymap:0000000000000000 EdLineRegisterKeymap
+     /tmp/ccdIDRX3.s:221    .text.EdLineOpen:0000000000000000 EdLineOpen
+     /tmp/ccdIDRX3.s:281    .text.EdLineClose:0000000000000000 EdLineClose
+     /tmp/ccdIDRX3.s:311    .text.EdLineRead:0000000000000000 EdLineRead
+
+UNDEFINED SYMBOLS
+getchar
+putchar
+calloc
+__iob
+EditHistoryCreate
+EditHistoryDestroy
+free
+EditHistorySet
+EditHistoryGet
+isprint
+EditHistoryInsert
+__do_copy_data

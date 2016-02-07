@@ -1,0 +1,588 @@
+GAS LISTING /tmp/ccQvkAJ6.s 			page 1
+
+
+   1               		.file	"at49bv.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.At49bvInit,"ax",@progbits
+   9               	.global	At49bvInit
+  10               		.type	At49bvInit, @function
+  11               	At49bvInit:
+  12 0000 EF92      		push r14
+  13 0002 FF92      		push r15
+  14 0004 0F93      		push r16
+  15 0006 1F93      		push r17
+  16 0008 CF93      		push r28
+  17 000a DF93      		push r29
+  18               	/* prologue: function */
+  19               	/* frame size = 0 */
+  20               	/* stack size = 6 */
+  21               	.L__stack_usage = 6
+  22 000c 00E0      		ldi r16,0
+  23 000e 10E0      		ldi r17,0
+  24 0010 EAEA      		ldi r30,lo8(-86)
+  25 0012 FAE0      		ldi r31,lo8(10)
+  26 0014 4AEA      		ldi r20,lo8(-86)
+  27 0016 50E0      		ldi r21,0
+  28 0018 5183      		std Z+1,r21
+  29 001a 4083      		st Z,r20
+  30 001c 84E5      		ldi r24,lo8(84)
+  31 001e E82E      		mov r14,r24
+  32 0020 85E1      		ldi r24,lo8(21)
+  33 0022 F82E      		mov r15,r24
+  34 0024 25E5      		ldi r18,lo8(85)
+  35 0026 30E0      		ldi r19,0
+  36 0028 D701      		movw r26,r14
+  37 002a 1196      		adiw r26,1
+  38 002c 3C93      		st X,r19
+  39 002e 2E93      		st -X,r18
+  40 0030 80E9      		ldi r24,lo8(-112)
+  41 0032 90E0      		ldi r25,0
+  42 0034 9183      		std Z+1,r25
+  43 0036 8083      		st Z,r24
+  44 0038 E801      		movw r28,r16
+  45 003a 6881      		ld r22,Y
+  46 003c 7981      		ldd r23,Y+1
+  47 003e CB01      		movw r24,r22
+  48 0040 A0E0      		ldi r26,0
+  49 0042 B0E0      		ldi r27,0
+  50 0044 DC01      		movw r26,r24
+  51 0046 9927      		clr r25
+  52 0048 8827      		clr r24
+  53 004a 6A81      		ldd r22,Y+2
+  54 004c 7B81      		ldd r23,Y+3
+  55 004e 5183      		std Z+1,r21
+  56 0050 4083      		st Z,r20
+  57 0052 E701      		movw r28,r14
+GAS LISTING /tmp/ccQvkAJ6.s 			page 2
+
+
+  58 0054 3983      		std Y+1,r19
+  59 0056 2883      		st Y,r18
+  60 0058 20EF      		ldi r18,lo8(-16)
+  61 005a 30E0      		ldi r19,0
+  62 005c 3183      		std Z+1,r19
+  63 005e 2083      		st Z,r18
+  64 0060 AB01      		movw r20,r22
+  65 0062 60E0      		ldi r22,0
+  66 0064 70E0      		ldi r23,0
+  67 0066 8A01      		movw r16,r20
+  68 0068 9B01      		movw r18,r22
+  69 006a 082B      		or r16,r24
+  70 006c 192B      		or r17,r25
+  71 006e 2A2B      		or r18,r26
+  72 0070 3B2B      		or r19,r27
+  73 0072 C901      		movw r24,r18
+  74 0074 B801      		movw r22,r16
+  75               	/* epilogue start */
+  76 0076 DF91      		pop r29
+  77 0078 CF91      		pop r28
+  78 007a 1F91      		pop r17
+  79 007c 0F91      		pop r16
+  80 007e FF90      		pop r15
+  81 0080 EF90      		pop r14
+  82 0082 0895      		ret
+  83               		.size	At49bvInit, .-At49bvInit
+  84               		.section	.text.AT49bvReadProtectionRegister,"ax",@progbits
+  85               	.global	AT49bvReadProtectionRegister
+  86               		.type	AT49bvReadProtectionRegister, @function
+  87               	AT49bvReadProtectionRegister:
+  88 0000 8F92      		push r8
+  89 0002 9F92      		push r9
+  90 0004 AF92      		push r10
+  91 0006 BF92      		push r11
+  92 0008 CF92      		push r12
+  93 000a DF92      		push r13
+  94 000c EF92      		push r14
+  95 000e FF92      		push r15
+  96 0010 0F93      		push r16
+  97               	/* prologue: function */
+  98               	/* frame size = 0 */
+  99               	/* stack size = 9 */
+ 100               	.L__stack_usage = 9
+ 101 0012 2AEA      		ldi r18,lo8(-86)
+ 102 0014 30E0      		ldi r19,0
+ 103 0016 3093 AB0A 		sts 2730+1,r19
+ 104 001a 2093 AA0A 		sts 2730,r18
+ 105 001e 25E5      		ldi r18,lo8(85)
+ 106 0020 30E0      		ldi r19,0
+ 107 0022 3093 5515 		sts 5460+1,r19
+ 108 0026 2093 5415 		sts 5460,r18
+ 109 002a 20E9      		ldi r18,lo8(-112)
+ 110 002c 30E0      		ldi r19,0
+ 111 002e 3093 AB0A 		sts 2730+1,r19
+ 112 0032 2093 AA0A 		sts 2730,r18
+ 113 0036 892B      		or r24,r25
+ 114 0038 01F0      		breq .L3
+GAS LISTING /tmp/ccQvkAJ6.s 			page 3
+
+
+ 115 003a 8090 0201 		lds r8,258
+ 116 003e 9090 0301 		lds r9,258+1
+ 117 0042 9401      		movw r18,r8
+ 118 0044 40E0      		ldi r20,0
+ 119 0046 50E0      		ldi r21,0
+ 120 0048 60E0      		ldi r22,0
+ 121 004a 70E0      		ldi r23,0
+ 122 004c 80E0      		ldi r24,0
+ 123 004e 90E0      		ldi r25,0
+ 124 0050 00E1      		ldi r16,lo8(16)
+ 125 0052 0E94 0000 		call __ashldi3
+ 126 0056 8090 0401 		lds r8,260
+ 127 005a 9090 0501 		lds r9,260+1
+ 128 005e 2829      		or r18,r8
+ 129 0060 3929      		or r19,r9
+ 130 0062 0E94 0000 		call __ashldi3
+ 131 0066 8090 0601 		lds r8,262
+ 132 006a 9090 0701 		lds r9,262+1
+ 133 006e 2829      		or r18,r8
+ 134 0070 3929      		or r19,r9
+ 135 0072 0E94 0000 		call __ashldi3
+ 136 0076 8090 0801 		lds r8,264
+ 137 007a 9090 0901 		lds r9,264+1
+ 138 007e 00C0      		rjmp .L5
+ 139               	.L3:
+ 140 0080 8090 0A01 		lds r8,266
+ 141 0084 9090 0B01 		lds r9,266+1
+ 142 0088 9401      		movw r18,r8
+ 143 008a 40E0      		ldi r20,0
+ 144 008c 50E0      		ldi r21,0
+ 145 008e 60E0      		ldi r22,0
+ 146 0090 70E0      		ldi r23,0
+ 147 0092 80E0      		ldi r24,0
+ 148 0094 90E0      		ldi r25,0
+ 149 0096 00E1      		ldi r16,lo8(16)
+ 150 0098 0E94 0000 		call __ashldi3
+ 151 009c 8090 0C01 		lds r8,268
+ 152 00a0 9090 0D01 		lds r9,268+1
+ 153 00a4 2829      		or r18,r8
+ 154 00a6 3929      		or r19,r9
+ 155 00a8 0E94 0000 		call __ashldi3
+ 156 00ac 8090 0E01 		lds r8,270
+ 157 00b0 9090 0F01 		lds r9,270+1
+ 158 00b4 2829      		or r18,r8
+ 159 00b6 3929      		or r19,r9
+ 160 00b8 0E94 0000 		call __ashldi3
+ 161 00bc 8090 1001 		lds r8,272
+ 162 00c0 9090 1101 		lds r9,272+1
+ 163               	.L5:
+ 164 00c4 2829      		or r18,r8
+ 165 00c6 3929      		or r19,r9
+ 166 00c8 EAEA      		ldi r30,lo8(-86)
+ 167 00ca F0E0      		ldi r31,0
+ 168 00cc F093 AB0A 		sts 2730+1,r31
+ 169 00d0 E093 AA0A 		sts 2730,r30
+ 170 00d4 E5E5      		ldi r30,lo8(85)
+ 171 00d6 F0E0      		ldi r31,0
+GAS LISTING /tmp/ccQvkAJ6.s 			page 4
+
+
+ 172 00d8 F093 5515 		sts 5460+1,r31
+ 173 00dc E093 5415 		sts 5460,r30
+ 174 00e0 E0EF      		ldi r30,lo8(-16)
+ 175 00e2 F0E0      		ldi r31,0
+ 176 00e4 F093 AB0A 		sts 2730+1,r31
+ 177 00e8 E093 AA0A 		sts 2730,r30
+ 178               	/* epilogue start */
+ 179 00ec 0F91      		pop r16
+ 180 00ee FF90      		pop r15
+ 181 00f0 EF90      		pop r14
+ 182 00f2 DF90      		pop r13
+ 183 00f4 CF90      		pop r12
+ 184 00f6 BF90      		pop r11
+ 185 00f8 AF90      		pop r10
+ 186 00fa 9F90      		pop r9
+ 187 00fc 8F90      		pop r8
+ 188 00fe 0895      		ret
+ 189               		.size	AT49bvReadProtectionRegister, .-AT49bvReadProtectionRegister
+ 190               		.section	.text.At49bvSectorErase,"ax",@progbits
+ 191               	.global	At49bvSectorErase
+ 192               		.type	At49bvSectorErase, @function
+ 193               	At49bvSectorErase:
+ 194 0000 0F93      		push r16
+ 195 0002 1F93      		push r17
+ 196 0004 CF93      		push r28
+ 197 0006 DF93      		push r29
+ 198               	/* prologue: function */
+ 199               	/* frame size = 0 */
+ 200               	/* stack size = 4 */
+ 201               	.L__stack_usage = 4
+ 202 0008 8C01      		movw r16,r24
+ 203 000a 2AEA      		ldi r18,lo8(-86)
+ 204 000c 30E0      		ldi r19,0
+ 205 000e 3093 AB0A 		sts 2730+1,r19
+ 206 0012 2093 AA0A 		sts 2730,r18
+ 207 0016 85E5      		ldi r24,lo8(85)
+ 208 0018 90E0      		ldi r25,0
+ 209 001a 9093 5515 		sts 5460+1,r25
+ 210 001e 8093 5415 		sts 5460,r24
+ 211 0022 40E8      		ldi r20,lo8(-128)
+ 212 0024 50E0      		ldi r21,0
+ 213 0026 5093 AB0A 		sts 2730+1,r21
+ 214 002a 4093 AA0A 		sts 2730,r20
+ 215 002e 3093 AB0A 		sts 2730+1,r19
+ 216 0032 2093 AA0A 		sts 2730,r18
+ 217 0036 9093 5515 		sts 5460+1,r25
+ 218 003a 8093 5415 		sts 5460,r24
+ 219 003e 80E3      		ldi r24,lo8(48)
+ 220 0040 90E0      		ldi r25,0
+ 221 0042 F801      		movw r30,r16
+ 222 0044 9183      		std Z+1,r25
+ 223 0046 8083      		st Z,r24
+ 224 0048 C0E0      		ldi r28,0
+ 225 004a D0E0      		ldi r29,0
+ 226               	.L8:
+ 227 004c F801      		movw r30,r16
+ 228 004e 8081      		ld r24,Z
+GAS LISTING /tmp/ccQvkAJ6.s 			page 5
+
+
+ 229 0050 9181      		ldd r25,Z+1
+ 230 0052 0196      		adiw r24,1
+ 231 0054 01F0      		breq .L12
+ 232 0056 61E0      		ldi r22,lo8(1)
+ 233 0058 70E0      		ldi r23,0
+ 234 005a 80E0      		ldi r24,0
+ 235 005c 90E0      		ldi r25,0
+ 236 005e 0E94 0000 		call NutSleep
+ 237 0062 2196      		adiw r28,1
+ 238 0064 C93B      		cpi r28,-71
+ 239 0066 FBE0      		ldi r31,11
+ 240 0068 DF07      		cpc r29,r31
+ 241 006a 01F4      		brne .L8
+ 242 006c 8FEF      		ldi r24,lo8(-1)
+ 243 006e 9FEF      		ldi r25,lo8(-1)
+ 244 0070 00C0      		rjmp .L9
+ 245               	.L12:
+ 246 0072 80E0      		ldi r24,0
+ 247 0074 90E0      		ldi r25,0
+ 248               	.L9:
+ 249               	/* epilogue start */
+ 250 0076 DF91      		pop r29
+ 251 0078 CF91      		pop r28
+ 252 007a 1F91      		pop r17
+ 253 007c 0F91      		pop r16
+ 254 007e 0895      		ret
+ 255               		.size	At49bvSectorErase, .-At49bvSectorErase
+ 256               		.section	.text.At49bvChipErase,"ax",@progbits
+ 257               	.global	At49bvChipErase
+ 258               		.type	At49bvChipErase, @function
+ 259               	At49bvChipErase:
+ 260 0000 CF93      		push r28
+ 261 0002 DF93      		push r29
+ 262               	/* prologue: function */
+ 263               	/* frame size = 0 */
+ 264               	/* stack size = 2 */
+ 265               	.L__stack_usage = 2
+ 266 0004 2AEA      		ldi r18,lo8(-86)
+ 267 0006 30E0      		ldi r19,0
+ 268 0008 3093 AB0A 		sts 2730+1,r19
+ 269 000c 2093 AA0A 		sts 2730,r18
+ 270 0010 85E5      		ldi r24,lo8(85)
+ 271 0012 90E0      		ldi r25,0
+ 272 0014 9093 5515 		sts 5460+1,r25
+ 273 0018 8093 5415 		sts 5460,r24
+ 274 001c 40E8      		ldi r20,lo8(-128)
+ 275 001e 50E0      		ldi r21,0
+ 276 0020 5093 AB0A 		sts 2730+1,r21
+ 277 0024 4093 AA0A 		sts 2730,r20
+ 278 0028 3093 AB0A 		sts 2730+1,r19
+ 279 002c 2093 AA0A 		sts 2730,r18
+ 280 0030 9093 5515 		sts 5460+1,r25
+ 281 0034 8093 5415 		sts 5460,r24
+ 282 0038 80E1      		ldi r24,lo8(16)
+ 283 003a 90E0      		ldi r25,0
+ 284 003c 9093 AB0A 		sts 2730+1,r25
+ 285 0040 8093 AA0A 		sts 2730,r24
+GAS LISTING /tmp/ccQvkAJ6.s 			page 6
+
+
+ 286 0044 C0E0      		ldi r28,0
+ 287 0046 D0E0      		ldi r29,0
+ 288               	.L14:
+ 289 0048 8091 0000 		lds r24,0
+ 290 004c 9091 0100 		lds r25,0+1
+ 291 0050 0196      		adiw r24,1
+ 292 0052 01F0      		breq .L18
+ 293 0054 61E0      		ldi r22,lo8(1)
+ 294 0056 70E0      		ldi r23,0
+ 295 0058 80E0      		ldi r24,0
+ 296 005a 90E0      		ldi r25,0
+ 297 005c 0E94 0000 		call NutSleep
+ 298 0060 2196      		adiw r28,1
+ 299 0062 C135      		cpi r28,81
+ 300 0064 23EC      		ldi r18,-61
+ 301 0066 D207      		cpc r29,r18
+ 302 0068 01F4      		brne .L14
+ 303 006a 8FEF      		ldi r24,lo8(-1)
+ 304 006c 9FEF      		ldi r25,lo8(-1)
+ 305 006e 00C0      		rjmp .L15
+ 306               	.L18:
+ 307 0070 80E0      		ldi r24,0
+ 308 0072 90E0      		ldi r25,0
+ 309               	.L15:
+ 310               	/* epilogue start */
+ 311 0074 DF91      		pop r29
+ 312 0076 CF91      		pop r28
+ 313 0078 0895      		ret
+ 314               		.size	At49bvChipErase, .-At49bvChipErase
+ 315               		.section	.text.At49bvSectorRead,"ax",@progbits
+ 316               	.global	At49bvSectorRead
+ 317               		.type	At49bvSectorRead, @function
+ 318               	At49bvSectorRead:
+ 319               	/* prologue: function */
+ 320               	/* frame size = 0 */
+ 321               	/* stack size = 0 */
+ 322               	.L__stack_usage = 0
+ 323 0000 9C01      		movw r18,r24
+ 324 0002 CB01      		movw r24,r22
+ 325 0004 B901      		movw r22,r18
+ 326 0006 0E94 0000 		call memcpy
+ 327 000a 80E0      		ldi r24,0
+ 328 000c 90E0      		ldi r25,0
+ 329 000e 0895      		ret
+ 330               		.size	At49bvSectorRead, .-At49bvSectorRead
+ 331               		.section	.text.At49bvSectorWrite,"ax",@progbits
+ 332               	.global	At49bvSectorWrite
+ 333               		.type	At49bvSectorWrite, @function
+ 334               	At49bvSectorWrite:
+ 335 0000 8F92      		push r8
+ 336 0002 9F92      		push r9
+ 337 0004 AF92      		push r10
+ 338 0006 BF92      		push r11
+ 339 0008 CF92      		push r12
+ 340 000a DF92      		push r13
+ 341 000c EF92      		push r14
+ 342 000e FF92      		push r15
+GAS LISTING /tmp/ccQvkAJ6.s 			page 7
+
+
+ 343 0010 0F93      		push r16
+ 344 0012 1F93      		push r17
+ 345 0014 CF93      		push r28
+ 346 0016 DF93      		push r29
+ 347               	/* prologue: function */
+ 348               	/* frame size = 0 */
+ 349               	/* stack size = 12 */
+ 350               	.L__stack_usage = 12
+ 351 0018 20E0      		ldi r18,0
+ 352 001a 30E0      		ldi r19,0
+ 353 001c EAEA      		ldi r30,lo8(-86)
+ 354 001e AE2E      		mov r10,r30
+ 355 0020 B12C      		mov r11,__zero_reg__
+ 356 0022 F5E5      		ldi r31,lo8(85)
+ 357 0024 8F2E      		mov r8,r31
+ 358 0026 912C      		mov r9,__zero_reg__
+ 359 0028 00EA      		ldi r16,lo8(-96)
+ 360 002a 10E0      		ldi r17,0
+ 361               	.L21:
+ 362 002c D901      		movw r26,r18
+ 363 002e A80F      		add r26,r24
+ 364 0030 B91F      		adc r27,r25
+ 365 0032 FB01      		movw r30,r22
+ 366 0034 E20F      		add r30,r18
+ 367 0036 F31F      		adc r31,r19
+ 368 0038 2417      		cp r18,r20
+ 369 003a 3507      		cpc r19,r21
+ 370 003c 00F4      		brsh .L29
+ 371 003e E080      		ld r14,Z
+ 372 0040 F180      		ldd r15,Z+1
+ 373 0042 EF20      		and r14,r15
+ 374 0044 E094      		com r14
+ 375 0046 01F4      		brne .L22
+ 376               	.L26:
+ 377 0048 2E5F      		subi r18,-2
+ 378 004a 3F4F      		sbci r19,-1
+ 379 004c 00C0      		rjmp .L21
+ 380               	.L22:
+ 381 004e B092 AB0A 		sts 2730+1,r11
+ 382 0052 A092 AA0A 		sts 2730,r10
+ 383 0056 9092 5515 		sts 5460+1,r9
+ 384 005a 8092 5415 		sts 5460,r8
+ 385 005e 1093 AB0A 		sts 2730+1,r17
+ 386 0062 0093 AA0A 		sts 2730,r16
+ 387 0066 E080      		ld r14,Z
+ 388 0068 F180      		ldd r15,Z+1
+ 389 006a 1196      		adiw r26,1
+ 390 006c FC92      		st X,r15
+ 391 006e EE92      		st -X,r14
+ 392 0070 C080      		ld r12,Z
+ 393 0072 D180      		ldd r13,Z+1
+ 394 0074 E0E0      		ldi r30,0
+ 395 0076 F0E0      		ldi r31,0
+ 396               	.L23:
+ 397 0078 ED90      		ld r14,X+
+ 398 007a FC90      		ld r15,X
+ 399 007c 1197      		sbiw r26,1
+GAS LISTING /tmp/ccQvkAJ6.s 			page 8
+
+
+ 400 007e CE14      		cp r12,r14
+ 401 0080 DF04      		cpc r13,r15
+ 402 0082 01F0      		breq .L26
+ 403 0084 3196      		adiw r30,1
+ 404 0086 E93E      		cpi r30,-23
+ 405 0088 C3E0      		ldi r28,3
+ 406 008a FC07      		cpc r31,r28
+ 407 008c 01F4      		brne .L23
+ 408 008e 8FEF      		ldi r24,lo8(-1)
+ 409 0090 9FEF      		ldi r25,lo8(-1)
+ 410 0092 00C0      		rjmp .L24
+ 411               	.L29:
+ 412 0094 80E0      		ldi r24,0
+ 413 0096 90E0      		ldi r25,0
+ 414               	.L24:
+ 415               	/* epilogue start */
+ 416 0098 DF91      		pop r29
+ 417 009a CF91      		pop r28
+ 418 009c 1F91      		pop r17
+ 419 009e 0F91      		pop r16
+ 420 00a0 FF90      		pop r15
+ 421 00a2 EF90      		pop r14
+ 422 00a4 DF90      		pop r13
+ 423 00a6 CF90      		pop r12
+ 424 00a8 BF90      		pop r11
+ 425 00aa AF90      		pop r10
+ 426 00ac 9F90      		pop r9
+ 427 00ae 8F90      		pop r8
+ 428 00b0 0895      		ret
+ 429               		.size	At49bvSectorWrite, .-At49bvSectorWrite
+ 430               		.section	.text.At49bvParamRead,"ax",@progbits
+ 431               	.global	At49bvParamRead
+ 432               		.type	At49bvParamRead, @function
+ 433               	At49bvParamRead:
+ 434               	/* prologue: function */
+ 435               	/* frame size = 0 */
+ 436               	/* stack size = 0 */
+ 437               	.L__stack_usage = 0
+ 438 0000 9B01      		movw r18,r22
+ 439 0002 BC01      		movw r22,r24
+ 440 0004 705A      		subi r23,-96
+ 441 0006 C901      		movw r24,r18
+ 442 0008 0E94 0000 		call memcpy
+ 443 000c 80E0      		ldi r24,0
+ 444 000e 90E0      		ldi r25,0
+ 445 0010 0895      		ret
+ 446               		.size	At49bvParamRead, .-At49bvParamRead
+ 447               		.section	.text.At49bvParamWrite,"ax",@progbits
+ 448               	.global	At49bvParamWrite
+ 449               		.type	At49bvParamWrite, @function
+ 450               	At49bvParamWrite:
+ 451 0000 CF92      		push r12
+ 452 0002 DF92      		push r13
+ 453 0004 EF92      		push r14
+ 454 0006 FF92      		push r15
+ 455 0008 0F93      		push r16
+ 456 000a 1F93      		push r17
+GAS LISTING /tmp/ccQvkAJ6.s 			page 9
+
+
+ 457 000c CF93      		push r28
+ 458 000e DF93      		push r29
+ 459               	/* prologue: function */
+ 460               	/* frame size = 0 */
+ 461               	/* stack size = 8 */
+ 462               	.L__stack_usage = 8
+ 463 0010 EC01      		movw r28,r24
+ 464 0012 7B01      		movw r14,r22
+ 465 0014 6A01      		movw r12,r20
+ 466 0016 80E0      		ldi r24,0
+ 467 0018 92E0      		ldi r25,lo8(2)
+ 468 001a 0E94 0000 		call malloc
+ 469 001e 8C01      		movw r16,r24
+ 470 0020 892B      		or r24,r25
+ 471 0022 01F0      		breq .L34
+ 472 0024 80E0      		ldi r24,0
+ 473 0026 92E0      		ldi r25,lo8(2)
+ 474 0028 E0E0      		ldi r30,0
+ 475 002a F0E6      		ldi r31,lo8(96)
+ 476 002c D801      		movw r26,r16
+ 477               		0:
+ 478 002e 0190      		ld r0,Z+
+ 479 0030 0D92      		st X+,r0
+ 480 0032 0197      		sbiw r24,1
+ 481 0034 01F4      		brne 0b
+ 482 0036 C00F      		add r28,r16
+ 483 0038 D11F      		adc r29,r17
+ 484 003a A601      		movw r20,r12
+ 485 003c B701      		movw r22,r14
+ 486 003e CE01      		movw r24,r28
+ 487 0040 0E94 0000 		call memcmp
+ 488 0044 892B      		or r24,r25
+ 489 0046 01F0      		breq .L35
+ 490 0048 A601      		movw r20,r12
+ 491 004a B701      		movw r22,r14
+ 492 004c CE01      		movw r24,r28
+ 493 004e 0E94 0000 		call memcpy
+ 494 0052 80E0      		ldi r24,0
+ 495 0054 90E6      		ldi r25,lo8(96)
+ 496 0056 0E94 0000 		call At49bvSectorErase
+ 497 005a EC01      		movw r28,r24
+ 498 005c 892B      		or r24,r25
+ 499 005e 01F4      		brne .L33
+ 500 0060 40E0      		ldi r20,0
+ 501 0062 52E0      		ldi r21,lo8(2)
+ 502 0064 B801      		movw r22,r16
+ 503 0066 80E0      		ldi r24,0
+ 504 0068 90E6      		ldi r25,lo8(96)
+ 505 006a 0E94 0000 		call At49bvSectorWrite
+ 506 006e EC01      		movw r28,r24
+ 507 0070 00C0      		rjmp .L33
+ 508               	.L35:
+ 509 0072 C0E0      		ldi r28,0
+ 510 0074 D0E0      		ldi r29,0
+ 511               	.L33:
+ 512 0076 C801      		movw r24,r16
+ 513 0078 0E94 0000 		call free
+GAS LISTING /tmp/ccQvkAJ6.s 			page 10
+
+
+ 514 007c 00C0      		rjmp .L32
+ 515               	.L34:
+ 516 007e CFEF      		ldi r28,lo8(-1)
+ 517 0080 DFEF      		ldi r29,lo8(-1)
+ 518               	.L32:
+ 519 0082 CE01      		movw r24,r28
+ 520               	/* epilogue start */
+ 521 0084 DF91      		pop r29
+ 522 0086 CF91      		pop r28
+ 523 0088 1F91      		pop r17
+ 524 008a 0F91      		pop r16
+ 525 008c FF90      		pop r15
+ 526 008e EF90      		pop r14
+ 527 0090 DF90      		pop r13
+ 528 0092 CF90      		pop r12
+ 529 0094 0895      		ret
+ 530               		.size	At49bvParamWrite, .-At49bvParamWrite
+ 531               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccQvkAJ6.s 			page 11
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 at49bv.c
+     /tmp/ccQvkAJ6.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccQvkAJ6.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccQvkAJ6.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccQvkAJ6.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccQvkAJ6.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccQvkAJ6.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccQvkAJ6.s:11     .text.At49bvInit:0000000000000000 At49bvInit
+     /tmp/ccQvkAJ6.s:87     .text.AT49bvReadProtectionRegister:0000000000000000 AT49bvReadProtectionRegister
+     /tmp/ccQvkAJ6.s:193    .text.At49bvSectorErase:0000000000000000 At49bvSectorErase
+     /tmp/ccQvkAJ6.s:259    .text.At49bvChipErase:0000000000000000 At49bvChipErase
+     /tmp/ccQvkAJ6.s:318    .text.At49bvSectorRead:0000000000000000 At49bvSectorRead
+     /tmp/ccQvkAJ6.s:334    .text.At49bvSectorWrite:0000000000000000 At49bvSectorWrite
+     /tmp/ccQvkAJ6.s:433    .text.At49bvParamRead:0000000000000000 At49bvParamRead
+     /tmp/ccQvkAJ6.s:450    .text.At49bvParamWrite:0000000000000000 At49bvParamWrite
+
+UNDEFINED SYMBOLS
+__ashldi3
+NutSleep
+memcpy
+malloc
+memcmp
+free

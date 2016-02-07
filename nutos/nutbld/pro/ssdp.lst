@@ -1,0 +1,410 @@
+GAS LISTING /tmp/ccK7t3Wf.s 			page 1
+
+
+   1               		.file	"ssdp.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.rodata.str1.1,"aMS",@progbits,1
+   9               	.LC0:
+  10 0000 4D2D 5345 		.string	"M-SEARCH"
+  10      4152 4348 
+  10      00
+  11               	.LC1:
+  12 0009 4E4F 5449 		.string	"NOTIFY"
+  12      4659 00
+  13               	.LC2:
+  14 0010 7373 6470 		.string	"ssdp:alive"
+  14      3A61 6C69 
+  14      7665 00
+  15               		.section	.text.SsdpReceiver,"ax",@progbits
+  16               		.type	SsdpReceiver, @function
+  17               	SsdpReceiver:
+  18               	/* prologue: function */
+  19               	/* frame size = 0 */
+  20               	/* stack size = 0 */
+  21               	.L__stack_usage = 0
+  22 0000 8CE6      		ldi r24,lo8(108)
+  23 0002 97E0      		ldi r25,lo8(7)
+  24 0004 0E94 0000 		call HttpuSessionCreate
+  25 0008 8C01      		movw r16,r24
+  26 000a C0E0      		ldi r28,0
+  27 000c D0E0      		ldi r29,0
+  28 000e 7C01      		movw r14,r24
+  29 0010 8AEF      		ldi r24,-6
+  30 0012 E81A      		sub r14,r24
+  31 0014 8BEF      		ldi r24,-5
+  32 0016 F80A      		sbc r15,r24
+  33               	.L2:
+  34 0018 48EE      		ldi r20,lo8(-24)
+  35 001a 53E0      		ldi r21,lo8(3)
+  36 001c 60E0      		ldi r22,0
+  37 001e 70E0      		ldi r23,0
+  38 0020 C801      		movw r24,r16
+  39 0022 0E94 0000 		call HttpuReceive
+  40 0026 1816      		cp __zero_reg__,r24
+  41 0028 1906      		cpc __zero_reg__,r25
+  42 002a 04F4      		brge .L3
+  43 002c 60E0      		ldi r22,0
+  44 002e 70E0      		ldi r23,0
+  45 0030 C701      		movw r24,r14
+  46 0032 0E94 0000 		call HttpuGetHeader
+  47 0036 6C01      		movw r12,r24
+  48 0038 48E0      		ldi r20,lo8(8)
+  49 003a 50E0      		ldi r21,0
+  50 003c 60E0      		ldi r22,lo8(.LC0)
+  51 003e 70E0      		ldi r23,hi8(.LC0)
+  52 0040 0E94 0000 		call strncasecmp
+GAS LISTING /tmp/ccK7t3Wf.s 			page 2
+
+
+  53 0044 892B      		or r24,r25
+  54 0046 01F4      		brne .L4
+  55 0048 E091 0000 		lds r30,search_listener
+  56 004c F091 0000 		lds r31,search_listener+1
+  57 0050 3097      		sbiw r30,0
+  58 0052 01F0      		breq .L2
+  59 0054 C801      		movw r24,r16
+  60 0056 00C0      		rjmp .L13
+  61               	.L4:
+  62 0058 46E0      		ldi r20,lo8(6)
+  63 005a 50E0      		ldi r21,0
+  64 005c 60E0      		ldi r22,lo8(.LC1)
+  65 005e 70E0      		ldi r23,hi8(.LC1)
+  66 0060 C601      		movw r24,r12
+  67 0062 0E94 0000 		call strncasecmp
+  68 0066 892B      		or r24,r25
+  69 0068 01F4      		brne .L2
+  70 006a E091 0000 		lds r30,notification_listener
+  71 006e F091 0000 		lds r31,notification_listener+1
+  72 0072 3097      		sbiw r30,0
+  73 0074 01F0      		breq .L2
+  74 0076 C701      		movw r24,r14
+  75               	.L13:
+  76 0078 1995      		eicall
+  77 007a 00C0      		rjmp .L2
+  78               	.L3:
+  79 007c CE01      		movw r24,r28
+  80 007e 0197      		sbiw r24,1
+  81 0080 1C16      		cp __zero_reg__,r28
+  82 0082 1D06      		cpc __zero_reg__,r29
+  83 0084 04F4      		brge .L15
+  84               	.L6:
+  85 0086 EC01      		movw r28,r24
+  86 0088 00C0      		rjmp .L2
+  87               	.L15:
+  88 008a 60E0      		ldi r22,lo8(.LC2)
+  89 008c 70E0      		ldi r23,hi8(.LC2)
+  90 008e C801      		movw r24,r16
+  91 0090 0E94 0000 		call SsdpSendNotifications
+  92 0094 00C0      		rjmp .L6
+  93               		.size	SsdpReceiver, .-SsdpReceiver
+  94               		.section	.rodata.str1.1
+  95               	.LC3:
+  96 001b 7373 6470 		.string	"ssdpd"
+  96      6400 
+  97               		.section	.text.SsdpRegisterListener,"ax",@progbits
+  98               	.global	SsdpRegisterListener
+  99               		.type	SsdpRegisterListener, @function
+ 100               	SsdpRegisterListener:
+ 101               	/* prologue: function */
+ 102               	/* frame size = 0 */
+ 103               	/* stack size = 0 */
+ 104               	.L__stack_usage = 0
+ 105 0000 9093 0000 		sts notification_listener+1,r25
+ 106 0004 8093 0000 		sts notification_listener,r24
+ 107 0008 8091 0000 		lds r24,rx_thread
+ 108 000c 9091 0000 		lds r25,rx_thread+1
+GAS LISTING /tmp/ccK7t3Wf.s 			page 3
+
+
+ 109 0010 892B      		or r24,r25
+ 110 0012 01F4      		brne .L17
+ 111 0014 20E8      		ldi r18,lo8(-128)
+ 112 0016 31E0      		ldi r19,lo8(1)
+ 113 0018 40E0      		ldi r20,0
+ 114 001a 50E0      		ldi r21,0
+ 115 001c 60E0      		ldi r22,lo8(gs(SsdpReceiver))
+ 116 001e 70E0      		ldi r23,hi8(gs(SsdpReceiver))
+ 117 0020 80E0      		ldi r24,lo8(.LC3)
+ 118 0022 90E0      		ldi r25,hi8(.LC3)
+ 119 0024 0E94 0000 		call NutThreadCreate
+ 120 0028 9093 0000 		sts rx_thread+1,r25
+ 121 002c 8093 0000 		sts rx_thread,r24
+ 122               	.L17:
+ 123 0030 81E0      		ldi r24,lo8(1)
+ 124 0032 90E0      		ldi r25,0
+ 125 0034 2091 0000 		lds r18,rx_thread
+ 126 0038 3091 0000 		lds r19,rx_thread+1
+ 127 003c 232B      		or r18,r19
+ 128 003e 01F0      		breq .L18
+ 129 0040 80E0      		ldi r24,0
+ 130 0042 90E0      		ldi r25,0
+ 131               	.L18:
+ 132 0044 9195      		neg r25
+ 133 0046 8195      		neg r24
+ 134 0048 9109      		sbc r25,__zero_reg__
+ 135 004a 0895      		ret
+ 136               		.size	SsdpRegisterListener, .-SsdpRegisterListener
+ 137               		.section	.text.SsdpRegisterResponder,"ax",@progbits
+ 138               	.global	SsdpRegisterResponder
+ 139               		.type	SsdpRegisterResponder, @function
+ 140               	SsdpRegisterResponder:
+ 141               	/* prologue: function */
+ 142               	/* frame size = 0 */
+ 143               	/* stack size = 0 */
+ 144               	.L__stack_usage = 0
+ 145 0000 9093 0000 		sts search_listener+1,r25
+ 146 0004 8093 0000 		sts search_listener,r24
+ 147 0008 8091 0000 		lds r24,rx_thread
+ 148 000c 9091 0000 		lds r25,rx_thread+1
+ 149 0010 892B      		or r24,r25
+ 150 0012 01F4      		brne .L23
+ 151 0014 20E8      		ldi r18,lo8(-128)
+ 152 0016 31E0      		ldi r19,lo8(1)
+ 153 0018 40E0      		ldi r20,0
+ 154 001a 50E0      		ldi r21,0
+ 155 001c 60E0      		ldi r22,lo8(gs(SsdpReceiver))
+ 156 001e 70E0      		ldi r23,hi8(gs(SsdpReceiver))
+ 157 0020 80E0      		ldi r24,lo8(.LC3)
+ 158 0022 90E0      		ldi r25,hi8(.LC3)
+ 159 0024 0E94 0000 		call NutThreadCreate
+ 160 0028 9093 0000 		sts rx_thread+1,r25
+ 161 002c 8093 0000 		sts rx_thread,r24
+ 162               	.L23:
+ 163 0030 81E0      		ldi r24,lo8(1)
+ 164 0032 90E0      		ldi r25,0
+ 165 0034 2091 0000 		lds r18,rx_thread
+GAS LISTING /tmp/ccK7t3Wf.s 			page 4
+
+
+ 166 0038 3091 0000 		lds r19,rx_thread+1
+ 167 003c 232B      		or r18,r19
+ 168 003e 01F0      		breq .L24
+ 169 0040 80E0      		ldi r24,0
+ 170 0042 90E0      		ldi r25,0
+ 171               	.L24:
+ 172 0044 9195      		neg r25
+ 173 0046 8195      		neg r24
+ 174 0048 9109      		sbc r25,__zero_reg__
+ 175 004a 0895      		ret
+ 176               		.size	SsdpRegisterResponder, .-SsdpRegisterResponder
+ 177               		.section	.text.SsdpUuidSetMac,"ax",@progbits
+ 178               	.global	SsdpUuidSetMac
+ 179               		.type	SsdpUuidSetMac, @function
+ 180               	SsdpUuidSetMac:
+ 181 0000 0F93      		push r16
+ 182 0002 1F93      		push r17
+ 183 0004 CF93      		push r28
+ 184 0006 DF93      		push r29
+ 185               	/* prologue: function */
+ 186               	/* frame size = 0 */
+ 187               	/* stack size = 4 */
+ 188               	.L__stack_usage = 4
+ 189 0008 8B01      		movw r16,r22
+ 190 000a 6DE2      		ldi r22,lo8(45)
+ 191 000c 70E0      		ldi r23,0
+ 192 000e 0E94 0000 		call strrchr
+ 193 0012 0097      		sbiw r24,0
+ 194 0014 01F0      		breq .L28
+ 195 0016 DC01      		movw r26,r24
+ 196 0018 1296      		adiw r26,2
+ 197 001a E801      		movw r28,r16
+ 198 001c 0E96      		adiw r24,14
+ 199               	.L30:
+ 200 001e 9E01      		movw r18,r28
+ 201 0020 AD01      		movw r20,r26
+ 202 0022 4150      		subi r20,1
+ 203 0024 5109      		sbc r21,__zero_reg__
+ 204 0026 E991      		ld r30,Y+
+ 205 0028 E295      		swap r30
+ 206 002a EF70      		andi r30,lo8(15)
+ 207 002c F0E0      		ldi r31,0
+ 208 002e E050      		subi r30,lo8(-(hexdigit.2789))
+ 209 0030 F040      		sbci r31,hi8(-(hexdigit.2789))
+ 210 0032 6081      		ld r22,Z
+ 211 0034 FA01      		movw r30,r20
+ 212 0036 6083      		st Z,r22
+ 213 0038 F901      		movw r30,r18
+ 214 003a 2081      		ld r18,Z
+ 215 003c E22F      		mov r30,r18
+ 216 003e EF70      		andi r30,lo8(15)
+ 217 0040 F0E0      		ldi r31,0
+ 218 0042 E050      		subi r30,lo8(-(hexdigit.2789))
+ 219 0044 F040      		sbci r31,hi8(-(hexdigit.2789))
+ 220 0046 2081      		ld r18,Z
+ 221 0048 2C93      		st X,r18
+ 222 004a 1296      		adiw r26,2
+GAS LISTING /tmp/ccK7t3Wf.s 			page 5
+
+
+ 223 004c A817      		cp r26,r24
+ 224 004e B907      		cpc r27,r25
+ 225 0050 01F4      		brne .L30
+ 226               	.L28:
+ 227               	/* epilogue start */
+ 228 0052 DF91      		pop r29
+ 229 0054 CF91      		pop r28
+ 230 0056 1F91      		pop r17
+ 231 0058 0F91      		pop r16
+ 232 005a 0895      		ret
+ 233               		.size	SsdpUuidSetMac, .-SsdpUuidSetMac
+ 234               		.section	.text.SsdpSplitWords,"ax",@progbits
+ 235               	.global	SsdpSplitWords
+ 236               		.type	SsdpSplitWords, @function
+ 237               	SsdpSplitWords:
+ 238 0000 AF92      		push r10
+ 239 0002 BF92      		push r11
+ 240 0004 CF92      		push r12
+ 241 0006 DF92      		push r13
+ 242 0008 EF92      		push r14
+ 243 000a FF92      		push r15
+ 244 000c 0F93      		push r16
+ 245 000e 1F93      		push r17
+ 246 0010 CF93      		push r28
+ 247 0012 DF93      		push r29
+ 248               	/* prologue: function */
+ 249               	/* frame size = 0 */
+ 250               	/* stack size = 10 */
+ 251               	.L__stack_usage = 10
+ 252 0014 EC01      		movw r28,r24
+ 253 0016 5901      		movw r10,r18
+ 254 0018 8A01      		movw r16,r20
+ 255 001a E12C      		mov r14,__zero_reg__
+ 256 001c F12C      		mov r15,__zero_reg__
+ 257 001e C62E      		mov r12,r22
+ 258 0020 660F      		lsl r22
+ 259 0022 DD08      		sbc r13,r13
+ 260               	.L34:
+ 261 0024 EA14      		cp r14,r10
+ 262 0026 FB04      		cpc r15,r11
+ 263 0028 04F4      		brge .L43
+ 264 002a F801      		movw r30,r16
+ 265 002c C193      		st Z+,r28
+ 266 002e D193      		st Z+,r29
+ 267 0030 8F01      		movw r16,r30
+ 268 0032 8881      		ld r24,Y
+ 269 0034 8823      		tst r24
+ 270 0036 01F0      		breq .L35
+ 271 0038 B601      		movw r22,r12
+ 272 003a CE01      		movw r24,r28
+ 273 003c 0E94 0000 		call strchr
+ 274 0040 0097      		sbiw r24,0
+ 275 0042 01F4      		brne .L36
+ 276 0044 CE01      		movw r24,r28
+ 277 0046 0196      		adiw r24,1
+ 278               	.L37:
+ 279 0048 EC01      		movw r28,r24
+GAS LISTING /tmp/ccK7t3Wf.s 			page 6
+
+
+ 280 004a 0196      		adiw r24,1
+ 281 004c 2881      		ld r18,Y
+ 282 004e 2111      		cpse r18,__zero_reg__
+ 283 0050 00C0      		rjmp .L37
+ 284 0052 00C0      		rjmp .L35
+ 285               	.L36:
+ 286 0054 EC01      		movw r28,r24
+ 287 0056 2196      		adiw r28,1
+ 288 0058 FC01      		movw r30,r24
+ 289 005a 1082      		st Z,__zero_reg__
+ 290               	.L35:
+ 291 005c FFEF      		ldi r31,-1
+ 292 005e EF1A      		sub r14,r31
+ 293 0060 FF0A      		sbc r15,r31
+ 294 0062 00C0      		rjmp .L34
+ 295               	.L43:
+ 296               	/* epilogue start */
+ 297 0064 DF91      		pop r29
+ 298 0066 CF91      		pop r28
+ 299 0068 1F91      		pop r17
+ 300 006a 0F91      		pop r16
+ 301 006c FF90      		pop r15
+ 302 006e EF90      		pop r14
+ 303 0070 DF90      		pop r13
+ 304 0072 CF90      		pop r12
+ 305 0074 BF90      		pop r11
+ 306 0076 AF90      		pop r10
+ 307 0078 0895      		ret
+ 308               		.size	SsdpSplitWords, .-SsdpSplitWords
+ 309               		.section	.rodata
+ 310               		.type	hexdigit.2789, @object
+ 311               		.size	hexdigit.2789, 17
+ 312               	hexdigit.2789:
+ 313 0000 3031 3233 		.string	"0123456789abcdef"
+ 313      3435 3637 
+ 313      3839 6162 
+ 313      6364 6566 
+ 313      00
+ 314               		.local	search_listener
+ 315               		.comm	search_listener,2,1
+ 316               		.local	notification_listener
+ 317               		.comm	notification_listener,2,1
+ 318               		.local	rx_thread
+ 319               		.comm	rx_thread,2,1
+ 320               	.global	ct_239_255_255_250
+ 321               		.type	ct_239_255_255_250, @object
+ 322               		.size	ct_239_255_255_250, 16
+ 323               	ct_239_255_255_250:
+ 324 0011 3233 392E 		.string	"239.255.255.250"
+ 324      3235 352E 
+ 324      3235 352E 
+ 324      3235 3000 
+ 325               	.global	ct_upnp_rootdevice
+ 326               		.type	ct_upnp_rootdevice, @object
+ 327               		.size	ct_upnp_rootdevice, 16
+ 328               	ct_upnp_rootdevice:
+ 329 0021 7570 6E70 		.string	"upnp:rootdevice"
+GAS LISTING /tmp/ccK7t3Wf.s 			page 7
+
+
+ 329      3A72 6F6F 
+ 329      7464 6576 
+ 329      6963 6500 
+ 330               	.global	ct_uuid_
+ 331               		.type	ct_uuid_, @object
+ 332               		.size	ct_uuid_, 6
+ 333               	ct_uuid_:
+ 334 0031 7575 6964 		.string	"uuid:"
+ 334      3A00 
+ 335               		.ident	"GCC: (GNU) 5.3.0"
+ 336               	.global __do_copy_data
+ 337               	.global __do_clear_bss
+GAS LISTING /tmp/ccK7t3Wf.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 ssdp.c
+     /tmp/ccK7t3Wf.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccK7t3Wf.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccK7t3Wf.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccK7t3Wf.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccK7t3Wf.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccK7t3Wf.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccK7t3Wf.s:17     .text.SsdpReceiver:0000000000000000 SsdpReceiver
+                             .bss:0000000000000000 search_listener
+     /tmp/ccK7t3Wf.s:315    .bss:0000000000000002 notification_listener
+     /tmp/ccK7t3Wf.s:100    .text.SsdpRegisterListener:0000000000000000 SsdpRegisterListener
+     /tmp/ccK7t3Wf.s:317    .bss:0000000000000004 rx_thread
+     /tmp/ccK7t3Wf.s:140    .text.SsdpRegisterResponder:0000000000000000 SsdpRegisterResponder
+     /tmp/ccK7t3Wf.s:180    .text.SsdpUuidSetMac:0000000000000000 SsdpUuidSetMac
+     /tmp/ccK7t3Wf.s:312    .rodata:0000000000000000 hexdigit.2789
+     /tmp/ccK7t3Wf.s:237    .text.SsdpSplitWords:0000000000000000 SsdpSplitWords
+     /tmp/ccK7t3Wf.s:323    .rodata:0000000000000011 ct_239_255_255_250
+     /tmp/ccK7t3Wf.s:328    .rodata:0000000000000021 ct_upnp_rootdevice
+     /tmp/ccK7t3Wf.s:333    .rodata:0000000000000031 ct_uuid_
+
+UNDEFINED SYMBOLS
+HttpuSessionCreate
+HttpuReceive
+HttpuGetHeader
+strncasecmp
+SsdpSendNotifications
+NutThreadCreate
+strrchr
+strchr
+__do_copy_data
+__do_clear_bss

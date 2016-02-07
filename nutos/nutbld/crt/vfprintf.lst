@@ -1,0 +1,54 @@
+GAS LISTING /tmp/ccbXllPZ.s 			page 1
+
+
+   1               		.file	"vfprintf.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.vfprintf,"ax",@progbits
+   9               	.global	vfprintf
+  10               		.type	vfprintf, @function
+  11               	vfprintf:
+  12 0000 0F93      		push r16
+  13 0002 1F93      		push r17
+  14               	/* prologue: function */
+  15               	/* frame size = 0 */
+  16               	/* stack size = 2 */
+  17               	.L__stack_usage = 2
+  18 0004 9B01      		movw r18,r22
+  19 0006 FC01      		movw r30,r24
+  20 0008 8081      		ld r24,Z
+  21 000a 9181      		ldd r25,Z+1
+  22 000c 8A01      		movw r16,r20
+  23 000e AC01      		movw r20,r24
+  24 0010 60E0      		ldi r22,lo8(gs(_write_P))
+  25 0012 70E0      		ldi r23,hi8(gs(_write_P))
+  26 0014 80E0      		ldi r24,lo8(gs(_write))
+  27 0016 90E0      		ldi r25,hi8(gs(_write))
+  28 0018 0E94 0000 		call _putf
+  29               	/* epilogue start */
+  30 001c 1F91      		pop r17
+  31 001e 0F91      		pop r16
+  32 0020 0895      		ret
+  33               		.size	vfprintf, .-vfprintf
+  34               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccbXllPZ.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 vfprintf.c
+     /tmp/ccbXllPZ.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccbXllPZ.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccbXllPZ.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccbXllPZ.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccbXllPZ.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccbXllPZ.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccbXllPZ.s:11     .text.vfprintf:0000000000000000 vfprintf
+
+UNDEFINED SYMBOLS
+_write_P
+_write
+_putf

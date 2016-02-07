@@ -1,0 +1,74 @@
+GAS LISTING /tmp/ccaXwzr6.s 			page 1
+
+
+   1               		.file	"fwrite_p.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.fwrite_P,"ax",@progbits
+   9               	.global	fwrite_P
+  10               		.type	fwrite_P, @function
+  11               	fwrite_P:
+  12 0000 CF93      		push r28
+  13 0002 DF93      		push r29
+  14               	/* prologue: function */
+  15               	/* frame size = 0 */
+  16               	/* stack size = 2 */
+  17               	.L__stack_usage = 2
+  18 0004 EB01      		movw r28,r22
+  19 0006 6230      		cpi r22,2
+  20 0008 7105      		cpc r23,__zero_reg__
+  21 000a 00F0      		brlo .L2
+  22 000c BA01      		movw r22,r20
+  23 000e 6C9F      		mul r22,r28
+  24 0010 A001      		movw r20,r0
+  25 0012 6D9F      		mul r22,r29
+  26 0014 500D      		add r21,r0
+  27 0016 7C9F      		mul r23,r28
+  28 0018 500D      		add r21,r0
+  29 001a 1124      		clr r1
+  30               	.L2:
+  31 001c BC01      		movw r22,r24
+  32 001e F901      		movw r30,r18
+  33 0020 8081      		ld r24,Z
+  34 0022 9181      		ldd r25,Z+1
+  35 0024 0E94 0000 		call _write_P
+  36 0028 1816      		cp __zero_reg__,r24
+  37 002a 1906      		cpc __zero_reg__,r25
+  38 002c 04F4      		brge .L4
+  39 002e C230      		cpi r28,2
+  40 0030 D105      		cpc r29,__zero_reg__
+  41 0032 00F0      		brlo .L3
+  42 0034 BE01      		movw r22,r28
+  43 0036 0E94 0000 		call __udivmodhi4
+  44 003a CB01      		movw r24,r22
+  45 003c 00C0      		rjmp .L3
+  46               	.L4:
+  47 003e 80E0      		ldi r24,0
+  48 0040 90E0      		ldi r25,0
+  49               	.L3:
+  50               	/* epilogue start */
+  51 0042 DF91      		pop r29
+  52 0044 CF91      		pop r28
+  53 0046 0895      		ret
+  54               		.size	fwrite_P, .-fwrite_P
+  55               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccaXwzr6.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 fwrite_p.c
+     /tmp/ccaXwzr6.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccaXwzr6.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccaXwzr6.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccaXwzr6.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccaXwzr6.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccaXwzr6.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccaXwzr6.s:11     .text.fwrite_P:0000000000000000 fwrite_P
+
+UNDEFINED SYMBOLS
+_write_P
+__udivmodhi4

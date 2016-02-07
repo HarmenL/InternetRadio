@@ -1,0 +1,398 @@
+GAS LISTING /tmp/ccNRFDtY.s 			page 1
+
+
+   1               		.file	"nvmem_at45d.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.SpiAt45dConfigSize,"ax",@progbits
+   9               	.global	SpiAt45dConfigSize
+  10               		.type	SpiAt45dConfigSize, @function
+  11               	SpiAt45dConfigSize:
+  12 0000 CF93      		push r28
+  13 0002 DF93      		push r29
+  14               	/* prologue: function */
+  15               	/* frame size = 0 */
+  16               	/* stack size = 2 */
+  17               	.L__stack_usage = 2
+  18 0004 8091 0000 		lds r24,devSysConf
+  19 0008 9091 0000 		lds r25,devSysConf+1
+  20 000c 892B      		or r24,r25
+  21 000e 01F4      		brne .L2
+  22 0010 C091 0000 		lds r28,devSpiAt45d0+15
+  23 0014 D091 0000 		lds r29,devSpiAt45d0+15+1
+  24 0018 8881      		ld r24,Y
+  25 001a 9981      		ldd r25,Y+1
+  26 001c 892B      		or r24,r25
+  27 001e 01F4      		brne .L3
+  28 0020 80E0      		ldi r24,lo8(spiBus0Avr)
+  29 0022 90E0      		ldi r25,hi8(spiBus0Avr)
+  30 0024 9983      		std Y+1,r25
+  31 0026 8883      		st Y,r24
+  32               	.L3:
+  33 0028 E881      		ld r30,Y
+  34 002a F981      		ldd r31,Y+1
+  35 002c 0084      		ldd __tmp_reg__,Z+8
+  36 002e F185      		ldd r31,Z+9
+  37 0030 E02D      		mov r30,__tmp_reg__
+  38 0032 CE01      		movw r24,r28
+  39 0034 1995      		eicall
+  40 0036 892B      		or r24,r25
+  41 0038 01F4      		brne .L6
+  42 003a 8881      		ld r24,Y
+  43 003c 9981      		ldd r25,Y+1
+  44 003e 0E94 0000 		call NutEventPost
+  45 0042 80E0      		ldi r24,lo8(devSpiAt45d0)
+  46 0044 90E0      		ldi r25,hi8(devSpiAt45d0)
+  47 0046 0E94 0000 		call SpiAt45dInit
+  48 004a 892B      		or r24,r25
+  49 004c 01F4      		brne .L6
+  50 004e 80E0      		ldi r24,lo8(devSpiAt45d0)
+  51 0050 90E0      		ldi r25,hi8(devSpiAt45d0)
+  52 0052 9093 0000 		sts devSysConf+1,r25
+  53 0056 8093 0000 		sts devSysConf,r24
+  54               	.L2:
+  55 005a 8091 0000 		lds r24,devSysConf
+  56 005e 9091 0000 		lds r25,devSysConf+1
+  57               	/* epilogue start */
+GAS LISTING /tmp/ccNRFDtY.s 			page 2
+
+
+  58 0062 DF91      		pop r29
+  59 0064 CF91      		pop r28
+  60 0066 0C94 0000 		jmp SpiAt45dPageSize
+  61               	.L6:
+  62 006a 80E0      		ldi r24,0
+  63 006c 90E0      		ldi r25,0
+  64               	/* epilogue start */
+  65 006e DF91      		pop r29
+  66 0070 CF91      		pop r28
+  67 0072 0895      		ret
+  68               		.size	SpiAt45dConfigSize, .-SpiAt45dConfigSize
+  69               		.section	.text.SpiAt45dConfigRead,"ax",@progbits
+  70               	.global	SpiAt45dConfigRead
+  71               		.type	SpiAt45dConfigRead, @function
+  72               	SpiAt45dConfigRead:
+  73 0000 8F92      		push r8
+  74 0002 9F92      		push r9
+  75 0004 AF92      		push r10
+  76 0006 BF92      		push r11
+  77 0008 CF92      		push r12
+  78 000a DF92      		push r13
+  79 000c EF92      		push r14
+  80 000e FF92      		push r15
+  81 0010 0F93      		push r16
+  82 0012 1F93      		push r17
+  83 0014 CF93      		push r28
+  84 0016 DF93      		push r29
+  85               	/* prologue: function */
+  86               	/* frame size = 0 */
+  87               	/* stack size = 12 */
+  88               	.L__stack_usage = 12
+  89 0018 7C01      		movw r14,r24
+  90 001a 5B01      		movw r10,r22
+  91 001c 6A01      		movw r12,r20
+  92 001e 0E94 0000 		call SpiAt45dConfigSize
+  93 0022 4C01      		movw r8,r24
+  94 0024 C701      		movw r24,r14
+  95 0026 8C0D      		add r24,r12
+  96 0028 9D1D      		adc r25,r13
+  97 002a 8816      		cp r8,r24
+  98 002c 9906      		cpc r9,r25
+  99 002e 00F4      		brsh .L9
+ 100               	.L11:
+ 101 0030 0FEF      		ldi r16,lo8(-1)
+ 102 0032 1FEF      		ldi r17,lo8(-1)
+ 103 0034 00C0      		rjmp .L10
+ 104               	.L9:
+ 105 0036 C401      		movw r24,r8
+ 106 0038 0E94 0000 		call malloc
+ 107 003c EC01      		movw r28,r24
+ 108 003e 892B      		or r24,r25
+ 109 0040 01F0      		breq .L11
+ 110 0042 8091 0000 		lds r24,devSysConf
+ 111 0046 9091 0000 		lds r25,devSysConf+1
+ 112 004a 0E94 0000 		call SpiAt45dPages
+ 113 004e AB01      		movw r20,r22
+ 114 0050 BC01      		movw r22,r24
+GAS LISTING /tmp/ccNRFDtY.s 			page 3
+
+
+ 115 0052 4150      		subi r20,1
+ 116 0054 5109      		sbc r21,__zero_reg__
+ 117 0056 6109      		sbc r22,__zero_reg__
+ 118 0058 7109      		sbc r23,__zero_reg__
+ 119 005a 8401      		movw r16,r8
+ 120 005c 9E01      		movw r18,r28
+ 121 005e 8091 0000 		lds r24,devSysConf
+ 122 0062 9091 0000 		lds r25,devSysConf+1
+ 123 0066 0E94 0000 		call SpiAt45dPageRead
+ 124 006a 8816      		cp r8,r24
+ 125 006c 9906      		cpc r9,r25
+ 126 006e 01F4      		brne .L13
+ 127 0070 BE01      		movw r22,r28
+ 128 0072 6E0D      		add r22,r14
+ 129 0074 7F1D      		adc r23,r15
+ 130 0076 A601      		movw r20,r12
+ 131 0078 C501      		movw r24,r10
+ 132 007a 0E94 0000 		call memcpy
+ 133 007e 00E0      		ldi r16,0
+ 134 0080 10E0      		ldi r17,0
+ 135 0082 00C0      		rjmp .L12
+ 136               	.L13:
+ 137 0084 0FEF      		ldi r16,lo8(-1)
+ 138 0086 1FEF      		ldi r17,lo8(-1)
+ 139               	.L12:
+ 140 0088 CE01      		movw r24,r28
+ 141 008a 0E94 0000 		call free
+ 142               	.L10:
+ 143 008e C801      		movw r24,r16
+ 144               	/* epilogue start */
+ 145 0090 DF91      		pop r29
+ 146 0092 CF91      		pop r28
+ 147 0094 1F91      		pop r17
+ 148 0096 0F91      		pop r16
+ 149 0098 FF90      		pop r15
+ 150 009a EF90      		pop r14
+ 151 009c DF90      		pop r13
+ 152 009e CF90      		pop r12
+ 153 00a0 BF90      		pop r11
+ 154 00a2 AF90      		pop r10
+ 155 00a4 9F90      		pop r9
+ 156 00a6 8F90      		pop r8
+ 157 00a8 0895      		ret
+ 158               		.size	SpiAt45dConfigRead, .-SpiAt45dConfigRead
+ 159               		.section	.text.SpiAt45dConfigWrite,"ax",@progbits
+ 160               	.global	SpiAt45dConfigWrite
+ 161               		.type	SpiAt45dConfigWrite, @function
+ 162               	SpiAt45dConfigWrite:
+ 163 0000 2F92      		push r2
+ 164 0002 3F92      		push r3
+ 165 0004 4F92      		push r4
+ 166 0006 5F92      		push r5
+ 167 0008 6F92      		push r6
+ 168 000a 7F92      		push r7
+ 169 000c 8F92      		push r8
+ 170 000e 9F92      		push r9
+ 171 0010 AF92      		push r10
+GAS LISTING /tmp/ccNRFDtY.s 			page 4
+
+
+ 172 0012 BF92      		push r11
+ 173 0014 CF92      		push r12
+ 174 0016 DF92      		push r13
+ 175 0018 EF92      		push r14
+ 176 001a FF92      		push r15
+ 177 001c 0F93      		push r16
+ 178 001e 1F93      		push r17
+ 179 0020 CF93      		push r28
+ 180 0022 DF93      		push r29
+ 181               	/* prologue: function */
+ 182               	/* frame size = 0 */
+ 183               	/* stack size = 18 */
+ 184               	.L__stack_usage = 18
+ 185 0024 EC01      		movw r28,r24
+ 186 0026 4B01      		movw r8,r22
+ 187 0028 3A01      		movw r6,r20
+ 188 002a 0E94 0000 		call SpiAt45dConfigSize
+ 189 002e 6C01      		movw r12,r24
+ 190 0030 8091 0000 		lds r24,devSysConf
+ 191 0034 9091 0000 		lds r25,devSysConf+1
+ 192 0038 0E94 0000 		call SpiAt45dPageSize
+ 193 003c 7C01      		movw r14,r24
+ 194 003e 8091 0000 		lds r24,devSysConf
+ 195 0042 9091 0000 		lds r25,devSysConf+1
+ 196 0046 0E94 0000 		call SpiAt45dPages
+ 197 004a 1B01      		movw r2,r22
+ 198 004c 2C01      		movw r4,r24
+ 199 004e 21E0      		ldi r18,1
+ 200 0050 221A      		sub r2,r18
+ 201 0052 3108      		sbc r3,__zero_reg__
+ 202 0054 4108      		sbc r4,__zero_reg__
+ 203 0056 5108      		sbc r5,__zero_reg__
+ 204 0058 5301      		movw r10,r6
+ 205 005a 6114      		cp r6,__zero_reg__
+ 206 005c 7104      		cpc r7,__zero_reg__
+ 207 005e 01F4      		brne .L18
+ 208               	.L20:
+ 209 0060 0FEF      		ldi r16,lo8(-1)
+ 210 0062 1FEF      		ldi r17,lo8(-1)
+ 211 0064 00C0      		rjmp .L19
+ 212               	.L18:
+ 213 0066 C301      		movw r24,r6
+ 214 0068 8C0F      		add r24,r28
+ 215 006a 9D1F      		adc r25,r29
+ 216 006c C816      		cp r12,r24
+ 217 006e D906      		cpc r13,r25
+ 218 0070 00F0      		brlo .L20
+ 219 0072 C701      		movw r24,r14
+ 220 0074 0E94 0000 		call malloc
+ 221 0078 6C01      		movw r12,r24
+ 222 007a 892B      		or r24,r25
+ 223 007c 01F0      		breq .L20
+ 224 007e CE01      		movw r24,r28
+ 225 0080 B701      		movw r22,r14
+ 226 0082 0E94 0000 		call __udivmodhi4
+ 227 0086 2B01      		movw r4,r22
+ 228 0088 420C      		add r4,r2
+GAS LISTING /tmp/ccNRFDtY.s 			page 5
+
+
+ 229 008a 531C      		adc r5,r3
+ 230 008c 1C01      		movw r2,r24
+ 231 008e C301      		movw r24,r6
+ 232 0090 820D      		add r24,r2
+ 233 0092 931D      		adc r25,r3
+ 234 0094 E701      		movw r28,r14
+ 235 0096 E816      		cp r14,r24
+ 236 0098 F906      		cpc r15,r25
+ 237 009a 00F4      		brsh .L21
+ 238 009c C219      		sub r28,r2
+ 239 009e D309      		sbc r29,r3
+ 240               	.L21:
+ 241 00a0 6C16      		cp r6,r28
+ 242 00a2 7D06      		cpc r7,r29
+ 243 00a4 04F4      		brge .L22
+ 244 00a6 E301      		movw r28,r6
+ 245               	.L22:
+ 246 00a8 052C      		mov __tmp_reg__,r5
+ 247 00aa 000C      		lsl r0
+ 248 00ac 6608      		sbc r6,r6
+ 249 00ae 7708      		sbc r7,r7
+ 250 00b0 0FEF      		ldi r16,lo8(-1)
+ 251 00b2 1FEF      		ldi r17,lo8(-1)
+ 252               	.L23:
+ 253 00b4 1A14      		cp __zero_reg__,r10
+ 254 00b6 1B04      		cpc __zero_reg__,r11
+ 255 00b8 04F0      		brlt .+2
+ 256 00ba 00C0      		rjmp .L25
+ 257 00bc 8701      		movw r16,r14
+ 258 00be 9601      		movw r18,r12
+ 259 00c0 B301      		movw r22,r6
+ 260 00c2 A201      		movw r20,r4
+ 261 00c4 8091 0000 		lds r24,devSysConf
+ 262 00c8 9091 0000 		lds r25,devSysConf+1
+ 263 00cc 0E94 0000 		call SpiAt45dPageRead
+ 264 00d0 E816      		cp r14,r24
+ 265 00d2 F906      		cpc r15,r25
+ 266 00d4 01F0      		breq .L24
+ 267               	.L29:
+ 268 00d6 0FEF      		ldi r16,lo8(-1)
+ 269 00d8 1FEF      		ldi r17,lo8(-1)
+ 270 00da 00C0      		rjmp .L25
+ 271               	.L24:
+ 272 00dc 2C0C      		add r2,r12
+ 273 00de 3D1C      		adc r3,r13
+ 274 00e0 AE01      		movw r20,r28
+ 275 00e2 B401      		movw r22,r8
+ 276 00e4 C101      		movw r24,r2
+ 277 00e6 0E94 0000 		call memcmp
+ 278 00ea 892B      		or r24,r25
+ 279 00ec 01F4      		brne .L26
+ 280               	.L28:
+ 281 00ee 8C0E      		add r8,r28
+ 282 00f0 9D1E      		adc r9,r29
+ 283 00f2 AC1A      		sub r10,r28
+ 284 00f4 BD0A      		sbc r11,r29
+ 285 00f6 E701      		movw r28,r14
+GAS LISTING /tmp/ccNRFDtY.s 			page 6
+
+
+ 286 00f8 AE14      		cp r10,r14
+ 287 00fa BF04      		cpc r11,r15
+ 288 00fc 04F4      		brge .L27
+ 289 00fe E501      		movw r28,r10
+ 290               	.L27:
+ 291 0100 8FEF      		ldi r24,-1
+ 292 0102 481A      		sub r4,r24
+ 293 0104 580A      		sbc r5,r24
+ 294 0106 680A      		sbc r6,r24
+ 295 0108 780A      		sbc r7,r24
+ 296 010a 00E0      		ldi r16,0
+ 297 010c 10E0      		ldi r17,0
+ 298 010e 212C      		mov r2,__zero_reg__
+ 299 0110 312C      		mov r3,__zero_reg__
+ 300 0112 00C0      		rjmp .L23
+ 301               	.L26:
+ 302 0114 AE01      		movw r20,r28
+ 303 0116 B401      		movw r22,r8
+ 304 0118 C101      		movw r24,r2
+ 305 011a 0E94 0000 		call memcpy
+ 306 011e 8701      		movw r16,r14
+ 307 0120 9601      		movw r18,r12
+ 308 0122 B301      		movw r22,r6
+ 309 0124 A201      		movw r20,r4
+ 310 0126 8091 0000 		lds r24,devSysConf
+ 311 012a 9091 0000 		lds r25,devSysConf+1
+ 312 012e 0E94 0000 		call SpiAt45dPageWrite
+ 313 0132 E816      		cp r14,r24
+ 314 0134 F906      		cpc r15,r25
+ 315 0136 01F0      		breq .L28
+ 316 0138 00C0      		rjmp .L29
+ 317               	.L25:
+ 318 013a C601      		movw r24,r12
+ 319 013c 0E94 0000 		call free
+ 320               	.L19:
+ 321 0140 C801      		movw r24,r16
+ 322               	/* epilogue start */
+ 323 0142 DF91      		pop r29
+ 324 0144 CF91      		pop r28
+ 325 0146 1F91      		pop r17
+ 326 0148 0F91      		pop r16
+ 327 014a FF90      		pop r15
+ 328 014c EF90      		pop r14
+ 329 014e DF90      		pop r13
+ 330 0150 CF90      		pop r12
+ 331 0152 BF90      		pop r11
+ 332 0154 AF90      		pop r10
+ 333 0156 9F90      		pop r9
+ 334 0158 8F90      		pop r8
+ 335 015a 7F90      		pop r7
+ 336 015c 6F90      		pop r6
+ 337 015e 5F90      		pop r5
+ 338 0160 4F90      		pop r4
+ 339 0162 3F90      		pop r3
+ 340 0164 2F90      		pop r2
+ 341 0166 0895      		ret
+ 342               		.size	SpiAt45dConfigWrite, .-SpiAt45dConfigWrite
+GAS LISTING /tmp/ccNRFDtY.s 			page 7
+
+
+ 343               		.local	devSysConf
+ 344               		.comm	devSysConf,2,1
+ 345               		.ident	"GCC: (GNU) 5.3.0"
+ 346               	.global __do_clear_bss
+GAS LISTING /tmp/ccNRFDtY.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 nvmem_at45d.c
+     /tmp/ccNRFDtY.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccNRFDtY.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccNRFDtY.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccNRFDtY.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccNRFDtY.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccNRFDtY.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccNRFDtY.s:11     .text.SpiAt45dConfigSize:0000000000000000 SpiAt45dConfigSize
+                             .bss:0000000000000000 devSysConf
+     /tmp/ccNRFDtY.s:72     .text.SpiAt45dConfigRead:0000000000000000 SpiAt45dConfigRead
+     /tmp/ccNRFDtY.s:162    .text.SpiAt45dConfigWrite:0000000000000000 SpiAt45dConfigWrite
+
+UNDEFINED SYMBOLS
+devSpiAt45d0
+spiBus0Avr
+NutEventPost
+SpiAt45dInit
+SpiAt45dPageSize
+malloc
+SpiAt45dPages
+SpiAt45dPageRead
+memcpy
+free
+__udivmodhi4
+memcmp
+SpiAt45dPageWrite
+__do_clear_bss

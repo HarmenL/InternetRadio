@@ -1,0 +1,302 @@
+GAS LISTING /tmp/ccG8t015.s 			page 1
+
+
+   1               		.file	"httpd_p.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.rodata.str1.1,"aMS",@progbits,1
+   9               	.LC0:
+  10 0000 5552 4F4D 		.string	"UROM:"
+  10      3A00 
+  11               		.section	.text.CreateFilePath,"ax",@progbits
+  12               	.global	CreateFilePath
+  13               		.type	CreateFilePath, @function
+  14               	CreateFilePath:
+  15 0000 AF92      		push r10
+  16 0002 BF92      		push r11
+  17 0004 CF92      		push r12
+  18 0006 DF92      		push r13
+  19 0008 EF92      		push r14
+  20 000a FF92      		push r15
+  21 000c 0F93      		push r16
+  22 000e 1F93      		push r17
+  23 0010 CF93      		push r28
+  24 0012 DF93      		push r29
+  25               	/* prologue: function */
+  26               	/* frame size = 0 */
+  27               	/* stack size = 10 */
+  28               	.L__stack_usage = 10
+  29 0014 5C01      		movw r10,r24
+  30 0016 7B01      		movw r14,r22
+  31 0018 C090 0000 		lds r12,http_root
+  32 001c D090 0000 		lds r13,http_root+1
+  33 0020 C114      		cp r12,__zero_reg__
+  34 0022 D104      		cpc r13,__zero_reg__
+  35 0024 01F4      		brne .L2
+  36 0026 80E0      		ldi r24,lo8(.LC0)
+  37 0028 C82E      		mov r12,r24
+  38 002a 80E0      		ldi r24,hi8(.LC0)
+  39 002c D82E      		mov r13,r24
+  40               	.L2:
+  41 002e E501      		movw r28,r10
+  42               		0:
+  43 0030 0990      		ld __tmp_reg__,Y+
+  44 0032 0020      		tst __tmp_reg__
+  45 0034 01F4      		brne 0b
+  46 0036 2197      		sbiw r28,1
+  47 0038 CA19      		sub r28,r10
+  48 003a DB09      		sbc r29,r11
+  49 003c D601      		movw r26,r12
+  50               		0:
+  51 003e 0D90      		ld __tmp_reg__,X+
+  52 0040 0020      		tst __tmp_reg__
+  53 0042 01F4      		brne 0b
+  54 0044 F701      		movw r30,r14
+  55               		0:
+  56 0046 0190      		ld __tmp_reg__,Z+
+GAS LISTING /tmp/ccG8t015.s 			page 2
+
+
+  57 0048 0020      		tst __tmp_reg__
+  58 004a 01F4      		brne 0b
+  59 004c 3197      		sbiw r30,1
+  60 004e EE19      		sub r30,r14
+  61 0050 FF09      		sbc r31,r15
+  62 0052 CE01      		movw r24,r28
+  63 0054 8C19      		sub r24,r12
+  64 0056 9D09      		sbc r25,r13
+  65 0058 8A0F      		add r24,r26
+  66 005a 9B1F      		adc r25,r27
+  67 005c 8E0F      		add r24,r30
+  68 005e 9F1F      		adc r25,r31
+  69 0060 0E94 0000 		call malloc
+  70 0064 8C01      		movw r16,r24
+  71 0066 0097      		sbiw r24,0
+  72 0068 01F0      		breq .L4
+  73 006a B601      		movw r22,r12
+  74 006c 0E94 0000 		call strcpy
+  75 0070 B501      		movw r22,r10
+  76 0072 C801      		movw r24,r16
+  77 0074 0E94 0000 		call strcat
+  78 0078 F701      		movw r30,r14
+  79 007a 8081      		ld r24,Z
+  80 007c 8823      		tst r24
+  81 007e 01F0      		breq .L4
+  82 0080 2097      		sbiw r28,0
+  83 0082 01F0      		breq .L9
+  84 0084 CA0D      		add r28,r10
+  85 0086 DB1D      		adc r29,r11
+  86 0088 2197      		sbiw r28,1
+  87 008a 91E0      		ldi r25,lo8(1)
+  88 008c 80E0      		ldi r24,0
+  89 008e 2881      		ld r18,Y
+  90 0090 2F32      		cpi r18,lo8(47)
+  91 0092 01F0      		breq .L7
+  92 0094 90E0      		ldi r25,0
+  93               	.L7:
+  94 0096 692F      		mov r22,r25
+  95 0098 782F      		mov r23,r24
+  96 009a 00C0      		rjmp .L6
+  97               	.L9:
+  98 009c 61E0      		ldi r22,lo8(1)
+  99 009e 70E0      		ldi r23,0
+ 100               	.L6:
+ 101 00a0 6E0D      		add r22,r14
+ 102 00a2 7F1D      		adc r23,r15
+ 103 00a4 C801      		movw r24,r16
+ 104 00a6 0E94 0000 		call strcat
+ 105               	.L4:
+ 106 00aa C801      		movw r24,r16
+ 107               	/* epilogue start */
+ 108 00ac DF91      		pop r29
+ 109 00ae CF91      		pop r28
+ 110 00b0 1F91      		pop r17
+ 111 00b2 0F91      		pop r16
+ 112 00b4 FF90      		pop r15
+ 113 00b6 EF90      		pop r14
+GAS LISTING /tmp/ccG8t015.s 			page 3
+
+
+ 114 00b8 DF90      		pop r13
+ 115 00ba CF90      		pop r12
+ 116 00bc BF90      		pop r11
+ 117 00be AF90      		pop r10
+ 118 00c0 0895      		ret
+ 119               		.size	CreateFilePath, .-CreateFilePath
+ 120               		.section	.text.DestroyRequestInfo,"ax",@progbits
+ 121               	.global	DestroyRequestInfo
+ 122               		.type	DestroyRequestInfo, @function
+ 123               	DestroyRequestInfo:
+ 124 0000 CF93      		push r28
+ 125 0002 DF93      		push r29
+ 126               	/* prologue: function */
+ 127               	/* frame size = 0 */
+ 128               	/* stack size = 2 */
+ 129               	.L__stack_usage = 2
+ 130 0004 EC01      		movw r28,r24
+ 131 0006 892B      		or r24,r25
+ 132 0008 01F4      		brne .+2
+ 133 000a 00C0      		rjmp .L17
+ 134 000c 8885      		ldd r24,Y+8
+ 135 000e 9985      		ldd r25,Y+9
+ 136 0010 0097      		sbiw r24,0
+ 137 0012 01F0      		breq .L19
+ 138 0014 0E94 0000 		call free
+ 139               	.L19:
+ 140 0018 8A85      		ldd r24,Y+10
+ 141 001a 9B85      		ldd r25,Y+11
+ 142 001c 0097      		sbiw r24,0
+ 143 001e 01F0      		breq .L20
+ 144 0020 0E94 0000 		call free
+ 145               	.L20:
+ 146 0024 8C85      		ldd r24,Y+12
+ 147 0026 9D85      		ldd r25,Y+13
+ 148 0028 0097      		sbiw r24,0
+ 149 002a 01F0      		breq .L21
+ 150 002c 0E94 0000 		call free
+ 151               	.L21:
+ 152 0030 8E85      		ldd r24,Y+14
+ 153 0032 9F85      		ldd r25,Y+15
+ 154 0034 0097      		sbiw r24,0
+ 155 0036 01F0      		breq .L22
+ 156 0038 0E94 0000 		call free
+ 157               	.L22:
+ 158 003c 8889      		ldd r24,Y+16
+ 159 003e 9989      		ldd r25,Y+17
+ 160 0040 0097      		sbiw r24,0
+ 161 0042 01F0      		breq .L23
+ 162 0044 0E94 0000 		call free
+ 163               	.L23:
+ 164 0048 8A89      		ldd r24,Y+18
+ 165 004a 9B89      		ldd r25,Y+19
+ 166 004c 0097      		sbiw r24,0
+ 167 004e 01F0      		breq .L24
+ 168 0050 0E94 0000 		call free
+ 169               	.L24:
+ 170 0054 8C89      		ldd r24,Y+20
+GAS LISTING /tmp/ccG8t015.s 			page 4
+
+
+ 171 0056 9D89      		ldd r25,Y+21
+ 172 0058 0097      		sbiw r24,0
+ 173 005a 01F0      		breq .L25
+ 174 005c 0E94 0000 		call free
+ 175               	.L25:
+ 176 0060 8C8D      		ldd r24,Y+28
+ 177 0062 9D8D      		ldd r25,Y+29
+ 178 0064 0097      		sbiw r24,0
+ 179 0066 01F0      		breq .L26
+ 180 0068 0E94 0000 		call free
+ 181               	.L26:
+ 182 006c 8E8D      		ldd r24,Y+30
+ 183 006e 9F8D      		ldd r25,Y+31
+ 184 0070 0097      		sbiw r24,0
+ 185 0072 01F0      		breq .L27
+ 186 0074 0E94 0000 		call free
+ 187               	.L27:
+ 188 0078 8AA1      		ldd r24,Y+34
+ 189 007a 9BA1      		ldd r25,Y+35
+ 190 007c 0097      		sbiw r24,0
+ 191 007e 01F0      		breq .L28
+ 192 0080 0E94 0000 		call free
+ 193               	.L28:
+ 194 0084 CE01      		movw r24,r28
+ 195               	/* epilogue start */
+ 196 0086 DF91      		pop r29
+ 197 0088 CF91      		pop r28
+ 198 008a 0C94 0000 		jmp free
+ 199               	.L17:
+ 200               	/* epilogue start */
+ 201 008e DF91      		pop r29
+ 202 0090 CF91      		pop r28
+ 203 0092 0895      		ret
+ 204               		.size	DestroyRequestInfo, .-DestroyRequestInfo
+ 205               	.global	default_files
+ 206               		.section	.rodata.str1.1
+ 207               	.LC1:
+ 208 0006 00        		.string	""
+ 209               	.LC2:
+ 210 0007 2F69 6E64 		.string	"/index.html"
+ 210      6578 2E68 
+ 210      746D 6C00 
+ 211               	.LC3:
+ 212 0013 2F69 6E64 		.string	"/index.htm"
+ 212      6578 2E68 
+ 212      746D 00
+ 213               	.LC4:
+ 214 001e 2F64 6566 		.string	"/default.html"
+ 214      6175 6C74 
+ 214      2E68 746D 
+ 214      6C00 
+ 215               	.LC5:
+ 216 002c 2F64 6566 		.string	"/default.htm"
+ 216      6175 6C74 
+ 216      2E68 746D 
+ 216      00
+ 217               	.LC6:
+GAS LISTING /tmp/ccG8t015.s 			page 5
+
+
+ 218 0039 2F69 6E64 		.string	"/index.shtml"
+ 218      6578 2E73 
+ 218      6874 6D6C 
+ 218      00
+ 219               	.LC7:
+ 220 0046 2F69 6E64 		.string	"/index.xhtml"
+ 220      6578 2E78 
+ 220      6874 6D6C 
+ 220      00
+ 221               	.LC8:
+ 222 0053 2F69 6E64 		.string	"/index.asp"
+ 222      6578 2E61 
+ 222      7370 00
+ 223               	.LC9:
+ 224 005e 2F64 6566 		.string	"/default.asp"
+ 224      6175 6C74 
+ 224      2E61 7370 
+ 224      00
+ 225               		.data
+ 226               		.type	default_files, @object
+ 227               		.size	default_files, 20
+ 228               	default_files:
+ 229 0000 0000      		.word	.LC1
+ 230 0002 0000      		.word	.LC2
+ 231 0004 0000      		.word	.LC3
+ 232 0006 0000      		.word	.LC4
+ 233 0008 0000      		.word	.LC5
+ 234 000a 0000      		.word	.LC6
+ 235 000c 0000      		.word	.LC7
+ 236 000e 0000      		.word	.LC8
+ 237 0010 0000      		.word	.LC9
+ 238 0012 0000      		.word	0
+ 239               		.comm	http_root,2,1
+ 240               		.ident	"GCC: (GNU) 5.3.0"
+ 241               	.global __do_copy_data
+ 242               	.global __do_clear_bss
+GAS LISTING /tmp/ccG8t015.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 httpd_p.c
+     /tmp/ccG8t015.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccG8t015.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccG8t015.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccG8t015.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccG8t015.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccG8t015.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccG8t015.s:14     .text.CreateFilePath:0000000000000000 CreateFilePath
+                            *COM*:0000000000000002 http_root
+     /tmp/ccG8t015.s:123    .text.DestroyRequestInfo:0000000000000000 DestroyRequestInfo
+     /tmp/ccG8t015.s:228    .data:0000000000000000 default_files
+
+UNDEFINED SYMBOLS
+malloc
+strcpy
+strcat
+free
+__do_copy_data
+__do_clear_bss

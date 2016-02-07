@@ -1,0 +1,664 @@
+GAS LISTING /tmp/ccGQccaL.s 			page 1
+
+
+   1               		.file	"netdebug.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.rodata.str1.1,"aMS",@progbits,1
+   9               	.LC0:
+  10 0000 2D41 434B 		.string	"-ACK(%lx)"
+  10      2825 6C78 
+  10      2900 
+  11               	.LC1:
+  12 000a 2D46 494E 		.string	"-FIN"
+  12      00
+  13               	.LC2:
+  14 000f 2D53 594E 		.string	"-SYN"
+  14      00
+  15               	.LC3:
+  16 0014 2D52 5354 		.string	"-RST"
+  16      00
+  17               	.LC4:
+  18 0019 2D50 5348 		.string	"-PSH"
+  18      00
+  19               	.LC5:
+  20 001e 2D55 5247 		.string	"-URG"
+  20      00
+  21               		.section	.text.NutDumpTcpHeader,"ax",@progbits
+  22               	.global	NutDumpTcpHeader
+  23               		.type	NutDumpTcpHeader, @function
+  24               	NutDumpTcpHeader:
+  25 0000 CF92      		push r12
+  26 0002 DF92      		push r13
+  27 0004 EF92      		push r14
+  28 0006 FF92      		push r15
+  29 0008 0F93      		push r16
+  30 000a 1F93      		push r17
+  31 000c CF93      		push r28
+  32 000e DF93      		push r29
+  33               	/* prologue: function */
+  34               	/* frame size = 0 */
+  35               	/* stack size = 8 */
+  36               	.L__stack_usage = 8
+  37 0010 D82F      		mov r29,r24
+  38 0012 C92F      		mov r28,r25
+  39 0014 F901      		movw r30,r18
+  40 0016 0385      		ldd r16,Z+11
+  41 0018 1485      		ldd r17,Z+12
+  42 001a D801      		movw r26,r16
+  43 001c 1496      		adiw r26,4
+  44 001e CD90      		ld r12,X+
+  45 0020 DD90      		ld r13,X+
+  46 0022 ED90      		ld r14,X+
+  47 0024 FC90      		ld r15,X
+  48 0026 1797      		sbiw r26,4+3
+  49 0028 D701      		movw r26,r14
+  50 002a C601      		movw r24,r12
+GAS LISTING /tmp/ccGQccaL.s 			page 2
+
+
+  51               	/* #APP */
+  52               	 ;  319 "../../nut/include/sys/types.h" 1
+  53 002c 082E      		mov __tmp_reg__, r24
+  54 002e 8B2F      		mov r24, r27
+  55 0030 B02D      		mov r27, __tmp_reg__
+  56 0032 092E      		mov __tmp_reg__, r25
+  57 0034 9A2F      		mov r25, r26
+  58 0036 A02D      		mov r26, __tmp_reg__
+  59               		
+  60               	 ;  0 "" 2
+  61               	/* #NOAPP */
+  62 0038 BF93      		push r27
+  63 003a AF93      		push r26
+  64 003c 9F93      		push r25
+  65 003e 8F93      		push r24
+  66 0040 8289      		ldd r24,Z+18
+  67 0042 8F93      		push r24
+  68 0044 8189      		ldd r24,Z+17
+  69 0046 8F93      		push r24
+  70 0048 5F93      		push r21
+  71 004a 4F93      		push r20
+  72 004c 7F93      		push r23
+  73 004e 6F93      		push r22
+  74 0050 80E0      		ldi r24,lo8(fmt.3047)
+  75 0052 90E0      		ldi r25,hi8(fmt.3047)
+  76 0054 9F93      		push r25
+  77 0056 8F93      		push r24
+  78 0058 CF93      		push r28
+  79 005a DF93      		push r29
+  80 005c 0E94 0000 		call fprintf_P
+  81 0060 F801      		movw r30,r16
+  82 0062 8585      		ldd r24,Z+13
+  83 0064 2DB7      		in r18,__SP_L__
+  84 0066 3EB7      		in r19,__SP_H__
+  85 0068 225F      		subi r18,-14
+  86 006a 3F4F      		sbci r19,-1
+  87 006c 0FB6      		in __tmp_reg__,__SREG__
+  88 006e F894      		cli
+  89 0070 3EBF      		out __SP_H__,r19
+  90 0072 0FBE      		out __SREG__,__tmp_reg__
+  91 0074 2DBF      		out __SP_L__,r18
+  92 0076 84FF      		sbrs r24,4
+  93 0078 00C0      		rjmp .L2
+  94 007a 8085      		ldd r24,Z+8
+  95 007c 9185      		ldd r25,Z+9
+  96 007e A285      		ldd r26,Z+10
+  97 0080 B385      		ldd r27,Z+11
+  98               	/* #APP */
+  99               	 ;  319 "../../nut/include/sys/types.h" 1
+ 100 0082 082E      		mov __tmp_reg__, r24
+ 101 0084 8B2F      		mov r24, r27
+ 102 0086 B02D      		mov r27, __tmp_reg__
+ 103 0088 092E      		mov __tmp_reg__, r25
+ 104 008a 9A2F      		mov r25, r26
+ 105 008c A02D      		mov r26, __tmp_reg__
+ 106               		
+ 107               	 ;  0 "" 2
+GAS LISTING /tmp/ccGQccaL.s 			page 3
+
+
+ 108               	/* #NOAPP */
+ 109 008e BF93      		push r27
+ 110 0090 AF93      		push r26
+ 111 0092 9F93      		push r25
+ 112 0094 8F93      		push r24
+ 113 0096 80E0      		ldi r24,lo8(.LC0)
+ 114 0098 90E0      		ldi r25,hi8(.LC0)
+ 115 009a 9F93      		push r25
+ 116 009c 8F93      		push r24
+ 117 009e CF93      		push r28
+ 118 00a0 DF93      		push r29
+ 119 00a2 0E94 0000 		call fprintf
+ 120 00a6 8DB7      		in r24,__SP_L__
+ 121 00a8 9EB7      		in r25,__SP_H__
+ 122 00aa 0896      		adiw r24,8
+ 123 00ac 0FB6      		in __tmp_reg__,__SREG__
+ 124 00ae F894      		cli
+ 125 00b0 9EBF      		out __SP_H__,r25
+ 126 00b2 0FBE      		out __SREG__,__tmp_reg__
+ 127 00b4 8DBF      		out __SP_L__,r24
+ 128               	.L2:
+ 129 00b6 D801      		movw r26,r16
+ 130 00b8 1D96      		adiw r26,13
+ 131 00ba 8C91      		ld r24,X
+ 132 00bc 80FF      		sbrs r24,0
+ 133 00be 00C0      		rjmp .L3
+ 134 00c0 6D2F      		mov r22,r29
+ 135 00c2 7C2F      		mov r23,r28
+ 136 00c4 80E0      		ldi r24,lo8(.LC1)
+ 137 00c6 90E0      		ldi r25,hi8(.LC1)
+ 138 00c8 0E94 0000 		call fputs
+ 139               	.L3:
+ 140 00cc F801      		movw r30,r16
+ 141 00ce 8585      		ldd r24,Z+13
+ 142 00d0 81FF      		sbrs r24,1
+ 143 00d2 00C0      		rjmp .L4
+ 144 00d4 6D2F      		mov r22,r29
+ 145 00d6 7C2F      		mov r23,r28
+ 146 00d8 80E0      		ldi r24,lo8(.LC2)
+ 147 00da 90E0      		ldi r25,hi8(.LC2)
+ 148 00dc 0E94 0000 		call fputs
+ 149               	.L4:
+ 150 00e0 D801      		movw r26,r16
+ 151 00e2 1D96      		adiw r26,13
+ 152 00e4 8C91      		ld r24,X
+ 153 00e6 82FF      		sbrs r24,2
+ 154 00e8 00C0      		rjmp .L5
+ 155 00ea 6D2F      		mov r22,r29
+ 156 00ec 7C2F      		mov r23,r28
+ 157 00ee 80E0      		ldi r24,lo8(.LC3)
+ 158 00f0 90E0      		ldi r25,hi8(.LC3)
+ 159 00f2 0E94 0000 		call fputs
+ 160               	.L5:
+ 161 00f6 F801      		movw r30,r16
+ 162 00f8 8585      		ldd r24,Z+13
+ 163 00fa 83FF      		sbrs r24,3
+ 164 00fc 00C0      		rjmp .L6
+GAS LISTING /tmp/ccGQccaL.s 			page 4
+
+
+ 165 00fe 6D2F      		mov r22,r29
+ 166 0100 7C2F      		mov r23,r28
+ 167 0102 80E0      		ldi r24,lo8(.LC4)
+ 168 0104 90E0      		ldi r25,hi8(.LC4)
+ 169 0106 0E94 0000 		call fputs
+ 170               	.L6:
+ 171 010a D801      		movw r26,r16
+ 172 010c 1D96      		adiw r26,13
+ 173 010e 8C91      		ld r24,X
+ 174 0110 85FF      		sbrs r24,5
+ 175 0112 00C0      		rjmp .L7
+ 176 0114 6D2F      		mov r22,r29
+ 177 0116 7C2F      		mov r23,r28
+ 178 0118 80E0      		ldi r24,lo8(.LC5)
+ 179 011a 90E0      		ldi r25,hi8(.LC5)
+ 180 011c 0E94 0000 		call fputs
+ 181               	.L7:
+ 182 0120 6D2F      		mov r22,r29
+ 183 0122 7C2F      		mov r23,r28
+ 184 0124 8AE0      		ldi r24,lo8(10)
+ 185 0126 90E0      		ldi r25,0
+ 186               	/* epilogue start */
+ 187 0128 DF91      		pop r29
+ 188 012a CF91      		pop r28
+ 189 012c 1F91      		pop r17
+ 190 012e 0F91      		pop r16
+ 191 0130 FF90      		pop r15
+ 192 0132 EF90      		pop r14
+ 193 0134 DF90      		pop r13
+ 194 0136 CF90      		pop r12
+ 195 0138 0C94 0000 		jmp fputc
+ 196               		.size	NutDumpTcpHeader, .-NutDumpTcpHeader
+ 197               		.section	.rodata.str1.1
+ 198               	.LC6:
+ 199 0023 4C49 5354 		.string	"LISTEN"
+ 199      454E 00
+ 200               	.LC7:
+ 201 002a 5359 4E53 		.string	"SYNSENT"
+ 201      454E 5400 
+ 202               	.LC8:
+ 203 0032 5359 4E52 		.string	"SYNRCVD"
+ 203      4356 4400 
+ 204               	.LC9:
+ 205 003a 4553 5441 		.string	"ESTABL"
+ 205      424C 00
+ 206               	.LC10:
+ 207 0041 4649 4E57 		.string	"FINWAIT1"
+ 207      4149 5431 
+ 207      00
+ 208               	.LC11:
+ 209 004a 4649 4E57 		.string	"FINWAIT2"
+ 209      4149 5432 
+ 209      00
+ 210               	.LC12:
+ 211 0053 434C 4F53 		.string	"CLOSEWAIT"
+ 211      4557 4149 
+ 211      5400 
+GAS LISTING /tmp/ccGQccaL.s 			page 5
+
+
+ 212               	.LC13:
+ 213 005d 434C 4F53 		.string	"CLOSING"
+ 213      494E 4700 
+ 214               	.LC14:
+ 215 0065 4C41 5354 		.string	"LASTACK"
+ 215      4143 4B00 
+ 216               	.LC15:
+ 217 006d 5449 4D45 		.string	"TIMEWAIT"
+ 217      5741 4954 
+ 217      00
+ 218               	.LC16:
+ 219 0076 434C 4F53 		.string	"CLOSED"
+ 219      4544 00
+ 220               	.LC17:
+ 221 007d 4445 5354 		.string	"DESTROY"
+ 221      524F 5900 
+ 222               	.LC18:
+ 223 0085 3F55 4E4B 		.string	"?UNK?"
+ 223      3F00 
+ 224               		.section	.text.NutDumpSockState,"ax",@progbits
+ 225               	.global	NutDumpSockState
+ 226               		.type	NutDumpSockState, @function
+ 227               	NutDumpSockState:
+ 228 0000 EF92      		push r14
+ 229 0002 FF92      		push r15
+ 230 0004 1F93      		push r17
+ 231 0006 CF93      		push r28
+ 232 0008 DF93      		push r29
+ 233               	/* prologue: function */
+ 234               	/* frame size = 0 */
+ 235               	/* stack size = 5 */
+ 236               	.L__stack_usage = 5
+ 237 000a EC01      		movw r28,r24
+ 238 000c 162F      		mov r17,r22
+ 239 000e CA01      		movw r24,r20
+ 240 0010 7901      		movw r14,r18
+ 241 0012 0097      		sbiw r24,0
+ 242 0014 01F0      		breq .L28
+ 243 0016 BE01      		movw r22,r28
+ 244 0018 0E94 0000 		call fputs
+ 245               	.L28:
+ 246 001c 812F      		mov r24,r17
+ 247 001e 90E0      		ldi r25,0
+ 248 0020 8C30      		cpi r24,12
+ 249 0022 9105      		cpc r25,__zero_reg__
+ 250 0024 00F4      		brsh .L29
+ 251 0026 FC01      		movw r30,r24
+ 252 0028 BE01      		movw r22,r28
+ 253 002a 8827      		clr r24
+ 254 002c E050      		subi r30,pm_lo8(-(.L31))
+ 255 002e F040      		sbci r31,pm_hi8(-(.L31))
+ 256 0030 8040      		sbci r24,pm_hh8(-(.L31))
+ 257 0032 0C94 0000 		jmp __tablejump2__
+ 258               		.section	.progmem.gcc_sw_table.NutDumpSockState,"a",@progbits
+ 259               		.p2align	1
+ 260               	.L31:
+ 261 0000 0000      		.word gs(.L30)
+GAS LISTING /tmp/ccGQccaL.s 			page 6
+
+
+ 262 0002 0000      		.word gs(.L32)
+ 263 0004 0000      		.word gs(.L33)
+ 264 0006 0000      		.word gs(.L34)
+ 265 0008 0000      		.word gs(.L35)
+ 266 000a 0000      		.word gs(.L36)
+ 267 000c 0000      		.word gs(.L37)
+ 268 000e 0000      		.word gs(.L38)
+ 269 0010 0000      		.word gs(.L39)
+ 270 0012 0000      		.word gs(.L40)
+ 271 0014 0000      		.word gs(.L41)
+ 272 0016 0000      		.word gs(.L42)
+ 273               		.section	.text.NutDumpSockState
+ 274               	.L32:
+ 275 0036 80E0      		ldi r24,lo8(.LC6)
+ 276 0038 90E0      		ldi r25,hi8(.LC6)
+ 277 003a 00C0      		rjmp .L48
+ 278               	.L33:
+ 279 003c 80E0      		ldi r24,lo8(.LC7)
+ 280 003e 90E0      		ldi r25,hi8(.LC7)
+ 281 0040 00C0      		rjmp .L48
+ 282               	.L34:
+ 283 0042 80E0      		ldi r24,lo8(.LC8)
+ 284 0044 90E0      		ldi r25,hi8(.LC8)
+ 285 0046 00C0      		rjmp .L48
+ 286               	.L35:
+ 287 0048 80E0      		ldi r24,lo8(.LC9)
+ 288 004a 90E0      		ldi r25,hi8(.LC9)
+ 289 004c 00C0      		rjmp .L48
+ 290               	.L37:
+ 291 004e 80E0      		ldi r24,lo8(.LC10)
+ 292 0050 90E0      		ldi r25,hi8(.LC10)
+ 293 0052 00C0      		rjmp .L48
+ 294               	.L40:
+ 295 0054 80E0      		ldi r24,lo8(.LC11)
+ 296 0056 90E0      		ldi r25,hi8(.LC11)
+ 297 0058 00C0      		rjmp .L48
+ 298               	.L36:
+ 299 005a 80E0      		ldi r24,lo8(.LC12)
+ 300 005c 90E0      		ldi r25,hi8(.LC12)
+ 301 005e 00C0      		rjmp .L48
+ 302               	.L38:
+ 303 0060 80E0      		ldi r24,lo8(.LC13)
+ 304 0062 90E0      		ldi r25,hi8(.LC13)
+ 305 0064 00C0      		rjmp .L48
+ 306               	.L39:
+ 307 0066 80E0      		ldi r24,lo8(.LC14)
+ 308 0068 90E0      		ldi r25,hi8(.LC14)
+ 309 006a 00C0      		rjmp .L48
+ 310               	.L41:
+ 311 006c 80E0      		ldi r24,lo8(.LC15)
+ 312 006e 90E0      		ldi r25,hi8(.LC15)
+ 313 0070 00C0      		rjmp .L48
+ 314               	.L30:
+ 315 0072 80E0      		ldi r24,lo8(.LC16)
+ 316 0074 90E0      		ldi r25,hi8(.LC16)
+ 317 0076 00C0      		rjmp .L48
+ 318               	.L42:
+GAS LISTING /tmp/ccGQccaL.s 			page 7
+
+
+ 319 0078 80E0      		ldi r24,lo8(.LC17)
+ 320 007a 90E0      		ldi r25,hi8(.LC17)
+ 321 007c 0E94 0000 		call fputs
+ 322               	.L29:
+ 323 0080 BE01      		movw r22,r28
+ 324 0082 80E0      		ldi r24,lo8(.LC18)
+ 325 0084 90E0      		ldi r25,hi8(.LC18)
+ 326               	.L48:
+ 327 0086 0E94 0000 		call fputs
+ 328 008a E114      		cp r14,__zero_reg__
+ 329 008c F104      		cpc r15,__zero_reg__
+ 330 008e 01F0      		breq .L27
+ 331 0090 BE01      		movw r22,r28
+ 332 0092 C701      		movw r24,r14
+ 333               	/* epilogue start */
+ 334 0094 DF91      		pop r29
+ 335 0096 CF91      		pop r28
+ 336 0098 1F91      		pop r17
+ 337 009a FF90      		pop r15
+ 338 009c EF90      		pop r14
+ 339 009e 0C94 0000 		jmp fputs
+ 340               	.L27:
+ 341               	/* epilogue start */
+ 342 00a2 DF91      		pop r29
+ 343 00a4 CF91      		pop r28
+ 344 00a6 1F91      		pop r17
+ 345 00a8 FF90      		pop r15
+ 346 00aa EF90      		pop r14
+ 347 00ac 0895      		ret
+ 348               		.size	NutDumpSockState, .-NutDumpSockState
+ 349               		.section	.rodata.str1.1
+ 350               	.LC19:
+ 351 008b 0D0A 536F 		.string	"\r\nSocket     Typ Local                  Remote                 State\n"
+ 351      636B 6574 
+ 351      2020 2020 
+ 351      2054 7970 
+ 351      204C 6F63 
+ 352               	.LC20:
+ 353 00d1 2531 3573 		.string	"%15s:%-6u "
+ 353      3A25 2D36 
+ 353      7520 00
+ 354               	.LC21:
+ 355 00dc 0D0A 00   		.string	"\r\n"
+ 356               		.section	.text.NutDumpSocketList,"ax",@progbits
+ 357               	.global	NutDumpSocketList
+ 358               		.type	NutDumpSocketList, @function
+ 359               	NutDumpSocketList:
+ 360 0000 AF92      		push r10
+ 361 0002 BF92      		push r11
+ 362 0004 CF92      		push r12
+ 363 0006 DF92      		push r13
+ 364 0008 EF92      		push r14
+ 365 000a FF92      		push r15
+ 366 000c 0F93      		push r16
+ 367 000e 1F93      		push r17
+ 368 0010 CF93      		push r28
+ 369 0012 DF93      		push r29
+GAS LISTING /tmp/ccGQccaL.s 			page 8
+
+
+ 370               	/* prologue: function */
+ 371               	/* frame size = 0 */
+ 372               	/* stack size = 10 */
+ 373               	.L__stack_usage = 10
+ 374 0014 F82E      		mov r15,r24
+ 375 0016 E92E      		mov r14,r25
+ 376 0018 682F      		mov r22,r24
+ 377 001a 792F      		mov r23,r25
+ 378 001c 80E0      		ldi r24,lo8(.LC19)
+ 379 001e 90E0      		ldi r25,hi8(.LC19)
+ 380 0020 0E94 0000 		call fputs
+ 381 0024 C091 0000 		lds r28,tcpSocketList
+ 382 0028 D091 0000 		lds r29,tcpSocketList+1
+ 383 002c 80E0      		ldi r24,lo8(fmt1.3074)
+ 384 002e C82E      		mov r12,r24
+ 385 0030 80E0      		ldi r24,hi8(fmt1.3074)
+ 386 0032 D82E      		mov r13,r24
+ 387 0034 90E0      		ldi r25,lo8(.LC20)
+ 388 0036 A92E      		mov r10,r25
+ 389 0038 90E0      		ldi r25,hi8(.LC20)
+ 390 003a B92E      		mov r11,r25
+ 391               	.L50:
+ 392 003c 2097      		sbiw r28,0
+ 393 003e 01F4      		brne .+2
+ 394 0040 00C0      		rjmp .L54
+ 395 0042 0A8D      		ldd r16,Y+26
+ 396 0044 1B8D      		ldd r17,Y+27
+ 397               	/* #APP */
+ 398               	 ;  309 "../../nut/include/sys/types.h" 1
+ 399 0046 002E      		mov __tmp_reg__, r16
+ 400 0048 012F      		mov r16, r17
+ 401 004a 102D      		mov r17, __tmp_reg__
+ 402               		
+ 403               	 ;  0 "" 2
+ 404               	/* #NOAPP */
+ 405 004c 6E89      		ldd r22,Y+22
+ 406 004e 7F89      		ldd r23,Y+23
+ 407 0050 888D      		ldd r24,Y+24
+ 408 0052 998D      		ldd r25,Y+25
+ 409 0054 0E94 0000 		call inet_ntoa
+ 410 0058 1F93      		push r17
+ 411 005a 0F93      		push r16
+ 412 005c 9F93      		push r25
+ 413 005e 8F93      		push r24
+ 414 0060 DF93      		push r29
+ 415 0062 CF93      		push r28
+ 416 0064 DF92      		push r13
+ 417 0066 CF92      		push r12
+ 418 0068 EF92      		push r14
+ 419 006a FF92      		push r15
+ 420 006c 0E94 0000 		call fprintf_P
+ 421 0070 08A1      		ldd r16,Y+32
+ 422 0072 19A1      		ldd r17,Y+33
+ 423               	/* #APP */
+ 424               	 ;  309 "../../nut/include/sys/types.h" 1
+ 425 0074 002E      		mov __tmp_reg__, r16
+ 426 0076 012F      		mov r16, r17
+GAS LISTING /tmp/ccGQccaL.s 			page 9
+
+
+ 427 0078 102D      		mov r17, __tmp_reg__
+ 428               		
+ 429               	 ;  0 "" 2
+ 430               	/* #NOAPP */
+ 431 007a 6C8D      		ldd r22,Y+28
+ 432 007c 7D8D      		ldd r23,Y+29
+ 433 007e 8E8D      		ldd r24,Y+30
+ 434 0080 9F8D      		ldd r25,Y+31
+ 435 0082 0E94 0000 		call inet_ntoa
+ 436 0086 1F93      		push r17
+ 437 0088 0F93      		push r16
+ 438 008a 9F93      		push r25
+ 439 008c 8F93      		push r24
+ 440 008e BF92      		push r11
+ 441 0090 AF92      		push r10
+ 442 0092 EF92      		push r14
+ 443 0094 FF92      		push r15
+ 444 0096 0E94 0000 		call fprintf
+ 445 009a 6D89      		ldd r22,Y+21
+ 446 009c 20E0      		ldi r18,lo8(.LC21)
+ 447 009e 30E0      		ldi r19,hi8(.LC21)
+ 448 00a0 40E0      		ldi r20,0
+ 449 00a2 50E0      		ldi r21,0
+ 450 00a4 8F2D      		mov r24,r15
+ 451 00a6 9E2D      		mov r25,r14
+ 452 00a8 0E94 0000 		call NutDumpSockState
+ 453 00ac 0A80      		ldd __tmp_reg__,Y+2
+ 454 00ae DB81      		ldd r29,Y+3
+ 455 00b0 C02D      		mov r28,__tmp_reg__
+ 456 00b2 8DB7      		in r24,__SP_L__
+ 457 00b4 9EB7      		in r25,__SP_H__
+ 458 00b6 4296      		adiw r24,18
+ 459 00b8 0FB6      		in __tmp_reg__,__SREG__
+ 460 00ba F894      		cli
+ 461 00bc 9EBF      		out __SP_H__,r25
+ 462 00be 0FBE      		out __SREG__,__tmp_reg__
+ 463 00c0 8DBF      		out __SP_L__,r24
+ 464 00c2 00C0      		rjmp .L50
+ 465               	.L54:
+ 466 00c4 C091 0000 		lds r28,udpSocketList
+ 467 00c8 D091 0000 		lds r29,udpSocketList+1
+ 468 00cc 00E0      		ldi r16,lo8(fmt2.3075)
+ 469 00ce 10E0      		ldi r17,hi8(fmt2.3075)
+ 470               	.L52:
+ 471 00d0 2097      		sbiw r28,0
+ 472 00d2 01F0      		breq .L55
+ 473 00d4 8A81      		ldd r24,Y+2
+ 474 00d6 9B81      		ldd r25,Y+3
+ 475               	/* #APP */
+ 476               	 ;  309 "../../nut/include/sys/types.h" 1
+ 477 00d8 082E      		mov __tmp_reg__, r24
+ 478 00da 892F      		mov r24, r25
+ 479 00dc 902D      		mov r25, __tmp_reg__
+ 480               		
+ 481               	 ;  0 "" 2
+ 482               	/* #NOAPP */
+ 483 00de 9F93      		push r25
+GAS LISTING /tmp/ccGQccaL.s 			page 10
+
+
+ 484 00e0 8F93      		push r24
+ 485 00e2 DF93      		push r29
+ 486 00e4 CF93      		push r28
+ 487 00e6 1F93      		push r17
+ 488 00e8 0F93      		push r16
+ 489 00ea EF92      		push r14
+ 490 00ec FF92      		push r15
+ 491 00ee 0E94 0000 		call fprintf_P
+ 492 00f2 0990      		ld __tmp_reg__,Y+
+ 493 00f4 D881      		ld r29,Y
+ 494 00f6 C02D      		mov r28,__tmp_reg__
+ 495 00f8 8DB7      		in r24,__SP_L__
+ 496 00fa 9EB7      		in r25,__SP_H__
+ 497 00fc 0896      		adiw r24,8
+ 498 00fe 0FB6      		in __tmp_reg__,__SREG__
+ 499 0100 F894      		cli
+ 500 0102 9EBF      		out __SP_H__,r25
+ 501 0104 0FBE      		out __SREG__,__tmp_reg__
+ 502 0106 8DBF      		out __SP_L__,r24
+ 503 0108 00C0      		rjmp .L52
+ 504               	.L55:
+ 505               	/* epilogue start */
+ 506 010a DF91      		pop r29
+ 507 010c CF91      		pop r28
+ 508 010e 1F91      		pop r17
+ 509 0110 0F91      		pop r16
+ 510 0112 FF90      		pop r15
+ 511 0114 EF90      		pop r14
+ 512 0116 DF90      		pop r13
+ 513 0118 CF90      		pop r12
+ 514 011a BF90      		pop r11
+ 515 011c AF90      		pop r10
+ 516 011e 0895      		ret
+ 517               		.size	NutDumpSocketList, .-NutDumpSocketList
+ 518               		.section	.text.NutTraceTcp,"ax",@progbits
+ 519               	.global	NutTraceTcp
+ 520               		.type	NutTraceTcp, @function
+ 521               	NutTraceTcp:
+ 522               	/* prologue: function */
+ 523               	/* frame size = 0 */
+ 524               	/* stack size = 0 */
+ 525               	.L__stack_usage = 0
+ 526 0000 0097      		sbiw r24,0
+ 527 0002 01F0      		breq .L57
+ 528 0004 9093 0000 		sts __tcp_trs+1,r25
+ 529 0008 8093 0000 		sts __tcp_trs,r24
+ 530               	.L57:
+ 531 000c 8091 0000 		lds r24,__tcp_trs
+ 532 0010 9091 0000 		lds r25,__tcp_trs+1
+ 533 0014 892B      		or r24,r25
+ 534 0016 01F0      		breq .L58
+ 535 0018 6093 0000 		sts __tcp_trf,r22
+ 536 001c 0895      		ret
+ 537               	.L58:
+ 538 001e 1092 0000 		sts __tcp_trf,__zero_reg__
+ 539 0022 0895      		ret
+ 540               		.size	NutTraceTcp, .-NutTraceTcp
+GAS LISTING /tmp/ccGQccaL.s 			page 11
+
+
+ 541               		.section	.progmem.data,"a",@progbits
+ 542               		.type	fmt2.3075, @object
+ 543               		.size	fmt2.3075, 15
+ 544               	fmt2.3075:
+ 545 0000 2531 3070 		.string	"%10p UDP %6u\r\n"
+ 545      2055 4450 
+ 545      2025 3675 
+ 545      0D0A 00
+ 546               		.type	fmt1.3074, @object
+ 547               		.size	fmt1.3074, 20
+ 548               	fmt1.3074:
+ 549 000f 2531 3070 		.string	"%10p TCP %15s:%-6u "
+ 549      2054 4350 
+ 549      2025 3135 
+ 549      733A 252D 
+ 549      3675 2000 
+ 550               		.type	fmt.3047, @object
+ 551               		.size	fmt.3047, 18
+ 552               	fmt.3047:
+ 553 0023 2573 2570 		.string	"%s%p[%u]-SEQ(%lx)"
+ 553      5B25 755D 
+ 553      2D53 4551 
+ 553      2825 6C78 
+ 553      2900 
+ 554               		.comm	__tcp_trf,1,1
+ 555               		.comm	__tcp_trs,2,1
+ 556               		.ident	"GCC: (GNU) 5.3.0"
+ 557               	.global __do_copy_data
+ 558               	.global __do_clear_bss
+GAS LISTING /tmp/ccGQccaL.s 			page 12
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 netdebug.c
+     /tmp/ccGQccaL.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccGQccaL.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccGQccaL.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccGQccaL.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccGQccaL.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccGQccaL.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccGQccaL.s:24     .text.NutDumpTcpHeader:0000000000000000 NutDumpTcpHeader
+     /tmp/ccGQccaL.s:552    .progmem.data:0000000000000023 fmt.3047
+     /tmp/ccGQccaL.s:227    .text.NutDumpSockState:0000000000000000 NutDumpSockState
+     /tmp/ccGQccaL.s:359    .text.NutDumpSocketList:0000000000000000 NutDumpSocketList
+     /tmp/ccGQccaL.s:548    .progmem.data:000000000000000f fmt1.3074
+     /tmp/ccGQccaL.s:544    .progmem.data:0000000000000000 fmt2.3075
+     /tmp/ccGQccaL.s:521    .text.NutTraceTcp:0000000000000000 NutTraceTcp
+                            *COM*:0000000000000002 __tcp_trs
+                            *COM*:0000000000000001 __tcp_trf
+
+UNDEFINED SYMBOLS
+fprintf_P
+fprintf
+fputs
+fputc
+__tablejump2__
+tcpSocketList
+inet_ntoa
+udpSocketList
+__do_copy_data
+__do_clear_bss

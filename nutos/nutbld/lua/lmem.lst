@@ -1,0 +1,270 @@
+GAS LISTING /tmp/ccO2opgb.s 			page 1
+
+
+   1               		.file	"lmem.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.rodata.str1.1,"aMS",@progbits,1
+   9               	.LC0:
+  10 0000 6D65 6D6F 		.string	"memory allocation error: block too big"
+  10      7279 2061 
+  10      6C6C 6F63 
+  10      6174 696F 
+  10      6E20 6572 
+  11               		.section	.text.luaM_toobig,"ax",@progbits
+  12               	.global	luaM_toobig
+  13               		.hidden	luaM_toobig
+  14               		.type	luaM_toobig, @function
+  15               	luaM_toobig:
+  16               	/* prologue: function */
+  17               	/* frame size = 0 */
+  18               	/* stack size = 0 */
+  19               	.L__stack_usage = 0
+  20 0000 20E0      		ldi r18,lo8(.LC0)
+  21 0002 30E0      		ldi r19,hi8(.LC0)
+  22 0004 3F93      		push r19
+  23 0006 2F93      		push r18
+  24 0008 9F93      		push r25
+  25 000a 8F93      		push r24
+  26 000c 0E94 0000 		call luaG_runerror
+  27 0010 0F90      		pop __tmp_reg__
+  28 0012 0F90      		pop __tmp_reg__
+  29 0014 0F90      		pop __tmp_reg__
+  30 0016 0F90      		pop __tmp_reg__
+  31 0018 80E0      		ldi r24,0
+  32 001a 90E0      		ldi r25,0
+  33 001c 0895      		ret
+  34               		.size	luaM_toobig, .-luaM_toobig
+  35               		.section	.text.luaM_realloc_,"ax",@progbits
+  36               	.global	luaM_realloc_
+  37               		.hidden	luaM_realloc_
+  38               		.type	luaM_realloc_, @function
+  39               	luaM_realloc_:
+  40 0000 AF92      		push r10
+  41 0002 BF92      		push r11
+  42 0004 CF92      		push r12
+  43 0006 DF92      		push r13
+  44 0008 EF92      		push r14
+  45 000a FF92      		push r15
+  46 000c 0F93      		push r16
+  47 000e 1F93      		push r17
+  48 0010 CF93      		push r28
+  49 0012 DF93      		push r29
+  50               	/* prologue: function */
+  51               	/* frame size = 0 */
+  52               	/* stack size = 10 */
+  53               	.L__stack_usage = 10
+GAS LISTING /tmp/ccO2opgb.s 			page 2
+
+
+  54 0014 5C01      		movw r10,r24
+  55 0016 7A01      		movw r14,r20
+  56 0018 6901      		movw r12,r18
+  57 001a FC01      		movw r30,r24
+  58 001c C185      		ldd r28,Z+9
+  59 001e D285      		ldd r29,Z+10
+  60 0020 E885      		ldd r30,Y+8
+  61 0022 F985      		ldd r31,Y+9
+  62 0024 8A85      		ldd r24,Y+10
+  63 0026 9B85      		ldd r25,Y+11
+  64 0028 1995      		eicall
+  65 002a 8C01      		movw r16,r24
+  66 002c 892B      		or r24,r25
+  67 002e 01F4      		brne .L3
+  68 0030 C114      		cp r12,__zero_reg__
+  69 0032 D104      		cpc r13,__zero_reg__
+  70 0034 01F0      		breq .L3
+  71 0036 64E0      		ldi r22,lo8(4)
+  72 0038 70E0      		ldi r23,0
+  73 003a C501      		movw r24,r10
+  74 003c 0E94 0000 		call luaD_throw
+  75               	.L3:
+  76 0040 8EA1      		ldd r24,Y+38
+  77 0042 9FA1      		ldd r25,Y+39
+  78 0044 A8A5      		ldd r26,Y+40
+  79 0046 B9A5      		ldd r27,Y+41
+  80 0048 8C0D      		add r24,r12
+  81 004a 9D1D      		adc r25,r13
+  82 004c A11D      		adc r26,__zero_reg__
+  83 004e B11D      		adc r27,__zero_reg__
+  84 0050 8E19      		sub r24,r14
+  85 0052 9F09      		sbc r25,r15
+  86 0054 A109      		sbc r26,__zero_reg__
+  87 0056 B109      		sbc r27,__zero_reg__
+  88 0058 8EA3      		std Y+38,r24
+  89 005a 9FA3      		std Y+39,r25
+  90 005c A8A7      		std Y+40,r26
+  91 005e B9A7      		std Y+41,r27
+  92 0060 C801      		movw r24,r16
+  93               	/* epilogue start */
+  94 0062 DF91      		pop r29
+  95 0064 CF91      		pop r28
+  96 0066 1F91      		pop r17
+  97 0068 0F91      		pop r16
+  98 006a FF90      		pop r15
+  99 006c EF90      		pop r14
+ 100 006e DF90      		pop r13
+ 101 0070 CF90      		pop r12
+ 102 0072 BF90      		pop r11
+ 103 0074 AF90      		pop r10
+ 104 0076 0895      		ret
+ 105               		.size	luaM_realloc_, .-luaM_realloc_
+ 106               		.section	.text.luaM_growaux_,"ax",@progbits
+ 107               	.global	luaM_growaux_
+ 108               		.hidden	luaM_growaux_
+ 109               		.type	luaM_growaux_, @function
+ 110               	luaM_growaux_:
+GAS LISTING /tmp/ccO2opgb.s 			page 3
+
+
+ 111 0000 8F92      		push r8
+ 112 0002 9F92      		push r9
+ 113 0004 AF92      		push r10
+ 114 0006 BF92      		push r11
+ 115 0008 CF92      		push r12
+ 116 000a DF92      		push r13
+ 117 000c EF92      		push r14
+ 118 000e FF92      		push r15
+ 119 0010 0F93      		push r16
+ 120 0012 1F93      		push r17
+ 121 0014 CF93      		push r28
+ 122 0016 DF93      		push r29
+ 123               	/* prologue: function */
+ 124               	/* frame size = 0 */
+ 125               	/* stack size = 12 */
+ 126               	.L__stack_usage = 12
+ 127 0018 982E      		mov r9,r24
+ 128 001a 892E      		mov r8,r25
+ 129 001c 6B01      		movw r12,r22
+ 130 001e EA01      		movw r28,r20
+ 131 0020 5901      		movw r10,r18
+ 132 0022 2881      		ld r18,Y
+ 133 0024 3981      		ldd r19,Y+1
+ 134 0026 C801      		movw r24,r16
+ 135 0028 17FD      		sbrc r17,7
+ 136 002a 0196      		adiw r24,1
+ 137               	.L10:
+ 138 002c 9595      		asr r25
+ 139 002e 8795      		ror r24
+ 140 0030 2817      		cp r18,r24
+ 141 0032 3907      		cpc r19,r25
+ 142 0034 04F0      		brlt .L9
+ 143 0036 2017      		cp r18,r16
+ 144 0038 3107      		cpc r19,r17
+ 145 003a 04F0      		brlt .L11
+ 146 003c FF92      		push r15
+ 147 003e EF92      		push r14
+ 148 0040 8F92      		push r8
+ 149 0042 9F92      		push r9
+ 150 0044 0E94 0000 		call luaG_runerror
+ 151 0048 0F90      		pop __tmp_reg__
+ 152 004a 0F90      		pop __tmp_reg__
+ 153 004c 0F90      		pop __tmp_reg__
+ 154 004e 0F90      		pop __tmp_reg__
+ 155 0050 00C0      		rjmp .L11
+ 156               	.L9:
+ 157 0052 8901      		movw r16,r18
+ 158 0054 000F      		lsl r16
+ 159 0056 111F      		rol r17
+ 160 0058 0430      		cpi r16,4
+ 161 005a 1105      		cpc r17,__zero_reg__
+ 162 005c 04F4      		brge .L11
+ 163 005e 04E0      		ldi r16,lo8(4)
+ 164 0060 10E0      		ldi r17,0
+ 165               	.L11:
+ 166 0062 8DEF      		ldi r24,lo8(-3)
+ 167 0064 9FEF      		ldi r25,lo8(-1)
+GAS LISTING /tmp/ccO2opgb.s 			page 4
+
+
+ 168 0066 B501      		movw r22,r10
+ 169 0068 0E94 0000 		call __udivmodhi4
+ 170 006c C801      		movw r24,r16
+ 171 006e 0196      		adiw r24,1
+ 172 0070 6817      		cp r22,r24
+ 173 0072 7907      		cpc r23,r25
+ 174 0074 00F0      		brlo .L12
+ 175 0076 0A9D      		mul r16,r10
+ 176 0078 9001      		movw r18,r0
+ 177 007a 0B9D      		mul r16,r11
+ 178 007c 300D      		add r19,r0
+ 179 007e 1A9D      		mul r17,r10
+ 180 0080 300D      		add r19,r0
+ 181 0082 1124      		clr r1
+ 182 0084 8881      		ld r24,Y
+ 183 0086 9981      		ldd r25,Y+1
+ 184 0088 A89E      		mul r10,r24
+ 185 008a A001      		movw r20,r0
+ 186 008c A99E      		mul r10,r25
+ 187 008e 500D      		add r21,r0
+ 188 0090 B89E      		mul r11,r24
+ 189 0092 500D      		add r21,r0
+ 190 0094 1124      		clr r1
+ 191 0096 B601      		movw r22,r12
+ 192 0098 892D      		mov r24,r9
+ 193 009a 982D      		mov r25,r8
+ 194 009c 0E94 0000 		call luaM_realloc_
+ 195 00a0 00C0      		rjmp .L13
+ 196               	.L12:
+ 197 00a2 80E0      		ldi r24,lo8(.LC0)
+ 198 00a4 90E0      		ldi r25,hi8(.LC0)
+ 199 00a6 9F93      		push r25
+ 200 00a8 8F93      		push r24
+ 201 00aa 8F92      		push r8
+ 202 00ac 9F92      		push r9
+ 203 00ae 0E94 0000 		call luaG_runerror
+ 204 00b2 0F90      		pop __tmp_reg__
+ 205 00b4 0F90      		pop __tmp_reg__
+ 206 00b6 0F90      		pop __tmp_reg__
+ 207 00b8 0F90      		pop __tmp_reg__
+ 208 00ba 80E0      		ldi r24,0
+ 209 00bc 90E0      		ldi r25,0
+ 210               	.L13:
+ 211 00be 1983      		std Y+1,r17
+ 212 00c0 0883      		st Y,r16
+ 213               	/* epilogue start */
+ 214 00c2 DF91      		pop r29
+ 215 00c4 CF91      		pop r28
+ 216 00c6 1F91      		pop r17
+ 217 00c8 0F91      		pop r16
+ 218 00ca FF90      		pop r15
+ 219 00cc EF90      		pop r14
+ 220 00ce DF90      		pop r13
+ 221 00d0 CF90      		pop r12
+ 222 00d2 BF90      		pop r11
+ 223 00d4 AF90      		pop r10
+ 224 00d6 9F90      		pop r9
+GAS LISTING /tmp/ccO2opgb.s 			page 5
+
+
+ 225 00d8 8F90      		pop r8
+ 226 00da 0895      		ret
+ 227               		.size	luaM_growaux_, .-luaM_growaux_
+ 228               		.hidden	luaD_throw
+ 229               		.hidden	luaG_runerror
+ 230               		.ident	"GCC: (GNU) 5.3.0"
+ 231               	.global __do_copy_data
+GAS LISTING /tmp/ccO2opgb.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 lmem.c
+     /tmp/ccO2opgb.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccO2opgb.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccO2opgb.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccO2opgb.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccO2opgb.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccO2opgb.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccO2opgb.s:15     .text.luaM_toobig:0000000000000000 luaM_toobig
+     /tmp/ccO2opgb.s:39     .text.luaM_realloc_:0000000000000000 luaM_realloc_
+     /tmp/ccO2opgb.s:110    .text.luaM_growaux_:0000000000000000 luaM_growaux_
+
+UNDEFINED SYMBOLS
+luaG_runerror
+luaD_throw
+__udivmodhi4
+__do_copy_data

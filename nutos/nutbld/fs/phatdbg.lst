@@ -1,0 +1,1174 @@
+GAS LISTING /tmp/ccVWd3bA.s 			page 1
+
+
+   1               		.file	"phatdbg.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.PhatDbgAttrList,"ax",@progbits
+   9               	.global	PhatDbgAttrList
+  10               		.type	PhatDbgAttrList, @function
+  11               	PhatDbgAttrList:
+  12               	/* prologue: function */
+  13               	/* frame size = 0 */
+  14               	/* stack size = 0 */
+  15               	.L__stack_usage = 0
+  16 0000 60FF      		sbrs r22,0
+  17 0002 00C0      		rjmp .L2
+  18 0004 BC01      		movw r22,r24
+  19 0006 82E5      		ldi r24,lo8(82)
+  20 0008 90E0      		ldi r25,0
+  21 000a 00C0      		rjmp .L8
+  22               	.L2:
+  23 000c 61FF      		sbrs r22,1
+  24 000e 00C0      		rjmp .L3
+  25 0010 BC01      		movw r22,r24
+  26 0012 88E4      		ldi r24,lo8(72)
+  27 0014 90E0      		ldi r25,0
+  28 0016 00C0      		rjmp .L8
+  29               	.L3:
+  30 0018 62FF      		sbrs r22,2
+  31 001a 00C0      		rjmp .L4
+  32 001c BC01      		movw r22,r24
+  33 001e 83E5      		ldi r24,lo8(83)
+  34 0020 90E0      		ldi r25,0
+  35 0022 00C0      		rjmp .L8
+  36               	.L4:
+  37 0024 63FF      		sbrs r22,3
+  38 0026 00C0      		rjmp .L5
+  39 0028 BC01      		movw r22,r24
+  40 002a 86E5      		ldi r24,lo8(86)
+  41 002c 90E0      		ldi r25,0
+  42 002e 00C0      		rjmp .L8
+  43               	.L5:
+  44 0030 64FF      		sbrs r22,4
+  45 0032 00C0      		rjmp .L6
+  46 0034 BC01      		movw r22,r24
+  47 0036 84E4      		ldi r24,lo8(68)
+  48 0038 90E0      		ldi r25,0
+  49 003a 00C0      		rjmp .L8
+  50               	.L6:
+  51 003c 65FF      		sbrs r22,5
+  52 003e 00C0      		rjmp .L1
+  53 0040 BC01      		movw r22,r24
+  54 0042 81E4      		ldi r24,lo8(65)
+  55 0044 90E0      		ldi r25,0
+  56               	.L8:
+  57 0046 0C94 0000 		jmp fputc
+GAS LISTING /tmp/ccVWd3bA.s 			page 2
+
+
+  58               	.L1:
+  59 004a 0895      		ret
+  60               		.size	PhatDbgAttrList, .-PhatDbgAttrList
+  61               		.section	.rodata.str1.1,"aMS",@progbits,1
+  62               	.LC0:
+  63 0000 2D2D 2D20 		.string	"--- %s ---\n"
+  63      2573 202D 
+  63      2D2D 0A00 
+  64               	.LC1:
+  65 000c 4465 6E74 		.string	"DentFName: '%.11s'\n"
+  65      464E 616D 
+  65      653A 2027 
+  65      252E 3131 
+  65      7327 0A00 
+  66               	.LC2:
+  67 0020 4465 6E74 		.string	"DentFAttr: "
+  67      4641 7474 
+  67      723A 2000 
+  68               	.LC3:
+  69 002c 4465 6E74 		.string	"DentRsrvd: 0x%02X\n"
+  69      5273 7276 
+  69      643A 2030 
+  69      7825 3032 
+  69      580A 00
+  70               	.LC4:
+  71 003f 4465 6E74 		.string	"DentCTime: 0x%04X 0x%04X 0x%02X\n"
+  71      4354 696D 
+  71      653A 2030 
+  71      7825 3034 
+  71      5820 3078 
+  72               	.LC5:
+  73 0060 4465 6E74 		.string	"DentADate: 0x%04X\n"
+  73      4144 6174 
+  73      653A 2030 
+  73      7825 3034 
+  73      580A 00
+  74               	.LC6:
+  75 0073 4465 6E74 		.string	"DentMTime: 0x%04X 0x%04X\n"
+  75      4D54 696D 
+  75      653A 2030 
+  75      7825 3034 
+  75      5820 3078 
+  76               	.LC7:
+  77 008d 4465 6E74 		.string	"DentClust: %lu\n"
+  77      436C 7573 
+  77      743A 2025 
+  77      6C75 0A00 
+  78               	.LC8:
+  79 009d 4465 6E74 		.string	"DentFSize: %lu\n"
+  79      4653 697A 
+  79      653A 2025 
+  79      6C75 0A00 
+  80               		.section	.text.PhatDbgDirEntry,"ax",@progbits
+  81               	.global	PhatDbgDirEntry
+  82               		.type	PhatDbgDirEntry, @function
+  83               	PhatDbgDirEntry:
+  84 0000 0F93      		push r16
+GAS LISTING /tmp/ccVWd3bA.s 			page 3
+
+
+  85 0002 1F93      		push r17
+  86 0004 CF93      		push r28
+  87 0006 DF93      		push r29
+  88               	/* prologue: function */
+  89               	/* frame size = 0 */
+  90               	/* stack size = 4 */
+  91               	.L__stack_usage = 4
+  92 0008 182F      		mov r17,r24
+  93 000a 092F      		mov r16,r25
+  94 000c EA01      		movw r28,r20
+  95 000e 6115      		cp r22,__zero_reg__
+  96 0010 7105      		cpc r23,__zero_reg__
+  97 0012 01F0      		breq .L11
+  98 0014 7F93      		push r23
+  99 0016 6F93      		push r22
+ 100 0018 80E0      		ldi r24,lo8(.LC0)
+ 101 001a 90E0      		ldi r25,hi8(.LC0)
+ 102 001c 9F93      		push r25
+ 103 001e 8F93      		push r24
+ 104 0020 0F93      		push r16
+ 105 0022 1F93      		push r17
+ 106 0024 0E94 0000 		call fprintf
+ 107 0028 0F90      		pop __tmp_reg__
+ 108 002a 0F90      		pop __tmp_reg__
+ 109 002c 0F90      		pop __tmp_reg__
+ 110 002e 0F90      		pop __tmp_reg__
+ 111 0030 0F90      		pop __tmp_reg__
+ 112 0032 0F90      		pop __tmp_reg__
+ 113               	.L11:
+ 114 0034 DF93      		push r29
+ 115 0036 CF93      		push r28
+ 116 0038 80E0      		ldi r24,lo8(.LC1)
+ 117 003a 90E0      		ldi r25,hi8(.LC1)
+ 118 003c 9F93      		push r25
+ 119 003e 8F93      		push r24
+ 120 0040 0F93      		push r16
+ 121 0042 1F93      		push r17
+ 122 0044 0E94 0000 		call fprintf
+ 123 0048 612F      		mov r22,r17
+ 124 004a 702F      		mov r23,r16
+ 125 004c 80E0      		ldi r24,lo8(.LC2)
+ 126 004e 90E0      		ldi r25,hi8(.LC2)
+ 127 0050 0E94 0000 		call fputs
+ 128 0054 6B85      		ldd r22,Y+11
+ 129 0056 812F      		mov r24,r17
+ 130 0058 902F      		mov r25,r16
+ 131 005a 0E94 0000 		call PhatDbgAttrList
+ 132 005e 612F      		mov r22,r17
+ 133 0060 702F      		mov r23,r16
+ 134 0062 8AE0      		ldi r24,lo8(10)
+ 135 0064 90E0      		ldi r25,0
+ 136 0066 0E94 0000 		call fputc
+ 137 006a 8C85      		ldd r24,Y+12
+ 138 006c 1F92      		push __zero_reg__
+ 139 006e 8F93      		push r24
+ 140 0070 80E0      		ldi r24,lo8(.LC3)
+ 141 0072 90E0      		ldi r25,hi8(.LC3)
+GAS LISTING /tmp/ccVWd3bA.s 			page 4
+
+
+ 142 0074 9F93      		push r25
+ 143 0076 8F93      		push r24
+ 144 0078 0F93      		push r16
+ 145 007a 1F93      		push r17
+ 146 007c 0E94 0000 		call fprintf
+ 147 0080 8D85      		ldd r24,Y+13
+ 148 0082 1F92      		push __zero_reg__
+ 149 0084 8F93      		push r24
+ 150 0086 8F85      		ldd r24,Y+15
+ 151 0088 8F93      		push r24
+ 152 008a 8E85      		ldd r24,Y+14
+ 153 008c 8F93      		push r24
+ 154 008e 8989      		ldd r24,Y+17
+ 155 0090 8F93      		push r24
+ 156 0092 8889      		ldd r24,Y+16
+ 157 0094 8F93      		push r24
+ 158 0096 80E0      		ldi r24,lo8(.LC4)
+ 159 0098 90E0      		ldi r25,hi8(.LC4)
+ 160 009a 9F93      		push r25
+ 161 009c 8F93      		push r24
+ 162 009e 0F93      		push r16
+ 163 00a0 1F93      		push r17
+ 164 00a2 0E94 0000 		call fprintf
+ 165 00a6 8B89      		ldd r24,Y+19
+ 166 00a8 8F93      		push r24
+ 167 00aa 8A89      		ldd r24,Y+18
+ 168 00ac 8F93      		push r24
+ 169 00ae 80E0      		ldi r24,lo8(.LC5)
+ 170 00b0 90E0      		ldi r25,hi8(.LC5)
+ 171 00b2 9F93      		push r25
+ 172 00b4 8F93      		push r24
+ 173 00b6 0F93      		push r16
+ 174 00b8 1F93      		push r17
+ 175 00ba 0E94 0000 		call fprintf
+ 176 00be 8F89      		ldd r24,Y+23
+ 177 00c0 8F93      		push r24
+ 178 00c2 8E89      		ldd r24,Y+22
+ 179 00c4 8F93      		push r24
+ 180 00c6 898D      		ldd r24,Y+25
+ 181 00c8 8F93      		push r24
+ 182 00ca 888D      		ldd r24,Y+24
+ 183 00cc 8F93      		push r24
+ 184 00ce 80E0      		ldi r24,lo8(.LC6)
+ 185 00d0 90E0      		ldi r25,hi8(.LC6)
+ 186 00d2 9F93      		push r25
+ 187 00d4 8F93      		push r24
+ 188 00d6 0F93      		push r16
+ 189 00d8 1F93      		push r17
+ 190 00da 0E94 0000 		call fprintf
+ 191 00de 8DB7      		in r24,__SP_L__
+ 192 00e0 9EB7      		in r25,__SP_H__
+ 193 00e2 8496      		adiw r24,36
+ 194 00e4 0FB6      		in __tmp_reg__,__SREG__
+ 195 00e6 F894      		cli
+ 196 00e8 9EBF      		out __SP_H__,r25
+ 197 00ea 0FBE      		out __SREG__,__tmp_reg__
+ 198 00ec 8DBF      		out __SP_L__,r24
+GAS LISTING /tmp/ccVWd3bA.s 			page 5
+
+
+ 199 00ee 8C89      		ldd r24,Y+20
+ 200 00f0 9D89      		ldd r25,Y+21
+ 201 00f2 A0E0      		ldi r26,0
+ 202 00f4 B0E0      		ldi r27,0
+ 203 00f6 DC01      		movw r26,r24
+ 204 00f8 9927      		clr r25
+ 205 00fa 8827      		clr r24
+ 206 00fc 2A8D      		ldd r18,Y+26
+ 207 00fe 3B8D      		ldd r19,Y+27
+ 208 0100 820F      		add r24,r18
+ 209 0102 931F      		adc r25,r19
+ 210 0104 A11D      		adc r26,__zero_reg__
+ 211 0106 B11D      		adc r27,__zero_reg__
+ 212 0108 BF93      		push r27
+ 213 010a AF93      		push r26
+ 214 010c 9F93      		push r25
+ 215 010e 8F93      		push r24
+ 216 0110 80E0      		ldi r24,lo8(.LC7)
+ 217 0112 90E0      		ldi r25,hi8(.LC7)
+ 218 0114 9F93      		push r25
+ 219 0116 8F93      		push r24
+ 220 0118 0F93      		push r16
+ 221 011a 1F93      		push r17
+ 222 011c 0E94 0000 		call fprintf
+ 223 0120 8F8D      		ldd r24,Y+31
+ 224 0122 8F93      		push r24
+ 225 0124 8E8D      		ldd r24,Y+30
+ 226 0126 8F93      		push r24
+ 227 0128 8D8D      		ldd r24,Y+29
+ 228 012a 8F93      		push r24
+ 229 012c 8C8D      		ldd r24,Y+28
+ 230 012e 8F93      		push r24
+ 231 0130 80E0      		ldi r24,lo8(.LC8)
+ 232 0132 90E0      		ldi r25,hi8(.LC8)
+ 233 0134 9F93      		push r25
+ 234 0136 8F93      		push r24
+ 235 0138 0F93      		push r16
+ 236 013a 1F93      		push r17
+ 237 013c 0E94 0000 		call fprintf
+ 238 0140 8DB7      		in r24,__SP_L__
+ 239 0142 9EB7      		in r25,__SP_H__
+ 240 0144 4096      		adiw r24,16
+ 241 0146 0FB6      		in __tmp_reg__,__SREG__
+ 242 0148 F894      		cli
+ 243 014a 9EBF      		out __SP_H__,r25
+ 244 014c 0FBE      		out __SREG__,__tmp_reg__
+ 245 014e 8DBF      		out __SP_L__,r24
+ 246               	/* epilogue start */
+ 247 0150 DF91      		pop r29
+ 248 0152 CF91      		pop r28
+ 249 0154 1F91      		pop r17
+ 250 0156 0F91      		pop r16
+ 251 0158 0895      		ret
+ 252               		.size	PhatDbgDirEntry, .-PhatDbgDirEntry
+ 253               		.section	.rodata.str1.1
+ 254               	.LC9:
+ 255 00ad 4669 6C65 		.string	"File Pos   : %lu\n"
+GAS LISTING /tmp/ccVWd3bA.s 			page 6
+
+
+ 255      2050 6F73 
+ 255      2020 203A 
+ 255      2025 6C75 
+ 255      0A00 
+ 256               	.LC10:
+ 257 00bf 436C 7573 		.string	"Cluster    : %lu  Prev %lu\n"
+ 257      7465 7220 
+ 257      2020 203A 
+ 257      2025 6C75 
+ 257      2020 5072 
+ 258               	.LC11:
+ 259 00db 436C 7573 		.string	"Cluster Pos: %lu\n"
+ 259      7465 7220 
+ 259      506F 733A 
+ 259      2025 6C75 
+ 259      0A00 
+ 260               	.LC12:
+ 261 00ed 5365 6374 		.string	"Sector Pos : %lu\n"
+ 261      6F72 2050 
+ 261      6F73 203A 
+ 261      2025 6C75 
+ 261      0A00 
+ 262               	.LC13:
+ 263 00ff 5061 7265 		.string	"Parent Clust: %lu\n"
+ 263      6E74 2043 
+ 263      6C75 7374 
+ 263      3A20 256C 
+ 263      750A 00
+ 264               	.LC14:
+ 265 0112 4469 7245 		.string	"DirEnt Sect : %lu\n"
+ 265      6E74 2053 
+ 265      6563 7420 
+ 265      3A20 256C 
+ 265      750A 00
+ 266               	.LC15:
+ 267 0125 4469 7245 		.string	"DirEnt Offs : %lu\n"
+ 267      6E74 204F 
+ 267      6666 7320 
+ 267      3A20 256C 
+ 267      750A 00
+ 268               	.LC16:
+ 269 0138 4469 7245 		.string	"DirEnt Dirty: %u\n"
+ 269      6E74 2044 
+ 269      6972 7479 
+ 269      3A20 2575 
+ 269      0A00 
+ 270               		.section	.text.PhatDbgFileInfo,"ax",@progbits
+ 271               	.global	PhatDbgFileInfo
+ 272               		.type	PhatDbgFileInfo, @function
+ 273               	PhatDbgFileInfo:
+ 274 0000 0F93      		push r16
+ 275 0002 1F93      		push r17
+ 276 0004 CF93      		push r28
+ 277 0006 DF93      		push r29
+ 278               	/* prologue: function */
+ 279               	/* frame size = 0 */
+ 280               	/* stack size = 4 */
+GAS LISTING /tmp/ccVWd3bA.s 			page 7
+
+
+ 281               	.L__stack_usage = 4
+ 282 0008 182F      		mov r17,r24
+ 283 000a 092F      		mov r16,r25
+ 284 000c EA01      		movw r28,r20
+ 285 000e 6115      		cp r22,__zero_reg__
+ 286 0010 7105      		cpc r23,__zero_reg__
+ 287 0012 01F0      		breq .L16
+ 288 0014 7F93      		push r23
+ 289 0016 6F93      		push r22
+ 290 0018 80E0      		ldi r24,lo8(.LC0)
+ 291 001a 90E0      		ldi r25,hi8(.LC0)
+ 292 001c 9F93      		push r25
+ 293 001e 8F93      		push r24
+ 294 0020 0F93      		push r16
+ 295 0022 1F93      		push r17
+ 296 0024 0E94 0000 		call fprintf
+ 297 0028 0F90      		pop __tmp_reg__
+ 298 002a 0F90      		pop __tmp_reg__
+ 299 002c 0F90      		pop __tmp_reg__
+ 300 002e 0F90      		pop __tmp_reg__
+ 301 0030 0F90      		pop __tmp_reg__
+ 302 0032 0F90      		pop __tmp_reg__
+ 303               	.L16:
+ 304 0034 8B81      		ldd r24,Y+3
+ 305 0036 8F93      		push r24
+ 306 0038 8A81      		ldd r24,Y+2
+ 307 003a 8F93      		push r24
+ 308 003c 8981      		ldd r24,Y+1
+ 309 003e 8F93      		push r24
+ 310 0040 8881      		ld r24,Y
+ 311 0042 8F93      		push r24
+ 312 0044 80E0      		ldi r24,lo8(.LC9)
+ 313 0046 90E0      		ldi r25,hi8(.LC9)
+ 314 0048 9F93      		push r25
+ 315 004a 8F93      		push r24
+ 316 004c 0F93      		push r16
+ 317 004e 1F93      		push r17
+ 318 0050 0E94 0000 		call fprintf
+ 319 0054 8B89      		ldd r24,Y+19
+ 320 0056 8F93      		push r24
+ 321 0058 8A89      		ldd r24,Y+18
+ 322 005a 8F93      		push r24
+ 323 005c 8989      		ldd r24,Y+17
+ 324 005e 8F93      		push r24
+ 325 0060 8889      		ldd r24,Y+16
+ 326 0062 8F93      		push r24
+ 327 0064 8F81      		ldd r24,Y+7
+ 328 0066 8F93      		push r24
+ 329 0068 8E81      		ldd r24,Y+6
+ 330 006a 8F93      		push r24
+ 331 006c 8D81      		ldd r24,Y+5
+ 332 006e 8F93      		push r24
+ 333 0070 8C81      		ldd r24,Y+4
+ 334 0072 8F93      		push r24
+ 335 0074 80E0      		ldi r24,lo8(.LC10)
+ 336 0076 90E0      		ldi r25,hi8(.LC10)
+ 337 0078 9F93      		push r25
+GAS LISTING /tmp/ccVWd3bA.s 			page 8
+
+
+ 338 007a 8F93      		push r24
+ 339 007c 0F93      		push r16
+ 340 007e 1F93      		push r17
+ 341 0080 0E94 0000 		call fprintf
+ 342 0084 8B85      		ldd r24,Y+11
+ 343 0086 8F93      		push r24
+ 344 0088 8A85      		ldd r24,Y+10
+ 345 008a 8F93      		push r24
+ 346 008c 8985      		ldd r24,Y+9
+ 347 008e 8F93      		push r24
+ 348 0090 8885      		ldd r24,Y+8
+ 349 0092 8F93      		push r24
+ 350 0094 80E0      		ldi r24,lo8(.LC11)
+ 351 0096 90E0      		ldi r25,hi8(.LC11)
+ 352 0098 9F93      		push r25
+ 353 009a 8F93      		push r24
+ 354 009c 0F93      		push r16
+ 355 009e 1F93      		push r17
+ 356 00a0 0E94 0000 		call fprintf
+ 357 00a4 8F85      		ldd r24,Y+15
+ 358 00a6 8F93      		push r24
+ 359 00a8 8E85      		ldd r24,Y+14
+ 360 00aa 8F93      		push r24
+ 361 00ac 8D85      		ldd r24,Y+13
+ 362 00ae 8F93      		push r24
+ 363 00b0 8C85      		ldd r24,Y+12
+ 364 00b2 8F93      		push r24
+ 365 00b4 80E0      		ldi r24,lo8(.LC12)
+ 366 00b6 90E0      		ldi r25,hi8(.LC12)
+ 367 00b8 9F93      		push r25
+ 368 00ba 8F93      		push r24
+ 369 00bc 0F93      		push r16
+ 370 00be 1F93      		push r17
+ 371 00c0 0E94 0000 		call fprintf
+ 372 00c4 8DB7      		in r24,__SP_L__
+ 373 00c6 9EB7      		in r25,__SP_H__
+ 374 00c8 8496      		adiw r24,36
+ 375 00ca 0FB6      		in __tmp_reg__,__SREG__
+ 376 00cc F894      		cli
+ 377 00ce 9EBF      		out __SP_H__,r25
+ 378 00d0 0FBE      		out __SREG__,__tmp_reg__
+ 379 00d2 8DBF      		out __SP_L__,r24
+ 380 00d4 AE01      		movw r20,r28
+ 381 00d6 485E      		subi r20,-24
+ 382 00d8 5F4F      		sbci r21,-1
+ 383 00da 60E0      		ldi r22,0
+ 384 00dc 70E0      		ldi r23,0
+ 385 00de 812F      		mov r24,r17
+ 386 00e0 902F      		mov r25,r16
+ 387 00e2 0E94 0000 		call PhatDbgDirEntry
+ 388 00e6 FE01      		movw r30,r28
+ 389 00e8 EC5B      		subi r30,-68
+ 390 00ea FF4F      		sbci r31,-1
+ 391 00ec 8081      		ld r24,Z
+ 392 00ee 9181      		ldd r25,Z+1
+ 393 00f0 A0E0      		ldi r26,0
+ 394 00f2 B0E0      		ldi r27,0
+GAS LISTING /tmp/ccVWd3bA.s 			page 9
+
+
+ 395 00f4 DC01      		movw r26,r24
+ 396 00f6 9927      		clr r25
+ 397 00f8 8827      		clr r24
+ 398 00fa 3297      		sbiw r30,2
+ 399 00fc 2081      		ld r18,Z
+ 400 00fe 3181      		ldd r19,Z+1
+ 401 0100 820F      		add r24,r18
+ 402 0102 931F      		adc r25,r19
+ 403 0104 A11D      		adc r26,__zero_reg__
+ 404 0106 B11D      		adc r27,__zero_reg__
+ 405 0108 BF93      		push r27
+ 406 010a AF93      		push r26
+ 407 010c 9F93      		push r25
+ 408 010e 8F93      		push r24
+ 409 0110 80E0      		ldi r24,lo8(.LC13)
+ 410 0112 90E0      		ldi r25,hi8(.LC13)
+ 411 0114 9F93      		push r25
+ 412 0116 8F93      		push r24
+ 413 0118 0F93      		push r16
+ 414 011a 1F93      		push r17
+ 415 011c 0E94 0000 		call fprintf
+ 416 0120 8BAD      		ldd r24,Y+59
+ 417 0122 8F93      		push r24
+ 418 0124 8AAD      		ldd r24,Y+58
+ 419 0126 8F93      		push r24
+ 420 0128 89AD      		ldd r24,Y+57
+ 421 012a 8F93      		push r24
+ 422 012c 88AD      		ldd r24,Y+56
+ 423 012e 8F93      		push r24
+ 424 0130 80E0      		ldi r24,lo8(.LC14)
+ 425 0132 90E0      		ldi r25,hi8(.LC14)
+ 426 0134 9F93      		push r25
+ 427 0136 8F93      		push r24
+ 428 0138 0F93      		push r16
+ 429 013a 1F93      		push r17
+ 430 013c 0E94 0000 		call fprintf
+ 431 0140 8FAD      		ldd r24,Y+63
+ 432 0142 8F93      		push r24
+ 433 0144 8EAD      		ldd r24,Y+62
+ 434 0146 8F93      		push r24
+ 435 0148 8DAD      		ldd r24,Y+61
+ 436 014a 8F93      		push r24
+ 437 014c 8CAD      		ldd r24,Y+60
+ 438 014e 8F93      		push r24
+ 439 0150 80E0      		ldi r24,lo8(.LC15)
+ 440 0152 90E0      		ldi r25,hi8(.LC15)
+ 441 0154 9F93      		push r25
+ 442 0156 8F93      		push r24
+ 443 0158 0F93      		push r16
+ 444 015a 1F93      		push r17
+ 445 015c 0E94 0000 		call fprintf
+ 446 0160 C05C      		subi r28,-64
+ 447 0162 DF4F      		sbci r29,-1
+ 448 0164 8981      		ldd r24,Y+1
+ 449 0166 8F93      		push r24
+ 450 0168 8881      		ld r24,Y
+ 451 016a 8F93      		push r24
+GAS LISTING /tmp/ccVWd3bA.s 			page 10
+
+
+ 452 016c 80E0      		ldi r24,lo8(.LC16)
+ 453 016e 90E0      		ldi r25,hi8(.LC16)
+ 454 0170 9F93      		push r25
+ 455 0172 8F93      		push r24
+ 456 0174 0F93      		push r16
+ 457 0176 1F93      		push r17
+ 458 0178 0E94 0000 		call fprintf
+ 459 017c 8DB7      		in r24,__SP_L__
+ 460 017e 9EB7      		in r25,__SP_H__
+ 461 0180 4E96      		adiw r24,30
+ 462 0182 0FB6      		in __tmp_reg__,__SREG__
+ 463 0184 F894      		cli
+ 464 0186 9EBF      		out __SP_H__,r25
+ 465 0188 0FBE      		out __SREG__,__tmp_reg__
+ 466 018a 8DBF      		out __SP_L__,r24
+ 467               	/* epilogue start */
+ 468 018c DF91      		pop r29
+ 469 018e CF91      		pop r28
+ 470 0190 1F91      		pop r17
+ 471 0192 0F91      		pop r16
+ 472 0194 0895      		ret
+ 473               		.size	PhatDbgFileInfo, .-PhatDbgFileInfo
+ 474               		.section	.rodata.str1.1
+ 475               	.LC17:
+ 476 014a 426F 6F74 		.string	"Boot jump      : %02X %02X %02X\n"
+ 476      206A 756D 
+ 476      7020 2020 
+ 476      2020 203A 
+ 476      2025 3032 
+ 477               	.LC18:
+ 478 016b 4F45 4D20 		.string	"OEM name       : %.8s\n"
+ 478      6E61 6D65 
+ 478      2020 2020 
+ 478      2020 203A 
+ 478      2025 2E38 
+ 479               	.LC19:
+ 480 0182 4279 7465 		.string	"Bytes/sector   : %u\n"
+ 480      732F 7365 
+ 480      6374 6F72 
+ 480      2020 203A 
+ 480      2025 750A 
+ 481               	.LC20:
+ 482 0197 5365 6374 		.string	"Sectors/cluster: %u\n"
+ 482      6F72 732F 
+ 482      636C 7573 
+ 482      7465 723A 
+ 482      2025 750A 
+ 483               	.LC21:
+ 484 01ac 5273 7664 		.string	"Rsvd. sectors  : %u\n"
+ 484      2E20 7365 
+ 484      6374 6F72 
+ 484      7320 203A 
+ 484      2025 750A 
+ 485               	.LC22:
+ 486 01c1 416C 6C6F 		.string	"Alloc. tables  : %u\n"
+ 486      632E 2074 
+ 486      6162 6C65 
+GAS LISTING /tmp/ccVWd3bA.s 			page 11
+
+
+ 486      7320 203A 
+ 486      2025 750A 
+ 487               	.LC23:
+ 488 01d6 526F 6F74 		.string	"Root entries   : %u\n"
+ 488      2065 6E74 
+ 488      7269 6573 
+ 488      2020 203A 
+ 488      2025 750A 
+ 489               	.LC24:
+ 490 01eb 546F 7461 		.string	"Total sectors  : %lu\n"
+ 490      6C20 7365 
+ 490      6374 6F72 
+ 490      7320 203A 
+ 490      2025 6C75 
+ 491               	.LC25:
+ 492 0201 4D65 6469 		.string	"Media type     : 0x%02X\n"
+ 492      6120 7479 
+ 492      7065 2020 
+ 492      2020 203A 
+ 492      2030 7825 
+ 493               	.LC26:
+ 494 021a 5365 6374 		.string	"Sectors/table  : %u %lu\n"
+ 494      6F72 732F 
+ 494      7461 626C 
+ 494      6520 203A 
+ 494      2025 7520 
+ 495               	.LC27:
+ 496 0233 5365 6374 		.string	"Sectors/track  : %u\n"
+ 496      6F72 732F 
+ 496      7472 6163 
+ 496      6B20 203A 
+ 496      2025 750A 
+ 497               	.LC28:
+ 498 0248 4865 6164 		.string	"Heads          : %u\n"
+ 498      7320 2020 
+ 498      2020 2020 
+ 498      2020 203A 
+ 498      2025 750A 
+ 499               	.LC29:
+ 500 025d 4869 6464 		.string	"Hidden sectors : %lu\n"
+ 500      656E 2073 
+ 500      6563 746F 
+ 500      7273 203A 
+ 500      2025 6C75 
+ 501               	.LC30:
+ 502 0273 4D69 7272 		.string	"Mirror flags   : 0x%04u\n"
+ 502      6F72 2066 
+ 502      6C61 6773 
+ 502      2020 203A 
+ 502      2030 7825 
+ 503               	.LC31:
+ 504 028c 4669 6C65 		.string	"File system ver: %u\n"
+ 504      2073 7973 
+ 504      7465 6D20 
+ 504      7665 723A 
+ 504      2025 750A 
+ 505               	.LC32:
+GAS LISTING /tmp/ccVWd3bA.s 			page 12
+
+
+ 506 02a1 526F 6F74 		.string	"Root dir clust : %lu\n"
+ 506      2064 6972 
+ 506      2063 6C75 
+ 506      7374 203A 
+ 506      2025 6C75 
+ 507               	.LC33:
+ 508 02b7 4653 496E 		.string	"FSInfo sector  : %u\n"
+ 508      666F 2073 
+ 508      6563 746F 
+ 508      7220 203A 
+ 508      2025 750A 
+ 509               	.LC34:
+ 510 02cc 426F 6F74 		.string	"Boot back sect : %u\n"
+ 510      2062 6163 
+ 510      6B20 7365 
+ 510      6374 203A 
+ 510      2025 750A 
+ 511               	.LC35:
+ 512 02e1 4C6F 6769 		.string	"Logical drive  : %u\n"
+ 512      6361 6C20 
+ 512      6472 6976 
+ 512      6520 203A 
+ 512      2025 750A 
+ 513               	.LC36:
+ 514 02f6 5273 7664 		.string	"Rsvd NT(head)  : %u\n"
+ 514      204E 5428 
+ 514      6865 6164 
+ 514      2920 203A 
+ 514      2025 750A 
+ 515               	.LC37:
+ 516 030b 4578 742E 		.string	"Ext. signature : 0x%02X\n"
+ 516      2073 6967 
+ 516      6E61 7475 
+ 516      7265 203A 
+ 516      2030 7825 
+ 517               	.LC38:
+ 518 0324 566F 6C75 		.string	"Volume ID      : 0x%08lX\n"
+ 518      6D65 2049 
+ 518      4420 2020 
+ 518      2020 203A 
+ 518      2030 7825 
+ 519               	.LC39:
+ 520 033e 566F 6C75 		.string	"Volume label   : %.11s\n"
+ 520      6D65 206C 
+ 520      6162 656C 
+ 520      2020 203A 
+ 520      2025 2E31 
+ 521               	.LC40:
+ 522 0356 4669 6C65 		.string	"Filesystem     : %.8s\n"
+ 522      7379 7374 
+ 522      656D 2020 
+ 522      2020 203A 
+ 522      2025 2E38 
+ 523               		.section	.text.PhatDbgVbr,"ax",@progbits
+ 524               	.global	PhatDbgVbr
+ 525               		.type	PhatDbgVbr, @function
+ 526               	PhatDbgVbr:
+GAS LISTING /tmp/ccVWd3bA.s 			page 13
+
+
+ 527 0000 EF92      		push r14
+ 528 0002 FF92      		push r15
+ 529 0004 0F93      		push r16
+ 530 0006 1F93      		push r17
+ 531 0008 CF93      		push r28
+ 532 000a DF93      		push r29
+ 533               	/* prologue: function */
+ 534               	/* frame size = 0 */
+ 535               	/* stack size = 6 */
+ 536               	.L__stack_usage = 6
+ 537 000c 182F      		mov r17,r24
+ 538 000e 092F      		mov r16,r25
+ 539 0010 EA01      		movw r28,r20
+ 540 0012 6115      		cp r22,__zero_reg__
+ 541 0014 7105      		cpc r23,__zero_reg__
+ 542 0016 01F0      		breq .L21
+ 543 0018 7F93      		push r23
+ 544 001a 6F93      		push r22
+ 545 001c 80E0      		ldi r24,lo8(.LC0)
+ 546 001e 90E0      		ldi r25,hi8(.LC0)
+ 547 0020 9F93      		push r25
+ 548 0022 8F93      		push r24
+ 549 0024 0F93      		push r16
+ 550 0026 1F93      		push r17
+ 551 0028 0E94 0000 		call fprintf
+ 552 002c 0F90      		pop __tmp_reg__
+ 553 002e 0F90      		pop __tmp_reg__
+ 554 0030 0F90      		pop __tmp_reg__
+ 555 0032 0F90      		pop __tmp_reg__
+ 556 0034 0F90      		pop __tmp_reg__
+ 557 0036 0F90      		pop __tmp_reg__
+ 558               	.L21:
+ 559 0038 8A81      		ldd r24,Y+2
+ 560 003a 1F92      		push __zero_reg__
+ 561 003c 8F93      		push r24
+ 562 003e 8981      		ldd r24,Y+1
+ 563 0040 1F92      		push __zero_reg__
+ 564 0042 8F93      		push r24
+ 565 0044 8881      		ld r24,Y
+ 566 0046 1F92      		push __zero_reg__
+ 567 0048 8F93      		push r24
+ 568 004a 80E0      		ldi r24,lo8(.LC17)
+ 569 004c 90E0      		ldi r25,hi8(.LC17)
+ 570 004e 9F93      		push r25
+ 571 0050 8F93      		push r24
+ 572 0052 0F93      		push r16
+ 573 0054 1F93      		push r17
+ 574 0056 0E94 0000 		call fprintf
+ 575 005a CE01      		movw r24,r28
+ 576 005c 0396      		adiw r24,3
+ 577 005e 9F93      		push r25
+ 578 0060 8F93      		push r24
+ 579 0062 80E0      		ldi r24,lo8(.LC18)
+ 580 0064 90E0      		ldi r25,hi8(.LC18)
+ 581 0066 9F93      		push r25
+ 582 0068 8F93      		push r24
+ 583 006a 0F93      		push r16
+GAS LISTING /tmp/ccVWd3bA.s 			page 14
+
+
+ 584 006c 1F93      		push r17
+ 585 006e 0E94 0000 		call fprintf
+ 586 0072 8C85      		ldd r24,Y+12
+ 587 0074 8F93      		push r24
+ 588 0076 8B85      		ldd r24,Y+11
+ 589 0078 8F93      		push r24
+ 590 007a 80E0      		ldi r24,lo8(.LC19)
+ 591 007c 90E0      		ldi r25,hi8(.LC19)
+ 592 007e 9F93      		push r25
+ 593 0080 8F93      		push r24
+ 594 0082 0F93      		push r16
+ 595 0084 1F93      		push r17
+ 596 0086 0E94 0000 		call fprintf
+ 597 008a 8D85      		ldd r24,Y+13
+ 598 008c 1F92      		push __zero_reg__
+ 599 008e 8F93      		push r24
+ 600 0090 80E0      		ldi r24,lo8(.LC20)
+ 601 0092 90E0      		ldi r25,hi8(.LC20)
+ 602 0094 9F93      		push r25
+ 603 0096 8F93      		push r24
+ 604 0098 0F93      		push r16
+ 605 009a 1F93      		push r17
+ 606 009c 0E94 0000 		call fprintf
+ 607 00a0 8F85      		ldd r24,Y+15
+ 608 00a2 8F93      		push r24
+ 609 00a4 8E85      		ldd r24,Y+14
+ 610 00a6 8F93      		push r24
+ 611 00a8 80E0      		ldi r24,lo8(.LC21)
+ 612 00aa 90E0      		ldi r25,hi8(.LC21)
+ 613 00ac 9F93      		push r25
+ 614 00ae 8F93      		push r24
+ 615 00b0 0F93      		push r16
+ 616 00b2 1F93      		push r17
+ 617 00b4 0E94 0000 		call fprintf
+ 618 00b8 2DB7      		in r18,__SP_L__
+ 619 00ba 3EB7      		in r19,__SP_H__
+ 620 00bc 2E5D      		subi r18,-34
+ 621 00be 3F4F      		sbci r19,-1
+ 622 00c0 0FB6      		in __tmp_reg__,__SREG__
+ 623 00c2 F894      		cli
+ 624 00c4 3EBF      		out __SP_H__,r19
+ 625 00c6 0FBE      		out __SREG__,__tmp_reg__
+ 626 00c8 2DBF      		out __SP_L__,r18
+ 627 00ca 8889      		ldd r24,Y+16
+ 628 00cc 1F92      		push __zero_reg__
+ 629 00ce 8F93      		push r24
+ 630 00d0 80E0      		ldi r24,lo8(.LC22)
+ 631 00d2 90E0      		ldi r25,hi8(.LC22)
+ 632 00d4 9F93      		push r25
+ 633 00d6 8F93      		push r24
+ 634 00d8 0F93      		push r16
+ 635 00da 1F93      		push r17
+ 636 00dc 0E94 0000 		call fprintf
+ 637 00e0 8A89      		ldd r24,Y+18
+ 638 00e2 8F93      		push r24
+ 639 00e4 8989      		ldd r24,Y+17
+ 640 00e6 8F93      		push r24
+GAS LISTING /tmp/ccVWd3bA.s 			page 15
+
+
+ 641 00e8 80E0      		ldi r24,lo8(.LC23)
+ 642 00ea 90E0      		ldi r25,hi8(.LC23)
+ 643 00ec 9F93      		push r25
+ 644 00ee 8F93      		push r24
+ 645 00f0 0F93      		push r16
+ 646 00f2 1F93      		push r17
+ 647 00f4 0E94 0000 		call fprintf
+ 648 00f8 8B89      		ldd r24,Y+19
+ 649 00fa 9C89      		ldd r25,Y+20
+ 650 00fc EDB7      		in r30,__SP_L__
+ 651 00fe FEB7      		in r31,__SP_H__
+ 652 0100 3C96      		adiw r30,12
+ 653 0102 0FB6      		in __tmp_reg__,__SREG__
+ 654 0104 F894      		cli
+ 655 0106 FEBF      		out __SP_H__,r31
+ 656 0108 0FBE      		out __SREG__,__tmp_reg__
+ 657 010a EDBF      		out __SP_L__,r30
+ 658 010c 0097      		sbiw r24,0
+ 659 010e 01F0      		breq .L22
+ 660 0110 A0E0      		ldi r26,0
+ 661 0112 B0E0      		ldi r27,0
+ 662 0114 00C0      		rjmp .L23
+ 663               	.L22:
+ 664 0116 88A1      		ldd r24,Y+32
+ 665 0118 99A1      		ldd r25,Y+33
+ 666 011a AAA1      		ldd r26,Y+34
+ 667 011c BBA1      		ldd r27,Y+35
+ 668               	.L23:
+ 669 011e BF93      		push r27
+ 670 0120 AF93      		push r26
+ 671 0122 9F93      		push r25
+ 672 0124 8F93      		push r24
+ 673 0126 80E0      		ldi r24,lo8(.LC24)
+ 674 0128 90E0      		ldi r25,hi8(.LC24)
+ 675 012a 9F93      		push r25
+ 676 012c 8F93      		push r24
+ 677 012e 0F93      		push r16
+ 678 0130 1F93      		push r17
+ 679 0132 0E94 0000 		call fprintf
+ 680 0136 8D89      		ldd r24,Y+21
+ 681 0138 1F92      		push __zero_reg__
+ 682 013a 8F93      		push r24
+ 683 013c 80E0      		ldi r24,lo8(.LC25)
+ 684 013e 90E0      		ldi r25,hi8(.LC25)
+ 685 0140 9F93      		push r25
+ 686 0142 8F93      		push r24
+ 687 0144 0F93      		push r16
+ 688 0146 1F93      		push r17
+ 689 0148 0E94 0000 		call fprintf
+ 690 014c 8FA1      		ldd r24,Y+39
+ 691 014e 8F93      		push r24
+ 692 0150 8EA1      		ldd r24,Y+38
+ 693 0152 8F93      		push r24
+ 694 0154 8DA1      		ldd r24,Y+37
+ 695 0156 8F93      		push r24
+ 696 0158 8CA1      		ldd r24,Y+36
+ 697 015a 8F93      		push r24
+GAS LISTING /tmp/ccVWd3bA.s 			page 16
+
+
+ 698 015c 8F89      		ldd r24,Y+23
+ 699 015e 8F93      		push r24
+ 700 0160 8E89      		ldd r24,Y+22
+ 701 0162 8F93      		push r24
+ 702 0164 80E0      		ldi r24,lo8(.LC26)
+ 703 0166 90E0      		ldi r25,hi8(.LC26)
+ 704 0168 9F93      		push r25
+ 705 016a 8F93      		push r24
+ 706 016c 0F93      		push r16
+ 707 016e 1F93      		push r17
+ 708 0170 0E94 0000 		call fprintf
+ 709 0174 898D      		ldd r24,Y+25
+ 710 0176 8F93      		push r24
+ 711 0178 888D      		ldd r24,Y+24
+ 712 017a 8F93      		push r24
+ 713 017c 80E0      		ldi r24,lo8(.LC27)
+ 714 017e 90E0      		ldi r25,hi8(.LC27)
+ 715 0180 9F93      		push r25
+ 716 0182 8F93      		push r24
+ 717 0184 0F93      		push r16
+ 718 0186 1F93      		push r17
+ 719 0188 0E94 0000 		call fprintf
+ 720 018c 8B8D      		ldd r24,Y+27
+ 721 018e 8F93      		push r24
+ 722 0190 8A8D      		ldd r24,Y+26
+ 723 0192 8F93      		push r24
+ 724 0194 80E0      		ldi r24,lo8(.LC28)
+ 725 0196 90E0      		ldi r25,hi8(.LC28)
+ 726 0198 9F93      		push r25
+ 727 019a 8F93      		push r24
+ 728 019c 0F93      		push r16
+ 729 019e 1F93      		push r17
+ 730 01a0 0E94 0000 		call fprintf
+ 731 01a4 2DB7      		in r18,__SP_L__
+ 732 01a6 3EB7      		in r19,__SP_H__
+ 733 01a8 2C5D      		subi r18,-36
+ 734 01aa 3F4F      		sbci r19,-1
+ 735 01ac 0FB6      		in __tmp_reg__,__SREG__
+ 736 01ae F894      		cli
+ 737 01b0 3EBF      		out __SP_H__,r19
+ 738 01b2 0FBE      		out __SREG__,__tmp_reg__
+ 739 01b4 2DBF      		out __SP_L__,r18
+ 740 01b6 8F8D      		ldd r24,Y+31
+ 741 01b8 8F93      		push r24
+ 742 01ba 8E8D      		ldd r24,Y+30
+ 743 01bc 8F93      		push r24
+ 744 01be 8D8D      		ldd r24,Y+29
+ 745 01c0 8F93      		push r24
+ 746 01c2 8C8D      		ldd r24,Y+28
+ 747 01c4 8F93      		push r24
+ 748 01c6 80E0      		ldi r24,lo8(.LC29)
+ 749 01c8 90E0      		ldi r25,hi8(.LC29)
+ 750 01ca 9F93      		push r25
+ 751 01cc 8F93      		push r24
+ 752 01ce 0F93      		push r16
+ 753 01d0 1F93      		push r17
+ 754 01d2 0E94 0000 		call fprintf
+GAS LISTING /tmp/ccVWd3bA.s 			page 17
+
+
+ 755 01d6 89A5      		ldd r24,Y+41
+ 756 01d8 8F93      		push r24
+ 757 01da 88A5      		ldd r24,Y+40
+ 758 01dc 8F93      		push r24
+ 759 01de 80E0      		ldi r24,lo8(.LC30)
+ 760 01e0 90E0      		ldi r25,hi8(.LC30)
+ 761 01e2 9F93      		push r25
+ 762 01e4 8F93      		push r24
+ 763 01e6 0F93      		push r16
+ 764 01e8 1F93      		push r17
+ 765 01ea 0E94 0000 		call fprintf
+ 766 01ee 8BA5      		ldd r24,Y+43
+ 767 01f0 8F93      		push r24
+ 768 01f2 8AA5      		ldd r24,Y+42
+ 769 01f4 8F93      		push r24
+ 770 01f6 80E0      		ldi r24,lo8(.LC31)
+ 771 01f8 90E0      		ldi r25,hi8(.LC31)
+ 772 01fa 9F93      		push r25
+ 773 01fc 8F93      		push r24
+ 774 01fe 0F93      		push r16
+ 775 0200 1F93      		push r17
+ 776 0202 0E94 0000 		call fprintf
+ 777 0206 8FA5      		ldd r24,Y+47
+ 778 0208 8F93      		push r24
+ 779 020a 8EA5      		ldd r24,Y+46
+ 780 020c 8F93      		push r24
+ 781 020e 8DA5      		ldd r24,Y+45
+ 782 0210 8F93      		push r24
+ 783 0212 8CA5      		ldd r24,Y+44
+ 784 0214 8F93      		push r24
+ 785 0216 80E0      		ldi r24,lo8(.LC32)
+ 786 0218 90E0      		ldi r25,hi8(.LC32)
+ 787 021a 9F93      		push r25
+ 788 021c 8F93      		push r24
+ 789 021e 0F93      		push r16
+ 790 0220 1F93      		push r17
+ 791 0222 0E94 0000 		call fprintf
+ 792 0226 89A9      		ldd r24,Y+49
+ 793 0228 8F93      		push r24
+ 794 022a 88A9      		ldd r24,Y+48
+ 795 022c 8F93      		push r24
+ 796 022e 80E0      		ldi r24,lo8(.LC33)
+ 797 0230 90E0      		ldi r25,hi8(.LC33)
+ 798 0232 9F93      		push r25
+ 799 0234 8F93      		push r24
+ 800 0236 0F93      		push r16
+ 801 0238 1F93      		push r17
+ 802 023a 0E94 0000 		call fprintf
+ 803 023e 8DB7      		in r24,__SP_L__
+ 804 0240 9EB7      		in r25,__SP_H__
+ 805 0242 8296      		adiw r24,34
+ 806 0244 0FB6      		in __tmp_reg__,__SREG__
+ 807 0246 F894      		cli
+ 808 0248 9EBF      		out __SP_H__,r25
+ 809 024a 0FBE      		out __SREG__,__tmp_reg__
+ 810 024c 8DBF      		out __SP_L__,r24
+ 811 024e 8BA9      		ldd r24,Y+51
+GAS LISTING /tmp/ccVWd3bA.s 			page 18
+
+
+ 812 0250 8F93      		push r24
+ 813 0252 8AA9      		ldd r24,Y+50
+ 814 0254 8F93      		push r24
+ 815 0256 80E0      		ldi r24,lo8(.LC34)
+ 816 0258 90E0      		ldi r25,hi8(.LC34)
+ 817 025a 9F93      		push r25
+ 818 025c 8F93      		push r24
+ 819 025e 0F93      		push r16
+ 820 0260 1F93      		push r17
+ 821 0262 0E94 0000 		call fprintf
+ 822 0266 FE01      		movw r30,r28
+ 823 0268 E05C      		subi r30,-64
+ 824 026a FF4F      		sbci r31,-1
+ 825 026c 8081      		ld r24,Z
+ 826 026e 1F92      		push __zero_reg__
+ 827 0270 8F93      		push r24
+ 828 0272 80E0      		ldi r24,lo8(.LC35)
+ 829 0274 90E0      		ldi r25,hi8(.LC35)
+ 830 0276 9F93      		push r25
+ 831 0278 8F93      		push r24
+ 832 027a 0F93      		push r16
+ 833 027c 1F93      		push r17
+ 834 027e 0E94 0000 		call fprintf
+ 835 0282 FE01      		movw r30,r28
+ 836 0284 EF5B      		subi r30,-65
+ 837 0286 FF4F      		sbci r31,-1
+ 838 0288 8081      		ld r24,Z
+ 839 028a 1F92      		push __zero_reg__
+ 840 028c 8F93      		push r24
+ 841 028e 80E0      		ldi r24,lo8(.LC36)
+ 842 0290 90E0      		ldi r25,hi8(.LC36)
+ 843 0292 9F93      		push r25
+ 844 0294 8F93      		push r24
+ 845 0296 0F93      		push r16
+ 846 0298 1F93      		push r17
+ 847 029a 0E94 0000 		call fprintf
+ 848 029e 7E01      		movw r14,r28
+ 849 02a0 92E4      		ldi r25,66
+ 850 02a2 E90E      		add r14,r25
+ 851 02a4 F11C      		adc r15,__zero_reg__
+ 852 02a6 F701      		movw r30,r14
+ 853 02a8 8081      		ld r24,Z
+ 854 02aa 1F92      		push __zero_reg__
+ 855 02ac 8F93      		push r24
+ 856 02ae 80E0      		ldi r24,lo8(.LC37)
+ 857 02b0 90E0      		ldi r25,hi8(.LC37)
+ 858 02b2 9F93      		push r25
+ 859 02b4 8F93      		push r24
+ 860 02b6 0F93      		push r16
+ 861 02b8 1F93      		push r17
+ 862 02ba 0E94 0000 		call fprintf
+ 863 02be F701      		movw r30,r14
+ 864 02c0 8081      		ld r24,Z
+ 865 02c2 8852      		subi r24,lo8(-(-40))
+ 866 02c4 2DB7      		in r18,__SP_L__
+ 867 02c6 3EB7      		in r19,__SP_H__
+ 868 02c8 285E      		subi r18,-24
+GAS LISTING /tmp/ccVWd3bA.s 			page 19
+
+
+ 869 02ca 3F4F      		sbci r19,-1
+ 870 02cc 0FB6      		in __tmp_reg__,__SREG__
+ 871 02ce F894      		cli
+ 872 02d0 3EBF      		out __SP_H__,r19
+ 873 02d2 0FBE      		out __SREG__,__tmp_reg__
+ 874 02d4 2DBF      		out __SP_L__,r18
+ 875 02d6 8230      		cpi r24,lo8(2)
+ 876 02d8 00F4      		brsh .L20
+ 877 02da 3196      		adiw r30,1
+ 878 02dc 8381      		ldd r24,Z+3
+ 879 02de 8F93      		push r24
+ 880 02e0 8281      		ldd r24,Z+2
+ 881 02e2 8F93      		push r24
+ 882 02e4 8181      		ldd r24,Z+1
+ 883 02e6 8F93      		push r24
+ 884 02e8 8081      		ld r24,Z
+ 885 02ea 8F93      		push r24
+ 886 02ec 80E0      		ldi r24,lo8(.LC38)
+ 887 02ee 90E0      		ldi r25,hi8(.LC38)
+ 888 02f0 9F93      		push r25
+ 889 02f2 8F93      		push r24
+ 890 02f4 0F93      		push r16
+ 891 02f6 1F93      		push r17
+ 892 02f8 0E94 0000 		call fprintf
+ 893 02fc CE01      		movw r24,r28
+ 894 02fe 895B      		subi r24,-71
+ 895 0300 9F4F      		sbci r25,-1
+ 896 0302 9F93      		push r25
+ 897 0304 8F93      		push r24
+ 898 0306 80E0      		ldi r24,lo8(.LC39)
+ 899 0308 90E0      		ldi r25,hi8(.LC39)
+ 900 030a 9F93      		push r25
+ 901 030c 8F93      		push r24
+ 902 030e 0F93      		push r16
+ 903 0310 1F93      		push r17
+ 904 0312 0E94 0000 		call fprintf
+ 905 0316 CE5A      		subi r28,-82
+ 906 0318 DF4F      		sbci r29,-1
+ 907 031a DF93      		push r29
+ 908 031c CF93      		push r28
+ 909 031e 80E0      		ldi r24,lo8(.LC40)
+ 910 0320 90E0      		ldi r25,hi8(.LC40)
+ 911 0322 9F93      		push r25
+ 912 0324 8F93      		push r24
+ 913 0326 0F93      		push r16
+ 914 0328 1F93      		push r17
+ 915 032a 0E94 0000 		call fprintf
+ 916 032e EDB7      		in r30,__SP_L__
+ 917 0330 FEB7      		in r31,__SP_H__
+ 918 0332 7496      		adiw r30,20
+ 919 0334 0FB6      		in __tmp_reg__,__SREG__
+ 920 0336 F894      		cli
+ 921 0338 FEBF      		out __SP_H__,r31
+ 922 033a 0FBE      		out __SREG__,__tmp_reg__
+ 923 033c EDBF      		out __SP_L__,r30
+ 924               	.L20:
+ 925               	/* epilogue start */
+GAS LISTING /tmp/ccVWd3bA.s 			page 20
+
+
+ 926 033e DF91      		pop r29
+ 927 0340 CF91      		pop r28
+ 928 0342 1F91      		pop r17
+ 929 0344 0F91      		pop r16
+ 930 0346 FF90      		pop r15
+ 931 0348 EF90      		pop r14
+ 932 034a 0895      		ret
+ 933               		.size	PhatDbgVbr, .-PhatDbgVbr
+ 934               		.ident	"GCC: (GNU) 5.3.0"
+ 935               	.global __do_copy_data
+GAS LISTING /tmp/ccVWd3bA.s 			page 21
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 phatdbg.c
+     /tmp/ccVWd3bA.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccVWd3bA.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccVWd3bA.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccVWd3bA.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccVWd3bA.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccVWd3bA.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccVWd3bA.s:11     .text.PhatDbgAttrList:0000000000000000 PhatDbgAttrList
+     /tmp/ccVWd3bA.s:83     .text.PhatDbgDirEntry:0000000000000000 PhatDbgDirEntry
+     /tmp/ccVWd3bA.s:273    .text.PhatDbgFileInfo:0000000000000000 PhatDbgFileInfo
+     /tmp/ccVWd3bA.s:526    .text.PhatDbgVbr:0000000000000000 PhatDbgVbr
+
+UNDEFINED SYMBOLS
+fputc
+fprintf
+fputs
+__do_copy_data

@@ -1,0 +1,185 @@
+GAS LISTING /tmp/cczqFHYS.s 			page 1
+
+
+   1               		.file	"spi_mlcd.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.LcdWriteCmd,"ax",@progbits
+   9               		.type	LcdWriteCmd, @function
+  10               	LcdWriteCmd:
+  11               	/* prologue: function */
+  12               	/* frame size = 0 */
+  13               	/* stack size = 0 */
+  14               	.L__stack_usage = 0
+  15 0000 0895      		ret
+  16               		.size	LcdWriteCmd, .-LcdWriteCmd
+  17               		.section	.text.LcdClear,"ax",@progbits
+  18               		.type	LcdClear, @function
+  19               	LcdClear:
+  20               	/* prologue: function */
+  21               	/* frame size = 0 */
+  22               	/* stack size = 0 */
+  23               	.L__stack_usage = 0
+  24 0000 0895      		ret
+  25               		.size	LcdClear, .-LcdClear
+  26               		.section	.text.LcdCursorMode,"ax",@progbits
+  27               		.type	LcdCursorMode, @function
+  28               	LcdCursorMode:
+  29               	/* prologue: function */
+  30               	/* frame size = 0 */
+  31               	/* stack size = 0 */
+  32               	.L__stack_usage = 0
+  33 0000 0895      		ret
+  34               		.size	LcdCursorMode, .-LcdCursorMode
+  35               		.section	.text.LcdInit,"ax",@progbits
+  36               		.type	LcdInit, @function
+  37               	LcdInit:
+  38               	/* prologue: function */
+  39               	/* frame size = 0 */
+  40               	/* stack size = 0 */
+  41               	.L__stack_usage = 0
+  42 0000 80E0      		ldi r24,0
+  43 0002 90E0      		ldi r25,0
+  44 0004 0895      		ret
+  45               		.size	LcdInit, .-LcdInit
+  46               		.section	.text.LcdSetCursor,"ax",@progbits
+  47               		.type	LcdSetCursor, @function
+  48               	LcdSetCursor:
+  49               	/* prologue: function */
+  50               	/* frame size = 0 */
+  51               	/* stack size = 0 */
+  52               	.L__stack_usage = 0
+  53 0000 0895      		ret
+  54               		.size	LcdSetCursor, .-LcdSetCursor
+  55               		.section	.text.LcdWriteData,"ax",@progbits
+  56               		.type	LcdWriteData, @function
+  57               	LcdWriteData:
+GAS LISTING /tmp/cczqFHYS.s 			page 2
+
+
+  58               	/* prologue: function */
+  59               	/* frame size = 0 */
+  60               	/* stack size = 0 */
+  61               	.L__stack_usage = 0
+  62 0000 0895      		ret
+  63               		.size	LcdWriteData, .-LcdWriteData
+  64               		.section	.text.LcdCursorRight,"ax",@progbits
+  65               		.type	LcdCursorRight, @function
+  66               	LcdCursorRight:
+  67               	/* prologue: function */
+  68               	/* frame size = 0 */
+  69               	/* stack size = 0 */
+  70               	.L__stack_usage = 0
+  71 0000 0895      		ret
+  72               		.size	LcdCursorRight, .-LcdCursorRight
+  73               		.section	.text.LcdCursorHome,"ax",@progbits
+  74               		.type	LcdCursorHome, @function
+  75               	LcdCursorHome:
+  76               	/* prologue: function */
+  77               	/* frame size = 0 */
+  78               	/* stack size = 0 */
+  79               	.L__stack_usage = 0
+  80 0000 0895      		ret
+  81               		.size	LcdCursorHome, .-LcdCursorHome
+  82               		.section	.text.LcdCursorLeft,"ax",@progbits
+  83               		.type	LcdCursorLeft, @function
+  84               	LcdCursorLeft:
+  85               	/* prologue: function */
+  86               	/* frame size = 0 */
+  87               	/* stack size = 0 */
+  88               	.L__stack_usage = 0
+  89 0000 0895      		ret
+  90               		.size	LcdCursorLeft, .-LcdCursorLeft
+  91               	.global	devSpiMegaLcd
+  92               		.data
+  93               		.type	devSpiMegaLcd, @object
+  94               		.size	devSpiMegaLcd, 37
+  95               	devSpiMegaLcd:
+  96 0000 0000      		.word	0
+  97 0002 6C        		.byte	108
+  98 0003 63        		.byte	99
+  99 0004 64        		.byte	100
+ 100 0005 00        		.byte	0
+ 101 0006 00        		.byte	0
+ 102 0007 00        		.byte	0
+ 103 0008 00        		.byte	0
+ 104 0009 00        		.byte	0
+ 105 000a 00        		.byte	0
+ 106 000b 02        		.byte	2
+ 107 000c 0000      		.word	0
+ 108 000e 00        		.byte	0
+ 109 000f 0000      		.word	0
+ 110 0011 0000      		.word	dcb_term
+ 111 0013 0000      		.word	gs(TermInit)
+ 112 0015 0000      		.word	gs(TermIOCtl)
+ 113 0017 0000      		.word	0
+ 114 0019 0000      		.word	gs(TermWrite)
+GAS LISTING /tmp/cczqFHYS.s 			page 3
+
+
+ 115 001b 0000      		.word	gs(TermWrite_P)
+ 116 001d 0000      		.word	gs(TermOpen)
+ 117 001f 0000      		.word	gs(TermClose)
+ 118 0021 0000      		.word	0
+ 119 0023 0000      		.word	0
+ 120               		.type	dcb_term, @object
+ 121               		.size	dcb_term, 32
+ 122               	dcb_term:
+ 123 0025 0000      		.word	gs(LcdInit)
+ 124 0027 0000      		.word	gs(LcdWriteData)
+ 125 0029 0000      		.word	gs(LcdWriteCmd)
+ 126 002b 0000      		.word	gs(LcdClear)
+ 127 002d 0000      		.word	gs(LcdSetCursor)
+ 128 002f 0000      		.word	gs(LcdCursorHome)
+ 129 0031 0000      		.word	gs(LcdCursorLeft)
+ 130 0033 0000      		.word	gs(LcdCursorRight)
+ 131 0035 0000      		.word	gs(LcdCursorMode)
+ 132 0037 00        		.byte	0
+ 133 0038 00        		.byte	0
+ 134 0039 00        		.byte	0
+ 135 003a 00        		.byte	0
+ 136 003b 00        		.byte	0
+ 137 003c 02        		.byte	2
+ 138 003d 10        		.byte	16
+ 139 003e 10        		.byte	16
+ 140 003f 00        		.byte	0
+ 141 0040 00        		.byte	0
+ 142 0041 0000      		.word	0
+ 143 0043 0000      		.zero	2
+ 144               		.ident	"GCC: (GNU) 5.3.0"
+ 145               	.global __do_copy_data
+GAS LISTING /tmp/cczqFHYS.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 spi_mlcd.c
+     /tmp/cczqFHYS.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cczqFHYS.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cczqFHYS.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cczqFHYS.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cczqFHYS.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cczqFHYS.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cczqFHYS.s:10     .text.LcdWriteCmd:0000000000000000 LcdWriteCmd
+     /tmp/cczqFHYS.s:19     .text.LcdClear:0000000000000000 LcdClear
+     /tmp/cczqFHYS.s:28     .text.LcdCursorMode:0000000000000000 LcdCursorMode
+     /tmp/cczqFHYS.s:37     .text.LcdInit:0000000000000000 LcdInit
+     /tmp/cczqFHYS.s:48     .text.LcdSetCursor:0000000000000000 LcdSetCursor
+     /tmp/cczqFHYS.s:57     .text.LcdWriteData:0000000000000000 LcdWriteData
+     /tmp/cczqFHYS.s:66     .text.LcdCursorRight:0000000000000000 LcdCursorRight
+     /tmp/cczqFHYS.s:75     .text.LcdCursorHome:0000000000000000 LcdCursorHome
+     /tmp/cczqFHYS.s:84     .text.LcdCursorLeft:0000000000000000 LcdCursorLeft
+     /tmp/cczqFHYS.s:95     .data:0000000000000000 devSpiMegaLcd
+     /tmp/cczqFHYS.s:122    .data:0000000000000025 dcb_term
+
+UNDEFINED SYMBOLS
+TermInit
+TermIOCtl
+TermWrite
+TermWrite_P
+TermOpen
+TermClose
+__do_copy_data

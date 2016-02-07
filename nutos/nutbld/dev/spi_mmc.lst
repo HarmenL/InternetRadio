@@ -1,0 +1,1890 @@
+GAS LISTING /tmp/ccTK9h5y.s 			page 1
+
+
+   1               		.file	"spi_mmc.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.CardRxTkn,"ax",@progbits
+   9               		.type	CardRxTkn, @function
+  10               	CardRxTkn:
+  11 0000 CF92      		push r12
+  12 0002 DF92      		push r13
+  13 0004 EF92      		push r14
+  14 0006 FF92      		push r15
+  15 0008 0F93      		push r16
+  16 000a 1F93      		push r17
+  17 000c CF93      		push r28
+  18 000e DF93      		push r29
+  19 0010 1F92      		push __zero_reg__
+  20 0012 CDB7      		in r28,__SP_L__
+  21 0014 DEB7      		in r29,__SP_H__
+  22               	/* prologue: function */
+  23               	/* frame size = 1 */
+  24               	/* stack size = 9 */
+  25               	.L__stack_usage = 9
+  26 0016 7C01      		movw r14,r24
+  27 0018 DC01      		movw r26,r24
+  28 001a CD90      		ld r12,X+
+  29 001c DC90      		ld r13,X
+  30 001e 00E0      		ldi r16,0
+  31 0020 14E0      		ldi r17,lo8(4)
+  32               	.L4:
+  33 0022 D601      		movw r26,r12
+  34 0024 1E96      		adiw r26,14
+  35 0026 ED91      		ld r30,X+
+  36 0028 FC91      		ld r31,X
+  37 002a 1F97      		sbiw r26,14+1
+  38 002c 21E0      		ldi r18,lo8(1)
+  39 002e 30E0      		ldi r19,0
+  40 0030 AE01      		movw r20,r28
+  41 0032 4F5F      		subi r20,-1
+  42 0034 5F4F      		sbci r21,-1
+  43 0036 60E0      		ldi r22,lo8(dummy_tx_buf)
+  44 0038 70E0      		ldi r23,hi8(dummy_tx_buf)
+  45 003a C701      		movw r24,r14
+  46 003c 1995      		eicall
+  47 003e 8981      		ldd r24,Y+1
+  48 0040 8F3F      		cpi r24,lo8(-1)
+  49 0042 01F0      		breq .L2
+  50               	.L5:
+  51 0044 8981      		ldd r24,Y+1
+  52               	/* epilogue start */
+  53 0046 0F90      		pop __tmp_reg__
+  54 0048 DF91      		pop r29
+  55 004a CF91      		pop r28
+  56 004c 1F91      		pop r17
+  57 004e 0F91      		pop r16
+GAS LISTING /tmp/ccTK9h5y.s 			page 2
+
+
+  58 0050 FF90      		pop r15
+  59 0052 EF90      		pop r14
+  60 0054 DF90      		pop r13
+  61 0056 CF90      		pop r12
+  62 0058 0895      		ret
+  63               	.L2:
+  64 005a 0115      		cp r16,__zero_reg__
+  65 005c B3E0      		ldi r27,3
+  66 005e 1B07      		cpc r17,r27
+  67 0060 04F4      		brge .L3
+  68 0062 6AE0      		ldi r22,lo8(10)
+  69 0064 70E0      		ldi r23,0
+  70 0066 80E0      		ldi r24,0
+  71 0068 90E0      		ldi r25,0
+  72 006a 0E94 0000 		call NutSleep
+  73               	.L3:
+  74 006e 0150      		subi r16,1
+  75 0070 1109      		sbc r17,__zero_reg__
+  76 0072 00F4      		brcc .L4
+  77 0074 00C0      		rjmp .L5
+  78               		.size	CardRxTkn, .-CardRxTkn
+  79               		.section	.text.CardTxCommand,"ax",@progbits
+  80               		.type	CardTxCommand, @function
+  81               	CardTxCommand:
+  82 0000 6F92      		push r6
+  83 0002 7F92      		push r7
+  84 0004 8F92      		push r8
+  85 0006 9F92      		push r9
+  86 0008 AF92      		push r10
+  87 000a BF92      		push r11
+  88 000c CF92      		push r12
+  89 000e DF92      		push r13
+  90 0010 EF92      		push r14
+  91 0012 FF92      		push r15
+  92 0014 0F93      		push r16
+  93 0016 1F93      		push r17
+  94 0018 CF93      		push r28
+  95 001a DF93      		push r29
+  96 001c CDB7      		in r28,__SP_L__
+  97 001e DEB7      		in r29,__SP_H__
+  98 0020 2897      		sbiw r28,8
+  99 0022 0FB6      		in __tmp_reg__,__SREG__
+ 100 0024 F894      		cli
+ 101 0026 DEBF      		out __SP_H__,r29
+ 102 0028 0FBE      		out __SREG__,__tmp_reg__
+ 103 002a CDBF      		out __SP_L__,r28
+ 104               	/* prologue: function */
+ 105               	/* frame size = 8 */
+ 106               	/* stack size = 22 */
+ 107               	.L__stack_usage = 22
+ 108 002c 7C01      		movw r14,r24
+ 109 002e 862F      		mov r24,r22
+ 110 0030 8064      		ori r24,lo8(64)
+ 111 0032 8983      		std Y+1,r24
+ 112 0034 5A83      		std Y+2,r21
+ 113 0036 4B83      		std Y+3,r20
+ 114 0038 3C83      		std Y+4,r19
+GAS LISTING /tmp/ccTK9h5y.s 			page 3
+
+
+ 115 003a 2D83      		std Y+5,r18
+ 116 003c 6830      		cpi r22,lo8(8)
+ 117 003e 01F4      		brne .L10
+ 118 0040 87E8      		ldi r24,lo8(-121)
+ 119 0042 00C0      		rjmp .L30
+ 120               	.L10:
+ 121 0044 85E9      		ldi r24,lo8(-107)
+ 122               	.L30:
+ 123 0046 8E83      		std Y+6,r24
+ 124 0048 2AE0      		ldi r18,lo8(10)
+ 125 004a A22E      		mov r10,r18
+ 126 004c B12C      		mov r11,__zero_reg__
+ 127 004e CC24      		clr r12
+ 128 0050 CA94      		dec r12
+ 129 0052 DC2C      		mov r13,r12
+ 130               	.L18:
+ 131 0054 D701      		movw r26,r14
+ 132 0056 6D90      		ld r6,X+
+ 133 0058 7C90      		ld r7,X
+ 134 005a D301      		movw r26,r6
+ 135 005c 1A96      		adiw r26,10
+ 136 005e ED91      		ld r30,X+
+ 137 0060 FC91      		ld r31,X
+ 138 0062 1B97      		sbiw r26,10+1
+ 139 0064 48EE      		ldi r20,lo8(-24)
+ 140 0066 53E0      		ldi r21,lo8(3)
+ 141 0068 60E0      		ldi r22,0
+ 142 006a 70E0      		ldi r23,0
+ 143 006c C701      		movw r24,r14
+ 144 006e 1995      		eicall
+ 145 0070 892B      		or r24,r25
+ 146 0072 01F4      		brne .L19
+ 147 0074 90E2      		ldi r25,lo8(32)
+ 148 0076 892E      		mov r8,r25
+ 149 0078 93E0      		ldi r25,lo8(3)
+ 150 007a 992E      		mov r9,r25
+ 151               	.L14:
+ 152 007c D301      		movw r26,r6
+ 153 007e 1E96      		adiw r26,14
+ 154 0080 ED91      		ld r30,X+
+ 155 0082 FC91      		ld r31,X
+ 156 0084 1F97      		sbiw r26,14+1
+ 157 0086 21E0      		ldi r18,lo8(1)
+ 158 0088 30E0      		ldi r19,0
+ 159 008a AE01      		movw r20,r28
+ 160 008c 495F      		subi r20,-7
+ 161 008e 5F4F      		sbci r21,-1
+ 162 0090 60E0      		ldi r22,lo8(dummy_tx_buf)
+ 163 0092 70E0      		ldi r23,hi8(dummy_tx_buf)
+ 164 0094 C701      		movw r24,r14
+ 165 0096 1995      		eicall
+ 166 0098 8F81      		ldd r24,Y+7
+ 167 009a 8F3F      		cpi r24,lo8(-1)
+ 168 009c 01F0      		breq .L12
+ 169 009e B8EC      		ldi r27,-56
+ 170 00a0 8B16      		cp r8,r27
+ 171 00a2 9104      		cpc r9,__zero_reg__
+GAS LISTING /tmp/ccTK9h5y.s 			page 4
+
+
+ 172 00a4 04F4      		brge .L13
+ 173 00a6 61E0      		ldi r22,lo8(1)
+ 174 00a8 70E0      		ldi r23,0
+ 175 00aa 80E0      		ldi r24,0
+ 176 00ac 90E0      		ldi r25,0
+ 177 00ae 0E94 0000 		call NutSleep
+ 178               	.L13:
+ 179 00b2 E1E0      		ldi r30,1
+ 180 00b4 8E1A      		sub r8,r30
+ 181 00b6 9108      		sbc r9,__zero_reg__
+ 182 00b8 00F4      		brcc .L14
+ 183 00ba D301      		movw r26,r6
+ 184 00bc 1C96      		adiw r26,12
+ 185 00be ED91      		ld r30,X+
+ 186 00c0 FC91      		ld r31,X
+ 187 00c2 1D97      		sbiw r26,12+1
+ 188 00c4 C701      		movw r24,r14
+ 189 00c6 1995      		eicall
+ 190               	.L19:
+ 191 00c8 612C      		mov r6,__zero_reg__
+ 192 00ca 712C      		mov r7,__zero_reg__
+ 193               	.L12:
+ 194 00cc 6114      		cp r6,__zero_reg__
+ 195 00ce 7104      		cpc r7,__zero_reg__
+ 196 00d0 01F0      		breq .L15
+ 197 00d2 D301      		movw r26,r6
+ 198 00d4 1E96      		adiw r26,14
+ 199 00d6 ED91      		ld r30,X+
+ 200 00d8 FC91      		ld r31,X
+ 201 00da 1F97      		sbiw r26,14+1
+ 202 00dc 26E0      		ldi r18,lo8(6)
+ 203 00de 30E0      		ldi r19,0
+ 204 00e0 40E0      		ldi r20,0
+ 205 00e2 50E0      		ldi r21,0
+ 206 00e4 BE01      		movw r22,r28
+ 207 00e6 6F5F      		subi r22,-1
+ 208 00e8 7F4F      		sbci r23,-1
+ 209 00ea C701      		movw r24,r14
+ 210 00ec 1995      		eicall
+ 211 00ee C701      		movw r24,r14
+ 212 00f0 0E94 0000 		call CardRxTkn
+ 213 00f4 8887      		std Y+8,r24
+ 214 00f6 87FD      		sbrc r24,7
+ 215 00f8 00C0      		rjmp .L16
+ 216 00fa C82E      		mov r12,r24
+ 217 00fc D12C      		mov r13,__zero_reg__
+ 218 00fe 0115      		cp r16,__zero_reg__
+ 219 0100 1105      		cpc r17,__zero_reg__
+ 220 0102 01F0      		breq .L17
+ 221 0104 0230      		cpi r16,2
+ 222 0106 1105      		cpc r17,__zero_reg__
+ 223 0108 01F4      		brne .L21
+ 224 010a D301      		movw r26,r6
+ 225 010c 1E96      		adiw r26,14
+ 226 010e ED91      		ld r30,X+
+ 227 0110 FC91      		ld r31,X
+ 228 0112 1F97      		sbiw r26,14+1
+GAS LISTING /tmp/ccTK9h5y.s 			page 5
+
+
+ 229 0114 21E0      		ldi r18,lo8(1)
+ 230 0116 30E0      		ldi r19,0
+ 231 0118 AE01      		movw r20,r28
+ 232 011a 485F      		subi r20,-8
+ 233 011c 5F4F      		sbci r21,-1
+ 234 011e 60E0      		ldi r22,lo8(dummy_tx_buf)
+ 235 0120 70E0      		ldi r23,hi8(dummy_tx_buf)
+ 236 0122 C701      		movw r24,r14
+ 237 0124 1995      		eicall
+ 238 0126 DC2C      		mov r13,r12
+ 239 0128 CC24      		clr r12
+ 240 012a 8885      		ldd r24,Y+8
+ 241 012c C82A      		or r12,r24
+ 242               	.L21:
+ 243 012e A12C      		mov r10,__zero_reg__
+ 244 0130 B12C      		mov r11,__zero_reg__
+ 245               	.L16:
+ 246 0132 D301      		movw r26,r6
+ 247 0134 1C96      		adiw r26,12
+ 248 0136 ED91      		ld r30,X+
+ 249 0138 FC91      		ld r31,X
+ 250 013a 1D97      		sbiw r26,12+1
+ 251 013c C701      		movw r24,r14
+ 252 013e 1995      		eicall
+ 253               	.L15:
+ 254 0140 C501      		movw r24,r10
+ 255 0142 0197      		sbiw r24,1
+ 256 0144 AB28      		or r10,r11
+ 257 0146 01F0      		breq .L17
+ 258 0148 5C01      		movw r10,r24
+ 259 014a 00C0      		rjmp .L18
+ 260               	.L17:
+ 261 014c C601      		movw r24,r12
+ 262               	/* epilogue start */
+ 263 014e 2896      		adiw r28,8
+ 264 0150 0FB6      		in __tmp_reg__,__SREG__
+ 265 0152 F894      		cli
+ 266 0154 DEBF      		out __SP_H__,r29
+ 267 0156 0FBE      		out __SREG__,__tmp_reg__
+ 268 0158 CDBF      		out __SP_L__,r28
+ 269 015a DF91      		pop r29
+ 270 015c CF91      		pop r28
+ 271 015e 1F91      		pop r17
+ 272 0160 0F91      		pop r16
+ 273 0162 FF90      		pop r15
+ 274 0164 EF90      		pop r14
+ 275 0166 DF90      		pop r13
+ 276 0168 CF90      		pop r12
+ 277 016a BF90      		pop r11
+ 278 016c AF90      		pop r10
+ 279 016e 9F90      		pop r9
+ 280 0170 8F90      		pop r8
+ 281 0172 7F90      		pop r7
+ 282 0174 6F90      		pop r6
+ 283 0176 0895      		ret
+ 284               		.size	CardTxCommand, .-CardTxCommand
+ 285               		.section	.text.CardRxData,"ax",@progbits
+GAS LISTING /tmp/ccTK9h5y.s 			page 6
+
+
+ 286               		.type	CardRxData, @function
+ 287               	CardRxData:
+ 288 0000 2F92      		push r2
+ 289 0002 3F92      		push r3
+ 290 0004 4F92      		push r4
+ 291 0006 5F92      		push r5
+ 292 0008 6F92      		push r6
+ 293 000a 7F92      		push r7
+ 294 000c 8F92      		push r8
+ 295 000e 9F92      		push r9
+ 296 0010 AF92      		push r10
+ 297 0012 BF92      		push r11
+ 298 0014 CF92      		push r12
+ 299 0016 DF92      		push r13
+ 300 0018 EF92      		push r14
+ 301 001a FF92      		push r15
+ 302 001c 0F93      		push r16
+ 303 001e 1F93      		push r17
+ 304 0020 CF93      		push r28
+ 305 0022 DF93      		push r29
+ 306 0024 00D0      		rcall .
+ 307 0026 00D0      		rcall .
+ 308 0028 CDB7      		in r28,__SP_L__
+ 309 002a DEB7      		in r29,__SP_H__
+ 310               	/* prologue: function */
+ 311               	/* frame size = 6 */
+ 312               	/* stack size = 24 */
+ 313               	.L__stack_usage = 24
+ 314 002c 6C01      		movw r12,r24
+ 315 002e 6C83      		std Y+4,r22
+ 316 0030 2901      		movw r4,r18
+ 317 0032 3A01      		movw r6,r20
+ 318 0034 1E83      		std Y+6,r17
+ 319 0036 0D83      		std Y+5,r16
+ 320 0038 1701      		movw r2,r14
+ 321 003a DC01      		movw r26,r24
+ 322 003c 8D90      		ld r8,X+
+ 323 003e 9C90      		ld r9,X
+ 324 0040 89E0      		ldi r24,lo8(9)
+ 325 0042 A82E      		mov r10,r24
+ 326 0044 B12C      		mov r11,__zero_reg__
+ 327 0046 EE24      		clr r14
+ 328 0048 EA94      		dec r14
+ 329 004a FE2C      		mov r15,r14
+ 330               	.L32:
+ 331 004c B1E0      		ldi r27,1
+ 332 004e AB1A      		sub r10,r27
+ 333 0050 B108      		sbc r11,__zero_reg__
+ 334 0052 01F4      		brne .+2
+ 335 0054 00C0      		rjmp .L38
+ 336 0056 00E0      		ldi r16,0
+ 337 0058 10E0      		ldi r17,0
+ 338 005a A301      		movw r20,r6
+ 339 005c 9201      		movw r18,r4
+ 340 005e 6C81      		ldd r22,Y+4
+ 341 0060 C601      		movw r24,r12
+ 342 0062 0E94 0000 		call CardTxCommand
+GAS LISTING /tmp/ccTK9h5y.s 			page 7
+
+
+ 343 0066 87FD      		sbrc r24,7
+ 344 0068 00C0      		rjmp .L33
+ 345 006a 8111      		cpse r24,__zero_reg__
+ 346 006c 00C0      		rjmp .L34
+ 347 006e F601      		movw r30,r12
+ 348 0070 0190      		ld __tmp_reg__,Z+
+ 349 0072 F081      		ld r31,Z
+ 350 0074 E02D      		mov r30,__tmp_reg__
+ 351 0076 FB83      		std Y+3,r31
+ 352 0078 EA83      		std Y+2,r30
+ 353 007a 00E2      		ldi r16,lo8(32)
+ 354 007c 13E0      		ldi r17,lo8(3)
+ 355               	.L37:
+ 356 007e AA81      		ldd r26,Y+2
+ 357 0080 BB81      		ldd r27,Y+3
+ 358 0082 1E96      		adiw r26,14
+ 359 0084 ED91      		ld r30,X+
+ 360 0086 FC91      		ld r31,X
+ 361 0088 1F97      		sbiw r26,14+1
+ 362 008a 21E0      		ldi r18,lo8(1)
+ 363 008c 30E0      		ldi r19,0
+ 364 008e AE01      		movw r20,r28
+ 365 0090 4F5F      		subi r20,-1
+ 366 0092 5F4F      		sbci r21,-1
+ 367 0094 60E0      		ldi r22,lo8(dummy_tx_buf)
+ 368 0096 70E0      		ldi r23,hi8(dummy_tx_buf)
+ 369 0098 C601      		movw r24,r12
+ 370 009a 1995      		eicall
+ 371 009c 8981      		ldd r24,Y+1
+ 372 009e 9FEF      		ldi r25,lo8(-1)
+ 373 00a0 980F      		add r25,r24
+ 374 00a2 9E3F      		cpi r25,lo8(-2)
+ 375 00a4 00F0      		brlo .L35
+ 376 00a6 083C      		cpi r16,-56
+ 377 00a8 1105      		cpc r17,__zero_reg__
+ 378 00aa 04F4      		brge .L36
+ 379 00ac 61E0      		ldi r22,lo8(1)
+ 380 00ae 70E0      		ldi r23,0
+ 381 00b0 80E0      		ldi r24,0
+ 382 00b2 90E0      		ldi r25,0
+ 383 00b4 0E94 0000 		call NutSleep
+ 384               	.L36:
+ 385 00b8 0150      		subi r16,1
+ 386 00ba 1109      		sbc r17,__zero_reg__
+ 387 00bc 00F4      		brcc .L37
+ 388 00be 00C0      		rjmp .L34
+ 389               	.L35:
+ 390 00c0 8E3F      		cpi r24,lo8(-2)
+ 391 00c2 01F4      		brne .L34
+ 392 00c4 D401      		movw r26,r8
+ 393 00c6 1E96      		adiw r26,14
+ 394 00c8 ED91      		ld r30,X+
+ 395 00ca FC91      		ld r31,X
+ 396 00cc 1F97      		sbiw r26,14+1
+ 397 00ce 9101      		movw r18,r2
+ 398 00d0 4D81      		ldd r20,Y+5
+ 399 00d2 5E81      		ldd r21,Y+6
+GAS LISTING /tmp/ccTK9h5y.s 			page 8
+
+
+ 400 00d4 60E0      		ldi r22,lo8(dummy_tx_buf)
+ 401 00d6 70E0      		ldi r23,hi8(dummy_tx_buf)
+ 402 00d8 C601      		movw r24,r12
+ 403 00da 1995      		eicall
+ 404 00dc D401      		movw r26,r8
+ 405 00de 1E96      		adiw r26,14
+ 406 00e0 ED91      		ld r30,X+
+ 407 00e2 FC91      		ld r31,X
+ 408 00e4 1F97      		sbiw r26,14+1
+ 409 00e6 22E0      		ldi r18,lo8(2)
+ 410 00e8 30E0      		ldi r19,0
+ 411 00ea 40E0      		ldi r20,0
+ 412 00ec 50E0      		ldi r21,0
+ 413 00ee 60E0      		ldi r22,lo8(dummy_tx_buf)
+ 414 00f0 70E0      		ldi r23,hi8(dummy_tx_buf)
+ 415 00f2 C601      		movw r24,r12
+ 416 00f4 1995      		eicall
+ 417 00f6 E12C      		mov r14,__zero_reg__
+ 418 00f8 F12C      		mov r15,__zero_reg__
+ 419               	.L34:
+ 420 00fa D401      		movw r26,r8
+ 421 00fc 1E96      		adiw r26,14
+ 422 00fe ED91      		ld r30,X+
+ 423 0100 FC91      		ld r31,X
+ 424 0102 1F97      		sbiw r26,14+1
+ 425 0104 21E0      		ldi r18,lo8(1)
+ 426 0106 30E0      		ldi r19,0
+ 427 0108 40E0      		ldi r20,0
+ 428 010a 50E0      		ldi r21,0
+ 429 010c 60E0      		ldi r22,0
+ 430 010e 70E0      		ldi r23,0
+ 431 0110 C601      		movw r24,r12
+ 432 0112 1995      		eicall
+ 433 0114 D401      		movw r26,r8
+ 434 0116 1C96      		adiw r26,12
+ 435 0118 ED91      		ld r30,X+
+ 436 011a FC91      		ld r31,X
+ 437 011c 1D97      		sbiw r26,12+1
+ 438 011e C601      		movw r24,r12
+ 439 0120 1995      		eicall
+ 440               	.L33:
+ 441 0122 E114      		cp r14,__zero_reg__
+ 442 0124 F104      		cpc r15,__zero_reg__
+ 443 0126 01F0      		breq .+2
+ 444 0128 00C0      		rjmp .L32
+ 445               	.L38:
+ 446 012a C701      		movw r24,r14
+ 447               	/* epilogue start */
+ 448 012c 2696      		adiw r28,6
+ 449 012e 0FB6      		in __tmp_reg__,__SREG__
+ 450 0130 F894      		cli
+ 451 0132 DEBF      		out __SP_H__,r29
+ 452 0134 0FBE      		out __SREG__,__tmp_reg__
+ 453 0136 CDBF      		out __SP_L__,r28
+ 454 0138 DF91      		pop r29
+ 455 013a CF91      		pop r28
+ 456 013c 1F91      		pop r17
+GAS LISTING /tmp/ccTK9h5y.s 			page 9
+
+
+ 457 013e 0F91      		pop r16
+ 458 0140 FF90      		pop r15
+ 459 0142 EF90      		pop r14
+ 460 0144 DF90      		pop r13
+ 461 0146 CF90      		pop r12
+ 462 0148 BF90      		pop r11
+ 463 014a AF90      		pop r10
+ 464 014c 9F90      		pop r9
+ 465 014e 8F90      		pop r8
+ 466 0150 7F90      		pop r7
+ 467 0152 6F90      		pop r6
+ 468 0154 5F90      		pop r5
+ 469 0156 4F90      		pop r4
+ 470 0158 3F90      		pop r3
+ 471 015a 2F90      		pop r2
+ 472 015c 0895      		ret
+ 473               		.size	CardRxData, .-CardRxData
+ 474               		.section	.text.SpiMmcBlockRead,"ax",@progbits
+ 475               	.global	SpiMmcBlockRead
+ 476               		.type	SpiMmcBlockRead, @function
+ 477               	SpiMmcBlockRead:
+ 478 0000 CF92      		push r12
+ 479 0002 DF92      		push r13
+ 480 0004 EF92      		push r14
+ 481 0006 FF92      		push r15
+ 482 0008 0F93      		push r16
+ 483 000a 1F93      		push r17
+ 484 000c CF93      		push r28
+ 485 000e DF93      		push r29
+ 486               	/* prologue: function */
+ 487               	/* frame size = 0 */
+ 488               	/* stack size = 8 */
+ 489               	.L__stack_usage = 8
+ 490 0010 8B01      		movw r16,r22
+ 491 0012 FC01      		movw r30,r24
+ 492 0014 E280      		ldd r14,Z+2
+ 493 0016 F380      		ldd r15,Z+3
+ 494 0018 C080      		ld r12,Z
+ 495 001a D180      		ldd r13,Z+1
+ 496 001c F601      		movw r30,r12
+ 497 001e C189      		ldd r28,Z+17
+ 498 0020 D289      		ldd r29,Z+18
+ 499 0022 8881      		ld r24,Y
+ 500 0024 8111      		cpse r24,__zero_reg__
+ 501 0026 00C0      		rjmp .L45
+ 502 0028 EC81      		ldd r30,Y+4
+ 503 002a FD81      		ldd r31,Y+5
+ 504 002c 81E0      		ldi r24,lo8(1)
+ 505 002e 90E0      		ldi r25,0
+ 506 0030 1995      		eicall
+ 507 0032 0115      		cp r16,__zero_reg__
+ 508 0034 1105      		cpc r17,__zero_reg__
+ 509 0036 01F4      		brne .L46
+ 510 0038 8701      		movw r16,r14
+ 511 003a 0A5E      		subi r16,-22
+ 512 003c 1F4F      		sbci r17,-1
+ 513               	.L46:
+GAS LISTING /tmp/ccTK9h5y.s 			page 10
+
+
+ 514 003e F701      		movw r30,r14
+ 515 0040 2289      		ldd r18,Z+18
+ 516 0042 3389      		ldd r19,Z+19
+ 517 0044 4489      		ldd r20,Z+20
+ 518 0046 5589      		ldd r21,Z+21
+ 519 0048 E12C      		mov r14,__zero_reg__
+ 520 004a 82E0      		ldi r24,lo8(2)
+ 521 004c F82E      		mov r15,r24
+ 522 004e 61E1      		ldi r22,lo8(17)
+ 523 0050 F601      		movw r30,r12
+ 524 0052 8785      		ldd r24,Z+15
+ 525 0054 9089      		ldd r25,Z+16
+ 526 0056 0E94 0000 		call CardRxData
+ 527 005a 892B      		or r24,r25
+ 528 005c 01F4      		brne .L45
+ 529 005e EC81      		ldd r30,Y+4
+ 530 0060 FD81      		ldd r31,Y+5
+ 531 0062 80E0      		ldi r24,0
+ 532 0064 90E0      		ldi r25,0
+ 533 0066 1995      		eicall
+ 534 0068 81E0      		ldi r24,lo8(1)
+ 535 006a 90E0      		ldi r25,0
+ 536 006c 00C0      		rjmp .L47
+ 537               	.L45:
+ 538 006e EC81      		ldd r30,Y+4
+ 539 0070 FD81      		ldd r31,Y+5
+ 540 0072 84E0      		ldi r24,lo8(4)
+ 541 0074 90E0      		ldi r25,0
+ 542 0076 1995      		eicall
+ 543 0078 8FEF      		ldi r24,lo8(-1)
+ 544 007a 9FEF      		ldi r25,lo8(-1)
+ 545               	.L47:
+ 546               	/* epilogue start */
+ 547 007c DF91      		pop r29
+ 548 007e CF91      		pop r28
+ 549 0080 1F91      		pop r17
+ 550 0082 0F91      		pop r16
+ 551 0084 FF90      		pop r15
+ 552 0086 EF90      		pop r14
+ 553 0088 DF90      		pop r13
+ 554 008a CF90      		pop r12
+ 555 008c 0895      		ret
+ 556               		.size	SpiMmcBlockRead, .-SpiMmcBlockRead
+ 557               		.section	.text.SpiMmcBlockWrite,"ax",@progbits
+ 558               	.global	SpiMmcBlockWrite
+ 559               		.type	SpiMmcBlockWrite, @function
+ 560               	SpiMmcBlockWrite:
+ 561 0000 5F92      		push r5
+ 562 0002 6F92      		push r6
+ 563 0004 7F92      		push r7
+ 564 0006 8F92      		push r8
+ 565 0008 9F92      		push r9
+ 566 000a AF92      		push r10
+ 567 000c BF92      		push r11
+ 568 000e CF92      		push r12
+ 569 0010 DF92      		push r13
+ 570 0012 EF92      		push r14
+GAS LISTING /tmp/ccTK9h5y.s 			page 11
+
+
+ 571 0014 FF92      		push r15
+ 572 0016 0F93      		push r16
+ 573 0018 1F93      		push r17
+ 574 001a CF93      		push r28
+ 575 001c DF93      		push r29
+ 576 001e 1F92      		push __zero_reg__
+ 577 0020 1F92      		push __zero_reg__
+ 578 0022 CDB7      		in r28,__SP_L__
+ 579 0024 DEB7      		in r29,__SP_H__
+ 580               	/* prologue: function */
+ 581               	/* frame size = 2 */
+ 582               	/* stack size = 17 */
+ 583               	.L__stack_usage = 17
+ 584 0026 4B01      		movw r8,r22
+ 585 0028 3A01      		movw r6,r20
+ 586 002a DC01      		movw r26,r24
+ 587 002c 1296      		adiw r26,2
+ 588 002e 0D91      		ld r16,X+
+ 589 0030 1C91      		ld r17,X
+ 590 0032 1397      		sbiw r26,2+1
+ 591 0034 ED91      		ld r30,X+
+ 592 0036 FC91      		ld r31,X
+ 593 0038 A188      		ldd r10,Z+17
+ 594 003a B288      		ldd r11,Z+18
+ 595 003c E784      		ldd r14,Z+15
+ 596 003e F088      		ldd r15,Z+16
+ 597 0040 F701      		movw r30,r14
+ 598 0042 C080      		ld r12,Z
+ 599 0044 D180      		ldd r13,Z+1
+ 600 0046 D501      		movw r26,r10
+ 601 0048 8C91      		ld r24,X
+ 602 004a 8111      		cpse r24,__zero_reg__
+ 603 004c 00C0      		rjmp .L49
+ 604 004e 1496      		adiw r26,4
+ 605 0050 ED91      		ld r30,X+
+ 606 0052 FC91      		ld r31,X
+ 607 0054 1597      		sbiw r26,4+1
+ 608 0056 82E0      		ldi r24,lo8(2)
+ 609 0058 90E0      		ldi r25,0
+ 610 005a 1995      		eicall
+ 611 005c 8114      		cp r8,__zero_reg__
+ 612 005e 9104      		cpc r9,__zero_reg__
+ 613 0060 01F4      		brne .L50
+ 614 0062 4801      		movw r8,r16
+ 615 0064 B6E1      		ldi r27,22
+ 616 0066 8B0E      		add r8,r27
+ 617 0068 911C      		adc r9,__zero_reg__
+ 618               	.L50:
+ 619 006a F801      		movw r30,r16
+ 620 006c 2289      		ldd r18,Z+18
+ 621 006e 3389      		ldd r19,Z+19
+ 622 0070 4489      		ldd r20,Z+20
+ 623 0072 5589      		ldd r21,Z+21
+ 624 0074 00E0      		ldi r16,0
+ 625 0076 10E0      		ldi r17,0
+ 626 0078 F1E0      		ldi r31,1
+ 627 007a 6F16      		cp r6,r31
+GAS LISTING /tmp/ccTK9h5y.s 			page 12
+
+
+ 628 007c 7104      		cpc r7,__zero_reg__
+ 629 007e 01F0      		breq .+2
+ 630 0080 00C0      		rjmp .L51
+ 631 0082 68E1      		ldi r22,lo8(24)
+ 632 0084 C701      		movw r24,r14
+ 633 0086 0E94 0000 		call CardTxCommand
+ 634 008a 8983      		std Y+1,r24
+ 635 008c 8F3F      		cpi r24,lo8(-1)
+ 636 008e 01F4      		brne .+2
+ 637 0090 00C0      		rjmp .L49
+ 638 0092 8111      		cpse r24,__zero_reg__
+ 639 0094 00C0      		rjmp .L56
+ 640 0096 8EEF      		ldi r24,lo8(-2)
+ 641 0098 8983      		std Y+1,r24
+ 642 009a D601      		movw r26,r12
+ 643 009c 1E96      		adiw r26,14
+ 644 009e ED91      		ld r30,X+
+ 645 00a0 FC91      		ld r31,X
+ 646 00a2 1F97      		sbiw r26,14+1
+ 647 00a4 21E0      		ldi r18,lo8(1)
+ 648 00a6 30E0      		ldi r19,0
+ 649 00a8 40E0      		ldi r20,0
+ 650 00aa 50E0      		ldi r21,0
+ 651 00ac BE01      		movw r22,r28
+ 652 00ae 6F5F      		subi r22,-1
+ 653 00b0 7F4F      		sbci r23,-1
+ 654 00b2 C701      		movw r24,r14
+ 655 00b4 1995      		eicall
+ 656 00b6 D601      		movw r26,r12
+ 657 00b8 1E96      		adiw r26,14
+ 658 00ba ED91      		ld r30,X+
+ 659 00bc FC91      		ld r31,X
+ 660 00be 1F97      		sbiw r26,14+1
+ 661 00c0 20E0      		ldi r18,0
+ 662 00c2 32E0      		ldi r19,lo8(2)
+ 663 00c4 40E0      		ldi r20,0
+ 664 00c6 50E0      		ldi r21,0
+ 665 00c8 B401      		movw r22,r8
+ 666 00ca C701      		movw r24,r14
+ 667 00cc 1995      		eicall
+ 668 00ce D601      		movw r26,r12
+ 669 00d0 1E96      		adiw r26,14
+ 670 00d2 ED91      		ld r30,X+
+ 671 00d4 FC91      		ld r31,X
+ 672 00d6 1F97      		sbiw r26,14+1
+ 673 00d8 22E0      		ldi r18,lo8(2)
+ 674 00da 30E0      		ldi r19,0
+ 675 00dc 40E0      		ldi r20,0
+ 676 00de 50E0      		ldi r21,0
+ 677 00e0 60E0      		ldi r22,lo8(dummy_tx_buf)
+ 678 00e2 70E0      		ldi r23,hi8(dummy_tx_buf)
+ 679 00e4 C701      		movw r24,r14
+ 680 00e6 1995      		eicall
+ 681 00e8 C701      		movw r24,r14
+ 682 00ea 0E94 0000 		call CardRxTkn
+ 683 00ee 8983      		std Y+1,r24
+ 684 00f0 853E      		cpi r24,lo8(-27)
+GAS LISTING /tmp/ccTK9h5y.s 			page 13
+
+
+ 685 00f2 01F0      		breq .+2
+ 686 00f4 00C0      		rjmp .L56
+ 687 00f6 D601      		movw r26,r12
+ 688 00f8 1E96      		adiw r26,14
+ 689 00fa ED91      		ld r30,X+
+ 690 00fc FC91      		ld r31,X
+ 691 00fe 1F97      		sbiw r26,14+1
+ 692 0100 21E0      		ldi r18,lo8(1)
+ 693 0102 30E0      		ldi r19,0
+ 694 0104 40E0      		ldi r20,0
+ 695 0106 50E0      		ldi r21,0
+ 696 0108 60E0      		ldi r22,0
+ 697 010a 70E0      		ldi r23,0
+ 698 010c C701      		movw r24,r14
+ 699 010e 1995      		eicall
+ 700 0110 D601      		movw r26,r12
+ 701 0112 1C96      		adiw r26,12
+ 702 0114 ED91      		ld r30,X+
+ 703 0116 FC91      		ld r31,X
+ 704 0118 1D97      		sbiw r26,12+1
+ 705 011a C701      		movw r24,r14
+ 706 011c 1995      		eicall
+ 707 011e D501      		movw r26,r10
+ 708 0120 1496      		adiw r26,4
+ 709 0122 ED91      		ld r30,X+
+ 710 0124 FC91      		ld r31,X
+ 711 0126 1597      		sbiw r26,4+1
+ 712 0128 80E0      		ldi r24,0
+ 713 012a 90E0      		ldi r25,0
+ 714 012c 1995      		eicall
+ 715 012e 81E0      		ldi r24,lo8(1)
+ 716 0130 90E0      		ldi r25,0
+ 717 0132 00C0      		rjmp .L54
+ 718               	.L51:
+ 719 0134 69E1      		ldi r22,lo8(25)
+ 720 0136 C701      		movw r24,r14
+ 721 0138 0E94 0000 		call CardTxCommand
+ 722 013c 8A83      		std Y+2,r24
+ 723 013e 8F3F      		cpi r24,lo8(-1)
+ 724 0140 01F4      		brne .+2
+ 725 0142 00C0      		rjmp .L49
+ 726 0144 8111      		cpse r24,__zero_reg__
+ 727 0146 00C0      		rjmp .L56
+ 728 0148 8CEF      		ldi r24,lo8(-4)
+ 729 014a 582E      		mov r5,r24
+ 730               	.L57:
+ 731 014c 0615      		cp r16,r6
+ 732 014e 1705      		cpc r17,r7
+ 733 0150 04F0      		brlt .+2
+ 734 0152 00C0      		rjmp .L69
+ 735 0154 5A82      		std Y+2,r5
+ 736 0156 D601      		movw r26,r12
+ 737 0158 1E96      		adiw r26,14
+ 738 015a ED91      		ld r30,X+
+ 739 015c FC91      		ld r31,X
+ 740 015e 1F97      		sbiw r26,14+1
+ 741 0160 21E0      		ldi r18,lo8(1)
+GAS LISTING /tmp/ccTK9h5y.s 			page 14
+
+
+ 742 0162 30E0      		ldi r19,0
+ 743 0164 40E0      		ldi r20,0
+ 744 0166 50E0      		ldi r21,0
+ 745 0168 BE01      		movw r22,r28
+ 746 016a 6E5F      		subi r22,-2
+ 747 016c 7F4F      		sbci r23,-1
+ 748 016e C701      		movw r24,r14
+ 749 0170 1995      		eicall
+ 750 0172 D601      		movw r26,r12
+ 751 0174 1E96      		adiw r26,14
+ 752 0176 ED91      		ld r30,X+
+ 753 0178 FC91      		ld r31,X
+ 754 017a 1F97      		sbiw r26,14+1
+ 755 017c 20E0      		ldi r18,0
+ 756 017e 32E0      		ldi r19,lo8(2)
+ 757 0180 40E0      		ldi r20,0
+ 758 0182 50E0      		ldi r21,0
+ 759 0184 B401      		movw r22,r8
+ 760 0186 C701      		movw r24,r14
+ 761 0188 1995      		eicall
+ 762 018a BEEF      		ldi r27,-2
+ 763 018c 9B1A      		sub r9,r27
+ 764 018e D601      		movw r26,r12
+ 765 0190 1E96      		adiw r26,14
+ 766 0192 ED91      		ld r30,X+
+ 767 0194 FC91      		ld r31,X
+ 768 0196 1F97      		sbiw r26,14+1
+ 769 0198 22E0      		ldi r18,lo8(2)
+ 770 019a 30E0      		ldi r19,0
+ 771 019c 40E0      		ldi r20,0
+ 772 019e 50E0      		ldi r21,0
+ 773 01a0 60E0      		ldi r22,lo8(dummy_tx_buf)
+ 774 01a2 70E0      		ldi r23,hi8(dummy_tx_buf)
+ 775 01a4 C701      		movw r24,r14
+ 776 01a6 1995      		eicall
+ 777 01a8 C701      		movw r24,r14
+ 778 01aa 0E94 0000 		call CardRxTkn
+ 779 01ae 8A83      		std Y+2,r24
+ 780 01b0 853E      		cpi r24,lo8(-27)
+ 781 01b2 01F0      		breq .+2
+ 782 01b4 00C0      		rjmp .L56
+ 783               	.L58:
+ 784 01b6 D601      		movw r26,r12
+ 785 01b8 1E96      		adiw r26,14
+ 786 01ba ED91      		ld r30,X+
+ 787 01bc FC91      		ld r31,X
+ 788 01be 1F97      		sbiw r26,14+1
+ 789 01c0 21E0      		ldi r18,lo8(1)
+ 790 01c2 30E0      		ldi r19,0
+ 791 01c4 AE01      		movw r20,r28
+ 792 01c6 4F5F      		subi r20,-1
+ 793 01c8 5F4F      		sbci r21,-1
+ 794 01ca 60E0      		ldi r22,lo8(dummy_tx_buf)
+ 795 01cc 70E0      		ldi r23,hi8(dummy_tx_buf)
+ 796 01ce C701      		movw r24,r14
+ 797 01d0 1995      		eicall
+ 798 01d2 8981      		ldd r24,Y+1
+GAS LISTING /tmp/ccTK9h5y.s 			page 15
+
+
+ 799 01d4 8F3F      		cpi r24,lo8(-1)
+ 800 01d6 01F4      		brne .L58
+ 801 01d8 0F5F      		subi r16,-1
+ 802 01da 1F4F      		sbci r17,-1
+ 803 01dc 00C0      		rjmp .L57
+ 804               	.L69:
+ 805 01de 8DEF      		ldi r24,lo8(-3)
+ 806 01e0 8983      		std Y+1,r24
+ 807 01e2 D601      		movw r26,r12
+ 808 01e4 1E96      		adiw r26,14
+ 809 01e6 ED91      		ld r30,X+
+ 810 01e8 FC91      		ld r31,X
+ 811 01ea 1F97      		sbiw r26,14+1
+ 812 01ec 21E0      		ldi r18,lo8(1)
+ 813 01ee 30E0      		ldi r19,0
+ 814 01f0 40E0      		ldi r20,0
+ 815 01f2 50E0      		ldi r21,0
+ 816 01f4 BE01      		movw r22,r28
+ 817 01f6 6F5F      		subi r22,-1
+ 818 01f8 7F4F      		sbci r23,-1
+ 819 01fa C701      		movw r24,r14
+ 820 01fc 1995      		eicall
+ 821 01fe D601      		movw r26,r12
+ 822 0200 1E96      		adiw r26,14
+ 823 0202 ED91      		ld r30,X+
+ 824 0204 FC91      		ld r31,X
+ 825 0206 1F97      		sbiw r26,14+1
+ 826 0208 21E0      		ldi r18,lo8(1)
+ 827 020a 30E0      		ldi r19,0
+ 828 020c 40E0      		ldi r20,0
+ 829 020e 50E0      		ldi r21,0
+ 830 0210 60E0      		ldi r22,0
+ 831 0212 70E0      		ldi r23,0
+ 832 0214 C701      		movw r24,r14
+ 833 0216 1995      		eicall
+ 834 0218 D601      		movw r26,r12
+ 835 021a 1C96      		adiw r26,12
+ 836 021c ED91      		ld r30,X+
+ 837 021e FC91      		ld r31,X
+ 838 0220 1D97      		sbiw r26,12+1
+ 839 0222 C701      		movw r24,r14
+ 840 0224 1995      		eicall
+ 841 0226 D501      		movw r26,r10
+ 842 0228 1496      		adiw r26,4
+ 843 022a ED91      		ld r30,X+
+ 844 022c FC91      		ld r31,X
+ 845 022e 1597      		sbiw r26,4+1
+ 846 0230 80E0      		ldi r24,0
+ 847 0232 90E0      		ldi r25,0
+ 848 0234 1995      		eicall
+ 849 0236 C301      		movw r24,r6
+ 850 0238 00C0      		rjmp .L54
+ 851               	.L56:
+ 852 023a D601      		movw r26,r12
+ 853 023c 1C96      		adiw r26,12
+ 854 023e ED91      		ld r30,X+
+ 855 0240 FC91      		ld r31,X
+GAS LISTING /tmp/ccTK9h5y.s 			page 16
+
+
+ 856 0242 1D97      		sbiw r26,12+1
+ 857 0244 C701      		movw r24,r14
+ 858 0246 1995      		eicall
+ 859               	.L49:
+ 860 0248 D501      		movw r26,r10
+ 861 024a 1496      		adiw r26,4
+ 862 024c ED91      		ld r30,X+
+ 863 024e FC91      		ld r31,X
+ 864 0250 1597      		sbiw r26,4+1
+ 865 0252 84E0      		ldi r24,lo8(4)
+ 866 0254 90E0      		ldi r25,0
+ 867 0256 1995      		eicall
+ 868 0258 8FEF      		ldi r24,lo8(-1)
+ 869 025a 9FEF      		ldi r25,lo8(-1)
+ 870               	.L54:
+ 871               	/* epilogue start */
+ 872 025c 0F90      		pop __tmp_reg__
+ 873 025e 0F90      		pop __tmp_reg__
+ 874 0260 DF91      		pop r29
+ 875 0262 CF91      		pop r28
+ 876 0264 1F91      		pop r17
+ 877 0266 0F91      		pop r16
+ 878 0268 FF90      		pop r15
+ 879 026a EF90      		pop r14
+ 880 026c DF90      		pop r13
+ 881 026e CF90      		pop r12
+ 882 0270 BF90      		pop r11
+ 883 0272 AF90      		pop r10
+ 884 0274 9F90      		pop r9
+ 885 0276 8F90      		pop r8
+ 886 0278 7F90      		pop r7
+ 887 027a 6F90      		pop r6
+ 888 027c 5F90      		pop r5
+ 889 027e 0895      		ret
+ 890               		.size	SpiMmcBlockWrite, .-SpiMmcBlockWrite
+ 891               		.section	.text.SpiMmcBlockWrite_P,"ax",@progbits
+ 892               	.global	SpiMmcBlockWrite_P
+ 893               		.type	SpiMmcBlockWrite_P, @function
+ 894               	SpiMmcBlockWrite_P:
+ 895               	/* prologue: function */
+ 896               	/* frame size = 0 */
+ 897               	/* stack size = 0 */
+ 898               	.L__stack_usage = 0
+ 899 0000 8FEF      		ldi r24,lo8(-1)
+ 900 0002 9FEF      		ldi r25,lo8(-1)
+ 901 0004 0895      		ret
+ 902               		.size	SpiMmcBlockWrite_P, .-SpiMmcBlockWrite_P
+ 903               		.section	.text.SpiMmcUnmount,"ax",@progbits
+ 904               	.global	SpiMmcUnmount
+ 905               		.type	SpiMmcUnmount, @function
+ 906               	SpiMmcUnmount:
+ 907 0000 EF92      		push r14
+ 908 0002 FF92      		push r15
+ 909 0004 0F93      		push r16
+ 910 0006 1F93      		push r17
+ 911 0008 CF93      		push r28
+ 912 000a DF93      		push r29
+GAS LISTING /tmp/ccTK9h5y.s 			page 17
+
+
+ 913               	/* prologue: function */
+ 914               	/* frame size = 0 */
+ 915               	/* stack size = 6 */
+ 916               	.L__stack_usage = 6
+ 917 000c EC01      		movw r28,r24
+ 918 000e 0A81      		ldd r16,Y+2
+ 919 0010 1B81      		ldd r17,Y+3
+ 920 0012 D801      		movw r26,r16
+ 921 0014 8D91      		ld r24,X+
+ 922 0016 9C91      		ld r25,X
+ 923 0018 DC01      		movw r26,r24
+ 924 001a 5596      		adiw r26,21
+ 925 001c ED91      		ld r30,X+
+ 926 001e FC91      		ld r31,X
+ 927 0020 5697      		sbiw r26,21+1
+ 928 0022 40E0      		ldi r20,0
+ 929 0024 50E0      		ldi r21,0
+ 930 0026 61E3      		ldi r22,lo8(49)
+ 931 0028 71E1      		ldi r23,lo8(17)
+ 932 002a 1995      		eicall
+ 933 002c 7C01      		movw r14,r24
+ 934 002e C801      		movw r24,r16
+ 935 0030 0E94 0000 		call free
+ 936 0034 CE01      		movw r24,r28
+ 937 0036 0E94 0000 		call free
+ 938 003a C701      		movw r24,r14
+ 939               	/* epilogue start */
+ 940 003c DF91      		pop r29
+ 941 003e CF91      		pop r28
+ 942 0040 1F91      		pop r17
+ 943 0042 0F91      		pop r16
+ 944 0044 FF90      		pop r15
+ 945 0046 EF90      		pop r14
+ 946 0048 0895      		ret
+ 947               		.size	SpiMmcUnmount, .-SpiMmcUnmount
+ 948               		.section	.text.SpiMmcMount,"ax",@progbits
+ 949               	.global	SpiMmcMount
+ 950               		.type	SpiMmcMount, @function
+ 951               	SpiMmcMount:
+ 952 0000 2F92      		push r2
+ 953 0002 3F92      		push r3
+ 954 0004 4F92      		push r4
+ 955 0006 5F92      		push r5
+ 956 0008 6F92      		push r6
+ 957 000a 7F92      		push r7
+ 958 000c 8F92      		push r8
+ 959 000e 9F92      		push r9
+ 960 0010 AF92      		push r10
+ 961 0012 BF92      		push r11
+ 962 0014 CF92      		push r12
+ 963 0016 DF92      		push r13
+ 964 0018 EF92      		push r14
+ 965 001a FF92      		push r15
+ 966 001c 0F93      		push r16
+ 967 001e 1F93      		push r17
+ 968 0020 CF93      		push r28
+ 969 0022 DF93      		push r29
+GAS LISTING /tmp/ccTK9h5y.s 			page 18
+
+
+ 970 0024 CDB7      		in r28,__SP_L__
+ 971 0026 DEB7      		in r29,__SP_H__
+ 972 0028 2A97      		sbiw r28,10
+ 973 002a 0FB6      		in __tmp_reg__,__SREG__
+ 974 002c F894      		cli
+ 975 002e DEBF      		out __SP_H__,r29
+ 976 0030 0FBE      		out __SREG__,__tmp_reg__
+ 977 0032 CDBF      		out __SP_L__,r28
+ 978               	/* prologue: function */
+ 979               	/* frame size = 10 */
+ 980               	/* stack size = 28 */
+ 981               	.L__stack_usage = 28
+ 982 0034 2C01      		movw r4,r24
+ 983 0036 6B01      		movw r12,r22
+ 984 0038 DC01      		movw r26,r24
+ 985 003a 5196      		adiw r26,17
+ 986 003c ED91      		ld r30,X+
+ 987 003e FC91      		ld r31,X
+ 988 0040 5297      		sbiw r26,17+1
+ 989 0042 8181      		ldd r24,Z+1
+ 990 0044 80FD      		sbrc r24,0
+ 991 0046 00C0      		rjmp .L73
+ 992               	.L84:
+ 993 0048 83E1      		ldi r24,lo8(19)
+ 994 004a 90E0      		ldi r25,0
+ 995 004c 00C0      		rjmp .L128
+ 996               	.L73:
+ 997 004e D201      		movw r26,r4
+ 998 0050 1F96      		adiw r26,15
+ 999 0052 AD90      		ld r10,X+
+ 1000 0054 BC90      		ld r11,X
+ 1001 0056 5097      		sbiw r26,15+1
+ 1002 0058 1082      		st Z,__zero_reg__
+ 1003 005a F501      		movw r30,r10
+ 1004 005c 2484      		ldd r2,Z+12
+ 1005 005e 3584      		ldd r3,Z+13
+ 1006 0060 8080      		ld r8,Z
+ 1007 0062 9180      		ldd r9,Z+1
+ 1008 0064 D401      		movw r26,r8
+ 1009 0066 5496      		adiw r26,20
+ 1010 0068 ED91      		ld r30,X+
+ 1011 006a FC91      		ld r31,X
+ 1012 006c 5597      		sbiw r26,20+1
+ 1013 006e 40E8      		ldi r20,lo8(-128)
+ 1014 0070 5AE1      		ldi r21,lo8(26)
+ 1015 0072 66E0      		ldi r22,lo8(6)
+ 1016 0074 70E0      		ldi r23,0
+ 1017 0076 C501      		movw r24,r10
+ 1018 0078 1995      		eicall
+ 1019 007a D401      		movw r26,r8
+ 1020 007c 1E96      		adiw r26,14
+ 1021 007e ED91      		ld r30,X+
+ 1022 0080 FC91      		ld r31,X
+ 1023 0082 1F97      		sbiw r26,14+1
+ 1024 0084 2AE0      		ldi r18,lo8(10)
+ 1025 0086 30E0      		ldi r19,0
+ 1026 0088 40E0      		ldi r20,0
+GAS LISTING /tmp/ccTK9h5y.s 			page 19
+
+
+ 1027 008a 50E0      		ldi r21,0
+ 1028 008c 60E0      		ldi r22,0
+ 1029 008e 70E0      		ldi r23,0
+ 1030 0090 C501      		movw r24,r10
+ 1031 0092 1995      		eicall
+ 1032 0094 01E0      		ldi r16,lo8(1)
+ 1033 0096 10E0      		ldi r17,0
+ 1034 0098 20E0      		ldi r18,0
+ 1035 009a 30E0      		ldi r19,0
+ 1036 009c A901      		movw r20,r18
+ 1037 009e 60E0      		ldi r22,0
+ 1038 00a0 C501      		movw r24,r10
+ 1039 00a2 0E94 0000 		call CardTxCommand
+ 1040 00a6 2AEA      		ldi r18,lo8(-86)
+ 1041 00a8 31E0      		ldi r19,lo8(1)
+ 1042 00aa 40E0      		ldi r20,0
+ 1043 00ac 50E0      		ldi r21,0
+ 1044 00ae 68E0      		ldi r22,lo8(8)
+ 1045 00b0 C501      		movw r24,r10
+ 1046 00b2 0E94 0000 		call CardTxCommand
+ 1047 00b6 F101      		movw r30,r2
+ 1048 00b8 9181      		ldd r25,Z+1
+ 1049 00ba 9B7F      		andi r25,lo8(-5)
+ 1050 00bc 9183      		std Z+1,r25
+ 1051 00be 82FD      		sbrc r24,2
+ 1052 00c0 00C0      		rjmp .L105
+ 1053 00c2 80E0      		ldi r24,0
+ 1054 00c4 90E0      		ldi r25,0
+ 1055 00c6 A0E0      		ldi r26,0
+ 1056 00c8 B0E4      		ldi r27,lo8(64)
+ 1057 00ca 8E83      		std Y+6,r24
+ 1058 00cc 9F83      		std Y+7,r25
+ 1059 00ce A887      		std Y+8,r26
+ 1060 00d0 B987      		std Y+9,r27
+ 1061 00d2 00C0      		rjmp .L75
+ 1062               	.L105:
+ 1063 00d4 1E82      		std Y+6,__zero_reg__
+ 1064 00d6 1F82      		std Y+7,__zero_reg__
+ 1065 00d8 1886      		std Y+8,__zero_reg__
+ 1066 00da 1986      		std Y+9,__zero_reg__
+ 1067               	.L75:
+ 1068 00dc 612C      		mov r6,__zero_reg__
+ 1069 00de 22E0      		ldi r18,lo8(2)
+ 1070 00e0 722E      		mov r7,r18
+ 1071 00e2 1A86      		std Y+10,__zero_reg__
+ 1072               	.L83:
+ 1073 00e4 9A85      		ldd r25,Y+10
+ 1074 00e6 01E0      		ldi r16,lo8(1)
+ 1075 00e8 10E0      		ldi r17,0
+ 1076 00ea 20E0      		ldi r18,0
+ 1077 00ec 30E0      		ldi r19,0
+ 1078 00ee A901      		movw r20,r18
+ 1079 00f0 9923      		tst r25
+ 1080 00f2 01F0      		breq .L76
+ 1081 00f4 61E0      		ldi r22,lo8(1)
+ 1082 00f6 C501      		movw r24,r10
+ 1083 00f8 0E94 0000 		call CardTxCommand
+GAS LISTING /tmp/ccTK9h5y.s 			page 20
+
+
+ 1084 00fc 8111      		cpse r24,__zero_reg__
+ 1085 00fe 00C0      		rjmp .L77
+ 1086 0100 D401      		movw r26,r8
+ 1087 0102 5496      		adiw r26,20
+ 1088 0104 ED91      		ld r30,X+
+ 1089 0106 FC91      		ld r31,X
+ 1090 0108 5597      		sbiw r26,20+1
+ 1091 010a 40E0      		ldi r20,0
+ 1092 010c 5DE2      		ldi r21,lo8(45)
+ 1093 010e 61E3      		ldi r22,lo8(49)
+ 1094 0110 71E0      		ldi r23,lo8(1)
+ 1095 0112 C501      		movw r24,r10
+ 1096 0114 1995      		eicall
+ 1097 0116 E12C      		mov r14,__zero_reg__
+ 1098 0118 F12C      		mov r15,__zero_reg__
+ 1099 011a 00C0      		rjmp .L78
+ 1100               	.L76:
+ 1101 011c 67E3      		ldi r22,lo8(55)
+ 1102 011e C501      		movw r24,r10
+ 1103 0120 0E94 0000 		call CardTxCommand
+ 1104 0124 00E0      		ldi r16,0
+ 1105 0126 10E0      		ldi r17,0
+ 1106 0128 2E81      		ldd r18,Y+6
+ 1107 012a 3F81      		ldd r19,Y+7
+ 1108 012c 4885      		ldd r20,Y+8
+ 1109 012e 5985      		ldd r21,Y+9
+ 1110 0130 69E2      		ldi r22,lo8(41)
+ 1111 0132 C501      		movw r24,r10
+ 1112 0134 0E94 0000 		call CardTxCommand
+ 1113 0138 8C01      		movw r16,r24
+ 1114 013a D401      		movw r26,r8
+ 1115 013c 1C96      		adiw r26,12
+ 1116 013e ED91      		ld r30,X+
+ 1117 0140 FC91      		ld r31,X
+ 1118 0142 1D97      		sbiw r26,12+1
+ 1119 0144 C501      		movw r24,r10
+ 1120 0146 1995      		eicall
+ 1121 0148 7801      		movw r14,r16
+ 1122 014a B4E0      		ldi r27,4
+ 1123 014c EB22      		and r14,r27
+ 1124 014e FF24      		clr r15
+ 1125 0150 02FD      		sbrc r16,2
+ 1126 0152 00C0      		rjmp .L77
+ 1127 0154 0111      		cpse r16,__zero_reg__
+ 1128 0156 00C0      		rjmp .L80
+ 1129 0158 00E0      		ldi r16,0
+ 1130 015a 10E0      		ldi r17,0
+ 1131 015c 20E0      		ldi r18,0
+ 1132 015e 30E0      		ldi r19,0
+ 1133 0160 A901      		movw r20,r18
+ 1134 0162 6AE3      		ldi r22,lo8(58)
+ 1135 0164 C501      		movw r24,r10
+ 1136 0166 0E94 0000 		call CardTxCommand
+ 1137 016a D401      		movw r26,r8
+ 1138 016c 1E96      		adiw r26,14
+ 1139 016e ED91      		ld r30,X+
+ 1140 0170 FC91      		ld r31,X
+GAS LISTING /tmp/ccTK9h5y.s 			page 21
+
+
+ 1141 0172 1F97      		sbiw r26,14+1
+ 1142 0174 24E0      		ldi r18,lo8(4)
+ 1143 0176 30E0      		ldi r19,0
+ 1144 0178 AE01      		movw r20,r28
+ 1145 017a 4F5F      		subi r20,-1
+ 1146 017c 5F4F      		sbci r21,-1
+ 1147 017e 60E0      		ldi r22,lo8(dummy_tx_buf)
+ 1148 0180 70E0      		ldi r23,hi8(dummy_tx_buf)
+ 1149 0182 C501      		movw r24,r10
+ 1150 0184 1995      		eicall
+ 1151 0186 D401      		movw r26,r8
+ 1152 0188 1C96      		adiw r26,12
+ 1153 018a ED91      		ld r30,X+
+ 1154 018c FC91      		ld r31,X
+ 1155 018e 1D97      		sbiw r26,12+1
+ 1156 0190 C501      		movw r24,r10
+ 1157 0192 1995      		eicall
+ 1158 0194 8981      		ldd r24,Y+1
+ 1159 0196 87FF      		sbrs r24,7
+ 1160 0198 00C0      		rjmp .L80
+ 1161 019a 86FF      		sbrs r24,6
+ 1162 019c 00C0      		rjmp .L82
+ 1163 019e F101      		movw r30,r2
+ 1164 01a0 8181      		ldd r24,Z+1
+ 1165 01a2 8460      		ori r24,lo8(4)
+ 1166 01a4 8183      		std Z+1,r24
+ 1167               	.L82:
+ 1168 01a6 D401      		movw r26,r8
+ 1169 01a8 5496      		adiw r26,20
+ 1170 01aa ED91      		ld r30,X+
+ 1171 01ac FC91      		ld r31,X
+ 1172 01ae 5597      		sbiw r26,20+1
+ 1173 01b0 40E0      		ldi r20,0
+ 1174 01b2 5DE2      		ldi r21,lo8(45)
+ 1175 01b4 61E3      		ldi r22,lo8(49)
+ 1176 01b6 71E0      		ldi r23,lo8(1)
+ 1177 01b8 C501      		movw r24,r10
+ 1178 01ba 1995      		eicall
+ 1179 01bc 00C0      		rjmp .L78
+ 1180               	.L77:
+ 1181 01be B1E0      		ldi r27,lo8(1)
+ 1182 01c0 BA87      		std Y+10,r27
+ 1183               	.L80:
+ 1184 01c2 6AE0      		ldi r22,lo8(10)
+ 1185 01c4 70E0      		ldi r23,0
+ 1186 01c6 80E0      		ldi r24,0
+ 1187 01c8 90E0      		ldi r25,0
+ 1188 01ca 0E94 0000 		call NutSleep
+ 1189 01ce E1E0      		ldi r30,1
+ 1190 01d0 6E1A      		sub r6,r30
+ 1191 01d2 7108      		sbc r7,__zero_reg__
+ 1192 01d4 01F0      		breq .+2
+ 1193 01d6 00C0      		rjmp .L83
+ 1194 01d8 EE24      		clr r14
+ 1195 01da EA94      		dec r14
+ 1196 01dc FE2C      		mov r15,r14
+ 1197               	.L78:
+GAS LISTING /tmp/ccTK9h5y.s 			page 22
+
+
+ 1198 01de EF28      		or r14,r15
+ 1199 01e0 01F0      		breq .+2
+ 1200 01e2 00C0      		rjmp .L84
+ 1201 01e4 D601      		movw r26,r12
+ 1202 01e6 8C91      		ld r24,X
+ 1203 01e8 8823      		tst r24
+ 1204 01ea 01F0      		breq .L106
+ 1205 01ec C601      		movw r24,r12
+ 1206 01ee 0E94 0000 		call atoi
+ 1207 01f2 3C01      		movw r6,r24
+ 1208 01f4 C601      		movw r24,r12
+ 1209 01f6 0196      		adiw r24,1
+ 1210               	.L86:
+ 1211 01f8 6C01      		movw r12,r24
+ 1212 01fa FC01      		movw r30,r24
+ 1213 01fc 2081      		ld r18,Z
+ 1214 01fe 0196      		adiw r24,1
+ 1215 0200 2223      		tst r18
+ 1216 0202 01F0      		breq .L85
+ 1217 0204 2F32      		cpi r18,lo8(47)
+ 1218 0206 01F4      		brne .L86
+ 1219 0208 6C01      		movw r12,r24
+ 1220 020a 00C0      		rjmp .L85
+ 1221               	.L106:
+ 1222 020c 612C      		mov r6,__zero_reg__
+ 1223 020e 712C      		mov r7,__zero_reg__
+ 1224               	.L85:
+ 1225 0210 8090 0000 		lds r8,nutDeviceList
+ 1226 0214 9090 0000 		lds r9,nutDeviceList+1
+ 1227               	.L88:
+ 1228 0218 8114      		cp r8,__zero_reg__
+ 1229 021a 9104      		cpc r9,__zero_reg__
+ 1230 021c 01F4      		brne .+2
+ 1231 021e 00C0      		rjmp .L84
+ 1232 0220 D601      		movw r26,r12
+ 1233 0222 8C91      		ld r24,X
+ 1234 0224 8111      		cpse r24,__zero_reg__
+ 1235 0226 00C0      		rjmp .L89
+ 1236 0228 F401      		movw r30,r8
+ 1237 022a 8385      		ldd r24,Z+11
+ 1238 022c 8031      		cpi r24,lo8(16)
+ 1239 022e 01F4      		brne .L91
+ 1240 0230 00C0      		rjmp .L90
+ 1241               	.L89:
+ 1242 0232 B601      		movw r22,r12
+ 1243 0234 C401      		movw r24,r8
+ 1244 0236 0296      		adiw r24,2
+ 1245 0238 0E94 0000 		call strcmp
+ 1246 023c 892B      		or r24,r25
+ 1247 023e 01F0      		breq .L90
+ 1248               	.L91:
+ 1249 0240 D401      		movw r26,r8
+ 1250 0242 8D90      		ld r8,X+
+ 1251 0244 9C90      		ld r9,X
+ 1252 0246 00C0      		rjmp .L88
+ 1253               	.L90:
+ 1254 0248 66E1      		ldi r22,lo8(22)
+GAS LISTING /tmp/ccTK9h5y.s 			page 23
+
+
+ 1255 024a 72E0      		ldi r23,lo8(2)
+ 1256 024c 81E0      		ldi r24,lo8(1)
+ 1257 024e 90E0      		ldi r25,0
+ 1258 0250 0E94 0000 		call calloc
+ 1259 0254 6C01      		movw r12,r24
+ 1260 0256 892B      		or r24,r25
+ 1261 0258 01F4      		brne .+2
+ 1262 025a 00C0      		rjmp .L129
+ 1263 025c F601      		movw r30,r12
+ 1264 025e 9182      		std Z+1,r9
+ 1265 0260 8082      		st Z,r8
+ 1266 0262 E12C      		mov r14,__zero_reg__
+ 1267 0264 82E0      		ldi r24,lo8(2)
+ 1268 0266 F82E      		mov r15,r24
+ 1269 0268 8601      		movw r16,r12
+ 1270 026a 0A5E      		subi r16,-22
+ 1271 026c 1F4F      		sbci r17,-1
+ 1272 026e 20E0      		ldi r18,0
+ 1273 0270 30E0      		ldi r19,0
+ 1274 0272 A901      		movw r20,r18
+ 1275 0274 61E1      		ldi r22,lo8(17)
+ 1276 0276 C501      		movw r24,r10
+ 1277 0278 0E94 0000 		call CardRxData
+ 1278 027c 892B      		or r24,r25
+ 1279 027e 01F0      		breq .+2
+ 1280 0280 00C0      		rjmp .L130
+ 1281 0282 F601      		movw r30,r12
+ 1282 0284 EC5E      		subi r30,-20
+ 1283 0286 FD4F      		sbci r31,-3
+ 1284 0288 8081      		ld r24,Z
+ 1285 028a 8535      		cpi r24,lo8(85)
+ 1286 028c 01F0      		breq .+2
+ 1287 028e 00C0      		rjmp .L130
+ 1288 0290 3196      		adiw r30,1
+ 1289 0292 8081      		ld r24,Z
+ 1290 0294 8A3A      		cpi r24,lo8(-86)
+ 1291 0296 01F0      		breq .+2
+ 1292 0298 00C0      		rjmp .L130
+ 1293 029a F601      		movw r30,r12
+ 1294 029c E45B      		subi r30,-76
+ 1295 029e FF4F      		sbci r31,-1
+ 1296 02a0 8081      		ld r24,Z
+ 1297 02a2 8634      		cpi r24,lo8(70)
+ 1298 02a4 01F4      		brne .L96
+ 1299 02a6 3196      		adiw r30,1
+ 1300 02a8 8081      		ld r24,Z
+ 1301 02aa 8134      		cpi r24,lo8(65)
+ 1302 02ac 01F4      		brne .L96
+ 1303 02ae 3196      		adiw r30,1
+ 1304 02b0 8081      		ld r24,Z
+ 1305 02b2 8435      		cpi r24,lo8(84)
+ 1306 02b4 01F4      		brne .L96
+ 1307 02b6 81E0      		ldi r24,lo8(1)
+ 1308 02b8 D601      		movw r26,r12
+ 1309 02ba 1696      		adiw r26,6
+ 1310 02bc 8C93      		st X,r24
+ 1311 02be F601      		movw r30,r12
+GAS LISTING /tmp/ccTK9h5y.s 			page 24
+
+
+ 1312 02c0 1286      		std Z+10,__zero_reg__
+ 1313 02c2 1386      		std Z+11,__zero_reg__
+ 1314 02c4 1486      		std Z+12,__zero_reg__
+ 1315 02c6 1586      		std Z+13,__zero_reg__
+ 1316 02c8 80E0      		ldi r24,0
+ 1317 02ca 90E0      		ldi r25,0
+ 1318 02cc A1E0      		ldi r26,lo8(1)
+ 1319 02ce B0E0      		ldi r27,0
+ 1320 02d0 8687      		std Z+14,r24
+ 1321 02d2 9787      		std Z+15,r25
+ 1322 02d4 A08B      		std Z+16,r26
+ 1323 02d6 B18B      		std Z+17,r27
+ 1324               	.L97:
+ 1325 02d8 64E0      		ldi r22,lo8(4)
+ 1326 02da 70E0      		ldi r23,0
+ 1327 02dc 80E0      		ldi r24,lo8(heapFreeList)
+ 1328 02de 90E0      		ldi r25,hi8(heapFreeList)
+ 1329 02e0 0E94 0000 		call NutHeapRootAlloc
+ 1330 02e4 7C01      		movw r14,r24
+ 1331 02e6 0097      		sbiw r24,0
+ 1332 02e8 01F4      		brne .L102
+ 1333 02ea C601      		movw r24,r12
+ 1334 02ec 0E94 0000 		call free
+ 1335               	.L129:
+ 1336 02f0 8CE0      		ldi r24,lo8(12)
+ 1337 02f2 90E0      		ldi r25,0
+ 1338               	.L128:
+ 1339 02f4 9093 0000 		sts errno+1,r25
+ 1340 02f8 8093 0000 		sts errno,r24
+ 1341 02fc 00C0      		rjmp .L127
+ 1342               	.L96:
+ 1343 02fe F601      		movw r30,r12
+ 1344 0300 EC52      		subi r30,44
+ 1345 0302 FE4F      		sbci r31,-2
+ 1346 0304 81E0      		ldi r24,lo8(1)
+ 1347 0306 90E0      		ldi r25,0
+ 1348               	.L101:
+ 1349 0308 6114      		cp r6,__zero_reg__
+ 1350 030a 7104      		cpc r7,__zero_reg__
+ 1351 030c 01F0      		breq .L98
+ 1352 030e 6816      		cp r6,r24
+ 1353 0310 7906      		cpc r7,r25
+ 1354 0312 01F4      		brne .L99
+ 1355               	.L126:
+ 1356 0314 80E1      		ldi r24,lo8(16)
+ 1357 0316 D601      		movw r26,r12
+ 1358 0318 1296      		adiw r26,2
+ 1359               		0:
+ 1360 031a 0190      		ld r0,Z+
+ 1361 031c 0D92      		st X+,r0
+ 1362 031e 8A95      		dec r24
+ 1363 0320 01F4      		brne 0b
+ 1364               	.L100:
+ 1365 0322 D601      		movw r26,r12
+ 1366 0324 1696      		adiw r26,6
+ 1367 0326 8C91      		ld r24,X
+ 1368 0328 8111      		cpse r24,__zero_reg__
+GAS LISTING /tmp/ccTK9h5y.s 			page 25
+
+
+ 1369 032a 00C0      		rjmp .L97
+ 1370               	.L130:
+ 1371 032c C601      		movw r24,r12
+ 1372 032e 0E94 0000 		call free
+ 1373               	.L127:
+ 1374 0332 8FEF      		ldi r24,lo8(-1)
+ 1375 0334 9FEF      		ldi r25,lo8(-1)
+ 1376 0336 00C0      		rjmp .L123
+ 1377               	.L98:
+ 1378 0338 2081      		ld r18,Z
+ 1379 033a 27FD      		sbrc r18,7
+ 1380 033c 00C0      		rjmp .L126
+ 1381               	.L99:
+ 1382 033e 7096      		adiw r30,16
+ 1383 0340 0196      		adiw r24,1
+ 1384 0342 8530      		cpi r24,5
+ 1385 0344 9105      		cpc r25,__zero_reg__
+ 1386 0346 01F4      		brne .L101
+ 1387 0348 00C0      		rjmp .L100
+ 1388               	.L102:
+ 1389 034a FC01      		movw r30,r24
+ 1390 034c 5182      		std Z+1,r5
+ 1391 034e 4082      		st Z,r4
+ 1392 0350 D382      		std Z+3,r13
+ 1393 0352 C282      		std Z+2,r12
+ 1394 0354 9A83      		std Y+2,r25
+ 1395 0356 8983      		std Y+1,r24
+ 1396 0358 D601      		movw r26,r12
+ 1397 035a 1696      		adiw r26,6
+ 1398 035c 8C91      		ld r24,X
+ 1399 035e 8B83      		std Y+3,r24
+ 1400 0360 D401      		movw r26,r8
+ 1401 0362 5596      		adiw r26,21
+ 1402 0364 ED91      		ld r30,X+
+ 1403 0366 FC91      		ld r31,X
+ 1404 0368 5697      		sbiw r26,21+1
+ 1405 036a AE01      		movw r20,r28
+ 1406 036c 4F5F      		subi r20,-1
+ 1407 036e 5F4F      		sbci r21,-1
+ 1408 0370 60E3      		ldi r22,lo8(48)
+ 1409 0372 71E1      		ldi r23,lo8(17)
+ 1410 0374 C401      		movw r24,r8
+ 1411 0376 1995      		eicall
+ 1412 0378 892B      		or r24,r25
+ 1413 037a 01F0      		breq .L107
+ 1414 037c C701      		movw r24,r14
+ 1415 037e 0E94 0000 		call SpiMmcUnmount
+ 1416 0382 00C0      		rjmp .L127
+ 1417               	.L107:
+ 1418 0384 C701      		movw r24,r14
+ 1419               	.L123:
+ 1420               	/* epilogue start */
+ 1421 0386 2A96      		adiw r28,10
+ 1422 0388 0FB6      		in __tmp_reg__,__SREG__
+ 1423 038a F894      		cli
+ 1424 038c DEBF      		out __SP_H__,r29
+ 1425 038e 0FBE      		out __SREG__,__tmp_reg__
+GAS LISTING /tmp/ccTK9h5y.s 			page 26
+
+
+ 1426 0390 CDBF      		out __SP_L__,r28
+ 1427 0392 DF91      		pop r29
+ 1428 0394 CF91      		pop r28
+ 1429 0396 1F91      		pop r17
+ 1430 0398 0F91      		pop r16
+ 1431 039a FF90      		pop r15
+ 1432 039c EF90      		pop r14
+ 1433 039e DF90      		pop r13
+ 1434 03a0 CF90      		pop r12
+ 1435 03a2 BF90      		pop r11
+ 1436 03a4 AF90      		pop r10
+ 1437 03a6 9F90      		pop r9
+ 1438 03a8 8F90      		pop r8
+ 1439 03aa 7F90      		pop r7
+ 1440 03ac 6F90      		pop r6
+ 1441 03ae 5F90      		pop r5
+ 1442 03b0 4F90      		pop r4
+ 1443 03b2 3F90      		pop r3
+ 1444 03b4 2F90      		pop r2
+ 1445 03b6 0895      		ret
+ 1446               		.size	SpiMmcMount, .-SpiMmcMount
+ 1447               		.section	.text.SpiMmcIOCtl,"ax",@progbits
+ 1448               	.global	SpiMmcIOCtl
+ 1449               		.type	SpiMmcIOCtl, @function
+ 1450               	SpiMmcIOCtl:
+ 1451 0000 AF92      		push r10
+ 1452 0002 BF92      		push r11
+ 1453 0004 CF92      		push r12
+ 1454 0006 DF92      		push r13
+ 1455 0008 EF92      		push r14
+ 1456 000a FF92      		push r15
+ 1457 000c 0F93      		push r16
+ 1458 000e 1F93      		push r17
+ 1459 0010 CF93      		push r28
+ 1460 0012 DF93      		push r29
+ 1461 0014 1F92      		push __zero_reg__
+ 1462 0016 CDB7      		in r28,__SP_L__
+ 1463 0018 DEB7      		in r29,__SP_H__
+ 1464               	/* prologue: function */
+ 1465               	/* frame size = 1 */
+ 1466               	/* stack size = 11 */
+ 1467               	.L__stack_usage = 11
+ 1468 001a 6A01      		movw r12,r20
+ 1469 001c DC01      		movw r26,r24
+ 1470 001e 1F96      		adiw r26,15
+ 1471 0020 AD90      		ld r10,X+
+ 1472 0022 BC90      		ld r11,X
+ 1473 0024 5097      		sbiw r26,15+1
+ 1474 0026 5196      		adiw r26,17
+ 1475 0028 2D91      		ld r18,X+
+ 1476 002a 3C91      		ld r19,X
+ 1477 002c 5297      		sbiw r26,17+1
+ 1478 002e 6130      		cpi r22,1
+ 1479 0030 B0E2      		ldi r27,32
+ 1480 0032 7B07      		cpc r23,r27
+ 1481 0034 01F4      		brne .+2
+ 1482 0036 00C0      		rjmp .L133
+GAS LISTING /tmp/ccTK9h5y.s 			page 27
+
+
+ 1483 0038 04F4      		brge .L134
+ 1484 003a 6130      		cpi r22,1
+ 1485 003c F2E1      		ldi r31,18
+ 1486 003e 7F07      		cpc r23,r31
+ 1487 0040 01F0      		breq .L135
+ 1488 0042 04F4      		brge .L136
+ 1489 0044 6115      		cp r22,__zero_reg__
+ 1490 0046 7241      		sbci r23,18
+ 1491 0048 01F0      		breq .+2
+ 1492 004a 00C0      		rjmp .L146
+ 1493 004c F901      		movw r30,r18
+ 1494 004e 8181      		ldd r24,Z+1
+ 1495 0050 8170      		andi r24,1
+ 1496 0052 DA01      		movw r26,r20
+ 1497 0054 8C93      		st X,r24
+ 1498 0056 1196      		adiw r26,1
+ 1499 0058 1C92      		st X,__zero_reg__
+ 1500 005a 00C0      		rjmp .L147
+ 1501               	.L136:
+ 1502 005c 6230      		cpi r22,2
+ 1503 005e B2E1      		ldi r27,18
+ 1504 0060 7B07      		cpc r23,r27
+ 1505 0062 01F0      		breq .L138
+ 1506 0064 6330      		cpi r22,3
+ 1507 0066 7241      		sbci r23,18
+ 1508 0068 01F0      		breq .L139
+ 1509 006a 00C0      		rjmp .L146
+ 1510               	.L134:
+ 1511 006c 6330      		cpi r22,3
+ 1512 006e F0E2      		ldi r31,32
+ 1513 0070 7F07      		cpc r23,r31
+ 1514 0072 01F4      		brne .+2
+ 1515 0074 00C0      		rjmp .L140
+ 1516 0076 04F4      		brge .+2
+ 1517 0078 00C0      		rjmp .L141
+ 1518 007a 6430      		cpi r22,4
+ 1519 007c A0E2      		ldi r26,32
+ 1520 007e 7A07      		cpc r23,r26
+ 1521 0080 01F4      		brne .+2
+ 1522 0082 00C0      		rjmp .L142
+ 1523 0084 6530      		cpi r22,5
+ 1524 0086 7042      		sbci r23,32
+ 1525 0088 01F0      		breq .+2
+ 1526 008a 00C0      		rjmp .L146
+ 1527 008c 80E1      		ldi r24,lo8(16)
+ 1528 008e E82E      		mov r14,r24
+ 1529 0090 F12C      		mov r15,__zero_reg__
+ 1530 0092 8A01      		movw r16,r20
+ 1531 0094 20E0      		ldi r18,0
+ 1532 0096 30E0      		ldi r19,0
+ 1533 0098 A901      		movw r20,r18
+ 1534 009a 68E0      		ldi r22,lo8(8)
+ 1535 009c 00C0      		rjmp .L150
+ 1536               	.L135:
+ 1537 009e F901      		movw r30,r18
+ 1538 00a0 8081      		ld r24,Z
+ 1539 00a2 90E0      		ldi r25,0
+GAS LISTING /tmp/ccTK9h5y.s 			page 28
+
+
+ 1540 00a4 00C0      		rjmp .L151
+ 1541               	.L138:
+ 1542 00a6 DA01      		movw r26,r20
+ 1543 00a8 ED91      		ld r30,X+
+ 1544 00aa FC91      		ld r31,X
+ 1545 00ac 2281      		ldd r18,Z+2
+ 1546 00ae 3381      		ldd r19,Z+3
+ 1547 00b0 F901      		movw r30,r18
+ 1548 00b2 8685      		ldd r24,Z+14
+ 1549 00b4 9785      		ldd r25,Z+15
+ 1550 00b6 A089      		ldd r26,Z+16
+ 1551 00b8 B189      		ldd r27,Z+17
+ 1552 00ba FA01      		movw r30,r20
+ 1553 00bc 8283      		std Z+2,r24
+ 1554 00be 9383      		std Z+3,r25
+ 1555 00c0 A483      		std Z+4,r26
+ 1556 00c2 B583      		std Z+5,r27
+ 1557 00c4 80E0      		ldi r24,0
+ 1558 00c6 92E0      		ldi r25,lo8(2)
+ 1559 00c8 A0E0      		ldi r26,0
+ 1560 00ca B0E0      		ldi r27,0
+ 1561 00cc 8683      		std Z+6,r24
+ 1562 00ce 9783      		std Z+7,r25
+ 1563 00d0 A087      		std Z+8,r26
+ 1564 00d2 B187      		std Z+9,r27
+ 1565 00d4 F901      		movw r30,r18
+ 1566 00d6 7696      		adiw r30,22
+ 1567 00d8 DA01      		movw r26,r20
+ 1568 00da 1B96      		adiw r26,10+1
+ 1569 00dc FC93      		st X,r31
+ 1570 00de EE93      		st -X,r30
+ 1571 00e0 1A97      		sbiw r26,10
+ 1572 00e2 00C0      		rjmp .L147
+ 1573               	.L139:
+ 1574 00e4 DA01      		movw r26,r20
+ 1575 00e6 ED91      		ld r30,X+
+ 1576 00e8 FC91      		ld r31,X
+ 1577 00ea 1197      		sbiw r26,1
+ 1578 00ec 0281      		ldd r16,Z+2
+ 1579 00ee 1381      		ldd r17,Z+3
+ 1580 00f0 1296      		adiw r26,2
+ 1581 00f2 4D91      		ld r20,X+
+ 1582 00f4 5D91      		ld r21,X+
+ 1583 00f6 6D91      		ld r22,X+
+ 1584 00f8 7C91      		ld r23,X
+ 1585 00fa 1597      		sbiw r26,2+3
+ 1586 00fc F801      		movw r30,r16
+ 1587 00fe 8285      		ldd r24,Z+10
+ 1588 0100 9385      		ldd r25,Z+11
+ 1589 0102 A485      		ldd r26,Z+12
+ 1590 0104 B585      		ldd r27,Z+13
+ 1591 0106 840F      		add r24,r20
+ 1592 0108 951F      		adc r25,r21
+ 1593 010a A61F      		adc r26,r22
+ 1594 010c B71F      		adc r27,r23
+ 1595 010e 828B      		std Z+18,r24
+ 1596 0110 938B      		std Z+19,r25
+GAS LISTING /tmp/ccTK9h5y.s 			page 29
+
+
+ 1597 0112 A48B      		std Z+20,r26
+ 1598 0114 B58B      		std Z+21,r27
+ 1599 0116 F901      		movw r30,r18
+ 1600 0118 2181      		ldd r18,Z+1
+ 1601 011a 22FD      		sbrc r18,2
+ 1602 011c 00C0      		rjmp .L147
+ 1603 011e 49E0      		ldi r20,9
+ 1604               		1:
+ 1605 0120 880F      		lsl r24
+ 1606 0122 991F      		rol r25
+ 1607 0124 AA1F      		rol r26
+ 1608 0126 BB1F      		rol r27
+ 1609 0128 4A95      		dec r20
+ 1610 012a 01F4      		brne 1b
+ 1611 012c F801      		movw r30,r16
+ 1612 012e 828B      		std Z+18,r24
+ 1613 0130 938B      		std Z+19,r25
+ 1614 0132 A48B      		std Z+20,r26
+ 1615 0134 B58B      		std Z+21,r27
+ 1616 0136 00C0      		rjmp .L147
+ 1617               	.L133:
+ 1618 0138 02E0      		ldi r16,lo8(2)
+ 1619 013a 10E0      		ldi r17,0
+ 1620 013c 20E0      		ldi r18,0
+ 1621 013e 30E0      		ldi r19,0
+ 1622 0140 A901      		movw r20,r18
+ 1623 0142 6DE0      		ldi r22,lo8(13)
+ 1624 0144 C501      		movw r24,r10
+ 1625 0146 0E94 0000 		call CardTxCommand
+ 1626               	.L151:
+ 1627 014a D601      		movw r26,r12
+ 1628 014c 8D93      		st X+,r24
+ 1629 014e 9C93      		st X,r25
+ 1630 0150 00C0      		rjmp .L147
+ 1631               	.L141:
+ 1632 0152 F501      		movw r30,r10
+ 1633 0154 E080      		ld r14,Z
+ 1634 0156 F180      		ldd r15,Z+1
+ 1635 0158 00E0      		ldi r16,0
+ 1636 015a 10E0      		ldi r17,0
+ 1637 015c 20E0      		ldi r18,0
+ 1638 015e 30E0      		ldi r19,0
+ 1639 0160 A901      		movw r20,r18
+ 1640 0162 6AE3      		ldi r22,lo8(58)
+ 1641 0164 C501      		movw r24,r10
+ 1642 0166 0E94 0000 		call CardTxCommand
+ 1643 016a 892B      		or r24,r25
+ 1644 016c 01F4      		brne .L148
+ 1645 016e 14E0      		ldi r17,lo8(4)
+ 1646               	.L145:
+ 1647 0170 D701      		movw r26,r14
+ 1648 0172 1E96      		adiw r26,14
+ 1649 0174 ED91      		ld r30,X+
+ 1650 0176 FC91      		ld r31,X
+ 1651 0178 1F97      		sbiw r26,14+1
+ 1652 017a 21E0      		ldi r18,lo8(1)
+ 1653 017c 30E0      		ldi r19,0
+GAS LISTING /tmp/ccTK9h5y.s 			page 30
+
+
+ 1654 017e AE01      		movw r20,r28
+ 1655 0180 4F5F      		subi r20,-1
+ 1656 0182 5F4F      		sbci r21,-1
+ 1657 0184 60E0      		ldi r22,lo8(dummy_tx_buf)
+ 1658 0186 70E0      		ldi r23,hi8(dummy_tx_buf)
+ 1659 0188 C501      		movw r24,r10
+ 1660 018a 1995      		eicall
+ 1661 018c F601      		movw r30,r12
+ 1662 018e 8081      		ld r24,Z
+ 1663 0190 9181      		ldd r25,Z+1
+ 1664 0192 A281      		ldd r26,Z+2
+ 1665 0194 B381      		ldd r27,Z+3
+ 1666 0196 BA2F      		mov r27,r26
+ 1667 0198 A92F      		mov r26,r25
+ 1668 019a 982F      		mov r25,r24
+ 1669 019c 8827      		clr r24
+ 1670 019e 2981      		ldd r18,Y+1
+ 1671 01a0 822B      		or r24,r18
+ 1672 01a2 8083      		st Z,r24
+ 1673 01a4 9183      		std Z+1,r25
+ 1674 01a6 A283      		std Z+2,r26
+ 1675 01a8 B383      		std Z+3,r27
+ 1676 01aa 1150      		subi r17,lo8(-(-1))
+ 1677 01ac 01F4      		brne .L145
+ 1678 01ae 00E0      		ldi r16,0
+ 1679 01b0 10E0      		ldi r17,0
+ 1680 01b2 00C0      		rjmp .L144
+ 1681               	.L148:
+ 1682 01b4 01E0      		ldi r16,lo8(1)
+ 1683 01b6 10E0      		ldi r17,0
+ 1684               	.L144:
+ 1685 01b8 D701      		movw r26,r14
+ 1686 01ba 1C96      		adiw r26,12
+ 1687 01bc ED91      		ld r30,X+
+ 1688 01be FC91      		ld r31,X
+ 1689 01c0 1D97      		sbiw r26,12+1
+ 1690 01c2 C501      		movw r24,r10
+ 1691 01c4 1995      		eicall
+ 1692 01c6 00C0      		rjmp .L132
+ 1693               	.L140:
+ 1694 01c8 20E1      		ldi r18,lo8(16)
+ 1695 01ca E22E      		mov r14,r18
+ 1696 01cc F12C      		mov r15,__zero_reg__
+ 1697 01ce 8A01      		movw r16,r20
+ 1698 01d0 20E0      		ldi r18,0
+ 1699 01d2 30E0      		ldi r19,0
+ 1700 01d4 A901      		movw r20,r18
+ 1701 01d6 6AE0      		ldi r22,lo8(10)
+ 1702 01d8 00C0      		rjmp .L150
+ 1703               	.L142:
+ 1704 01da 90E1      		ldi r25,lo8(16)
+ 1705 01dc E92E      		mov r14,r25
+ 1706 01de F12C      		mov r15,__zero_reg__
+ 1707 01e0 8A01      		movw r16,r20
+ 1708 01e2 20E0      		ldi r18,0
+ 1709 01e4 30E0      		ldi r19,0
+ 1710 01e6 A901      		movw r20,r18
+GAS LISTING /tmp/ccTK9h5y.s 			page 31
+
+
+ 1711 01e8 69E0      		ldi r22,lo8(9)
+ 1712               	.L150:
+ 1713 01ea C501      		movw r24,r10
+ 1714 01ec 0E94 0000 		call CardRxData
+ 1715 01f0 8C01      		movw r16,r24
+ 1716 01f2 00C0      		rjmp .L132
+ 1717               	.L146:
+ 1718 01f4 0FEF      		ldi r16,lo8(-1)
+ 1719 01f6 1FEF      		ldi r17,lo8(-1)
+ 1720 01f8 00C0      		rjmp .L132
+ 1721               	.L147:
+ 1722 01fa 00E0      		ldi r16,0
+ 1723 01fc 10E0      		ldi r17,0
+ 1724               	.L132:
+ 1725 01fe C801      		movw r24,r16
+ 1726               	/* epilogue start */
+ 1727 0200 0F90      		pop __tmp_reg__
+ 1728 0202 DF91      		pop r29
+ 1729 0204 CF91      		pop r28
+ 1730 0206 1F91      		pop r17
+ 1731 0208 0F91      		pop r16
+ 1732 020a FF90      		pop r15
+ 1733 020c EF90      		pop r14
+ 1734 020e DF90      		pop r13
+ 1735 0210 CF90      		pop r12
+ 1736 0212 BF90      		pop r11
+ 1737 0214 AF90      		pop r10
+ 1738 0216 0895      		ret
+ 1739               		.size	SpiMmcIOCtl, .-SpiMmcIOCtl
+ 1740               		.section	.text.SpiMmcInit,"ax",@progbits
+ 1741               	.global	SpiMmcInit
+ 1742               		.type	SpiMmcInit, @function
+ 1743               	SpiMmcInit:
+ 1744               	/* prologue: function */
+ 1745               	/* frame size = 0 */
+ 1746               	/* stack size = 0 */
+ 1747               	.L__stack_usage = 0
+ 1748 0000 40E0      		ldi r20,0
+ 1749 0002 52E0      		ldi r21,lo8(2)
+ 1750 0004 6FEF      		ldi r22,lo8(-1)
+ 1751 0006 70E0      		ldi r23,0
+ 1752 0008 80E0      		ldi r24,lo8(dummy_tx_buf)
+ 1753 000a 90E0      		ldi r25,hi8(dummy_tx_buf)
+ 1754 000c 0E94 0000 		call memset
+ 1755 0010 80E0      		ldi r24,0
+ 1756 0012 90E0      		ldi r25,0
+ 1757 0014 0895      		ret
+ 1758               		.size	SpiMmcInit, .-SpiMmcInit
+ 1759               		.local	dummy_tx_buf
+ 1760               		.comm	dummy_tx_buf,512,1
+ 1761               		.ident	"GCC: (GNU) 5.3.0"
+ 1762               	.global __do_clear_bss
+GAS LISTING /tmp/ccTK9h5y.s 			page 32
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 spi_mmc.c
+     /tmp/ccTK9h5y.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccTK9h5y.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccTK9h5y.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccTK9h5y.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccTK9h5y.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccTK9h5y.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccTK9h5y.s:10     .text.CardRxTkn:0000000000000000 CardRxTkn
+                             .bss:0000000000000000 dummy_tx_buf
+     /tmp/ccTK9h5y.s:81     .text.CardTxCommand:0000000000000000 CardTxCommand
+     /tmp/ccTK9h5y.s:287    .text.CardRxData:0000000000000000 CardRxData
+     /tmp/ccTK9h5y.s:477    .text.SpiMmcBlockRead:0000000000000000 SpiMmcBlockRead
+     /tmp/ccTK9h5y.s:560    .text.SpiMmcBlockWrite:0000000000000000 SpiMmcBlockWrite
+     /tmp/ccTK9h5y.s:894    .text.SpiMmcBlockWrite_P:0000000000000000 SpiMmcBlockWrite_P
+     /tmp/ccTK9h5y.s:906    .text.SpiMmcUnmount:0000000000000000 SpiMmcUnmount
+     /tmp/ccTK9h5y.s:951    .text.SpiMmcMount:0000000000000000 SpiMmcMount
+     /tmp/ccTK9h5y.s:1450   .text.SpiMmcIOCtl:0000000000000000 SpiMmcIOCtl
+     /tmp/ccTK9h5y.s:1743   .text.SpiMmcInit:0000000000000000 SpiMmcInit
+
+UNDEFINED SYMBOLS
+NutSleep
+free
+atoi
+nutDeviceList
+strcmp
+calloc
+heapFreeList
+NutHeapRootAlloc
+errno
+memset
+__do_clear_bss

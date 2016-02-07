@@ -1,0 +1,691 @@
+GAS LISTING /tmp/ccSphweu.s 			page 1
+
+
+   1               		.file	"heap.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.NutHeapRootAlloc,"ax",@progbits
+   9               	.global	NutHeapRootAlloc
+  10               		.type	NutHeapRootAlloc, @function
+  11               	NutHeapRootAlloc:
+  12 0000 CF93      		push r28
+  13 0002 DF93      		push r29
+  14               	/* prologue: function */
+  15               	/* frame size = 0 */
+  16               	/* stack size = 2 */
+  17               	.L__stack_usage = 2
+  18 0004 EC01      		movw r28,r24
+  19 0006 6E5F      		subi r22,-2
+  20 0008 7F4F      		sbci r23,-1
+  21 000a 6430      		cpi r22,4
+  22 000c 7105      		cpc r23,__zero_reg__
+  23 000e 00F4      		brsh .L2
+  24 0010 64E0      		ldi r22,lo8(4)
+  25 0012 70E0      		ldi r23,0
+  26               	.L2:
+  27 0014 6F5F      		subi r22,-1
+  28 0016 7F4F      		sbci r23,-1
+  29 0018 6E7F      		andi r22,254
+  30 001a E881      		ld r30,Y
+  31 001c F981      		ldd r31,Y+1
+  32 001e 30E0      		ldi r19,0
+  33 0020 20E0      		ldi r18,0
+  34 0022 A0E0      		ldi r26,0
+  35 0024 B0E0      		ldi r27,0
+  36               	.L3:
+  37 0026 3097      		sbiw r30,0
+  38 0028 01F0      		breq .L18
+  39 002a 8081      		ld r24,Z
+  40 002c 9181      		ldd r25,Z+1
+  41 002e 8617      		cp r24,r22
+  42 0030 9707      		cpc r25,r23
+  43 0032 00F0      		brlo .L4
+  44 0034 1097      		sbiw r26,0
+  45 0036 01F0      		breq .L5
+  46 0038 4D91      		ld r20,X+
+  47 003a 5C91      		ld r21,X
+  48 003c 1197      		sbiw r26,1
+  49 003e 8417      		cp r24,r20
+  50 0040 9507      		cpc r25,r21
+  51 0042 00F4      		brsh .L4
+  52               	.L5:
+  53 0044 6817      		cp r22,r24
+  54 0046 7907      		cpc r23,r25
+  55 0048 01F0      		breq .L6
+  56 004a 3C2F      		mov r19,r28
+  57 004c 2D2F      		mov r18,r29
+GAS LISTING /tmp/ccSphweu.s 			page 2
+
+
+  58 004e DF01      		movw r26,r30
+  59               	.L4:
+  60 0050 EF01      		movw r28,r30
+  61 0052 2296      		adiw r28,2
+  62 0054 0280      		ldd __tmp_reg__,Z+2
+  63 0056 F381      		ldd r31,Z+3
+  64 0058 E02D      		mov r30,__tmp_reg__
+  65 005a 00C0      		rjmp .L3
+  66               	.L18:
+  67 005c 1097      		sbiw r26,0
+  68 005e 01F0      		breq .L8
+  69 0060 C32F      		mov r28,r19
+  70 0062 D22F      		mov r29,r18
+  71 0064 FD01      		movw r30,r26
+  72               	.L6:
+  73 0066 8081      		ld r24,Z
+  74 0068 9181      		ldd r25,Z+1
+  75 006a 861B      		sub r24,r22
+  76 006c 970B      		sbc r25,r23
+  77 006e 2281      		ldd r18,Z+2
+  78 0070 3381      		ldd r19,Z+3
+  79 0072 8430      		cpi r24,4
+  80 0074 9105      		cpc r25,__zero_reg__
+  81 0076 00F0      		brlo .L9
+  82 0078 DF01      		movw r26,r30
+  83 007a A60F      		add r26,r22
+  84 007c B71F      		adc r27,r23
+  85 007e 1196      		adiw r26,1
+  86 0080 9C93      		st X,r25
+  87 0082 8E93      		st -X,r24
+  88 0084 1396      		adiw r26,2+1
+  89 0086 3C93      		st X,r19
+  90 0088 2E93      		st -X,r18
+  91 008a 1297      		sbiw r26,2
+  92 008c 7183      		std Z+1,r23
+  93 008e 6083      		st Z,r22
+  94 0090 B983      		std Y+1,r27
+  95 0092 A883      		st Y,r26
+  96 0094 00C0      		rjmp .L10
+  97               	.L9:
+  98 0096 3983      		std Y+1,r19
+  99 0098 2883      		st Y,r18
+ 100               	.L10:
+ 101 009a DF01      		movw r26,r30
+ 102 009c 1296      		adiw r26,2
+ 103               	.L8:
+ 104 009e CD01      		movw r24,r26
+ 105               	/* epilogue start */
+ 106 00a0 DF91      		pop r29
+ 107 00a2 CF91      		pop r28
+ 108 00a4 0895      		ret
+ 109               		.size	NutHeapRootAlloc, .-NutHeapRootAlloc
+ 110               		.section	.text.NutHeapRootAllocClear,"ax",@progbits
+ 111               	.global	NutHeapRootAllocClear
+ 112               		.type	NutHeapRootAllocClear, @function
+ 113               	NutHeapRootAllocClear:
+ 114 0000 0F93      		push r16
+GAS LISTING /tmp/ccSphweu.s 			page 3
+
+
+ 115 0002 1F93      		push r17
+ 116 0004 CF93      		push r28
+ 117 0006 DF93      		push r29
+ 118               	/* prologue: function */
+ 119               	/* frame size = 0 */
+ 120               	/* stack size = 4 */
+ 121               	.L__stack_usage = 4
+ 122 0008 8B01      		movw r16,r22
+ 123 000a 0E94 0000 		call NutHeapRootAlloc
+ 124 000e EC01      		movw r28,r24
+ 125 0010 0097      		sbiw r24,0
+ 126 0012 01F0      		breq .L20
+ 127 0014 A801      		movw r20,r16
+ 128 0016 60E0      		ldi r22,0
+ 129 0018 70E0      		ldi r23,0
+ 130 001a 0E94 0000 		call memset
+ 131               	.L20:
+ 132 001e CE01      		movw r24,r28
+ 133               	/* epilogue start */
+ 134 0020 DF91      		pop r29
+ 135 0022 CF91      		pop r28
+ 136 0024 1F91      		pop r17
+ 137 0026 0F91      		pop r16
+ 138 0028 0895      		ret
+ 139               		.size	NutHeapRootAllocClear, .-NutHeapRootAllocClear
+ 140               		.section	.text.NutHeapRootFree,"ax",@progbits
+ 141               	.global	NutHeapRootFree
+ 142               		.type	NutHeapRootFree, @function
+ 143               	NutHeapRootFree:
+ 144 0000 CF93      		push r28
+ 145 0002 DF93      		push r29
+ 146               	/* prologue: function */
+ 147               	/* frame size = 0 */
+ 148               	/* stack size = 2 */
+ 149               	.L__stack_usage = 2
+ 150 0004 EC01      		movw r28,r24
+ 151 0006 6115      		cp r22,__zero_reg__
+ 152 0008 7105      		cpc r23,__zero_reg__
+ 153 000a 01F4      		brne .+2
+ 154 000c 00C0      		rjmp .L33
+ 155 000e FB01      		movw r30,r22
+ 156 0010 3297      		sbiw r30,2
+ 157 0012 A881      		ld r26,Y
+ 158 0014 B981      		ldd r27,Y+1
+ 159               	.L26:
+ 160 0016 1097      		sbiw r26,0
+ 161 0018 01F4      		brne .+2
+ 162 001a 00C0      		rjmp .L37
+ 163 001c 8D91      		ld r24,X+
+ 164 001e 9C91      		ld r25,X
+ 165 0020 1197      		sbiw r26,1
+ 166 0022 9C01      		movw r18,r24
+ 167 0024 2A0F      		add r18,r26
+ 168 0026 3B1F      		adc r19,r27
+ 169 0028 E217      		cp r30,r18
+ 170 002a F307      		cpc r31,r19
+ 171 002c 01F4      		brne .L27
+GAS LISTING /tmp/ccSphweu.s 			page 4
+
+
+ 172 002e 2081      		ld r18,Z
+ 173 0030 3181      		ldd r19,Z+1
+ 174 0032 820F      		add r24,r18
+ 175 0034 931F      		adc r25,r19
+ 176 0036 1196      		adiw r26,1
+ 177 0038 9C93      		st X,r25
+ 178 003a 8E93      		st -X,r24
+ 179 003c 1296      		adiw r26,2
+ 180 003e ED91      		ld r30,X+
+ 181 0040 FC91      		ld r31,X
+ 182 0042 1397      		sbiw r26,2+1
+ 183 0044 9D01      		movw r18,r26
+ 184 0046 280F      		add r18,r24
+ 185 0048 391F      		adc r19,r25
+ 186 004a E217      		cp r30,r18
+ 187 004c F307      		cpc r31,r19
+ 188 004e 01F4      		brne .L28
+ 189 0050 2081      		ld r18,Z
+ 190 0052 3181      		ldd r19,Z+1
+ 191 0054 820F      		add r24,r18
+ 192 0056 931F      		adc r25,r19
+ 193 0058 1196      		adiw r26,1
+ 194 005a 9C93      		st X,r25
+ 195 005c 8E93      		st -X,r24
+ 196 005e 8281      		ldd r24,Z+2
+ 197 0060 9381      		ldd r25,Z+3
+ 198 0062 1396      		adiw r26,2+1
+ 199 0064 9C93      		st X,r25
+ 200 0066 8E93      		st -X,r24
+ 201 0068 1297      		sbiw r26,2
+ 202 006a 00C0      		rjmp .L28
+ 203               	.L27:
+ 204 006c EA17      		cp r30,r26
+ 205 006e FB07      		cpc r31,r27
+ 206 0070 00F4      		brsh .L29
+ 207 0072 F983      		std Y+1,r31
+ 208 0074 E883      		st Y,r30
+ 209 0076 2081      		ld r18,Z
+ 210 0078 3181      		ldd r19,Z+1
+ 211 007a AF01      		movw r20,r30
+ 212 007c 420F      		add r20,r18
+ 213 007e 531F      		adc r21,r19
+ 214 0080 A417      		cp r26,r20
+ 215 0082 B507      		cpc r27,r21
+ 216 0084 01F4      		brne .L30
+ 217 0086 280F      		add r18,r24
+ 218 0088 391F      		adc r19,r25
+ 219 008a 3183      		std Z+1,r19
+ 220 008c 2083      		st Z,r18
+ 221 008e 1296      		adiw r26,2
+ 222 0090 8D91      		ld r24,X+
+ 223 0092 9C91      		ld r25,X
+ 224 0094 1397      		sbiw r26,2+1
+ 225 0096 9383      		std Z+3,r25
+ 226 0098 8283      		std Z+2,r24
+ 227 009a 00C0      		rjmp .L28
+ 228               	.L30:
+GAS LISTING /tmp/ccSphweu.s 			page 5
+
+
+ 229 009c B383      		std Z+3,r27
+ 230 009e A283      		std Z+2,r26
+ 231 00a0 00C0      		rjmp .L28
+ 232               	.L29:
+ 233 00a2 E217      		cp r30,r18
+ 234 00a4 F307      		cpc r31,r19
+ 235 00a6 00F0      		brlo .L34
+ 236 00a8 ED01      		movw r28,r26
+ 237 00aa 2296      		adiw r28,2
+ 238 00ac 1296      		adiw r26,2
+ 239 00ae 0D90      		ld __tmp_reg__,X+
+ 240 00b0 BC91      		ld r27,X
+ 241 00b2 A02D      		mov r26,__tmp_reg__
+ 242 00b4 00C0      		rjmp .L26
+ 243               	.L33:
+ 244 00b6 8DEF      		ldi r24,lo8(-3)
+ 245 00b8 9FEF      		ldi r25,lo8(-1)
+ 246 00ba 00C0      		rjmp .L36
+ 247               	.L34:
+ 248 00bc 8FEF      		ldi r24,lo8(-1)
+ 249 00be 9FEF      		ldi r25,lo8(-1)
+ 250 00c0 00C0      		rjmp .L36
+ 251               	.L37:
+ 252 00c2 1382      		std Z+3,__zero_reg__
+ 253 00c4 1282      		std Z+2,__zero_reg__
+ 254 00c6 F983      		std Y+1,r31
+ 255 00c8 E883      		st Y,r30
+ 256               	.L28:
+ 257 00ca 80E0      		ldi r24,0
+ 258 00cc 90E0      		ldi r25,0
+ 259               	.L36:
+ 260               	/* epilogue start */
+ 261 00ce DF91      		pop r29
+ 262 00d0 CF91      		pop r28
+ 263 00d2 0895      		ret
+ 264               		.size	NutHeapRootFree, .-NutHeapRootFree
+ 265               		.section	.text.NutHeapRootAdd,"ax",@progbits
+ 266               	.global	NutHeapRootAdd
+ 267               		.type	NutHeapRootAdd, @function
+ 268               	NutHeapRootAdd:
+ 269               	/* prologue: function */
+ 270               	/* frame size = 0 */
+ 271               	/* stack size = 0 */
+ 272               	.L__stack_usage = 0
+ 273 0000 FB01      		movw r30,r22
+ 274 0002 3196      		adiw r30,1
+ 275 0004 EE7F      		andi r30,254
+ 276 0006 460F      		add r20,r22
+ 277 0008 571F      		adc r21,r23
+ 278 000a 4E1B      		sub r20,r30
+ 279 000c 5F0B      		sbc r21,r31
+ 280 000e 4E7F      		andi r20,254
+ 281 0010 4193      		st Z+,r20
+ 282 0012 5193      		st Z+,r21
+ 283 0014 BF01      		movw r22,r30
+ 284 0016 0C94 0000 		jmp NutHeapRootFree
+ 285               		.size	NutHeapRootAdd, .-NutHeapRootAdd
+GAS LISTING /tmp/ccSphweu.s 			page 6
+
+
+ 286               		.section	.text.NutHeapRootAvailable,"ax",@progbits
+ 287               	.global	NutHeapRootAvailable
+ 288               		.type	NutHeapRootAvailable, @function
+ 289               	NutHeapRootAvailable:
+ 290               	/* prologue: function */
+ 291               	/* frame size = 0 */
+ 292               	/* stack size = 0 */
+ 293               	.L__stack_usage = 0
+ 294 0000 DC01      		movw r26,r24
+ 295 0002 ED91      		ld r30,X+
+ 296 0004 FC91      		ld r31,X
+ 297 0006 80E0      		ldi r24,0
+ 298 0008 90E0      		ldi r25,0
+ 299               	.L40:
+ 300 000a 3097      		sbiw r30,0
+ 301 000c 01F0      		breq .L42
+ 302 000e 2081      		ld r18,Z
+ 303 0010 3181      		ldd r19,Z+1
+ 304 0012 2250      		subi r18,2
+ 305 0014 3109      		sbc r19,__zero_reg__
+ 306 0016 820F      		add r24,r18
+ 307 0018 931F      		adc r25,r19
+ 308 001a 0280      		ldd __tmp_reg__,Z+2
+ 309 001c F381      		ldd r31,Z+3
+ 310 001e E02D      		mov r30,__tmp_reg__
+ 311 0020 00C0      		rjmp .L40
+ 312               	.L42:
+ 313               	/* epilogue start */
+ 314 0022 0895      		ret
+ 315               		.size	NutHeapRootAvailable, .-NutHeapRootAvailable
+ 316               		.section	.text.NutHeapRootRegionAvailable,"ax",@progbits
+ 317               	.global	NutHeapRootRegionAvailable
+ 318               		.type	NutHeapRootRegionAvailable, @function
+ 319               	NutHeapRootRegionAvailable:
+ 320               	/* prologue: function */
+ 321               	/* frame size = 0 */
+ 322               	/* stack size = 0 */
+ 323               	.L__stack_usage = 0
+ 324 0000 DC01      		movw r26,r24
+ 325 0002 ED91      		ld r30,X+
+ 326 0004 FC91      		ld r31,X
+ 327 0006 80E0      		ldi r24,0
+ 328 0008 90E0      		ldi r25,0
+ 329               	.L44:
+ 330 000a 3097      		sbiw r30,0
+ 331 000c 01F0      		breq .L47
+ 332 000e 2081      		ld r18,Z
+ 333 0010 3181      		ldd r19,Z+1
+ 334 0012 8217      		cp r24,r18
+ 335 0014 9307      		cpc r25,r19
+ 336 0016 00F4      		brsh .L45
+ 337 0018 C901      		movw r24,r18
+ 338               	.L45:
+ 339 001a 0280      		ldd __tmp_reg__,Z+2
+ 340 001c F381      		ldd r31,Z+3
+ 341 001e E02D      		mov r30,__tmp_reg__
+ 342 0020 00C0      		rjmp .L44
+GAS LISTING /tmp/ccSphweu.s 			page 7
+
+
+ 343               	.L47:
+ 344 0022 0297      		sbiw r24,2
+ 345 0024 0895      		ret
+ 346               		.size	NutHeapRootRegionAvailable, .-NutHeapRootRegionAvailable
+ 347               		.section	.text.NutHeapRootRealloc,"ax",@progbits
+ 348               	.global	NutHeapRootRealloc
+ 349               		.type	NutHeapRootRealloc, @function
+ 350               	NutHeapRootRealloc:
+ 351 0000 AF92      		push r10
+ 352 0002 BF92      		push r11
+ 353 0004 CF92      		push r12
+ 354 0006 DF92      		push r13
+ 355 0008 EF92      		push r14
+ 356 000a FF92      		push r15
+ 357 000c 0F93      		push r16
+ 358 000e 1F93      		push r17
+ 359 0010 CF93      		push r28
+ 360 0012 DF93      		push r29
+ 361               	/* prologue: function */
+ 362               	/* frame size = 0 */
+ 363               	/* stack size = 10 */
+ 364               	.L__stack_usage = 10
+ 365 0014 6C01      		movw r12,r24
+ 366 0016 8B01      		movw r16,r22
+ 367 0018 6115      		cp r22,__zero_reg__
+ 368 001a 7105      		cpc r23,__zero_reg__
+ 369 001c 01F4      		brne .L49
+ 370 001e BA01      		movw r22,r20
+ 371               	/* epilogue start */
+ 372 0020 DF91      		pop r29
+ 373 0022 CF91      		pop r28
+ 374 0024 1F91      		pop r17
+ 375 0026 0F91      		pop r16
+ 376 0028 FF90      		pop r15
+ 377 002a EF90      		pop r14
+ 378 002c DF90      		pop r13
+ 379 002e CF90      		pop r12
+ 380 0030 BF90      		pop r11
+ 381 0032 AF90      		pop r10
+ 382 0034 0C94 0000 		jmp NutHeapRootAlloc
+ 383               	.L49:
+ 384 0038 4115      		cp r20,__zero_reg__
+ 385 003a 5105      		cpc r21,__zero_reg__
+ 386 003c 01F4      		brne .L50
+ 387 003e 0E94 0000 		call NutHeapRootFree
+ 388 0042 892B      		or r24,r25
+ 389 0044 01F4      		brne .+2
+ 390 0046 00C0      		rjmp .L64
+ 391 0048 00C0      		rjmp .L60
+ 392               	.L50:
+ 393 004a 7B01      		movw r14,r22
+ 394 004c 22E0      		ldi r18,2
+ 395 004e E21A      		sub r14,r18
+ 396 0050 F108      		sbc r15,__zero_reg__
+ 397 0052 4E5F      		subi r20,-2
+ 398 0054 5F4F      		sbci r21,-1
+ 399 0056 4430      		cpi r20,4
+GAS LISTING /tmp/ccSphweu.s 			page 8
+
+
+ 400 0058 5105      		cpc r21,__zero_reg__
+ 401 005a 00F4      		brsh .L52
+ 402 005c 44E0      		ldi r20,lo8(4)
+ 403 005e 50E0      		ldi r21,0
+ 404               	.L52:
+ 405 0060 4F5F      		subi r20,-1
+ 406 0062 5F4F      		sbci r21,-1
+ 407 0064 EA01      		movw r28,r20
+ 408 0066 CE7F      		andi r28,254
+ 409 0068 D701      		movw r26,r14
+ 410 006a 8D91      		ld r24,X+
+ 411 006c 9C91      		ld r25,X
+ 412 006e 8C17      		cp r24,r28
+ 413 0070 9D07      		cpc r25,r29
+ 414 0072 00F0      		brlo .+2
+ 415 0074 00C0      		rjmp .L53
+ 416 0076 AE01      		movw r20,r28
+ 417 0078 481B      		sub r20,r24
+ 418 007a 590B      		sbc r21,r25
+ 419 007c D601      		movw r26,r12
+ 420 007e ED91      		ld r30,X+
+ 421 0080 FC91      		ld r31,X
+ 422 0082 5601      		movw r10,r12
+ 423               	.L54:
+ 424 0084 3097      		sbiw r30,0
+ 425 0086 01F4      		brne .+2
+ 426 0088 00C0      		rjmp .L55
+ 427 008a EE15      		cp r30,r14
+ 428 008c FF05      		cpc r31,r15
+ 429 008e 00F4      		brsh .L65
+ 430 0090 5F01      		movw r10,r30
+ 431 0092 B2E0      		ldi r27,2
+ 432 0094 AB0E      		add r10,r27
+ 433 0096 B11C      		adc r11,__zero_reg__
+ 434 0098 0280      		ldd __tmp_reg__,Z+2
+ 435 009a F381      		ldd r31,Z+3
+ 436 009c E02D      		mov r30,__tmp_reg__
+ 437 009e 00C0      		rjmp .L54
+ 438               	.L65:
+ 439 00a0 2081      		ld r18,Z
+ 440 00a2 3181      		ldd r19,Z+1
+ 441 00a4 2417      		cp r18,r20
+ 442 00a6 3507      		cpc r19,r21
+ 443 00a8 00F0      		brlo .L55
+ 444 00aa B701      		movw r22,r14
+ 445 00ac 680F      		add r22,r24
+ 446 00ae 791F      		adc r23,r25
+ 447 00b0 E617      		cp r30,r22
+ 448 00b2 F707      		cpc r31,r23
+ 449 00b4 01F4      		brne .L55
+ 450 00b6 B901      		movw r22,r18
+ 451 00b8 641B      		sub r22,r20
+ 452 00ba 750B      		sbc r23,r21
+ 453 00bc 6430      		cpi r22,4
+ 454 00be 7105      		cpc r23,__zero_reg__
+ 455 00c0 00F0      		brlo .L57
+ 456 00c2 D701      		movw r26,r14
+GAS LISTING /tmp/ccSphweu.s 			page 9
+
+
+ 457 00c4 CD93      		st X+,r28
+ 458 00c6 DC93      		st X,r29
+ 459 00c8 EA01      		movw r28,r20
+ 460 00ca CE0F      		add r28,r30
+ 461 00cc DF1F      		adc r29,r31
+ 462 00ce D501      		movw r26,r10
+ 463 00d0 1196      		adiw r26,1
+ 464 00d2 DC93      		st X,r29
+ 465 00d4 CE93      		st -X,r28
+ 466 00d6 8281      		ldd r24,Z+2
+ 467 00d8 9381      		ldd r25,Z+3
+ 468 00da 9B83      		std Y+3,r25
+ 469 00dc 8A83      		std Y+2,r24
+ 470 00de 0D90      		ld __tmp_reg__,X+
+ 471 00e0 BC91      		ld r27,X
+ 472 00e2 A02D      		mov r26,__tmp_reg__
+ 473 00e4 8081      		ld r24,Z
+ 474 00e6 9181      		ldd r25,Z+1
+ 475 00e8 841B      		sub r24,r20
+ 476 00ea 950B      		sbc r25,r21
+ 477 00ec 8D93      		st X+,r24
+ 478 00ee 9C93      		st X,r25
+ 479 00f0 00C0      		rjmp .L64
+ 480               	.L57:
+ 481 00f2 820F      		add r24,r18
+ 482 00f4 931F      		adc r25,r19
+ 483 00f6 E701      		movw r28,r14
+ 484 00f8 9983      		std Y+1,r25
+ 485 00fa 8883      		st Y,r24
+ 486 00fc 8281      		ldd r24,Z+2
+ 487 00fe 9381      		ldd r25,Z+3
+ 488 0100 F501      		movw r30,r10
+ 489 0102 9183      		std Z+1,r25
+ 490 0104 8083      		st Z,r24
+ 491 0106 00C0      		rjmp .L64
+ 492               	.L55:
+ 493 0108 BE01      		movw r22,r28
+ 494 010a C601      		movw r24,r12
+ 495 010c 0E94 0000 		call NutHeapRootAlloc
+ 496 0110 EC01      		movw r28,r24
+ 497 0112 0097      		sbiw r24,0
+ 498 0114 01F0      		breq .L60
+ 499 0116 D701      		movw r26,r14
+ 500 0118 4D91      		ld r20,X+
+ 501 011a 5C91      		ld r21,X
+ 502 011c 4250      		subi r20,2
+ 503 011e 5109      		sbc r21,__zero_reg__
+ 504 0120 B801      		movw r22,r16
+ 505 0122 0E94 0000 		call memcpy
+ 506 0126 B801      		movw r22,r16
+ 507 0128 C601      		movw r24,r12
+ 508 012a 0E94 0000 		call NutHeapRootFree
+ 509 012e CE01      		movw r24,r28
+ 510 0130 00C0      		rjmp .L51
+ 511               	.L53:
+ 512 0132 9C01      		movw r18,r24
+ 513 0134 2450      		subi r18,4
+GAS LISTING /tmp/ccSphweu.s 			page 10
+
+
+ 514 0136 3109      		sbc r19,__zero_reg__
+ 515 0138 C217      		cp r28,r18
+ 516 013a D307      		cpc r29,r19
+ 517 013c 00F4      		brsh .L64
+ 518 013e 8C1B      		sub r24,r28
+ 519 0140 9D0B      		sbc r25,r29
+ 520 0142 B701      		movw r22,r14
+ 521 0144 6C0F      		add r22,r28
+ 522 0146 7D1F      		adc r23,r29
+ 523 0148 FB01      		movw r30,r22
+ 524 014a 8193      		st Z+,r24
+ 525 014c 9193      		st Z+,r25
+ 526 014e BF01      		movw r22,r30
+ 527 0150 C601      		movw r24,r12
+ 528 0152 0E94 0000 		call NutHeapRootFree
+ 529 0156 D701      		movw r26,r14
+ 530 0158 CD93      		st X+,r28
+ 531 015a DC93      		st X,r29
+ 532               	.L64:
+ 533 015c C801      		movw r24,r16
+ 534 015e 00C0      		rjmp .L51
+ 535               	.L60:
+ 536 0160 80E0      		ldi r24,0
+ 537 0162 90E0      		ldi r25,0
+ 538               	.L51:
+ 539               	/* epilogue start */
+ 540 0164 DF91      		pop r29
+ 541 0166 CF91      		pop r28
+ 542 0168 1F91      		pop r17
+ 543 016a 0F91      		pop r16
+ 544 016c FF90      		pop r15
+ 545 016e EF90      		pop r14
+ 546 0170 DF90      		pop r13
+ 547 0172 CF90      		pop r12
+ 548 0174 BF90      		pop r11
+ 549 0176 AF90      		pop r10
+ 550 0178 0895      		ret
+ 551               		.size	NutHeapRootRealloc, .-NutHeapRootRealloc
+ 552               		.section	.text.NutHeapCheck,"ax",@progbits
+ 553               	.global	NutHeapCheck
+ 554               		.type	NutHeapCheck, @function
+ 555               	NutHeapCheck:
+ 556               	/* prologue: function */
+ 557               	/* frame size = 0 */
+ 558               	/* stack size = 0 */
+ 559               	.L__stack_usage = 0
+ 560 0000 80E0      		ldi r24,0
+ 561 0002 90E0      		ldi r25,0
+ 562 0004 0895      		ret
+ 563               		.size	NutHeapCheck, .-NutHeapCheck
+ 564               		.section	.rodata.str1.1,"aMS",@progbits,1
+ 565               	.LC0:
+ 566 0000 2570 2825 		.string	"%p(%d)\n"
+ 566      6429 0A00 
+ 567               		.section	.text.NutHeapDump,"ax",@progbits
+ 568               	.global	NutHeapDump
+ 569               		.type	NutHeapDump, @function
+GAS LISTING /tmp/ccSphweu.s 			page 11
+
+
+ 570               	NutHeapDump:
+ 571 0000 EF92      		push r14
+ 572 0002 FF92      		push r15
+ 573 0004 0F93      		push r16
+ 574 0006 1F93      		push r17
+ 575 0008 CF93      		push r28
+ 576 000a DF93      		push r29
+ 577               	/* prologue: function */
+ 578               	/* frame size = 0 */
+ 579               	/* stack size = 6 */
+ 580               	.L__stack_usage = 6
+ 581 000c F82E      		mov r15,r24
+ 582 000e E92E      		mov r14,r25
+ 583 0010 C091 0000 		lds r28,heapFreeList
+ 584 0014 D091 0000 		lds r29,heapFreeList+1
+ 585 0018 00E0      		ldi r16,lo8(.LC0)
+ 586 001a 10E0      		ldi r17,hi8(.LC0)
+ 587               	.L68:
+ 588 001c 2097      		sbiw r28,0
+ 589 001e 01F0      		breq .L70
+ 590 0020 8981      		ldd r24,Y+1
+ 591 0022 8F93      		push r24
+ 592 0024 8881      		ld r24,Y
+ 593 0026 8F93      		push r24
+ 594 0028 DF93      		push r29
+ 595 002a CF93      		push r28
+ 596 002c 1F93      		push r17
+ 597 002e 0F93      		push r16
+ 598 0030 EF92      		push r14
+ 599 0032 FF92      		push r15
+ 600 0034 0E94 0000 		call fprintf
+ 601 0038 0A80      		ldd __tmp_reg__,Y+2
+ 602 003a DB81      		ldd r29,Y+3
+ 603 003c C02D      		mov r28,__tmp_reg__
+ 604 003e 8DB7      		in r24,__SP_L__
+ 605 0040 9EB7      		in r25,__SP_H__
+ 606 0042 0896      		adiw r24,8
+ 607 0044 0FB6      		in __tmp_reg__,__SREG__
+ 608 0046 F894      		cli
+ 609 0048 9EBF      		out __SP_H__,r25
+ 610 004a 0FBE      		out __SREG__,__tmp_reg__
+ 611 004c 8DBF      		out __SP_L__,r24
+ 612 004e 00C0      		rjmp .L68
+ 613               	.L70:
+ 614               	/* epilogue start */
+ 615 0050 DF91      		pop r29
+ 616 0052 CF91      		pop r28
+ 617 0054 1F91      		pop r17
+ 618 0056 0F91      		pop r16
+ 619 0058 FF90      		pop r15
+ 620 005a EF90      		pop r14
+ 621 005c 0895      		ret
+ 622               		.size	NutHeapDump, .-NutHeapDump
+ 623               		.comm	heapFreeList,2,1
+ 624               		.ident	"GCC: (GNU) 5.3.0"
+ 625               	.global __do_copy_data
+ 626               	.global __do_clear_bss
+GAS LISTING /tmp/ccSphweu.s 			page 12
+
+
+GAS LISTING /tmp/ccSphweu.s 			page 13
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 heap.c
+     /tmp/ccSphweu.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccSphweu.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccSphweu.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccSphweu.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccSphweu.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccSphweu.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccSphweu.s:11     .text.NutHeapRootAlloc:0000000000000000 NutHeapRootAlloc
+     /tmp/ccSphweu.s:113    .text.NutHeapRootAllocClear:0000000000000000 NutHeapRootAllocClear
+     /tmp/ccSphweu.s:143    .text.NutHeapRootFree:0000000000000000 NutHeapRootFree
+     /tmp/ccSphweu.s:268    .text.NutHeapRootAdd:0000000000000000 NutHeapRootAdd
+     /tmp/ccSphweu.s:289    .text.NutHeapRootAvailable:0000000000000000 NutHeapRootAvailable
+     /tmp/ccSphweu.s:319    .text.NutHeapRootRegionAvailable:0000000000000000 NutHeapRootRegionAvailable
+     /tmp/ccSphweu.s:350    .text.NutHeapRootRealloc:0000000000000000 NutHeapRootRealloc
+     /tmp/ccSphweu.s:555    .text.NutHeapCheck:0000000000000000 NutHeapCheck
+     /tmp/ccSphweu.s:570    .text.NutHeapDump:0000000000000000 NutHeapDump
+                            *COM*:0000000000000002 heapFreeList
+
+UNDEFINED SYMBOLS
+memset
+memcpy
+fprintf
+__do_copy_data
+__do_clear_bss

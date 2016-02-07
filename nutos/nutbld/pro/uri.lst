@@ -1,0 +1,271 @@
+GAS LISTING /tmp/ccqYxKj5.s 			page 1
+
+
+   1               		.file	"uri.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.UriSchemeRelease,"ax",@progbits
+   9               	.global	UriSchemeRelease
+  10               		.type	UriSchemeRelease, @function
+  11               	UriSchemeRelease:
+  12 0000 CF93      		push r28
+  13 0002 DF93      		push r29
+  14               	/* prologue: function */
+  15               	/* frame size = 0 */
+  16               	/* stack size = 2 */
+  17               	.L__stack_usage = 2
+  18 0004 EC01      		movw r28,r24
+  19 0006 8881      		ld r24,Y
+  20 0008 9981      		ldd r25,Y+1
+  21 000a 0E94 0000 		call free
+  22 000e CE01      		movw r24,r28
+  23               	/* epilogue start */
+  24 0010 DF91      		pop r29
+  25 0012 CF91      		pop r28
+  26 0014 0C94 0000 		jmp free
+  27               		.size	UriSchemeRelease, .-UriSchemeRelease
+  28               		.section	.text.UriSchemeSplit,"ax",@progbits
+  29               	.global	UriSchemeSplit
+  30               		.type	UriSchemeSplit, @function
+  31               	UriSchemeSplit:
+  32 0000 AF92      		push r10
+  33 0002 BF92      		push r11
+  34 0004 CF92      		push r12
+  35 0006 DF92      		push r13
+  36 0008 EF92      		push r14
+  37 000a FF92      		push r15
+  38 000c 0F93      		push r16
+  39 000e 1F93      		push r17
+  40 0010 CF93      		push r28
+  41 0012 DF93      		push r29
+  42               	/* prologue: function */
+  43               	/* frame size = 0 */
+  44               	/* stack size = 10 */
+  45               	.L__stack_usage = 10
+  46 0014 7C01      		movw r14,r24
+  47 0016 0097      		sbiw r24,0
+  48 0018 01F4      		brne .+2
+  49 001a 00C0      		rjmp .L17
+  50 001c FC01      		movw r30,r24
+  51 001e 8081      		ld r24,Z
+  52 0020 8823      		tst r24
+  53 0022 01F4      		brne .+2
+  54 0024 00C0      		rjmp .L17
+  55 0026 60E1      		ldi r22,lo8(16)
+  56 0028 70E0      		ldi r23,0
+  57 002a 81E0      		ldi r24,lo8(1)
+GAS LISTING /tmp/ccqYxKj5.s 			page 2
+
+
+  58 002c 90E0      		ldi r25,0
+  59 002e 0E94 0000 		call calloc
+  60 0032 EC01      		movw r28,r24
+  61 0034 892B      		or r24,r25
+  62 0036 01F4      		brne .+2
+  63 0038 00C0      		rjmp .L4
+  64 003a 90E0      		ldi r25,lo8(scheme_names)
+  65 003c A92E      		mov r10,r25
+  66 003e 90E0      		ldi r25,hi8(scheme_names)
+  67 0040 B92E      		mov r11,r25
+  68 0042 00E0      		ldi r16,0
+  69 0044 10E0      		ldi r17,0
+  70               	.L5:
+  71 0046 F501      		movw r30,r10
+  72 0048 6191      		ld r22,Z+
+  73 004a 7191      		ld r23,Z+
+  74 004c 5F01      		movw r10,r30
+  75 004e 6115      		cp r22,__zero_reg__
+  76 0050 7105      		cpc r23,__zero_reg__
+  77 0052 01F0      		breq .L7
+  78 0054 FB01      		movw r30,r22
+  79               		0:
+  80 0056 0190      		ld __tmp_reg__,Z+
+  81 0058 0020      		tst __tmp_reg__
+  82 005a 01F4      		brne 0b
+  83 005c 3197      		sbiw r30,1
+  84 005e 6F01      		movw r12,r30
+  85 0060 C61A      		sub r12,r22
+  86 0062 D70A      		sbc r13,r23
+  87 0064 A601      		movw r20,r12
+  88 0066 C701      		movw r24,r14
+  89 0068 0E94 0000 		call strncmp
+  90 006c 892B      		or r24,r25
+  91 006e 01F4      		brne .L6
+  92 0070 EC0C      		add r14,r12
+  93 0072 FD1C      		adc r15,r13
+  94 0074 00C0      		rjmp .L7
+  95               	.L6:
+  96 0076 0F5F      		subi r16,-1
+  97 0078 1F4F      		sbci r17,-1
+  98 007a 00C0      		rjmp .L5
+  99               	.L7:
+ 100 007c C701      		movw r24,r14
+ 101 007e 0E94 0000 		call strdup
+ 102 0082 FC01      		movw r30,r24
+ 103 0084 9983      		std Y+1,r25
+ 104 0086 8883      		st Y,r24
+ 105 0088 0097      		sbiw r24,0
+ 106 008a 01F0      		breq .L4
+ 107 008c 9987      		std Y+9,r25
+ 108 008e 8887      		std Y+8,r24
+ 109 0090 DC01      		movw r26,r24
+ 110               	.L9:
+ 111 0092 8D91      		ld r24,X+
+ 112 0094 8823      		tst r24
+ 113 0096 01F0      		breq .L13
+ 114 0098 9F01      		movw r18,r30
+GAS LISTING /tmp/ccqYxKj5.s 			page 3
+
+
+ 115 009a 2F5F      		subi r18,-1
+ 116 009c 3F4F      		sbci r19,-1
+ 117 009e 8A33      		cpi r24,lo8(58)
+ 118 00a0 01F4      		brne .L10
+ 119 00a2 1082      		st Z,__zero_reg__
+ 120 00a4 BB87      		std Y+11,r27
+ 121 00a6 AA87      		std Y+10,r26
+ 122 00a8 00C0      		rjmp .L11
+ 123               	.L10:
+ 124 00aa 8F32      		cpi r24,lo8(47)
+ 125 00ac 01F4      		brne .L12
+ 126 00ae 1082      		st Z,__zero_reg__
+ 127 00b0 3D87      		std Y+13,r19
+ 128 00b2 2C87      		std Y+12,r18
+ 129 00b4 00C0      		rjmp .L13
+ 130               	.L12:
+ 131 00b6 8034      		cpi r24,lo8(64)
+ 132 00b8 01F4      		brne .L11
+ 133 00ba 1082      		st Z,__zero_reg__
+ 134 00bc 8885      		ldd r24,Y+8
+ 135 00be 9985      		ldd r25,Y+9
+ 136 00c0 9D83      		std Y+5,r25
+ 137 00c2 8C83      		std Y+4,r24
+ 138 00c4 8A85      		ldd r24,Y+10
+ 139 00c6 9B85      		ldd r25,Y+11
+ 140 00c8 9F83      		std Y+7,r25
+ 141 00ca 8E83      		std Y+6,r24
+ 142 00cc B987      		std Y+9,r27
+ 143 00ce A887      		std Y+8,r26
+ 144 00d0 1B86      		std Y+11,__zero_reg__
+ 145 00d2 1A86      		std Y+10,__zero_reg__
+ 146               	.L11:
+ 147 00d4 F901      		movw r30,r18
+ 148 00d6 00C0      		rjmp .L9
+ 149               	.L13:
+ 150 00d8 8A85      		ldd r24,Y+10
+ 151 00da 9B85      		ldd r25,Y+11
+ 152 00dc 0097      		sbiw r24,0
+ 153 00de 01F0      		breq .L15
+ 154 00e0 0E94 0000 		call atoi
+ 155 00e4 00C0      		rjmp .L24
+ 156               	.L15:
+ 157 00e6 000F      		lsl r16
+ 158 00e8 111F      		rol r17
+ 159 00ea F801      		movw r30,r16
+ 160 00ec E050      		subi r30,lo8(-(default_ports))
+ 161 00ee F040      		sbci r31,hi8(-(default_ports))
+ 162 00f0 8081      		ld r24,Z
+ 163 00f2 9181      		ldd r25,Z+1
+ 164               	.L24:
+ 165 00f4 9F87      		std Y+15,r25
+ 166 00f6 8E87      		std Y+14,r24
+ 167 00f8 CE01      		movw r24,r28
+ 168 00fa 00C0      		rjmp .L3
+ 169               	.L4:
+ 170 00fc CE01      		movw r24,r28
+ 171 00fe 0E94 0000 		call UriSchemeRelease
+GAS LISTING /tmp/ccqYxKj5.s 			page 4
+
+
+ 172               	.L17:
+ 173 0102 80E0      		ldi r24,0
+ 174 0104 90E0      		ldi r25,0
+ 175               	.L3:
+ 176               	/* epilogue start */
+ 177 0106 DF91      		pop r29
+ 178 0108 CF91      		pop r28
+ 179 010a 1F91      		pop r17
+ 180 010c 0F91      		pop r16
+ 181 010e FF90      		pop r15
+ 182 0110 EF90      		pop r14
+ 183 0112 DF90      		pop r13
+ 184 0114 CF90      		pop r12
+ 185 0116 BF90      		pop r11
+ 186 0118 AF90      		pop r10
+ 187 011a 0895      		ret
+ 188               		.size	UriSchemeSplit, .-UriSchemeSplit
+ 189               		.section	.rodata
+ 190               		.type	default_ports, @object
+ 191               		.size	default_ports, 14
+ 192               	default_ports:
+ 193 0000 1400      		.word	20
+ 194 0002 BB01      		.word	443
+ 195 0004 1900      		.word	25
+ 196 0006 6E00      		.word	110
+ 197 0008 A100      		.word	161
+ 198 000a 1700      		.word	23
+ 199 000c 5000      		.word	80
+ 200               		.section	.rodata.str1.1,"aMS",@progbits,1
+ 201               	.LC0:
+ 202 0000 6674 703A 		.string	"ftp://"
+ 202      2F2F 00
+ 203               	.LC1:
+ 204 0007 6874 7470 		.string	"https://"
+ 204      733A 2F2F 
+ 204      00
+ 205               	.LC2:
+ 206 0010 6D61 696C 		.string	"mailto:"
+ 206      746F 3A00 
+ 207               	.LC3:
+ 208 0018 706F 703A 		.string	"pop://"
+ 208      2F2F 00
+ 209               	.LC4:
+ 210 001f 736E 6D70 		.string	"snmp://"
+ 210      3A2F 2F00 
+ 211               	.LC5:
+ 212 0027 7465 6C6E 		.string	"telnet://"
+ 212      6574 3A2F 
+ 212      2F00 
+ 213               		.section	.rodata
+ 214               		.type	scheme_names, @object
+ 215               		.size	scheme_names, 14
+ 216               	scheme_names:
+ 217 000e 0000      		.word	.LC0
+ 218 0010 0000      		.word	.LC1
+ 219 0012 0000      		.word	.LC2
+ 220 0014 0000      		.word	.LC3
+GAS LISTING /tmp/ccqYxKj5.s 			page 5
+
+
+ 221 0016 0000      		.word	.LC4
+ 222 0018 0000      		.word	.LC5
+ 223 001a 0000      		.word	0
+ 224               		.ident	"GCC: (GNU) 5.3.0"
+ 225               	.global __do_copy_data
+GAS LISTING /tmp/ccqYxKj5.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 uri.c
+     /tmp/ccqYxKj5.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccqYxKj5.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccqYxKj5.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccqYxKj5.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccqYxKj5.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccqYxKj5.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccqYxKj5.s:11     .text.UriSchemeRelease:0000000000000000 UriSchemeRelease
+     /tmp/ccqYxKj5.s:31     .text.UriSchemeSplit:0000000000000000 UriSchemeSplit
+     /tmp/ccqYxKj5.s:216    .rodata:000000000000000e scheme_names
+     /tmp/ccqYxKj5.s:192    .rodata:0000000000000000 default_ports
+
+UNDEFINED SYMBOLS
+free
+calloc
+strncmp
+strdup
+atoi
+__do_copy_data

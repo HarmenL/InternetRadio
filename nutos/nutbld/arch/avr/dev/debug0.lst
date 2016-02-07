@@ -1,0 +1,301 @@
+GAS LISTING /tmp/ccMl7dU7.s 			page 1
+
+
+   1               		.file	"debug0.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.DebugPut,"ax",@progbits
+   9               		.type	DebugPut, @function
+  10               	DebugPut:
+  11               	/* prologue: function */
+  12               	/* frame size = 0 */
+  13               	/* stack size = 0 */
+  14               	.L__stack_usage = 0
+  15 0000 8A30      		cpi r24,lo8(10)
+  16 0002 01F4      		brne .L4
+  17               	.L3:
+  18 0004 9091 C000 		lds r25,192
+  19 0008 95FF      		sbrs r25,5
+  20 000a 00C0      		rjmp .L3
+  21 000c 9DE0      		ldi r25,lo8(13)
+  22 000e 9093 C600 		sts 198,r25
+  23               	.L4:
+  24 0012 9091 C000 		lds r25,192
+  25 0016 95FF      		sbrs r25,5
+  26 0018 00C0      		rjmp .L4
+  27 001a 8093 C600 		sts 198,r24
+  28 001e 0895      		ret
+  29               		.size	DebugPut, .-DebugPut
+  30               		.section	.text.DebugWrite,"ax",@progbits
+  31               		.type	DebugWrite, @function
+  32               	DebugWrite:
+  33 0000 EF92      		push r14
+  34 0002 FF92      		push r15
+  35 0004 0F93      		push r16
+  36 0006 1F93      		push r17
+  37 0008 CF93      		push r28
+  38 000a DF93      		push r29
+  39               	/* prologue: function */
+  40               	/* frame size = 0 */
+  41               	/* stack size = 6 */
+  42               	.L__stack_usage = 6
+  43 000c 8A01      		movw r16,r20
+  44 000e EB01      		movw r28,r22
+  45 0010 7B01      		movw r14,r22
+  46 0012 E40E      		add r14,r20
+  47 0014 F51E      		adc r15,r21
+  48               	.L11:
+  49 0016 CE15      		cp r28,r14
+  50 0018 DF05      		cpc r29,r15
+  51 001a 01F0      		breq .L13
+  52 001c 8991      		ld r24,Y+
+  53 001e 0E94 0000 		call DebugPut
+  54 0022 00C0      		rjmp .L11
+  55               	.L13:
+  56 0024 C801      		movw r24,r16
+  57               	/* epilogue start */
+GAS LISTING /tmp/ccMl7dU7.s 			page 2
+
+
+  58 0026 DF91      		pop r29
+  59 0028 CF91      		pop r28
+  60 002a 1F91      		pop r17
+  61 002c 0F91      		pop r16
+  62 002e FF90      		pop r15
+  63 0030 EF90      		pop r14
+  64 0032 0895      		ret
+  65               		.size	DebugWrite, .-DebugWrite
+  66               		.section	.text.DebugWrite_P,"ax",@progbits
+  67               		.type	DebugWrite_P, @function
+  68               	DebugWrite_P:
+  69 0000 EF92      		push r14
+  70 0002 FF92      		push r15
+  71 0004 0F93      		push r16
+  72 0006 1F93      		push r17
+  73 0008 CF93      		push r28
+  74 000a DF93      		push r29
+  75               	/* prologue: function */
+  76               	/* frame size = 0 */
+  77               	/* stack size = 6 */
+  78               	.L__stack_usage = 6
+  79 000c EB01      		movw r28,r22
+  80 000e 8A01      		movw r16,r20
+  81 0010 7B01      		movw r14,r22
+  82 0012 E40E      		add r14,r20
+  83 0014 F51E      		adc r15,r21
+  84               	.L15:
+  85 0016 CE15      		cp r28,r14
+  86 0018 DF05      		cpc r29,r15
+  87 001a 01F0      		breq .L17
+  88 001c FE01      		movw r30,r28
+  89               	/* #APP */
+  90               	 ;  157 "../../nut/arch/avr/dev/debug0.c" 1
+  91 001e 8491      		lpm r24, Z
+  92               		
+  93               	 ;  0 "" 2
+  94               	/* #NOAPP */
+  95 0020 0E94 0000 		call DebugPut
+  96 0024 2196      		adiw r28,1
+  97 0026 00C0      		rjmp .L15
+  98               	.L17:
+  99 0028 C801      		movw r24,r16
+ 100               	/* epilogue start */
+ 101 002a DF91      		pop r29
+ 102 002c CF91      		pop r28
+ 103 002e 1F91      		pop r17
+ 104 0030 0F91      		pop r16
+ 105 0032 FF90      		pop r15
+ 106 0034 EF90      		pop r14
+ 107 0036 0895      		ret
+ 108               		.size	DebugWrite_P, .-DebugWrite_P
+ 109               		.section	.text.DebugOpen,"ax",@progbits
+ 110               		.type	DebugOpen, @function
+ 111               	DebugOpen:
+ 112               	/* prologue: function */
+ 113               	/* frame size = 0 */
+ 114               	/* stack size = 0 */
+GAS LISTING /tmp/ccMl7dU7.s 			page 3
+
+
+ 115               	.L__stack_usage = 0
+ 116 0000 E0E0      		ldi r30,lo8(dbgfile)
+ 117 0002 F0E0      		ldi r31,hi8(dbgfile)
+ 118 0004 9183      		std Z+1,r25
+ 119 0006 8083      		st Z,r24
+ 120 0008 1382      		std Z+3,__zero_reg__
+ 121 000a 1282      		std Z+2,__zero_reg__
+ 122 000c CF01      		movw r24,r30
+ 123 000e 0895      		ret
+ 124               		.size	DebugOpen, .-DebugOpen
+ 125               		.section	.text.DebugClose,"ax",@progbits
+ 126               		.type	DebugClose, @function
+ 127               	DebugClose:
+ 128               	/* prologue: function */
+ 129               	/* frame size = 0 */
+ 130               	/* stack size = 0 */
+ 131               	.L__stack_usage = 0
+ 132 0000 80E0      		ldi r24,0
+ 133 0002 90E0      		ldi r25,0
+ 134 0004 0895      		ret
+ 135               		.size	DebugClose, .-DebugClose
+ 136               		.section	.text.DebugSetSpeed,"ax",@progbits
+ 137               		.type	DebugSetSpeed, @function
+ 138               	DebugSetSpeed:
+ 139 0000 CF92      		push r12
+ 140 0002 DF92      		push r13
+ 141 0004 EF92      		push r14
+ 142 0006 FF92      		push r15
+ 143               	/* prologue: function */
+ 144               	/* frame size = 0 */
+ 145               	/* stack size = 4 */
+ 146               	.L__stack_usage = 4
+ 147 0008 6B01      		movw r12,r22
+ 148 000a 7C01      		movw r14,r24
+ 149 000c 0E94 0000 		call NutGetCpuClock
+ 150 0010 660F      		lsl r22
+ 151 0012 771F      		rol r23
+ 152 0014 881F      		rol r24
+ 153 0016 991F      		rol r25
+ 154 0018 A701      		movw r20,r14
+ 155 001a 9601      		movw r18,r12
+ 156 001c E4E0      		ldi r30,4
+ 157               		1:
+ 158 001e 220F      		lsl r18
+ 159 0020 331F      		rol r19
+ 160 0022 441F      		rol r20
+ 161 0024 551F      		rol r21
+ 162 0026 EA95      		dec r30
+ 163 0028 01F4      		brne 1b
+ 164 002a 0E94 0000 		call __udivmodsi4
+ 165 002e DA01      		movw r26,r20
+ 166 0030 C901      		movw r24,r18
+ 167 0032 0196      		adiw r24,1
+ 168 0034 A11D      		adc r26,__zero_reg__
+ 169 0036 B11D      		adc r27,__zero_reg__
+ 170 0038 B695      		lsr r27
+ 171 003a A795      		ror r26
+GAS LISTING /tmp/ccMl7dU7.s 			page 4
+
+
+ 172 003c 9795      		ror r25
+ 173 003e 8795      		ror r24
+ 174 0040 2FEF      		ldi r18,lo8(-1)
+ 175 0042 280F      		add r18,r24
+ 176 0044 2093 C400 		sts 196,r18
+ 177               	/* epilogue start */
+ 178 0048 FF90      		pop r15
+ 179 004a EF90      		pop r14
+ 180 004c DF90      		pop r13
+ 181 004e CF90      		pop r12
+ 182 0050 0895      		ret
+ 183               		.size	DebugSetSpeed, .-DebugSetSpeed
+ 184               		.section	.text.DebugIOCtl,"ax",@progbits
+ 185               		.type	DebugIOCtl, @function
+ 186               	DebugIOCtl:
+ 187               	/* prologue: function */
+ 188               	/* frame size = 0 */
+ 189               	/* stack size = 0 */
+ 190               	.L__stack_usage = 0
+ 191 0000 6130      		cpi r22,1
+ 192 0002 7140      		sbci r23,1
+ 193 0004 01F4      		brne .L23
+ 194 0006 FA01      		movw r30,r20
+ 195 0008 6081      		ld r22,Z
+ 196 000a 7181      		ldd r23,Z+1
+ 197 000c 8281      		ldd r24,Z+2
+ 198 000e 9381      		ldd r25,Z+3
+ 199 0010 0E94 0000 		call DebugSetSpeed
+ 200 0014 80E0      		ldi r24,0
+ 201 0016 90E0      		ldi r25,0
+ 202 0018 0895      		ret
+ 203               	.L23:
+ 204 001a 8FEF      		ldi r24,lo8(-1)
+ 205 001c 9FEF      		ldi r25,lo8(-1)
+ 206 001e 0895      		ret
+ 207               		.size	DebugIOCtl, .-DebugIOCtl
+ 208               		.section	.text.DebugInit,"ax",@progbits
+ 209               		.type	DebugInit, @function
+ 210               	DebugInit:
+ 211               	/* prologue: function */
+ 212               	/* frame size = 0 */
+ 213               	/* stack size = 0 */
+ 214               	.L__stack_usage = 0
+ 215 0000 88E1      		ldi r24,lo8(24)
+ 216 0002 8093 C100 		sts 193,r24
+ 217 0006 60E0      		ldi r22,0
+ 218 0008 72EC      		ldi r23,lo8(-62)
+ 219 000a 81E0      		ldi r24,lo8(1)
+ 220 000c 90E0      		ldi r25,0
+ 221 000e 0E94 0000 		call DebugSetSpeed
+ 222 0012 80E0      		ldi r24,0
+ 223 0014 90E0      		ldi r25,0
+ 224 0016 0895      		ret
+ 225               		.size	DebugInit, .-DebugInit
+ 226               	.global	devDebug0
+ 227               		.data
+ 228               		.type	devDebug0, @object
+GAS LISTING /tmp/ccMl7dU7.s 			page 5
+
+
+ 229               		.size	devDebug0, 37
+ 230               	devDebug0:
+ 231 0000 0000      		.word	0
+ 232 0002 75        		.byte	117
+ 233 0003 61        		.byte	97
+ 234 0004 72        		.byte	114
+ 235 0005 74        		.byte	116
+ 236 0006 30        		.byte	48
+ 237 0007 00        		.byte	0
+ 238 0008 00        		.byte	0
+ 239 0009 00        		.byte	0
+ 240 000a 00        		.byte	0
+ 241 000b 00        		.byte	0
+ 242 000c 0000      		.word	0
+ 243 000e 00        		.byte	0
+ 244 000f 0000      		.word	0
+ 245 0011 0000      		.word	0
+ 246 0013 0000      		.word	gs(DebugInit)
+ 247 0015 0000      		.word	gs(DebugIOCtl)
+ 248 0017 0000      		.word	0
+ 249 0019 0000      		.word	gs(DebugWrite)
+ 250 001b 0000      		.word	gs(DebugWrite_P)
+ 251 001d 0000      		.word	gs(DebugOpen)
+ 252 001f 0000      		.word	gs(DebugClose)
+ 253 0021 0000      		.word	0
+ 254 0023 0000      		.word	0
+ 255               		.local	dbgfile
+ 256               		.comm	dbgfile,4,1
+ 257               		.ident	"GCC: (GNU) 5.3.0"
+ 258               	.global __do_copy_data
+ 259               	.global __do_clear_bss
+GAS LISTING /tmp/ccMl7dU7.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 debug0.c
+     /tmp/ccMl7dU7.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccMl7dU7.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccMl7dU7.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccMl7dU7.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccMl7dU7.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccMl7dU7.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccMl7dU7.s:10     .text.DebugPut:0000000000000000 DebugPut
+     /tmp/ccMl7dU7.s:32     .text.DebugWrite:0000000000000000 DebugWrite
+     /tmp/ccMl7dU7.s:68     .text.DebugWrite_P:0000000000000000 DebugWrite_P
+     /tmp/ccMl7dU7.s:111    .text.DebugOpen:0000000000000000 DebugOpen
+                             .bss:0000000000000000 dbgfile
+     /tmp/ccMl7dU7.s:127    .text.DebugClose:0000000000000000 DebugClose
+     /tmp/ccMl7dU7.s:138    .text.DebugSetSpeed:0000000000000000 DebugSetSpeed
+     /tmp/ccMl7dU7.s:186    .text.DebugIOCtl:0000000000000000 DebugIOCtl
+     /tmp/ccMl7dU7.s:210    .text.DebugInit:0000000000000000 DebugInit
+     /tmp/ccMl7dU7.s:230    .data:0000000000000000 devDebug0
+
+UNDEFINED SYMBOLS
+NutGetCpuClock
+__udivmodsi4
+__do_copy_data
+__do_clear_bss

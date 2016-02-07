@@ -1,0 +1,1231 @@
+GAS LISTING /tmp/ccbk85jl.s 			page 1
+
+
+   1               		.file	"ssdpc.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.CallObservers,"ax",@progbits
+   9               		.type	CallObservers, @function
+  10               	CallObservers:
+  11 0000 FF92      		push r15
+  12 0002 0F93      		push r16
+  13 0004 1F93      		push r17
+  14 0006 CF93      		push r28
+  15 0008 DF93      		push r29
+  16               	/* prologue: function */
+  17               	/* frame size = 0 */
+  18               	/* stack size = 5 */
+  19               	.L__stack_usage = 5
+  20 000a 8C01      		movw r16,r24
+  21 000c F62E      		mov r15,r22
+  22 000e C091 0000 		lds r28,ssdp_observer_root
+  23 0012 D091 0000 		lds r29,ssdp_observer_root+1
+  24               	.L2:
+  25 0016 2097      		sbiw r28,0
+  26 0018 01F0      		breq .L9
+  27 001a 6A81      		ldd r22,Y+2
+  28 001c 7B81      		ldd r23,Y+3
+  29 001e F801      		movw r30,r16
+  30 0020 8481      		ldd r24,Z+4
+  31 0022 9581      		ldd r25,Z+5
+  32 0024 0E94 0000 		call strcmp
+  33 0028 892B      		or r24,r25
+  34 002a 01F4      		brne .L7
+  35 002c 6C81      		ldd r22,Y+4
+  36 002e 7D81      		ldd r23,Y+5
+  37 0030 F801      		movw r30,r16
+  38 0032 8681      		ldd r24,Z+6
+  39 0034 9781      		ldd r25,Z+7
+  40 0036 0E94 0000 		call strcmp
+  41 003a 892B      		or r24,r25
+  42 003c 01F4      		brne .L7
+  43 003e EE81      		ldd r30,Y+6
+  44 0040 FF81      		ldd r31,Y+7
+  45 0042 6F2D      		mov r22,r15
+  46 0044 C801      		movw r24,r16
+  47 0046 1995      		eicall
+  48 0048 00C0      		rjmp .L3
+  49               	.L7:
+  50 004a 80E0      		ldi r24,0
+  51 004c 90E0      		ldi r25,0
+  52               	.L3:
+  53 004e 0990      		ld __tmp_reg__,Y+
+  54 0050 D881      		ld r29,Y
+  55 0052 C02D      		mov r28,__tmp_reg__
+  56 0054 0097      		sbiw r24,0
+  57 0056 01F0      		breq .L2
+GAS LISTING /tmp/ccbk85jl.s 			page 2
+
+
+  58 0058 00C0      		rjmp .L4
+  59               	.L9:
+  60 005a 80E0      		ldi r24,0
+  61 005c 90E0      		ldi r25,0
+  62               	.L4:
+  63               	/* epilogue start */
+  64 005e DF91      		pop r29
+  65 0060 CF91      		pop r28
+  66 0062 1F91      		pop r17
+  67 0064 0F91      		pop r16
+  68 0066 FF90      		pop r15
+  69 0068 0895      		ret
+  70               		.size	CallObservers, .-CallObservers
+  71               		.section	.rodata.str1.1,"aMS",@progbits,1
+  72               	.LC0:
+  73 0000 5553 4E00 		.string	"USN"
+  74               		.section	.text.SsdpUuidFromHeader,"ax",@progbits
+  75               		.type	SsdpUuidFromHeader, @function
+  76               	SsdpUuidFromHeader:
+  77 0000 EF92      		push r14
+  78 0002 FF92      		push r15
+  79 0004 0F93      		push r16
+  80 0006 1F93      		push r17
+  81 0008 CF93      		push r28
+  82 000a DF93      		push r29
+  83               	/* prologue: function */
+  84               	/* frame size = 0 */
+  85               	/* stack size = 6 */
+  86               	.L__stack_usage = 6
+  87 000c EC01      		movw r28,r24
+  88 000e 8091 0000 		lds r24,uuid.2973
+  89 0012 9091 0000 		lds r25,uuid.2973+1
+  90 0016 0E94 0000 		call free
+  91 001a 1092 0000 		sts uuid.2973+1,__zero_reg__
+  92 001e 1092 0000 		sts uuid.2973,__zero_reg__
+  93 0022 60E0      		ldi r22,lo8(.LC0)
+  94 0024 70E0      		ldi r23,hi8(.LC0)
+  95 0026 CE01      		movw r24,r28
+  96 0028 0E94 0000 		call HttpuGetHeader
+  97 002c 8C01      		movw r16,r24
+  98 002e FC01      		movw r30,r24
+  99 0030 8081      		ld r24,Z
+ 100 0032 8823      		tst r24
+ 101 0034 01F0      		breq .L11
+ 102 0036 45E0      		ldi r20,lo8(5)
+ 103 0038 50E0      		ldi r21,0
+ 104 003a 60E0      		ldi r22,lo8(ct_uuid_)
+ 105 003c 70E0      		ldi r23,hi8(ct_uuid_)
+ 106 003e C801      		movw r24,r16
+ 107 0040 0E94 0000 		call strncmp
+ 108 0044 892B      		or r24,r25
+ 109 0046 01F4      		brne .L12
+ 110 0048 0B5F      		subi r16,-5
+ 111 004a 1F4F      		sbci r17,-1
+ 112               	.L12:
+ 113 004c 6AE3      		ldi r22,lo8(58)
+ 114 004e 70E0      		ldi r23,0
+GAS LISTING /tmp/ccbk85jl.s 			page 3
+
+
+ 115 0050 C801      		movw r24,r16
+ 116 0052 0E94 0000 		call strchr
+ 117 0056 9093 0000 		sts uuid.2973+1,r25
+ 118 005a 8093 0000 		sts uuid.2973,r24
+ 119 005e 0097      		sbiw r24,0
+ 120 0060 01F0      		breq .L13
+ 121 0062 EC01      		movw r28,r24
+ 122 0064 C01B      		sub r28,r16
+ 123 0066 D10B      		sbc r29,r17
+ 124 0068 CE01      		movw r24,r28
+ 125 006a 0196      		adiw r24,1
+ 126 006c 0E94 0000 		call malloc
+ 127 0070 7C01      		movw r14,r24
+ 128 0072 9093 0000 		sts uuid.2973+1,r25
+ 129 0076 8093 0000 		sts uuid.2973,r24
+ 130 007a AE01      		movw r20,r28
+ 131 007c B801      		movw r22,r16
+ 132 007e 0E94 0000 		call memcpy
+ 133 0082 CE0D      		add r28,r14
+ 134 0084 DF1D      		adc r29,r15
+ 135 0086 1882      		st Y,__zero_reg__
+ 136 0088 00C0      		rjmp .L11
+ 137               	.L13:
+ 138 008a C801      		movw r24,r16
+ 139 008c 0E94 0000 		call strdup
+ 140 0090 9093 0000 		sts uuid.2973+1,r25
+ 141 0094 8093 0000 		sts uuid.2973,r24
+ 142               	.L11:
+ 143 0098 8091 0000 		lds r24,uuid.2973
+ 144 009c 9091 0000 		lds r25,uuid.2973+1
+ 145               	/* epilogue start */
+ 146 00a0 DF91      		pop r29
+ 147 00a2 CF91      		pop r28
+ 148 00a4 1F91      		pop r17
+ 149 00a6 0F91      		pop r16
+ 150 00a8 FF90      		pop r15
+ 151 00aa EF90      		pop r14
+ 152 00ac 0895      		ret
+ 153               		.size	SsdpUuidFromHeader, .-SsdpUuidFromHeader
+ 154               		.section	.rodata.str1.1
+ 155               	.LC1:
+ 156 0004 4C4F 4341 		.string	"LOCATION"
+ 156      5449 4F4E 
+ 156      00
+ 157               	.LC2:
+ 158 000d 4341 4348 		.string	"CACHE-CONTROL"
+ 158      452D 434F 
+ 158      4E54 524F 
+ 158      4C00 
+ 159               		.section	.text.CacheDevice,"ax",@progbits
+ 160               		.type	CacheDevice, @function
+ 161               	CacheDevice:
+ 162 0000 AF92      		push r10
+ 163 0002 BF92      		push r11
+ 164 0004 CF92      		push r12
+ 165 0006 DF92      		push r13
+ 166 0008 EF92      		push r14
+GAS LISTING /tmp/ccbk85jl.s 			page 4
+
+
+ 167 000a FF92      		push r15
+ 168 000c 0F93      		push r16
+ 169 000e 1F93      		push r17
+ 170 0010 CF93      		push r28
+ 171 0012 DF93      		push r29
+ 172               	/* prologue: function */
+ 173               	/* frame size = 0 */
+ 174               	/* stack size = 10 */
+ 175               	.L__stack_usage = 10
+ 176 0014 6C01      		movw r12,r24
+ 177 0016 8B01      		movw r16,r22
+ 178 0018 7A01      		movw r14,r20
+ 179 001a 5901      		movw r10,r18
+ 180 001c C091 0000 		lds r28,ssdp_device_cache
+ 181 0020 D091 0000 		lds r29,ssdp_device_cache+1
+ 182               	.L18:
+ 183 0024 2097      		sbiw r28,0
+ 184 0026 01F0      		breq .L43
+ 185 0028 B601      		movw r22,r12
+ 186 002a 8E81      		ldd r24,Y+6
+ 187 002c 9F81      		ldd r25,Y+7
+ 188 002e 0E94 0000 		call strcmp
+ 189 0032 892B      		or r24,r25
+ 190 0034 01F0      		breq .L19
+ 191 0036 0990      		ld __tmp_reg__,Y+
+ 192 0038 D881      		ld r29,Y
+ 193 003a C02D      		mov r28,__tmp_reg__
+ 194 003c 00C0      		rjmp .L18
+ 195               	.L43:
+ 196 003e 62E1      		ldi r22,lo8(18)
+ 197 0040 70E0      		ldi r23,0
+ 198 0042 81E0      		ldi r24,lo8(1)
+ 199 0044 90E0      		ldi r25,0
+ 200 0046 0E94 0000 		call calloc
+ 201 004a EC01      		movw r28,r24
+ 202 004c 892B      		or r24,r25
+ 203 004e 01F4      		brne .+2
+ 204 0050 00C0      		rjmp .L33
+ 205 0052 C601      		movw r24,r12
+ 206 0054 0E94 0000 		call strdup
+ 207 0058 9F83      		std Y+7,r25
+ 208 005a 8E83      		std Y+6,r24
+ 209 005c 60E0      		ldi r22,lo8(.LC1)
+ 210 005e 70E0      		ldi r23,hi8(.LC1)
+ 211 0060 C501      		movw r24,r10
+ 212 0062 0E94 0000 		call HttpuGetHeader
+ 213 0066 FC01      		movw r30,r24
+ 214 0068 2081      		ld r18,Z
+ 215 006a 2223      		tst r18
+ 216 006c 01F0      		breq .L28
+ 217 006e 0E94 0000 		call strdup
+ 218 0072 00C0      		rjmp .L22
+ 219               	.L28:
+ 220 0074 80E0      		ldi r24,0
+ 221 0076 90E0      		ldi r25,0
+ 222               	.L22:
+ 223 0078 9987      		std Y+9,r25
+GAS LISTING /tmp/ccbk85jl.s 			page 5
+
+
+ 224 007a 8887      		std Y+8,r24
+ 225 007c 60E0      		ldi r22,lo8(.LC2)
+ 226 007e 70E0      		ldi r23,hi8(.LC2)
+ 227 0080 C501      		movw r24,r10
+ 228 0082 0E94 0000 		call HttpuGetHeader
+ 229 0086 6DE3      		ldi r22,lo8(61)
+ 230 0088 70E0      		ldi r23,0
+ 231 008a 0E94 0000 		call strchr
+ 232 008e 0097      		sbiw r24,0
+ 233 0090 01F0      		breq .L23
+ 234 0092 0196      		adiw r24,1
+ 235 0094 0E94 0000 		call atoi
+ 236 0098 9F87      		std Y+15,r25
+ 237 009a 8E87      		std Y+14,r24
+ 238               	.L23:
+ 239 009c 8091 0000 		lds r24,ssdp_device_cache
+ 240 00a0 9091 0000 		lds r25,ssdp_device_cache+1
+ 241 00a4 9983      		std Y+1,r25
+ 242 00a6 8883      		st Y,r24
+ 243 00a8 D093 0000 		sts ssdp_device_cache+1,r29
+ 244 00ac C093 0000 		sts ssdp_device_cache,r28
+ 245               	.L19:
+ 246 00b0 8A85      		ldd r24,Y+10
+ 247 00b2 9B85      		ldd r25,Y+11
+ 248 00b4 892B      		or r24,r25
+ 249 00b6 01F4      		brne .L24
+ 250 00b8 0115      		cp r16,__zero_reg__
+ 251 00ba 1105      		cpc r17,__zero_reg__
+ 252 00bc 01F0      		breq .L24
+ 253 00be C801      		movw r24,r16
+ 254 00c0 0E94 0000 		call strdup
+ 255 00c4 9B87      		std Y+11,r25
+ 256 00c6 8A87      		std Y+10,r24
+ 257               	.L24:
+ 258 00c8 8C85      		ldd r24,Y+12
+ 259 00ca 9D85      		ldd r25,Y+13
+ 260 00cc 892B      		or r24,r25
+ 261 00ce 01F4      		brne .L33
+ 262 00d0 E114      		cp r14,__zero_reg__
+ 263 00d2 F104      		cpc r15,__zero_reg__
+ 264 00d4 01F0      		breq .L33
+ 265 00d6 C701      		movw r24,r14
+ 266 00d8 0E94 0000 		call strdup
+ 267 00dc 9D87      		std Y+13,r25
+ 268 00de 8C87      		std Y+12,r24
+ 269               	.L33:
+ 270 00e0 CE01      		movw r24,r28
+ 271               	/* epilogue start */
+ 272 00e2 DF91      		pop r29
+ 273 00e4 CF91      		pop r28
+ 274 00e6 1F91      		pop r17
+ 275 00e8 0F91      		pop r16
+ 276 00ea FF90      		pop r15
+ 277 00ec EF90      		pop r14
+ 278 00ee DF90      		pop r13
+ 279 00f0 CF90      		pop r12
+ 280 00f2 BF90      		pop r11
+GAS LISTING /tmp/ccbk85jl.s 			page 6
+
+
+ 281 00f4 AF90      		pop r10
+ 282 00f6 0895      		ret
+ 283               		.size	CacheDevice, .-CacheDevice
+ 284               		.section	.text.CacheService,"ax",@progbits
+ 285               		.type	CacheService, @function
+ 286               	CacheService:
+ 287 0000 AF92      		push r10
+ 288 0002 BF92      		push r11
+ 289 0004 CF92      		push r12
+ 290 0006 DF92      		push r13
+ 291 0008 EF92      		push r14
+ 292 000a FF92      		push r15
+ 293 000c 0F93      		push r16
+ 294 000e 1F93      		push r17
+ 295 0010 CF93      		push r28
+ 296 0012 DF93      		push r29
+ 297               	/* prologue: function */
+ 298               	/* frame size = 0 */
+ 299               	/* stack size = 10 */
+ 300               	.L__stack_usage = 10
+ 301 0014 7B01      		movw r14,r22
+ 302 0016 6A01      		movw r12,r20
+ 303 0018 40E0      		ldi r20,0
+ 304 001a 50E0      		ldi r21,0
+ 305 001c 60E0      		ldi r22,0
+ 306 001e 70E0      		ldi r23,0
+ 307 0020 0E94 0000 		call CacheDevice
+ 308 0024 8C01      		movw r16,r24
+ 309 0026 0097      		sbiw r24,0
+ 310 0028 01F0      		breq .L54
+ 311 002a FC01      		movw r30,r24
+ 312 002c B480      		ldd r11,Z+4
+ 313 002e A580      		ldd r10,Z+5
+ 314 0030 CB2D      		mov r28,r11
+ 315 0032 DA2D      		mov r29,r10
+ 316               	.L47:
+ 317 0034 2097      		sbiw r28,0
+ 318 0036 01F0      		breq .L58
+ 319 0038 B701      		movw r22,r14
+ 320 003a 8C81      		ldd r24,Y+4
+ 321 003c 9D81      		ldd r25,Y+5
+ 322 003e 0E94 0000 		call strcmp
+ 323 0042 892B      		or r24,r25
+ 324 0044 01F4      		brne .L48
+ 325 0046 B601      		movw r22,r12
+ 326 0048 8E81      		ldd r24,Y+6
+ 327 004a 9F81      		ldd r25,Y+7
+ 328 004c 0E94 0000 		call strcmp
+ 329 0050 892B      		or r24,r25
+ 330 0052 01F0      		breq .L54
+ 331               	.L48:
+ 332 0054 0990      		ld __tmp_reg__,Y+
+ 333 0056 D881      		ld r29,Y
+ 334 0058 C02D      		mov r28,__tmp_reg__
+ 335 005a 00C0      		rjmp .L47
+ 336               	.L58:
+ 337 005c 6AE0      		ldi r22,lo8(10)
+GAS LISTING /tmp/ccbk85jl.s 			page 7
+
+
+ 338 005e 70E0      		ldi r23,0
+ 339 0060 81E0      		ldi r24,lo8(1)
+ 340 0062 90E0      		ldi r25,0
+ 341 0064 0E94 0000 		call calloc
+ 342 0068 EC01      		movw r28,r24
+ 343 006a 892B      		or r24,r25
+ 344 006c 01F0      		breq .L54
+ 345 006e 1B83      		std Y+3,r17
+ 346 0070 0A83      		std Y+2,r16
+ 347 0072 C701      		movw r24,r14
+ 348 0074 0E94 0000 		call strdup
+ 349 0078 9D83      		std Y+5,r25
+ 350 007a 8C83      		std Y+4,r24
+ 351 007c C601      		movw r24,r12
+ 352 007e 0E94 0000 		call strdup
+ 353 0082 9F83      		std Y+7,r25
+ 354 0084 8E83      		std Y+6,r24
+ 355 0086 B882      		st Y,r11
+ 356 0088 A982      		std Y+1,r10
+ 357 008a F801      		movw r30,r16
+ 358 008c D583      		std Z+5,r29
+ 359 008e C483      		std Z+4,r28
+ 360 0090 60E0      		ldi r22,0
+ 361 0092 CE01      		movw r24,r28
+ 362 0094 0E94 0000 		call CallObservers
+ 363               	.L54:
+ 364 0098 C801      		movw r24,r16
+ 365               	/* epilogue start */
+ 366 009a DF91      		pop r29
+ 367 009c CF91      		pop r28
+ 368 009e 1F91      		pop r17
+ 369 00a0 0F91      		pop r16
+ 370 00a2 FF90      		pop r15
+ 371 00a4 EF90      		pop r14
+ 372 00a6 DF90      		pop r13
+ 373 00a8 CF90      		pop r12
+ 374 00aa BF90      		pop r11
+ 375 00ac AF90      		pop r10
+ 376 00ae 0895      		ret
+ 377               		.size	CacheService, .-CacheService
+ 378               		.section	.rodata.str1.1
+ 379               	.LC3:
+ 380 001b 4E54 00   		.string	"NT"
+ 381               	.LC4:
+ 382 001e 4E54 5300 		.string	"NTS"
+ 383               	.LC5:
+ 384 0022 7373 6470 		.string	"ssdp:byebye"
+ 384      3A62 7965 
+ 384      6279 6500 
+ 385               	.LC6:
+ 386 002e 7373 6470 		.string	"ssdp:alive"
+ 386      3A61 6C69 
+ 386      7665 00
+ 387               	.LC7:
+ 388 0039 7572 6E00 		.string	"urn"
+ 389               	.LC8:
+ 390 003d 7365 7276 		.string	"service"
+GAS LISTING /tmp/ccbk85jl.s 			page 8
+
+
+ 390      6963 6500 
+ 391               		.section	.text.NotificationListener,"ax",@progbits
+ 392               		.type	NotificationListener, @function
+ 393               	NotificationListener:
+ 394 0000 8F92      		push r8
+ 395 0002 9F92      		push r9
+ 396 0004 AF92      		push r10
+ 397 0006 BF92      		push r11
+ 398 0008 CF92      		push r12
+ 399 000a DF92      		push r13
+ 400 000c EF92      		push r14
+ 401 000e FF92      		push r15
+ 402 0010 0F93      		push r16
+ 403 0012 1F93      		push r17
+ 404 0014 CF93      		push r28
+ 405 0016 DF93      		push r29
+ 406 0018 CDB7      		in r28,__SP_L__
+ 407 001a DEB7      		in r29,__SP_H__
+ 408 001c 2A97      		sbiw r28,10
+ 409 001e 0FB6      		in __tmp_reg__,__SREG__
+ 410 0020 F894      		cli
+ 411 0022 DEBF      		out __SP_H__,r29
+ 412 0024 0FBE      		out __SREG__,__tmp_reg__
+ 413 0026 CDBF      		out __SP_L__,r28
+ 414               	/* prologue: function */
+ 415               	/* frame size = 10 */
+ 416               	/* stack size = 22 */
+ 417               	.L__stack_usage = 22
+ 418 0028 7C01      		movw r14,r24
+ 419 002a 60E0      		ldi r22,lo8(.LC3)
+ 420 002c 70E0      		ldi r23,hi8(.LC3)
+ 421 002e 0E94 0000 		call HttpuGetHeader
+ 422 0032 5C01      		movw r10,r24
+ 423 0034 60E0      		ldi r22,lo8(.LC4)
+ 424 0036 70E0      		ldi r23,hi8(.LC4)
+ 425 0038 C701      		movw r24,r14
+ 426 003a 0E94 0000 		call HttpuGetHeader
+ 427 003e 8C01      		movw r16,r24
+ 428 0040 C701      		movw r24,r14
+ 429 0042 0E94 0000 		call SsdpUuidFromHeader
+ 430 0046 6C01      		movw r12,r24
+ 431 0048 F501      		movw r30,r10
+ 432 004a 8081      		ld r24,Z
+ 433 004c 8823      		tst r24
+ 434 004e 01F4      		brne .+2
+ 435 0050 00C0      		rjmp .L59
+ 436 0052 F801      		movw r30,r16
+ 437 0054 8081      		ld r24,Z
+ 438 0056 8823      		tst r24
+ 439 0058 01F4      		brne .+2
+ 440 005a 00C0      		rjmp .L59
+ 441 005c C114      		cp r12,__zero_reg__
+ 442 005e D104      		cpc r13,__zero_reg__
+ 443 0060 01F4      		brne .+2
+ 444 0062 00C0      		rjmp .L59
+ 445 0064 60E0      		ldi r22,lo8(.LC5)
+ 446 0066 70E0      		ldi r23,hi8(.LC5)
+GAS LISTING /tmp/ccbk85jl.s 			page 9
+
+
+ 447 0068 C801      		movw r24,r16
+ 448 006a 0E94 0000 		call strcmp
+ 449 006e 892B      		or r24,r25
+ 450 0070 01F4      		brne .L61
+ 451 0072 0091 0000 		lds r16,ssdp_device_cache
+ 452 0076 1091 0000 		lds r17,ssdp_device_cache+1
+ 453 007a 80E0      		ldi r24,lo8(ssdp_device_cache)
+ 454 007c A82E      		mov r10,r24
+ 455 007e 80E0      		ldi r24,hi8(ssdp_device_cache)
+ 456 0080 B82E      		mov r11,r24
+ 457               	.L62:
+ 458 0082 0115      		cp r16,__zero_reg__
+ 459 0084 1105      		cpc r17,__zero_reg__
+ 460 0086 01F4      		brne .+2
+ 461 0088 00C0      		rjmp .L59
+ 462 008a B601      		movw r22,r12
+ 463 008c F801      		movw r30,r16
+ 464 008e 8681      		ldd r24,Z+6
+ 465 0090 9781      		ldd r25,Z+7
+ 466 0092 0E94 0000 		call strcmp
+ 467 0096 892B      		or r24,r25
+ 468 0098 01F4      		brne .+2
+ 469 009a 00C0      		rjmp .L63
+ 470 009c 5801      		movw r10,r16
+ 471 009e F801      		movw r30,r16
+ 472 00a0 0081      		ld r16,Z
+ 473 00a2 1181      		ldd r17,Z+1
+ 474 00a4 00C0      		rjmp .L62
+ 475               	.L61:
+ 476 00a6 60E0      		ldi r22,lo8(.LC6)
+ 477 00a8 70E0      		ldi r23,hi8(.LC6)
+ 478 00aa C801      		movw r24,r16
+ 479 00ac 0E94 0000 		call strcmp
+ 480 00b0 892B      		or r24,r25
+ 481 00b2 01F0      		breq .+2
+ 482 00b4 00C0      		rjmp .L59
+ 483 00b6 C501      		movw r24,r10
+ 484 00b8 0E94 0000 		call strdup
+ 485 00bc 25E0      		ldi r18,lo8(5)
+ 486 00be 30E0      		ldi r19,0
+ 487 00c0 AE01      		movw r20,r28
+ 488 00c2 4F5F      		subi r20,-1
+ 489 00c4 5F4F      		sbci r21,-1
+ 490 00c6 6AE3      		ldi r22,lo8(58)
+ 491 00c8 0E94 0000 		call SsdpSplitWords
+ 492 00cc 60E0      		ldi r22,lo8(.LC7)
+ 493 00ce 70E0      		ldi r23,hi8(.LC7)
+ 494 00d0 8981      		ldd r24,Y+1
+ 495 00d2 9A81      		ldd r25,Y+2
+ 496 00d4 0E94 0000 		call strcmp
+ 497 00d8 892B      		or r24,r25
+ 498 00da 01F4      		brne .L67
+ 499 00dc 60E0      		ldi r22,lo8(.LC8)
+ 500 00de 70E0      		ldi r23,hi8(.LC8)
+ 501 00e0 8D81      		ldd r24,Y+5
+ 502 00e2 9E81      		ldd r25,Y+6
+ 503 00e4 0E94 0000 		call strcmp
+GAS LISTING /tmp/ccbk85jl.s 			page 10
+
+
+ 504 00e8 892B      		or r24,r25
+ 505 00ea 01F4      		brne .L67
+ 506 00ec 0091 0000 		lds r16,ssdp_observer_root
+ 507 00f0 1091 0000 		lds r17,ssdp_observer_root+1
+ 508 00f4 AB80      		ldd r10,Y+3
+ 509 00f6 BC80      		ldd r11,Y+4
+ 510 00f8 8F80      		ldd r8,Y+7
+ 511 00fa 9884      		ldd r9,Y+8
+ 512               	.L68:
+ 513 00fc 0115      		cp r16,__zero_reg__
+ 514 00fe 1105      		cpc r17,__zero_reg__
+ 515 0100 01F0      		breq .L67
+ 516 0102 F801      		movw r30,r16
+ 517 0104 6281      		ldd r22,Z+2
+ 518 0106 7381      		ldd r23,Z+3
+ 519 0108 C501      		movw r24,r10
+ 520 010a 0E94 0000 		call strcmp
+ 521 010e 892B      		or r24,r25
+ 522 0110 01F4      		brne .L69
+ 523 0112 F801      		movw r30,r16
+ 524 0114 6481      		ldd r22,Z+4
+ 525 0116 7581      		ldd r23,Z+5
+ 526 0118 C401      		movw r24,r8
+ 527 011a 0E94 0000 		call strcmp
+ 528 011e 892B      		or r24,r25
+ 529 0120 01F4      		brne .L69
+ 530 0122 9701      		movw r18,r14
+ 531 0124 A401      		movw r20,r8
+ 532 0126 B501      		movw r22,r10
+ 533 0128 C601      		movw r24,r12
+ 534 012a 0E94 0000 		call CacheService
+ 535 012e 00C0      		rjmp .L67
+ 536               	.L69:
+ 537 0130 F801      		movw r30,r16
+ 538 0132 0081      		ld r16,Z
+ 539 0134 1181      		ldd r17,Z+1
+ 540 0136 00C0      		rjmp .L68
+ 541               	.L67:
+ 542 0138 8981      		ldd r24,Y+1
+ 543 013a 9A81      		ldd r25,Y+2
+ 544               	.L82:
+ 545 013c 0E94 0000 		call free
+ 546 0140 00C0      		rjmp .L59
+ 547               	.L63:
+ 548 0142 F801      		movw r30,r16
+ 549 0144 E480      		ldd r14,Z+4
+ 550 0146 F580      		ldd r15,Z+5
+ 551               	.L72:
+ 552 0148 E114      		cp r14,__zero_reg__
+ 553 014a F104      		cpc r15,__zero_reg__
+ 554 014c 01F0      		breq .L83
+ 555 014e F701      		movw r30,r14
+ 556 0150 C080      		ld r12,Z
+ 557 0152 D180      		ldd r13,Z+1
+ 558 0154 61E0      		ldi r22,lo8(1)
+ 559 0156 C701      		movw r24,r14
+ 560 0158 0E94 0000 		call CallObservers
+GAS LISTING /tmp/ccbk85jl.s 			page 11
+
+
+ 561 015c F701      		movw r30,r14
+ 562 015e 8481      		ldd r24,Z+4
+ 563 0160 9581      		ldd r25,Z+5
+ 564 0162 0E94 0000 		call free
+ 565 0166 F701      		movw r30,r14
+ 566 0168 8681      		ldd r24,Z+6
+ 567 016a 9781      		ldd r25,Z+7
+ 568 016c 0E94 0000 		call free
+ 569 0170 C701      		movw r24,r14
+ 570 0172 0E94 0000 		call free
+ 571 0176 7601      		movw r14,r12
+ 572 0178 00C0      		rjmp .L72
+ 573               	.L83:
+ 574 017a F801      		movw r30,r16
+ 575 017c 8681      		ldd r24,Z+6
+ 576 017e 9781      		ldd r25,Z+7
+ 577 0180 0E94 0000 		call free
+ 578 0184 F801      		movw r30,r16
+ 579 0186 8085      		ldd r24,Z+8
+ 580 0188 9185      		ldd r25,Z+9
+ 581 018a 0E94 0000 		call free
+ 582 018e F801      		movw r30,r16
+ 583 0190 8285      		ldd r24,Z+10
+ 584 0192 9385      		ldd r25,Z+11
+ 585 0194 0E94 0000 		call free
+ 586 0198 F801      		movw r30,r16
+ 587 019a 8485      		ldd r24,Z+12
+ 588 019c 9585      		ldd r25,Z+13
+ 589 019e 0E94 0000 		call free
+ 590 01a2 F801      		movw r30,r16
+ 591 01a4 8081      		ld r24,Z
+ 592 01a6 9181      		ldd r25,Z+1
+ 593 01a8 F501      		movw r30,r10
+ 594 01aa 9183      		std Z+1,r25
+ 595 01ac 8083      		st Z,r24
+ 596 01ae C801      		movw r24,r16
+ 597 01b0 00C0      		rjmp .L82
+ 598               	.L59:
+ 599               	/* epilogue start */
+ 600 01b2 2A96      		adiw r28,10
+ 601 01b4 0FB6      		in __tmp_reg__,__SREG__
+ 602 01b6 F894      		cli
+ 603 01b8 DEBF      		out __SP_H__,r29
+ 604 01ba 0FBE      		out __SREG__,__tmp_reg__
+ 605 01bc CDBF      		out __SP_L__,r28
+ 606 01be DF91      		pop r29
+ 607 01c0 CF91      		pop r28
+ 608 01c2 1F91      		pop r17
+ 609 01c4 0F91      		pop r16
+ 610 01c6 FF90      		pop r15
+ 611 01c8 EF90      		pop r14
+ 612 01ca DF90      		pop r13
+ 613 01cc CF90      		pop r12
+ 614 01ce BF90      		pop r11
+ 615 01d0 AF90      		pop r10
+ 616 01d2 9F90      		pop r9
+ 617 01d4 8F90      		pop r8
+GAS LISTING /tmp/ccbk85jl.s 			page 12
+
+
+ 618 01d6 0895      		ret
+ 619               		.size	NotificationListener, .-NotificationListener
+ 620               		.section	.rodata.str1.1
+ 621               	.LC9:
+ 622 0045 4D2D 5345 		.string	"M-SEARCH * HTTP/1.1"
+ 622      4152 4348 
+ 622      202A 2048 
+ 622      5454 502F 
+ 622      312E 3100 
+ 623               	.LC10:
+ 624 0059 3A31 3930 		.string	":1900"
+ 624      3000 
+ 625               	.LC11:
+ 626 005f 486F 7374 		.string	"Host"
+ 626      00
+ 627               	.LC12:
+ 628 0064 2273 7364 		.string	"\"ssdp:discover\""
+ 628      703A 6469 
+ 628      7363 6F76 
+ 628      6572 2200 
+ 629               	.LC13:
+ 630 0074 4D41 4E00 		.string	"MAN"
+ 631               	.LC14:
+ 632 0078 2564 00   		.string	"%d"
+ 633               	.LC15:
+ 634 007b 4D58 00   		.string	"MX"
+ 635               	.LC16:
+ 636 007e 5354 00   		.string	"ST"
+ 637               	.LC17:
+ 638 0081 7572 6E3A 		.string	"urn:"
+ 638      00
+ 639               	.LC18:
+ 640 0086 6465 7669 		.string	"device"
+ 640      6365 00
+ 641               		.section	.text.SsdpDiscoverDevices,"ax",@progbits
+ 642               	.global	SsdpDiscoverDevices
+ 643               		.type	SsdpDiscoverDevices, @function
+ 644               	SsdpDiscoverDevices:
+ 645 0000 6F92      		push r6
+ 646 0002 7F92      		push r7
+ 647 0004 8F92      		push r8
+ 648 0006 9F92      		push r9
+ 649 0008 BF92      		push r11
+ 650 000a CF92      		push r12
+ 651 000c DF92      		push r13
+ 652 000e EF92      		push r14
+ 653 0010 FF92      		push r15
+ 654 0012 0F93      		push r16
+ 655 0014 1F93      		push r17
+ 656 0016 CF93      		push r28
+ 657 0018 DF93      		push r29
+ 658 001a CDB7      		in r28,__SP_L__
+ 659 001c DEB7      		in r29,__SP_H__
+ 660 001e 2A97      		sbiw r28,10
+ 661 0020 0FB6      		in __tmp_reg__,__SREG__
+ 662 0022 F894      		cli
+ 663 0024 DEBF      		out __SP_H__,r29
+GAS LISTING /tmp/ccbk85jl.s 			page 13
+
+
+ 664 0026 0FBE      		out __SREG__,__tmp_reg__
+ 665 0028 CDBF      		out __SP_L__,r28
+ 666               	/* prologue: function */
+ 667               	/* frame size = 10 */
+ 668               	/* stack size = 23 */
+ 669               	.L__stack_usage = 23
+ 670 002a F82E      		mov r15,r24
+ 671 002c E92E      		mov r14,r25
+ 672 002e B62E      		mov r11,r22
+ 673 0030 80E0      		ldi r24,0
+ 674 0032 90E0      		ldi r25,0
+ 675 0034 0E94 0000 		call HttpuSessionCreate
+ 676 0038 8C01      		movw r16,r24
+ 677 003a 892B      		or r24,r25
+ 678 003c 01F4      		brne .+2
+ 679 003e 00C0      		rjmp .L94
+ 680 0040 1F92      		push __zero_reg__
+ 681 0042 1F92      		push __zero_reg__
+ 682 0044 80E0      		ldi r24,lo8(.LC9)
+ 683 0046 90E0      		ldi r25,hi8(.LC9)
+ 684 0048 9F93      		push r25
+ 685 004a 8F93      		push r24
+ 686 004c 1F92      		push __zero_reg__
+ 687 004e 1F92      		push __zero_reg__
+ 688 0050 1F93      		push r17
+ 689 0052 0F93      		push r16
+ 690 0054 0E94 0000 		call HttpuAddHeader
+ 691 0058 1F92      		push __zero_reg__
+ 692 005a 1F92      		push __zero_reg__
+ 693 005c 80E0      		ldi r24,lo8(.LC10)
+ 694 005e 90E0      		ldi r25,hi8(.LC10)
+ 695 0060 9F93      		push r25
+ 696 0062 8F93      		push r24
+ 697 0064 80E0      		ldi r24,lo8(ct_239_255_255_250)
+ 698 0066 90E0      		ldi r25,hi8(ct_239_255_255_250)
+ 699 0068 9F93      		push r25
+ 700 006a 8F93      		push r24
+ 701 006c 80E0      		ldi r24,lo8(.LC11)
+ 702 006e 90E0      		ldi r25,hi8(.LC11)
+ 703 0070 9F93      		push r25
+ 704 0072 8F93      		push r24
+ 705 0074 1F93      		push r17
+ 706 0076 0F93      		push r16
+ 707 0078 0E94 0000 		call HttpuAddHeader
+ 708 007c 1F92      		push __zero_reg__
+ 709 007e 1F92      		push __zero_reg__
+ 710 0080 80E0      		ldi r24,lo8(.LC12)
+ 711 0082 90E0      		ldi r25,hi8(.LC12)
+ 712 0084 9F93      		push r25
+ 713 0086 8F93      		push r24
+ 714 0088 80E0      		ldi r24,lo8(.LC13)
+ 715 008a 90E0      		ldi r25,hi8(.LC13)
+ 716 008c 9F93      		push r25
+ 717 008e 8F93      		push r24
+ 718 0090 1F93      		push r17
+ 719 0092 0F93      		push r16
+ 720 0094 0E94 0000 		call HttpuAddHeader
+GAS LISTING /tmp/ccbk85jl.s 			page 14
+
+
+ 721 0098 8B2D      		mov r24,r11
+ 722 009a 0B2C      		mov __tmp_reg__,r11
+ 723 009c 000C      		lsl r0
+ 724 009e 990B      		sbc r25,r25
+ 725 00a0 9F93      		push r25
+ 726 00a2 BF92      		push r11
+ 727 00a4 80E0      		ldi r24,lo8(.LC14)
+ 728 00a6 90E0      		ldi r25,hi8(.LC14)
+ 729 00a8 9F93      		push r25
+ 730 00aa 8F93      		push r24
+ 731 00ac CE01      		movw r24,r28
+ 732 00ae 0196      		adiw r24,1
+ 733 00b0 4C01      		movw r8,r24
+ 734 00b2 9F93      		push r25
+ 735 00b4 8F93      		push r24
+ 736 00b6 0E94 0000 		call sprintf
+ 737 00ba 0FB6      		in __tmp_reg__,__SREG__
+ 738 00bc F894      		cli
+ 739 00be DEBF      		out __SP_H__,r29
+ 740 00c0 0FBE      		out __SREG__,__tmp_reg__
+ 741 00c2 CDBF      		out __SP_L__,r28
+ 742 00c4 1F92      		push __zero_reg__
+ 743 00c6 1F92      		push __zero_reg__
+ 744 00c8 9F92      		push r9
+ 745 00ca 8F92      		push r8
+ 746 00cc 80E0      		ldi r24,lo8(.LC15)
+ 747 00ce 90E0      		ldi r25,hi8(.LC15)
+ 748 00d0 9F93      		push r25
+ 749 00d2 8F93      		push r24
+ 750 00d4 1F93      		push r17
+ 751 00d6 0F93      		push r16
+ 752 00d8 0E94 0000 		call HttpuAddHeader
+ 753 00dc 1F92      		push __zero_reg__
+ 754 00de 1F92      		push __zero_reg__
+ 755 00e0 EF92      		push r14
+ 756 00e2 FF92      		push r15
+ 757 00e4 80E0      		ldi r24,lo8(.LC16)
+ 758 00e6 90E0      		ldi r25,hi8(.LC16)
+ 759 00e8 9F93      		push r25
+ 760 00ea 8F93      		push r24
+ 761 00ec 1F93      		push r17
+ 762 00ee 0F93      		push r16
+ 763 00f0 0E94 0000 		call HttpuAddHeader
+ 764 00f4 80E0      		ldi r24,lo8(ct_239_255_255_250)
+ 765 00f6 90E0      		ldi r25,hi8(ct_239_255_255_250)
+ 766 00f8 0E94 0000 		call inet_addr
+ 767 00fc AB01      		movw r20,r22
+ 768 00fe BC01      		movw r22,r24
+ 769 0100 2CE6      		ldi r18,lo8(108)
+ 770 0102 37E0      		ldi r19,lo8(7)
+ 771 0104 C801      		movw r24,r16
+ 772 0106 0E94 0000 		call HttpuSend
+ 773 010a 0FB6      		in __tmp_reg__,__SREG__
+ 774 010c F894      		cli
+ 775 010e DEBF      		out __SP_H__,r29
+ 776 0110 0FBE      		out __SREG__,__tmp_reg__
+ 777 0112 CDBF      		out __SP_L__,r28
+GAS LISTING /tmp/ccbk85jl.s 			page 15
+
+
+ 778 0114 EE24      		clr r14
+ 779 0116 EA94      		dec r14
+ 780 0118 FE2C      		mov r15,r14
+ 781 011a 6801      		movw r12,r16
+ 782 011c 9AEF      		ldi r25,-6
+ 783 011e C91A      		sub r12,r25
+ 784 0120 9BEF      		ldi r25,-5
+ 785 0122 D90A      		sbc r13,r25
+ 786               	.L86:
+ 787 0124 BB20      		tst r11
+ 788 0126 01F4      		brne .+2
+ 789 0128 00C0      		rjmp .L87
+ 790 012a 48EE      		ldi r20,lo8(-24)
+ 791 012c 53E0      		ldi r21,lo8(3)
+ 792 012e 60E0      		ldi r22,0
+ 793 0130 70E0      		ldi r23,0
+ 794 0132 C801      		movw r24,r16
+ 795 0134 0E94 0000 		call HttpuReceive
+ 796 0138 7C01      		movw r14,r24
+ 797 013a 97FD      		sbrc r25,7
+ 798 013c 00C0      		rjmp .L87
+ 799 013e 892B      		or r24,r25
+ 800 0140 01F4      		brne .L88
+ 801 0142 BA94      		dec r11
+ 802 0144 00C0      		rjmp .L89
+ 803               	.L88:
+ 804 0146 60E0      		ldi r22,0
+ 805 0148 70E0      		ldi r23,0
+ 806 014a C601      		movw r24,r12
+ 807 014c 0E94 0000 		call HttpuGetHeader
+ 808 0150 0996      		adiw r24,9
+ 809 0152 0E94 0000 		call atoi
+ 810 0156 883C      		cpi r24,-56
+ 811 0158 9105      		cpc r25,__zero_reg__
+ 812 015a 01F0      		breq .+2
+ 813 015c 00C0      		rjmp .L89
+ 814 015e C601      		movw r24,r12
+ 815 0160 0E94 0000 		call SsdpUuidFromHeader
+ 816 0164 7C01      		movw r14,r24
+ 817 0166 892B      		or r24,r25
+ 818 0168 01F4      		brne .+2
+ 819 016a 00C0      		rjmp .L89
+ 820 016c 60E0      		ldi r22,lo8(.LC16)
+ 821 016e 70E0      		ldi r23,hi8(.LC16)
+ 822 0170 C601      		movw r24,r12
+ 823 0172 0E94 0000 		call HttpuGetHeader
+ 824 0176 3C01      		movw r6,r24
+ 825 0178 60E0      		ldi r22,lo8(ct_upnp_rootdevice)
+ 826 017a 70E0      		ldi r23,hi8(ct_upnp_rootdevice)
+ 827 017c 0E94 0000 		call strcasecmp
+ 828 0180 892B      		or r24,r25
+ 829 0182 01F4      		brne .L90
+ 830 0184 9601      		movw r18,r12
+ 831 0186 40E0      		ldi r20,0
+ 832 0188 50E0      		ldi r21,0
+ 833 018a 60E0      		ldi r22,0
+ 834 018c 70E0      		ldi r23,0
+GAS LISTING /tmp/ccbk85jl.s 			page 16
+
+
+ 835 018e C701      		movw r24,r14
+ 836 0190 0E94 0000 		call CacheDevice
+ 837 0194 00C0      		rjmp .L89
+ 838               	.L90:
+ 839 0196 44E0      		ldi r20,lo8(4)
+ 840 0198 50E0      		ldi r21,0
+ 841 019a 60E0      		ldi r22,lo8(.LC17)
+ 842 019c 70E0      		ldi r23,hi8(.LC17)
+ 843 019e C301      		movw r24,r6
+ 844 01a0 0E94 0000 		call strncasecmp
+ 845 01a4 892B      		or r24,r25
+ 846 01a6 01F4      		brne .L89
+ 847 01a8 C301      		movw r24,r6
+ 848 01aa 0E94 0000 		call strdup
+ 849 01ae 25E0      		ldi r18,lo8(5)
+ 850 01b0 30E0      		ldi r19,0
+ 851 01b2 A401      		movw r20,r8
+ 852 01b4 6AE3      		ldi r22,lo8(58)
+ 853 01b6 0E94 0000 		call SsdpSplitWords
+ 854 01ba 6D80      		ldd r6,Y+5
+ 855 01bc 7E80      		ldd r7,Y+6
+ 856 01be 60E0      		ldi r22,lo8(.LC18)
+ 857 01c0 70E0      		ldi r23,hi8(.LC18)
+ 858 01c2 C301      		movw r24,r6
+ 859 01c4 0E94 0000 		call strcmp
+ 860 01c8 892B      		or r24,r25
+ 861 01ca 01F4      		brne .L91
+ 862 01cc 4F81      		ldd r20,Y+7
+ 863 01ce 5885      		ldd r21,Y+8
+ 864 01d0 6B81      		ldd r22,Y+3
+ 865 01d2 7C81      		ldd r23,Y+4
+ 866 01d4 9601      		movw r18,r12
+ 867 01d6 C701      		movw r24,r14
+ 868 01d8 0E94 0000 		call CacheDevice
+ 869 01dc 00C0      		rjmp .L92
+ 870               	.L91:
+ 871 01de 60E0      		ldi r22,lo8(.LC8)
+ 872 01e0 70E0      		ldi r23,hi8(.LC8)
+ 873 01e2 C301      		movw r24,r6
+ 874 01e4 0E94 0000 		call strcmp
+ 875 01e8 892B      		or r24,r25
+ 876 01ea 01F4      		brne .L92
+ 877 01ec 4F81      		ldd r20,Y+7
+ 878 01ee 5885      		ldd r21,Y+8
+ 879 01f0 6B81      		ldd r22,Y+3
+ 880 01f2 7C81      		ldd r23,Y+4
+ 881 01f4 9601      		movw r18,r12
+ 882 01f6 C701      		movw r24,r14
+ 883 01f8 0E94 0000 		call CacheService
+ 884               	.L92:
+ 885 01fc 8981      		ldd r24,Y+1
+ 886 01fe 9A81      		ldd r25,Y+2
+ 887 0200 0E94 0000 		call free
+ 888               	.L89:
+ 889 0204 E12C      		mov r14,__zero_reg__
+ 890 0206 F12C      		mov r15,__zero_reg__
+ 891 0208 00C0      		rjmp .L86
+GAS LISTING /tmp/ccbk85jl.s 			page 17
+
+
+ 892               	.L87:
+ 893 020a C801      		movw r24,r16
+ 894 020c 0E94 0000 		call HttpuSessionDestroy
+ 895 0210 00C0      		rjmp .L85
+ 896               	.L94:
+ 897 0212 EE24      		clr r14
+ 898 0214 EA94      		dec r14
+ 899 0216 FE2C      		mov r15,r14
+ 900               	.L85:
+ 901 0218 C701      		movw r24,r14
+ 902               	/* epilogue start */
+ 903 021a 2A96      		adiw r28,10
+ 904 021c 0FB6      		in __tmp_reg__,__SREG__
+ 905 021e F894      		cli
+ 906 0220 DEBF      		out __SP_H__,r29
+ 907 0222 0FBE      		out __SREG__,__tmp_reg__
+ 908 0224 CDBF      		out __SP_L__,r28
+ 909 0226 DF91      		pop r29
+ 910 0228 CF91      		pop r28
+ 911 022a 1F91      		pop r17
+ 912 022c 0F91      		pop r16
+ 913 022e FF90      		pop r15
+ 914 0230 EF90      		pop r14
+ 915 0232 DF90      		pop r13
+ 916 0234 CF90      		pop r12
+ 917 0236 BF90      		pop r11
+ 918 0238 9F90      		pop r9
+ 919 023a 8F90      		pop r8
+ 920 023c 7F90      		pop r7
+ 921 023e 6F90      		pop r6
+ 922 0240 0895      		ret
+ 923               		.size	SsdpDiscoverDevices, .-SsdpDiscoverDevices
+ 924               		.section	.rodata.str1.1
+ 925               	.LC19:
+ 926 008d 7572 6E3A 		.string	"urn:%s:service:%s:1"
+ 926      2573 3A73 
+ 926      6572 7669 
+ 926      6365 3A25 
+ 926      733A 3100 
+ 927               		.section	.text.SsdpRegisterServiceObserver,"ax",@progbits
+ 928               	.global	SsdpRegisterServiceObserver
+ 929               		.type	SsdpRegisterServiceObserver, @function
+ 930               	SsdpRegisterServiceObserver:
+ 931 0000 6F92      		push r6
+ 932 0002 7F92      		push r7
+ 933 0004 8F92      		push r8
+ 934 0006 9F92      		push r9
+ 935 0008 AF92      		push r10
+ 936 000a BF92      		push r11
+ 937 000c DF92      		push r13
+ 938 000e EF92      		push r14
+ 939 0010 FF92      		push r15
+ 940 0012 0F93      		push r16
+ 941 0014 1F93      		push r17
+ 942 0016 CF93      		push r28
+ 943 0018 DF93      		push r29
+ 944               	/* prologue: function */
+GAS LISTING /tmp/ccbk85jl.s 			page 18
+
+
+ 945               	/* frame size = 0 */
+ 946               	/* stack size = 13 */
+ 947               	.L__stack_usage = 13
+ 948 001a 4C01      		movw r8,r24
+ 949 001c 162F      		mov r17,r22
+ 950 001e D72E      		mov r13,r23
+ 951 0020 042F      		mov r16,r20
+ 952 0022 F52E      		mov r15,r21
+ 953 0024 E22E      		mov r14,r18
+ 954 0026 88E0      		ldi r24,lo8(8)
+ 955 0028 90E0      		ldi r25,0
+ 956 002a 0E94 0000 		call malloc
+ 957 002e EC01      		movw r28,r24
+ 958 0030 892B      		or r24,r25
+ 959 0032 01F4      		brne .+2
+ 960 0034 00C0      		rjmp .L112
+ 961 0036 812F      		mov r24,r17
+ 962 0038 9D2D      		mov r25,r13
+ 963 003a 0E94 0000 		call strdup
+ 964 003e 3C01      		movw r6,r24
+ 965 0040 9B83      		std Y+3,r25
+ 966 0042 8A83      		std Y+2,r24
+ 967 0044 802F      		mov r24,r16
+ 968 0046 9F2D      		mov r25,r15
+ 969 0048 0E94 0000 		call strdup
+ 970 004c 5C01      		movw r10,r24
+ 971 004e 9D83      		std Y+5,r25
+ 972 0050 8C83      		std Y+4,r24
+ 973 0052 6114      		cp r6,__zero_reg__
+ 974 0054 7104      		cpc r7,__zero_reg__
+ 975 0056 01F4      		brne .+2
+ 976 0058 00C0      		rjmp .L101
+ 977 005a 892B      		or r24,r25
+ 978 005c 01F4      		brne .+2
+ 979 005e 00C0      		rjmp .L101
+ 980 0060 9F82      		std Y+7,r9
+ 981 0062 8E82      		std Y+6,r8
+ 982 0064 8091 0000 		lds r24,ssdp_observer_root
+ 983 0068 9091 0000 		lds r25,ssdp_observer_root+1
+ 984 006c 9983      		std Y+1,r25
+ 985 006e 8883      		st Y,r24
+ 986 0070 D093 0000 		sts ssdp_observer_root+1,r29
+ 987 0074 C093 0000 		sts ssdp_observer_root,r28
+ 988 0078 A12F      		mov r26,r17
+ 989 007a BD2D      		mov r27,r13
+ 990 007c FD01      		movw r30,r26
+ 991               		0:
+ 992 007e 0190      		ld __tmp_reg__,Z+
+ 993 0080 0020      		tst __tmp_reg__
+ 994 0082 01F4      		brne 0b
+ 995 0084 3197      		sbiw r30,1
+ 996 0086 CF01      		movw r24,r30
+ 997 0088 8A1B      		sub r24,r26
+ 998 008a 9B0B      		sbc r25,r27
+ 999 008c A02F      		mov r26,r16
+ 1000 008e BF2D      		mov r27,r15
+ 1001 0090 FD01      		movw r30,r26
+GAS LISTING /tmp/ccbk85jl.s 			page 19
+
+
+ 1002               		0:
+ 1003 0092 0190      		ld __tmp_reg__,Z+
+ 1004 0094 0020      		tst __tmp_reg__
+ 1005 0096 01F4      		brne 0b
+ 1006 0098 3197      		sbiw r30,1
+ 1007 009a EA1B      		sub r30,r26
+ 1008 009c FB0B      		sbc r31,r27
+ 1009 009e 8E0F      		add r24,r30
+ 1010 00a0 9F1F      		adc r25,r31
+ 1011 00a2 4096      		adiw r24,16
+ 1012 00a4 0E94 0000 		call malloc
+ 1013 00a8 EC01      		movw r28,r24
+ 1014 00aa 892B      		or r24,r25
+ 1015 00ac 01F0      		breq .L112
+ 1016 00ae FF92      		push r15
+ 1017 00b0 0F93      		push r16
+ 1018 00b2 DF92      		push r13
+ 1019 00b4 1F93      		push r17
+ 1020 00b6 80E0      		ldi r24,lo8(.LC19)
+ 1021 00b8 90E0      		ldi r25,hi8(.LC19)
+ 1022 00ba 9F93      		push r25
+ 1023 00bc 8F93      		push r24
+ 1024 00be DF93      		push r29
+ 1025 00c0 CF93      		push r28
+ 1026 00c2 0E94 0000 		call sprintf
+ 1027 00c6 6E2D      		mov r22,r14
+ 1028 00c8 CE01      		movw r24,r28
+ 1029 00ca 0E94 0000 		call SsdpDiscoverDevices
+ 1030 00ce 8C01      		movw r16,r24
+ 1031 00d0 CE01      		movw r24,r28
+ 1032 00d2 0E94 0000 		call free
+ 1033 00d6 8DB7      		in r24,__SP_L__
+ 1034 00d8 9EB7      		in r25,__SP_H__
+ 1035 00da 0896      		adiw r24,8
+ 1036 00dc 0FB6      		in __tmp_reg__,__SREG__
+ 1037 00de F894      		cli
+ 1038 00e0 9EBF      		out __SP_H__,r25
+ 1039 00e2 0FBE      		out __SREG__,__tmp_reg__
+ 1040 00e4 8DBF      		out __SP_L__,r24
+ 1041 00e6 0115      		cp r16,__zero_reg__
+ 1042 00e8 1105      		cpc r17,__zero_reg__
+ 1043 00ea 01F4      		brne .L100
+ 1044 00ec 80E0      		ldi r24,lo8(gs(NotificationListener))
+ 1045 00ee 90E0      		ldi r25,hi8(gs(NotificationListener))
+ 1046               	/* epilogue start */
+ 1047 00f0 DF91      		pop r29
+ 1048 00f2 CF91      		pop r28
+ 1049 00f4 1F91      		pop r17
+ 1050 00f6 0F91      		pop r16
+ 1051 00f8 FF90      		pop r15
+ 1052 00fa EF90      		pop r14
+ 1053 00fc DF90      		pop r13
+ 1054 00fe BF90      		pop r11
+ 1055 0100 AF90      		pop r10
+ 1056 0102 9F90      		pop r9
+ 1057 0104 8F90      		pop r8
+ 1058 0106 7F90      		pop r7
+GAS LISTING /tmp/ccbk85jl.s 			page 20
+
+
+ 1059 0108 6F90      		pop r6
+ 1060 010a 0C94 0000 		jmp SsdpRegisterListener
+ 1061               	.L101:
+ 1062 010e C301      		movw r24,r6
+ 1063 0110 0E94 0000 		call free
+ 1064 0114 C501      		movw r24,r10
+ 1065 0116 0E94 0000 		call free
+ 1066 011a CE01      		movw r24,r28
+ 1067 011c 0E94 0000 		call free
+ 1068               	.L112:
+ 1069 0120 0FEF      		ldi r16,lo8(-1)
+ 1070 0122 1FEF      		ldi r17,lo8(-1)
+ 1071               	.L100:
+ 1072 0124 C801      		movw r24,r16
+ 1073               	/* epilogue start */
+ 1074 0126 DF91      		pop r29
+ 1075 0128 CF91      		pop r28
+ 1076 012a 1F91      		pop r17
+ 1077 012c 0F91      		pop r16
+ 1078 012e FF90      		pop r15
+ 1079 0130 EF90      		pop r14
+ 1080 0132 DF90      		pop r13
+ 1081 0134 BF90      		pop r11
+ 1082 0136 AF90      		pop r10
+ 1083 0138 9F90      		pop r9
+ 1084 013a 8F90      		pop r8
+ 1085 013c 7F90      		pop r7
+ 1086 013e 6F90      		pop r6
+ 1087 0140 0895      		ret
+ 1088               		.size	SsdpRegisterServiceObserver, .-SsdpRegisterServiceObserver
+ 1089               		.local	uuid.2973
+ 1090               		.comm	uuid.2973,2,1
+ 1091               		.local	ssdp_observer_root
+ 1092               		.comm	ssdp_observer_root,2,1
+ 1093               		.local	ssdp_device_cache
+ 1094               		.comm	ssdp_device_cache,2,1
+ 1095               		.ident	"GCC: (GNU) 5.3.0"
+ 1096               	.global __do_copy_data
+ 1097               	.global __do_clear_bss
+GAS LISTING /tmp/ccbk85jl.s 			page 21
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 ssdpc.c
+     /tmp/ccbk85jl.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccbk85jl.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccbk85jl.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccbk85jl.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccbk85jl.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccbk85jl.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccbk85jl.s:10     .text.CallObservers:0000000000000000 CallObservers
+     /tmp/ccbk85jl.s:1090   .bss:0000000000000002 ssdp_observer_root
+     /tmp/ccbk85jl.s:76     .text.SsdpUuidFromHeader:0000000000000000 SsdpUuidFromHeader
+                             .bss:0000000000000000 uuid.2973
+     /tmp/ccbk85jl.s:161    .text.CacheDevice:0000000000000000 CacheDevice
+     /tmp/ccbk85jl.s:1092   .bss:0000000000000004 ssdp_device_cache
+     /tmp/ccbk85jl.s:286    .text.CacheService:0000000000000000 CacheService
+     /tmp/ccbk85jl.s:393    .text.NotificationListener:0000000000000000 NotificationListener
+     /tmp/ccbk85jl.s:644    .text.SsdpDiscoverDevices:0000000000000000 SsdpDiscoverDevices
+     /tmp/ccbk85jl.s:930    .text.SsdpRegisterServiceObserver:0000000000000000 SsdpRegisterServiceObserver
+
+UNDEFINED SYMBOLS
+strcmp
+free
+HttpuGetHeader
+ct_uuid_
+strncmp
+strchr
+malloc
+memcpy
+strdup
+calloc
+atoi
+SsdpSplitWords
+HttpuSessionCreate
+HttpuAddHeader
+ct_239_255_255_250
+sprintf
+inet_addr
+HttpuSend
+HttpuReceive
+ct_upnp_rootdevice
+strcasecmp
+strncasecmp
+HttpuSessionDestroy
+SsdpRegisterListener
+__do_copy_data
+__do_clear_bss

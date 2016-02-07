@@ -1,0 +1,845 @@
+GAS LISTING /tmp/cc2ll6PK.s 			page 1
+
+
+   1               		.file	"blockdev.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.NutBlockDeviceInit,"ax",@progbits
+   9               	.global	NutBlockDeviceInit
+  10               		.type	NutBlockDeviceInit, @function
+  11               	NutBlockDeviceInit:
+  12               	/* prologue: function */
+  13               	/* frame size = 0 */
+  14               	/* stack size = 0 */
+  15               	.L__stack_usage = 0
+  16 0000 80E0      		ldi r24,0
+  17 0002 90E0      		ldi r25,0
+  18 0004 0895      		ret
+  19               		.size	NutBlockDeviceInit, .-NutBlockDeviceInit
+  20               		.section	.text.NutBlockDeviceOpen,"ax",@progbits
+  21               	.global	NutBlockDeviceOpen
+  22               		.type	NutBlockDeviceOpen, @function
+  23               	NutBlockDeviceOpen:
+  24 0000 6F92      		push r6
+  25 0002 7F92      		push r7
+  26 0004 8F92      		push r8
+  27 0006 9F92      		push r9
+  28 0008 AF92      		push r10
+  29 000a BF92      		push r11
+  30 000c CF92      		push r12
+  31 000e DF92      		push r13
+  32 0010 EF92      		push r14
+  33 0012 FF92      		push r15
+  34 0014 0F93      		push r16
+  35 0016 1F93      		push r17
+  36 0018 CF93      		push r28
+  37 001a DF93      		push r29
+  38 001c 00D0      		rcall .
+  39 001e CDB7      		in r28,__SP_L__
+  40 0020 DEB7      		in r29,__SP_H__
+  41               	/* prologue: function */
+  42               	/* frame size = 3 */
+  43               	/* stack size = 17 */
+  44               	.L__stack_usage = 17
+  45 0022 5C01      		movw r10,r24
+  46 0024 FB01      		movw r30,r22
+  47 0026 8081      		ld r24,Z
+  48 0028 8823      		tst r24
+  49 002a 01F0      		breq .L3
+  50 002c CB01      		movw r24,r22
+  51 002e 0196      		adiw r24,1
+  52               	.L4:
+  53 0030 FC01      		movw r30,r24
+  54 0032 2081      		ld r18,Z
+  55 0034 0196      		adiw r24,1
+  56 0036 2223      		tst r18
+  57 0038 01F0      		breq .L3
+GAS LISTING /tmp/cc2ll6PK.s 			page 2
+
+
+  58 003a 2F32      		cpi r18,lo8(47)
+  59 003c 01F4      		brne .L4
+  60 003e FC01      		movw r30,r24
+  61               	.L3:
+  62 0040 8081      		ld r24,Z
+  63 0042 8823      		tst r24
+  64 0044 01F0      		breq .L6
+  65 0046 CF01      		movw r24,r30
+  66 0048 0E94 0000 		call NutDeviceLookup
+  67 004c 00C0      		rjmp .L27
+  68               	.L6:
+  69 004e 60E1      		ldi r22,lo8(16)
+  70 0050 80E0      		ldi r24,0
+  71 0052 90E0      		ldi r25,0
+  72 0054 0E94 0000 		call NutDeviceLookupType
+  73               	.L27:
+  74 0058 6C01      		movw r12,r24
+  75 005a 892B      		or r24,r25
+  76 005c 01F4      		brne .L8
+  77 005e 83E1      		ldi r24,lo8(19)
+  78 0060 90E0      		ldi r25,0
+  79 0062 9093 0000 		sts errno+1,r25
+  80 0066 8093 0000 		sts errno,r24
+  81 006a 00C0      		rjmp .L14
+  82               	.L8:
+  83 006c 82E1      		ldi r24,lo8(18)
+  84 006e 90E0      		ldi r25,0
+  85 0070 0E94 0000 		call malloc
+  86 0074 8C01      		movw r16,r24
+  87 0076 0097      		sbiw r24,0
+  88 0078 01F4      		brne .+2
+  89 007a 00C0      		rjmp .L14
+  90 007c D501      		movw r26,r10
+  91 007e 5196      		adiw r26,17
+  92 0080 ED91      		ld r30,X+
+  93 0082 FC91      		ld r31,X
+  94 0084 5297      		sbiw r26,17+1
+  95 0086 DC01      		movw r26,r24
+  96 0088 1196      		adiw r26,1
+  97 008a DC92      		st X,r13
+  98 008c CE92      		st -X,r12
+  99 008e 4285      		ldd r20,Z+10
+ 100 0090 5385      		ldd r21,Z+11
+ 101 0092 6485      		ldd r22,Z+12
+ 102 0094 7585      		ldd r23,Z+13
+ 103 0096 1896      		adiw r26,8
+ 104 0098 4D93      		st X+,r20
+ 105 009a 5D93      		st X+,r21
+ 106 009c 6D93      		st X+,r22
+ 107 009e 7C93      		st X,r23
+ 108 00a0 1B97      		sbiw r26,8+3
+ 109 00a2 8281      		ldd r24,Z+2
+ 110 00a4 9381      		ldd r25,Z+3
+ 111 00a6 A481      		ldd r26,Z+4
+ 112 00a8 B581      		ldd r27,Z+5
+ 113 00aa 841B      		sub r24,r20
+ 114 00ac 950B      		sbc r25,r21
+GAS LISTING /tmp/cc2ll6PK.s 			page 3
+
+
+ 115 00ae A60B      		sbc r26,r22
+ 116 00b0 B70B      		sbc r27,r23
+ 117 00b2 4685      		ldd r20,Z+14
+ 118 00b4 5785      		ldd r21,Z+15
+ 119 00b6 6089      		ldd r22,Z+16
+ 120 00b8 7189      		ldd r23,Z+17
+ 121 00ba 3C01      		movw r6,r24
+ 122 00bc 4D01      		movw r8,r26
+ 123 00be 641A      		sub r6,r20
+ 124 00c0 750A      		sbc r7,r21
+ 125 00c2 860A      		sbc r8,r22
+ 126 00c4 970A      		sbc r9,r23
+ 127 00c6 D801      		movw r26,r16
+ 128 00c8 1296      		adiw r26,2
+ 129 00ca 6D92      		st X+,r6
+ 130 00cc 7D92      		st X+,r7
+ 131 00ce 8D92      		st X+,r8
+ 132 00d0 9C92      		st X,r9
+ 133 00d2 1597      		sbiw r26,2+3
+ 134 00d4 1C96      		adiw r26,12
+ 135 00d6 1D92      		st X+,__zero_reg__
+ 136 00d8 1D92      		st X+,__zero_reg__
+ 137 00da 1D92      		st X+,__zero_reg__
+ 138 00dc 1C92      		st X,__zero_reg__
+ 139 00de 1F97      		sbiw r26,12+3
+ 140 00e0 8681      		ldd r24,Z+6
+ 141 00e2 9781      		ldd r25,Z+7
+ 142 00e4 A085      		ldd r26,Z+8
+ 143 00e6 B185      		ldd r27,Z+9
+ 144 00e8 F801      		movw r30,r16
+ 145 00ea 9783      		std Z+7,r25
+ 146 00ec 8683      		std Z+6,r24
+ 147 00ee 0E94 0000 		call malloc
+ 148 00f2 D801      		movw r26,r16
+ 149 00f4 5196      		adiw r26,16+1
+ 150 00f6 9C93      		st X,r25
+ 151 00f8 8E93      		st -X,r24
+ 152 00fa 5097      		sbiw r26,16
+ 153 00fc 892B      		or r24,r25
+ 154 00fe 01F0      		breq .L11
+ 155 0100 84E0      		ldi r24,lo8(4)
+ 156 0102 90E0      		ldi r25,0
+ 157 0104 0E94 0000 		call malloc
+ 158 0108 7C01      		movw r14,r24
+ 159 010a 0097      		sbiw r24,0
+ 160 010c 01F0      		breq .L11
+ 161 010e FC01      		movw r30,r24
+ 162 0110 B182      		std Z+1,r11
+ 163 0112 A082      		st Z,r10
+ 164 0114 1383      		std Z+3,r17
+ 165 0116 0283      		std Z+2,r16
+ 166 0118 9A83      		std Y+2,r25
+ 167 011a 8983      		std Y+1,r24
+ 168 011c 1B82      		std Y+3,__zero_reg__
+ 169 011e D601      		movw r26,r12
+ 170 0120 5596      		adiw r26,21
+ 171 0122 ED91      		ld r30,X+
+GAS LISTING /tmp/cc2ll6PK.s 			page 4
+
+
+ 172 0124 FC91      		ld r31,X
+ 173 0126 5697      		sbiw r26,21+1
+ 174 0128 AE01      		movw r20,r28
+ 175 012a 4F5F      		subi r20,-1
+ 176 012c 5F4F      		sbci r21,-1
+ 177 012e 60E3      		ldi r22,lo8(48)
+ 178 0130 71E1      		ldi r23,lo8(17)
+ 179 0132 C601      		movw r24,r12
+ 180 0134 1995      		eicall
+ 181 0136 892B      		or r24,r25
+ 182 0138 01F4      		brne .L13
+ 183 013a C701      		movw r24,r14
+ 184 013c 00C0      		rjmp .L26
+ 185               	.L13:
+ 186 013e C701      		movw r24,r14
+ 187 0140 0E94 0000 		call free
+ 188               	.L11:
+ 189 0144 C801      		movw r24,r16
+ 190 0146 0E94 0000 		call free
+ 191               	.L14:
+ 192 014a 8FEF      		ldi r24,lo8(-1)
+ 193 014c 9FEF      		ldi r25,lo8(-1)
+ 194               	.L26:
+ 195               	/* epilogue start */
+ 196 014e 0F90      		pop __tmp_reg__
+ 197 0150 0F90      		pop __tmp_reg__
+ 198 0152 0F90      		pop __tmp_reg__
+ 199 0154 DF91      		pop r29
+ 200 0156 CF91      		pop r28
+ 201 0158 1F91      		pop r17
+ 202 015a 0F91      		pop r16
+ 203 015c FF90      		pop r15
+ 204 015e EF90      		pop r14
+ 205 0160 DF90      		pop r13
+ 206 0162 CF90      		pop r12
+ 207 0164 BF90      		pop r11
+ 208 0166 AF90      		pop r10
+ 209 0168 9F90      		pop r9
+ 210 016a 8F90      		pop r8
+ 211 016c 7F90      		pop r7
+ 212 016e 6F90      		pop r6
+ 213 0170 0895      		ret
+ 214               		.size	NutBlockDeviceOpen, .-NutBlockDeviceOpen
+ 215               		.section	.text.NutBlockDeviceClose,"ax",@progbits
+ 216               	.global	NutBlockDeviceClose
+ 217               		.type	NutBlockDeviceClose, @function
+ 218               	NutBlockDeviceClose:
+ 219 0000 EF92      		push r14
+ 220 0002 FF92      		push r15
+ 221 0004 0F93      		push r16
+ 222 0006 1F93      		push r17
+ 223 0008 CF93      		push r28
+ 224 000a DF93      		push r29
+ 225               	/* prologue: function */
+ 226               	/* frame size = 0 */
+ 227               	/* stack size = 6 */
+ 228               	.L__stack_usage = 6
+GAS LISTING /tmp/cc2ll6PK.s 			page 5
+
+
+ 229 000c 7C01      		movw r14,r24
+ 230 000e DC01      		movw r26,r24
+ 231 0010 1296      		adiw r26,2
+ 232 0012 CD91      		ld r28,X+
+ 233 0014 DC91      		ld r29,X
+ 234 0016 1397      		sbiw r26,2+1
+ 235 0018 2097      		sbiw r28,0
+ 236 001a 01F0      		breq .L31
+ 237 001c 8881      		ld r24,Y
+ 238 001e 9981      		ldd r25,Y+1
+ 239 0020 DC01      		movw r26,r24
+ 240 0022 5596      		adiw r26,21
+ 241 0024 ED91      		ld r30,X+
+ 242 0026 FC91      		ld r31,X
+ 243 0028 5697      		sbiw r26,21+1
+ 244 002a 40E0      		ldi r20,0
+ 245 002c 50E0      		ldi r21,0
+ 246 002e 61E3      		ldi r22,lo8(49)
+ 247 0030 71E1      		ldi r23,lo8(17)
+ 248 0032 1995      		eicall
+ 249 0034 8C01      		movw r16,r24
+ 250 0036 CE01      		movw r24,r28
+ 251 0038 0E94 0000 		call free
+ 252 003c 00C0      		rjmp .L30
+ 253               	.L31:
+ 254 003e 0FEF      		ldi r16,lo8(-1)
+ 255 0040 1FEF      		ldi r17,lo8(-1)
+ 256               	.L30:
+ 257 0042 C701      		movw r24,r14
+ 258 0044 0E94 0000 		call free
+ 259 0048 C801      		movw r24,r16
+ 260               	/* epilogue start */
+ 261 004a DF91      		pop r29
+ 262 004c CF91      		pop r28
+ 263 004e 1F91      		pop r17
+ 264 0050 0F91      		pop r16
+ 265 0052 FF90      		pop r15
+ 266 0054 EF90      		pop r14
+ 267 0056 0895      		ret
+ 268               		.size	NutBlockDeviceClose, .-NutBlockDeviceClose
+ 269               		.section	.text.NutBlockDeviceIOCtl,"ax",@progbits
+ 270               	.global	NutBlockDeviceIOCtl
+ 271               		.type	NutBlockDeviceIOCtl, @function
+ 272               	NutBlockDeviceIOCtl:
+ 273 0000 CF93      		push r28
+ 274 0002 DF93      		push r29
+ 275               	/* prologue: function */
+ 276               	/* frame size = 0 */
+ 277               	/* stack size = 2 */
+ 278               	.L__stack_usage = 2
+ 279 0004 DA01      		movw r26,r20
+ 280 0006 6230      		cpi r22,2
+ 281 0008 22E1      		ldi r18,18
+ 282 000a 7207      		cpc r23,r18
+ 283 000c 01F0      		breq .L34
+ 284 000e 6330      		cpi r22,3
+ 285 0010 C2E1      		ldi r28,18
+GAS LISTING /tmp/cc2ll6PK.s 			page 6
+
+
+ 286 0012 7C07      		cpc r23,r28
+ 287 0014 01F4      		brne .L37
+ 288 0016 ED91      		ld r30,X+
+ 289 0018 FC91      		ld r31,X
+ 290 001a 1197      		sbiw r26,1
+ 291 001c 0280      		ldd __tmp_reg__,Z+2
+ 292 001e F381      		ldd r31,Z+3
+ 293 0020 E02D      		mov r30,__tmp_reg__
+ 294 0022 1296      		adiw r26,2
+ 295 0024 8D91      		ld r24,X+
+ 296 0026 9D91      		ld r25,X+
+ 297 0028 0D90      		ld __tmp_reg__,X+
+ 298 002a BC91      		ld r27,X
+ 299 002c A02D      		mov r26,__tmp_reg__
+ 300 002e 8487      		std Z+12,r24
+ 301 0030 9587      		std Z+13,r25
+ 302 0032 A687      		std Z+14,r26
+ 303 0034 B787      		std Z+15,r27
+ 304 0036 00C0      		rjmp .L36
+ 305               	.L34:
+ 306 0038 ED91      		ld r30,X+
+ 307 003a FC91      		ld r31,X
+ 308 003c 1197      		sbiw r26,1
+ 309 003e 0280      		ldd __tmp_reg__,Z+2
+ 310 0040 F381      		ldd r31,Z+3
+ 311 0042 E02D      		mov r30,__tmp_reg__
+ 312 0044 4281      		ldd r20,Z+2
+ 313 0046 5381      		ldd r21,Z+3
+ 314 0048 6481      		ldd r22,Z+4
+ 315 004a 7581      		ldd r23,Z+5
+ 316 004c 1296      		adiw r26,2
+ 317 004e 4D93      		st X+,r20
+ 318 0050 5D93      		st X+,r21
+ 319 0052 6D93      		st X+,r22
+ 320 0054 7C93      		st X,r23
+ 321 0056 1597      		sbiw r26,2+3
+ 322 0058 4681      		ldd r20,Z+6
+ 323 005a 5781      		ldd r21,Z+7
+ 324 005c 052E      		mov __tmp_reg__,r21
+ 325 005e 000C      		lsl r0
+ 326 0060 660B      		sbc r22,r22
+ 327 0062 770B      		sbc r23,r23
+ 328 0064 1696      		adiw r26,6
+ 329 0066 4D93      		st X+,r20
+ 330 0068 5D93      		st X+,r21
+ 331 006a 6D93      		st X+,r22
+ 332 006c 7C93      		st X,r23
+ 333 006e 1997      		sbiw r26,6+3
+ 334 0070 8089      		ldd r24,Z+16
+ 335 0072 9189      		ldd r25,Z+17
+ 336 0074 1B96      		adiw r26,10+1
+ 337 0076 9C93      		st X,r25
+ 338 0078 8E93      		st -X,r24
+ 339 007a 1A97      		sbiw r26,10
+ 340 007c 00C0      		rjmp .L36
+ 341               	.L37:
+ 342 007e EC01      		movw r28,r24
+GAS LISTING /tmp/cc2ll6PK.s 			page 7
+
+
+ 343 0080 E989      		ldd r30,Y+17
+ 344 0082 FA89      		ldd r31,Y+18
+ 345 0084 008C      		ldd __tmp_reg__,Z+24
+ 346 0086 F18D      		ldd r31,Z+25
+ 347 0088 E02D      		mov r30,__tmp_reg__
+ 348               	/* epilogue start */
+ 349 008a DF91      		pop r29
+ 350 008c CF91      		pop r28
+ 351 008e 1994      		eijmp
+ 352               	.L36:
+ 353 0090 80E0      		ldi r24,0
+ 354 0092 90E0      		ldi r25,0
+ 355               	/* epilogue start */
+ 356 0094 DF91      		pop r29
+ 357 0096 CF91      		pop r28
+ 358 0098 0895      		ret
+ 359               		.size	NutBlockDeviceIOCtl, .-NutBlockDeviceIOCtl
+ 360               		.section	.text.NutBlockDeviceRead,"ax",@progbits
+ 361               	.global	NutBlockDeviceRead
+ 362               		.type	NutBlockDeviceRead, @function
+ 363               	NutBlockDeviceRead:
+ 364 0000 6F92      		push r6
+ 365 0002 7F92      		push r7
+ 366 0004 8F92      		push r8
+ 367 0006 9F92      		push r9
+ 368 0008 AF92      		push r10
+ 369 000a BF92      		push r11
+ 370 000c CF92      		push r12
+ 371 000e DF92      		push r13
+ 372 0010 EF92      		push r14
+ 373 0012 FF92      		push r15
+ 374 0014 0F93      		push r16
+ 375 0016 1F93      		push r17
+ 376 0018 CF93      		push r28
+ 377 001a DF93      		push r29
+ 378               	/* prologue: function */
+ 379               	/* frame size = 0 */
+ 380               	/* stack size = 14 */
+ 381               	.L__stack_usage = 14
+ 382 001c 6C01      		movw r12,r24
+ 383 001e 5B01      		movw r10,r22
+ 384 0020 4A01      		movw r8,r20
+ 385 0022 452B      		or r20,r21
+ 386 0024 01F4      		brne .+2
+ 387 0026 00C0      		rjmp .L44
+ 388 0028 DC01      		movw r26,r24
+ 389 002a ED91      		ld r30,X+
+ 390 002c FC91      		ld r31,X
+ 391 002e 1197      		sbiw r26,1
+ 392 0030 6188      		ldd r6,Z+17
+ 393 0032 7288      		ldd r7,Z+18
+ 394 0034 1296      		adiw r26,2
+ 395 0036 CD91      		ld r28,X+
+ 396 0038 DC91      		ld r29,X
+ 397 003a 1397      		sbiw r26,2+1
+ 398 003c E12C      		mov r14,__zero_reg__
+ 399 003e F12C      		mov r15,__zero_reg__
+GAS LISTING /tmp/cc2ll6PK.s 			page 8
+
+
+ 400               	.L40:
+ 401 0040 E814      		cp r14,r8
+ 402 0042 F904      		cpc r15,r9
+ 403 0044 04F4      		brge .L42
+ 404 0046 4C85      		ldd r20,Y+12
+ 405 0048 5D85      		ldd r21,Y+13
+ 406 004a 6E85      		ldd r22,Y+14
+ 407 004c 7F85      		ldd r23,Y+15
+ 408 004e 8A81      		ldd r24,Y+2
+ 409 0050 9B81      		ldd r25,Y+3
+ 410 0052 AC81      		ldd r26,Y+4
+ 411 0054 BD81      		ldd r27,Y+5
+ 412 0056 4817      		cp r20,r24
+ 413 0058 5907      		cpc r21,r25
+ 414 005a 6A07      		cpc r22,r26
+ 415 005c 7B07      		cpc r23,r27
+ 416 005e 00F0      		brlo .L41
+ 417               	.L42:
+ 418 0060 E114      		cp r14,__zero_reg__
+ 419 0062 F104      		cpc r15,__zero_reg__
+ 420 0064 01F0      		breq .L45
+ 421 0066 C701      		movw r24,r14
+ 422 0068 00C0      		rjmp .L39
+ 423               	.L41:
+ 424 006a 0E81      		ldd r16,Y+6
+ 425 006c 1F81      		ldd r17,Y+7
+ 426 006e 8885      		ldd r24,Y+8
+ 427 0070 9985      		ldd r25,Y+9
+ 428 0072 AA85      		ldd r26,Y+10
+ 429 0074 BB85      		ldd r27,Y+11
+ 430 0076 480F      		add r20,r24
+ 431 0078 591F      		adc r21,r25
+ 432 007a 6A1F      		adc r22,r26
+ 433 007c 7B1F      		adc r23,r27
+ 434 007e D301      		movw r26,r6
+ 435 0080 5296      		adiw r26,18
+ 436 0082 ED91      		ld r30,X+
+ 437 0084 FC91      		ld r31,X
+ 438 0086 5397      		sbiw r26,18+1
+ 439 0088 9501      		movw r18,r10
+ 440 008a D601      		movw r26,r12
+ 441 008c 8D91      		ld r24,X+
+ 442 008e 9C91      		ld r25,X
+ 443 0090 1995      		eicall
+ 444 0092 2E81      		ldd r18,Y+6
+ 445 0094 3F81      		ldd r19,Y+7
+ 446 0096 8217      		cp r24,r18
+ 447 0098 9307      		cpc r25,r19
+ 448 009a 01F4      		brne .L42
+ 449 009c 4C85      		ldd r20,Y+12
+ 450 009e 5D85      		ldd r21,Y+13
+ 451 00a0 6E85      		ldd r22,Y+14
+ 452 00a2 7F85      		ldd r23,Y+15
+ 453 00a4 4F5F      		subi r20,-1
+ 454 00a6 5F4F      		sbci r21,-1
+ 455 00a8 6F4F      		sbci r22,-1
+ 456 00aa 7F4F      		sbci r23,-1
+GAS LISTING /tmp/cc2ll6PK.s 			page 9
+
+
+ 457 00ac 4C87      		std Y+12,r20
+ 458 00ae 5D87      		std Y+13,r21
+ 459 00b0 6E87      		std Y+14,r22
+ 460 00b2 7F87      		std Y+15,r23
+ 461 00b4 A80E      		add r10,r24
+ 462 00b6 B91E      		adc r11,r25
+ 463 00b8 BFEF      		ldi r27,-1
+ 464 00ba EB1A      		sub r14,r27
+ 465 00bc FB0A      		sbc r15,r27
+ 466 00be 00C0      		rjmp .L40
+ 467               	.L44:
+ 468 00c0 80E0      		ldi r24,0
+ 469 00c2 90E0      		ldi r25,0
+ 470 00c4 00C0      		rjmp .L39
+ 471               	.L45:
+ 472 00c6 8FEF      		ldi r24,lo8(-1)
+ 473 00c8 9FEF      		ldi r25,lo8(-1)
+ 474               	.L39:
+ 475               	/* epilogue start */
+ 476 00ca DF91      		pop r29
+ 477 00cc CF91      		pop r28
+ 478 00ce 1F91      		pop r17
+ 479 00d0 0F91      		pop r16
+ 480 00d2 FF90      		pop r15
+ 481 00d4 EF90      		pop r14
+ 482 00d6 DF90      		pop r13
+ 483 00d8 CF90      		pop r12
+ 484 00da BF90      		pop r11
+ 485 00dc AF90      		pop r10
+ 486 00de 9F90      		pop r9
+ 487 00e0 8F90      		pop r8
+ 488 00e2 7F90      		pop r7
+ 489 00e4 6F90      		pop r6
+ 490 00e6 0895      		ret
+ 491               		.size	NutBlockDeviceRead, .-NutBlockDeviceRead
+ 492               		.section	.text.NutBlockDeviceWrite,"ax",@progbits
+ 493               	.global	NutBlockDeviceWrite
+ 494               		.type	NutBlockDeviceWrite, @function
+ 495               	NutBlockDeviceWrite:
+ 496 0000 6F92      		push r6
+ 497 0002 7F92      		push r7
+ 498 0004 8F92      		push r8
+ 499 0006 9F92      		push r9
+ 500 0008 AF92      		push r10
+ 501 000a BF92      		push r11
+ 502 000c CF92      		push r12
+ 503 000e DF92      		push r13
+ 504 0010 EF92      		push r14
+ 505 0012 FF92      		push r15
+ 506 0014 0F93      		push r16
+ 507 0016 1F93      		push r17
+ 508 0018 CF93      		push r28
+ 509 001a DF93      		push r29
+ 510               	/* prologue: function */
+ 511               	/* frame size = 0 */
+ 512               	/* stack size = 14 */
+ 513               	.L__stack_usage = 14
+GAS LISTING /tmp/cc2ll6PK.s 			page 10
+
+
+ 514 001c 6C01      		movw r12,r24
+ 515 001e 5B01      		movw r10,r22
+ 516 0020 4A01      		movw r8,r20
+ 517 0022 452B      		or r20,r21
+ 518 0024 01F4      		brne .+2
+ 519 0026 00C0      		rjmp .L52
+ 520 0028 DC01      		movw r26,r24
+ 521 002a 1296      		adiw r26,2
+ 522 002c CD91      		ld r28,X+
+ 523 002e DC91      		ld r29,X
+ 524 0030 1397      		sbiw r26,2+1
+ 525 0032 ED91      		ld r30,X+
+ 526 0034 FC91      		ld r31,X
+ 527 0036 6188      		ldd r6,Z+17
+ 528 0038 7288      		ldd r7,Z+18
+ 529 003a E12C      		mov r14,__zero_reg__
+ 530 003c F12C      		mov r15,__zero_reg__
+ 531               	.L48:
+ 532 003e E814      		cp r14,r8
+ 533 0040 F904      		cpc r15,r9
+ 534 0042 04F4      		brge .L50
+ 535 0044 4C85      		ldd r20,Y+12
+ 536 0046 5D85      		ldd r21,Y+13
+ 537 0048 6E85      		ldd r22,Y+14
+ 538 004a 7F85      		ldd r23,Y+15
+ 539 004c 8A81      		ldd r24,Y+2
+ 540 004e 9B81      		ldd r25,Y+3
+ 541 0050 AC81      		ldd r26,Y+4
+ 542 0052 BD81      		ldd r27,Y+5
+ 543 0054 4817      		cp r20,r24
+ 544 0056 5907      		cpc r21,r25
+ 545 0058 6A07      		cpc r22,r26
+ 546 005a 7B07      		cpc r23,r27
+ 547 005c 00F0      		brlo .L49
+ 548               	.L50:
+ 549 005e E114      		cp r14,__zero_reg__
+ 550 0060 F104      		cpc r15,__zero_reg__
+ 551 0062 01F0      		breq .L53
+ 552 0064 C701      		movw r24,r14
+ 553 0066 00C0      		rjmp .L47
+ 554               	.L49:
+ 555 0068 0E81      		ldd r16,Y+6
+ 556 006a 1F81      		ldd r17,Y+7
+ 557 006c 8885      		ldd r24,Y+8
+ 558 006e 9985      		ldd r25,Y+9
+ 559 0070 AA85      		ldd r26,Y+10
+ 560 0072 BB85      		ldd r27,Y+11
+ 561 0074 480F      		add r20,r24
+ 562 0076 591F      		adc r21,r25
+ 563 0078 6A1F      		adc r22,r26
+ 564 007a 7B1F      		adc r23,r27
+ 565 007c D301      		movw r26,r6
+ 566 007e 5496      		adiw r26,20
+ 567 0080 ED91      		ld r30,X+
+ 568 0082 FC91      		ld r31,X
+ 569 0084 5597      		sbiw r26,20+1
+ 570 0086 9501      		movw r18,r10
+GAS LISTING /tmp/cc2ll6PK.s 			page 11
+
+
+ 571 0088 D601      		movw r26,r12
+ 572 008a 8D91      		ld r24,X+
+ 573 008c 9C91      		ld r25,X
+ 574 008e 1995      		eicall
+ 575 0090 2E81      		ldd r18,Y+6
+ 576 0092 3F81      		ldd r19,Y+7
+ 577 0094 8217      		cp r24,r18
+ 578 0096 9307      		cpc r25,r19
+ 579 0098 01F4      		brne .L50
+ 580 009a 4C85      		ldd r20,Y+12
+ 581 009c 5D85      		ldd r21,Y+13
+ 582 009e 6E85      		ldd r22,Y+14
+ 583 00a0 7F85      		ldd r23,Y+15
+ 584 00a2 4F5F      		subi r20,-1
+ 585 00a4 5F4F      		sbci r21,-1
+ 586 00a6 6F4F      		sbci r22,-1
+ 587 00a8 7F4F      		sbci r23,-1
+ 588 00aa 4C87      		std Y+12,r20
+ 589 00ac 5D87      		std Y+13,r21
+ 590 00ae 6E87      		std Y+14,r22
+ 591 00b0 7F87      		std Y+15,r23
+ 592 00b2 A80E      		add r10,r24
+ 593 00b4 B91E      		adc r11,r25
+ 594 00b6 BFEF      		ldi r27,-1
+ 595 00b8 EB1A      		sub r14,r27
+ 596 00ba FB0A      		sbc r15,r27
+ 597 00bc 00C0      		rjmp .L48
+ 598               	.L52:
+ 599 00be 80E0      		ldi r24,0
+ 600 00c0 90E0      		ldi r25,0
+ 601 00c2 00C0      		rjmp .L47
+ 602               	.L53:
+ 603 00c4 8FEF      		ldi r24,lo8(-1)
+ 604 00c6 9FEF      		ldi r25,lo8(-1)
+ 605               	.L47:
+ 606               	/* epilogue start */
+ 607 00c8 DF91      		pop r29
+ 608 00ca CF91      		pop r28
+ 609 00cc 1F91      		pop r17
+ 610 00ce 0F91      		pop r16
+ 611 00d0 FF90      		pop r15
+ 612 00d2 EF90      		pop r14
+ 613 00d4 DF90      		pop r13
+ 614 00d6 CF90      		pop r12
+ 615 00d8 BF90      		pop r11
+ 616 00da AF90      		pop r10
+ 617 00dc 9F90      		pop r9
+ 618 00de 8F90      		pop r8
+ 619 00e0 7F90      		pop r7
+ 620 00e2 6F90      		pop r6
+ 621 00e4 0895      		ret
+ 622               		.size	NutBlockDeviceWrite, .-NutBlockDeviceWrite
+ 623               		.section	.text.NutBlockDeviceWrite_P,"ax",@progbits
+ 624               	.global	NutBlockDeviceWrite_P
+ 625               		.type	NutBlockDeviceWrite_P, @function
+ 626               	NutBlockDeviceWrite_P:
+ 627 0000 6F92      		push r6
+GAS LISTING /tmp/cc2ll6PK.s 			page 12
+
+
+ 628 0002 7F92      		push r7
+ 629 0004 8F92      		push r8
+ 630 0006 9F92      		push r9
+ 631 0008 AF92      		push r10
+ 632 000a BF92      		push r11
+ 633 000c CF92      		push r12
+ 634 000e DF92      		push r13
+ 635 0010 EF92      		push r14
+ 636 0012 FF92      		push r15
+ 637 0014 0F93      		push r16
+ 638 0016 1F93      		push r17
+ 639 0018 CF93      		push r28
+ 640 001a DF93      		push r29
+ 641               	/* prologue: function */
+ 642               	/* frame size = 0 */
+ 643               	/* stack size = 14 */
+ 644               	.L__stack_usage = 14
+ 645 001c 6C01      		movw r12,r24
+ 646 001e 5B01      		movw r10,r22
+ 647 0020 4A01      		movw r8,r20
+ 648 0022 452B      		or r20,r21
+ 649 0024 01F4      		brne .+2
+ 650 0026 00C0      		rjmp .L60
+ 651 0028 DC01      		movw r26,r24
+ 652 002a 1296      		adiw r26,2
+ 653 002c CD91      		ld r28,X+
+ 654 002e DC91      		ld r29,X
+ 655 0030 1397      		sbiw r26,2+1
+ 656 0032 ED91      		ld r30,X+
+ 657 0034 FC91      		ld r31,X
+ 658 0036 6188      		ldd r6,Z+17
+ 659 0038 7288      		ldd r7,Z+18
+ 660 003a E12C      		mov r14,__zero_reg__
+ 661 003c F12C      		mov r15,__zero_reg__
+ 662               	.L56:
+ 663 003e E814      		cp r14,r8
+ 664 0040 F904      		cpc r15,r9
+ 665 0042 04F4      		brge .L58
+ 666 0044 4C85      		ldd r20,Y+12
+ 667 0046 5D85      		ldd r21,Y+13
+ 668 0048 6E85      		ldd r22,Y+14
+ 669 004a 7F85      		ldd r23,Y+15
+ 670 004c 8A81      		ldd r24,Y+2
+ 671 004e 9B81      		ldd r25,Y+3
+ 672 0050 AC81      		ldd r26,Y+4
+ 673 0052 BD81      		ldd r27,Y+5
+ 674 0054 4817      		cp r20,r24
+ 675 0056 5907      		cpc r21,r25
+ 676 0058 6A07      		cpc r22,r26
+ 677 005a 7B07      		cpc r23,r27
+ 678 005c 00F0      		brlo .L57
+ 679               	.L58:
+ 680 005e E114      		cp r14,__zero_reg__
+ 681 0060 F104      		cpc r15,__zero_reg__
+ 682 0062 01F0      		breq .L61
+ 683 0064 C701      		movw r24,r14
+ 684 0066 00C0      		rjmp .L55
+GAS LISTING /tmp/cc2ll6PK.s 			page 13
+
+
+ 685               	.L57:
+ 686 0068 0E81      		ldd r16,Y+6
+ 687 006a 1F81      		ldd r17,Y+7
+ 688 006c 8885      		ldd r24,Y+8
+ 689 006e 9985      		ldd r25,Y+9
+ 690 0070 AA85      		ldd r26,Y+10
+ 691 0072 BB85      		ldd r27,Y+11
+ 692 0074 480F      		add r20,r24
+ 693 0076 591F      		adc r21,r25
+ 694 0078 6A1F      		adc r22,r26
+ 695 007a 7B1F      		adc r23,r27
+ 696 007c D301      		movw r26,r6
+ 697 007e 5696      		adiw r26,22
+ 698 0080 ED91      		ld r30,X+
+ 699 0082 FC91      		ld r31,X
+ 700 0084 5797      		sbiw r26,22+1
+ 701 0086 9501      		movw r18,r10
+ 702 0088 D601      		movw r26,r12
+ 703 008a 8D91      		ld r24,X+
+ 704 008c 9C91      		ld r25,X
+ 705 008e 1995      		eicall
+ 706 0090 2E81      		ldd r18,Y+6
+ 707 0092 3F81      		ldd r19,Y+7
+ 708 0094 8217      		cp r24,r18
+ 709 0096 9307      		cpc r25,r19
+ 710 0098 01F4      		brne .L58
+ 711 009a 4C85      		ldd r20,Y+12
+ 712 009c 5D85      		ldd r21,Y+13
+ 713 009e 6E85      		ldd r22,Y+14
+ 714 00a0 7F85      		ldd r23,Y+15
+ 715 00a2 4F5F      		subi r20,-1
+ 716 00a4 5F4F      		sbci r21,-1
+ 717 00a6 6F4F      		sbci r22,-1
+ 718 00a8 7F4F      		sbci r23,-1
+ 719 00aa 4C87      		std Y+12,r20
+ 720 00ac 5D87      		std Y+13,r21
+ 721 00ae 6E87      		std Y+14,r22
+ 722 00b0 7F87      		std Y+15,r23
+ 723 00b2 A80E      		add r10,r24
+ 724 00b4 B91E      		adc r11,r25
+ 725 00b6 BFEF      		ldi r27,-1
+ 726 00b8 EB1A      		sub r14,r27
+ 727 00ba FB0A      		sbc r15,r27
+ 728 00bc 00C0      		rjmp .L56
+ 729               	.L60:
+ 730 00be 80E0      		ldi r24,0
+ 731 00c0 90E0      		ldi r25,0
+ 732 00c2 00C0      		rjmp .L55
+ 733               	.L61:
+ 734 00c4 8FEF      		ldi r24,lo8(-1)
+ 735 00c6 9FEF      		ldi r25,lo8(-1)
+ 736               	.L55:
+ 737               	/* epilogue start */
+ 738 00c8 DF91      		pop r29
+ 739 00ca CF91      		pop r28
+ 740 00cc 1F91      		pop r17
+ 741 00ce 0F91      		pop r16
+GAS LISTING /tmp/cc2ll6PK.s 			page 14
+
+
+ 742 00d0 FF90      		pop r15
+ 743 00d2 EF90      		pop r14
+ 744 00d4 DF90      		pop r13
+ 745 00d6 CF90      		pop r12
+ 746 00d8 BF90      		pop r11
+ 747 00da AF90      		pop r10
+ 748 00dc 9F90      		pop r9
+ 749 00de 8F90      		pop r8
+ 750 00e0 7F90      		pop r7
+ 751 00e2 6F90      		pop r6
+ 752 00e4 0895      		ret
+ 753               		.size	NutBlockDeviceWrite_P, .-NutBlockDeviceWrite_P
+ 754               		.section	.text.NutBlockDeviceSize,"ax",@progbits
+ 755               	.global	NutBlockDeviceSize
+ 756               		.type	NutBlockDeviceSize, @function
+ 757               	NutBlockDeviceSize:
+ 758               	/* prologue: function */
+ 759               	/* frame size = 0 */
+ 760               	/* stack size = 0 */
+ 761               	.L__stack_usage = 0
+ 762 0000 DC01      		movw r26,r24
+ 763 0002 1296      		adiw r26,2
+ 764 0004 ED91      		ld r30,X+
+ 765 0006 FC91      		ld r31,X
+ 766 0008 1397      		sbiw r26,2+1
+ 767 000a A681      		ldd r26,Z+6
+ 768 000c B781      		ldd r27,Z+7
+ 769 000e 2281      		ldd r18,Z+2
+ 770 0010 3381      		ldd r19,Z+3
+ 771 0012 4481      		ldd r20,Z+4
+ 772 0014 5581      		ldd r21,Z+5
+ 773 0016 0E94 0000 		call __mulshisi3
+ 774 001a 0895      		ret
+ 775               		.size	NutBlockDeviceSize, .-NutBlockDeviceSize
+ 776               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/cc2ll6PK.s 			page 15
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 blockdev.c
+     /tmp/cc2ll6PK.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cc2ll6PK.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cc2ll6PK.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cc2ll6PK.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cc2ll6PK.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cc2ll6PK.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cc2ll6PK.s:11     .text.NutBlockDeviceInit:0000000000000000 NutBlockDeviceInit
+     /tmp/cc2ll6PK.s:23     .text.NutBlockDeviceOpen:0000000000000000 NutBlockDeviceOpen
+     /tmp/cc2ll6PK.s:218    .text.NutBlockDeviceClose:0000000000000000 NutBlockDeviceClose
+     /tmp/cc2ll6PK.s:272    .text.NutBlockDeviceIOCtl:0000000000000000 NutBlockDeviceIOCtl
+     /tmp/cc2ll6PK.s:363    .text.NutBlockDeviceRead:0000000000000000 NutBlockDeviceRead
+     /tmp/cc2ll6PK.s:495    .text.NutBlockDeviceWrite:0000000000000000 NutBlockDeviceWrite
+     /tmp/cc2ll6PK.s:626    .text.NutBlockDeviceWrite_P:0000000000000000 NutBlockDeviceWrite_P
+     /tmp/cc2ll6PK.s:757    .text.NutBlockDeviceSize:0000000000000000 NutBlockDeviceSize
+
+UNDEFINED SYMBOLS
+NutDeviceLookup
+NutDeviceLookupType
+errno
+malloc
+free
+__mulshisi3

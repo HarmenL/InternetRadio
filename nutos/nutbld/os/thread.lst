@@ -1,0 +1,674 @@
+GAS LISTING /tmp/ccZUQWuD.s 			page 1
+
+
+   1               		.file	"thread.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.NutThreadAddPriQueue,"ax",@progbits
+   9               	.global	NutThreadAddPriQueue
+  10               		.type	NutThreadAddPriQueue, @function
+  11               	NutThreadAddPriQueue:
+  12 0000 CF93      		push r28
+  13 0002 DF93      		push r29
+  14               	/* prologue: function */
+  15               	/* frame size = 0 */
+  16               	/* stack size = 2 */
+  17               	.L__stack_usage = 2
+  18 0004 FC01      		movw r30,r24
+  19 0006 708F      		std Z+24,r23
+  20 0008 678B      		std Z+23,r22
+  21 000a 1582      		std Z+5,__zero_reg__
+  22 000c 1482      		std Z+4,__zero_reg__
+  23               	/* #APP */
+  24               	 ;  122 "../../nut/os/thread.c" 1
+  25 000e 0FB6      		in  __tmp_reg__, __SREG__
+  26 0010 F894      		cli
+  27 0012 0F92      		push __tmp_reg__
+  28               		
+  29               	 ;  0 "" 2
+  30               	/* #NOAPP */
+  31 0014 EB01      		movw r28,r22
+  32 0016 A881      		ld r26,Y
+  33 0018 B981      		ldd r27,Y+1
+  34 001a AF3F      		cpi r26,-1
+  35 001c DFEF      		ldi r29,-1
+  36 001e BD07      		cpc r27,r29
+  37 0020 01F4      		brne .L2
+  38 0022 8481      		ldd r24,Z+4
+  39 0024 9581      		ldd r25,Z+5
+  40 0026 0196      		adiw r24,1
+  41 0028 9583      		std Z+5,r25
+  42 002a 8483      		std Z+4,r24
+  43 002c A0E0      		ldi r26,0
+  44 002e B0E0      		ldi r27,0
+  45 0030 00C0      		rjmp .L3
+  46               	.L2:
+  47 0032 1097      		sbiw r26,0
+  48 0034 01F0      		breq .L3
+  49               	/* #APP */
+  50               	 ;  129 "../../nut/os/thread.c" 1
+  51 0036 0F90      		pop __tmp_reg__
+  52 0038 0FBE      		out __SREG__, __tmp_reg__
+  53               		
+  54               	 ;  0 "" 2
+  55               	/* #NOAPP */
+  56 003a 8289      		ldd r24,Z+18
+  57               	.L4:
+GAS LISTING /tmp/ccZUQWuD.s 			page 2
+
+
+  58 003c 5296      		adiw r26,18
+  59 003e 9C91      		ld r25,X
+  60 0040 5297      		sbiw r26,18
+  61 0042 8917      		cp r24,r25
+  62 0044 00F0      		brlo .L5
+  63 0046 BD01      		movw r22,r26
+  64 0048 6E5F      		subi r22,-2
+  65 004a 7F4F      		sbci r23,-1
+  66 004c 1296      		adiw r26,2
+  67 004e 0D90      		ld __tmp_reg__,X+
+  68 0050 BC91      		ld r27,X
+  69 0052 A02D      		mov r26,__tmp_reg__
+  70 0054 1097      		sbiw r26,0
+  71 0056 01F4      		brne .L4
+  72               	.L5:
+  73               	/* #APP */
+  74               	 ;  137 "../../nut/os/thread.c" 1
+  75 0058 0FB6      		in  __tmp_reg__, __SREG__
+  76 005a F894      		cli
+  77 005c 0F92      		push __tmp_reg__
+  78               		
+  79               	 ;  0 "" 2
+  80               	/* #NOAPP */
+  81               	.L3:
+  82 005e B383      		std Z+3,r27
+  83 0060 A283      		std Z+2,r26
+  84 0062 DB01      		movw r26,r22
+  85 0064 1196      		adiw r26,1
+  86 0066 FC93      		st X,r31
+  87 0068 EE93      		st -X,r30
+  88 006a A281      		ldd r26,Z+2
+  89 006c B381      		ldd r27,Z+3
+  90 006e 1097      		sbiw r26,0
+  91 0070 01F0      		breq .L7
+  92 0072 1496      		adiw r26,4
+  93 0074 8D91      		ld r24,X+
+  94 0076 9C91      		ld r25,X
+  95 0078 1597      		sbiw r26,4+1
+  96 007a 892B      		or r24,r25
+  97 007c 01F0      		breq .L7
+  98 007e 1496      		adiw r26,4
+  99 0080 2D91      		ld r18,X+
+ 100 0082 3C91      		ld r19,X
+ 101 0084 1597      		sbiw r26,4+1
+ 102 0086 8481      		ldd r24,Z+4
+ 103 0088 9581      		ldd r25,Z+5
+ 104 008a 820F      		add r24,r18
+ 105 008c 931F      		adc r25,r19
+ 106 008e 9583      		std Z+5,r25
+ 107 0090 8483      		std Z+4,r24
+ 108 0092 1596      		adiw r26,4+1
+ 109 0094 1C92      		st X,__zero_reg__
+ 110 0096 1E92      		st -X,__zero_reg__
+ 111 0098 1497      		sbiw r26,4
+ 112               	.L7:
+ 113               	/* #APP */
+ 114               	 ;  147 "../../nut/os/thread.c" 1
+GAS LISTING /tmp/ccZUQWuD.s 			page 3
+
+
+ 115 009a 0F90      		pop __tmp_reg__
+ 116 009c 0FBE      		out __SREG__, __tmp_reg__
+ 117               		
+ 118               	 ;  0 "" 2
+ 119               	/* epilogue start */
+ 120               	/* #NOAPP */
+ 121 009e DF91      		pop r29
+ 122 00a0 CF91      		pop r28
+ 123 00a2 0895      		ret
+ 124               		.size	NutThreadAddPriQueue, .-NutThreadAddPriQueue
+ 125               		.section	.text.NutThreadRemoveQueue,"ax",@progbits
+ 126               	.global	NutThreadRemoveQueue
+ 127               		.type	NutThreadRemoveQueue, @function
+ 128               	NutThreadRemoveQueue:
+ 129 0000 CF93      		push r28
+ 130 0002 DF93      		push r29
+ 131               	/* prologue: function */
+ 132               	/* frame size = 0 */
+ 133               	/* stack size = 2 */
+ 134               	.L__stack_usage = 2
+ 135 0004 FC01      		movw r30,r24
+ 136               	/* #APP */
+ 137               	 ;  154 "../../nut/os/thread.c" 1
+ 138 0006 0FB6      		in  __tmp_reg__, __SREG__
+ 139 0008 F894      		cli
+ 140 000a 0F92      		push __tmp_reg__
+ 141               		
+ 142               	 ;  0 "" 2
+ 143               	/* #NOAPP */
+ 144 000c EB01      		movw r28,r22
+ 145 000e A881      		ld r26,Y
+ 146 0010 B981      		ldd r27,Y+1
+ 147               	/* #APP */
+ 148               	 ;  156 "../../nut/os/thread.c" 1
+ 149 0012 0F90      		pop __tmp_reg__
+ 150 0014 0FBE      		out __SREG__, __tmp_reg__
+ 151               		
+ 152               	 ;  0 "" 2
+ 153               	/* #NOAPP */
+ 154 0016 AF3F      		cpi r26,-1
+ 155 0018 DFEF      		ldi r29,-1
+ 156 001a BD07      		cpc r27,r29
+ 157 001c 01F0      		breq .L21
+ 158               	.L23:
+ 159 001e 1097      		sbiw r26,0
+ 160 0020 01F0      		breq .L21
+ 161 0022 AE17      		cp r26,r30
+ 162 0024 BF07      		cpc r27,r31
+ 163 0026 01F4      		brne .L24
+ 164               	/* #APP */
+ 165               	 ;  161 "../../nut/os/thread.c" 1
+ 166 0028 0FB6      		in  __tmp_reg__, __SREG__
+ 167 002a F894      		cli
+ 168 002c 0F92      		push __tmp_reg__
+ 169               		
+ 170               	 ;  0 "" 2
+ 171               	/* #NOAPP */
+GAS LISTING /tmp/ccZUQWuD.s 			page 4
+
+
+ 172 002e 8281      		ldd r24,Z+2
+ 173 0030 9381      		ldd r25,Z+3
+ 174 0032 DB01      		movw r26,r22
+ 175 0034 1196      		adiw r26,1
+ 176 0036 9C93      		st X,r25
+ 177 0038 8E93      		st -X,r24
+ 178 003a 8481      		ldd r24,Z+4
+ 179 003c 9581      		ldd r25,Z+5
+ 180 003e 892B      		or r24,r25
+ 181 0040 01F0      		breq .L25
+ 182 0042 A281      		ldd r26,Z+2
+ 183 0044 B381      		ldd r27,Z+3
+ 184 0046 1097      		sbiw r26,0
+ 185 0048 01F0      		breq .L26
+ 186 004a 8481      		ldd r24,Z+4
+ 187 004c 9581      		ldd r25,Z+5
+ 188 004e 1596      		adiw r26,4+1
+ 189 0050 9C93      		st X,r25
+ 190 0052 8E93      		st -X,r24
+ 191 0054 1497      		sbiw r26,4
+ 192               	.L26:
+ 193 0056 1582      		std Z+5,__zero_reg__
+ 194 0058 1482      		std Z+4,__zero_reg__
+ 195               	.L25:
+ 196               	/* #APP */
+ 197               	 ;  169 "../../nut/os/thread.c" 1
+ 198 005a 0F90      		pop __tmp_reg__
+ 199 005c 0FBE      		out __SREG__, __tmp_reg__
+ 200               		
+ 201               	 ;  0 "" 2
+ 202               	/* #NOAPP */
+ 203 005e 1382      		std Z+3,__zero_reg__
+ 204 0060 1282      		std Z+2,__zero_reg__
+ 205 0062 108E      		std Z+24,__zero_reg__
+ 206 0064 178A      		std Z+23,__zero_reg__
+ 207 0066 00C0      		rjmp .L21
+ 208               	.L24:
+ 209 0068 BD01      		movw r22,r26
+ 210 006a 6E5F      		subi r22,-2
+ 211 006c 7F4F      		sbci r23,-1
+ 212 006e 1296      		adiw r26,2
+ 213 0070 0D90      		ld __tmp_reg__,X+
+ 214 0072 BC91      		ld r27,X
+ 215 0074 A02D      		mov r26,__tmp_reg__
+ 216 0076 00C0      		rjmp .L23
+ 217               	.L21:
+ 218               	/* epilogue start */
+ 219 0078 DF91      		pop r29
+ 220 007a CF91      		pop r28
+ 221 007c 0895      		ret
+ 222               		.size	NutThreadRemoveQueue, .-NutThreadRemoveQueue
+ 223               		.section	.text.NutThreadResume,"ax",@progbits
+ 224               	.global	NutThreadResume
+ 225               		.type	NutThreadResume, @function
+ 226               	NutThreadResume:
+ 227 0000 CF93      		push r28
+ 228 0002 DF93      		push r29
+GAS LISTING /tmp/ccZUQWuD.s 			page 5
+
+
+ 229               	/* prologue: function */
+ 230               	/* frame size = 0 */
+ 231               	/* stack size = 2 */
+ 232               	.L__stack_usage = 2
+ 233 0004 C091 0000 		lds r28,nutThreadList
+ 234 0008 D091 0000 		lds r29,nutThreadList+1
+ 235               	.L38:
+ 236 000c 2097      		sbiw r28,0
+ 237 000e 01F0      		breq .L48
+ 238               	/* #APP */
+ 239               	 ;  193 "../../nut/os/thread.c" 1
+ 240 0010 0FB6      		in  __tmp_reg__, __SREG__
+ 241 0012 F894      		cli
+ 242 0014 0F92      		push __tmp_reg__
+ 243               		
+ 244               	 ;  0 "" 2
+ 245               	/* #NOAPP */
+ 246 0016 8C81      		ldd r24,Y+4
+ 247 0018 9D81      		ldd r25,Y+5
+ 248               	/* #APP */
+ 249               	 ;  195 "../../nut/os/thread.c" 1
+ 250 001a 0F90      		pop __tmp_reg__
+ 251 001c 0FBE      		out __SREG__, __tmp_reg__
+ 252               		
+ 253               	 ;  0 "" 2
+ 254               	/* #NOAPP */
+ 255 001e 892B      		or r24,r25
+ 256 0020 01F0      		breq .L40
+ 257 0022 8F89      		ldd r24,Y+23
+ 258 0024 988D      		ldd r25,Y+24
+ 259               	/* #APP */
+ 260               	 ;  200 "../../nut/os/thread.c" 1
+ 261 0026 0FB6      		in  __tmp_reg__, __SREG__
+ 262 0028 F894      		cli
+ 263 002a 0F92      		push __tmp_reg__
+ 264               		
+ 265               	 ;  0 "" 2
+ 266               	/* #NOAPP */
+ 267 002c 2C81      		ldd r18,Y+4
+ 268 002e 3D81      		ldd r19,Y+5
+ 269 0030 2150      		subi r18,1
+ 270 0032 3109      		sbc r19,__zero_reg__
+ 271 0034 3D83      		std Y+5,r19
+ 272 0036 2C83      		std Y+4,r18
+ 273               	/* #APP */
+ 274               	 ;  203 "../../nut/os/thread.c" 1
+ 275 0038 0F90      		pop __tmp_reg__
+ 276 003a 0FBE      		out __SREG__, __tmp_reg__
+ 277               		
+ 278               	 ;  0 "" 2
+ 279               	/* #NOAPP */
+ 280 003c FC01      		movw r30,r24
+ 281 003e 2081      		ld r18,Z
+ 282 0040 3181      		ldd r19,Z+1
+ 283 0042 2F3F      		cpi r18,-1
+ 284 0044 3F4F      		sbci r19,-1
+ 285 0046 01F0      		breq .L40
+GAS LISTING /tmp/ccZUQWuD.s 			page 6
+
+
+ 286 0048 0E94 0000 		call NutEventPostAsync
+ 287               	.L40:
+ 288 004c 0990      		ld __tmp_reg__,Y+
+ 289 004e D881      		ld r29,Y
+ 290 0050 C02D      		mov r28,__tmp_reg__
+ 291 0052 00C0      		rjmp .L38
+ 292               	.L48:
+ 293 0054 0E94 0000 		call NutTimerProcessElapsed
+ 294 0058 E091 0000 		lds r30,runningThread
+ 295 005c F091 0000 		lds r31,runningThread+1
+ 296 0060 8091 0000 		lds r24,runQueue
+ 297 0064 9091 0000 		lds r25,runQueue+1
+ 298 0068 E817      		cp r30,r24
+ 299 006a F907      		cpc r31,r25
+ 300 006c 01F0      		breq .L37
+ 301 006e 8785      		ldd r24,Z+15
+ 302 0070 8130      		cpi r24,lo8(1)
+ 303 0072 01F4      		brne .L44
+ 304 0074 82E0      		ldi r24,lo8(2)
+ 305 0076 8787      		std Z+15,r24
+ 306               	.L44:
+ 307               	/* #APP */
+ 308               	 ;  226 "../../nut/os/thread.c" 1
+ 309 0078 0FB6      		in  __tmp_reg__, __SREG__
+ 310 007a F894      		cli
+ 311 007c 0F92      		push __tmp_reg__
+ 312               		
+ 313               	 ;  0 "" 2
+ 314               	/* #NOAPP */
+ 315 007e 0E94 0000 		call NutThreadSwitch
+ 316               	/* #APP */
+ 317               	 ;  228 "../../nut/os/thread.c" 1
+ 318 0082 0F90      		pop __tmp_reg__
+ 319 0084 0FBE      		out __SREG__, __tmp_reg__
+ 320               		
+ 321               	 ;  0 "" 2
+ 322               	/* #NOAPP */
+ 323               	.L37:
+ 324               	/* epilogue start */
+ 325 0086 DF91      		pop r29
+ 326 0088 CF91      		pop r28
+ 327 008a 0895      		ret
+ 328               		.size	NutThreadResume, .-NutThreadResume
+ 329               		.section	.text.NutThreadWake,"ax",@progbits
+ 330               	.global	NutThreadWake
+ 331               		.type	NutThreadWake, @function
+ 332               	NutThreadWake:
+ 333               	/* prologue: function */
+ 334               	/* frame size = 0 */
+ 335               	/* stack size = 0 */
+ 336               	.L__stack_usage = 0
+ 337 0000 CB01      		movw r24,r22
+ 338 0002 FB01      		movw r30,r22
+ 339 0004 168A      		std Z+22,__zero_reg__
+ 340 0006 158A      		std Z+21,__zero_reg__
+ 341 0008 22E0      		ldi r18,lo8(2)
+ 342 000a 2787      		std Z+15,r18
+GAS LISTING /tmp/ccZUQWuD.s 			page 7
+
+
+ 343 000c 60E0      		ldi r22,lo8(runQueue)
+ 344 000e 70E0      		ldi r23,hi8(runQueue)
+ 345 0010 0C94 0000 		jmp NutThreadAddPriQueue
+ 346               		.size	NutThreadWake, .-NutThreadWake
+ 347               		.section	.text.NutThreadYield,"ax",@progbits
+ 348               	.global	NutThreadYield
+ 349               		.type	NutThreadYield, @function
+ 350               	NutThreadYield:
+ 351               	/* prologue: function */
+ 352               	/* frame size = 0 */
+ 353               	/* stack size = 0 */
+ 354               	.L__stack_usage = 0
+ 355 0000 8091 0000 		lds r24,runningThread
+ 356 0004 9091 0000 		lds r25,runningThread+1
+ 357 0008 FC01      		movw r30,r24
+ 358 000a 2281      		ldd r18,Z+2
+ 359 000c 3381      		ldd r19,Z+3
+ 360 000e 232B      		or r18,r19
+ 361 0010 01F0      		breq .L51
+ 362 0012 60E0      		ldi r22,lo8(runQueue)
+ 363 0014 70E0      		ldi r23,hi8(runQueue)
+ 364 0016 0E94 0000 		call NutThreadRemoveQueue
+ 365 001a 60E0      		ldi r22,lo8(runQueue)
+ 366 001c 70E0      		ldi r23,hi8(runQueue)
+ 367 001e 8091 0000 		lds r24,runningThread
+ 368 0022 9091 0000 		lds r25,runningThread+1
+ 369 0026 0E94 0000 		call NutThreadAddPriQueue
+ 370               	.L51:
+ 371 002a 0C94 0000 		jmp NutThreadResume
+ 372               		.size	NutThreadYield, .-NutThreadYield
+ 373               		.section	.text.NutThreadDestroy,"ax",@progbits
+ 374               	.global	NutThreadDestroy
+ 375               		.type	NutThreadDestroy, @function
+ 376               	NutThreadDestroy:
+ 377               	/* prologue: function */
+ 378               	/* frame size = 0 */
+ 379               	/* stack size = 0 */
+ 380               	.L__stack_usage = 0
+ 381 0000 E091 0000 		lds r30,killedThread
+ 382 0004 F091 0000 		lds r31,killedThread+1
+ 383 0008 3097      		sbiw r30,0
+ 384 000a 01F0      		breq .L55
+ 385 000c 6389      		ldd r22,Z+19
+ 386 000e 7489      		ldd r23,Z+20
+ 387 0010 80E0      		ldi r24,lo8(heapFreeList)
+ 388 0012 90E0      		ldi r25,hi8(heapFreeList)
+ 389 0014 0E94 0000 		call NutHeapRootFree
+ 390 0018 1092 0000 		sts killedThread+1,__zero_reg__
+ 391 001c 1092 0000 		sts killedThread,__zero_reg__
+ 392               	.L55:
+ 393 0020 0895      		ret
+ 394               		.size	NutThreadDestroy, .-NutThreadDestroy
+ 395               		.section	.text.NutThreadKill,"ax",@progbits
+ 396               	.global	NutThreadKill
+ 397               		.type	NutThreadKill, @function
+ 398               	NutThreadKill:
+ 399 0000 CF93      		push r28
+GAS LISTING /tmp/ccZUQWuD.s 			page 8
+
+
+ 400 0002 DF93      		push r29
+ 401               	/* prologue: function */
+ 402               	/* frame size = 0 */
+ 403               	/* stack size = 2 */
+ 404               	.L__stack_usage = 2
+ 405 0004 C091 0000 		lds r28,nutThreadList
+ 406 0008 D091 0000 		lds r29,nutThreadList+1
+ 407 000c 0E94 0000 		call NutThreadDestroy
+ 408 0010 8091 0000 		lds r24,runningThread
+ 409 0014 9091 0000 		lds r25,runningThread+1
+ 410 0018 E0E0      		ldi r30,lo8(nutThreadList)
+ 411 001a F0E0      		ldi r31,hi8(nutThreadList)
+ 412               	.L61:
+ 413 001c 2097      		sbiw r28,0
+ 414 001e 01F0      		breq .L63
+ 415 0020 C817      		cp r28,r24
+ 416 0022 D907      		cpc r29,r25
+ 417 0024 01F4      		brne .L62
+ 418 0026 8881      		ld r24,Y
+ 419 0028 9981      		ldd r25,Y+1
+ 420 002a 9183      		std Z+1,r25
+ 421 002c 8083      		st Z,r24
+ 422 002e 00C0      		rjmp .L63
+ 423               	.L62:
+ 424 0030 FE01      		movw r30,r28
+ 425 0032 0990      		ld __tmp_reg__,Y+
+ 426 0034 D881      		ld r29,Y
+ 427 0036 C02D      		mov r28,__tmp_reg__
+ 428 0038 00C0      		rjmp .L61
+ 429               	.L63:
+ 430 003a 8091 0000 		lds r24,runningThread
+ 431 003e 9091 0000 		lds r25,runningThread+1
+ 432 0042 9093 0000 		sts killedThread+1,r25
+ 433 0046 8093 0000 		sts killedThread,r24
+ 434               	/* epilogue start */
+ 435 004a DF91      		pop r29
+ 436 004c CF91      		pop r28
+ 437 004e 0895      		ret
+ 438               		.size	NutThreadKill, .-NutThreadKill
+ 439               		.section	.text.NutThreadSetPriority,"ax",@progbits
+ 440               	.global	NutThreadSetPriority
+ 441               		.type	NutThreadSetPriority, @function
+ 442               	NutThreadSetPriority:
+ 443 0000 CF93      		push r28
+ 444 0002 DF93      		push r29
+ 445               	/* prologue: function */
+ 446               	/* frame size = 0 */
+ 447               	/* stack size = 2 */
+ 448               	.L__stack_usage = 2
+ 449 0004 C82F      		mov r28,r24
+ 450 0006 8091 0000 		lds r24,runningThread
+ 451 000a 9091 0000 		lds r25,runningThread+1
+ 452 000e FC01      		movw r30,r24
+ 453 0010 D289      		ldd r29,Z+18
+ 454 0012 60E0      		ldi r22,lo8(runQueue)
+ 455 0014 70E0      		ldi r23,hi8(runQueue)
+ 456 0016 0E94 0000 		call NutThreadRemoveQueue
+GAS LISTING /tmp/ccZUQWuD.s 			page 9
+
+
+ 457 001a 8091 0000 		lds r24,runningThread
+ 458 001e 9091 0000 		lds r25,runningThread+1
+ 459 0022 FC01      		movw r30,r24
+ 460 0024 C28B      		std Z+18,r28
+ 461 0026 CF3F      		cpi r28,lo8(-1)
+ 462 0028 01F0      		breq .L66
+ 463 002a 60E0      		ldi r22,lo8(runQueue)
+ 464 002c 70E0      		ldi r23,hi8(runQueue)
+ 465 002e 0E94 0000 		call NutThreadAddPriQueue
+ 466 0032 00C0      		rjmp .L67
+ 467               	.L66:
+ 468 0034 0E94 0000 		call NutThreadKill
+ 469               	.L67:
+ 470 0038 E091 0000 		lds r30,runningThread
+ 471 003c F091 0000 		lds r31,runningThread+1
+ 472 0040 8091 0000 		lds r24,runQueue
+ 473 0044 9091 0000 		lds r25,runQueue+1
+ 474 0048 E817      		cp r30,r24
+ 475 004a F907      		cpc r31,r25
+ 476 004c 01F4      		brne .L68
+ 477 004e 81E0      		ldi r24,lo8(1)
+ 478 0050 8787      		std Z+15,r24
+ 479 0052 00C0      		rjmp .L69
+ 480               	.L68:
+ 481 0054 82E0      		ldi r24,lo8(2)
+ 482 0056 8787      		std Z+15,r24
+ 483               	/* #APP */
+ 484               	 ;  294 "../../nut/os/thread.c" 1
+ 485 0058 0FB6      		in  __tmp_reg__, __SREG__
+ 486 005a F894      		cli
+ 487 005c 0F92      		push __tmp_reg__
+ 488               		
+ 489               	 ;  0 "" 2
+ 490               	/* #NOAPP */
+ 491 005e 0E94 0000 		call NutThreadSwitch
+ 492               	/* #APP */
+ 493               	 ;  296 "../../nut/os/thread.c" 1
+ 494 0062 0F90      		pop __tmp_reg__
+ 495 0064 0FBE      		out __SREG__, __tmp_reg__
+ 496               		
+ 497               	 ;  0 "" 2
+ 498               	/* #NOAPP */
+ 499               	.L69:
+ 500 0066 8D2F      		mov r24,r29
+ 501               	/* epilogue start */
+ 502 0068 DF91      		pop r29
+ 503 006a CF91      		pop r28
+ 504 006c 0895      		ret
+ 505               		.size	NutThreadSetPriority, .-NutThreadSetPriority
+ 506               		.section	.text.NutThreadExit,"ax",@progbits
+ 507               	.global	NutThreadExit
+ 508               		.type	NutThreadExit, @function
+ 509               	NutThreadExit:
+ 510               	/* prologue: function */
+ 511               	/* frame size = 0 */
+ 512               	/* stack size = 0 */
+ 513               	.L__stack_usage = 0
+GAS LISTING /tmp/ccZUQWuD.s 			page 10
+
+
+ 514 0000 8FEF      		ldi r24,lo8(-1)
+ 515 0002 0C94 0000 		jmp NutThreadSetPriority
+ 516               		.size	NutThreadExit, .-NutThreadExit
+ 517               		.section	.text.GetThreadByName,"ax",@progbits
+ 518               	.global	GetThreadByName
+ 519               		.type	GetThreadByName, @function
+ 520               	GetThreadByName:
+ 521 0000 0F93      		push r16
+ 522 0002 1F93      		push r17
+ 523 0004 CF93      		push r28
+ 524 0006 DF93      		push r29
+ 525               	/* prologue: function */
+ 526               	/* frame size = 0 */
+ 527               	/* stack size = 4 */
+ 528               	.L__stack_usage = 4
+ 529 0008 8C01      		movw r16,r24
+ 530 000a 892B      		or r24,r25
+ 531 000c 01F0      		breq .L72
+ 532 000e C091 0000 		lds r28,nutThreadList
+ 533 0012 D091 0000 		lds r29,nutThreadList+1
+ 534               	.L73:
+ 535 0016 2097      		sbiw r28,0
+ 536 0018 01F0      		breq .L77
+ 537 001a B801      		movw r22,r16
+ 538 001c CE01      		movw r24,r28
+ 539 001e 0696      		adiw r24,6
+ 540 0020 0E94 0000 		call strcmp
+ 541 0024 892B      		or r24,r25
+ 542 0026 01F0      		breq .L76
+ 543 0028 0990      		ld __tmp_reg__,Y+
+ 544 002a D881      		ld r29,Y
+ 545 002c C02D      		mov r28,__tmp_reg__
+ 546 002e 00C0      		rjmp .L73
+ 547               	.L77:
+ 548 0030 80E0      		ldi r24,0
+ 549 0032 90E0      		ldi r25,0
+ 550 0034 00C0      		rjmp .L74
+ 551               	.L72:
+ 552 0036 8091 0000 		lds r24,runningThread
+ 553 003a 9091 0000 		lds r25,runningThread+1
+ 554 003e 00C0      		rjmp .L74
+ 555               	.L76:
+ 556 0040 CE01      		movw r24,r28
+ 557               	.L74:
+ 558               	/* epilogue start */
+ 559 0042 DF91      		pop r29
+ 560 0044 CF91      		pop r28
+ 561 0046 1F91      		pop r17
+ 562 0048 0F91      		pop r16
+ 563 004a 0895      		ret
+ 564               		.size	GetThreadByName, .-GetThreadByName
+ 565               		.section	.text.NutThreadStackAvailable,"ax",@progbits
+ 566               	.global	NutThreadStackAvailable
+ 567               		.type	NutThreadStackAvailable, @function
+ 568               	NutThreadStackAvailable:
+ 569               	/* prologue: function */
+ 570               	/* frame size = 0 */
+GAS LISTING /tmp/ccZUQWuD.s 			page 11
+
+
+ 571               	/* stack size = 0 */
+ 572               	.L__stack_usage = 0
+ 573 0000 0E94 0000 		call GetThreadByName
+ 574 0004 0097      		sbiw r24,0
+ 575 0006 01F0      		breq .L81
+ 576 0008 FC01      		movw r30,r24
+ 577 000a 2389      		ldd r18,Z+19
+ 578 000c 3489      		ldd r19,Z+20
+ 579 000e C901      		movw r24,r18
+ 580               	.L80:
+ 581 0010 0496      		adiw r24,4
+ 582 0012 FC01      		movw r30,r24
+ 583 0014 3497      		sbiw r30,4
+ 584 0016 4081      		ld r20,Z
+ 585 0018 5181      		ldd r21,Z+1
+ 586 001a 6281      		ldd r22,Z+2
+ 587 001c 7381      		ldd r23,Z+3
+ 588 001e 4F3E      		cpi r20,-17
+ 589 0020 5E4B      		sbci r21,-66
+ 590 0022 6D4A      		sbci r22,-83
+ 591 0024 7E4D      		sbci r23,-34
+ 592 0026 01F0      		breq .L80
+ 593 0028 821B      		sub r24,r18
+ 594 002a 930B      		sbc r25,r19
+ 595 002c 0895      		ret
+ 596               	.L81:
+ 597 002e 80E0      		ldi r24,0
+ 598 0030 90E0      		ldi r25,0
+ 599 0032 0895      		ret
+ 600               		.size	NutThreadStackAvailable, .-NutThreadStackAvailable
+ 601               		.comm	runQueue,2,1
+ 602               		.comm	nutThreadList,2,1
+ 603               		.comm	killedThread,2,1
+ 604               		.comm	runningThread,2,1
+ 605               		.ident	"GCC: (GNU) 5.3.0"
+ 606               	.global __do_clear_bss
+GAS LISTING /tmp/ccZUQWuD.s 			page 12
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 thread.c
+     /tmp/ccZUQWuD.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccZUQWuD.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccZUQWuD.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccZUQWuD.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccZUQWuD.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccZUQWuD.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccZUQWuD.s:11     .text.NutThreadAddPriQueue:0000000000000000 NutThreadAddPriQueue
+     /tmp/ccZUQWuD.s:128    .text.NutThreadRemoveQueue:0000000000000000 NutThreadRemoveQueue
+     /tmp/ccZUQWuD.s:226    .text.NutThreadResume:0000000000000000 NutThreadResume
+                            *COM*:0000000000000002 nutThreadList
+                            *COM*:0000000000000002 runningThread
+                            *COM*:0000000000000002 runQueue
+     /tmp/ccZUQWuD.s:332    .text.NutThreadWake:0000000000000000 NutThreadWake
+     /tmp/ccZUQWuD.s:350    .text.NutThreadYield:0000000000000000 NutThreadYield
+     /tmp/ccZUQWuD.s:376    .text.NutThreadDestroy:0000000000000000 NutThreadDestroy
+                            *COM*:0000000000000002 killedThread
+     /tmp/ccZUQWuD.s:398    .text.NutThreadKill:0000000000000000 NutThreadKill
+     /tmp/ccZUQWuD.s:442    .text.NutThreadSetPriority:0000000000000000 NutThreadSetPriority
+     /tmp/ccZUQWuD.s:509    .text.NutThreadExit:0000000000000000 NutThreadExit
+     /tmp/ccZUQWuD.s:520    .text.GetThreadByName:0000000000000000 GetThreadByName
+     /tmp/ccZUQWuD.s:568    .text.NutThreadStackAvailable:0000000000000000 NutThreadStackAvailable
+
+UNDEFINED SYMBOLS
+NutEventPostAsync
+NutTimerProcessElapsed
+NutThreadSwitch
+heapFreeList
+NutHeapRootFree
+strcmp
+__do_clear_bss

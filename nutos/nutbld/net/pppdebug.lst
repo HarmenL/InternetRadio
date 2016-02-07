@@ -1,0 +1,1705 @@
+GAS LISTING /tmp/ccV0Eu5S.s 			page 1
+
+
+   1               		.file	"pppdebug.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.__byte_swap2,"ax",@progbits
+   9               		.type	__byte_swap2, @function
+  10               	__byte_swap2:
+  11               	/* prologue: function */
+  12               	/* frame size = 0 */
+  13               	/* stack size = 0 */
+  14               	.L__stack_usage = 0
+  15               	/* #APP */
+  16               	 ;  309 "../../nut/include/sys/types.h" 1
+  17 0000 082E      		mov __tmp_reg__, r24
+  18 0002 892F      		mov r24, r25
+  19 0004 902D      		mov r25, __tmp_reg__
+  20               		
+  21               	 ;  0 "" 2
+  22               	/* #NOAPP */
+  23 0006 0895      		ret
+  24               		.size	__byte_swap2, .-__byte_swap2
+  25               		.section	.rodata.str1.1,"aMS",@progbits,1
+  26               	.LC0:
+  27 0000 5B4F 5054 		.string	"[OPT(%u)]"
+  27      2825 7529 
+  27      5D00 
+  28               	.LC1:
+  29 000a 5B4D 5255 		.string	"[MRU=%u]"
+  29      3D25 755D 
+  29      00
+  30               	.LC2:
+  31 0013 5B41 4343 		.string	"[ACCM=0x%08lX]"
+  31      4D3D 3078 
+  31      2530 386C 
+  31      585D 00
+  32               	.LC3:
+  33 0022 5B41 5554 		.string	"[AUTH=0x%04X]"
+  33      483D 3078 
+  33      2530 3458 
+  33      5D00 
+  34               	.LC4:
+  35 0030 5B4D 4147 		.string	"[MAGIC=0x%08lX]"
+  35      4943 3D30 
+  35      7825 3038 
+  35      6C58 5D00 
+  36               	.LC5:
+  37 0040 5B50 434F 		.string	"[PCOMP]"
+  37      4D50 5D00 
+  38               	.LC6:
+  39 0048 5B41 434F 		.string	"[ACOMP]"
+  39      4D50 5D00 
+  40               	.LC7:
+  41 0050 5B4F 5054 		.string	"[OPT%u?]"
+  41      2575 3F5D 
+GAS LISTING /tmp/ccV0Eu5S.s 			page 2
+
+
+  41      00
+  42               	.LC8:
+  43 0059 5B4C 454E 		.string	"[LEN?]"
+  43      3F5D 00
+  44               		.section	.text.NutDumpLcpOption,"ax",@progbits
+  45               	.global	NutDumpLcpOption
+  46               		.type	NutDumpLcpOption, @function
+  47               	NutDumpLcpOption:
+  48 0000 4F92      		push r4
+  49 0002 5F92      		push r5
+  50 0004 6F92      		push r6
+  51 0006 7F92      		push r7
+  52 0008 8F92      		push r8
+  53 000a 9F92      		push r9
+  54 000c AF92      		push r10
+  55 000e BF92      		push r11
+  56 0010 CF92      		push r12
+  57 0012 DF92      		push r13
+  58 0014 EF92      		push r14
+  59 0016 FF92      		push r15
+  60 0018 0F93      		push r16
+  61 001a 1F93      		push r17
+  62 001c CF93      		push r28
+  63 001e DF93      		push r29
+  64               	/* prologue: function */
+  65               	/* frame size = 0 */
+  66               	/* stack size = 16 */
+  67               	.L__stack_usage = 16
+  68 0020 582E      		mov r5,r24
+  69 0022 492E      		mov r4,r25
+  70 0024 FB01      		movw r30,r22
+  71 0026 0189      		ldd r16,Z+17
+  72 0028 1289      		ldd r17,Z+18
+  73 002a 0115      		cp r16,__zero_reg__
+  74 002c 1105      		cpc r17,__zero_reg__
+  75 002e 01F0      		breq .L3
+  76 0030 C785      		ldd r28,Z+15
+  77 0032 D089      		ldd r29,Z+16
+  78 0034 00C0      		rjmp .L4
+  79               	.L3:
+  80 0036 C091 0000 		lds r28,ppp_header_sz
+  81 003a D0E0      		ldi r29,0
+  82 003c 0581      		ldd r16,Z+5
+  83 003e 1681      		ldd r17,Z+6
+  84 0040 0C1B      		sub r16,r28
+  85 0042 1D0B      		sbc r17,r29
+  86 0044 0450      		subi r16,4
+  87 0046 1109      		sbc r17,__zero_reg__
+  88 0048 2496      		adiw r28,4
+  89 004a 8381      		ldd r24,Z+3
+  90 004c 9481      		ldd r25,Z+4
+  91 004e C80F      		add r28,r24
+  92 0050 D91F      		adc r29,r25
+  93               	.L4:
+  94 0052 1F93      		push r17
+  95 0054 0F93      		push r16
+  96 0056 80E0      		ldi r24,lo8(.LC0)
+GAS LISTING /tmp/ccV0Eu5S.s 			page 3
+
+
+  97 0058 90E0      		ldi r25,hi8(.LC0)
+  98 005a 9F93      		push r25
+  99 005c 8F93      		push r24
+ 100 005e 4F92      		push r4
+ 101 0060 5F92      		push r5
+ 102 0062 0E94 0000 		call fprintf
+ 103 0066 0F90      		pop __tmp_reg__
+ 104 0068 0F90      		pop __tmp_reg__
+ 105 006a 0F90      		pop __tmp_reg__
+ 106 006c 0F90      		pop __tmp_reg__
+ 107 006e 0F90      		pop __tmp_reg__
+ 108 0070 0F90      		pop __tmp_reg__
+ 109 0072 80E0      		ldi r24,lo8(.LC3)
+ 110 0074 682E      		mov r6,r24
+ 111 0076 80E0      		ldi r24,hi8(.LC3)
+ 112 0078 782E      		mov r7,r24
+ 113 007a 90E0      		ldi r25,lo8(.LC7)
+ 114 007c E92E      		mov r14,r25
+ 115 007e 90E0      		ldi r25,hi8(.LC7)
+ 116 0080 F92E      		mov r15,r25
+ 117 0082 20E0      		ldi r18,lo8(.LC4)
+ 118 0084 C22E      		mov r12,r18
+ 119 0086 20E0      		ldi r18,hi8(.LC4)
+ 120 0088 D22E      		mov r13,r18
+ 121 008a 30E0      		ldi r19,lo8(.LC1)
+ 122 008c A32E      		mov r10,r19
+ 123 008e 30E0      		ldi r19,hi8(.LC1)
+ 124 0090 B32E      		mov r11,r19
+ 125 0092 40E0      		ldi r20,lo8(.LC2)
+ 126 0094 842E      		mov r8,r20
+ 127 0096 40E0      		ldi r20,hi8(.LC2)
+ 128 0098 942E      		mov r9,r20
+ 129               	.L5:
+ 130 009a 0115      		cp r16,__zero_reg__
+ 131 009c 1105      		cpc r17,__zero_reg__
+ 132 009e 01F4      		brne .+2
+ 133 00a0 00C0      		rjmp .L20
+ 134 00a2 8881      		ld r24,Y
+ 135 00a4 8330      		cpi r24,lo8(3)
+ 136 00a6 01F4      		brne .+2
+ 137 00a8 00C0      		rjmp .L7
+ 138 00aa 00F4      		brsh .L8
+ 139 00ac 8130      		cpi r24,lo8(1)
+ 140 00ae 01F4      		brne .+2
+ 141 00b0 00C0      		rjmp .L9
+ 142 00b2 8230      		cpi r24,lo8(2)
+ 143 00b4 01F0      		breq .+2
+ 144 00b6 00C0      		rjmp .L6
+ 145 00b8 8A81      		ldd r24,Y+2
+ 146 00ba 9B81      		ldd r25,Y+3
+ 147 00bc AC81      		ldd r26,Y+4
+ 148 00be BD81      		ldd r27,Y+5
+ 149               	/* #APP */
+ 150               	 ;  319 "../../nut/include/sys/types.h" 1
+ 151 00c0 082E      		mov __tmp_reg__, r24
+ 152 00c2 8B2F      		mov r24, r27
+ 153 00c4 B02D      		mov r27, __tmp_reg__
+GAS LISTING /tmp/ccV0Eu5S.s 			page 4
+
+
+ 154 00c6 092E      		mov __tmp_reg__, r25
+ 155 00c8 9A2F      		mov r25, r26
+ 156 00ca A02D      		mov r26, __tmp_reg__
+ 157               		
+ 158               	 ;  0 "" 2
+ 159               	/* #NOAPP */
+ 160 00cc BF93      		push r27
+ 161 00ce AF93      		push r26
+ 162 00d0 9F93      		push r25
+ 163 00d2 8F93      		push r24
+ 164 00d4 9F92      		push r9
+ 165 00d6 8F92      		push r8
+ 166 00d8 4F92      		push r4
+ 167 00da 5F92      		push r5
+ 168 00dc 0E94 0000 		call fprintf
+ 169 00e0 8DB7      		in r24,__SP_L__
+ 170 00e2 9EB7      		in r25,__SP_H__
+ 171 00e4 0896      		adiw r24,8
+ 172 00e6 0FB6      		in __tmp_reg__,__SREG__
+ 173 00e8 F894      		cli
+ 174 00ea 9EBF      		out __SP_H__,r25
+ 175 00ec 0FBE      		out __SREG__,__tmp_reg__
+ 176 00ee 8DBF      		out __SP_L__,r24
+ 177 00f0 00C0      		rjmp .L14
+ 178               	.L8:
+ 179 00f2 8730      		cpi r24,lo8(7)
+ 180 00f4 01F0      		breq .L11
+ 181 00f6 8830      		cpi r24,lo8(8)
+ 182 00f8 01F4      		brne .+2
+ 183 00fa 00C0      		rjmp .L12
+ 184 00fc 8530      		cpi r24,lo8(5)
+ 185 00fe 01F0      		breq .+2
+ 186 0100 00C0      		rjmp .L6
+ 187 0102 8A81      		ldd r24,Y+2
+ 188 0104 9B81      		ldd r25,Y+3
+ 189 0106 AC81      		ldd r26,Y+4
+ 190 0108 BD81      		ldd r27,Y+5
+ 191               	/* #APP */
+ 192               	 ;  319 "../../nut/include/sys/types.h" 1
+ 193 010a 082E      		mov __tmp_reg__, r24
+ 194 010c 8B2F      		mov r24, r27
+ 195 010e B02D      		mov r27, __tmp_reg__
+ 196 0110 092E      		mov __tmp_reg__, r25
+ 197 0112 9A2F      		mov r25, r26
+ 198 0114 A02D      		mov r26, __tmp_reg__
+ 199               		
+ 200               	 ;  0 "" 2
+ 201               	/* #NOAPP */
+ 202 0116 BF93      		push r27
+ 203 0118 AF93      		push r26
+ 204 011a 9F93      		push r25
+ 205 011c 8F93      		push r24
+ 206 011e DF92      		push r13
+ 207 0120 CF92      		push r12
+ 208 0122 4F92      		push r4
+ 209 0124 5F92      		push r5
+ 210 0126 0E94 0000 		call fprintf
+GAS LISTING /tmp/ccV0Eu5S.s 			page 5
+
+
+ 211 012a 8DB7      		in r24,__SP_L__
+ 212 012c 9EB7      		in r25,__SP_H__
+ 213 012e 0896      		adiw r24,8
+ 214 0130 0FB6      		in __tmp_reg__,__SREG__
+ 215 0132 F894      		cli
+ 216 0134 9EBF      		out __SP_H__,r25
+ 217 0136 0FBE      		out __SREG__,__tmp_reg__
+ 218 0138 8DBF      		out __SP_L__,r24
+ 219 013a 00C0      		rjmp .L14
+ 220               	.L9:
+ 221 013c 8A81      		ldd r24,Y+2
+ 222 013e 9B81      		ldd r25,Y+3
+ 223 0140 0E94 0000 		call __byte_swap2
+ 224 0144 9F93      		push r25
+ 225 0146 8F93      		push r24
+ 226 0148 BF92      		push r11
+ 227 014a AF92      		push r10
+ 228 014c 00C0      		rjmp .L17
+ 229               	.L7:
+ 230 014e 8A81      		ldd r24,Y+2
+ 231 0150 9B81      		ldd r25,Y+3
+ 232 0152 0E94 0000 		call __byte_swap2
+ 233 0156 9F93      		push r25
+ 234 0158 8F93      		push r24
+ 235 015a 7F92      		push r7
+ 236 015c 6F92      		push r6
+ 237 015e 00C0      		rjmp .L17
+ 238               	.L11:
+ 239 0160 652D      		mov r22,r5
+ 240 0162 742D      		mov r23,r4
+ 241 0164 80E0      		ldi r24,lo8(.LC5)
+ 242 0166 90E0      		ldi r25,hi8(.LC5)
+ 243 0168 00C0      		rjmp .L18
+ 244               	.L12:
+ 245 016a 652D      		mov r22,r5
+ 246 016c 742D      		mov r23,r4
+ 247 016e 80E0      		ldi r24,lo8(.LC6)
+ 248 0170 90E0      		ldi r25,hi8(.LC6)
+ 249               	.L18:
+ 250 0172 0E94 0000 		call fputs
+ 251 0176 00C0      		rjmp .L14
+ 252               	.L6:
+ 253 0178 1F92      		push __zero_reg__
+ 254 017a 8F93      		push r24
+ 255 017c FF92      		push r15
+ 256 017e EF92      		push r14
+ 257               	.L17:
+ 258 0180 4F92      		push r4
+ 259 0182 5F92      		push r5
+ 260 0184 0E94 0000 		call fprintf
+ 261 0188 0F90      		pop __tmp_reg__
+ 262 018a 0F90      		pop __tmp_reg__
+ 263 018c 0F90      		pop __tmp_reg__
+ 264 018e 0F90      		pop __tmp_reg__
+ 265 0190 0F90      		pop __tmp_reg__
+ 266 0192 0F90      		pop __tmp_reg__
+ 267               	.L14:
+GAS LISTING /tmp/ccV0Eu5S.s 			page 6
+
+
+ 268 0194 8981      		ldd r24,Y+1
+ 269 0196 90E0      		ldi r25,0
+ 270 0198 0817      		cp r16,r24
+ 271 019a 1907      		cpc r17,r25
+ 272 019c 00F4      		brsh .L15
+ 273 019e 652D      		mov r22,r5
+ 274 01a0 742D      		mov r23,r4
+ 275 01a2 80E0      		ldi r24,lo8(.LC8)
+ 276 01a4 90E0      		ldi r25,hi8(.LC8)
+ 277               	/* epilogue start */
+ 278 01a6 DF91      		pop r29
+ 279 01a8 CF91      		pop r28
+ 280 01aa 1F91      		pop r17
+ 281 01ac 0F91      		pop r16
+ 282 01ae FF90      		pop r15
+ 283 01b0 EF90      		pop r14
+ 284 01b2 DF90      		pop r13
+ 285 01b4 CF90      		pop r12
+ 286 01b6 BF90      		pop r11
+ 287 01b8 AF90      		pop r10
+ 288 01ba 9F90      		pop r9
+ 289 01bc 8F90      		pop r8
+ 290 01be 7F90      		pop r7
+ 291 01c0 6F90      		pop r6
+ 292 01c2 5F90      		pop r5
+ 293 01c4 4F90      		pop r4
+ 294 01c6 0C94 0000 		jmp fputs
+ 295               	.L15:
+ 296 01ca 081B      		sub r16,r24
+ 297 01cc 190B      		sbc r17,r25
+ 298 01ce C80F      		add r28,r24
+ 299 01d0 D91F      		adc r29,r25
+ 300 01d2 00C0      		rjmp .L5
+ 301               	.L20:
+ 302               	/* epilogue start */
+ 303 01d4 DF91      		pop r29
+ 304 01d6 CF91      		pop r28
+ 305 01d8 1F91      		pop r17
+ 306 01da 0F91      		pop r16
+ 307 01dc FF90      		pop r15
+ 308 01de EF90      		pop r14
+ 309 01e0 DF90      		pop r13
+ 310 01e2 CF90      		pop r12
+ 311 01e4 BF90      		pop r11
+ 312 01e6 AF90      		pop r10
+ 313 01e8 9F90      		pop r9
+ 314 01ea 8F90      		pop r8
+ 315 01ec 7F90      		pop r7
+ 316 01ee 6F90      		pop r6
+ 317 01f0 5F90      		pop r5
+ 318 01f2 4F90      		pop r4
+ 319 01f4 0895      		ret
+ 320               		.size	NutDumpLcpOption, .-NutDumpLcpOption
+ 321               		.section	.rodata.str1.1
+ 322               	.LC9:
+ 323 0060 5B4C 4350 		.string	"[LCP-%03u(%u)]"
+ 323      2D25 3033 
+GAS LISTING /tmp/ccV0Eu5S.s 			page 7
+
+
+ 323      7528 2575 
+ 323      295D 00
+ 324               	.LC10:
+ 325 006f 5B43 4F44 		.string	"[CODE%u?]"
+ 325      4525 753F 
+ 325      5D00 
+ 326               		.section	.text.NutDumpLcp,"ax",@progbits
+ 327               	.global	NutDumpLcp
+ 328               		.type	NutDumpLcp, @function
+ 329               	NutDumpLcp:
+ 330 0000 CF92      		push r12
+ 331 0002 DF92      		push r13
+ 332 0004 EF92      		push r14
+ 333 0006 FF92      		push r15
+ 334 0008 0F93      		push r16
+ 335 000a 1F93      		push r17
+ 336 000c CF93      		push r28
+ 337 000e DF93      		push r29
+ 338               	/* prologue: function */
+ 339               	/* frame size = 0 */
+ 340               	/* stack size = 8 */
+ 341               	.L__stack_usage = 8
+ 342 0010 EC01      		movw r28,r24
+ 343 0012 8B01      		movw r16,r22
+ 344 0014 FB01      		movw r30,r22
+ 345 0016 C184      		ldd r12,Z+9
+ 346 0018 D284      		ldd r13,Z+10
+ 347 001a C114      		cp r12,__zero_reg__
+ 348 001c D104      		cpc r13,__zero_reg__
+ 349 001e 01F0      		breq .L22
+ 350 0020 8189      		ldd r24,Z+17
+ 351 0022 9289      		ldd r25,Z+18
+ 352 0024 C80E      		add r12,r24
+ 353 0026 D91E      		adc r13,r25
+ 354 0028 E780      		ldd r14,Z+7
+ 355 002a F084      		ldd r15,Z+8
+ 356 002c 00C0      		rjmp .L23
+ 357               	.L22:
+ 358 002e E090 0000 		lds r14,ppp_header_sz
+ 359 0032 8E2D      		mov r24,r14
+ 360 0034 90E0      		ldi r25,0
+ 361 0036 FB01      		movw r30,r22
+ 362 0038 C580      		ldd r12,Z+5
+ 363 003a D680      		ldd r13,Z+6
+ 364 003c C81A      		sub r12,r24
+ 365 003e D90A      		sbc r13,r25
+ 366 0040 E380      		ldd r14,Z+3
+ 367 0042 F480      		ldd r15,Z+4
+ 368 0044 E80E      		add r14,r24
+ 369 0046 F91E      		adc r15,r25
+ 370               	.L23:
+ 371 0048 F701      		movw r30,r14
+ 372 004a 8281      		ldd r24,Z+2
+ 373 004c 9381      		ldd r25,Z+3
+ 374 004e 0E94 0000 		call __byte_swap2
+ 375 0052 9F93      		push r25
+ 376 0054 8F93      		push r24
+GAS LISTING /tmp/ccV0Eu5S.s 			page 8
+
+
+ 377 0056 F701      		movw r30,r14
+ 378 0058 8181      		ldd r24,Z+1
+ 379 005a 1F92      		push __zero_reg__
+ 380 005c 8F93      		push r24
+ 381 005e 80E0      		ldi r24,lo8(.LC9)
+ 382 0060 90E0      		ldi r25,hi8(.LC9)
+ 383 0062 9F93      		push r25
+ 384 0064 8F93      		push r24
+ 385 0066 DF93      		push r29
+ 386 0068 CF93      		push r28
+ 387 006a 0E94 0000 		call fprintf
+ 388 006e 8DB7      		in r24,__SP_L__
+ 389 0070 9EB7      		in r25,__SP_H__
+ 390 0072 0896      		adiw r24,8
+ 391 0074 0FB6      		in __tmp_reg__,__SREG__
+ 392 0076 F894      		cli
+ 393 0078 9EBF      		out __SP_H__,r25
+ 394 007a 0FBE      		out __SREG__,__tmp_reg__
+ 395 007c 8DBF      		out __SP_L__,r24
+ 396 007e 94E0      		ldi r25,4
+ 397 0080 C916      		cp r12,r25
+ 398 0082 D104      		cpc r13,__zero_reg__
+ 399 0084 00F4      		brsh .L24
+ 400 0086 BE01      		movw r22,r28
+ 401 0088 80E0      		ldi r24,lo8(.LC8)
+ 402 008a 90E0      		ldi r25,hi8(.LC8)
+ 403               	/* epilogue start */
+ 404 008c DF91      		pop r29
+ 405 008e CF91      		pop r28
+ 406 0090 1F91      		pop r17
+ 407 0092 0F91      		pop r16
+ 408 0094 FF90      		pop r15
+ 409 0096 EF90      		pop r14
+ 410 0098 DF90      		pop r13
+ 411 009a CF90      		pop r12
+ 412 009c 0C94 0000 		jmp fputs
+ 413               	.L24:
+ 414 00a0 F701      		movw r30,r14
+ 415 00a2 2081      		ld r18,Z
+ 416 00a4 822F      		mov r24,r18
+ 417 00a6 90E0      		ldi r25,0
+ 418 00a8 FC01      		movw r30,r24
+ 419 00aa 3197      		sbiw r30,1
+ 420 00ac EB30      		cpi r30,11
+ 421 00ae F105      		cpc r31,__zero_reg__
+ 422 00b0 00F4      		brsh .L25
+ 423 00b2 BE01      		movw r22,r28
+ 424 00b4 8827      		clr r24
+ 425 00b6 E050      		subi r30,pm_lo8(-(.L27))
+ 426 00b8 F040      		sbci r31,pm_hi8(-(.L27))
+ 427 00ba 8040      		sbci r24,pm_hh8(-(.L27))
+ 428 00bc 0C94 0000 		jmp __tablejump2__
+ 429               		.section	.progmem.gcc_sw_table.NutDumpLcp,"a",@progbits
+ 430               		.p2align	1
+ 431               	.L27:
+ 432 0000 0000      		.word gs(.L26)
+ 433 0002 0000      		.word gs(.L28)
+GAS LISTING /tmp/ccV0Eu5S.s 			page 9
+
+
+ 434 0004 0000      		.word gs(.L29)
+ 435 0006 0000      		.word gs(.L30)
+ 436 0008 0000      		.word gs(.L31)
+ 437 000a 0000      		.word gs(.L32)
+ 438 000c 0000      		.word gs(.L33)
+ 439 000e 0000      		.word gs(.L34)
+ 440 0010 0000      		.word gs(.L35)
+ 441 0012 0000      		.word gs(.L36)
+ 442 0014 0000      		.word gs(.L37)
+ 443               		.section	.text.NutDumpLcp
+ 444               	.L26:
+ 445 00c0 80E0      		ldi r24,lo8(dbg_confreq)
+ 446 00c2 90E0      		ldi r25,hi8(dbg_confreq)
+ 447 00c4 00C0      		rjmp .L38
+ 448               	.L28:
+ 449 00c6 80E0      		ldi r24,lo8(dbg_confack)
+ 450 00c8 90E0      		ldi r25,hi8(dbg_confack)
+ 451               	.L38:
+ 452 00ca 0E94 0000 		call fputs_P
+ 453 00ce B801      		movw r22,r16
+ 454 00d0 CE01      		movw r24,r28
+ 455               	/* epilogue start */
+ 456 00d2 DF91      		pop r29
+ 457 00d4 CF91      		pop r28
+ 458 00d6 1F91      		pop r17
+ 459 00d8 0F91      		pop r16
+ 460 00da FF90      		pop r15
+ 461 00dc EF90      		pop r14
+ 462 00de DF90      		pop r13
+ 463 00e0 CF90      		pop r12
+ 464 00e2 0C94 0000 		jmp NutDumpLcpOption
+ 465               	.L29:
+ 466 00e6 80E0      		ldi r24,lo8(dbg_confnak)
+ 467 00e8 90E0      		ldi r25,hi8(dbg_confnak)
+ 468 00ea 00C0      		rjmp .L38
+ 469               	.L30:
+ 470 00ec 80E0      		ldi r24,lo8(dbg_confrej)
+ 471 00ee 90E0      		ldi r25,hi8(dbg_confrej)
+ 472 00f0 00C0      		rjmp .L38
+ 473               	.L31:
+ 474 00f2 80E0      		ldi r24,lo8(dbg_termreq)
+ 475 00f4 90E0      		ldi r25,hi8(dbg_termreq)
+ 476 00f6 00C0      		rjmp .L39
+ 477               	.L32:
+ 478 00f8 80E0      		ldi r24,lo8(dbg_termack)
+ 479 00fa 90E0      		ldi r25,hi8(dbg_termack)
+ 480 00fc 00C0      		rjmp .L39
+ 481               	.L33:
+ 482 00fe 80E0      		ldi r24,lo8(dbg_coderej)
+ 483 0100 90E0      		ldi r25,hi8(dbg_coderej)
+ 484 0102 00C0      		rjmp .L39
+ 485               	.L34:
+ 486 0104 80E0      		ldi r24,lo8(dbg_protrej)
+ 487 0106 90E0      		ldi r25,hi8(dbg_protrej)
+ 488 0108 00C0      		rjmp .L39
+ 489               	.L35:
+ 490 010a 80E0      		ldi r24,lo8(dbg_echoreq)
+GAS LISTING /tmp/ccV0Eu5S.s 			page 10
+
+
+ 491 010c 90E0      		ldi r25,hi8(dbg_echoreq)
+ 492 010e 00C0      		rjmp .L39
+ 493               	.L36:
+ 494 0110 80E0      		ldi r24,lo8(dbg_echorsp)
+ 495 0112 90E0      		ldi r25,hi8(dbg_echorsp)
+ 496 0114 00C0      		rjmp .L39
+ 497               	.L37:
+ 498 0116 80E0      		ldi r24,lo8(dbg_discreq)
+ 499 0118 90E0      		ldi r25,hi8(dbg_discreq)
+ 500               	.L39:
+ 501               	/* epilogue start */
+ 502 011a DF91      		pop r29
+ 503 011c CF91      		pop r28
+ 504 011e 1F91      		pop r17
+ 505 0120 0F91      		pop r16
+ 506 0122 FF90      		pop r15
+ 507 0124 EF90      		pop r14
+ 508 0126 DF90      		pop r13
+ 509 0128 CF90      		pop r12
+ 510 012a 0C94 0000 		jmp fputs_P
+ 511               	.L25:
+ 512 012e 1F92      		push __zero_reg__
+ 513 0130 2F93      		push r18
+ 514 0132 80E0      		ldi r24,lo8(.LC10)
+ 515 0134 90E0      		ldi r25,hi8(.LC10)
+ 516 0136 9F93      		push r25
+ 517 0138 8F93      		push r24
+ 518 013a DF93      		push r29
+ 519 013c CF93      		push r28
+ 520 013e 0E94 0000 		call fprintf
+ 521 0142 0F90      		pop __tmp_reg__
+ 522 0144 0F90      		pop __tmp_reg__
+ 523 0146 0F90      		pop __tmp_reg__
+ 524 0148 0F90      		pop __tmp_reg__
+ 525 014a 0F90      		pop __tmp_reg__
+ 526 014c 0F90      		pop __tmp_reg__
+ 527               	/* epilogue start */
+ 528 014e DF91      		pop r29
+ 529 0150 CF91      		pop r28
+ 530 0152 1F91      		pop r17
+ 531 0154 0F91      		pop r16
+ 532 0156 FF90      		pop r15
+ 533 0158 EF90      		pop r14
+ 534 015a DF90      		pop r13
+ 535 015c CF90      		pop r12
+ 536 015e 0895      		ret
+ 537               		.size	NutDumpLcp, .-NutDumpLcp
+ 538               		.section	.text.NutDumpPapOption,"ax",@progbits
+ 539               	.global	NutDumpPapOption
+ 540               		.type	NutDumpPapOption, @function
+ 541               	NutDumpPapOption:
+ 542 0000 DF92      		push r13
+ 543 0002 EF92      		push r14
+ 544 0004 FF92      		push r15
+ 545 0006 0F93      		push r16
+ 546 0008 1F93      		push r17
+ 547 000a CF93      		push r28
+GAS LISTING /tmp/ccV0Eu5S.s 			page 11
+
+
+ 548 000c DF93      		push r29
+ 549               	/* prologue: function */
+ 550               	/* frame size = 0 */
+ 551               	/* stack size = 7 */
+ 552               	.L__stack_usage = 7
+ 553 000e F82E      		mov r15,r24
+ 554 0010 E92E      		mov r14,r25
+ 555 0012 FB01      		movw r30,r22
+ 556 0014 C189      		ldd r28,Z+17
+ 557 0016 D289      		ldd r29,Z+18
+ 558 0018 2097      		sbiw r28,0
+ 559 001a 01F0      		breq .L41
+ 560 001c 0785      		ldd r16,Z+15
+ 561 001e 1089      		ldd r17,Z+16
+ 562 0020 00C0      		rjmp .L42
+ 563               	.L41:
+ 564 0022 0091 0000 		lds r16,ppp_header_sz
+ 565 0026 10E0      		ldi r17,0
+ 566 0028 C581      		ldd r28,Z+5
+ 567 002a D681      		ldd r29,Z+6
+ 568 002c C01B      		sub r28,r16
+ 569 002e D10B      		sbc r29,r17
+ 570 0030 2497      		sbiw r28,4
+ 571 0032 0C5F      		subi r16,-4
+ 572 0034 1F4F      		sbci r17,-1
+ 573 0036 8381      		ldd r24,Z+3
+ 574 0038 9481      		ldd r25,Z+4
+ 575 003a 080F      		add r16,r24
+ 576 003c 191F      		adc r17,r25
+ 577               	.L42:
+ 578 003e DF93      		push r29
+ 579 0040 CF93      		push r28
+ 580 0042 80E0      		ldi r24,lo8(.LC0)
+ 581 0044 90E0      		ldi r25,hi8(.LC0)
+ 582 0046 9F93      		push r25
+ 583 0048 8F93      		push r24
+ 584 004a EF92      		push r14
+ 585 004c FF92      		push r15
+ 586 004e 0E94 0000 		call fprintf
+ 587 0052 0F90      		pop __tmp_reg__
+ 588 0054 0F90      		pop __tmp_reg__
+ 589 0056 0F90      		pop __tmp_reg__
+ 590 0058 0F90      		pop __tmp_reg__
+ 591 005a 0F90      		pop __tmp_reg__
+ 592 005c 0F90      		pop __tmp_reg__
+ 593               	.L43:
+ 594 005e 2097      		sbiw r28,0
+ 595 0060 01F4      		brne .+2
+ 596 0062 00C0      		rjmp .L52
+ 597 0064 F801      		movw r30,r16
+ 598 0066 8081      		ld r24,Z
+ 599 0068 8823      		tst r24
+ 600 006a 01F0      		breq .L44
+ 601 006c 6F2D      		mov r22,r15
+ 602 006e 7E2D      		mov r23,r14
+ 603 0070 8BE5      		ldi r24,lo8(91)
+ 604 0072 90E0      		ldi r25,0
+GAS LISTING /tmp/ccV0Eu5S.s 			page 12
+
+
+ 605 0074 0E94 0000 		call fputc
+ 606 0078 DD24      		clr r13
+ 607 007a D394      		inc r13
+ 608               	.L45:
+ 609 007c 8D2D      		mov r24,r13
+ 610 007e 90E0      		ldi r25,0
+ 611 0080 F801      		movw r30,r16
+ 612 0082 2081      		ld r18,Z
+ 613 0084 022E      		mov __tmp_reg__,r18
+ 614 0086 000C      		lsl r0
+ 615 0088 330B      		sbc r19,r19
+ 616 008a 2817      		cp r18,r24
+ 617 008c 3907      		cpc r19,r25
+ 618 008e 04F0      		brlt .L53
+ 619 0090 F801      		movw r30,r16
+ 620 0092 E80F      		add r30,r24
+ 621 0094 F91F      		adc r31,r25
+ 622 0096 8081      		ld r24,Z
+ 623 0098 6F2D      		mov r22,r15
+ 624 009a 7E2D      		mov r23,r14
+ 625 009c 082E      		mov __tmp_reg__,r24
+ 626 009e 000C      		lsl r0
+ 627 00a0 990B      		sbc r25,r25
+ 628 00a2 0E94 0000 		call fputc
+ 629 00a6 D394      		inc r13
+ 630 00a8 00C0      		rjmp .L45
+ 631               	.L53:
+ 632 00aa 6F2D      		mov r22,r15
+ 633 00ac 7E2D      		mov r23,r14
+ 634 00ae 8DE5      		ldi r24,lo8(93)
+ 635 00b0 90E0      		ldi r25,0
+ 636 00b2 0E94 0000 		call fputc
+ 637               	.L44:
+ 638 00b6 F801      		movw r30,r16
+ 639 00b8 8081      		ld r24,Z
+ 640 00ba 082E      		mov __tmp_reg__,r24
+ 641 00bc 000C      		lsl r0
+ 642 00be 990B      		sbc r25,r25
+ 643 00c0 9C01      		movw r18,r24
+ 644 00c2 2F5F      		subi r18,-1
+ 645 00c4 3F4F      		sbci r19,-1
+ 646 00c6 C217      		cp r28,r18
+ 647 00c8 D307      		cpc r29,r19
+ 648 00ca 00F4      		brsh .L47
+ 649 00cc 6F2D      		mov r22,r15
+ 650 00ce 7E2D      		mov r23,r14
+ 651 00d0 80E0      		ldi r24,lo8(.LC8)
+ 652 00d2 90E0      		ldi r25,hi8(.LC8)
+ 653               	/* epilogue start */
+ 654 00d4 DF91      		pop r29
+ 655 00d6 CF91      		pop r28
+ 656 00d8 1F91      		pop r17
+ 657 00da 0F91      		pop r16
+ 658 00dc FF90      		pop r15
+ 659 00de EF90      		pop r14
+ 660 00e0 DF90      		pop r13
+ 661 00e2 0C94 0000 		jmp fputs
+GAS LISTING /tmp/ccV0Eu5S.s 			page 13
+
+
+ 662               	.L47:
+ 663 00e6 C81B      		sub r28,r24
+ 664 00e8 D90B      		sbc r29,r25
+ 665 00ea 2197      		sbiw r28,1
+ 666 00ec 020F      		add r16,r18
+ 667 00ee 131F      		adc r17,r19
+ 668 00f0 00C0      		rjmp .L43
+ 669               	.L52:
+ 670               	/* epilogue start */
+ 671 00f2 DF91      		pop r29
+ 672 00f4 CF91      		pop r28
+ 673 00f6 1F91      		pop r17
+ 674 00f8 0F91      		pop r16
+ 675 00fa FF90      		pop r15
+ 676 00fc EF90      		pop r14
+ 677 00fe DF90      		pop r13
+ 678 0100 0895      		ret
+ 679               		.size	NutDumpPapOption, .-NutDumpPapOption
+ 680               		.section	.rodata.str1.1
+ 681               	.LC11:
+ 682 0079 5B50 4150 		.string	"[PAP-%03u(%u)]"
+ 682      2D25 3033 
+ 682      7528 2575 
+ 682      295D 00
+ 683               		.section	.text.NutDumpPap,"ax",@progbits
+ 684               	.global	NutDumpPap
+ 685               		.type	NutDumpPap, @function
+ 686               	NutDumpPap:
+ 687 0000 CF92      		push r12
+ 688 0002 DF92      		push r13
+ 689 0004 EF92      		push r14
+ 690 0006 FF92      		push r15
+ 691 0008 0F93      		push r16
+ 692 000a 1F93      		push r17
+ 693 000c CF93      		push r28
+ 694 000e DF93      		push r29
+ 695               	/* prologue: function */
+ 696               	/* frame size = 0 */
+ 697               	/* stack size = 8 */
+ 698               	.L__stack_usage = 8
+ 699 0010 182F      		mov r17,r24
+ 700 0012 092F      		mov r16,r25
+ 701 0014 7B01      		movw r14,r22
+ 702 0016 FB01      		movw r30,r22
+ 703 0018 C184      		ldd r12,Z+9
+ 704 001a D284      		ldd r13,Z+10
+ 705 001c C114      		cp r12,__zero_reg__
+ 706 001e D104      		cpc r13,__zero_reg__
+ 707 0020 01F0      		breq .L55
+ 708 0022 C781      		ldd r28,Z+7
+ 709 0024 D085      		ldd r29,Z+8
+ 710 0026 00C0      		rjmp .L56
+ 711               	.L55:
+ 712 0028 C091 0000 		lds r28,ppp_header_sz
+ 713 002c 8C2F      		mov r24,r28
+ 714 002e 90E0      		ldi r25,0
+ 715 0030 FB01      		movw r30,r22
+GAS LISTING /tmp/ccV0Eu5S.s 			page 14
+
+
+ 716 0032 C580      		ldd r12,Z+5
+ 717 0034 D680      		ldd r13,Z+6
+ 718 0036 C81A      		sub r12,r24
+ 719 0038 D90A      		sbc r13,r25
+ 720 003a C381      		ldd r28,Z+3
+ 721 003c D481      		ldd r29,Z+4
+ 722 003e C80F      		add r28,r24
+ 723 0040 D91F      		adc r29,r25
+ 724               	.L56:
+ 725 0042 8A81      		ldd r24,Y+2
+ 726 0044 9B81      		ldd r25,Y+3
+ 727 0046 0E94 0000 		call __byte_swap2
+ 728 004a 9F93      		push r25
+ 729 004c 8F93      		push r24
+ 730 004e 8981      		ldd r24,Y+1
+ 731 0050 1F92      		push __zero_reg__
+ 732 0052 8F93      		push r24
+ 733 0054 80E0      		ldi r24,lo8(.LC11)
+ 734 0056 90E0      		ldi r25,hi8(.LC11)
+ 735 0058 9F93      		push r25
+ 736 005a 8F93      		push r24
+ 737 005c 0F93      		push r16
+ 738 005e 1F93      		push r17
+ 739 0060 0E94 0000 		call fprintf
+ 740 0064 8DB7      		in r24,__SP_L__
+ 741 0066 9EB7      		in r25,__SP_H__
+ 742 0068 0896      		adiw r24,8
+ 743 006a 0FB6      		in __tmp_reg__,__SREG__
+ 744 006c F894      		cli
+ 745 006e 9EBF      		out __SP_H__,r25
+ 746 0070 0FBE      		out __SREG__,__tmp_reg__
+ 747 0072 8DBF      		out __SP_L__,r24
+ 748 0074 94E0      		ldi r25,4
+ 749 0076 C916      		cp r12,r25
+ 750 0078 D104      		cpc r13,__zero_reg__
+ 751 007a 00F4      		brsh .L57
+ 752 007c 612F      		mov r22,r17
+ 753 007e 702F      		mov r23,r16
+ 754 0080 80E0      		ldi r24,lo8(.LC8)
+ 755 0082 90E0      		ldi r25,hi8(.LC8)
+ 756               	/* epilogue start */
+ 757 0084 DF91      		pop r29
+ 758 0086 CF91      		pop r28
+ 759 0088 1F91      		pop r17
+ 760 008a 0F91      		pop r16
+ 761 008c FF90      		pop r15
+ 762 008e EF90      		pop r14
+ 763 0090 DF90      		pop r13
+ 764 0092 CF90      		pop r12
+ 765 0094 0C94 0000 		jmp fputs
+ 766               	.L57:
+ 767 0098 8881      		ld r24,Y
+ 768 009a 8230      		cpi r24,lo8(2)
+ 769 009c 01F0      		breq .L59
+ 770 009e 8330      		cpi r24,lo8(3)
+ 771 00a0 01F0      		breq .L60
+ 772 00a2 8130      		cpi r24,lo8(1)
+GAS LISTING /tmp/ccV0Eu5S.s 			page 15
+
+
+ 773 00a4 01F4      		brne .L62
+ 774 00a6 612F      		mov r22,r17
+ 775 00a8 702F      		mov r23,r16
+ 776 00aa 80E0      		ldi r24,lo8(dbg_confreq)
+ 777 00ac 90E0      		ldi r25,hi8(dbg_confreq)
+ 778 00ae 0E94 0000 		call fputs_P
+ 779 00b2 B701      		movw r22,r14
+ 780 00b4 812F      		mov r24,r17
+ 781 00b6 902F      		mov r25,r16
+ 782               	/* epilogue start */
+ 783 00b8 DF91      		pop r29
+ 784 00ba CF91      		pop r28
+ 785 00bc 1F91      		pop r17
+ 786 00be 0F91      		pop r16
+ 787 00c0 FF90      		pop r15
+ 788 00c2 EF90      		pop r14
+ 789 00c4 DF90      		pop r13
+ 790 00c6 CF90      		pop r12
+ 791 00c8 0C94 0000 		jmp NutDumpPapOption
+ 792               	.L59:
+ 793 00cc 612F      		mov r22,r17
+ 794 00ce 702F      		mov r23,r16
+ 795 00d0 80E0      		ldi r24,lo8(dbg_confack)
+ 796 00d2 90E0      		ldi r25,hi8(dbg_confack)
+ 797 00d4 00C0      		rjmp .L63
+ 798               	.L60:
+ 799 00d6 612F      		mov r22,r17
+ 800 00d8 702F      		mov r23,r16
+ 801 00da 80E0      		ldi r24,lo8(dbg_confnak)
+ 802 00dc 90E0      		ldi r25,hi8(dbg_confnak)
+ 803               	.L63:
+ 804               	/* epilogue start */
+ 805 00de DF91      		pop r29
+ 806 00e0 CF91      		pop r28
+ 807 00e2 1F91      		pop r17
+ 808 00e4 0F91      		pop r16
+ 809 00e6 FF90      		pop r15
+ 810 00e8 EF90      		pop r14
+ 811 00ea DF90      		pop r13
+ 812 00ec CF90      		pop r12
+ 813 00ee 0C94 0000 		jmp fputs_P
+ 814               	.L62:
+ 815 00f2 1F92      		push __zero_reg__
+ 816 00f4 8F93      		push r24
+ 817 00f6 80E0      		ldi r24,lo8(.LC10)
+ 818 00f8 90E0      		ldi r25,hi8(.LC10)
+ 819 00fa 9F93      		push r25
+ 820 00fc 8F93      		push r24
+ 821 00fe 0F93      		push r16
+ 822 0100 1F93      		push r17
+ 823 0102 0E94 0000 		call fprintf
+ 824 0106 0F90      		pop __tmp_reg__
+ 825 0108 0F90      		pop __tmp_reg__
+ 826 010a 0F90      		pop __tmp_reg__
+ 827 010c 0F90      		pop __tmp_reg__
+ 828 010e 0F90      		pop __tmp_reg__
+ 829 0110 0F90      		pop __tmp_reg__
+GAS LISTING /tmp/ccV0Eu5S.s 			page 16
+
+
+ 830               	/* epilogue start */
+ 831 0112 DF91      		pop r29
+ 832 0114 CF91      		pop r28
+ 833 0116 1F91      		pop r17
+ 834 0118 0F91      		pop r16
+ 835 011a FF90      		pop r15
+ 836 011c EF90      		pop r14
+ 837 011e DF90      		pop r13
+ 838 0120 CF90      		pop r12
+ 839 0122 0895      		ret
+ 840               		.size	NutDumpPap, .-NutDumpPap
+ 841               		.section	.rodata.str1.1
+ 842               	.LC12:
+ 843 0088 5B41 4444 		.string	"[ADDR=%s]"
+ 843      523D 2573 
+ 843      5D00 
+ 844               	.LC13:
+ 845 0092 5B43 4F4D 		.string	"[COMP]"
+ 845      505D 00
+ 846               	.LC14:
+ 847 0099 5B44 4E53 		.string	"[DNS1=%s]"
+ 847      313D 2573 
+ 847      5D00 
+ 848               	.LC15:
+ 849 00a3 5B44 4E53 		.string	"[DNS2=%s]"
+ 849      323D 2573 
+ 849      5D00 
+ 850               		.section	.text.NutDumpIpcpOption,"ax",@progbits
+ 851               	.global	NutDumpIpcpOption
+ 852               		.type	NutDumpIpcpOption, @function
+ 853               	NutDumpIpcpOption:
+ 854 0000 6F92      		push r6
+ 855 0002 7F92      		push r7
+ 856 0004 8F92      		push r8
+ 857 0006 9F92      		push r9
+ 858 0008 AF92      		push r10
+ 859 000a BF92      		push r11
+ 860 000c CF92      		push r12
+ 861 000e DF92      		push r13
+ 862 0010 EF92      		push r14
+ 863 0012 FF92      		push r15
+ 864 0014 0F93      		push r16
+ 865 0016 1F93      		push r17
+ 866 0018 CF93      		push r28
+ 867 001a DF93      		push r29
+ 868               	/* prologue: function */
+ 869               	/* frame size = 0 */
+ 870               	/* stack size = 14 */
+ 871               	.L__stack_usage = 14
+ 872 001c 782E      		mov r7,r24
+ 873 001e 692E      		mov r6,r25
+ 874 0020 FB01      		movw r30,r22
+ 875 0022 0189      		ldd r16,Z+17
+ 876 0024 1289      		ldd r17,Z+18
+ 877 0026 0115      		cp r16,__zero_reg__
+ 878 0028 1105      		cpc r17,__zero_reg__
+ 879 002a 01F0      		breq .L65
+GAS LISTING /tmp/ccV0Eu5S.s 			page 17
+
+
+ 880 002c C785      		ldd r28,Z+15
+ 881 002e D089      		ldd r29,Z+16
+ 882 0030 00C0      		rjmp .L66
+ 883               	.L65:
+ 884 0032 8581      		ldd r24,Z+5
+ 885 0034 9681      		ldd r25,Z+6
+ 886 0036 2091 0000 		lds r18,ppp_header_sz
+ 887 003a 30E0      		ldi r19,0
+ 888 003c A901      		movw r20,r18
+ 889 003e 4C5F      		subi r20,-4
+ 890 0040 5F4F      		sbci r21,-1
+ 891 0042 4817      		cp r20,r24
+ 892 0044 5907      		cpc r21,r25
+ 893 0046 00F4      		brsh .L77
+ 894 0048 8C01      		movw r16,r24
+ 895 004a 021B      		sub r16,r18
+ 896 004c 130B      		sbc r17,r19
+ 897 004e 0450      		subi r16,4
+ 898 0050 1109      		sbc r17,__zero_reg__
+ 899 0052 C381      		ldd r28,Z+3
+ 900 0054 D481      		ldd r29,Z+4
+ 901 0056 C40F      		add r28,r20
+ 902 0058 D51F      		adc r29,r21
+ 903 005a 00C0      		rjmp .L66
+ 904               	.L77:
+ 905 005c C0E0      		ldi r28,0
+ 906 005e D0E0      		ldi r29,0
+ 907               	.L66:
+ 908 0060 1F93      		push r17
+ 909 0062 0F93      		push r16
+ 910 0064 80E0      		ldi r24,lo8(.LC0)
+ 911 0066 90E0      		ldi r25,hi8(.LC0)
+ 912 0068 9F93      		push r25
+ 913 006a 8F93      		push r24
+ 914 006c 6F92      		push r6
+ 915 006e 7F92      		push r7
+ 916 0070 0E94 0000 		call fprintf
+ 917 0074 0F90      		pop __tmp_reg__
+ 918 0076 0F90      		pop __tmp_reg__
+ 919 0078 0F90      		pop __tmp_reg__
+ 920 007a 0F90      		pop __tmp_reg__
+ 921 007c 0F90      		pop __tmp_reg__
+ 922 007e 0F90      		pop __tmp_reg__
+ 923 0080 80E0      		ldi r24,lo8(.LC12)
+ 924 0082 E82E      		mov r14,r24
+ 925 0084 80E0      		ldi r24,hi8(.LC12)
+ 926 0086 F82E      		mov r15,r24
+ 927 0088 90E0      		ldi r25,lo8(.LC7)
+ 928 008a C92E      		mov r12,r25
+ 929 008c 90E0      		ldi r25,hi8(.LC7)
+ 930 008e D92E      		mov r13,r25
+ 931 0090 20E0      		ldi r18,lo8(.LC14)
+ 932 0092 A22E      		mov r10,r18
+ 933 0094 20E0      		ldi r18,hi8(.LC14)
+ 934 0096 B22E      		mov r11,r18
+ 935 0098 30E0      		ldi r19,lo8(.LC15)
+ 936 009a 832E      		mov r8,r19
+GAS LISTING /tmp/ccV0Eu5S.s 			page 18
+
+
+ 937 009c 30E0      		ldi r19,hi8(.LC15)
+ 938 009e 932E      		mov r9,r19
+ 939               	.L67:
+ 940 00a0 0115      		cp r16,__zero_reg__
+ 941 00a2 1105      		cpc r17,__zero_reg__
+ 942 00a4 01F4      		brne .+2
+ 943 00a6 00C0      		rjmp .L79
+ 944 00a8 8881      		ld r24,Y
+ 945 00aa 8330      		cpi r24,lo8(3)
+ 946 00ac 01F0      		breq .L69
+ 947 00ae 00F4      		brsh .L70
+ 948 00b0 8230      		cpi r24,lo8(2)
+ 949 00b2 01F4      		brne .L68
+ 950 00b4 672D      		mov r22,r7
+ 951 00b6 762D      		mov r23,r6
+ 952 00b8 80E0      		ldi r24,lo8(.LC13)
+ 953 00ba 90E0      		ldi r25,hi8(.LC13)
+ 954 00bc 0E94 0000 		call fputs
+ 955 00c0 00C0      		rjmp .L74
+ 956               	.L70:
+ 957 00c2 8138      		cpi r24,lo8(-127)
+ 958 00c4 01F0      		breq .L72
+ 959 00c6 8338      		cpi r24,lo8(-125)
+ 960 00c8 01F4      		brne .L68
+ 961 00ca 6A81      		ldd r22,Y+2
+ 962 00cc 7B81      		ldd r23,Y+3
+ 963 00ce 8C81      		ldd r24,Y+4
+ 964 00d0 9D81      		ldd r25,Y+5
+ 965 00d2 0E94 0000 		call inet_ntoa
+ 966 00d6 9F93      		push r25
+ 967 00d8 8F93      		push r24
+ 968 00da 9F92      		push r9
+ 969 00dc 8F92      		push r8
+ 970 00de 00C0      		rjmp .L78
+ 971               	.L69:
+ 972 00e0 6A81      		ldd r22,Y+2
+ 973 00e2 7B81      		ldd r23,Y+3
+ 974 00e4 8C81      		ldd r24,Y+4
+ 975 00e6 9D81      		ldd r25,Y+5
+ 976 00e8 0E94 0000 		call inet_ntoa
+ 977 00ec 9F93      		push r25
+ 978 00ee 8F93      		push r24
+ 979 00f0 FF92      		push r15
+ 980 00f2 EF92      		push r14
+ 981 00f4 00C0      		rjmp .L78
+ 982               	.L72:
+ 983 00f6 6A81      		ldd r22,Y+2
+ 984 00f8 7B81      		ldd r23,Y+3
+ 985 00fa 8C81      		ldd r24,Y+4
+ 986 00fc 9D81      		ldd r25,Y+5
+ 987 00fe 0E94 0000 		call inet_ntoa
+ 988 0102 9F93      		push r25
+ 989 0104 8F93      		push r24
+ 990 0106 BF92      		push r11
+ 991 0108 AF92      		push r10
+ 992 010a 00C0      		rjmp .L78
+ 993               	.L68:
+GAS LISTING /tmp/ccV0Eu5S.s 			page 19
+
+
+ 994 010c 1F92      		push __zero_reg__
+ 995 010e 8F93      		push r24
+ 996 0110 DF92      		push r13
+ 997 0112 CF92      		push r12
+ 998               	.L78:
+ 999 0114 6F92      		push r6
+ 1000 0116 7F92      		push r7
+ 1001 0118 0E94 0000 		call fprintf
+ 1002 011c 0F90      		pop __tmp_reg__
+ 1003 011e 0F90      		pop __tmp_reg__
+ 1004 0120 0F90      		pop __tmp_reg__
+ 1005 0122 0F90      		pop __tmp_reg__
+ 1006 0124 0F90      		pop __tmp_reg__
+ 1007 0126 0F90      		pop __tmp_reg__
+ 1008               	.L74:
+ 1009 0128 8981      		ldd r24,Y+1
+ 1010 012a 90E0      		ldi r25,0
+ 1011 012c 0817      		cp r16,r24
+ 1012 012e 1907      		cpc r17,r25
+ 1013 0130 00F4      		brsh .L75
+ 1014 0132 672D      		mov r22,r7
+ 1015 0134 762D      		mov r23,r6
+ 1016 0136 80E0      		ldi r24,lo8(.LC8)
+ 1017 0138 90E0      		ldi r25,hi8(.LC8)
+ 1018               	/* epilogue start */
+ 1019 013a DF91      		pop r29
+ 1020 013c CF91      		pop r28
+ 1021 013e 1F91      		pop r17
+ 1022 0140 0F91      		pop r16
+ 1023 0142 FF90      		pop r15
+ 1024 0144 EF90      		pop r14
+ 1025 0146 DF90      		pop r13
+ 1026 0148 CF90      		pop r12
+ 1027 014a BF90      		pop r11
+ 1028 014c AF90      		pop r10
+ 1029 014e 9F90      		pop r9
+ 1030 0150 8F90      		pop r8
+ 1031 0152 7F90      		pop r7
+ 1032 0154 6F90      		pop r6
+ 1033 0156 0C94 0000 		jmp fputs
+ 1034               	.L75:
+ 1035 015a 081B      		sub r16,r24
+ 1036 015c 190B      		sbc r17,r25
+ 1037 015e C80F      		add r28,r24
+ 1038 0160 D91F      		adc r29,r25
+ 1039 0162 00C0      		rjmp .L67
+ 1040               	.L79:
+ 1041               	/* epilogue start */
+ 1042 0164 DF91      		pop r29
+ 1043 0166 CF91      		pop r28
+ 1044 0168 1F91      		pop r17
+ 1045 016a 0F91      		pop r16
+ 1046 016c FF90      		pop r15
+ 1047 016e EF90      		pop r14
+ 1048 0170 DF90      		pop r13
+ 1049 0172 CF90      		pop r12
+ 1050 0174 BF90      		pop r11
+GAS LISTING /tmp/ccV0Eu5S.s 			page 20
+
+
+ 1051 0176 AF90      		pop r10
+ 1052 0178 9F90      		pop r9
+ 1053 017a 8F90      		pop r8
+ 1054 017c 7F90      		pop r7
+ 1055 017e 6F90      		pop r6
+ 1056 0180 0895      		ret
+ 1057               		.size	NutDumpIpcpOption, .-NutDumpIpcpOption
+ 1058               		.section	.rodata.str1.1
+ 1059               	.LC16:
+ 1060 00ad 5B49 5043 		.string	"[IPCP-%03u(%u)]"
+ 1060      502D 2530 
+ 1060      3375 2825 
+ 1060      7529 5D00 
+ 1061               		.section	.text.NutDumpIpcp,"ax",@progbits
+ 1062               	.global	NutDumpIpcp
+ 1063               		.type	NutDumpIpcp, @function
+ 1064               	NutDumpIpcp:
+ 1065 0000 CF92      		push r12
+ 1066 0002 DF92      		push r13
+ 1067 0004 EF92      		push r14
+ 1068 0006 FF92      		push r15
+ 1069 0008 0F93      		push r16
+ 1070 000a 1F93      		push r17
+ 1071 000c CF93      		push r28
+ 1072 000e DF93      		push r29
+ 1073               	/* prologue: function */
+ 1074               	/* frame size = 0 */
+ 1075               	/* stack size = 8 */
+ 1076               	.L__stack_usage = 8
+ 1077 0010 EC01      		movw r28,r24
+ 1078 0012 7B01      		movw r14,r22
+ 1079 0014 FB01      		movw r30,r22
+ 1080 0016 C184      		ldd r12,Z+9
+ 1081 0018 D284      		ldd r13,Z+10
+ 1082 001a C114      		cp r12,__zero_reg__
+ 1083 001c D104      		cpc r13,__zero_reg__
+ 1084 001e 01F0      		breq .L81
+ 1085 0020 0781      		ldd r16,Z+7
+ 1086 0022 1085      		ldd r17,Z+8
+ 1087 0024 00C0      		rjmp .L82
+ 1088               	.L81:
+ 1089 0026 0091 0000 		lds r16,ppp_header_sz
+ 1090 002a 802F      		mov r24,r16
+ 1091 002c 90E0      		ldi r25,0
+ 1092 002e FB01      		movw r30,r22
+ 1093 0030 C580      		ldd r12,Z+5
+ 1094 0032 D680      		ldd r13,Z+6
+ 1095 0034 C81A      		sub r12,r24
+ 1096 0036 D90A      		sbc r13,r25
+ 1097 0038 0381      		ldd r16,Z+3
+ 1098 003a 1481      		ldd r17,Z+4
+ 1099 003c 080F      		add r16,r24
+ 1100 003e 191F      		adc r17,r25
+ 1101               	.L82:
+ 1102 0040 F801      		movw r30,r16
+ 1103 0042 8281      		ldd r24,Z+2
+ 1104 0044 9381      		ldd r25,Z+3
+GAS LISTING /tmp/ccV0Eu5S.s 			page 21
+
+
+ 1105 0046 0E94 0000 		call __byte_swap2
+ 1106 004a 9F93      		push r25
+ 1107 004c 8F93      		push r24
+ 1108 004e F801      		movw r30,r16
+ 1109 0050 8181      		ldd r24,Z+1
+ 1110 0052 1F92      		push __zero_reg__
+ 1111 0054 8F93      		push r24
+ 1112 0056 80E0      		ldi r24,lo8(.LC16)
+ 1113 0058 90E0      		ldi r25,hi8(.LC16)
+ 1114 005a 9F93      		push r25
+ 1115 005c 8F93      		push r24
+ 1116 005e DF93      		push r29
+ 1117 0060 CF93      		push r28
+ 1118 0062 0E94 0000 		call fprintf
+ 1119 0066 8DB7      		in r24,__SP_L__
+ 1120 0068 9EB7      		in r25,__SP_H__
+ 1121 006a 0896      		adiw r24,8
+ 1122 006c 0FB6      		in __tmp_reg__,__SREG__
+ 1123 006e F894      		cli
+ 1124 0070 9EBF      		out __SP_H__,r25
+ 1125 0072 0FBE      		out __SREG__,__tmp_reg__
+ 1126 0074 8DBF      		out __SP_L__,r24
+ 1127 0076 94E0      		ldi r25,4
+ 1128 0078 C916      		cp r12,r25
+ 1129 007a D104      		cpc r13,__zero_reg__
+ 1130 007c 00F4      		brsh .L83
+ 1131 007e BE01      		movw r22,r28
+ 1132 0080 80E0      		ldi r24,lo8(.LC8)
+ 1133 0082 90E0      		ldi r25,hi8(.LC8)
+ 1134               	/* epilogue start */
+ 1135 0084 DF91      		pop r29
+ 1136 0086 CF91      		pop r28
+ 1137 0088 1F91      		pop r17
+ 1138 008a 0F91      		pop r16
+ 1139 008c FF90      		pop r15
+ 1140 008e EF90      		pop r14
+ 1141 0090 DF90      		pop r13
+ 1142 0092 CF90      		pop r12
+ 1143 0094 0C94 0000 		jmp fputs
+ 1144               	.L83:
+ 1145 0098 F801      		movw r30,r16
+ 1146 009a 2081      		ld r18,Z
+ 1147 009c 822F      		mov r24,r18
+ 1148 009e 90E0      		ldi r25,0
+ 1149 00a0 FC01      		movw r30,r24
+ 1150 00a2 3197      		sbiw r30,1
+ 1151 00a4 E730      		cpi r30,7
+ 1152 00a6 F105      		cpc r31,__zero_reg__
+ 1153 00a8 00F4      		brsh .L84
+ 1154 00aa BE01      		movw r22,r28
+ 1155 00ac 8827      		clr r24
+ 1156 00ae E050      		subi r30,pm_lo8(-(.L86))
+ 1157 00b0 F040      		sbci r31,pm_hi8(-(.L86))
+ 1158 00b2 8040      		sbci r24,pm_hh8(-(.L86))
+ 1159 00b4 0C94 0000 		jmp __tablejump2__
+ 1160               		.section	.progmem.gcc_sw_table.NutDumpIpcp,"a",@progbits
+ 1161               		.p2align	1
+GAS LISTING /tmp/ccV0Eu5S.s 			page 22
+
+
+ 1162               	.L86:
+ 1163 0000 0000      		.word gs(.L85)
+ 1164 0002 0000      		.word gs(.L87)
+ 1165 0004 0000      		.word gs(.L88)
+ 1166 0006 0000      		.word gs(.L89)
+ 1167 0008 0000      		.word gs(.L90)
+ 1168 000a 0000      		.word gs(.L91)
+ 1169 000c 0000      		.word gs(.L92)
+ 1170               		.section	.text.NutDumpIpcp
+ 1171               	.L85:
+ 1172 00b8 80E0      		ldi r24,lo8(dbg_confreq)
+ 1173 00ba 90E0      		ldi r25,hi8(dbg_confreq)
+ 1174 00bc 00C0      		rjmp .L93
+ 1175               	.L87:
+ 1176 00be 80E0      		ldi r24,lo8(dbg_confack)
+ 1177 00c0 90E0      		ldi r25,hi8(dbg_confack)
+ 1178               	.L93:
+ 1179 00c2 0E94 0000 		call fputs_P
+ 1180 00c6 B701      		movw r22,r14
+ 1181 00c8 CE01      		movw r24,r28
+ 1182               	/* epilogue start */
+ 1183 00ca DF91      		pop r29
+ 1184 00cc CF91      		pop r28
+ 1185 00ce 1F91      		pop r17
+ 1186 00d0 0F91      		pop r16
+ 1187 00d2 FF90      		pop r15
+ 1188 00d4 EF90      		pop r14
+ 1189 00d6 DF90      		pop r13
+ 1190 00d8 CF90      		pop r12
+ 1191 00da 0C94 0000 		jmp NutDumpIpcpOption
+ 1192               	.L88:
+ 1193 00de 80E0      		ldi r24,lo8(dbg_confnak)
+ 1194 00e0 90E0      		ldi r25,hi8(dbg_confnak)
+ 1195 00e2 00C0      		rjmp .L93
+ 1196               	.L89:
+ 1197 00e4 80E0      		ldi r24,lo8(dbg_confrej)
+ 1198 00e6 90E0      		ldi r25,hi8(dbg_confrej)
+ 1199 00e8 00C0      		rjmp .L93
+ 1200               	.L90:
+ 1201 00ea 80E0      		ldi r24,lo8(dbg_termreq)
+ 1202 00ec 90E0      		ldi r25,hi8(dbg_termreq)
+ 1203 00ee 00C0      		rjmp .L94
+ 1204               	.L91:
+ 1205 00f0 80E0      		ldi r24,lo8(dbg_termack)
+ 1206 00f2 90E0      		ldi r25,hi8(dbg_termack)
+ 1207 00f4 00C0      		rjmp .L94
+ 1208               	.L92:
+ 1209 00f6 80E0      		ldi r24,lo8(dbg_coderej)
+ 1210 00f8 90E0      		ldi r25,hi8(dbg_coderej)
+ 1211               	.L94:
+ 1212               	/* epilogue start */
+ 1213 00fa DF91      		pop r29
+ 1214 00fc CF91      		pop r28
+ 1215 00fe 1F91      		pop r17
+ 1216 0100 0F91      		pop r16
+ 1217 0102 FF90      		pop r15
+ 1218 0104 EF90      		pop r14
+GAS LISTING /tmp/ccV0Eu5S.s 			page 23
+
+
+ 1219 0106 DF90      		pop r13
+ 1220 0108 CF90      		pop r12
+ 1221 010a 0C94 0000 		jmp fputs_P
+ 1222               	.L84:
+ 1223 010e 1F92      		push __zero_reg__
+ 1224 0110 2F93      		push r18
+ 1225 0112 80E0      		ldi r24,lo8(.LC10)
+ 1226 0114 90E0      		ldi r25,hi8(.LC10)
+ 1227 0116 9F93      		push r25
+ 1228 0118 8F93      		push r24
+ 1229 011a DF93      		push r29
+ 1230 011c CF93      		push r28
+ 1231 011e 0E94 0000 		call fprintf
+ 1232 0122 0F90      		pop __tmp_reg__
+ 1233 0124 0F90      		pop __tmp_reg__
+ 1234 0126 0F90      		pop __tmp_reg__
+ 1235 0128 0F90      		pop __tmp_reg__
+ 1236 012a 0F90      		pop __tmp_reg__
+ 1237 012c 0F90      		pop __tmp_reg__
+ 1238               	/* epilogue start */
+ 1239 012e DF91      		pop r29
+ 1240 0130 CF91      		pop r28
+ 1241 0132 1F91      		pop r17
+ 1242 0134 0F91      		pop r16
+ 1243 0136 FF90      		pop r15
+ 1244 0138 EF90      		pop r14
+ 1245 013a DF90      		pop r13
+ 1246 013c CF90      		pop r12
+ 1247 013e 0895      		ret
+ 1248               		.size	NutDumpIpcp, .-NutDumpIpcp
+ 1249               		.section	.rodata.str1.1
+ 1250               	.LC17:
+ 1251 00bd 2825 7529 		.string	"(%u)"
+ 1251      00
+ 1252               	.LC18:
+ 1253 00c2 5B54 5950 		.string	"[TYPE 0x%04X?]"
+ 1253      4520 3078 
+ 1253      2530 3458 
+ 1253      3F5D 00
+ 1254               		.section	.text.NutDumpPpp,"ax",@progbits
+ 1255               	.global	NutDumpPpp
+ 1256               		.type	NutDumpPpp, @function
+ 1257               	NutDumpPpp:
+ 1258 0000 EF92      		push r14
+ 1259 0002 FF92      		push r15
+ 1260 0004 0F93      		push r16
+ 1261 0006 1F93      		push r17
+ 1262 0008 CF93      		push r28
+ 1263 000a DF93      		push r29
+ 1264               	/* prologue: function */
+ 1265               	/* frame size = 0 */
+ 1266               	/* stack size = 6 */
+ 1267               	.L__stack_usage = 6
+ 1268 000c F82E      		mov r15,r24
+ 1269 000e E92E      		mov r14,r25
+ 1270 0010 EB01      		movw r28,r22
+ 1271 0012 0B81      		ldd r16,Y+3
+GAS LISTING /tmp/ccV0Eu5S.s 			page 24
+
+
+ 1272 0014 1C81      		ldd r17,Y+4
+ 1273 0016 2D81      		ldd r18,Y+5
+ 1274 0018 3E81      		ldd r19,Y+6
+ 1275 001a 8985      		ldd r24,Y+9
+ 1276 001c 9A85      		ldd r25,Y+10
+ 1277 001e 820F      		add r24,r18
+ 1278 0020 931F      		adc r25,r19
+ 1279 0022 2D85      		ldd r18,Y+13
+ 1280 0024 3E85      		ldd r19,Y+14
+ 1281 0026 820F      		add r24,r18
+ 1282 0028 931F      		adc r25,r19
+ 1283 002a 2989      		ldd r18,Y+17
+ 1284 002c 3A89      		ldd r19,Y+18
+ 1285 002e 820F      		add r24,r18
+ 1286 0030 931F      		adc r25,r19
+ 1287 0032 9F93      		push r25
+ 1288 0034 8F93      		push r24
+ 1289 0036 80E0      		ldi r24,lo8(.LC17)
+ 1290 0038 90E0      		ldi r25,hi8(.LC17)
+ 1291 003a 9F93      		push r25
+ 1292 003c 8F93      		push r24
+ 1293 003e EF92      		push r14
+ 1294 0040 FF92      		push r15
+ 1295 0042 0E94 0000 		call fprintf
+ 1296 0046 0F90      		pop __tmp_reg__
+ 1297 0048 0F90      		pop __tmp_reg__
+ 1298 004a 0F90      		pop __tmp_reg__
+ 1299 004c 0F90      		pop __tmp_reg__
+ 1300 004e 0F90      		pop __tmp_reg__
+ 1301 0050 0F90      		pop __tmp_reg__
+ 1302 0052 F801      		movw r30,r16
+ 1303 0054 8081      		ld r24,Z
+ 1304 0056 8F3F      		cpi r24,lo8(-1)
+ 1305 0058 01F0      		breq .L96
+ 1306 005a EB81      		ldd r30,Y+3
+ 1307 005c FC81      		ldd r31,Y+4
+ 1308 005e 2081      		ld r18,Z
+ 1309 0060 20FF      		sbrs r18,0
+ 1310 0062 00C0      		rjmp .L97
+ 1311 0064 81E0      		ldi r24,lo8(1)
+ 1312 0066 8093 0000 		sts ppp_header_sz,r24
+ 1313 006a 822F      		mov r24,r18
+ 1314 006c 90E0      		ldi r25,0
+ 1315 006e 00C0      		rjmp .L98
+ 1316               	.L97:
+ 1317 0070 82E0      		ldi r24,lo8(2)
+ 1318 0072 8093 0000 		sts ppp_header_sz,r24
+ 1319 0076 022E      		mov __tmp_reg__,r18
+ 1320 0078 000C      		lsl r0
+ 1321 007a 330B      		sbc r19,r19
+ 1322 007c 322F      		mov r19,r18
+ 1323 007e 2227      		clr r18
+ 1324 0080 8181      		ldd r24,Z+1
+ 1325 0082 082E      		mov __tmp_reg__,r24
+ 1326 0084 000C      		lsl r0
+ 1327 0086 990B      		sbc r25,r25
+ 1328 0088 822B      		or r24,r18
+GAS LISTING /tmp/ccV0Eu5S.s 			page 25
+
+
+ 1329 008a 932B      		or r25,r19
+ 1330 008c 00C0      		rjmp .L109
+ 1331               	.L96:
+ 1332 008e 84E0      		ldi r24,lo8(4)
+ 1333 0090 8093 0000 		sts ppp_header_sz,r24
+ 1334 0094 F801      		movw r30,r16
+ 1335 0096 8281      		ldd r24,Z+2
+ 1336 0098 9381      		ldd r25,Z+3
+ 1337               	.L109:
+ 1338 009a 0E94 0000 		call __byte_swap2
+ 1339               	.L98:
+ 1340 009e 2091 0000 		lds r18,ppp_header_sz
+ 1341 00a2 30E0      		ldi r19,0
+ 1342 00a4 4D81      		ldd r20,Y+5
+ 1343 00a6 5E81      		ldd r21,Y+6
+ 1344 00a8 4217      		cp r20,r18
+ 1345 00aa 5307      		cpc r21,r19
+ 1346 00ac 04F4      		brge .L99
+ 1347 00ae 6F2D      		mov r22,r15
+ 1348 00b0 7E2D      		mov r23,r14
+ 1349 00b2 80E0      		ldi r24,lo8(.LC8)
+ 1350 00b4 90E0      		ldi r25,hi8(.LC8)
+ 1351               	/* epilogue start */
+ 1352 00b6 DF91      		pop r29
+ 1353 00b8 CF91      		pop r28
+ 1354 00ba 1F91      		pop r17
+ 1355 00bc 0F91      		pop r16
+ 1356 00be FF90      		pop r15
+ 1357 00c0 EF90      		pop r14
+ 1358 00c2 0C94 0000 		jmp fputs
+ 1359               	.L99:
+ 1360 00c6 8132      		cpi r24,33
+ 1361 00c8 F0E8      		ldi r31,-128
+ 1362 00ca 9F07      		cpc r25,r31
+ 1363 00cc 01F0      		breq .L101
+ 1364 00ce 00F4      		brsh .L102
+ 1365 00d0 8197      		sbiw r24,33
+ 1366 00d2 01F0      		breq .L95
+ 1367 00d4 00C0      		rjmp .L100
+ 1368               	.L102:
+ 1369 00d6 8132      		cpi r24,33
+ 1370 00d8 E0EC      		ldi r30,-64
+ 1371 00da 9E07      		cpc r25,r30
+ 1372 00dc 01F0      		breq .L104
+ 1373 00de 8332      		cpi r24,35
+ 1374 00e0 904C      		sbci r25,-64
+ 1375 00e2 01F4      		brne .L100
+ 1376 00e4 BE01      		movw r22,r28
+ 1377 00e6 8F2D      		mov r24,r15
+ 1378 00e8 9E2D      		mov r25,r14
+ 1379               	/* epilogue start */
+ 1380 00ea DF91      		pop r29
+ 1381 00ec CF91      		pop r28
+ 1382 00ee 1F91      		pop r17
+ 1383 00f0 0F91      		pop r16
+ 1384 00f2 FF90      		pop r15
+ 1385 00f4 EF90      		pop r14
+GAS LISTING /tmp/ccV0Eu5S.s 			page 26
+
+
+ 1386 00f6 0C94 0000 		jmp NutDumpPap
+ 1387               	.L104:
+ 1388 00fa BE01      		movw r22,r28
+ 1389 00fc 8F2D      		mov r24,r15
+ 1390 00fe 9E2D      		mov r25,r14
+ 1391               	/* epilogue start */
+ 1392 0100 DF91      		pop r29
+ 1393 0102 CF91      		pop r28
+ 1394 0104 1F91      		pop r17
+ 1395 0106 0F91      		pop r16
+ 1396 0108 FF90      		pop r15
+ 1397 010a EF90      		pop r14
+ 1398 010c 0C94 0000 		jmp NutDumpLcp
+ 1399               	.L101:
+ 1400 0110 BE01      		movw r22,r28
+ 1401 0112 8F2D      		mov r24,r15
+ 1402 0114 9E2D      		mov r25,r14
+ 1403               	/* epilogue start */
+ 1404 0116 DF91      		pop r29
+ 1405 0118 CF91      		pop r28
+ 1406 011a 1F91      		pop r17
+ 1407 011c 0F91      		pop r16
+ 1408 011e FF90      		pop r15
+ 1409 0120 EF90      		pop r14
+ 1410 0122 0C94 0000 		jmp NutDumpIpcp
+ 1411               	.L100:
+ 1412 0126 F801      		movw r30,r16
+ 1413 0128 8281      		ldd r24,Z+2
+ 1414 012a 9381      		ldd r25,Z+3
+ 1415 012c 0E94 0000 		call __byte_swap2
+ 1416 0130 9F93      		push r25
+ 1417 0132 8F93      		push r24
+ 1418 0134 80E0      		ldi r24,lo8(.LC18)
+ 1419 0136 90E0      		ldi r25,hi8(.LC18)
+ 1420 0138 9F93      		push r25
+ 1421 013a 8F93      		push r24
+ 1422 013c EF92      		push r14
+ 1423 013e FF92      		push r15
+ 1424 0140 0E94 0000 		call fprintf
+ 1425 0144 0F90      		pop __tmp_reg__
+ 1426 0146 0F90      		pop __tmp_reg__
+ 1427 0148 0F90      		pop __tmp_reg__
+ 1428 014a 0F90      		pop __tmp_reg__
+ 1429 014c 0F90      		pop __tmp_reg__
+ 1430 014e 0F90      		pop __tmp_reg__
+ 1431               	.L95:
+ 1432               	/* epilogue start */
+ 1433 0150 DF91      		pop r29
+ 1434 0152 CF91      		pop r28
+ 1435 0154 1F91      		pop r17
+ 1436 0156 0F91      		pop r16
+ 1437 0158 FF90      		pop r15
+ 1438 015a EF90      		pop r14
+ 1439 015c 0895      		ret
+ 1440               		.size	NutDumpPpp, .-NutDumpPpp
+ 1441               		.section	.text.NutTracePPP,"ax",@progbits
+ 1442               	.global	NutTracePPP
+GAS LISTING /tmp/ccV0Eu5S.s 			page 27
+
+
+ 1443               		.type	NutTracePPP, @function
+ 1444               	NutTracePPP:
+ 1445               	/* prologue: function */
+ 1446               	/* frame size = 0 */
+ 1447               	/* stack size = 0 */
+ 1448               	.L__stack_usage = 0
+ 1449 0000 0097      		sbiw r24,0
+ 1450 0002 01F0      		breq .L111
+ 1451 0004 9093 0000 		sts __ppp_trs+1,r25
+ 1452 0008 8093 0000 		sts __ppp_trs,r24
+ 1453               	.L111:
+ 1454 000c 8091 0000 		lds r24,__ppp_trs
+ 1455 0010 9091 0000 		lds r25,__ppp_trs+1
+ 1456 0014 892B      		or r24,r25
+ 1457 0016 01F0      		breq .L112
+ 1458 0018 6093 0000 		sts __ppp_trf,r22
+ 1459 001c 0895      		ret
+ 1460               	.L112:
+ 1461 001e 1092 0000 		sts __ppp_trf,__zero_reg__
+ 1462 0022 0895      		ret
+ 1463               		.size	NutTracePPP, .-NutTracePPP
+ 1464               		.section	.progmem.data,"a",@progbits
+ 1465               		.type	dbg_discreq, @object
+ 1466               		.size	dbg_discreq, 10
+ 1467               	dbg_discreq:
+ 1468 0000 5B44 4953 		.string	"[DISCREQ]"
+ 1468      4352 4551 
+ 1468      5D00 
+ 1469               		.type	dbg_echorsp, @object
+ 1470               		.size	dbg_echorsp, 10
+ 1471               	dbg_echorsp:
+ 1472 000a 5B45 4348 		.string	"[ECHORSP]"
+ 1472      4F52 5350 
+ 1472      5D00 
+ 1473               		.type	dbg_echoreq, @object
+ 1474               		.size	dbg_echoreq, 10
+ 1475               	dbg_echoreq:
+ 1476 0014 5B45 4348 		.string	"[ECHOREQ]"
+ 1476      4F52 4551 
+ 1476      5D00 
+ 1477               		.type	dbg_protrej, @object
+ 1478               		.size	dbg_protrej, 10
+ 1479               	dbg_protrej:
+ 1480 001e 5B50 524F 		.string	"[PROTREJ]"
+ 1480      5452 454A 
+ 1480      5D00 
+ 1481               		.type	dbg_coderej, @object
+ 1482               		.size	dbg_coderej, 10
+ 1483               	dbg_coderej:
+ 1484 0028 5B43 4F44 		.string	"[CODEREJ]"
+ 1484      4552 454A 
+ 1484      5D00 
+ 1485               		.type	dbg_termack, @object
+ 1486               		.size	dbg_termack, 10
+ 1487               	dbg_termack:
+ 1488 0032 5B54 4552 		.string	"[TERMACK]"
+ 1488      4D41 434B 
+GAS LISTING /tmp/ccV0Eu5S.s 			page 28
+
+
+ 1488      5D00 
+ 1489               		.type	dbg_termreq, @object
+ 1490               		.size	dbg_termreq, 10
+ 1491               	dbg_termreq:
+ 1492 003c 5B54 4552 		.string	"[TERMREQ]"
+ 1492      4D52 4551 
+ 1492      5D00 
+ 1493               		.type	dbg_confrej, @object
+ 1494               		.size	dbg_confrej, 10
+ 1495               	dbg_confrej:
+ 1496 0046 5B43 4F4E 		.string	"[CONFREJ]"
+ 1496      4652 454A 
+ 1496      5D00 
+ 1497               		.type	dbg_confnak, @object
+ 1498               		.size	dbg_confnak, 10
+ 1499               	dbg_confnak:
+ 1500 0050 5B43 4F4E 		.string	"[CONFNAK]"
+ 1500      464E 414B 
+ 1500      5D00 
+ 1501               		.type	dbg_confack, @object
+ 1502               		.size	dbg_confack, 10
+ 1503               	dbg_confack:
+ 1504 005a 5B43 4F4E 		.string	"[CONFACK]"
+ 1504      4641 434B 
+ 1504      5D00 
+ 1505               		.type	dbg_confreq, @object
+ 1506               		.size	dbg_confreq, 10
+ 1507               	dbg_confreq:
+ 1508 0064 5B43 4F4E 		.string	"[CONFREQ]"
+ 1508      4652 4551 
+ 1508      5D00 
+ 1509               		.local	ppp_header_sz
+ 1510               		.comm	ppp_header_sz,1,1
+ 1511               		.comm	__ppp_trf,1,1
+ 1512               		.comm	__ppp_trs,2,1
+ 1513               		.ident	"GCC: (GNU) 5.3.0"
+ 1514               	.global __do_copy_data
+ 1515               	.global __do_clear_bss
+GAS LISTING /tmp/ccV0Eu5S.s 			page 29
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 pppdebug.c
+     /tmp/ccV0Eu5S.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccV0Eu5S.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccV0Eu5S.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccV0Eu5S.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccV0Eu5S.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccV0Eu5S.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccV0Eu5S.s:10     .text.__byte_swap2:0000000000000000 __byte_swap2
+     /tmp/ccV0Eu5S.s:47     .text.NutDumpLcpOption:0000000000000000 NutDumpLcpOption
+                             .bss:0000000000000000 ppp_header_sz
+     /tmp/ccV0Eu5S.s:329    .text.NutDumpLcp:0000000000000000 NutDumpLcp
+     /tmp/ccV0Eu5S.s:1507   .progmem.data:0000000000000064 dbg_confreq
+     /tmp/ccV0Eu5S.s:1503   .progmem.data:000000000000005a dbg_confack
+     /tmp/ccV0Eu5S.s:1499   .progmem.data:0000000000000050 dbg_confnak
+     /tmp/ccV0Eu5S.s:1495   .progmem.data:0000000000000046 dbg_confrej
+     /tmp/ccV0Eu5S.s:1491   .progmem.data:000000000000003c dbg_termreq
+     /tmp/ccV0Eu5S.s:1487   .progmem.data:0000000000000032 dbg_termack
+     /tmp/ccV0Eu5S.s:1483   .progmem.data:0000000000000028 dbg_coderej
+     /tmp/ccV0Eu5S.s:1479   .progmem.data:000000000000001e dbg_protrej
+     /tmp/ccV0Eu5S.s:1475   .progmem.data:0000000000000014 dbg_echoreq
+     /tmp/ccV0Eu5S.s:1471   .progmem.data:000000000000000a dbg_echorsp
+     /tmp/ccV0Eu5S.s:1467   .progmem.data:0000000000000000 dbg_discreq
+     /tmp/ccV0Eu5S.s:541    .text.NutDumpPapOption:0000000000000000 NutDumpPapOption
+     /tmp/ccV0Eu5S.s:686    .text.NutDumpPap:0000000000000000 NutDumpPap
+     /tmp/ccV0Eu5S.s:853    .text.NutDumpIpcpOption:0000000000000000 NutDumpIpcpOption
+     /tmp/ccV0Eu5S.s:1064   .text.NutDumpIpcp:0000000000000000 NutDumpIpcp
+     /tmp/ccV0Eu5S.s:1257   .text.NutDumpPpp:0000000000000000 NutDumpPpp
+     /tmp/ccV0Eu5S.s:1444   .text.NutTracePPP:0000000000000000 NutTracePPP
+                            *COM*:0000000000000002 __ppp_trs
+                            *COM*:0000000000000001 __ppp_trf
+
+UNDEFINED SYMBOLS
+fprintf
+fputs
+__tablejump2__
+fputs_P
+fputc
+inet_ntoa
+__do_copy_data
+__do_clear_bss

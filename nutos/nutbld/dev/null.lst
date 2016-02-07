@@ -1,0 +1,156 @@
+GAS LISTING /tmp/ccylXIuP.s 			page 1
+
+
+   1               		.file	"null.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.NullWriteP,"ax",@progbits
+   9               		.type	NullWriteP, @function
+  10               	NullWriteP:
+  11               	/* prologue: function */
+  12               	/* frame size = 0 */
+  13               	/* stack size = 0 */
+  14               	.L__stack_usage = 0
+  15 0000 CA01      		movw r24,r20
+  16 0002 0895      		ret
+  17               		.size	NullWriteP, .-NullWriteP
+  18               		.section	.text.NullRead,"ax",@progbits
+  19               		.type	NullRead, @function
+  20               	NullRead:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	/* stack size = 0 */
+  24               	.L__stack_usage = 0
+  25 0000 80E0      		ldi r24,0
+  26 0002 90E0      		ldi r25,0
+  27 0004 0895      		ret
+  28               		.size	NullRead, .-NullRead
+  29               		.section	.text.NullIOCTL,"ax",@progbits
+  30               	.global	NullIOCTL
+  31               		.type	NullIOCTL, @function
+  32               	NullIOCTL:
+  33               	/* prologue: function */
+  34               	/* frame size = 0 */
+  35               	/* stack size = 0 */
+  36               	.L__stack_usage = 0
+  37 0000 80E0      		ldi r24,0
+  38 0002 90E0      		ldi r25,0
+  39 0004 0895      		ret
+  40               		.size	NullIOCTL, .-NullIOCTL
+  41               		.section	.text.NullClose,"ax",@progbits
+  42               		.type	NullClose, @function
+  43               	NullClose:
+  44               	/* prologue: function */
+  45               	/* frame size = 0 */
+  46               	/* stack size = 0 */
+  47               	.L__stack_usage = 0
+  48 0000 0097      		sbiw r24,0
+  49 0002 01F0      		breq .L5
+  50 0004 0E94 0000 		call free
+  51               	.L5:
+  52 0008 80E0      		ldi r24,0
+  53 000a 90E0      		ldi r25,0
+  54 000c 0895      		ret
+  55               		.size	NullClose, .-NullClose
+  56               		.section	.text.NullOpen,"ax",@progbits
+  57               		.type	NullOpen, @function
+GAS LISTING /tmp/ccylXIuP.s 			page 2
+
+
+  58               	NullOpen:
+  59 0000 CF93      		push r28
+  60 0002 DF93      		push r29
+  61               	/* prologue: function */
+  62               	/* frame size = 0 */
+  63               	/* stack size = 2 */
+  64               	.L__stack_usage = 2
+  65 0004 EC01      		movw r28,r24
+  66 0006 84E0      		ldi r24,lo8(4)
+  67 0008 90E0      		ldi r25,0
+  68 000a 0E94 0000 		call malloc
+  69 000e FC01      		movw r30,r24
+  70 0010 0097      		sbiw r24,0
+  71 0012 01F0      		breq .L12
+  72 0014 D183      		std Z+1,r29
+  73 0016 C083      		st Z,r28
+  74 0018 00C0      		rjmp .L11
+  75               	.L12:
+  76 001a 8FEF      		ldi r24,lo8(-1)
+  77 001c 9FEF      		ldi r25,lo8(-1)
+  78               	.L11:
+  79               	/* epilogue start */
+  80 001e DF91      		pop r29
+  81 0020 CF91      		pop r28
+  82 0022 0895      		ret
+  83               		.size	NullOpen, .-NullOpen
+  84               		.section	.text.NullWrite,"ax",@progbits
+  85               		.type	NullWrite, @function
+  86               	NullWrite:
+  87               	/* prologue: function */
+  88               	/* frame size = 0 */
+  89               	/* stack size = 0 */
+  90               	.L__stack_usage = 0
+  91 0000 CA01      		movw r24,r20
+  92 0002 0895      		ret
+  93               		.size	NullWrite, .-NullWrite
+  94               	.global	devNull
+  95               		.data
+  96               		.type	devNull, @object
+  97               		.size	devNull, 37
+  98               	devNull:
+  99 0000 0000      		.word	0
+ 100 0002 6E        		.byte	110
+ 101 0003 75        		.byte	117
+ 102 0004 6C        		.byte	108
+ 103 0005 6C        		.byte	108
+ 104 0006 00        		.byte	0
+ 105 0007 00        		.byte	0
+ 106 0008 00        		.byte	0
+ 107 0009 00        		.byte	0
+ 108 000a 00        		.byte	0
+ 109 000b 00        		.byte	0
+ 110 000c 0000      		.word	0
+ 111 000e 00        		.byte	0
+ 112 000f 0000      		.word	0
+ 113 0011 0000      		.word	0
+ 114 0013 0000      		.word	0
+GAS LISTING /tmp/ccylXIuP.s 			page 3
+
+
+ 115 0015 0000      		.word	gs(NullIOCTL)
+ 116 0017 0000      		.word	gs(NullRead)
+ 117 0019 0000      		.word	gs(NullWrite)
+ 118 001b 0000      		.word	gs(NullWriteP)
+ 119 001d 0000      		.word	gs(NullOpen)
+ 120 001f 0000      		.word	gs(NullClose)
+ 121 0021 0000      		.word	0
+ 122 0023 0000      		.word	0
+ 123               		.ident	"GCC: (GNU) 5.3.0"
+ 124               	.global __do_copy_data
+GAS LISTING /tmp/ccylXIuP.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 null.c
+     /tmp/ccylXIuP.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccylXIuP.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccylXIuP.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccylXIuP.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccylXIuP.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccylXIuP.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccylXIuP.s:10     .text.NullWriteP:0000000000000000 NullWriteP
+     /tmp/ccylXIuP.s:20     .text.NullRead:0000000000000000 NullRead
+     /tmp/ccylXIuP.s:32     .text.NullIOCTL:0000000000000000 NullIOCTL
+     /tmp/ccylXIuP.s:43     .text.NullClose:0000000000000000 NullClose
+     /tmp/ccylXIuP.s:58     .text.NullOpen:0000000000000000 NullOpen
+     /tmp/ccylXIuP.s:86     .text.NullWrite:0000000000000000 NullWrite
+     /tmp/ccylXIuP.s:98     .data:0000000000000000 devNull
+
+UNDEFINED SYMBOLS
+free
+malloc
+__do_copy_data

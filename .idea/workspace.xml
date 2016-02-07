@@ -11,7 +11,339 @@
     </ADDITIONAL_GENERATION_ENVIRONMENT>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8005cdec-074e-478f-b095-591cd1517046" name="Default" comment="" />
+    <list default="true" id="8005cdec-074e-478f-b095-591cd1517046" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91_aic.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91_ccfg.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91_dbgu.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91_ebi.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91_efc.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91_emac.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91_matrix.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91_mc.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91_mci.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91_pio.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91_pit.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91_pmc.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91_ps.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91_rstc.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91_sdramc.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91_sf.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91_smc.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91_spi.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91_ssc.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91_tc.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91_twi.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91_us.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91_wd.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91_wdt.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91eb40a.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91sam7x.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91sam9260.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/at91x40.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/atom.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/gba.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/irqreg.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/lpc2xxx.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/arm/timer.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/avr.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/avr/atom.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/avr/gcc.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/avr/icc.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/avr/irqreg.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/avr/timer.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/h8.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/h8300h/atom.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/h8300h/h83068f.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/h8300h/irqreg.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/m68k.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/m68k/atom.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/m68k/irqreg.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/timer.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/unix.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/unix/atom.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/unix/irqreg.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arch/unix/timer.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/arpa/inet.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/ahdlc.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/arch.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/arch/armpio.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/arch/avr.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/arch/avrpio.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/arch/gpio.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/arp.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/audio.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/bankmem.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/chat.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/clock.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/coconut.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/crt.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/dev.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/dhcp.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/eeprom.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/ethernut.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/fs.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/ip.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/lcd.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/m-can.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/medianut.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/memory.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/modem.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/os.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/ppp.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/progif.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/rport.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/sntp.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/syslog.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/tcp.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/twi.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cfg/xnut.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/compiler.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cpp/nutcpp.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/cpu_load.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/ace.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/adc.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/ahdlc.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/ahdlcavr.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/at45db.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/at49bv.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/at91_efc.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/at91_emac.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/at91_mci.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/at91_spi.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/at91sam7x_emac.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/at91sam7x_mac.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/atcan.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/avrtarget.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/ax88796.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/blockdev.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/board.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/can_dev.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/chat.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/cs8900a.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/cy2239x.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/debug.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/dm9000e.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/ds1307rtc.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/genchar.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/hd44780.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/hd44780_bus.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/ide.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/idep.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/ir.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/irqreg.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/irqreg_arm.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/irqreg_avr.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/irqreg_h8.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/irqreg_m68k.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/irqreg_unix.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/irqstack.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/irsony.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/lanc111.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/mmcard.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/mweeprom.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/netbuf.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/nicrtl.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/npl.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/nplmmc.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/npluled.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/null.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/nvmem.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/pcf8563.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/pcmcia.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/pnut.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/ppp.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/rtc.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/sbbif0.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/sbbif1.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/sbbif2.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/sbbif3.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/sbimmc.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/scih8.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/sja1000.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/spidigio.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/spiflash.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/spimmc_at91.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/sppif0.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/st7036.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/term.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/tlc16c550.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/twif.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/uart.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/uartavr.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/uartgba.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/uartspi.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/unix_devs.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/urom.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/usart.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/usartat91.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/usartavr.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/vs1001k.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/vs10xx.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/watchdog.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/wlan.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/wlancfg.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/wlandef.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/wlandrv.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/wlantypes.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dev/x12rtc.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/dirent.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/display.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/errno.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fat.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fatdrv.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fcntl.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/flash.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs/dospart.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs/fat.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs/fatfs.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs/fs.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs/phat12.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs/phat16.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs/phat32.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs/phatdbg.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs/phatdir.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs/phatfs.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs/phatio.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs/phatutil.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs/phatvol.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs/typedefs.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs/uromfs.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs_org/dospart.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs_org/fat.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs_org/fatfs.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs_org/fs.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs_org/phat12.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs_org/phat16.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs_org/phat32.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs_org/phatdbg.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs_org/phatdir.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs_org/phatfs.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs_org/phatio.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs_org/phatutil.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs_org/phatvol.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs_org/typedefs.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/fs_org/uromfs.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/io.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/keyboard.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/led.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/libgen.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/log.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/mmc.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/mmcdrv.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/net/errno.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/net/ether.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/net/if.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/net/if_arp.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/net/if_types.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/net/if_var.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/net/netdebug.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/net/ppp.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/net/route.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/netdb.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/netinet/icmp.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/netinet/if_ether.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/netinet/if_ppp.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/netinet/igmp.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/netinet/in.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/netinet/ip.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/netinet/ip_icmp.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/netinet/ipcsum.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/netinet/ppp_fsm.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/netinet/tcp.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/netinet/tcp_fsm.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/netinet/tcputil.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/netinet/udp.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/platform.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/portio.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/pro/asp.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/pro/dhcp.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/pro/discover.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/pro/ftpd.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/pro/httpd.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/pro/sntp.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/pro/ssi.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/pro/wins.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/remcon.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/rtc.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/spidrv.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/stdio.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/stdio_nut_wrapper.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/strtok_r.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/sys/atom.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/sys/bankmem.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/sys/confnet.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/sys/confos.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/sys/device.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/sys/event.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/sys/file.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/sys/heap.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/sys/msg.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/sys/mutex.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/sys/nut_types.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/sys/nutconfig.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/sys/osdebug.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/sys/semaphore.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/sys/sock_var.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/sys/socket.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/sys/sockio.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/sys/stat.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/sys/syslog.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/sys/thread.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/sys/timer.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/sys/tracer.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/sys/types.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/sys/version.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/system.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/time.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/typedefs.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/uart0driver.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/unistd.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/vs10xx.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/include/watchdog.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/display.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/display.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/fat.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/fat.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/flash.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/flash.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/http.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/inet.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/keyboard.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/keyboard.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/led.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/led.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/log.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/log.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/main.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/main.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/mmc.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/mmc.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/mmcdrv.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/mmcdrv.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/remcon.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/remcon.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/rtc.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/rtc.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/session.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/spidrv.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/spidrv.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/uart0driver.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/uart0driver.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/util.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/vs10xx.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/vs10xx.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/watchdog.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/source/watchdog.lst" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/InternetRadio.iml" afterPath="$PROJECT_DIR$/.idea/InternetRadio.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Makefile" afterPath="$PROJECT_DIR$/Makefile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.c" afterPath="$PROJECT_DIR$/main.c" />
+    </list>
     <ignored path="InternetRadio.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,22 +362,45 @@
     <favorites_list name="InternetRadio" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="Makefile" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Makefile">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="468">
+              <caret line="26" column="22" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.cpp">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="432">
+              <caret line="37" column="6" selection-start-line="37" selection-start-column="6" selection-end-line="37" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/main.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="522">
+              <caret line="44" column="18" selection-start-line="44" selection-start-column="18" selection-end-line="44" selection-end-column="18" />
+              <folding>
+                <element signature="e#666#686#0" expanded="true" />
+                <element signature="e#909#931#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="led.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/led.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="198">
+              <caret line="29" column="77" selection-start-line="29" selection-start-column="77" selection-end-line="29" selection-end-column="77" />
               <folding />
             </state>
           </provider>
@@ -56,6 +411,16 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/lib/led.h" />
+        <option value="$PROJECT_DIR$/Makefile" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/main.c" />
+      </list>
+    </option>
+  </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" />
   <component name="JsBuildToolPackageJson" detection-done="true" />
   <component name="JsGulpfileManager">
@@ -63,8 +428,8 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="27" />
-    <option name="width" value="1440" />
-    <option name="height" value="873" />
+    <option name="width" value="1920" />
+    <option name="height" value="1053" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -113,9 +478,169 @@
       </pane>
     </panes>
   </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="js-jscs-nodeInterpreter" value="/usr/bin/node" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
   <component name="RunManager" selected="Application.Build All">
+    <configuration default="true" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="InternetRadio" TARGET_NAME="InternetRadio" CONFIG_NAME="Debug" TEST_MODE="SUITE_TEST">
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="InternetRadio" TARGET_NAME="InternetRadio" CONFIG_NAME="Debug">
       <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="InternetRadio" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="InternetRadio" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run-script" />
+      <scripts />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Attests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="InternetRadio" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="InternetRadio" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="InternetRadio" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="InternetRadio" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="InternetRadio" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="testToRun" value="" />
+      <option name="keywords" value="" />
+      <option name="params" value="" />
+      <option name="USE_PARAM" value="false" />
+      <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
     <configuration default="false" name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" CONFIG_NAME="Debug" EXPLICIT_BUILD_TARGET_NAME="all">
@@ -131,7 +656,9 @@
       <item index="1" class="java.lang.String" itemvalue="Application.InternetRadio" />
     </list>
   </component>
-  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="8005cdec-074e-478f-b095-591cd1517046" name="Default" comment="" />
@@ -141,25 +668,34 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="27" width="1440" height="873" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="27" width="1920" height="1053" extended-state="7" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2496474" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20991561" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972974" sideWeight="0.4978903" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2745946" sideWeight="0.49156117" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32864866" sideWeight="0.5221519" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972974" sideWeight="0.4978903" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32864866" sideWeight="0.4778481" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -172,19 +708,145 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/main.cpp">
+    <entry file="file://$PROJECT_DIR$/Makefile">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+    <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="756">
+          <caret line="42" column="23" selection-start-line="42" selection-start-column="23" selection-end-line="42" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/led.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="23" column="77" selection-start-line="23" selection-start-column="77" selection-end-line="23" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/led.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="30" column="66" selection-start-line="30" selection-start-column="66" selection-end-line="30" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="28" column="26" selection-start-line="28" selection-start-column="26" selection-end-line="28" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="558">
+          <caret line="31" column="10" selection-start-line="31" selection-start-column="10" selection-end-line="31" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt" />
+    <entry file="file://$PROJECT_DIR$/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/main.c" />
+    <entry file="file://$PROJECT_DIR$/source/http.c" />
+    <entry file="file://$PROJECT_DIR$/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt" />
+    <entry file="file://$PROJECT_DIR$/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/main.c" />
+    <entry file="file://$PROJECT_DIR$/source/http.c" />
+    <entry file="file://$PROJECT_DIR$/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt" />
+    <entry file="file://$PROJECT_DIR$/main.cpp" />
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt" />
+    <entry file="file://$PROJECT_DIR$/source/http.c" />
+    <entry file="file://$PROJECT_DIR$/source/main.c" />
+    <entry file="file://$PROJECT_DIR$/lib/led.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="102" column="3" selection-start-line="102" selection-start-column="3" selection-end-line="102" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="31" column="14" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/led.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="29" column="77" selection-start-line="29" selection-start-column="77" selection-end-line="29" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="26" column="22" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="37" column="6" selection-start-line="37" selection-start-column="6" selection-end-line="37" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="44" column="18" selection-start-line="44" selection-start-column="18" selection-end-line="44" selection-end-column="18" />
+          <folding>
+            <element signature="e#666#686#0" expanded="true" />
+            <element signature="e#909#931#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

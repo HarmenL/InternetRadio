@@ -1,0 +1,164 @@
+GAS LISTING /tmp/cctF4E3d.s 			page 1
+
+
+   1               		.file	"basename.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.rodata.str1.1,"aMS",@progbits,1
+   9               	.LC0:
+  10 0000 2E00      		.string	"."
+  11               	.LC1:
+  12 0002 2F00      		.string	"/"
+  13               		.section	.text.basename,"ax",@progbits
+  14               	.global	basename
+  15               		.type	basename, @function
+  16               	basename:
+  17 0000 0F93      		push r16
+  18 0002 1F93      		push r17
+  19 0004 CF93      		push r28
+  20 0006 DF93      		push r29
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	/* stack size = 4 */
+  24               	.L__stack_usage = 4
+  25 0008 EC01      		movw r28,r24
+  26 000a 0091 0000 		lds r16,bname.2206
+  27 000e 1091 0000 		lds r17,bname.2206+1
+  28 0012 0115      		cp r16,__zero_reg__
+  29 0014 1105      		cpc r17,__zero_reg__
+  30 0016 01F0      		breq .L2
+  31               	.L6:
+  32 0018 2097      		sbiw r28,0
+  33 001a 01F4      		brne .L26
+  34 001c 00C0      		rjmp .L3
+  35               	.L2:
+  36 001e 80E0      		ldi r24,0
+  37 0020 91E0      		ldi r25,lo8(1)
+  38 0022 0E94 0000 		call malloc
+  39 0026 9093 0000 		sts bname.2206+1,r25
+  40 002a 8093 0000 		sts bname.2206,r24
+  41 002e 892B      		or r24,r25
+  42 0030 01F4      		brne .L6
+  43 0032 00C0      		rjmp .L18
+  44               	.L26:
+  45 0034 8881      		ld r24,Y
+  46 0036 8111      		cpse r24,__zero_reg__
+  47 0038 00C0      		rjmp .L7
+  48               	.L3:
+  49 003a 0091 0000 		lds r16,bname.2206
+  50 003e 1091 0000 		lds r17,bname.2206+1
+  51 0042 60E0      		ldi r22,lo8(.LC0)
+  52 0044 70E0      		ldi r23,hi8(.LC0)
+  53 0046 00C0      		rjmp .L27
+  54               	.L7:
+  55 0048 FE01      		movw r30,r28
+  56               		0:
+  57 004a 0190      		ld __tmp_reg__,Z+
+GAS LISTING /tmp/cctF4E3d.s 			page 2
+
+
+  58 004c 0020      		tst __tmp_reg__
+  59 004e 01F4      		brne 0b
+  60 0050 3297      		sbiw r30,2
+  61               	.L8:
+  62 0052 CE17      		cp r28,r30
+  63 0054 DF07      		cpc r29,r31
+  64 0056 00F4      		brsh .L9
+  65 0058 8081      		ld r24,Z
+  66 005a 8F32      		cpi r24,lo8(47)
+  67 005c 01F4      		brne .L12
+  68 005e 3197      		sbiw r30,1
+  69 0060 00C0      		rjmp .L8
+  70               	.L9:
+  71 0062 EC17      		cp r30,r28
+  72 0064 FD07      		cpc r31,r29
+  73 0066 01F4      		brne .L12
+  74 0068 8081      		ld r24,Z
+  75 006a 8F32      		cpi r24,lo8(47)
+  76 006c 01F4      		brne .L16
+  77 006e 0091 0000 		lds r16,bname.2206
+  78 0072 1091 0000 		lds r17,bname.2206+1
+  79 0076 60E0      		ldi r22,lo8(.LC1)
+  80 0078 70E0      		ldi r23,hi8(.LC1)
+  81               	.L27:
+  82 007a C801      		movw r24,r16
+  83 007c 0E94 0000 		call strcpy
+  84 0080 00C0      		rjmp .L18
+  85               	.L16:
+  86 0082 BF01      		movw r22,r30
+  87               	.L13:
+  88 0084 EF01      		movw r28,r30
+  89 0086 C61B      		sub r28,r22
+  90 0088 D70B      		sbc r29,r23
+  91 008a CE3F      		cpi r28,-2
+  92 008c D105      		cpc r29,__zero_reg__
+  93 008e 04F0      		brlt .L15
+  94 0090 8FE3      		ldi r24,lo8(63)
+  95 0092 90E0      		ldi r25,0
+  96 0094 9093 0000 		sts errno+1,r25
+  97 0098 8093 0000 		sts errno,r24
+  98 009c 00E0      		ldi r16,0
+  99 009e 10E0      		ldi r17,0
+ 100 00a0 00C0      		rjmp .L18
+ 101               	.L15:
+ 102 00a2 0091 0000 		lds r16,bname.2206
+ 103 00a6 1091 0000 		lds r17,bname.2206+1
+ 104 00aa C801      		movw r24,r16
+ 105 00ac 0E94 0000 		call strcpy
+ 106 00b0 F801      		movw r30,r16
+ 107 00b2 EC0F      		add r30,r28
+ 108 00b4 FD1F      		adc r31,r29
+ 109 00b6 1182      		std Z+1,__zero_reg__
+ 110 00b8 00C0      		rjmp .L18
+ 111               	.L12:
+ 112 00ba DF01      		movw r26,r30
+ 113               	.L14:
+ 114 00bc BD01      		movw r22,r26
+GAS LISTING /tmp/cctF4E3d.s 			page 3
+
+
+ 115 00be CA17      		cp r28,r26
+ 116 00c0 DB07      		cpc r29,r27
+ 117 00c2 00F4      		brsh .L13
+ 118 00c4 8E91      		ld r24,-X
+ 119 00c6 8F32      		cpi r24,lo8(47)
+ 120 00c8 01F4      		brne .L14
+ 121 00ca 00C0      		rjmp .L13
+ 122               	.L18:
+ 123 00cc C801      		movw r24,r16
+ 124               	/* epilogue start */
+ 125 00ce DF91      		pop r29
+ 126 00d0 CF91      		pop r28
+ 127 00d2 1F91      		pop r17
+ 128 00d4 0F91      		pop r16
+ 129 00d6 0895      		ret
+ 130               		.size	basename, .-basename
+ 131               		.local	bname.2206
+ 132               		.comm	bname.2206,2,1
+ 133               		.ident	"GCC: (GNU) 5.3.0"
+ 134               	.global __do_copy_data
+ 135               	.global __do_clear_bss
+GAS LISTING /tmp/cctF4E3d.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 basename.c
+     /tmp/cctF4E3d.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cctF4E3d.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cctF4E3d.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cctF4E3d.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cctF4E3d.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cctF4E3d.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cctF4E3d.s:16     .text.basename:0000000000000000 basename
+                             .bss:0000000000000000 bname.2206
+
+UNDEFINED SYMBOLS
+malloc
+strcpy
+errno
+__do_copy_data
+__do_clear_bss

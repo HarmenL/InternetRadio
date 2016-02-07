@@ -1,0 +1,671 @@
+GAS LISTING /tmp/ccRgQ98Z.s 			page 1
+
+
+   1               		.file	"ds1307rtc.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.DS1307RtcReadRegs,"ax",@progbits
+   9               	.global	DS1307RtcReadRegs
+  10               		.type	DS1307RtcReadRegs, @function
+  11               	DS1307RtcReadRegs:
+  12 0000 8F92      		push r8
+  13 0002 9F92      		push r9
+  14 0004 AF92      		push r10
+  15 0006 BF92      		push r11
+  16 0008 CF92      		push r12
+  17 000a DF92      		push r13
+  18 000c EF92      		push r14
+  19 000e FF92      		push r15
+  20 0010 0F93      		push r16
+  21 0012 1F93      		push r17
+  22 0014 CF93      		push r28
+  23 0016 DF93      		push r29
+  24 0018 1F92      		push __zero_reg__
+  25 001a CDB7      		in r28,__SP_L__
+  26 001c DEB7      		in r29,__SP_H__
+  27               	/* prologue: function */
+  28               	/* frame size = 1 */
+  29               	/* stack size = 13 */
+  30               	.L__stack_usage = 13
+  31 001e 4A01      		movw r8,r20
+  32 0020 8983      		std Y+1,r24
+  33 0022 A12C      		mov r10,__zero_reg__
+  34 0024 B12C      		mov r11,__zero_reg__
+  35 0026 6501      		movw r12,r10
+  36 0028 7A01      		movw r14,r20
+  37 002a 8B01      		movw r16,r22
+  38 002c 21E0      		ldi r18,lo8(1)
+  39 002e 30E0      		ldi r19,0
+  40 0030 AE01      		movw r20,r28
+  41 0032 4F5F      		subi r20,-1
+  42 0034 5F4F      		sbci r21,-1
+  43 0036 68E6      		ldi r22,lo8(104)
+  44 0038 80E0      		ldi r24,lo8(AVRTwiBus)
+  45 003a 90E0      		ldi r25,hi8(AVRTwiBus)
+  46 003c 0E94 0000 		call NutTwiMasterTranceive
+  47 0040 21E0      		ldi r18,lo8(1)
+  48 0042 30E0      		ldi r19,0
+  49 0044 8815      		cp r24,r8
+  50 0046 9905      		cpc r25,r9
+  51 0048 01F4      		brne .L2
+  52 004a 20E0      		ldi r18,0
+  53 004c 30E0      		ldi r19,0
+  54               	.L2:
+  55 004e 8827      		clr r24
+  56 0050 9927      		clr r25
+  57 0052 821B      		sub r24,r18
+GAS LISTING /tmp/ccRgQ98Z.s 			page 2
+
+
+  58 0054 930B      		sbc r25,r19
+  59               	/* epilogue start */
+  60 0056 0F90      		pop __tmp_reg__
+  61 0058 DF91      		pop r29
+  62 005a CF91      		pop r28
+  63 005c 1F91      		pop r17
+  64 005e 0F91      		pop r16
+  65 0060 FF90      		pop r15
+  66 0062 EF90      		pop r14
+  67 0064 DF90      		pop r13
+  68 0066 CF90      		pop r12
+  69 0068 BF90      		pop r11
+  70 006a AF90      		pop r10
+  71 006c 9F90      		pop r9
+  72 006e 8F90      		pop r8
+  73 0070 0895      		ret
+  74               		.size	DS1307RtcReadRegs, .-DS1307RtcReadRegs
+  75               		.section	.text.DS1307RtcGetClock,"ax",@progbits
+  76               	.global	DS1307RtcGetClock
+  77               		.type	DS1307RtcGetClock, @function
+  78               	DS1307RtcGetClock:
+  79 0000 0F93      		push r16
+  80 0002 1F93      		push r17
+  81 0004 CF93      		push r28
+  82 0006 DF93      		push r29
+  83 0008 CDB7      		in r28,__SP_L__
+  84 000a DEB7      		in r29,__SP_H__
+  85 000c 2797      		sbiw r28,7
+  86 000e 0FB6      		in __tmp_reg__,__SREG__
+  87 0010 F894      		cli
+  88 0012 DEBF      		out __SP_H__,r29
+  89 0014 0FBE      		out __SREG__,__tmp_reg__
+  90 0016 CDBF      		out __SP_L__,r28
+  91               	/* prologue: function */
+  92               	/* frame size = 7 */
+  93               	/* stack size = 11 */
+  94               	.L__stack_usage = 11
+  95 0018 8B01      		movw r16,r22
+  96 001a 47E0      		ldi r20,lo8(7)
+  97 001c 50E0      		ldi r21,0
+  98 001e BE01      		movw r22,r28
+  99 0020 6F5F      		subi r22,-1
+ 100 0022 7F4F      		sbci r23,-1
+ 101 0024 80E0      		ldi r24,0
+ 102 0026 0E94 0000 		call DS1307RtcReadRegs
+ 103 002a 0097      		sbiw r24,0
+ 104 002c 01F0      		breq .+2
+ 105 002e 00C0      		rjmp .L5
+ 106 0030 2981      		ldd r18,Y+1
+ 107 0032 422F      		mov r20,r18
+ 108 0034 4295      		swap r20
+ 109 0036 4F70      		andi r20,lo8(15)
+ 110 0038 2F70      		andi r18,lo8(15)
+ 111 003a 30E0      		ldi r19,0
+ 112 003c 5AE0      		ldi r21,lo8(10)
+ 113 003e 459F      		mul r20,r21
+ 114 0040 200D      		add r18,r0
+GAS LISTING /tmp/ccRgQ98Z.s 			page 3
+
+
+ 115 0042 311D      		adc r19,r1
+ 116 0044 1124      		clr __zero_reg__
+ 117 0046 F801      		movw r30,r16
+ 118 0048 3183      		std Z+1,r19
+ 119 004a 2083      		st Z,r18
+ 120 004c 2A81      		ldd r18,Y+2
+ 121 004e 422F      		mov r20,r18
+ 122 0050 4295      		swap r20
+ 123 0052 4F70      		andi r20,lo8(15)
+ 124 0054 2F70      		andi r18,lo8(15)
+ 125 0056 30E0      		ldi r19,0
+ 126 0058 FAE0      		ldi r31,lo8(10)
+ 127 005a 4F9F      		mul r20,r31
+ 128 005c 200D      		add r18,r0
+ 129 005e 311D      		adc r19,r1
+ 130 0060 1124      		clr __zero_reg__
+ 131 0062 F801      		movw r30,r16
+ 132 0064 3383      		std Z+3,r19
+ 133 0066 2283      		std Z+2,r18
+ 134 0068 4B81      		ldd r20,Y+3
+ 135 006a 242F      		mov r18,r20
+ 136 006c 2F73      		andi r18,lo8(63)
+ 137 006e 30E0      		ldi r19,0
+ 138 0070 54E0      		ldi r21,4
+ 139               		1:
+ 140 0072 3595      		asr r19
+ 141 0074 2795      		ror r18
+ 142 0076 5A95      		dec r21
+ 143 0078 01F4      		brne 1b
+ 144 007a 5AE0      		ldi r21,lo8(10)
+ 145 007c 529F      		mul r21,r18
+ 146 007e B001      		movw r22,r0
+ 147 0080 539F      		mul r21,r19
+ 148 0082 700D      		add r23,r0
+ 149 0084 1124      		clr __zero_reg__
+ 150 0086 4F70      		andi r20,lo8(15)
+ 151 0088 9B01      		movw r18,r22
+ 152 008a 240F      		add r18,r20
+ 153 008c 311D      		adc r19,__zero_reg__
+ 154 008e 3583      		std Z+5,r19
+ 155 0090 2483      		std Z+4,r18
+ 156 0092 2D81      		ldd r18,Y+5
+ 157 0094 422F      		mov r20,r18
+ 158 0096 4295      		swap r20
+ 159 0098 4F70      		andi r20,lo8(15)
+ 160 009a 2F70      		andi r18,lo8(15)
+ 161 009c 30E0      		ldi r19,0
+ 162 009e FAE0      		ldi r31,lo8(10)
+ 163 00a0 4F9F      		mul r20,r31
+ 164 00a2 200D      		add r18,r0
+ 165 00a4 311D      		adc r19,r1
+ 166 00a6 1124      		clr __zero_reg__
+ 167 00a8 F801      		movw r30,r16
+ 168 00aa 3783      		std Z+7,r19
+ 169 00ac 2683      		std Z+6,r18
+ 170 00ae 2E81      		ldd r18,Y+6
+ 171 00b0 422F      		mov r20,r18
+GAS LISTING /tmp/ccRgQ98Z.s 			page 4
+
+
+ 172 00b2 4295      		swap r20
+ 173 00b4 4F70      		andi r20,lo8(15)
+ 174 00b6 2F70      		andi r18,lo8(15)
+ 175 00b8 30E0      		ldi r19,0
+ 176 00ba FAE0      		ldi r31,lo8(10)
+ 177 00bc 4F9F      		mul r20,r31
+ 178 00be 200D      		add r18,r0
+ 179 00c0 311D      		adc r19,r1
+ 180 00c2 1124      		clr __zero_reg__
+ 181 00c4 2150      		subi r18,1
+ 182 00c6 3109      		sbc r19,__zero_reg__
+ 183 00c8 F801      		movw r30,r16
+ 184 00ca 3187      		std Z+9,r19
+ 185 00cc 2087      		std Z+8,r18
+ 186 00ce 2F81      		ldd r18,Y+7
+ 187 00d0 422F      		mov r20,r18
+ 188 00d2 4295      		swap r20
+ 189 00d4 4F70      		andi r20,lo8(15)
+ 190 00d6 2F70      		andi r18,lo8(15)
+ 191 00d8 30E0      		ldi r19,0
+ 192 00da FAE0      		ldi r31,lo8(10)
+ 193 00dc 4F9F      		mul r20,r31
+ 194 00de 200D      		add r18,r0
+ 195 00e0 311D      		adc r19,r1
+ 196 00e2 1124      		clr __zero_reg__
+ 197 00e4 2C59      		subi r18,-100
+ 198 00e6 3F4F      		sbci r19,-1
+ 199 00e8 F801      		movw r30,r16
+ 200 00ea 3387      		std Z+11,r19
+ 201 00ec 2287      		std Z+10,r18
+ 202 00ee 2C81      		ldd r18,Y+4
+ 203 00f0 30E0      		ldi r19,0
+ 204 00f2 2150      		subi r18,1
+ 205 00f4 3109      		sbc r19,__zero_reg__
+ 206 00f6 3587      		std Z+13,r19
+ 207 00f8 2487      		std Z+12,r18
+ 208               	.L5:
+ 209               	/* epilogue start */
+ 210 00fa 2796      		adiw r28,7
+ 211 00fc 0FB6      		in __tmp_reg__,__SREG__
+ 212 00fe F894      		cli
+ 213 0100 DEBF      		out __SP_H__,r29
+ 214 0102 0FBE      		out __SREG__,__tmp_reg__
+ 215 0104 CDBF      		out __SP_L__,r28
+ 216 0106 DF91      		pop r29
+ 217 0108 CF91      		pop r28
+ 218 010a 1F91      		pop r17
+ 219 010c 0F91      		pop r16
+ 220 010e 0895      		ret
+ 221               		.size	DS1307RtcGetClock, .-DS1307RtcGetClock
+ 222               		.section	.text.DS1307RtcWrite,"ax",@progbits
+ 223               	.global	DS1307RtcWrite
+ 224               		.type	DS1307RtcWrite, @function
+ 225               	DS1307RtcWrite:
+ 226 0000 AF92      		push r10
+ 227 0002 BF92      		push r11
+ 228 0004 CF92      		push r12
+GAS LISTING /tmp/ccRgQ98Z.s 			page 5
+
+
+ 229 0006 DF92      		push r13
+ 230 0008 EF92      		push r14
+ 231 000a FF92      		push r15
+ 232 000c 0F93      		push r16
+ 233 000e 1F93      		push r17
+ 234               	/* prologue: function */
+ 235               	/* frame size = 0 */
+ 236               	/* stack size = 8 */
+ 237               	.L__stack_usage = 8
+ 238 0010 9B01      		movw r18,r22
+ 239 0012 A12C      		mov r10,__zero_reg__
+ 240 0014 B12C      		mov r11,__zero_reg__
+ 241 0016 6501      		movw r12,r10
+ 242 0018 E12C      		mov r14,__zero_reg__
+ 243 001a F12C      		mov r15,__zero_reg__
+ 244 001c 00E0      		ldi r16,0
+ 245 001e 10E0      		ldi r17,0
+ 246 0020 AC01      		movw r20,r24
+ 247 0022 68E6      		ldi r22,lo8(104)
+ 248 0024 80E0      		ldi r24,lo8(AVRTwiBus)
+ 249 0026 90E0      		ldi r25,hi8(AVRTwiBus)
+ 250 0028 0E94 0000 		call NutTwiMasterTranceive
+ 251               	/* epilogue start */
+ 252 002c 1F91      		pop r17
+ 253 002e 0F91      		pop r16
+ 254 0030 FF90      		pop r15
+ 255 0032 EF90      		pop r14
+ 256 0034 DF90      		pop r13
+ 257 0036 CF90      		pop r12
+ 258 0038 BF90      		pop r11
+ 259 003a AF90      		pop r10
+ 260 003c 0895      		ret
+ 261               		.size	DS1307RtcWrite, .-DS1307RtcWrite
+ 262               		.section	.text.DS1307RtcSetClock,"ax",@progbits
+ 263               	.global	DS1307RtcSetClock
+ 264               		.type	DS1307RtcSetClock, @function
+ 265               	DS1307RtcSetClock:
+ 266 0000 EF92      		push r14
+ 267 0002 FF92      		push r15
+ 268 0004 0F93      		push r16
+ 269 0006 1F93      		push r17
+ 270 0008 CF93      		push r28
+ 271 000a DF93      		push r29
+ 272 000c CDB7      		in r28,__SP_L__
+ 273 000e DEB7      		in r29,__SP_H__
+ 274 0010 2897      		sbiw r28,8
+ 275 0012 0FB6      		in __tmp_reg__,__SREG__
+ 276 0014 F894      		cli
+ 277 0016 DEBF      		out __SP_H__,r29
+ 278 0018 0FBE      		out __SREG__,__tmp_reg__
+ 279 001a CDBF      		out __SP_L__,r28
+ 280               	/* prologue: function */
+ 281               	/* frame size = 8 */
+ 282               	/* stack size = 14 */
+ 283               	.L__stack_usage = 14
+ 284 001c FB01      		movw r30,r22
+ 285 001e 8E01      		movw r16,r28
+GAS LISTING /tmp/ccRgQ98Z.s 			page 6
+
+
+ 286 0020 0F5F      		subi r16,-1
+ 287 0022 1F4F      		sbci r17,-1
+ 288 0024 88E0      		ldi r24,lo8(8)
+ 289 0026 D801      		movw r26,r16
+ 290               		0:
+ 291 0028 1D92      		st X+,__zero_reg__
+ 292 002a 8A95      		dec r24
+ 293 002c 01F4      		brne 0b
+ 294 002e 3097      		sbiw r30,0
+ 295 0030 01F4      		brne .+2
+ 296 0032 00C0      		rjmp .L8
+ 297 0034 E080      		ld r14,Z
+ 298 0036 F180      		ldd r15,Z+1
+ 299 0038 C701      		movw r24,r14
+ 300 003a 9927      		clr r25
+ 301 003c 2AE0      		ldi r18,lo8(10)
+ 302 003e 30E0      		ldi r19,0
+ 303 0040 B901      		movw r22,r18
+ 304 0042 0E94 0000 		call __divmodhi4
+ 305 0046 462F      		mov r20,r22
+ 306 0048 C701      		movw r24,r14
+ 307 004a B901      		movw r22,r18
+ 308 004c 0E94 0000 		call __divmodhi4
+ 309 0050 B0E1      		ldi r27,lo8(16)
+ 310 0052 4B9F      		mul r20,r27
+ 311 0054 800D      		add r24,r0
+ 312 0056 1124      		clr __zero_reg__
+ 313 0058 8A83      		std Y+2,r24
+ 314 005a E280      		ldd r14,Z+2
+ 315 005c F380      		ldd r15,Z+3
+ 316 005e C701      		movw r24,r14
+ 317 0060 9927      		clr r25
+ 318 0062 B901      		movw r22,r18
+ 319 0064 0E94 0000 		call __divmodhi4
+ 320 0068 462F      		mov r20,r22
+ 321 006a C701      		movw r24,r14
+ 322 006c B901      		movw r22,r18
+ 323 006e 0E94 0000 		call __divmodhi4
+ 324 0072 90E1      		ldi r25,lo8(16)
+ 325 0074 499F      		mul r20,r25
+ 326 0076 800D      		add r24,r0
+ 327 0078 1124      		clr __zero_reg__
+ 328 007a 8B83      		std Y+3,r24
+ 329 007c E480      		ldd r14,Z+4
+ 330 007e F580      		ldd r15,Z+5
+ 331 0080 C701      		movw r24,r14
+ 332 0082 9927      		clr r25
+ 333 0084 B901      		movw r22,r18
+ 334 0086 0E94 0000 		call __divmodhi4
+ 335 008a 462F      		mov r20,r22
+ 336 008c C701      		movw r24,r14
+ 337 008e B901      		movw r22,r18
+ 338 0090 0E94 0000 		call __divmodhi4
+ 339 0094 A0E1      		ldi r26,lo8(16)
+ 340 0096 4A9F      		mul r20,r26
+ 341 0098 800D      		add r24,r0
+ 342 009a 1124      		clr __zero_reg__
+GAS LISTING /tmp/ccRgQ98Z.s 			page 7
+
+
+ 343 009c 8F73      		andi r24,lo8(63)
+ 344 009e 8C83      		std Y+4,r24
+ 345 00a0 E680      		ldd r14,Z+6
+ 346 00a2 F780      		ldd r15,Z+7
+ 347 00a4 C701      		movw r24,r14
+ 348 00a6 9927      		clr r25
+ 349 00a8 B901      		movw r22,r18
+ 350 00aa 0E94 0000 		call __divmodhi4
+ 351 00ae 462F      		mov r20,r22
+ 352 00b0 C701      		movw r24,r14
+ 353 00b2 B901      		movw r22,r18
+ 354 00b4 0E94 0000 		call __divmodhi4
+ 355 00b8 B0E1      		ldi r27,lo8(16)
+ 356 00ba 4B9F      		mul r20,r27
+ 357 00bc 800D      		add r24,r0
+ 358 00be 1124      		clr __zero_reg__
+ 359 00c0 8E83      		std Y+6,r24
+ 360 00c2 4085      		ldd r20,Z+8
+ 361 00c4 5185      		ldd r21,Z+9
+ 362 00c6 81E0      		ldi r24,lo8(1)
+ 363 00c8 840F      		add r24,r20
+ 364 00ca 9AE0      		ldi r25,lo8(10)
+ 365 00cc F92E      		mov r15,r25
+ 366 00ce 6F2D      		mov r22,r15
+ 367 00d0 0E94 0000 		call __udivmodqi4
+ 368 00d4 E82E      		mov r14,r24
+ 369 00d6 CA01      		movw r24,r20
+ 370 00d8 0196      		adiw r24,1
+ 371 00da B901      		movw r22,r18
+ 372 00dc 0E94 0000 		call __divmodhi4
+ 373 00e0 90E1      		ldi r25,lo8(16)
+ 374 00e2 E99E      		mul r14,r25
+ 375 00e4 800D      		add r24,r0
+ 376 00e6 1124      		clr __zero_reg__
+ 377 00e8 8F83      		std Y+7,r24
+ 378 00ea 4285      		ldd r20,Z+10
+ 379 00ec 5385      		ldd r21,Z+11
+ 380 00ee 8CE9      		ldi r24,lo8(-100)
+ 381 00f0 840F      		add r24,r20
+ 382 00f2 6F2D      		mov r22,r15
+ 383 00f4 0E94 0000 		call __udivmodqi4
+ 384 00f8 F82E      		mov r15,r24
+ 385 00fa CA01      		movw r24,r20
+ 386 00fc 8456      		subi r24,100
+ 387 00fe 9109      		sbc r25,__zero_reg__
+ 388 0100 B901      		movw r22,r18
+ 389 0102 0E94 0000 		call __divmodhi4
+ 390 0106 A0E1      		ldi r26,lo8(16)
+ 391 0108 FA9E      		mul r15,r26
+ 392 010a 800D      		add r24,r0
+ 393 010c 1124      		clr __zero_reg__
+ 394 010e 8887      		std Y+8,r24
+ 395 0110 8485      		ldd r24,Z+12
+ 396 0112 8F5F      		subi r24,lo8(-(1))
+ 397 0114 8D83      		std Y+5,r24
+ 398               	.L8:
+ 399 0116 68E0      		ldi r22,lo8(8)
+GAS LISTING /tmp/ccRgQ98Z.s 			page 8
+
+
+ 400 0118 70E0      		ldi r23,0
+ 401 011a C801      		movw r24,r16
+ 402 011c 0E94 0000 		call DS1307RtcWrite
+ 403               	/* epilogue start */
+ 404 0120 2896      		adiw r28,8
+ 405 0122 0FB6      		in __tmp_reg__,__SREG__
+ 406 0124 F894      		cli
+ 407 0126 DEBF      		out __SP_H__,r29
+ 408 0128 0FBE      		out __SREG__,__tmp_reg__
+ 409 012a CDBF      		out __SP_L__,r28
+ 410 012c DF91      		pop r29
+ 411 012e CF91      		pop r28
+ 412 0130 1F91      		pop r17
+ 413 0132 0F91      		pop r16
+ 414 0134 FF90      		pop r15
+ 415 0136 EF90      		pop r14
+ 416 0138 0895      		ret
+ 417               		.size	DS1307RtcSetClock, .-DS1307RtcSetClock
+ 418               		.section	.text.DS1307Init,"ax",@progbits
+ 419               	.global	DS1307Init
+ 420               		.type	DS1307Init, @function
+ 421               	DS1307Init:
+ 422 0000 CF93      		push r28
+ 423 0002 DF93      		push r29
+ 424 0004 00D0      		rcall .
+ 425 0006 CDB7      		in r28,__SP_L__
+ 426 0008 DEB7      		in r29,__SP_H__
+ 427               	/* prologue: function */
+ 428               	/* frame size = 3 */
+ 429               	/* stack size = 5 */
+ 430               	.L__stack_usage = 5
+ 431 000a 60E0      		ldi r22,0
+ 432 000c 80E0      		ldi r24,lo8(AVRTwiBus)
+ 433 000e 90E0      		ldi r25,hi8(AVRTwiBus)
+ 434 0010 0E94 0000 		call NutRegisterTwiBus
+ 435 0014 0097      		sbiw r24,0
+ 436 0016 01F4      		brne .L13
+ 437 0018 41E0      		ldi r20,lo8(1)
+ 438 001a 50E0      		ldi r21,0
+ 439 001c BE01      		movw r22,r28
+ 440 001e 6D5F      		subi r22,-3
+ 441 0020 7F4F      		sbci r23,-1
+ 442 0022 80E0      		ldi r24,0
+ 443 0024 0E94 0000 		call DS1307RtcReadRegs
+ 444 0028 892B      		or r24,r25
+ 445 002a 01F4      		brne .L14
+ 446 002c 1982      		std Y+1,__zero_reg__
+ 447 002e 8B81      		ldd r24,Y+3
+ 448 0030 8F77      		andi r24,lo8(127)
+ 449 0032 8A83      		std Y+2,r24
+ 450 0034 62E0      		ldi r22,lo8(2)
+ 451 0036 70E0      		ldi r23,0
+ 452 0038 CE01      		movw r24,r28
+ 453 003a 0196      		adiw r24,1
+ 454 003c 0E94 0000 		call DS1307RtcWrite
+ 455               	.L14:
+ 456 0040 41E0      		ldi r20,lo8(1)
+GAS LISTING /tmp/ccRgQ98Z.s 			page 9
+
+
+ 457 0042 50E0      		ldi r21,0
+ 458 0044 BE01      		movw r22,r28
+ 459 0046 6D5F      		subi r22,-3
+ 460 0048 7F4F      		sbci r23,-1
+ 461 004a 82E0      		ldi r24,lo8(2)
+ 462 004c 0E94 0000 		call DS1307RtcReadRegs
+ 463 0050 0097      		sbiw r24,0
+ 464 0052 01F4      		brne .L13
+ 465 0054 82E0      		ldi r24,lo8(2)
+ 466 0056 8983      		std Y+1,r24
+ 467 0058 8B81      		ldd r24,Y+3
+ 468 005a 8F7B      		andi r24,lo8(-65)
+ 469 005c 8A83      		std Y+2,r24
+ 470 005e 62E0      		ldi r22,lo8(2)
+ 471 0060 70E0      		ldi r23,0
+ 472 0062 CE01      		movw r24,r28
+ 473 0064 0196      		adiw r24,1
+ 474 0066 0E94 0000 		call DS1307RtcWrite
+ 475               	.L13:
+ 476               	/* epilogue start */
+ 477 006a 0F90      		pop __tmp_reg__
+ 478 006c 0F90      		pop __tmp_reg__
+ 479 006e 0F90      		pop __tmp_reg__
+ 480 0070 DF91      		pop r29
+ 481 0072 CF91      		pop r28
+ 482 0074 0895      		ret
+ 483               		.size	DS1307Init, .-DS1307Init
+ 484               		.section	.text.DS1307RamRead,"ax",@progbits
+ 485               	.global	DS1307RamRead
+ 486               		.type	DS1307RamRead, @function
+ 487               	DS1307RamRead:
+ 488               	/* prologue: function */
+ 489               	/* frame size = 0 */
+ 490               	/* stack size = 0 */
+ 491               	.L__stack_usage = 0
+ 492 0000 98EF      		ldi r25,lo8(-8)
+ 493 0002 980F      		add r25,r24
+ 494 0004 9833      		cpi r25,lo8(56)
+ 495 0006 00F4      		brsh .L17
+ 496 0008 0C94 0000 		jmp DS1307RtcReadRegs
+ 497               	.L17:
+ 498 000c 8FEF      		ldi r24,lo8(-1)
+ 499 000e 9FEF      		ldi r25,lo8(-1)
+ 500 0010 0895      		ret
+ 501               		.size	DS1307RamRead, .-DS1307RamRead
+ 502               		.section	.text.DS1307RamWrite,"ax",@progbits
+ 503               	.global	DS1307RamWrite
+ 504               		.type	DS1307RamWrite, @function
+ 505               	DS1307RamWrite:
+ 506 0000 6F92      		push r6
+ 507 0002 7F92      		push r7
+ 508 0004 8F92      		push r8
+ 509 0006 9F92      		push r9
+ 510 0008 AF92      		push r10
+ 511 000a BF92      		push r11
+ 512 000c CF92      		push r12
+ 513 000e DF92      		push r13
+GAS LISTING /tmp/ccRgQ98Z.s 			page 10
+
+
+ 514 0010 EF92      		push r14
+ 515 0012 FF92      		push r15
+ 516 0014 0F93      		push r16
+ 517 0016 1F93      		push r17
+ 518 0018 CF93      		push r28
+ 519 001a DF93      		push r29
+ 520 001c 00D0      		rcall .
+ 521 001e 1F92      		push __zero_reg__
+ 522 0020 CDB7      		in r28,__SP_L__
+ 523 0022 DEB7      		in r29,__SP_H__
+ 524               	/* prologue: function */
+ 525               	/* frame size = 4 */
+ 526               	/* stack size = 18 */
+ 527               	.L__stack_usage = 18
+ 528 0024 182F      		mov r17,r24
+ 529 0026 4A01      		movw r8,r20
+ 530 0028 8FEF      		ldi r24,-1
+ 531 002a 881A      		sub r8,r24
+ 532 002c 980A      		sbc r9,r24
+ 533 002e C401      		movw r24,r8
+ 534 0030 4B83      		std Y+3,r20
+ 535 0032 5C83      		std Y+4,r21
+ 536 0034 6983      		std Y+1,r22
+ 537 0036 7A83      		std Y+2,r23
+ 538 0038 0E94 0000 		call malloc
+ 539 003c 3C01      		movw r6,r24
+ 540 003e 4B81      		ldd r20,Y+3
+ 541 0040 5C81      		ldd r21,Y+4
+ 542 0042 6981      		ldd r22,Y+1
+ 543 0044 7A81      		ldd r23,Y+2
+ 544 0046 0097      		sbiw r24,0
+ 545 0048 01F0      		breq .L20
+ 546 004a FC01      		movw r30,r24
+ 547 004c 1193      		st Z+,r17
+ 548 004e CF01      		movw r24,r30
+ 549 0050 0E94 0000 		call memcpy
+ 550 0054 A12C      		mov r10,__zero_reg__
+ 551 0056 B12C      		mov r11,__zero_reg__
+ 552 0058 6501      		movw r12,r10
+ 553 005a E12C      		mov r14,__zero_reg__
+ 554 005c F12C      		mov r15,__zero_reg__
+ 555 005e 00E0      		ldi r16,0
+ 556 0060 10E0      		ldi r17,0
+ 557 0062 9401      		movw r18,r8
+ 558 0064 A301      		movw r20,r6
+ 559 0066 68E6      		ldi r22,lo8(104)
+ 560 0068 80E0      		ldi r24,lo8(AVRTwiBus)
+ 561 006a 90E0      		ldi r25,hi8(AVRTwiBus)
+ 562 006c 0E94 0000 		call NutTwiMasterTranceive
+ 563 0070 8C01      		movw r16,r24
+ 564 0072 C301      		movw r24,r6
+ 565 0074 0E94 0000 		call free
+ 566 0078 00C0      		rjmp .L19
+ 567               	.L20:
+ 568 007a 0FEF      		ldi r16,lo8(-1)
+ 569 007c 1FEF      		ldi r17,lo8(-1)
+ 570               	.L19:
+GAS LISTING /tmp/ccRgQ98Z.s 			page 11
+
+
+ 571 007e C801      		movw r24,r16
+ 572               	/* epilogue start */
+ 573 0080 0F90      		pop __tmp_reg__
+ 574 0082 0F90      		pop __tmp_reg__
+ 575 0084 0F90      		pop __tmp_reg__
+ 576 0086 0F90      		pop __tmp_reg__
+ 577 0088 DF91      		pop r29
+ 578 008a CF91      		pop r28
+ 579 008c 1F91      		pop r17
+ 580 008e 0F91      		pop r16
+ 581 0090 FF90      		pop r15
+ 582 0092 EF90      		pop r14
+ 583 0094 DF90      		pop r13
+ 584 0096 CF90      		pop r12
+ 585 0098 BF90      		pop r11
+ 586 009a AF90      		pop r10
+ 587 009c 9F90      		pop r9
+ 588 009e 8F90      		pop r8
+ 589 00a0 7F90      		pop r7
+ 590 00a2 6F90      		pop r6
+ 591 00a4 0895      		ret
+ 592               		.size	DS1307RamWrite, .-DS1307RamWrite
+ 593               	.global	rtcDs1307
+ 594               		.data
+ 595               		.type	rtcDs1307, @object
+ 596               		.size	rtcDs1307, 18
+ 597               	rtcDs1307:
+ 598 0000 0000      		.word	0
+ 599 0002 0000      		.word	gs(DS1307Init)
+ 600 0004 0000      		.word	gs(DS1307RtcGetClock)
+ 601 0006 0000      		.word	gs(DS1307RtcSetClock)
+ 602 0008 0000      		.word	0
+ 603 000a 0000      		.word	0
+ 604 000c 0000      		.word	0
+ 605 000e 0000      		.word	0
+ 606 0010 0000      		.word	0
+ 607               		.ident	"GCC: (GNU) 5.3.0"
+ 608               	.global __do_copy_data
+GAS LISTING /tmp/ccRgQ98Z.s 			page 12
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 ds1307rtc.c
+     /tmp/ccRgQ98Z.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccRgQ98Z.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccRgQ98Z.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccRgQ98Z.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccRgQ98Z.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccRgQ98Z.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccRgQ98Z.s:11     .text.DS1307RtcReadRegs:0000000000000000 DS1307RtcReadRegs
+     /tmp/ccRgQ98Z.s:78     .text.DS1307RtcGetClock:0000000000000000 DS1307RtcGetClock
+     /tmp/ccRgQ98Z.s:225    .text.DS1307RtcWrite:0000000000000000 DS1307RtcWrite
+     /tmp/ccRgQ98Z.s:265    .text.DS1307RtcSetClock:0000000000000000 DS1307RtcSetClock
+     /tmp/ccRgQ98Z.s:421    .text.DS1307Init:0000000000000000 DS1307Init
+     /tmp/ccRgQ98Z.s:487    .text.DS1307RamRead:0000000000000000 DS1307RamRead
+     /tmp/ccRgQ98Z.s:505    .text.DS1307RamWrite:0000000000000000 DS1307RamWrite
+     /tmp/ccRgQ98Z.s:597    .data:0000000000000000 rtcDs1307
+
+UNDEFINED SYMBOLS
+AVRTwiBus
+NutTwiMasterTranceive
+__divmodhi4
+__udivmodqi4
+NutRegisterTwiBus
+malloc
+memcpy
+free
+__do_copy_data

@@ -1,0 +1,321 @@
+GAS LISTING /tmp/cc5iKKgW.s 			page 1
+
+
+   1               		.file	"sppif0.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.Sppi0SetMode,"ax",@progbits
+   9               	.global	Sppi0SetMode
+  10               		.type	Sppi0SetMode, @function
+  11               	Sppi0SetMode:
+  12               	/* prologue: function */
+  13               	/* frame size = 0 */
+  14               	/* stack size = 0 */
+  15               	.L__stack_usage = 0
+  16 0000 8430      		cpi r24,lo8(4)
+  17 0002 00F4      		brsh .L4
+  18 0004 6430      		cpi r22,lo8(4)
+  19 0006 00F4      		brsh .L4
+  20 0008 90E0      		ldi r25,0
+  21 000a FC01      		movw r30,r24
+  22 000c E050      		subi r30,lo8(-(sppi0_spcr))
+  23 000e F040      		sbci r31,hi8(-(sppi0_spcr))
+  24 0010 24E0      		ldi r18,lo8(4)
+  25 0012 629F      		mul r22,r18
+  26 0014 B001      		movw r22,r0
+  27 0016 1124      		clr __zero_reg__
+  28 0018 6365      		ori r22,lo8(83)
+  29 001a 6083      		st Z,r22
+  30 001c FC01      		movw r30,r24
+  31 001e E050      		subi r30,lo8(-(sppi0_spsr))
+  32 0020 F040      		sbci r31,hi8(-(sppi0_spsr))
+  33 0022 1082      		st Z,__zero_reg__
+  34 0024 80E0      		ldi r24,0
+  35 0026 90E0      		ldi r25,0
+  36 0028 0895      		ret
+  37               	.L4:
+  38 002a 8FEF      		ldi r24,lo8(-1)
+  39 002c 9FEF      		ldi r25,lo8(-1)
+  40 002e 0895      		ret
+  41               		.size	Sppi0SetMode, .-Sppi0SetMode
+  42               		.section	.text.Sppi0SetSpeed,"ax",@progbits
+  43               	.global	Sppi0SetSpeed
+  44               		.type	Sppi0SetSpeed, @function
+  45               	Sppi0SetSpeed:
+  46 0000 8F92      		push r8
+  47 0002 9F92      		push r9
+  48 0004 AF92      		push r10
+  49 0006 BF92      		push r11
+  50 0008 CF93      		push r28
+  51               	/* prologue: function */
+  52               	/* frame size = 0 */
+  53               	/* stack size = 5 */
+  54               	.L__stack_usage = 5
+  55 000a C82F      		mov r28,r24
+  56 000c 4A01      		movw r8,r20
+  57 000e 5B01      		movw r10,r22
+GAS LISTING /tmp/cc5iKKgW.s 			page 2
+
+
+  58 0010 0E94 0000 		call NutGetCpuClock
+  59 0014 2C2F      		mov r18,r28
+  60 0016 30E0      		ldi r19,0
+  61 0018 F901      		movw r30,r18
+  62 001a E050      		subi r30,lo8(-(sppi0_spcr))
+  63 001c F040      		sbci r31,hi8(-(sppi0_spcr))
+  64 001e 4081      		ld r20,Z
+  65 0020 542F      		mov r21,r20
+  66 0022 5C7F      		andi r21,lo8(-4)
+  67 0024 A0E0      		ldi r26,0
+  68               	.L8:
+  69 0026 9695      		lsr r25
+  70 0028 8795      		ror r24
+  71 002a 7795      		ror r23
+  72 002c 6795      		ror r22
+  73 002e 8616      		cp r8,r22
+  74 0030 9706      		cpc r9,r23
+  75 0032 A806      		cpc r10,r24
+  76 0034 B906      		cpc r11,r25
+  77 0036 00F4      		brsh .L7
+  78 0038 AF5F      		subi r26,lo8(-(1))
+  79 003a A730      		cpi r26,lo8(7)
+  80 003c 01F4      		brne .L8
+  81               	.L7:
+  82 003e 4A2F      		mov r20,r26
+  83 0040 4695      		lsr r20
+  84 0042 842F      		mov r24,r20
+  85 0044 852B      		or r24,r21
+  86 0046 8083      		st Z,r24
+  87 0048 A630      		cpi r26,lo8(6)
+  88 004a 00F4      		brsh .L6
+  89 004c 9A2F      		mov r25,r26
+  90 004e 9095      		com r25
+  91 0050 9170      		andi r25,lo8(1)
+  92 0052 F901      		movw r30,r18
+  93 0054 E050      		subi r30,lo8(-(sppi0_spsr))
+  94 0056 F040      		sbci r31,hi8(-(sppi0_spsr))
+  95 0058 9083      		st Z,r25
+  96               	.L6:
+  97               	/* epilogue start */
+  98 005a CF91      		pop r28
+  99 005c BF90      		pop r11
+ 100 005e AF90      		pop r10
+ 101 0060 9F90      		pop r9
+ 102 0062 8F90      		pop r8
+ 103 0064 0895      		ret
+ 104               		.size	Sppi0SetSpeed, .-Sppi0SetSpeed
+ 105               		.section	.text.Sppi0Enable,"ax",@progbits
+ 106               	.global	Sppi0Enable
+ 107               		.type	Sppi0Enable, @function
+ 108               	Sppi0Enable:
+ 109               	/* prologue: function */
+ 110               	/* frame size = 0 */
+ 111               	/* stack size = 0 */
+ 112               	.L__stack_usage = 0
+ 113 0000 90E0      		ldi r25,0
+ 114 0002 FC01      		movw r30,r24
+GAS LISTING /tmp/cc5iKKgW.s 			page 3
+
+
+ 115 0004 E050      		subi r30,lo8(-(sppi0_spcr))
+ 116 0006 F040      		sbci r31,hi8(-(sppi0_spcr))
+ 117 0008 2081      		ld r18,Z
+ 118 000a 23FF      		sbrs r18,3
+ 119 000c 00C0      		rjmp .L12
+ 120 000e 2998      		cbi 0x5,1
+ 121 0010 00C0      		rjmp .L13
+ 122               	.L12:
+ 123 0012 299A      		sbi 0x5,1
+ 124               	.L13:
+ 125 0014 219A      		sbi 0x4,1
+ 126 0016 2A98      		cbi 0x5,2
+ 127 0018 229A      		sbi 0x4,2
+ 128 001a 2B9A      		sbi 0x5,3
+ 129 001c 209B      		sbis 0x4,0
+ 130 001e 289A      		sbi 0x5,0
+ 131               	.L14:
+ 132 0020 2081      		ld r18,Z
+ 133 0022 2CBD      		out 0x2c,r18
+ 134 0024 FC01      		movw r30,r24
+ 135 0026 E050      		subi r30,lo8(-(sppi0_spsr))
+ 136 0028 F040      		sbci r31,hi8(-(sppi0_spsr))
+ 137 002a 8081      		ld r24,Z
+ 138 002c 8DBD      		out 0x2d,r24
+ 139 002e 8DB5      		in r24,0x2d
+ 140 0030 8EB5      		in r24,0x2e
+ 141 0032 0895      		ret
+ 142               		.size	Sppi0Enable, .-Sppi0Enable
+ 143               		.section	.text.Sppi0ChipReset,"ax",@progbits
+ 144               	.global	Sppi0ChipReset
+ 145               		.type	Sppi0ChipReset, @function
+ 146               	Sppi0ChipReset:
+ 147               	/* prologue: function */
+ 148               	/* frame size = 0 */
+ 149               	/* stack size = 0 */
+ 150               	.L__stack_usage = 0
+ 151 0000 0895      		ret
+ 152               		.size	Sppi0ChipReset, .-Sppi0ChipReset
+ 153               		.section	.text.Sppi0ChipSelect,"ax",@progbits
+ 154               	.global	Sppi0ChipSelect
+ 155               		.type	Sppi0ChipSelect, @function
+ 156               	Sppi0ChipSelect:
+ 157               	/* prologue: function */
+ 158               	/* frame size = 0 */
+ 159               	/* stack size = 0 */
+ 160               	.L__stack_usage = 0
+ 161 0000 0895      		ret
+ 162               		.size	Sppi0ChipSelect, .-Sppi0ChipSelect
+ 163               		.section	.text.Sppi0SelectDevice,"ax",@progbits
+ 164               	.global	Sppi0SelectDevice
+ 165               		.type	Sppi0SelectDevice, @function
+ 166               	Sppi0SelectDevice:
+ 167               	/* prologue: function */
+ 168               	/* frame size = 0 */
+ 169               	/* stack size = 0 */
+ 170               	.L__stack_usage = 0
+ 171 0000 0C94 0000 		jmp Sppi0Enable
+GAS LISTING /tmp/cc5iKKgW.s 			page 4
+
+
+ 172               		.size	Sppi0SelectDevice, .-Sppi0SelectDevice
+ 173               		.section	.text.Sppi0DeselectDevice,"ax",@progbits
+ 174               	.global	Sppi0DeselectDevice
+ 175               		.type	Sppi0DeselectDevice, @function
+ 176               	Sppi0DeselectDevice:
+ 177               	/* prologue: function */
+ 178               	/* frame size = 0 */
+ 179               	/* stack size = 0 */
+ 180               	.L__stack_usage = 0
+ 181 0000 0895      		ret
+ 182               		.size	Sppi0DeselectDevice, .-Sppi0DeselectDevice
+ 183               		.section	.text.Sppi0NegSelectDevice,"ax",@progbits
+ 184               	.global	Sppi0NegSelectDevice
+ 185               		.type	Sppi0NegSelectDevice, @function
+ 186               	Sppi0NegSelectDevice:
+ 187               	/* prologue: function */
+ 188               	/* frame size = 0 */
+ 189               	/* stack size = 0 */
+ 190               	.L__stack_usage = 0
+ 191 0000 0C94 0000 		jmp Sppi0Enable
+ 192               		.size	Sppi0NegSelectDevice, .-Sppi0NegSelectDevice
+ 193               		.section	.text.Sppi0NegDeselectDevice,"ax",@progbits
+ 194               	.global	Sppi0NegDeselectDevice
+ 195               		.type	Sppi0NegDeselectDevice, @function
+ 196               	Sppi0NegDeselectDevice:
+ 197               	/* prologue: function */
+ 198               	/* frame size = 0 */
+ 199               	/* stack size = 0 */
+ 200               	.L__stack_usage = 0
+ 201 0000 0895      		ret
+ 202               		.size	Sppi0NegDeselectDevice, .-Sppi0NegDeselectDevice
+ 203               		.section	.text.Sppi0Byte,"ax",@progbits
+ 204               	.global	Sppi0Byte
+ 205               		.type	Sppi0Byte, @function
+ 206               	Sppi0Byte:
+ 207               	/* prologue: function */
+ 208               	/* frame size = 0 */
+ 209               	/* stack size = 0 */
+ 210               	.L__stack_usage = 0
+ 211 0000 8EBD      		out 0x2e,r24
+ 212               	.L22:
+ 213 0002 0DB4      		in __tmp_reg__,0x2d
+ 214 0004 07FE      		sbrs __tmp_reg__,7
+ 215 0006 00C0      		rjmp .L22
+ 216 0008 8EB5      		in r24,0x2e
+ 217 000a 0895      		ret
+ 218               		.size	Sppi0Byte, .-Sppi0Byte
+ 219               		.section	.text.Sppi0Transact,"ax",@progbits
+ 220               	.global	Sppi0Transact
+ 221               		.type	Sppi0Transact, @function
+ 222               	Sppi0Transact:
+ 223 0000 EF92      		push r14
+ 224 0002 FF92      		push r15
+ 225 0004 0F93      		push r16
+ 226 0006 1F93      		push r17
+ 227 0008 CF93      		push r28
+ 228 000a DF93      		push r29
+GAS LISTING /tmp/cc5iKKgW.s 			page 5
+
+
+ 229               	/* prologue: function */
+ 230               	/* frame size = 0 */
+ 231               	/* stack size = 6 */
+ 232               	.L__stack_usage = 6
+ 233 000c EC01      		movw r28,r24
+ 234 000e 6115      		cp r22,__zero_reg__
+ 235 0010 7105      		cpc r23,__zero_reg__
+ 236 0012 01F4      		brne .L25
+ 237 0014 8C01      		movw r16,r24
+ 238 0016 040F      		add r16,r20
+ 239 0018 151F      		adc r17,r21
+ 240 001a 00C0      		rjmp .L26
+ 241               	.L25:
+ 242 001c 8B01      		movw r16,r22
+ 243 001e 7B01      		movw r14,r22
+ 244 0020 E40E      		add r14,r20
+ 245 0022 F51E      		adc r15,r21
+ 246               	.L27:
+ 247 0024 0E15      		cp r16,r14
+ 248 0026 1F05      		cpc r17,r15
+ 249 0028 01F0      		breq .L24
+ 250 002a 8991      		ld r24,Y+
+ 251 002c 0E94 0000 		call Sppi0Byte
+ 252 0030 F801      		movw r30,r16
+ 253 0032 8193      		st Z+,r24
+ 254 0034 8F01      		movw r16,r30
+ 255 0036 00C0      		rjmp .L27
+ 256               	.L26:
+ 257 0038 C017      		cp r28,r16
+ 258 003a D107      		cpc r29,r17
+ 259 003c 01F0      		breq .L24
+ 260 003e 8991      		ld r24,Y+
+ 261 0040 0E94 0000 		call Sppi0Byte
+ 262 0044 00C0      		rjmp .L26
+ 263               	.L24:
+ 264               	/* epilogue start */
+ 265 0046 DF91      		pop r29
+ 266 0048 CF91      		pop r28
+ 267 004a 1F91      		pop r17
+ 268 004c 0F91      		pop r16
+ 269 004e FF90      		pop r15
+ 270 0050 EF90      		pop r14
+ 271 0052 0895      		ret
+ 272               		.size	Sppi0Transact, .-Sppi0Transact
+ 273               		.local	sppi0_spsr
+ 274               		.comm	sppi0_spsr,4,1
+ 275               		.local	sppi0_spcr
+ 276               		.comm	sppi0_spcr,4,1
+ 277               		.ident	"GCC: (GNU) 5.3.0"
+ 278               	.global __do_clear_bss
+GAS LISTING /tmp/cc5iKKgW.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 sppif0.c
+     /tmp/cc5iKKgW.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cc5iKKgW.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cc5iKKgW.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cc5iKKgW.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cc5iKKgW.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cc5iKKgW.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cc5iKKgW.s:11     .text.Sppi0SetMode:0000000000000000 Sppi0SetMode
+     /tmp/cc5iKKgW.s:274    .bss:0000000000000004 sppi0_spcr
+                             .bss:0000000000000000 sppi0_spsr
+     /tmp/cc5iKKgW.s:45     .text.Sppi0SetSpeed:0000000000000000 Sppi0SetSpeed
+     /tmp/cc5iKKgW.s:108    .text.Sppi0Enable:0000000000000000 Sppi0Enable
+     /tmp/cc5iKKgW.s:146    .text.Sppi0ChipReset:0000000000000000 Sppi0ChipReset
+     /tmp/cc5iKKgW.s:156    .text.Sppi0ChipSelect:0000000000000000 Sppi0ChipSelect
+     /tmp/cc5iKKgW.s:166    .text.Sppi0SelectDevice:0000000000000000 Sppi0SelectDevice
+     /tmp/cc5iKKgW.s:176    .text.Sppi0DeselectDevice:0000000000000000 Sppi0DeselectDevice
+     /tmp/cc5iKKgW.s:186    .text.Sppi0NegSelectDevice:0000000000000000 Sppi0NegSelectDevice
+     /tmp/cc5iKKgW.s:196    .text.Sppi0NegDeselectDevice:0000000000000000 Sppi0NegDeselectDevice
+     /tmp/cc5iKKgW.s:206    .text.Sppi0Byte:0000000000000000 Sppi0Byte
+     /tmp/cc5iKKgW.s:222    .text.Sppi0Transact:0000000000000000 Sppi0Transact
+
+UNDEFINED SYMBOLS
+NutGetCpuClock
+__do_clear_bss

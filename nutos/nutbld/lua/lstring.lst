@@ -1,0 +1,512 @@
+GAS LISTING /tmp/ccbmwbGp.s 			page 1
+
+
+   1               		.file	"lstring.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.luaS_resize,"ax",@progbits
+   9               	.global	luaS_resize
+  10               		.hidden	luaS_resize
+  11               		.type	luaS_resize, @function
+  12               	luaS_resize:
+  13 0000 CF92      		push r12
+  14 0002 DF92      		push r13
+  15 0004 EF92      		push r14
+  16 0006 FF92      		push r15
+  17 0008 0F93      		push r16
+  18 000a 1F93      		push r17
+  19 000c CF93      		push r28
+  20 000e DF93      		push r29
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	/* stack size = 8 */
+  24               	.L__stack_usage = 8
+  25 0010 8C01      		movw r16,r24
+  26 0012 EB01      		movw r28,r22
+  27 0014 DC01      		movw r26,r24
+  28 0016 1996      		adiw r26,9
+  29 0018 ED91      		ld r30,X+
+  30 001a FC91      		ld r31,X
+  31 001c 1A97      		sbiw r26,9+1
+  32 001e 8585      		ldd r24,Z+13
+  33 0020 8230      		cpi r24,lo8(2)
+  34 0022 01F4      		brne .+2
+  35 0024 00C0      		rjmp .L1
+  36 0026 CB01      		movw r24,r22
+  37 0028 0196      		adiw r24,1
+  38 002a 8F3F      		cpi r24,-1
+  39 002c 9F47      		sbci r25,127
+  40 002e 00F4      		brsh .L3
+  41 0030 9B01      		movw r18,r22
+  42 0032 220F      		lsl r18
+  43 0034 331F      		rol r19
+  44 0036 40E0      		ldi r20,0
+  45 0038 50E0      		ldi r21,0
+  46 003a 60E0      		ldi r22,0
+  47 003c 70E0      		ldi r23,0
+  48 003e C801      		movw r24,r16
+  49 0040 0E94 0000 		call luaM_realloc_
+  50 0044 00C0      		rjmp .L14
+  51               	.L3:
+  52 0046 C801      		movw r24,r16
+  53 0048 0E94 0000 		call luaM_toobig
+  54               	.L14:
+  55 004c 6C01      		movw r12,r24
+  56 004e F801      		movw r30,r16
+  57 0050 E184      		ldd r14,Z+9
+GAS LISTING /tmp/ccbmwbGp.s 			page 2
+
+
+  58 0052 F284      		ldd r15,Z+10
+  59 0054 FC01      		movw r30,r24
+  60 0056 80E0      		ldi r24,0
+  61 0058 90E0      		ldi r25,0
+  62               	.L5:
+  63 005a 8C17      		cp r24,r28
+  64 005c 9D07      		cpc r25,r29
+  65 005e 04F4      		brge .L16
+  66 0060 1192      		st Z+,__zero_reg__
+  67 0062 1192      		st Z+,__zero_reg__
+  68 0064 0196      		adiw r24,1
+  69 0066 00C0      		rjmp .L5
+  70               	.L16:
+  71 0068 80E0      		ldi r24,0
+  72 006a 90E0      		ldi r25,0
+  73 006c 9E01      		movw r18,r28
+  74 006e 2150      		subi r18,1
+  75 0070 3109      		sbc r19,__zero_reg__
+  76               	.L7:
+  77 0072 D701      		movw r26,r14
+  78 0074 1696      		adiw r26,6
+  79 0076 4D91      		ld r20,X+
+  80 0078 5C91      		ld r21,X
+  81 007a 1797      		sbiw r26,6+1
+  82 007c 6D91      		ld r22,X+
+  83 007e 7C91      		ld r23,X
+  84 0080 8417      		cp r24,r20
+  85 0082 9507      		cpc r25,r21
+  86 0084 04F4      		brge .L17
+  87 0086 FC01      		movw r30,r24
+  88 0088 EE0F      		lsl r30
+  89 008a FF1F      		rol r31
+  90 008c E60F      		add r30,r22
+  91 008e F71F      		adc r31,r23
+  92 0090 0190      		ld __tmp_reg__,Z+
+  93 0092 F081      		ld r31,Z
+  94 0094 E02D      		mov r30,__tmp_reg__
+  95               	.L8:
+  96 0096 3097      		sbiw r30,0
+  97 0098 01F0      		breq .L18
+  98 009a 5081      		ld r21,Z
+  99 009c 4181      		ldd r20,Z+1
+ 100 009e A581      		ldd r26,Z+5
+ 101 00a0 B681      		ldd r27,Z+6
+ 102 00a2 A223      		and r26,r18
+ 103 00a4 B323      		and r27,r19
+ 104 00a6 AA0F      		lsl r26
+ 105 00a8 BB1F      		rol r27
+ 106 00aa AC0D      		add r26,r12
+ 107 00ac BD1D      		adc r27,r13
+ 108 00ae 6D91      		ld r22,X+
+ 109 00b0 7C91      		ld r23,X
+ 110 00b2 1197      		sbiw r26,1
+ 111 00b4 7183      		std Z+1,r23
+ 112 00b6 6083      		st Z,r22
+ 113 00b8 ED93      		st X+,r30
+ 114 00ba FC93      		st X,r31
+GAS LISTING /tmp/ccbmwbGp.s 			page 3
+
+
+ 115 00bc E52F      		mov r30,r21
+ 116 00be F42F      		mov r31,r20
+ 117 00c0 00C0      		rjmp .L8
+ 118               	.L18:
+ 119 00c2 0196      		adiw r24,1
+ 120 00c4 00C0      		rjmp .L7
+ 121               	.L17:
+ 122 00c6 440F      		lsl r20
+ 123 00c8 551F      		rol r21
+ 124 00ca 20E0      		ldi r18,0
+ 125 00cc 30E0      		ldi r19,0
+ 126 00ce C801      		movw r24,r16
+ 127 00d0 0E94 0000 		call luaM_realloc_
+ 128 00d4 F701      		movw r30,r14
+ 129 00d6 D783      		std Z+7,r29
+ 130 00d8 C683      		std Z+6,r28
+ 131 00da D182      		std Z+1,r13
+ 132 00dc C082      		st Z,r12
+ 133               	.L1:
+ 134               	/* epilogue start */
+ 135 00de DF91      		pop r29
+ 136 00e0 CF91      		pop r28
+ 137 00e2 1F91      		pop r17
+ 138 00e4 0F91      		pop r16
+ 139 00e6 FF90      		pop r15
+ 140 00e8 EF90      		pop r14
+ 141 00ea DF90      		pop r13
+ 142 00ec CF90      		pop r12
+ 143 00ee 0895      		ret
+ 144               		.size	luaS_resize, .-luaS_resize
+ 145               		.section	.text.luaS_newlstr,"ax",@progbits
+ 146               	.global	luaS_newlstr
+ 147               		.hidden	luaS_newlstr
+ 148               		.type	luaS_newlstr, @function
+ 149               	luaS_newlstr:
+ 150 0000 8F92      		push r8
+ 151 0002 9F92      		push r9
+ 152 0004 AF92      		push r10
+ 153 0006 BF92      		push r11
+ 154 0008 CF92      		push r12
+ 155 000a DF92      		push r13
+ 156 000c EF92      		push r14
+ 157 000e FF92      		push r15
+ 158 0010 0F93      		push r16
+ 159 0012 1F93      		push r17
+ 160 0014 CF93      		push r28
+ 161 0016 DF93      		push r29
+ 162               	/* prologue: function */
+ 163               	/* frame size = 0 */
+ 164               	/* stack size = 12 */
+ 165               	.L__stack_usage = 12
+ 166 0018 7C01      		movw r14,r24
+ 167 001a 5B01      		movw r10,r22
+ 168 001c 6A01      		movw r12,r20
+ 169 001e 9A01      		movw r18,r20
+ 170 0020 A5E0      		ldi r26,5
+ 171               		1:
+GAS LISTING /tmp/ccbmwbGp.s 			page 4
+
+
+ 172 0022 3695      		lsr r19
+ 173 0024 2795      		ror r18
+ 174 0026 AA95      		dec r26
+ 175 0028 01F4      		brne 1b
+ 176 002a 2F5F      		subi r18,-1
+ 177 002c 3F4F      		sbci r19,-1
+ 178 002e AB01      		movw r20,r22
+ 179 0030 4C0D      		add r20,r12
+ 180 0032 5D1D      		adc r21,r13
+ 181 0034 8601      		movw r16,r12
+ 182               	.L20:
+ 183 0036 CA01      		movw r24,r20
+ 184 0038 8A19      		sub r24,r10
+ 185 003a 9B09      		sbc r25,r11
+ 186 003c 8217      		cp r24,r18
+ 187 003e 9307      		cpc r25,r19
+ 188 0040 00F0      		brlo .L30
+ 189 0042 B801      		movw r22,r16
+ 190 0044 E5E0      		ldi r30,5
+ 191               		1:
+ 192 0046 660F      		lsl r22
+ 193 0048 771F      		rol r23
+ 194 004a EA95      		dec r30
+ 195 004c 01F4      		brne 1b
+ 196 004e C801      		movw r24,r16
+ 197 0050 9695      		lsr r25
+ 198 0052 8795      		ror r24
+ 199 0054 9695      		lsr r25
+ 200 0056 8795      		ror r24
+ 201 0058 860F      		add r24,r22
+ 202 005a 971F      		adc r25,r23
+ 203 005c FA01      		movw r30,r20
+ 204 005e 3197      		sbiw r30,1
+ 205 0060 6081      		ld r22,Z
+ 206 0062 860F      		add r24,r22
+ 207 0064 911D      		adc r25,__zero_reg__
+ 208 0066 0827      		eor r16,r24
+ 209 0068 1927      		eor r17,r25
+ 210 006a 421B      		sub r20,r18
+ 211 006c 530B      		sbc r21,r19
+ 212 006e 00C0      		rjmp .L20
+ 213               	.L30:
+ 214 0070 D701      		movw r26,r14
+ 215 0072 1996      		adiw r26,9
+ 216 0074 8D90      		ld r8,X+
+ 217 0076 9C90      		ld r9,X
+ 218 0078 1A97      		sbiw r26,9+1
+ 219 007a D401      		movw r26,r8
+ 220 007c 1696      		adiw r26,6
+ 221 007e ED91      		ld r30,X+
+ 222 0080 FC91      		ld r31,X
+ 223 0082 1797      		sbiw r26,6+1
+ 224 0084 3197      		sbiw r30,1
+ 225 0086 E023      		and r30,r16
+ 226 0088 F123      		and r31,r17
+ 227 008a EE0F      		lsl r30
+ 228 008c FF1F      		rol r31
+GAS LISTING /tmp/ccbmwbGp.s 			page 5
+
+
+ 229 008e 8D91      		ld r24,X+
+ 230 0090 9C91      		ld r25,X
+ 231 0092 E80F      		add r30,r24
+ 232 0094 F91F      		adc r31,r25
+ 233 0096 C081      		ld r28,Z
+ 234 0098 D181      		ldd r29,Z+1
+ 235               	.L22:
+ 236 009a 2097      		sbiw r28,0
+ 237 009c 01F0      		breq .L31
+ 238 009e 8F81      		ldd r24,Y+7
+ 239 00a0 9885      		ldd r25,Y+8
+ 240 00a2 C816      		cp r12,r24
+ 241 00a4 D906      		cpc r13,r25
+ 242 00a6 01F4      		brne .L23
+ 243 00a8 A601      		movw r20,r12
+ 244 00aa BE01      		movw r22,r28
+ 245 00ac 675F      		subi r22,-9
+ 246 00ae 7F4F      		sbci r23,-1
+ 247 00b0 C501      		movw r24,r10
+ 248 00b2 0E94 0000 		call memcmp
+ 249 00b6 892B      		or r24,r25
+ 250 00b8 01F4      		brne .L23
+ 251 00ba 3B81      		ldd r19,Y+3
+ 252 00bc F401      		movw r30,r8
+ 253 00be 9485      		ldd r25,Z+12
+ 254 00c0 83E0      		ldi r24,lo8(3)
+ 255 00c2 9827      		eor r25,r24
+ 256 00c4 232F      		mov r18,r19
+ 257 00c6 2370      		andi r18,lo8(3)
+ 258 00c8 9223      		and r25,r18
+ 259 00ca 01F4      		brne .+2
+ 260 00cc 00C0      		rjmp .L29
+ 261 00ce 8327      		eor r24,r19
+ 262 00d0 8B83      		std Y+3,r24
+ 263 00d2 00C0      		rjmp .L29
+ 264               	.L23:
+ 265 00d4 0990      		ld __tmp_reg__,Y+
+ 266 00d6 D881      		ld r29,Y
+ 267 00d8 C02D      		mov r28,__tmp_reg__
+ 268 00da 00C0      		rjmp .L22
+ 269               	.L31:
+ 270 00dc C601      		movw r24,r12
+ 271 00de 0196      		adiw r24,1
+ 272 00e0 853F      		cpi r24,-11
+ 273 00e2 9F4F      		sbci r25,-1
+ 274 00e4 00F0      		brlo .L26
+ 275 00e6 C701      		movw r24,r14
+ 276 00e8 0E94 0000 		call luaM_toobig
+ 277               	.L26:
+ 278 00ec 9601      		movw r18,r12
+ 279 00ee 265F      		subi r18,-10
+ 280 00f0 3F4F      		sbci r19,-1
+ 281 00f2 40E0      		ldi r20,0
+ 282 00f4 50E0      		ldi r21,0
+ 283 00f6 60E0      		ldi r22,0
+ 284 00f8 70E0      		ldi r23,0
+ 285 00fa C701      		movw r24,r14
+GAS LISTING /tmp/ccbmwbGp.s 			page 6
+
+
+ 286 00fc 0E94 0000 		call luaM_realloc_
+ 287 0100 EC01      		movw r28,r24
+ 288 0102 D886      		std Y+8,r13
+ 289 0104 CF82      		std Y+7,r12
+ 290 0106 1E83      		std Y+6,r17
+ 291 0108 0D83      		std Y+5,r16
+ 292 010a D701      		movw r26,r14
+ 293 010c 1996      		adiw r26,9
+ 294 010e ED91      		ld r30,X+
+ 295 0110 FC91      		ld r31,X
+ 296 0112 1A97      		sbiw r26,9+1
+ 297 0114 8485      		ldd r24,Z+12
+ 298 0116 8370      		andi r24,lo8(3)
+ 299 0118 8B83      		std Y+3,r24
+ 300 011a 86E0      		ldi r24,lo8(6)
+ 301 011c 8A83      		std Y+2,r24
+ 302 011e 1C82      		std Y+4,__zero_reg__
+ 303 0120 A601      		movw r20,r12
+ 304 0122 B501      		movw r22,r10
+ 305 0124 CE01      		movw r24,r28
+ 306 0126 0996      		adiw r24,9
+ 307 0128 0E94 0000 		call memcpy
+ 308 012c FE01      		movw r30,r28
+ 309 012e EC0D      		add r30,r12
+ 310 0130 FD1D      		adc r31,r13
+ 311 0132 1186      		std Z+9,__zero_reg__
+ 312 0134 D701      		movw r26,r14
+ 313 0136 1996      		adiw r26,9
+ 314 0138 ED91      		ld r30,X+
+ 315 013a FC91      		ld r31,X
+ 316 013c 1A97      		sbiw r26,9+1
+ 317 013e 8681      		ldd r24,Z+6
+ 318 0140 9781      		ldd r25,Z+7
+ 319 0142 0197      		sbiw r24,1
+ 320 0144 0823      		and r16,r24
+ 321 0146 1923      		and r17,r25
+ 322 0148 000F      		lsl r16
+ 323 014a 111F      		rol r17
+ 324 014c A081      		ld r26,Z
+ 325 014e B181      		ldd r27,Z+1
+ 326 0150 A00F      		add r26,r16
+ 327 0152 B11F      		adc r27,r17
+ 328 0154 8D91      		ld r24,X+
+ 329 0156 9C91      		ld r25,X
+ 330 0158 9983      		std Y+1,r25
+ 331 015a 8883      		st Y,r24
+ 332 015c 8081      		ld r24,Z
+ 333 015e 9181      		ldd r25,Z+1
+ 334 0160 DC01      		movw r26,r24
+ 335 0162 A00F      		add r26,r16
+ 336 0164 B11F      		adc r27,r17
+ 337 0166 CD93      		st X+,r28
+ 338 0168 DC93      		st X,r29
+ 339 016a 8281      		ldd r24,Z+2
+ 340 016c 9381      		ldd r25,Z+3
+ 341 016e A481      		ldd r26,Z+4
+ 342 0170 B581      		ldd r27,Z+5
+GAS LISTING /tmp/ccbmwbGp.s 			page 7
+
+
+ 343 0172 0196      		adiw r24,1
+ 344 0174 A11D      		adc r26,__zero_reg__
+ 345 0176 B11D      		adc r27,__zero_reg__
+ 346 0178 8283      		std Z+2,r24
+ 347 017a 9383      		std Z+3,r25
+ 348 017c A483      		std Z+4,r26
+ 349 017e B583      		std Z+5,r27
+ 350 0180 6681      		ldd r22,Z+6
+ 351 0182 7781      		ldd r23,Z+7
+ 352 0184 8B01      		movw r16,r22
+ 353 0186 072E      		mov __tmp_reg__,r23
+ 354 0188 000C      		lsl r0
+ 355 018a 220B      		sbc r18,r18
+ 356 018c 330B      		sbc r19,r19
+ 357 018e 0817      		cp r16,r24
+ 358 0190 1907      		cpc r17,r25
+ 359 0192 2A07      		cpc r18,r26
+ 360 0194 3B07      		cpc r19,r27
+ 361 0196 00F4      		brsh .L29
+ 362 0198 6F3F      		cpi r22,-1
+ 363 019a BFE3      		ldi r27,63
+ 364 019c 7B07      		cpc r23,r27
+ 365 019e 04F4      		brge .L29
+ 366 01a0 660F      		lsl r22
+ 367 01a2 771F      		rol r23
+ 368 01a4 C701      		movw r24,r14
+ 369 01a6 0E94 0000 		call luaS_resize
+ 370               	.L29:
+ 371 01aa CE01      		movw r24,r28
+ 372               	/* epilogue start */
+ 373 01ac DF91      		pop r29
+ 374 01ae CF91      		pop r28
+ 375 01b0 1F91      		pop r17
+ 376 01b2 0F91      		pop r16
+ 377 01b4 FF90      		pop r15
+ 378 01b6 EF90      		pop r14
+ 379 01b8 DF90      		pop r13
+ 380 01ba CF90      		pop r12
+ 381 01bc BF90      		pop r11
+ 382 01be AF90      		pop r10
+ 383 01c0 9F90      		pop r9
+ 384 01c2 8F90      		pop r8
+ 385 01c4 0895      		ret
+ 386               		.size	luaS_newlstr, .-luaS_newlstr
+ 387               		.section	.text.luaS_newudata,"ax",@progbits
+ 388               	.global	luaS_newudata
+ 389               		.hidden	luaS_newudata
+ 390               		.type	luaS_newudata, @function
+ 391               	luaS_newudata:
+ 392 0000 EF92      		push r14
+ 393 0002 FF92      		push r15
+ 394 0004 0F93      		push r16
+ 395 0006 1F93      		push r17
+ 396 0008 CF93      		push r28
+ 397 000a DF93      		push r29
+ 398               	/* prologue: function */
+ 399               	/* frame size = 0 */
+GAS LISTING /tmp/ccbmwbGp.s 			page 8
+
+
+ 400               	/* stack size = 6 */
+ 401               	.L__stack_usage = 6
+ 402 000c EC01      		movw r28,r24
+ 403 000e 8B01      		movw r16,r22
+ 404 0010 7A01      		movw r14,r20
+ 405 0012 643F      		cpi r22,-12
+ 406 0014 7F4F      		sbci r23,-1
+ 407 0016 00F0      		brlo .L33
+ 408 0018 CE01      		movw r24,r28
+ 409 001a 0E94 0000 		call luaM_toobig
+ 410               	.L33:
+ 411 001e 9801      		movw r18,r16
+ 412 0020 265F      		subi r18,-10
+ 413 0022 3F4F      		sbci r19,-1
+ 414 0024 40E0      		ldi r20,0
+ 415 0026 50E0      		ldi r21,0
+ 416 0028 60E0      		ldi r22,0
+ 417 002a 70E0      		ldi r23,0
+ 418 002c CE01      		movw r24,r28
+ 419 002e 0E94 0000 		call luaM_realloc_
+ 420 0032 FC01      		movw r30,r24
+ 421 0034 A985      		ldd r26,Y+9
+ 422 0036 BA85      		ldd r27,Y+10
+ 423 0038 1C96      		adiw r26,12
+ 424 003a 8C91      		ld r24,X
+ 425 003c 8370      		andi r24,lo8(3)
+ 426 003e 8383      		std Z+3,r24
+ 427 0040 89E0      		ldi r24,lo8(9)
+ 428 0042 8283      		std Z+2,r24
+ 429 0044 1187      		std Z+9,r17
+ 430 0046 0087      		std Z+8,r16
+ 431 0048 1582      		std Z+5,__zero_reg__
+ 432 004a 1482      		std Z+4,__zero_reg__
+ 433 004c F782      		std Z+7,r15
+ 434 004e E682      		std Z+6,r14
+ 435 0050 A985      		ldd r26,Y+9
+ 436 0052 BA85      		ldd r27,Y+10
+ 437 0054 DE96      		adiw r26,62
+ 438 0056 0D90      		ld __tmp_reg__,X+
+ 439 0058 BC91      		ld r27,X
+ 440 005a A02D      		mov r26,__tmp_reg__
+ 441 005c 8D91      		ld r24,X+
+ 442 005e 9C91      		ld r25,X
+ 443 0060 9183      		std Z+1,r25
+ 444 0062 8083      		st Z,r24
+ 445 0064 A985      		ldd r26,Y+9
+ 446 0066 BA85      		ldd r27,Y+10
+ 447 0068 DE96      		adiw r26,62
+ 448 006a 0D90      		ld __tmp_reg__,X+
+ 449 006c BC91      		ld r27,X
+ 450 006e A02D      		mov r26,__tmp_reg__
+ 451 0070 ED93      		st X+,r30
+ 452 0072 FC93      		st X,r31
+ 453 0074 CF01      		movw r24,r30
+ 454               	/* epilogue start */
+ 455 0076 DF91      		pop r29
+ 456 0078 CF91      		pop r28
+GAS LISTING /tmp/ccbmwbGp.s 			page 9
+
+
+ 457 007a 1F91      		pop r17
+ 458 007c 0F91      		pop r16
+ 459 007e FF90      		pop r15
+ 460 0080 EF90      		pop r14
+ 461 0082 0895      		ret
+ 462               		.size	luaS_newudata, .-luaS_newudata
+ 463               		.hidden	luaM_toobig
+ 464               		.hidden	luaM_realloc_
+ 465               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccbmwbGp.s 			page 10
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 lstring.c
+     /tmp/ccbmwbGp.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccbmwbGp.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccbmwbGp.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccbmwbGp.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccbmwbGp.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccbmwbGp.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccbmwbGp.s:12     .text.luaS_resize:0000000000000000 luaS_resize
+     /tmp/ccbmwbGp.s:149    .text.luaS_newlstr:0000000000000000 luaS_newlstr
+     /tmp/ccbmwbGp.s:391    .text.luaS_newudata:0000000000000000 luaS_newudata
+
+UNDEFINED SYMBOLS
+luaM_realloc_
+luaM_toobig
+memcmp
+memcpy

@@ -1,0 +1,36 @@
+GAS LISTING /tmp/ccib8iGP.s 			page 1
+
+
+   1               		.file	"putc.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.putc,"ax",@progbits
+   9               	.global	putc
+  10               		.type	putc, @function
+  11               	putc:
+  12               	/* prologue: function */
+  13               	/* frame size = 0 */
+  14               	/* stack size = 0 */
+  15               	.L__stack_usage = 0
+  16 0000 0C94 0000 		jmp fputc
+  17               		.size	putc, .-putc
+  18               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccib8iGP.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 putc.c
+     /tmp/ccib8iGP.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccib8iGP.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccib8iGP.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccib8iGP.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccib8iGP.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccib8iGP.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccib8iGP.s:11     .text.putc:0000000000000000 putc
+
+UNDEFINED SYMBOLS
+fputc

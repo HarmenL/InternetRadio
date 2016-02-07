@@ -1,0 +1,71 @@
+GAS LISTING /tmp/cc9jmPKs.s 			page 1
+
+
+   1               		.file	"gets.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.gets,"ax",@progbits
+   9               	.global	gets
+  10               		.type	gets, @function
+  11               	gets:
+  12 0000 0F93      		push r16
+  13 0002 1F93      		push r17
+  14 0004 CF93      		push r28
+  15 0006 DF93      		push r29
+  16               	/* prologue: function */
+  17               	/* frame size = 0 */
+  18               	/* stack size = 4 */
+  19               	.L__stack_usage = 4
+  20 0008 8C01      		movw r16,r24
+  21 000a C02F      		mov r28,r16
+  22 000c D12F      		mov r29,r17
+  23               	.L5:
+  24 000e 8091 0000 		lds r24,__iob
+  25 0012 9091 0000 		lds r25,__iob+1
+  26 0016 0E94 0000 		call fgetc
+  27 001a 8F3F      		cpi r24,-1
+  28 001c 2FEF      		ldi r18,-1
+  29 001e 9207      		cpc r25,r18
+  30 0020 01F4      		brne .L2
+  31 0022 1882      		st Y,__zero_reg__
+  32 0024 80E0      		ldi r24,0
+  33 0026 90E0      		ldi r25,0
+  34 0028 00C0      		rjmp .L3
+  35               	.L2:
+  36 002a 8A30      		cpi r24,10
+  37 002c 9105      		cpc r25,__zero_reg__
+  38 002e 01F0      		breq .L4
+  39 0030 8993      		st Y+,r24
+  40 0032 00C0      		rjmp .L5
+  41               	.L4:
+  42 0034 1882      		st Y,__zero_reg__
+  43 0036 C801      		movw r24,r16
+  44               	.L3:
+  45               	/* epilogue start */
+  46 0038 DF91      		pop r29
+  47 003a CF91      		pop r28
+  48 003c 1F91      		pop r17
+  49 003e 0F91      		pop r16
+  50 0040 0895      		ret
+  51               		.size	gets, .-gets
+  52               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/cc9jmPKs.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gets.c
+     /tmp/cc9jmPKs.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cc9jmPKs.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cc9jmPKs.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cc9jmPKs.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cc9jmPKs.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cc9jmPKs.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cc9jmPKs.s:11     .text.gets:0000000000000000 gets
+
+UNDEFINED SYMBOLS
+__iob
+fgetc

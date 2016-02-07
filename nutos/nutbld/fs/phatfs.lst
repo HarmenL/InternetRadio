@@ -1,0 +1,2972 @@
+GAS LISTING /tmp/ccKdzQHI.s 			page 1
+
+
+   1               		.file	"phatfs.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.PhatFileSize,"ax",@progbits
+   9               		.type	PhatFileSize, @function
+  10               	PhatFileSize:
+  11               	/* prologue: function */
+  12               	/* frame size = 0 */
+  13               	/* stack size = 0 */
+  14               	.L__stack_usage = 0
+  15 0000 DC01      		movw r26,r24
+  16 0002 1296      		adiw r26,2
+  17 0004 ED91      		ld r30,X+
+  18 0006 FC91      		ld r31,X
+  19 0008 1397      		sbiw r26,2+1
+  20 000a 64A9      		ldd r22,Z+52
+  21 000c 75A9      		ldd r23,Z+53
+  22 000e 86A9      		ldd r24,Z+54
+  23 0010 97A9      		ldd r25,Z+55
+  24 0012 0895      		ret
+  25               		.size	PhatFileSize, .-PhatFileSize
+  26               		.section	.text.PhatInit,"ax",@progbits
+  27               		.type	PhatInit, @function
+  28               	PhatInit:
+  29               	/* prologue: function */
+  30               	/* frame size = 0 */
+  31               	/* stack size = 0 */
+  32               	.L__stack_usage = 0
+  33 0000 80E0      		ldi r24,0
+  34 0002 90E0      		ldi r25,0
+  35 0004 0895      		ret
+  36               		.size	PhatInit, .-PhatInit
+  37               		.section	.text.SearchFreeCluster,"ax",@progbits
+  38               		.type	SearchFreeCluster, @function
+  39               	SearchFreeCluster:
+  40 0000 4F92      		push r4
+  41 0002 5F92      		push r5
+  42 0004 6F92      		push r6
+  43 0006 7F92      		push r7
+  44 0008 AF92      		push r10
+  45 000a BF92      		push r11
+  46 000c CF92      		push r12
+  47 000e DF92      		push r13
+  48 0010 EF92      		push r14
+  49 0012 FF92      		push r15
+  50 0014 0F93      		push r16
+  51 0016 1F93      		push r17
+  52 0018 CF93      		push r28
+  53 001a DF93      		push r29
+  54 001c 00D0      		rcall .
+  55 001e 1F92      		push __zero_reg__
+  56 0020 CDB7      		in r28,__SP_L__
+  57 0022 DEB7      		in r29,__SP_H__
+GAS LISTING /tmp/ccKdzQHI.s 			page 2
+
+
+  58               	/* prologue: function */
+  59               	/* frame size = 4 */
+  60               	/* stack size = 18 */
+  61               	.L__stack_usage = 18
+  62 0024 5C01      		movw r10,r24
+  63 0026 6A01      		movw r12,r20
+  64 0028 7B01      		movw r14,r22
+  65 002a 2801      		movw r4,r16
+  66 002c 3901      		movw r6,r18
+  67 002e 81E0      		ldi r24,lo8(1)
+  68 0030 90E0      		ldi r25,0
+  69 0032 A0E0      		ldi r26,0
+  70 0034 B0E0      		ldi r27,0
+  71 0036 8983      		std Y+1,r24
+  72 0038 9A83      		std Y+2,r25
+  73 003a AB83      		std Y+3,r26
+  74 003c BC83      		std Y+4,r27
+  75 003e D501      		movw r26,r10
+  76 0040 5196      		adiw r26,17
+  77 0042 ED91      		ld r30,X+
+  78 0044 FC91      		ld r31,X
+  79 0046 5297      		sbiw r26,17+1
+  80 0048 8081      		ld r24,Z
+  81 004a 9181      		ldd r25,Z+1
+  82 004c 8032      		cpi r24,32
+  83 004e 9105      		cpc r25,__zero_reg__
+  84 0050 01F4      		brne .L4
+  85 0052 8FEF      		ldi r24,lo8(-1)
+  86 0054 9FEF      		ldi r25,lo8(-1)
+  87               	.L5:
+  88 0056 C414      		cp r12,r4
+  89 0058 D504      		cpc r13,r5
+  90 005a E604      		cpc r14,r6
+  91 005c F704      		cpc r15,r7
+  92 005e 00F0      		brlo .+2
+  93 0060 00C0      		rjmp .L9
+  94 0062 9E01      		movw r18,r28
+  95 0064 2F5F      		subi r18,-1
+  96 0066 3F4F      		sbci r19,-1
+  97 0068 B701      		movw r22,r14
+  98 006a A601      		movw r20,r12
+  99 006c C501      		movw r24,r10
+ 100 006e 0E94 0000 		call Phat32GetClusterLink
+ 101 0072 97FD      		sbrc r25,7
+ 102 0074 00C0      		rjmp .L15
+ 103 0076 4981      		ldd r20,Y+1
+ 104 0078 5A81      		ldd r21,Y+2
+ 105 007a 6B81      		ldd r22,Y+3
+ 106 007c 7C81      		ldd r23,Y+4
+ 107 007e 452B      		or r20,r21
+ 108 0080 462B      		or r20,r22
+ 109 0082 472B      		or r20,r23
+ 110 0084 01F4      		brne .+2
+ 111 0086 00C0      		rjmp .L7
+ 112 0088 BFEF      		ldi r27,-1
+ 113 008a CB1A      		sub r12,r27
+ 114 008c DB0A      		sbc r13,r27
+GAS LISTING /tmp/ccKdzQHI.s 			page 3
+
+
+ 115 008e EB0A      		sbc r14,r27
+ 116 0090 FB0A      		sbc r15,r27
+ 117 0092 00C0      		rjmp .L5
+ 118               	.L4:
+ 119 0094 4097      		sbiw r24,16
+ 120 0096 01F0      		breq .L10
+ 121 0098 8FEF      		ldi r24,lo8(-1)
+ 122 009a 9FEF      		ldi r25,lo8(-1)
+ 123 009c 00C0      		rjmp .L11
+ 124               	.L10:
+ 125 009e 8FEF      		ldi r24,lo8(-1)
+ 126 00a0 9FEF      		ldi r25,lo8(-1)
+ 127               	.L12:
+ 128 00a2 C414      		cp r12,r4
+ 129 00a4 D504      		cpc r13,r5
+ 130 00a6 E604      		cpc r14,r6
+ 131 00a8 F704      		cpc r15,r7
+ 132 00aa 00F4      		brsh .L9
+ 133 00ac 9E01      		movw r18,r28
+ 134 00ae 2F5F      		subi r18,-1
+ 135 00b0 3F4F      		sbci r19,-1
+ 136 00b2 B701      		movw r22,r14
+ 137 00b4 A601      		movw r20,r12
+ 138 00b6 C501      		movw r24,r10
+ 139 00b8 0E94 0000 		call Phat16GetClusterLink
+ 140 00bc 97FD      		sbrc r25,7
+ 141 00be 00C0      		rjmp .L15
+ 142 00c0 4981      		ldd r20,Y+1
+ 143 00c2 5A81      		ldd r21,Y+2
+ 144 00c4 6B81      		ldd r22,Y+3
+ 145 00c6 7C81      		ldd r23,Y+4
+ 146 00c8 452B      		or r20,r21
+ 147 00ca 462B      		or r20,r22
+ 148 00cc 472B      		or r20,r23
+ 149 00ce 01F0      		breq .L7
+ 150 00d0 2FEF      		ldi r18,-1
+ 151 00d2 C21A      		sub r12,r18
+ 152 00d4 D20A      		sbc r13,r18
+ 153 00d6 E20A      		sbc r14,r18
+ 154 00d8 F20A      		sbc r15,r18
+ 155 00da 00C0      		rjmp .L12
+ 156               	.L14:
+ 157 00dc 9E01      		movw r18,r28
+ 158 00de 2F5F      		subi r18,-1
+ 159 00e0 3F4F      		sbci r19,-1
+ 160 00e2 B701      		movw r22,r14
+ 161 00e4 A601      		movw r20,r12
+ 162 00e6 C501      		movw r24,r10
+ 163 00e8 0E94 0000 		call Phat12GetClusterLink
+ 164 00ec 97FD      		sbrc r25,7
+ 165 00ee 00C0      		rjmp .L15
+ 166 00f0 4981      		ldd r20,Y+1
+ 167 00f2 5A81      		ldd r21,Y+2
+ 168 00f4 6B81      		ldd r22,Y+3
+ 169 00f6 7C81      		ldd r23,Y+4
+ 170 00f8 452B      		or r20,r21
+ 171 00fa 462B      		or r20,r22
+GAS LISTING /tmp/ccKdzQHI.s 			page 4
+
+
+ 172 00fc 472B      		or r20,r23
+ 173 00fe 01F0      		breq .L7
+ 174 0100 AFEF      		ldi r26,-1
+ 175 0102 CA1A      		sub r12,r26
+ 176 0104 DA0A      		sbc r13,r26
+ 177 0106 EA0A      		sbc r14,r26
+ 178 0108 FA0A      		sbc r15,r26
+ 179               	.L11:
+ 180 010a C414      		cp r12,r4
+ 181 010c D504      		cpc r13,r5
+ 182 010e E604      		cpc r14,r6
+ 183 0110 F704      		cpc r15,r7
+ 184 0112 00F0      		brlo .L14
+ 185               	.L9:
+ 186 0114 892B      		or r24,r25
+ 187 0116 01F4      		brne .L15
+ 188 0118 8981      		ldd r24,Y+1
+ 189 011a 9A81      		ldd r25,Y+2
+ 190 011c AB81      		ldd r26,Y+3
+ 191 011e BC81      		ldd r27,Y+4
+ 192 0120 892B      		or r24,r25
+ 193 0122 8A2B      		or r24,r26
+ 194 0124 8B2B      		or r24,r27
+ 195 0126 01F4      		brne .L15
+ 196 0128 00C0      		rjmp .L27
+ 197               	.L7:
+ 198 012a 892B      		or r24,r25
+ 199 012c 01F0      		breq .L27
+ 200               	.L15:
+ 201 012e 60E0      		ldi r22,0
+ 202 0130 70E0      		ldi r23,0
+ 203 0132 80E0      		ldi r24,0
+ 204 0134 90E0      		ldi r25,0
+ 205 0136 00C0      		rjmp .L26
+ 206               	.L27:
+ 207 0138 B601      		movw r22,r12
+ 208 013a C701      		movw r24,r14
+ 209               	.L26:
+ 210               	/* epilogue start */
+ 211 013c 0F90      		pop __tmp_reg__
+ 212 013e 0F90      		pop __tmp_reg__
+ 213 0140 0F90      		pop __tmp_reg__
+ 214 0142 0F90      		pop __tmp_reg__
+ 215 0144 DF91      		pop r29
+ 216 0146 CF91      		pop r28
+ 217 0148 1F91      		pop r17
+ 218 014a 0F91      		pop r16
+ 219 014c FF90      		pop r15
+ 220 014e EF90      		pop r14
+ 221 0150 DF90      		pop r13
+ 222 0152 CF90      		pop r12
+ 223 0154 BF90      		pop r11
+ 224 0156 AF90      		pop r10
+ 225 0158 7F90      		pop r7
+ 226 015a 6F90      		pop r6
+ 227 015c 5F90      		pop r5
+ 228 015e 4F90      		pop r4
+GAS LISTING /tmp/ccKdzQHI.s 			page 5
+
+
+ 229 0160 0895      		ret
+ 230               		.size	SearchFreeCluster, .-SearchFreeCluster
+ 231               		.section	.text.AllocCluster,"ax",@progbits
+ 232               		.type	AllocCluster, @function
+ 233               	AllocCluster:
+ 234 0000 EF92      		push r14
+ 235 0002 FF92      		push r15
+ 236 0004 0F93      		push r16
+ 237 0006 1F93      		push r17
+ 238 0008 CF93      		push r28
+ 239 000a DF93      		push r29
+ 240               	/* prologue: function */
+ 241               	/* frame size = 0 */
+ 242               	/* stack size = 6 */
+ 243               	.L__stack_usage = 6
+ 244 000c 7C01      		movw r14,r24
+ 245 000e FC01      		movw r30,r24
+ 246 0010 C189      		ldd r28,Z+17
+ 247 0012 D289      		ldd r29,Z+18
+ 248 0014 8E81      		ldd r24,Y+6
+ 249 0016 9F81      		ldd r25,Y+7
+ 250 0018 A885      		ldd r26,Y+8
+ 251 001a B985      		ldd r27,Y+9
+ 252 001c 0AA9      		ldd r16,Y+50
+ 253 001e 1BA9      		ldd r17,Y+51
+ 254 0020 2CA9      		ldd r18,Y+52
+ 255 0022 3DA9      		ldd r19,Y+53
+ 256 0024 8230      		cpi r24,2
+ 257 0026 9105      		cpc r25,__zero_reg__
+ 258 0028 A105      		cpc r26,__zero_reg__
+ 259 002a B105      		cpc r27,__zero_reg__
+ 260 002c 00F0      		brlo .L30
+ 261 002e 8017      		cp r24,r16
+ 262 0030 9107      		cpc r25,r17
+ 263 0032 A207      		cpc r26,r18
+ 264 0034 B307      		cpc r27,r19
+ 265 0036 00F0      		brlo .L31
+ 266               	.L30:
+ 267 0038 82E0      		ldi r24,lo8(2)
+ 268 003a 90E0      		ldi r25,0
+ 269 003c A0E0      		ldi r26,0
+ 270 003e B0E0      		ldi r27,0
+ 271 0040 8E83      		std Y+6,r24
+ 272 0042 9F83      		std Y+7,r25
+ 273 0044 A887      		std Y+8,r26
+ 274 0046 B987      		std Y+9,r27
+ 275               	.L31:
+ 276 0048 4E81      		ldd r20,Y+6
+ 277 004a 5F81      		ldd r21,Y+7
+ 278 004c 6885      		ldd r22,Y+8
+ 279 004e 7985      		ldd r23,Y+9
+ 280 0050 C701      		movw r24,r14
+ 281 0052 0E94 0000 		call SearchFreeCluster
+ 282 0056 6230      		cpi r22,2
+ 283 0058 7105      		cpc r23,__zero_reg__
+ 284 005a 8105      		cpc r24,__zero_reg__
+ 285 005c 9105      		cpc r25,__zero_reg__
+GAS LISTING /tmp/ccKdzQHI.s 			page 6
+
+
+ 286 005e 00F4      		brsh .L32
+ 287 0060 0E81      		ldd r16,Y+6
+ 288 0062 1F81      		ldd r17,Y+7
+ 289 0064 2885      		ldd r18,Y+8
+ 290 0066 3985      		ldd r19,Y+9
+ 291 0068 42E0      		ldi r20,lo8(2)
+ 292 006a 50E0      		ldi r21,0
+ 293 006c 60E0      		ldi r22,0
+ 294 006e 70E0      		ldi r23,0
+ 295 0070 C701      		movw r24,r14
+ 296 0072 0E94 0000 		call SearchFreeCluster
+ 297 0076 6230      		cpi r22,2
+ 298 0078 7105      		cpc r23,__zero_reg__
+ 299 007a 8105      		cpc r24,__zero_reg__
+ 300 007c 9105      		cpc r25,__zero_reg__
+ 301 007e 00F4      		brsh .L32
+ 302 0080 1E82      		std Y+6,__zero_reg__
+ 303 0082 1F82      		std Y+7,__zero_reg__
+ 304 0084 1886      		std Y+8,__zero_reg__
+ 305 0086 1986      		std Y+9,__zero_reg__
+ 306 0088 8CE1      		ldi r24,lo8(28)
+ 307 008a 90E0      		ldi r25,0
+ 308 008c 9093 0000 		sts errno+1,r25
+ 309 0090 8093 0000 		sts errno,r24
+ 310 0094 40E0      		ldi r20,0
+ 311 0096 30E0      		ldi r19,0
+ 312 0098 20E0      		ldi r18,0
+ 313 009a 90E0      		ldi r25,0
+ 314 009c 00C0      		rjmp .L33
+ 315               	.L32:
+ 316 009e 6E83      		std Y+6,r22
+ 317 00a0 7F83      		std Y+7,r23
+ 318 00a2 8887      		std Y+8,r24
+ 319 00a4 9987      		std Y+9,r25
+ 320 00a6 462F      		mov r20,r22
+ 321 00a8 372F      		mov r19,r23
+ 322 00aa 282F      		mov r18,r24
+ 323               	.L33:
+ 324 00ac 642F      		mov r22,r20
+ 325 00ae 732F      		mov r23,r19
+ 326 00b0 822F      		mov r24,r18
+ 327               	/* epilogue start */
+ 328 00b2 DF91      		pop r29
+ 329 00b4 CF91      		pop r28
+ 330 00b6 1F91      		pop r17
+ 331 00b8 0F91      		pop r16
+ 332 00ba FF90      		pop r15
+ 333 00bc EF90      		pop r14
+ 334 00be 0895      		ret
+ 335               		.size	AllocCluster, .-AllocCluster
+ 336               		.section	.text.AllocNextCluster,"ax",@progbits
+ 337               		.type	AllocNextCluster, @function
+ 338               	AllocNextCluster:
+ 339 0000 AF92      		push r10
+ 340 0002 BF92      		push r11
+ 341 0004 CF92      		push r12
+ 342 0006 DF92      		push r13
+GAS LISTING /tmp/ccKdzQHI.s 			page 7
+
+
+ 343 0008 EF92      		push r14
+ 344 000a FF92      		push r15
+ 345 000c 0F93      		push r16
+ 346 000e 1F93      		push r17
+ 347 0010 CF93      		push r28
+ 348 0012 DF93      		push r29
+ 349               	/* prologue: function */
+ 350               	/* frame size = 0 */
+ 351               	/* stack size = 10 */
+ 352               	.L__stack_usage = 10
+ 353 0014 FC01      		movw r30,r24
+ 354 0016 C081      		ld r28,Z
+ 355 0018 D181      		ldd r29,Z+1
+ 356 001a 0281      		ldd r16,Z+2
+ 357 001c 1381      		ldd r17,Z+3
+ 358 001e A988      		ldd r10,Y+17
+ 359 0020 BA88      		ldd r11,Y+18
+ 360 0022 CE01      		movw r24,r28
+ 361 0024 0E94 0000 		call AllocCluster
+ 362 0028 6B01      		movw r12,r22
+ 363 002a 7C01      		movw r14,r24
+ 364 002c 6230      		cpi r22,2
+ 365 002e 7105      		cpc r23,__zero_reg__
+ 366 0030 8105      		cpc r24,__zero_reg__
+ 367 0032 9105      		cpc r25,__zero_reg__
+ 368 0034 00F4      		brsh .L35
+ 369               	.L38:
+ 370 0036 60E0      		ldi r22,0
+ 371 0038 70E0      		ldi r23,0
+ 372 003a 80E0      		ldi r24,0
+ 373 003c 90E0      		ldi r25,0
+ 374 003e 00C0      		rjmp .L36
+ 375               	.L35:
+ 376 0040 F501      		movw r30,r10
+ 377 0042 8081      		ld r24,Z
+ 378 0044 9181      		ldd r25,Z+1
+ 379 0046 F801      		movw r30,r16
+ 380 0048 4481      		ldd r20,Z+4
+ 381 004a 5581      		ldd r21,Z+5
+ 382 004c 6681      		ldd r22,Z+6
+ 383 004e 7781      		ldd r23,Z+7
+ 384 0050 9701      		movw r18,r14
+ 385 0052 8601      		movw r16,r12
+ 386 0054 8032      		cpi r24,32
+ 387 0056 9105      		cpc r25,__zero_reg__
+ 388 0058 01F4      		brne .L37
+ 389 005a CE01      		movw r24,r28
+ 390 005c 0E94 0000 		call Phat32SetClusterLink
+ 391 0060 892B      		or r24,r25
+ 392 0062 01F4      		brne .L38
+ 393 0064 0FEF      		ldi r16,lo8(-1)
+ 394 0066 1FEF      		ldi r17,lo8(-1)
+ 395 0068 2FEF      		ldi r18,lo8(-1)
+ 396 006a 3FE0      		ldi r19,lo8(15)
+ 397 006c B701      		movw r22,r14
+ 398 006e A601      		movw r20,r12
+ 399 0070 CE01      		movw r24,r28
+GAS LISTING /tmp/ccKdzQHI.s 			page 8
+
+
+ 400 0072 0E94 0000 		call Phat32SetClusterLink
+ 401 0076 00C0      		rjmp .L43
+ 402               	.L37:
+ 403 0078 4097      		sbiw r24,16
+ 404 007a 01F4      		brne .L39
+ 405 007c CE01      		movw r24,r28
+ 406 007e 0E94 0000 		call Phat16SetClusterLink
+ 407 0082 892B      		or r24,r25
+ 408 0084 01F4      		brne .L38
+ 409 0086 0FEF      		ldi r16,lo8(-1)
+ 410 0088 1FEF      		ldi r17,lo8(-1)
+ 411 008a 20E0      		ldi r18,0
+ 412 008c 30E0      		ldi r19,0
+ 413 008e B701      		movw r22,r14
+ 414 0090 A601      		movw r20,r12
+ 415 0092 CE01      		movw r24,r28
+ 416 0094 0E94 0000 		call Phat16SetClusterLink
+ 417 0098 00C0      		rjmp .L43
+ 418               	.L39:
+ 419 009a CE01      		movw r24,r28
+ 420 009c 0E94 0000 		call Phat12SetClusterLink
+ 421 00a0 892B      		or r24,r25
+ 422 00a2 01F4      		brne .L38
+ 423 00a4 0FEF      		ldi r16,lo8(-1)
+ 424 00a6 1FE0      		ldi r17,lo8(15)
+ 425 00a8 20E0      		ldi r18,0
+ 426 00aa 30E0      		ldi r19,0
+ 427 00ac B701      		movw r22,r14
+ 428 00ae A601      		movw r20,r12
+ 429 00b0 CE01      		movw r24,r28
+ 430 00b2 0E94 0000 		call Phat12SetClusterLink
+ 431               	.L43:
+ 432 00b6 892B      		or r24,r25
+ 433 00b8 01F0      		breq .+2
+ 434 00ba 00C0      		rjmp .L38
+ 435 00bc F501      		movw r30,r10
+ 436 00be 8281      		ldd r24,Z+2
+ 437 00c0 9381      		ldd r25,Z+3
+ 438 00c2 A481      		ldd r26,Z+4
+ 439 00c4 B581      		ldd r27,Z+5
+ 440 00c6 0197      		sbiw r24,1
+ 441 00c8 A109      		sbc r26,__zero_reg__
+ 442 00ca B109      		sbc r27,__zero_reg__
+ 443 00cc 8283      		std Z+2,r24
+ 444 00ce 9383      		std Z+3,r25
+ 445 00d0 A483      		std Z+4,r26
+ 446 00d2 B583      		std Z+5,r27
+ 447 00d4 B601      		movw r22,r12
+ 448 00d6 C701      		movw r24,r14
+ 449               	.L36:
+ 450               	/* epilogue start */
+ 451 00d8 DF91      		pop r29
+ 452 00da CF91      		pop r28
+ 453 00dc 1F91      		pop r17
+ 454 00de 0F91      		pop r16
+ 455 00e0 FF90      		pop r15
+ 456 00e2 EF90      		pop r14
+GAS LISTING /tmp/ccKdzQHI.s 			page 9
+
+
+ 457 00e4 DF90      		pop r13
+ 458 00e6 CF90      		pop r12
+ 459 00e8 BF90      		pop r11
+ 460 00ea AF90      		pop r10
+ 461 00ec 0895      		ret
+ 462               		.size	AllocNextCluster, .-AllocNextCluster
+ 463               		.section	.text.PhatFileFlush,"ax",@progbits
+ 464               		.type	PhatFileFlush, @function
+ 465               	PhatFileFlush:
+ 466 0000 EF92      		push r14
+ 467 0002 FF92      		push r15
+ 468 0004 0F93      		push r16
+ 469 0006 1F93      		push r17
+ 470 0008 CF93      		push r28
+ 471 000a DF93      		push r29
+ 472               	/* prologue: function */
+ 473               	/* frame size = 0 */
+ 474               	/* stack size = 6 */
+ 475               	.L__stack_usage = 6
+ 476 000c 7C01      		movw r14,r24
+ 477 000e DC01      		movw r26,r24
+ 478 0010 ED91      		ld r30,X+
+ 479 0012 FC91      		ld r31,X
+ 480 0014 C189      		ldd r28,Z+17
+ 481 0016 D289      		ldd r29,Z+18
+ 482 0018 0E94 0000 		call PhatDirEntryUpdate
+ 483 001c 8C01      		movw r16,r24
+ 484 001e 892B      		or r24,r25
+ 485 0020 01F4      		brne .L45
+ 486 0022 6696      		adiw r28,22
+ 487 0024 40E0      		ldi r20,0
+ 488 0026 50E0      		ldi r21,0
+ 489 0028 BA01      		movw r22,r20
+ 490 002a CE01      		movw r24,r28
+ 491 002c 0E94 0000 		call NutEventWait
+ 492 0030 6FEF      		ldi r22,lo8(-1)
+ 493 0032 7FEF      		ldi r23,lo8(-1)
+ 494 0034 F701      		movw r30,r14
+ 495 0036 8081      		ld r24,Z
+ 496 0038 9181      		ldd r25,Z+1
+ 497 003a 0E94 0000 		call PhatSectorFlush
+ 498 003e 8C01      		movw r16,r24
+ 499 0040 CE01      		movw r24,r28
+ 500 0042 0E94 0000 		call NutEventPost
+ 501               	.L45:
+ 502 0046 C801      		movw r24,r16
+ 503               	/* epilogue start */
+ 504 0048 DF91      		pop r29
+ 505 004a CF91      		pop r28
+ 506 004c 1F91      		pop r17
+ 507 004e 0F91      		pop r16
+ 508 0050 FF90      		pop r15
+ 509 0052 EF90      		pop r14
+ 510 0054 0895      		ret
+ 511               		.size	PhatFileFlush, .-PhatFileFlush
+ 512               		.section	.text.PhatApiFileWrite_P,"ax",@progbits
+ 513               		.type	PhatApiFileWrite_P, @function
+GAS LISTING /tmp/ccKdzQHI.s 			page 10
+
+
+ 514               	PhatApiFileWrite_P:
+ 515 0000 CF93      		push r28
+ 516 0002 DF93      		push r29
+ 517               	/* prologue: function */
+ 518               	/* frame size = 0 */
+ 519               	/* stack size = 2 */
+ 520               	.L__stack_usage = 2
+ 521 0004 DC01      		movw r26,r24
+ 522 0006 ED91      		ld r30,X+
+ 523 0008 FC91      		ld r31,X
+ 524 000a C189      		ldd r28,Z+17
+ 525 000c D289      		ldd r29,Z+18
+ 526 000e 6496      		adiw r28,20
+ 527 0010 40E0      		ldi r20,0
+ 528 0012 50E0      		ldi r21,0
+ 529 0014 BA01      		movw r22,r20
+ 530 0016 CE01      		movw r24,r28
+ 531 0018 0E94 0000 		call NutEventWait
+ 532 001c CE01      		movw r24,r28
+ 533 001e 0E94 0000 		call NutEventPost
+ 534 0022 8FEF      		ldi r24,lo8(-1)
+ 535 0024 9FEF      		ldi r25,lo8(-1)
+ 536               	/* epilogue start */
+ 537 0026 DF91      		pop r29
+ 538 0028 CF91      		pop r28
+ 539 002a 0895      		ret
+ 540               		.size	PhatApiFileWrite_P, .-PhatApiFileWrite_P
+ 541               		.section	.text.AllocFirstCluster,"ax",@progbits
+ 542               	.global	AllocFirstCluster
+ 543               		.type	AllocFirstCluster, @function
+ 544               	AllocFirstCluster:
+ 545 0000 AF92      		push r10
+ 546 0002 BF92      		push r11
+ 547 0004 CF92      		push r12
+ 548 0006 DF92      		push r13
+ 549 0008 EF92      		push r14
+ 550 000a FF92      		push r15
+ 551 000c 0F93      		push r16
+ 552 000e 1F93      		push r17
+ 553 0010 CF93      		push r28
+ 554 0012 DF93      		push r29
+ 555               	/* prologue: function */
+ 556               	/* frame size = 0 */
+ 557               	/* stack size = 10 */
+ 558               	.L__stack_usage = 10
+ 559 0014 FC01      		movw r30,r24
+ 560 0016 C081      		ld r28,Z
+ 561 0018 D181      		ldd r29,Z+1
+ 562 001a A988      		ldd r10,Y+17
+ 563 001c BA88      		ldd r11,Y+18
+ 564 001e 0281      		ldd r16,Z+2
+ 565 0020 1381      		ldd r17,Z+3
+ 566 0022 CE01      		movw r24,r28
+ 567 0024 0E94 0000 		call AllocCluster
+ 568 0028 6B01      		movw r12,r22
+ 569 002a 7C01      		movw r14,r24
+ 570 002c 6230      		cpi r22,2
+GAS LISTING /tmp/ccKdzQHI.s 			page 11
+
+
+ 571 002e 7105      		cpc r23,__zero_reg__
+ 572 0030 8105      		cpc r24,__zero_reg__
+ 573 0032 9105      		cpc r25,__zero_reg__
+ 574 0034 00F4      		brsh .L48
+ 575               	.L51:
+ 576 0036 60E0      		ldi r22,0
+ 577 0038 70E0      		ldi r23,0
+ 578 003a 80E0      		ldi r24,0
+ 579 003c 90E0      		ldi r25,0
+ 580 003e 00C0      		rjmp .L49
+ 581               	.L48:
+ 582 0040 F801      		movw r30,r16
+ 583 0042 F5A6      		std Z+45,r15
+ 584 0044 E4A6      		std Z+44,r14
+ 585 0046 73AB      		std Z+51,r23
+ 586 0048 62AB      		std Z+50,r22
+ 587 004a E05C      		subi r30,-64
+ 588 004c FF4F      		sbci r31,-1
+ 589 004e 81E0      		ldi r24,lo8(1)
+ 590 0050 90E0      		ldi r25,0
+ 591 0052 9183      		std Z+1,r25
+ 592 0054 8083      		st Z,r24
+ 593 0056 F501      		movw r30,r10
+ 594 0058 8081      		ld r24,Z
+ 595 005a 9181      		ldd r25,Z+1
+ 596 005c 8032      		cpi r24,32
+ 597 005e 9105      		cpc r25,__zero_reg__
+ 598 0060 01F4      		brne .L50
+ 599 0062 0FEF      		ldi r16,lo8(-1)
+ 600 0064 1FEF      		ldi r17,lo8(-1)
+ 601 0066 2FEF      		ldi r18,lo8(-1)
+ 602 0068 3FE0      		ldi r19,lo8(15)
+ 603 006a B701      		movw r22,r14
+ 604 006c A601      		movw r20,r12
+ 605 006e CE01      		movw r24,r28
+ 606 0070 0E94 0000 		call Phat32SetClusterLink
+ 607 0074 00C0      		rjmp .L56
+ 608               	.L50:
+ 609 0076 4097      		sbiw r24,16
+ 610 0078 01F4      		brne .L52
+ 611 007a 0FEF      		ldi r16,lo8(-1)
+ 612 007c 1FEF      		ldi r17,lo8(-1)
+ 613 007e 20E0      		ldi r18,0
+ 614 0080 30E0      		ldi r19,0
+ 615 0082 B701      		movw r22,r14
+ 616 0084 A601      		movw r20,r12
+ 617 0086 CE01      		movw r24,r28
+ 618 0088 0E94 0000 		call Phat16SetClusterLink
+ 619 008c 00C0      		rjmp .L56
+ 620               	.L52:
+ 621 008e 0FEF      		ldi r16,lo8(-1)
+ 622 0090 1FE0      		ldi r17,lo8(15)
+ 623 0092 20E0      		ldi r18,0
+ 624 0094 30E0      		ldi r19,0
+ 625 0096 B701      		movw r22,r14
+ 626 0098 A601      		movw r20,r12
+ 627 009a CE01      		movw r24,r28
+GAS LISTING /tmp/ccKdzQHI.s 			page 12
+
+
+ 628 009c 0E94 0000 		call Phat12SetClusterLink
+ 629               	.L56:
+ 630 00a0 892B      		or r24,r25
+ 631 00a2 01F4      		brne .L51
+ 632 00a4 F501      		movw r30,r10
+ 633 00a6 8281      		ldd r24,Z+2
+ 634 00a8 9381      		ldd r25,Z+3
+ 635 00aa A481      		ldd r26,Z+4
+ 636 00ac B581      		ldd r27,Z+5
+ 637 00ae 0197      		sbiw r24,1
+ 638 00b0 A109      		sbc r26,__zero_reg__
+ 639 00b2 B109      		sbc r27,__zero_reg__
+ 640 00b4 8283      		std Z+2,r24
+ 641 00b6 9383      		std Z+3,r25
+ 642 00b8 A483      		std Z+4,r26
+ 643 00ba B583      		std Z+5,r27
+ 644 00bc B601      		movw r22,r12
+ 645 00be C701      		movw r24,r14
+ 646               	.L49:
+ 647               	/* epilogue start */
+ 648 00c0 DF91      		pop r29
+ 649 00c2 CF91      		pop r28
+ 650 00c4 1F91      		pop r17
+ 651 00c6 0F91      		pop r16
+ 652 00c8 FF90      		pop r15
+ 653 00ca EF90      		pop r14
+ 654 00cc DF90      		pop r13
+ 655 00ce CF90      		pop r12
+ 656 00d0 BF90      		pop r11
+ 657 00d2 AF90      		pop r10
+ 658 00d4 0895      		ret
+ 659               		.size	AllocFirstCluster, .-AllocFirstCluster
+ 660               		.section	.text.PhatFileClose,"ax",@progbits
+ 661               	.global	PhatFileClose
+ 662               		.type	PhatFileClose, @function
+ 663               	PhatFileClose:
+ 664 0000 0F93      		push r16
+ 665 0002 1F93      		push r17
+ 666 0004 CF93      		push r28
+ 667 0006 DF93      		push r29
+ 668               	/* prologue: function */
+ 669               	/* frame size = 0 */
+ 670               	/* stack size = 4 */
+ 671               	.L__stack_usage = 4
+ 672 0008 8C01      		movw r16,r24
+ 673 000a 0197      		sbiw r24,1
+ 674 000c 8E3F      		cpi r24,-2
+ 675 000e 9F4F      		sbci r25,-1
+ 676 0010 00F0      		brlo .L58
+ 677 0012 89E0      		ldi r24,lo8(9)
+ 678 0014 90E0      		ldi r25,0
+ 679 0016 9093 0000 		sts errno+1,r25
+ 680 001a 8093 0000 		sts errno,r24
+ 681 001e 8FEF      		ldi r24,lo8(-1)
+ 682 0020 9FEF      		ldi r25,lo8(-1)
+ 683 0022 00C0      		rjmp .L59
+ 684               	.L58:
+GAS LISTING /tmp/ccKdzQHI.s 			page 13
+
+
+ 685 0024 C801      		movw r24,r16
+ 686 0026 0E94 0000 		call PhatFileFlush
+ 687 002a D82F      		mov r29,r24
+ 688 002c C92F      		mov r28,r25
+ 689 002e F801      		movw r30,r16
+ 690 0030 8281      		ldd r24,Z+2
+ 691 0032 9381      		ldd r25,Z+3
+ 692 0034 0097      		sbiw r24,0
+ 693 0036 01F0      		breq .L60
+ 694 0038 0E94 0000 		call free
+ 695               	.L60:
+ 696 003c C801      		movw r24,r16
+ 697 003e 0E94 0000 		call free
+ 698 0042 8D2F      		mov r24,r29
+ 699 0044 9C2F      		mov r25,r28
+ 700               	.L59:
+ 701               	/* epilogue start */
+ 702 0046 DF91      		pop r29
+ 703 0048 CF91      		pop r28
+ 704 004a 1F91      		pop r17
+ 705 004c 0F91      		pop r16
+ 706 004e 0895      		ret
+ 707               		.size	PhatFileClose, .-PhatFileClose
+ 708               		.section	.text.PhatApiFileClose,"ax",@progbits
+ 709               		.type	PhatApiFileClose, @function
+ 710               	PhatApiFileClose:
+ 711 0000 0F93      		push r16
+ 712 0002 1F93      		push r17
+ 713 0004 CF93      		push r28
+ 714 0006 DF93      		push r29
+ 715               	/* prologue: function */
+ 716               	/* frame size = 0 */
+ 717               	/* stack size = 4 */
+ 718               	.L__stack_usage = 4
+ 719 0008 8C01      		movw r16,r24
+ 720 000a DC01      		movw r26,r24
+ 721 000c ED91      		ld r30,X+
+ 722 000e FC91      		ld r31,X
+ 723 0010 C189      		ldd r28,Z+17
+ 724 0012 D289      		ldd r29,Z+18
+ 725 0014 6496      		adiw r28,20
+ 726 0016 40E0      		ldi r20,0
+ 727 0018 50E0      		ldi r21,0
+ 728 001a BA01      		movw r22,r20
+ 729 001c CE01      		movw r24,r28
+ 730 001e 0E94 0000 		call NutEventWait
+ 731 0022 C801      		movw r24,r16
+ 732 0024 0E94 0000 		call PhatFileClose
+ 733 0028 8C01      		movw r16,r24
+ 734 002a CE01      		movw r24,r28
+ 735 002c 0E94 0000 		call NutEventPost
+ 736 0030 C801      		movw r24,r16
+ 737               	/* epilogue start */
+ 738 0032 DF91      		pop r29
+ 739 0034 CF91      		pop r28
+ 740 0036 1F91      		pop r17
+ 741 0038 0F91      		pop r16
+GAS LISTING /tmp/ccKdzQHI.s 			page 14
+
+
+ 742 003a 0895      		ret
+ 743               		.size	PhatApiFileClose, .-PhatApiFileClose
+ 744               		.section	.text.PhatApiIOCtl,"ax",@progbits
+ 745               		.type	PhatApiIOCtl, @function
+ 746               	PhatApiIOCtl:
+ 747 0000 4F92      		push r4
+ 748 0002 5F92      		push r5
+ 749 0004 6F92      		push r6
+ 750 0006 7F92      		push r7
+ 751 0008 AF92      		push r10
+ 752 000a BF92      		push r11
+ 753 000c CF92      		push r12
+ 754 000e DF92      		push r13
+ 755 0010 EF92      		push r14
+ 756 0012 FF92      		push r15
+ 757 0014 0F93      		push r16
+ 758 0016 1F93      		push r17
+ 759 0018 CF93      		push r28
+ 760 001a DF93      		push r29
+ 761               	/* prologue: function */
+ 762               	/* frame size = 0 */
+ 763               	/* stack size = 14 */
+ 764               	.L__stack_usage = 14
+ 765 001c 6C01      		movw r12,r24
+ 766 001e 8B01      		movw r16,r22
+ 767 0020 EA01      		movw r28,r20
+ 768 0022 FC01      		movw r30,r24
+ 769 0024 E188      		ldd r14,Z+17
+ 770 0026 F288      		ldd r15,Z+18
+ 771 0028 6033      		cpi r22,48
+ 772 002a 7141      		sbci r23,17
+ 773 002c 01F4      		brne .+2
+ 774 002e 00C0      		rjmp .L66
+ 775 0030 E114      		cp r14,__zero_reg__
+ 776 0032 F104      		cpc r15,__zero_reg__
+ 777 0034 01F0      		breq .L67
+ 778 0036 40E0      		ldi r20,0
+ 779 0038 50E0      		ldi r21,0
+ 780 003a BA01      		movw r22,r20
+ 781 003c C701      		movw r24,r14
+ 782 003e 4496      		adiw r24,20
+ 783 0040 0E94 0000 		call NutEventWait
+ 784               	.L67:
+ 785 0044 0431      		cpi r16,20
+ 786 0046 21E1      		ldi r18,17
+ 787 0048 1207      		cpc r17,r18
+ 788 004a 01F4      		brne .+2
+ 789 004c 00C0      		rjmp .L69
+ 790 004e 04F4      		brge .L70
+ 791 0050 0131      		cpi r16,17
+ 792 0052 E1E1      		ldi r30,17
+ 793 0054 1E07      		cpc r17,r30
+ 794 0056 01F4      		brne .+2
+ 795 0058 00C0      		rjmp .L71
+ 796 005a 04F4      		brge .L72
+ 797 005c 0130      		cpi r16,1
+ 798 005e 21E1      		ldi r18,17
+GAS LISTING /tmp/ccKdzQHI.s 			page 15
+
+
+ 799 0060 1207      		cpc r17,r18
+ 800 0062 01F0      		breq .+2
+ 801 0064 00C0      		rjmp .L89
+ 802 0066 4A81      		ldd r20,Y+2
+ 803 0068 5B81      		ldd r21,Y+3
+ 804 006a 6881      		ld r22,Y
+ 805 006c 7981      		ldd r23,Y+1
+ 806 006e C601      		movw r24,r12
+ 807 0070 0E94 0000 		call PhatDirEntryStatus
+ 808 0074 00C0      		rjmp .L103
+ 809               	.L72:
+ 810 0076 0231      		cpi r16,18
+ 811 0078 81E1      		ldi r24,17
+ 812 007a 1807      		cpc r17,r24
+ 813 007c 01F0      		breq .L74
+ 814 007e 0331      		cpi r16,19
+ 815 0080 E1E1      		ldi r30,17
+ 816 0082 1E07      		cpc r17,r30
+ 817 0084 01F0      		breq .L75
+ 818 0086 00C0      		rjmp .L89
+ 819               	.L70:
+ 820 0088 0332      		cpi r16,35
+ 821 008a F1E1      		ldi r31,17
+ 822 008c 1F07      		cpc r17,r31
+ 823 008e 01F4      		brne .+2
+ 824 0090 00C0      		rjmp .L76
+ 825 0092 04F4      		brge .L77
+ 826 0094 0531      		cpi r16,21
+ 827 0096 81E1      		ldi r24,17
+ 828 0098 1807      		cpc r17,r24
+ 829 009a 01F4      		brne .+2
+ 830 009c 00C0      		rjmp .L78
+ 831 009e 0232      		cpi r16,34
+ 832 00a0 E1E1      		ldi r30,17
+ 833 00a2 1E07      		cpc r17,r30
+ 834 00a4 01F0      		breq .+2
+ 835 00a6 00C0      		rjmp .L89
+ 836 00a8 27E2      		ldi r18,lo8(39)
+ 837 00aa 30E0      		ldi r19,0
+ 838 00ac 40E0      		ldi r20,0
+ 839 00ae 50E0      		ldi r21,0
+ 840 00b0 BE01      		movw r22,r28
+ 841 00b2 C601      		movw r24,r12
+ 842 00b4 0E94 0000 		call PhatDirDelEntry
+ 843 00b8 00C0      		rjmp .L103
+ 844               	.L77:
+ 845 00ba 0133      		cpi r16,49
+ 846 00bc F1E1      		ldi r31,17
+ 847 00be 1F07      		cpc r17,r31
+ 848 00c0 01F4      		brne .+2
+ 849 00c2 00C0      		rjmp .L80
+ 850 00c4 0233      		cpi r16,50
+ 851 00c6 21E1      		ldi r18,17
+ 852 00c8 1207      		cpc r17,r18
+ 853 00ca 01F0      		breq .+2
+ 854 00cc 00C0      		rjmp .L89
+ 855 00ce 4A81      		ldd r20,Y+2
+GAS LISTING /tmp/ccKdzQHI.s 			page 16
+
+
+ 856 00d0 5B81      		ldd r21,Y+3
+ 857 00d2 6881      		ld r22,Y
+ 858 00d4 7981      		ldd r23,Y+1
+ 859 00d6 C601      		movw r24,r12
+ 860 00d8 0E94 0000 		call PhatDirRenameEntry
+ 861 00dc 00C0      		rjmp .L103
+ 862               	.L71:
+ 863 00de BE01      		movw r22,r28
+ 864 00e0 C601      		movw r24,r12
+ 865 00e2 0E94 0000 		call PhatDirCreate
+ 866 00e6 00C0      		rjmp .L103
+ 867               	.L74:
+ 868 00e8 BE01      		movw r22,r28
+ 869 00ea C601      		movw r24,r12
+ 870 00ec 0E94 0000 		call PhatDirRemove
+ 871 00f0 00C0      		rjmp .L103
+ 872               	.L75:
+ 873 00f2 6A81      		ldd r22,Y+2
+ 874 00f4 7B81      		ldd r23,Y+3
+ 875 00f6 C601      		movw r24,r12
+ 876 00f8 0E94 0000 		call PhatDirOpen
+ 877 00fc 9983      		std Y+1,r25
+ 878 00fe 8883      		st Y,r24
+ 879 0100 C1E0      		ldi r28,lo8(1)
+ 880 0102 D0E0      		ldi r29,0
+ 881 0104 0196      		adiw r24,1
+ 882 0106 01F0      		breq .L82
+ 883 0108 C0E0      		ldi r28,0
+ 884 010a D0E0      		ldi r29,0
+ 885               	.L82:
+ 886 010c D195      		neg r29
+ 887 010e C195      		neg r28
+ 888 0110 D109      		sbc r29,__zero_reg__
+ 889 0112 00C0      		rjmp .L68
+ 890               	.L69:
+ 891 0114 8881      		ld r24,Y
+ 892 0116 9981      		ldd r25,Y+1
+ 893 0118 0E94 0000 		call PhatFileClose
+ 894 011c 00C0      		rjmp .L103
+ 895               	.L78:
+ 896 011e CE01      		movw r24,r28
+ 897 0120 0E94 0000 		call PhatDirRead
+ 898 0124 00C0      		rjmp .L103
+ 899               	.L76:
+ 900 0126 AA80      		ldd r10,Y+2
+ 901 0128 BB80      		ldd r11,Y+3
+ 902 012a 8881      		ld r24,Y
+ 903 012c 9981      		ldd r25,Y+1
+ 904 012e F501      		movw r30,r10
+ 905 0130 4081      		ld r20,Z
+ 906 0132 5181      		ldd r21,Z+1
+ 907 0134 6281      		ldd r22,Z+2
+ 908 0136 7381      		ldd r23,Z+3
+ 909 0138 FC01      		movw r30,r24
+ 910 013a C280      		ldd r12,Z+2
+ 911 013c D380      		ldd r13,Z+3
+ 912 013e 2C81      		ldd r18,Y+4
+GAS LISTING /tmp/ccKdzQHI.s 			page 17
+
+
+ 913 0140 3D81      		ldd r19,Y+5
+ 914 0142 2130      		cpi r18,1
+ 915 0144 3105      		cpc r19,__zero_reg__
+ 916 0146 01F0      		breq .L84
+ 917 0148 2230      		cpi r18,2
+ 918 014a 3105      		cpc r19,__zero_reg__
+ 919 014c 01F4      		brne .L83
+ 920 014e F601      		movw r30,r12
+ 921 0150 44A8      		ldd r4,Z+52
+ 922 0152 55A8      		ldd r5,Z+53
+ 923 0154 66A8      		ldd r6,Z+54
+ 924 0156 77A8      		ldd r7,Z+55
+ 925 0158 00C0      		rjmp .L102
+ 926               	.L84:
+ 927 015a F601      		movw r30,r12
+ 928 015c 4080      		ld r4,Z
+ 929 015e 5180      		ldd r5,Z+1
+ 930 0160 6280      		ldd r6,Z+2
+ 931 0162 7380      		ldd r7,Z+3
+ 932               	.L102:
+ 933 0164 440D      		add r20,r4
+ 934 0166 551D      		adc r21,r5
+ 935 0168 661D      		adc r22,r6
+ 936 016a 771D      		adc r23,r7
+ 937               	.L83:
+ 938 016c 77FD      		sbrc r23,7
+ 939 016e 00C0      		rjmp .L89
+ 940 0170 F601      		movw r30,r12
+ 941 0172 44A8      		ldd r4,Z+52
+ 942 0174 55A8      		ldd r5,Z+53
+ 943 0176 66A8      		ldd r6,Z+54
+ 944 0178 77A8      		ldd r7,Z+55
+ 945 017a 4416      		cp r4,r20
+ 946 017c 5506      		cpc r5,r21
+ 947 017e 6606      		cpc r6,r22
+ 948 0180 7706      		cpc r7,r23
+ 949 0182 04F0      		brlt .L89
+ 950 0184 0E94 0000 		call PhatFilePosSet
+ 951 0188 F601      		movw r30,r12
+ 952 018a 8081      		ld r24,Z
+ 953 018c 9181      		ldd r25,Z+1
+ 954 018e A281      		ldd r26,Z+2
+ 955 0190 B381      		ldd r27,Z+3
+ 956 0192 F501      		movw r30,r10
+ 957 0194 8083      		st Z,r24
+ 958 0196 9183      		std Z+1,r25
+ 959 0198 A283      		std Z+2,r26
+ 960 019a B383      		std Z+3,r27
+ 961 019c 00C0      		rjmp .L89
+ 962               	.L66:
+ 963 019e 6881      		ld r22,Y
+ 964 01a0 7981      		ldd r23,Y+1
+ 965 01a2 4A81      		ldd r20,Y+2
+ 966 01a4 0E94 0000 		call PhatVolMount
+ 967 01a8 EC01      		movw r28,r24
+ 968 01aa 892B      		or r24,r25
+ 969 01ac 01F0      		breq .L68
+GAS LISTING /tmp/ccKdzQHI.s 			page 18
+
+
+ 970 01ae C601      		movw r24,r12
+ 971 01b0 0E94 0000 		call PhatVolUnmount
+ 972 01b4 00C0      		rjmp .L68
+ 973               	.L80:
+ 974 01b6 C601      		movw r24,r12
+ 975 01b8 0E94 0000 		call PhatVolUnmount
+ 976               	.L103:
+ 977 01bc EC01      		movw r28,r24
+ 978 01be 00C0      		rjmp .L68
+ 979               	.L89:
+ 980 01c0 CFEF      		ldi r28,lo8(-1)
+ 981 01c2 DFEF      		ldi r29,lo8(-1)
+ 982               	.L68:
+ 983 01c4 0053      		subi r16,48
+ 984 01c6 1141      		sbci r17,17
+ 985 01c8 0230      		cpi r16,2
+ 986 01ca 1105      		cpc r17,__zero_reg__
+ 987 01cc 00F0      		brlo .L86
+ 988 01ce E114      		cp r14,__zero_reg__
+ 989 01d0 F104      		cpc r15,__zero_reg__
+ 990 01d2 01F0      		breq .L86
+ 991 01d4 C701      		movw r24,r14
+ 992 01d6 4496      		adiw r24,20
+ 993 01d8 0E94 0000 		call NutEventPost
+ 994               	.L86:
+ 995 01dc CE01      		movw r24,r28
+ 996               	/* epilogue start */
+ 997 01de DF91      		pop r29
+ 998 01e0 CF91      		pop r28
+ 999 01e2 1F91      		pop r17
+ 1000 01e4 0F91      		pop r16
+ 1001 01e6 FF90      		pop r15
+ 1002 01e8 EF90      		pop r14
+ 1003 01ea DF90      		pop r13
+ 1004 01ec CF90      		pop r12
+ 1005 01ee BF90      		pop r11
+ 1006 01f0 AF90      		pop r10
+ 1007 01f2 7F90      		pop r7
+ 1008 01f4 6F90      		pop r6
+ 1009 01f6 5F90      		pop r5
+ 1010 01f8 4F90      		pop r4
+ 1011 01fa 0895      		ret
+ 1012               		.size	PhatApiIOCtl, .-PhatApiIOCtl
+ 1013               		.section	.text.PhatFileOpen,"ax",@progbits
+ 1014               	.global	PhatFileOpen
+ 1015               		.type	PhatFileOpen, @function
+ 1016               	PhatFileOpen:
+ 1017 0000 2F92      		push r2
+ 1018 0002 3F92      		push r3
+ 1019 0004 4F92      		push r4
+ 1020 0006 5F92      		push r5
+ 1021 0008 6F92      		push r6
+ 1022 000a 7F92      		push r7
+ 1023 000c 8F92      		push r8
+ 1024 000e 9F92      		push r9
+ 1025 0010 AF92      		push r10
+ 1026 0012 BF92      		push r11
+GAS LISTING /tmp/ccKdzQHI.s 			page 19
+
+
+ 1027 0014 CF92      		push r12
+ 1028 0016 DF92      		push r13
+ 1029 0018 EF92      		push r14
+ 1030 001a FF92      		push r15
+ 1031 001c 0F93      		push r16
+ 1032 001e 1F93      		push r17
+ 1033 0020 CF93      		push r28
+ 1034 0022 DF93      		push r29
+ 1035 0024 00D0      		rcall .
+ 1036 0026 00D0      		rcall .
+ 1037 0028 CDB7      		in r28,__SP_L__
+ 1038 002a DEB7      		in r29,__SP_H__
+ 1039               	/* prologue: function */
+ 1040               	/* frame size = 6 */
+ 1041               	/* stack size = 24 */
+ 1042               	.L__stack_usage = 24
+ 1043 002c 2C01      		movw r4,r24
+ 1044 002e 3A01      		movw r6,r20
+ 1045 0030 3C83      		std Y+4,r19
+ 1046 0032 2B83      		std Y+3,r18
+ 1047 0034 AE01      		movw r20,r28
+ 1048 0036 4F5F      		subi r20,-1
+ 1049 0038 5F4F      		sbci r21,-1
+ 1050 003a 0E94 0000 		call PhatDirOpenParent
+ 1051 003e 4C01      		movw r8,r24
+ 1052 0040 8F3F      		cpi r24,-1
+ 1053 0042 2FEF      		ldi r18,-1
+ 1054 0044 9207      		cpc r25,r18
+ 1055 0046 01F4      		brne .+2
+ 1056 0048 00C0      		rjmp .L139
+ 1057 004a FC01      		movw r30,r24
+ 1058 004c 2280      		ldd r2,Z+2
+ 1059 004e 3380      		ldd r3,Z+3
+ 1060 0050 6981      		ldd r22,Y+1
+ 1061 0052 7A81      		ldd r23,Y+2
+ 1062 0054 FB01      		movw r30,r22
+ 1063 0056 8081      		ld r24,Z
+ 1064 0058 8111      		cpse r24,__zero_reg__
+ 1065 005a 00C0      		rjmp .L107
+ 1066 005c C301      		movw r24,r6
+ 1067 005e 770C      		lsl r7
+ 1068 0060 AA0B      		sbc r26,r26
+ 1069 0062 BB0B      		sbc r27,r27
+ 1070 0064 F101      		movw r30,r2
+ 1071 0066 848B      		std Z+20,r24
+ 1072 0068 958B      		std Z+21,r25
+ 1073 006a A68B      		std Z+22,r26
+ 1074 006c B78B      		std Z+23,r27
+ 1075 006e C401      		movw r24,r8
+ 1076 0070 00C0      		rjmp .L106
+ 1077               	.L107:
+ 1078 0072 84E0      		ldi r24,lo8(4)
+ 1079 0074 90E0      		ldi r25,0
+ 1080 0076 6D83      		std Y+5,r22
+ 1081 0078 7E83      		std Y+6,r23
+ 1082 007a 0E94 0000 		call malloc
+ 1083 007e 6C01      		movw r12,r24
+GAS LISTING /tmp/ccKdzQHI.s 			page 20
+
+
+ 1084 0080 86E4      		ldi r24,lo8(70)
+ 1085 0082 90E0      		ldi r25,0
+ 1086 0084 0E94 0000 		call malloc
+ 1087 0088 7C01      		movw r14,r24
+ 1088 008a 85E2      		ldi r24,lo8(37)
+ 1089 008c 91E0      		ldi r25,lo8(1)
+ 1090 008e 0E94 0000 		call malloc
+ 1091 0092 5C01      		movw r10,r24
+ 1092 0094 6D81      		ldd r22,Y+5
+ 1093 0096 7E81      		ldd r23,Y+6
+ 1094 0098 C114      		cp r12,__zero_reg__
+ 1095 009a D104      		cpc r13,__zero_reg__
+ 1096 009c 01F0      		breq .L108
+ 1097 009e E114      		cp r14,__zero_reg__
+ 1098 00a0 F104      		cpc r15,__zero_reg__
+ 1099 00a2 01F0      		breq .L108
+ 1100 00a4 0097      		sbiw r24,0
+ 1101 00a6 01F4      		brne .L109
+ 1102               	.L108:
+ 1103 00a8 C401      		movw r24,r8
+ 1104 00aa 0E94 0000 		call PhatFileClose
+ 1105 00ae C114      		cp r12,__zero_reg__
+ 1106 00b0 D104      		cpc r13,__zero_reg__
+ 1107 00b2 01F0      		breq .L110
+ 1108 00b4 C601      		movw r24,r12
+ 1109 00b6 0E94 0000 		call free
+ 1110               	.L110:
+ 1111 00ba E114      		cp r14,__zero_reg__
+ 1112 00bc F104      		cpc r15,__zero_reg__
+ 1113 00be 01F0      		breq .L111
+ 1114 00c0 C701      		movw r24,r14
+ 1115 00c2 0E94 0000 		call free
+ 1116               	.L111:
+ 1117 00c6 A114      		cp r10,__zero_reg__
+ 1118 00c8 B104      		cpc r11,__zero_reg__
+ 1119 00ca 01F0      		breq .+2
+ 1120 00cc 00C0      		rjmp .L141
+ 1121 00ce 00C0      		rjmp .L139
+ 1122               	.L109:
+ 1123 00d0 F701      		movw r30,r14
+ 1124 00d2 26E4      		ldi r18,lo8(70)
+ 1125               		0:
+ 1126 00d4 1192      		st Z+,__zero_reg__
+ 1127 00d6 2A95      		dec r18
+ 1128 00d8 01F4      		brne 0b
+ 1129 00da F601      		movw r30,r12
+ 1130 00dc 5182      		std Z+1,r5
+ 1131 00de 4082      		st Z,r4
+ 1132 00e0 F382      		std Z+3,r15
+ 1133 00e2 E282      		std Z+2,r14
+ 1134 00e4 8C01      		movw r16,r24
+ 1135 00e6 27E3      		ldi r18,lo8(55)
+ 1136 00e8 30E0      		ldi r19,0
+ 1137 00ea 40E0      		ldi r20,0
+ 1138 00ec 50E0      		ldi r21,0
+ 1139 00ee C401      		movw r24,r8
+ 1140 00f0 0E94 0000 		call PhatDirEntryFind
+GAS LISTING /tmp/ccKdzQHI.s 			page 21
+
+
+ 1141 00f4 892B      		or r24,r25
+ 1142 00f6 01F0      		breq .L113
+ 1143 00f8 70FC      		sbrc r7,0
+ 1144 00fa 00C0      		rjmp .L114
+ 1145 00fc C501      		movw r24,r10
+ 1146 00fe 0E94 0000 		call free
+ 1147 0102 C401      		movw r24,r8
+ 1148 0104 0E94 0000 		call PhatFileClose
+ 1149 0108 C601      		movw r24,r12
+ 1150 010a 0E94 0000 		call PhatFileClose
+ 1151 010e 82E0      		ldi r24,lo8(2)
+ 1152 0110 90E0      		ldi r25,0
+ 1153 0112 00C0      		rjmp .L142
+ 1154               	.L114:
+ 1155 0114 6981      		ldd r22,Y+1
+ 1156 0116 7A81      		ldd r23,Y+2
+ 1157 0118 9701      		movw r18,r14
+ 1158 011a 285E      		subi r18,-24
+ 1159 011c 3F4F      		sbci r19,-1
+ 1160 011e 4B81      		ldd r20,Y+3
+ 1161 0120 5C81      		ldd r21,Y+4
+ 1162 0122 C401      		movw r24,r8
+ 1163 0124 0E94 0000 		call PhatDirEntryCreate
+ 1164 0128 892B      		or r24,r25
+ 1165 012a 01F0      		breq .L115
+ 1166 012c C501      		movw r24,r10
+ 1167 012e 0E94 0000 		call free
+ 1168 0132 C401      		movw r24,r8
+ 1169 0134 0E94 0000 		call PhatFileClose
+ 1170 0138 00C0      		rjmp .L140
+ 1171               	.L115:
+ 1172 013a 81E0      		ldi r24,lo8(1)
+ 1173 013c 90E0      		ldi r25,0
+ 1174 013e F701      		movw r30,r14
+ 1175 0140 00C0      		rjmp .L138
+ 1176               	.L113:
+ 1177 0142 C301      		movw r24,r6
+ 1178 0144 8827      		clr r24
+ 1179 0146 9570      		andi r25,5
+ 1180 0148 8115      		cp r24,__zero_reg__
+ 1181 014a 9540      		sbci r25,5
+ 1182 014c 01F4      		brne .L117
+ 1183 014e C501      		movw r24,r10
+ 1184 0150 0E94 0000 		call free
+ 1185 0154 C401      		movw r24,r8
+ 1186 0156 0E94 0000 		call PhatFileClose
+ 1187 015a C601      		movw r24,r12
+ 1188 015c 0E94 0000 		call PhatFileClose
+ 1189 0160 81E1      		ldi r24,lo8(17)
+ 1190 0162 90E0      		ldi r25,0
+ 1191               	.L142:
+ 1192 0164 9093 0000 		sts errno+1,r25
+ 1193 0168 8093 0000 		sts errno,r24
+ 1194 016c 00C0      		rjmp .L139
+ 1195               	.L117:
+ 1196 016e 71FE      		sbrs r7,1
+ 1197 0170 00C0      		rjmp .L118
+GAS LISTING /tmp/ccKdzQHI.s 			page 22
+
+
+ 1198 0172 B501      		movw r22,r10
+ 1199 0174 C201      		movw r24,r4
+ 1200 0176 0E94 0000 		call PhatDirReleaseChain
+ 1201 017a 892B      		or r24,r25
+ 1202 017c 01F0      		breq .L119
+ 1203 017e C401      		movw r24,r8
+ 1204 0180 0E94 0000 		call PhatFileClose
+ 1205 0184 C601      		movw r24,r12
+ 1206 0186 0E94 0000 		call PhatFileClose
+ 1207               	.L141:
+ 1208 018a C501      		movw r24,r10
+ 1209 018c 0E94 0000 		call free
+ 1210 0190 00C0      		rjmp .L139
+ 1211               	.L119:
+ 1212 0192 F701      		movw r30,r14
+ 1213 0194 26E4      		ldi r18,lo8(70)
+ 1214               		0:
+ 1215 0196 1192      		st Z+,__zero_reg__
+ 1216 0198 2A95      		dec r18
+ 1217 019a 01F4      		brne 0b
+ 1218 019c 8BE0      		ldi r24,lo8(11)
+ 1219 019e F501      		movw r30,r10
+ 1220 01a0 D701      		movw r26,r14
+ 1221 01a2 5896      		adiw r26,24
+ 1222               		0:
+ 1223 01a4 0190      		ld r0,Z+
+ 1224 01a6 0D92      		st X+,r0
+ 1225 01a8 8A95      		dec r24
+ 1226 01aa 01F4      		brne 0b
+ 1227 01ac F501      		movw r30,r10
+ 1228 01ae 8385      		ldd r24,Z+11
+ 1229 01b0 F701      		movw r30,r14
+ 1230 01b2 83A3      		std Z+35,r24
+ 1231 01b4 F501      		movw r30,r10
+ 1232 01b6 8485      		ldd r24,Z+12
+ 1233 01b8 F701      		movw r30,r14
+ 1234 01ba 84A3      		std Z+36,r24
+ 1235 01bc F501      		movw r30,r10
+ 1236 01be 8585      		ldd r24,Z+13
+ 1237 01c0 F701      		movw r30,r14
+ 1238 01c2 85A3      		std Z+37,r24
+ 1239 01c4 F501      		movw r30,r10
+ 1240 01c6 8685      		ldd r24,Z+14
+ 1241 01c8 9785      		ldd r25,Z+15
+ 1242 01ca F701      		movw r30,r14
+ 1243 01cc 97A3      		std Z+39,r25
+ 1244 01ce 86A3      		std Z+38,r24
+ 1245 01d0 F501      		movw r30,r10
+ 1246 01d2 8089      		ldd r24,Z+16
+ 1247 01d4 9189      		ldd r25,Z+17
+ 1248 01d6 F701      		movw r30,r14
+ 1249 01d8 91A7      		std Z+41,r25
+ 1250 01da 80A7      		std Z+40,r24
+ 1251 01dc 81E0      		ldi r24,lo8(1)
+ 1252 01de 90E0      		ldi r25,0
+ 1253               	.L138:
+ 1254 01e0 E05C      		subi r30,-64
+GAS LISTING /tmp/ccKdzQHI.s 			page 23
+
+
+ 1255 01e2 FF4F      		sbci r31,-1
+ 1256 01e4 9183      		std Z+1,r25
+ 1257 01e6 8083      		st Z,r24
+ 1258 01e8 00C0      		rjmp .L116
+ 1259               	.L118:
+ 1260 01ea 80E2      		ldi r24,lo8(32)
+ 1261 01ec F501      		movw r30,r10
+ 1262 01ee D701      		movw r26,r14
+ 1263 01f0 5896      		adiw r26,24
+ 1264               		0:
+ 1265 01f2 0190      		ld r0,Z+
+ 1266 01f4 0D92      		st X+,r0
+ 1267 01f6 8A95      		dec r24
+ 1268 01f8 01F4      		brne 0b
+ 1269               	.L116:
+ 1270 01fa C501      		movw r24,r10
+ 1271 01fc 0E94 0000 		call free
+ 1272 0200 F101      		movw r30,r2
+ 1273 0202 4481      		ldd r20,Z+4
+ 1274 0204 5581      		ldd r21,Z+5
+ 1275 0206 6681      		ldd r22,Z+6
+ 1276 0208 7781      		ldd r23,Z+7
+ 1277 020a C401      		movw r24,r8
+ 1278 020c 0E94 0000 		call PhatClusterSector
+ 1279 0210 F101      		movw r30,r2
+ 1280 0212 0085      		ldd r16,Z+8
+ 1281 0214 1185      		ldd r17,Z+9
+ 1282 0216 2285      		ldd r18,Z+10
+ 1283 0218 3385      		ldd r19,Z+11
+ 1284 021a DC01      		movw r26,r24
+ 1285 021c CB01      		movw r24,r22
+ 1286 021e 800F      		add r24,r16
+ 1287 0220 911F      		adc r25,r17
+ 1288 0222 A21F      		adc r26,r18
+ 1289 0224 B31F      		adc r27,r19
+ 1290 0226 F701      		movw r30,r14
+ 1291 0228 80AF      		std Z+56,r24
+ 1292 022a 91AF      		std Z+57,r25
+ 1293 022c A2AF      		std Z+58,r26
+ 1294 022e B3AF      		std Z+59,r27
+ 1295 0230 F101      		movw r30,r2
+ 1296 0232 8485      		ldd r24,Z+12
+ 1297 0234 9585      		ldd r25,Z+13
+ 1298 0236 A685      		ldd r26,Z+14
+ 1299 0238 B785      		ldd r27,Z+15
+ 1300 023a 8097      		sbiw r24,32
+ 1301 023c A109      		sbc r26,__zero_reg__
+ 1302 023e B109      		sbc r27,__zero_reg__
+ 1303 0240 F701      		movw r30,r14
+ 1304 0242 84AF      		std Z+60,r24
+ 1305 0244 95AF      		std Z+61,r25
+ 1306 0246 A6AF      		std Z+62,r26
+ 1307 0248 B7AF      		std Z+63,r27
+ 1308 024a F101      		movw r30,r2
+ 1309 024c 84A5      		ldd r24,Z+44
+ 1310 024e 95A5      		ldd r25,Z+45
+ 1311 0250 F701      		movw r30,r14
+GAS LISTING /tmp/ccKdzQHI.s 			page 24
+
+
+ 1312 0252 EC5B      		subi r30,-68
+ 1313 0254 FF4F      		sbci r31,-1
+ 1314 0256 9183      		std Z+1,r25
+ 1315 0258 8083      		st Z,r24
+ 1316 025a F101      		movw r30,r2
+ 1317 025c 82A9      		ldd r24,Z+50
+ 1318 025e 93A9      		ldd r25,Z+51
+ 1319 0260 F701      		movw r30,r14
+ 1320 0262 EE5B      		subi r30,-66
+ 1321 0264 FF4F      		sbci r31,-1
+ 1322 0266 9183      		std Z+1,r25
+ 1323 0268 8083      		st Z,r24
+ 1324 026a F701      		movw r30,r14
+ 1325 026c 84A5      		ldd r24,Z+44
+ 1326 026e 95A5      		ldd r25,Z+45
+ 1327 0270 A0E0      		ldi r26,0
+ 1328 0272 B0E0      		ldi r27,0
+ 1329 0274 DC01      		movw r26,r24
+ 1330 0276 9927      		clr r25
+ 1331 0278 8827      		clr r24
+ 1332 027a 22A9      		ldd r18,Z+50
+ 1333 027c 33A9      		ldd r19,Z+51
+ 1334 027e 820F      		add r24,r18
+ 1335 0280 931F      		adc r25,r19
+ 1336 0282 A11D      		adc r26,__zero_reg__
+ 1337 0284 B11D      		adc r27,__zero_reg__
+ 1338 0286 8483      		std Z+4,r24
+ 1339 0288 9583      		std Z+5,r25
+ 1340 028a A683      		std Z+6,r26
+ 1341 028c B783      		std Z+7,r27
+ 1342 028e C301      		movw r24,r6
+ 1343 0290 770C      		lsl r7
+ 1344 0292 AA0B      		sbc r26,r26
+ 1345 0294 BB0B      		sbc r27,r27
+ 1346 0296 848B      		std Z+20,r24
+ 1347 0298 958B      		std Z+21,r25
+ 1348 029a A68B      		std Z+22,r26
+ 1349 029c B78B      		std Z+23,r27
+ 1350 029e C401      		movw r24,r8
+ 1351 02a0 0E94 0000 		call PhatFileClose
+ 1352 02a4 63FE      		sbrs r6,3
+ 1353 02a6 00C0      		rjmp .L122
+ 1354 02a8 F701      		movw r30,r14
+ 1355 02aa 44A9      		ldd r20,Z+52
+ 1356 02ac 55A9      		ldd r21,Z+53
+ 1357 02ae 66A9      		ldd r22,Z+54
+ 1358 02b0 77A9      		ldd r23,Z+55
+ 1359 02b2 4115      		cp r20,__zero_reg__
+ 1360 02b4 5105      		cpc r21,__zero_reg__
+ 1361 02b6 6105      		cpc r22,__zero_reg__
+ 1362 02b8 7105      		cpc r23,__zero_reg__
+ 1363 02ba 01F0      		breq .L122
+ 1364 02bc C601      		movw r24,r12
+ 1365 02be 0E94 0000 		call PhatFilePosSet
+ 1366 02c2 892B      		or r24,r25
+ 1367 02c4 01F0      		breq .L122
+ 1368               	.L140:
+GAS LISTING /tmp/ccKdzQHI.s 			page 25
+
+
+ 1369 02c6 C601      		movw r24,r12
+ 1370 02c8 0E94 0000 		call PhatFileClose
+ 1371               	.L139:
+ 1372 02cc 8FEF      		ldi r24,lo8(-1)
+ 1373 02ce 9FEF      		ldi r25,lo8(-1)
+ 1374 02d0 00C0      		rjmp .L106
+ 1375               	.L122:
+ 1376 02d2 C601      		movw r24,r12
+ 1377               	.L106:
+ 1378               	/* epilogue start */
+ 1379 02d4 2696      		adiw r28,6
+ 1380 02d6 0FB6      		in __tmp_reg__,__SREG__
+ 1381 02d8 F894      		cli
+ 1382 02da DEBF      		out __SP_H__,r29
+ 1383 02dc 0FBE      		out __SREG__,__tmp_reg__
+ 1384 02de CDBF      		out __SP_L__,r28
+ 1385 02e0 DF91      		pop r29
+ 1386 02e2 CF91      		pop r28
+ 1387 02e4 1F91      		pop r17
+ 1388 02e6 0F91      		pop r16
+ 1389 02e8 FF90      		pop r15
+ 1390 02ea EF90      		pop r14
+ 1391 02ec DF90      		pop r13
+ 1392 02ee CF90      		pop r12
+ 1393 02f0 BF90      		pop r11
+ 1394 02f2 AF90      		pop r10
+ 1395 02f4 9F90      		pop r9
+ 1396 02f6 8F90      		pop r8
+ 1397 02f8 7F90      		pop r7
+ 1398 02fa 6F90      		pop r6
+ 1399 02fc 5F90      		pop r5
+ 1400 02fe 4F90      		pop r4
+ 1401 0300 3F90      		pop r3
+ 1402 0302 2F90      		pop r2
+ 1403 0304 0895      		ret
+ 1404               		.size	PhatFileOpen, .-PhatFileOpen
+ 1405               		.section	.text.PhatApiFileOpen,"ax",@progbits
+ 1406               		.type	PhatApiFileOpen, @function
+ 1407               	PhatApiFileOpen:
+ 1408 0000 AF92      		push r10
+ 1409 0002 BF92      		push r11
+ 1410 0004 CF92      		push r12
+ 1411 0006 DF92      		push r13
+ 1412 0008 EF92      		push r14
+ 1413 000a FF92      		push r15
+ 1414 000c 0F93      		push r16
+ 1415 000e 1F93      		push r17
+ 1416 0010 CF93      		push r28
+ 1417 0012 DF93      		push r29
+ 1418 0014 1F92      		push __zero_reg__
+ 1419 0016 1F92      		push __zero_reg__
+ 1420 0018 CDB7      		in r28,__SP_L__
+ 1421 001a DEB7      		in r29,__SP_H__
+ 1422               	/* prologue: function */
+ 1423               	/* frame size = 2 */
+ 1424               	/* stack size = 12 */
+ 1425               	.L__stack_usage = 12
+GAS LISTING /tmp/ccKdzQHI.s 			page 26
+
+
+ 1426 001c 8C01      		movw r16,r24
+ 1427 001e 7B01      		movw r14,r22
+ 1428 0020 6A01      		movw r12,r20
+ 1429 0022 FC01      		movw r30,r24
+ 1430 0024 8189      		ldd r24,Z+17
+ 1431 0026 9289      		ldd r25,Z+18
+ 1432 0028 0097      		sbiw r24,0
+ 1433 002a 01F4      		brne .L144
+ 1434 002c 82E0      		ldi r24,lo8(2)
+ 1435 002e 90E0      		ldi r25,0
+ 1436 0030 9093 0000 		sts errno+1,r25
+ 1437 0034 8093 0000 		sts errno,r24
+ 1438 0038 8FEF      		ldi r24,lo8(-1)
+ 1439 003a 9FEF      		ldi r25,lo8(-1)
+ 1440 003c 00C0      		rjmp .L145
+ 1441               	.L144:
+ 1442 003e 5C01      		movw r10,r24
+ 1443 0040 F4E1      		ldi r31,20
+ 1444 0042 AF0E      		add r10,r31
+ 1445 0044 B11C      		adc r11,__zero_reg__
+ 1446 0046 40E0      		ldi r20,0
+ 1447 0048 50E0      		ldi r21,0
+ 1448 004a BA01      		movw r22,r20
+ 1449 004c C501      		movw r24,r10
+ 1450 004e 2983      		std Y+1,r18
+ 1451 0050 3A83      		std Y+2,r19
+ 1452 0052 0E94 0000 		call NutEventWait
+ 1453 0056 2981      		ldd r18,Y+1
+ 1454 0058 3A81      		ldd r19,Y+2
+ 1455 005a A601      		movw r20,r12
+ 1456 005c B701      		movw r22,r14
+ 1457 005e C801      		movw r24,r16
+ 1458 0060 0E94 0000 		call PhatFileOpen
+ 1459 0064 8C01      		movw r16,r24
+ 1460 0066 C501      		movw r24,r10
+ 1461 0068 0E94 0000 		call NutEventPost
+ 1462 006c C801      		movw r24,r16
+ 1463               	.L145:
+ 1464               	/* epilogue start */
+ 1465 006e 0F90      		pop __tmp_reg__
+ 1466 0070 0F90      		pop __tmp_reg__
+ 1467 0072 DF91      		pop r29
+ 1468 0074 CF91      		pop r28
+ 1469 0076 1F91      		pop r17
+ 1470 0078 0F91      		pop r16
+ 1471 007a FF90      		pop r15
+ 1472 007c EF90      		pop r14
+ 1473 007e DF90      		pop r13
+ 1474 0080 CF90      		pop r12
+ 1475 0082 BF90      		pop r11
+ 1476 0084 AF90      		pop r10
+ 1477 0086 0895      		ret
+ 1478               		.size	PhatApiFileOpen, .-PhatApiFileOpen
+ 1479               		.section	.text.PhatFileWrite,"ax",@progbits
+ 1480               	.global	PhatFileWrite
+ 1481               		.type	PhatFileWrite, @function
+ 1482               	PhatFileWrite:
+GAS LISTING /tmp/ccKdzQHI.s 			page 27
+
+
+ 1483 0000 2F92      		push r2
+ 1484 0002 3F92      		push r3
+ 1485 0004 4F92      		push r4
+ 1486 0006 5F92      		push r5
+ 1487 0008 6F92      		push r6
+ 1488 000a 7F92      		push r7
+ 1489 000c 8F92      		push r8
+ 1490 000e 9F92      		push r9
+ 1491 0010 AF92      		push r10
+ 1492 0012 BF92      		push r11
+ 1493 0014 CF92      		push r12
+ 1494 0016 DF92      		push r13
+ 1495 0018 EF92      		push r14
+ 1496 001a FF92      		push r15
+ 1497 001c 0F93      		push r16
+ 1498 001e 1F93      		push r17
+ 1499 0020 CF93      		push r28
+ 1500 0022 DF93      		push r29
+ 1501 0024 CDB7      		in r28,__SP_L__
+ 1502 0026 DEB7      		in r29,__SP_H__
+ 1503 0028 6297      		sbiw r28,18
+ 1504 002a 0FB6      		in __tmp_reg__,__SREG__
+ 1505 002c F894      		cli
+ 1506 002e DEBF      		out __SP_H__,r29
+ 1507 0030 0FBE      		out __SREG__,__tmp_reg__
+ 1508 0032 CDBF      		out __SP_L__,r28
+ 1509               	/* prologue: function */
+ 1510               	/* frame size = 18 */
+ 1511               	/* stack size = 36 */
+ 1512               	.L__stack_usage = 36
+ 1513 0034 5C01      		movw r10,r24
+ 1514 0036 7E87      		std Y+14,r23
+ 1515 0038 6D87      		std Y+13,r22
+ 1516 003a 5C87      		std Y+12,r21
+ 1517 003c 4B87      		std Y+11,r20
+ 1518 003e DC01      		movw r26,r24
+ 1519 0040 1296      		adiw r26,2
+ 1520 0042 ED90      		ld r14,X+
+ 1521 0044 FC90      		ld r15,X
+ 1522 0046 1397      		sbiw r26,2+1
+ 1523 0048 F701      		movw r30,r14
+ 1524 004a 83A1      		ldd r24,Z+35
+ 1525 004c 80FF      		sbrs r24,0
+ 1526 004e 00C0      		rjmp .L147
+ 1527 0050 8DE0      		ldi r24,lo8(13)
+ 1528 0052 90E0      		ldi r25,0
+ 1529 0054 00C0      		rjmp .L183
+ 1530               	.L147:
+ 1531 0056 0D85      		ldd r16,Y+13
+ 1532 0058 1E85      		ldd r17,Y+14
+ 1533 005a 012B      		or r16,r17
+ 1534 005c 01F0      		breq .L149
+ 1535 005e 2B85      		ldd r18,Y+11
+ 1536 0060 3C85      		ldd r19,Y+12
+ 1537 0062 232B      		or r18,r19
+ 1538 0064 01F4      		brne .L150
+ 1539               	.L149:
+GAS LISTING /tmp/ccKdzQHI.s 			page 28
+
+
+ 1540 0066 C501      		movw r24,r10
+ 1541 0068 0E94 0000 		call PhatFileFlush
+ 1542 006c 00C0      		rjmp .L177
+ 1543               	.L150:
+ 1544 006e D501      		movw r26,r10
+ 1545 0070 0D90      		ld __tmp_reg__,X+
+ 1546 0072 BC91      		ld r27,X
+ 1547 0074 A02D      		mov r26,__tmp_reg__
+ 1548 0076 BA87      		std Y+10,r27
+ 1549 0078 A987      		std Y+9,r26
+ 1550 007a 5196      		adiw r26,17
+ 1551 007c 2D90      		ld r2,X+
+ 1552 007e 3C90      		ld r3,X
+ 1553 0080 5297      		sbiw r26,17+1
+ 1554 0082 84FD      		sbrc r24,4
+ 1555 0084 00C0      		rjmp .L151
+ 1556 0086 F101      		movw r30,r2
+ 1557 0088 208D      		ldd r18,Z+24
+ 1558 008a 318D      		ldd r19,Z+25
+ 1559 008c 828D      		ldd r24,Z+26
+ 1560 008e 938D      		ldd r25,Z+27
+ 1561 0090 289F      		mul r18,r24
+ 1562 0092 2001      		movw r4,r0
+ 1563 0094 299F      		mul r18,r25
+ 1564 0096 500C      		add r5,r0
+ 1565 0098 389F      		mul r19,r24
+ 1566 009a 500C      		add r5,r0
+ 1567 009c 1124      		clr r1
+ 1568 009e 612C      		mov r6,__zero_reg__
+ 1569 00a0 712C      		mov r7,__zero_reg__
+ 1570 00a2 D701      		movw r26,r14
+ 1571 00a4 D496      		adiw r26,52
+ 1572 00a6 0D91      		ld r16,X+
+ 1573 00a8 1D91      		ld r17,X+
+ 1574 00aa 2D91      		ld r18,X+
+ 1575 00ac 3C91      		ld r19,X
+ 1576 00ae D797      		sbiw r26,52+3
+ 1577 00b0 0D83      		std Y+5,r16
+ 1578 00b2 1E83      		std Y+6,r17
+ 1579 00b4 2F83      		std Y+7,r18
+ 1580 00b6 3887      		std Y+8,r19
+ 1581 00b8 D901      		movw r26,r18
+ 1582 00ba C801      		movw r24,r16
+ 1583 00bc 0197      		sbiw r24,1
+ 1584 00be A109      		sbc r26,__zero_reg__
+ 1585 00c0 B109      		sbc r27,__zero_reg__
+ 1586 00c2 BC01      		movw r22,r24
+ 1587 00c4 CD01      		movw r24,r26
+ 1588 00c6 640D      		add r22,r4
+ 1589 00c8 751D      		adc r23,r5
+ 1590 00ca 861D      		adc r24,r6
+ 1591 00cc 971D      		adc r25,r7
+ 1592 00ce A301      		movw r20,r6
+ 1593 00d0 9201      		movw r18,r4
+ 1594 00d2 0E94 0000 		call __udivmodsi4
+ 1595 00d6 2F87      		std Y+15,r18
+ 1596 00d8 388B      		std Y+16,r19
+GAS LISTING /tmp/ccKdzQHI.s 			page 29
+
+
+ 1597 00da 498B      		std Y+17,r20
+ 1598 00dc 5A8B      		std Y+18,r21
+ 1599 00de F701      		movw r30,r14
+ 1600 00e0 8081      		ld r24,Z
+ 1601 00e2 9181      		ldd r25,Z+1
+ 1602 00e4 A281      		ldd r26,Z+2
+ 1603 00e6 B381      		ldd r27,Z+3
+ 1604 00e8 0197      		sbiw r24,1
+ 1605 00ea A109      		sbc r26,__zero_reg__
+ 1606 00ec B109      		sbc r27,__zero_reg__
+ 1607 00ee 840D      		add r24,r4
+ 1608 00f0 951D      		adc r25,r5
+ 1609 00f2 A61D      		adc r26,r6
+ 1610 00f4 B71D      		adc r27,r7
+ 1611 00f6 0B85      		ldd r16,Y+11
+ 1612 00f8 1C85      		ldd r17,Y+12
+ 1613 00fa A801      		movw r20,r16
+ 1614 00fc 110F      		lsl r17
+ 1615 00fe 660B      		sbc r22,r22
+ 1616 0100 770B      		sbc r23,r23
+ 1617 0102 8C01      		movw r16,r24
+ 1618 0104 9D01      		movw r18,r26
+ 1619 0106 040F      		add r16,r20
+ 1620 0108 151F      		adc r17,r21
+ 1621 010a 261F      		adc r18,r22
+ 1622 010c 371F      		adc r19,r23
+ 1623 010e C901      		movw r24,r18
+ 1624 0110 B801      		movw r22,r16
+ 1625 0112 A301      		movw r20,r6
+ 1626 0114 9201      		movw r18,r4
+ 1627 0116 0E94 0000 		call __udivmodsi4
+ 1628 011a 8F85      		ldd r24,Y+15
+ 1629 011c 9889      		ldd r25,Y+16
+ 1630 011e A989      		ldd r26,Y+17
+ 1631 0120 BA89      		ldd r27,Y+18
+ 1632 0122 8217      		cp r24,r18
+ 1633 0124 9307      		cpc r25,r19
+ 1634 0126 A407      		cpc r26,r20
+ 1635 0128 B507      		cpc r27,r21
+ 1636 012a 00F4      		brsh .L152
+ 1637 012c BA01      		movw r22,r20
+ 1638 012e A901      		movw r20,r18
+ 1639 0130 481B      		sub r20,r24
+ 1640 0132 590B      		sbc r21,r25
+ 1641 0134 6A0B      		sbc r22,r26
+ 1642 0136 7B0B      		sbc r23,r27
+ 1643 0138 F101      		movw r30,r2
+ 1644 013a 8281      		ldd r24,Z+2
+ 1645 013c 9381      		ldd r25,Z+3
+ 1646 013e A481      		ldd r26,Z+4
+ 1647 0140 B581      		ldd r27,Z+5
+ 1648 0142 8417      		cp r24,r20
+ 1649 0144 9507      		cpc r25,r21
+ 1650 0146 A607      		cpc r26,r22
+ 1651 0148 B707      		cpc r27,r23
+ 1652 014a 00F4      		brsh .L152
+ 1653 014c 8CE1      		ldi r24,lo8(28)
+GAS LISTING /tmp/ccKdzQHI.s 			page 30
+
+
+ 1654 014e 90E0      		ldi r25,0
+ 1655               	.L183:
+ 1656 0150 9093 0000 		sts errno+1,r25
+ 1657 0154 8093 0000 		sts errno,r24
+ 1658 0158 00C0      		rjmp .L153
+ 1659               	.L152:
+ 1660 015a 0D81      		ldd r16,Y+5
+ 1661 015c 1E81      		ldd r17,Y+6
+ 1662 015e 2F81      		ldd r18,Y+7
+ 1663 0160 3885      		ldd r19,Y+8
+ 1664 0162 012B      		or r16,r17
+ 1665 0164 022B      		or r16,r18
+ 1666 0166 032B      		or r16,r19
+ 1667 0168 01F4      		brne .L151
+ 1668 016a C501      		movw r24,r10
+ 1669 016c 0E94 0000 		call AllocFirstCluster
+ 1670 0170 6983      		std Y+1,r22
+ 1671 0172 7A83      		std Y+2,r23
+ 1672 0174 8B83      		std Y+3,r24
+ 1673 0176 9C83      		std Y+4,r25
+ 1674 0178 6230      		cpi r22,2
+ 1675 017a 7105      		cpc r23,__zero_reg__
+ 1676 017c 8105      		cpc r24,__zero_reg__
+ 1677 017e 9105      		cpc r25,__zero_reg__
+ 1678 0180 00F4      		brsh .+2
+ 1679 0182 00C0      		rjmp .L153
+ 1680 0184 D701      		movw r26,r14
+ 1681 0186 5096      		adiw r26,16
+ 1682 0188 6D93      		st X+,r22
+ 1683 018a 7D93      		st X+,r23
+ 1684 018c 8D93      		st X+,r24
+ 1685 018e 9C93      		st X,r25
+ 1686 0190 5397      		sbiw r26,16+3
+ 1687 0192 F701      		movw r30,r14
+ 1688 0194 6483      		std Z+4,r22
+ 1689 0196 7583      		std Z+5,r23
+ 1690 0198 8683      		std Z+6,r24
+ 1691 019a 9783      		std Z+7,r25
+ 1692               	.L151:
+ 1693 019c C12C      		mov r12,__zero_reg__
+ 1694 019e D12C      		mov r13,__zero_reg__
+ 1695 01a0 4424      		clr r4
+ 1696 01a2 4394      		inc r4
+ 1697 01a4 512C      		mov r5,__zero_reg__
+ 1698               	.L154:
+ 1699 01a6 0B85      		ldd r16,Y+11
+ 1700 01a8 1C85      		ldd r17,Y+12
+ 1701 01aa C016      		cp r12,r16
+ 1702 01ac D106      		cpc r13,r17
+ 1703 01ae 04F4      		brge .L171
+ 1704 01b0 D101      		movw r26,r2
+ 1705 01b2 5896      		adiw r26,24
+ 1706 01b4 8D91      		ld r24,X+
+ 1707 01b6 9C91      		ld r25,X
+ 1708 01b8 5997      		sbiw r26,24+1
+ 1709 01ba A0E0      		ldi r26,0
+ 1710 01bc B0E0      		ldi r27,0
+GAS LISTING /tmp/ccKdzQHI.s 			page 31
+
+
+ 1711 01be F701      		movw r30,r14
+ 1712 01c0 4485      		ldd r20,Z+12
+ 1713 01c2 5585      		ldd r21,Z+13
+ 1714 01c4 6685      		ldd r22,Z+14
+ 1715 01c6 7785      		ldd r23,Z+15
+ 1716 01c8 4817      		cp r20,r24
+ 1717 01ca 5907      		cpc r21,r25
+ 1718 01cc 6A07      		cpc r22,r26
+ 1719 01ce 7B07      		cpc r23,r27
+ 1720 01d0 00F4      		brsh .+2
+ 1721 01d2 00C0      		rjmp .L155
+ 1722 01d4 C501      		movw r24,r10
+ 1723 01d6 0E94 0000 		call IsFixedRootDir
+ 1724 01da D701      		movw r26,r14
+ 1725 01dc 1896      		adiw r26,8
+ 1726 01de 4D91      		ld r20,X+
+ 1727 01e0 5D91      		ld r21,X+
+ 1728 01e2 6D91      		ld r22,X+
+ 1729 01e4 7C91      		ld r23,X
+ 1730 01e6 1B97      		sbiw r26,8+3
+ 1731 01e8 4F5F      		subi r20,-1
+ 1732 01ea 5F4F      		sbci r21,-1
+ 1733 01ec 6F4F      		sbci r22,-1
+ 1734 01ee 7F4F      		sbci r23,-1
+ 1735 01f0 F101      		movw r30,r2
+ 1736 01f2 892B      		or r24,r25
+ 1737 01f4 01F0      		breq .L156
+ 1738 01f6 80A5      		ldd r24,Z+40
+ 1739 01f8 91A5      		ldd r25,Z+41
+ 1740 01fa A0E0      		ldi r26,0
+ 1741 01fc B0E0      		ldi r27,0
+ 1742 01fe 4817      		cp r20,r24
+ 1743 0200 5907      		cpc r21,r25
+ 1744 0202 6A07      		cpc r22,r26
+ 1745 0204 7B07      		cpc r23,r27
+ 1746 0206 00F4      		brsh .+2
+ 1747 0208 00C0      		rjmp .L160
+ 1748               	.L171:
+ 1749 020a 1C14      		cp __zero_reg__,r12
+ 1750 020c 1D04      		cpc __zero_reg__,r13
+ 1751 020e 04F4      		brge .+2
+ 1752 0210 00C0      		rjmp .L158
+ 1753 0212 00C0      		rjmp .L173
+ 1754               	.L156:
+ 1755 0214 828D      		ldd r24,Z+26
+ 1756 0216 938D      		ldd r25,Z+27
+ 1757 0218 A0E0      		ldi r26,0
+ 1758 021a B0E0      		ldi r27,0
+ 1759 021c 4817      		cp r20,r24
+ 1760 021e 5907      		cpc r21,r25
+ 1761 0220 6A07      		cpc r22,r26
+ 1762 0222 7B07      		cpc r23,r27
+ 1763 0224 00F4      		brsh .+2
+ 1764 0226 00C0      		rjmp .L160
+ 1765 0228 8081      		ld r24,Z
+ 1766 022a 9181      		ldd r25,Z+1
+ 1767 022c D701      		movw r26,r14
+GAS LISTING /tmp/ccKdzQHI.s 			page 32
+
+
+ 1768 022e 1496      		adiw r26,4
+ 1769 0230 4D91      		ld r20,X+
+ 1770 0232 5D91      		ld r21,X+
+ 1771 0234 6D91      		ld r22,X+
+ 1772 0236 7C91      		ld r23,X
+ 1773 0238 1797      		sbiw r26,4+3
+ 1774 023a 9E01      		movw r18,r28
+ 1775 023c 2F5F      		subi r18,-1
+ 1776 023e 3F4F      		sbci r19,-1
+ 1777 0240 8032      		cpi r24,32
+ 1778 0242 9105      		cpc r25,__zero_reg__
+ 1779 0244 01F4      		brne .L161
+ 1780 0246 8985      		ldd r24,Y+9
+ 1781 0248 9A85      		ldd r25,Y+10
+ 1782 024a 0E94 0000 		call Phat32GetClusterLink
+ 1783 024e 892B      		or r24,r25
+ 1784 0250 01F0      		breq .+2
+ 1785 0252 00C0      		rjmp .L153
+ 1786 0254 8981      		ldd r24,Y+1
+ 1787 0256 9A81      		ldd r25,Y+2
+ 1788 0258 AB81      		ldd r26,Y+3
+ 1789 025a BC81      		ldd r27,Y+4
+ 1790 025c 883F      		cpi r24,-8
+ 1791 025e 9F4F      		sbci r25,-1
+ 1792 0260 AF4F      		sbci r26,-1
+ 1793 0262 BF40      		sbci r27,15
+ 1794 0264 00F4      		brsh .L182
+ 1795               	.L164:
+ 1796 0266 D701      		movw r26,r14
+ 1797 0268 1896      		adiw r26,8
+ 1798 026a 1D92      		st X+,__zero_reg__
+ 1799 026c 1D92      		st X+,__zero_reg__
+ 1800 026e 1D92      		st X+,__zero_reg__
+ 1801 0270 1C92      		st X,__zero_reg__
+ 1802 0272 1B97      		sbiw r26,8+3
+ 1803 0274 1496      		adiw r26,4
+ 1804 0276 8D91      		ld r24,X+
+ 1805 0278 9D91      		ld r25,X+
+ 1806 027a 0D90      		ld __tmp_reg__,X+
+ 1807 027c BC91      		ld r27,X
+ 1808 027e A02D      		mov r26,__tmp_reg__
+ 1809 0280 F701      		movw r30,r14
+ 1810 0282 808B      		std Z+16,r24
+ 1811 0284 918B      		std Z+17,r25
+ 1812 0286 A28B      		std Z+18,r26
+ 1813 0288 B38B      		std Z+19,r27
+ 1814 028a 8981      		ldd r24,Y+1
+ 1815 028c 9A81      		ldd r25,Y+2
+ 1816 028e AB81      		ldd r26,Y+3
+ 1817 0290 BC81      		ldd r27,Y+4
+ 1818 0292 8483      		std Z+4,r24
+ 1819 0294 9583      		std Z+5,r25
+ 1820 0296 A683      		std Z+6,r26
+ 1821 0298 B783      		std Z+7,r27
+ 1822 029a 00C0      		rjmp .L159
+ 1823               	.L161:
+ 1824 029c 4097      		sbiw r24,16
+GAS LISTING /tmp/ccKdzQHI.s 			page 33
+
+
+ 1825 029e 01F4      		brne .L165
+ 1826 02a0 8985      		ldd r24,Y+9
+ 1827 02a2 9A85      		ldd r25,Y+10
+ 1828 02a4 0E94 0000 		call Phat16GetClusterLink
+ 1829 02a8 892B      		or r24,r25
+ 1830 02aa 01F0      		breq .+2
+ 1831 02ac 00C0      		rjmp .L153
+ 1832 02ae 8981      		ldd r24,Y+1
+ 1833 02b0 9A81      		ldd r25,Y+2
+ 1834 02b2 AB81      		ldd r26,Y+3
+ 1835 02b4 BC81      		ldd r27,Y+4
+ 1836 02b6 883F      		cpi r24,-8
+ 1837 02b8 9F4F      		sbci r25,-1
+ 1838 02ba A105      		cpc r26,__zero_reg__
+ 1839 02bc B105      		cpc r27,__zero_reg__
+ 1840 02be 00F0      		brlo .L164
+ 1841 02c0 00C0      		rjmp .L182
+ 1842               	.L165:
+ 1843 02c2 8985      		ldd r24,Y+9
+ 1844 02c4 9A85      		ldd r25,Y+10
+ 1845 02c6 0E94 0000 		call Phat12GetClusterLink
+ 1846 02ca 892B      		or r24,r25
+ 1847 02cc 01F0      		breq .+2
+ 1848 02ce 00C0      		rjmp .L153
+ 1849 02d0 8981      		ldd r24,Y+1
+ 1850 02d2 9A81      		ldd r25,Y+2
+ 1851 02d4 AB81      		ldd r26,Y+3
+ 1852 02d6 BC81      		ldd r27,Y+4
+ 1853 02d8 883F      		cpi r24,-8
+ 1854 02da 9F40      		sbci r25,15
+ 1855 02dc A105      		cpc r26,__zero_reg__
+ 1856 02de B105      		cpc r27,__zero_reg__
+ 1857 02e0 00F0      		brlo .L164
+ 1858               	.L182:
+ 1859 02e2 C501      		movw r24,r10
+ 1860 02e4 0E94 0000 		call AllocNextCluster
+ 1861 02e8 6983      		std Y+1,r22
+ 1862 02ea 7A83      		std Y+2,r23
+ 1863 02ec 8B83      		std Y+3,r24
+ 1864 02ee 9C83      		std Y+4,r25
+ 1865 02f0 6230      		cpi r22,2
+ 1866 02f2 7105      		cpc r23,__zero_reg__
+ 1867 02f4 8105      		cpc r24,__zero_reg__
+ 1868 02f6 9105      		cpc r25,__zero_reg__
+ 1869 02f8 00F0      		brlo .+2
+ 1870 02fa 00C0      		rjmp .L164
+ 1871 02fc 00C0      		rjmp .L153
+ 1872               	.L160:
+ 1873 02fe D701      		movw r26,r14
+ 1874 0300 1896      		adiw r26,8
+ 1875 0302 4D93      		st X+,r20
+ 1876 0304 5D93      		st X+,r21
+ 1877 0306 6D93      		st X+,r22
+ 1878 0308 7C93      		st X,r23
+ 1879 030a 1B97      		sbiw r26,8+3
+ 1880               	.L159:
+ 1881 030c F701      		movw r30,r14
+GAS LISTING /tmp/ccKdzQHI.s 			page 34
+
+
+ 1882 030e 1486      		std Z+12,__zero_reg__
+ 1883 0310 1586      		std Z+13,__zero_reg__
+ 1884 0312 1686      		std Z+14,__zero_reg__
+ 1885 0314 1786      		std Z+15,__zero_reg__
+ 1886               	.L155:
+ 1887 0316 F701      		movw r30,r14
+ 1888 0318 8485      		ldd r24,Z+12
+ 1889 031a 9585      		ldd r25,Z+13
+ 1890 031c A685      		ldd r26,Z+14
+ 1891 031e B785      		ldd r27,Z+15
+ 1892 0320 4481      		ldd r20,Z+4
+ 1893 0322 5581      		ldd r21,Z+5
+ 1894 0324 6681      		ldd r22,Z+6
+ 1895 0326 7781      		ldd r23,Z+7
+ 1896 0328 892B      		or r24,r25
+ 1897 032a 8A2B      		or r24,r26
+ 1898 032c 8B2B      		or r24,r27
+ 1899 032e 01F0      		breq .+2
+ 1900 0330 00C0      		rjmp .L166
+ 1901 0332 8B84      		ldd r8,Y+11
+ 1902 0334 9C84      		ldd r9,Y+12
+ 1903 0336 8C18      		sub r8,r12
+ 1904 0338 9D08      		sbc r9,r13
+ 1905 033a D101      		movw r26,r2
+ 1906 033c 5896      		adiw r26,24
+ 1907 033e 2D91      		ld r18,X+
+ 1908 0340 3C91      		ld r19,X
+ 1909 0342 5997      		sbiw r26,24+1
+ 1910 0344 8216      		cp r8,r18
+ 1911 0346 9306      		cpc r9,r19
+ 1912 0348 00F4      		brsh .+2
+ 1913 034a 00C0      		rjmp .L166
+ 1914 034c 5A96      		adiw r26,26
+ 1915 034e ED91      		ld r30,X+
+ 1916 0350 FC91      		ld r31,X
+ 1917 0352 5B97      		sbiw r26,26+1
+ 1918 0354 D701      		movw r26,r14
+ 1919 0356 1896      		adiw r26,8
+ 1920 0358 8D91      		ld r24,X+
+ 1921 035a 9C91      		ld r25,X
+ 1922 035c 1997      		sbiw r26,8+1
+ 1923 035e E81B      		sub r30,r24
+ 1924 0360 F90B      		sbc r31,r25
+ 1925 0362 E29F      		mul r30,r18
+ 1926 0364 C001      		movw r24,r0
+ 1927 0366 E39F      		mul r30,r19
+ 1928 0368 900D      		add r25,r0
+ 1929 036a F29F      		mul r31,r18
+ 1930 036c 900D      		add r25,r0
+ 1931 036e 1124      		clr r1
+ 1932 0370 8815      		cp r24,r8
+ 1933 0372 9905      		cpc r25,r9
+ 1934 0374 04F4      		brge .L167
+ 1935 0376 4C01      		movw r8,r24
+ 1936               	.L167:
+ 1937 0378 C501      		movw r24,r10
+ 1938 037a 0E94 0000 		call PhatClusterSector
+GAS LISTING /tmp/ccKdzQHI.s 			page 35
+
+
+ 1939 037e 8B01      		movw r16,r22
+ 1940 0380 9C01      		movw r18,r24
+ 1941 0382 D101      		movw r26,r2
+ 1942 0384 5896      		adiw r26,24
+ 1943 0386 ED91      		ld r30,X+
+ 1944 0388 FC91      		ld r31,X
+ 1945 038a 5997      		sbiw r26,24+1
+ 1946 038c C401      		movw r24,r8
+ 1947 038e BF01      		movw r22,r30
+ 1948 0390 0E94 0000 		call __udivmodhi4
+ 1949 0394 3B01      		movw r6,r22
+ 1950 0396 E69F      		mul r30,r22
+ 1951 0398 4001      		movw r8,r0
+ 1952 039a E79F      		mul r30,r23
+ 1953 039c 900C      		add r9,r0
+ 1954 039e F69F      		mul r31,r22
+ 1955 03a0 900C      		add r9,r0
+ 1956 03a2 1124      		clr r1
+ 1957 03a4 F701      		movw r30,r14
+ 1958 03a6 4085      		ldd r20,Z+8
+ 1959 03a8 5185      		ldd r21,Z+9
+ 1960 03aa 6285      		ldd r22,Z+10
+ 1961 03ac 7385      		ldd r23,Z+11
+ 1962 03ae 400F      		add r20,r16
+ 1963 03b0 511F      		adc r21,r17
+ 1964 03b2 621F      		adc r22,r18
+ 1965 03b4 731F      		adc r23,r19
+ 1966 03b6 8301      		movw r16,r6
+ 1967 03b8 2D85      		ldd r18,Y+13
+ 1968 03ba 3E85      		ldd r19,Y+14
+ 1969 03bc 2C0D      		add r18,r12
+ 1970 03be 3D1D      		adc r19,r13
+ 1971 03c0 D501      		movw r26,r10
+ 1972 03c2 8D91      		ld r24,X+
+ 1973 03c4 9C91      		ld r25,X
+ 1974 03c6 0E94 0000 		call PhatSectorWrite
+ 1975 03ca 892B      		or r24,r25
+ 1976 03cc 01F0      		breq .+2
+ 1977 03ce 00C0      		rjmp .L153
+ 1978 03d0 C301      		movw r24,r6
+ 1979 03d2 0197      		sbiw r24,1
+ 1980 03d4 092E      		mov __tmp_reg__,r25
+ 1981 03d6 000C      		lsl r0
+ 1982 03d8 AA0B      		sbc r26,r26
+ 1983 03da BB0B      		sbc r27,r27
+ 1984 03dc F701      		movw r30,r14
+ 1985 03de 4085      		ldd r20,Z+8
+ 1986 03e0 5185      		ldd r21,Z+9
+ 1987 03e2 6285      		ldd r22,Z+10
+ 1988 03e4 7385      		ldd r23,Z+11
+ 1989 03e6 840F      		add r24,r20
+ 1990 03e8 951F      		adc r25,r21
+ 1991 03ea A61F      		adc r26,r22
+ 1992 03ec B71F      		adc r27,r23
+ 1993 03ee 8087      		std Z+8,r24
+ 1994 03f0 9187      		std Z+9,r25
+ 1995 03f2 A287      		std Z+10,r26
+GAS LISTING /tmp/ccKdzQHI.s 			page 36
+
+
+ 1996 03f4 B387      		std Z+11,r27
+ 1997 03f6 4081      		ld r20,Z
+ 1998 03f8 5181      		ldd r21,Z+1
+ 1999 03fa 6281      		ldd r22,Z+2
+ 2000 03fc 7381      		ldd r23,Z+3
+ 2001 03fe C401      		movw r24,r8
+ 2002 0400 092C      		mov __tmp_reg__,r9
+ 2003 0402 000C      		lsl r0
+ 2004 0404 AA0B      		sbc r26,r26
+ 2005 0406 BB0B      		sbc r27,r27
+ 2006 0408 840F      		add r24,r20
+ 2007 040a 951F      		adc r25,r21
+ 2008 040c A61F      		adc r26,r22
+ 2009 040e B71F      		adc r27,r23
+ 2010 0410 8083      		st Z,r24
+ 2011 0412 9183      		std Z+1,r25
+ 2012 0414 A283      		std Z+2,r26
+ 2013 0416 B383      		std Z+3,r27
+ 2014 0418 D101      		movw r26,r2
+ 2015 041a 5896      		adiw r26,24
+ 2016 041c 8D91      		ld r24,X+
+ 2017 041e 9C91      		ld r25,X
+ 2018 0420 5997      		sbiw r26,24+1
+ 2019 0422 A0E0      		ldi r26,0
+ 2020 0424 B0E0      		ldi r27,0
+ 2021 0426 00C0      		rjmp .L178
+ 2022               	.L166:
+ 2023 0428 C501      		movw r24,r10
+ 2024 042a 0E94 0000 		call PhatClusterSector
+ 2025 042e D701      		movw r26,r14
+ 2026 0430 1896      		adiw r26,8
+ 2027 0432 0D91      		ld r16,X+
+ 2028 0434 1D91      		ld r17,X+
+ 2029 0436 2D91      		ld r18,X+
+ 2030 0438 3C91      		ld r19,X
+ 2031 043a 1B97      		sbiw r26,8+3
+ 2032 043c AB01      		movw r20,r22
+ 2033 043e BC01      		movw r22,r24
+ 2034 0440 400F      		add r20,r16
+ 2035 0442 511F      		adc r21,r17
+ 2036 0444 621F      		adc r22,r18
+ 2037 0446 731F      		adc r23,r19
+ 2038 0448 F501      		movw r30,r10
+ 2039 044a 8081      		ld r24,Z
+ 2040 044c 9181      		ldd r25,Z+1
+ 2041 044e 0E94 0000 		call PhatSectorLoad
+ 2042 0452 8C01      		movw r16,r24
+ 2043 0454 97FD      		sbrc r25,7
+ 2044 0456 00C0      		rjmp .L153
+ 2045 0458 D701      		movw r26,r14
+ 2046 045a 1C96      		adiw r26,12
+ 2047 045c 8D91      		ld r24,X+
+ 2048 045e 9C91      		ld r25,X
+ 2049 0460 1D97      		sbiw r26,12+1
+ 2050 0462 F101      		movw r30,r2
+ 2051 0464 808C      		ldd r8,Z+24
+ 2052 0466 918C      		ldd r9,Z+25
+GAS LISTING /tmp/ccKdzQHI.s 			page 37
+
+
+ 2053 0468 2B85      		ldd r18,Y+11
+ 2054 046a 3C85      		ldd r19,Y+12
+ 2055 046c 2C19      		sub r18,r12
+ 2056 046e 3D09      		sbc r19,r13
+ 2057 0470 881A      		sub r8,r24
+ 2058 0472 990A      		sbc r9,r25
+ 2059 0474 2815      		cp r18,r8
+ 2060 0476 3905      		cpc r19,r9
+ 2061 0478 04F4      		brge .L169
+ 2062 047a 4901      		movw r8,r18
+ 2063               	.L169:
+ 2064 047c 9801      		movw r18,r16
+ 2065 047e 2F5F      		subi r18,-1
+ 2066 0480 3F4F      		sbci r19,-1
+ 2067 0482 4AE0      		ldi r20,lo8(10)
+ 2068 0484 429F      		mul r20,r18
+ 2069 0486 F001      		movw r30,r0
+ 2070 0488 439F      		mul r20,r19
+ 2071 048a F00D      		add r31,r0
+ 2072 048c 1124      		clr __zero_reg__
+ 2073 048e E20D      		add r30,r2
+ 2074 0490 F31D      		adc r31,r3
+ 2075 0492 2081      		ld r18,Z
+ 2076 0494 3181      		ldd r19,Z+1
+ 2077 0496 A401      		movw r20,r8
+ 2078 0498 6D85      		ldd r22,Y+13
+ 2079 049a 7E85      		ldd r23,Y+14
+ 2080 049c 6C0D      		add r22,r12
+ 2081 049e 7D1D      		adc r23,r13
+ 2082 04a0 820F      		add r24,r18
+ 2083 04a2 931F      		adc r25,r19
+ 2084 04a4 0E94 0000 		call memcpy
+ 2085 04a8 8AE0      		ldi r24,lo8(10)
+ 2086 04aa 809F      		mul r24,r16
+ 2087 04ac F001      		movw r30,r0
+ 2088 04ae 819F      		mul r24,r17
+ 2089 04b0 F00D      		add r31,r0
+ 2090 04b2 1124      		clr __zero_reg__
+ 2091 04b4 E20D      		add r30,r2
+ 2092 04b6 F31D      		adc r31,r3
+ 2093 04b8 518A      		std Z+17,r5
+ 2094 04ba 408A      		std Z+16,r4
+ 2095 04bc B801      		movw r22,r16
+ 2096 04be 8985      		ldd r24,Y+9
+ 2097 04c0 9A85      		ldd r25,Y+10
+ 2098 04c2 0E94 0000 		call PhatSectorBufferRelease
+ 2099 04c6 D701      		movw r26,r14
+ 2100 04c8 4D91      		ld r20,X+
+ 2101 04ca 5D91      		ld r21,X+
+ 2102 04cc 6D91      		ld r22,X+
+ 2103 04ce 7C91      		ld r23,X
+ 2104 04d0 C401      		movw r24,r8
+ 2105 04d2 092C      		mov __tmp_reg__,r9
+ 2106 04d4 000C      		lsl r0
+ 2107 04d6 AA0B      		sbc r26,r26
+ 2108 04d8 BB0B      		sbc r27,r27
+ 2109 04da 480F      		add r20,r24
+GAS LISTING /tmp/ccKdzQHI.s 			page 38
+
+
+ 2110 04dc 591F      		adc r21,r25
+ 2111 04de 6A1F      		adc r22,r26
+ 2112 04e0 7B1F      		adc r23,r27
+ 2113 04e2 F701      		movw r30,r14
+ 2114 04e4 4083      		st Z,r20
+ 2115 04e6 5183      		std Z+1,r21
+ 2116 04e8 6283      		std Z+2,r22
+ 2117 04ea 7383      		std Z+3,r23
+ 2118 04ec 4485      		ldd r20,Z+12
+ 2119 04ee 5585      		ldd r21,Z+13
+ 2120 04f0 6685      		ldd r22,Z+14
+ 2121 04f2 7785      		ldd r23,Z+15
+ 2122 04f4 840F      		add r24,r20
+ 2123 04f6 951F      		adc r25,r21
+ 2124 04f8 A61F      		adc r26,r22
+ 2125 04fa B71F      		adc r27,r23
+ 2126               	.L178:
+ 2127 04fc 8487      		std Z+12,r24
+ 2128 04fe 9587      		std Z+13,r25
+ 2129 0500 A687      		std Z+14,r26
+ 2130 0502 B787      		std Z+15,r27
+ 2131 0504 C80C      		add r12,r8
+ 2132 0506 D91C      		adc r13,r9
+ 2133 0508 00C0      		rjmp .L154
+ 2134               	.L158:
+ 2135 050a D701      		movw r26,r14
+ 2136 050c 9396      		adiw r26,35
+ 2137 050e 8C91      		ld r24,X
+ 2138 0510 84FD      		sbrc r24,4
+ 2139 0512 00C0      		rjmp .L173
+ 2140 0514 B701      		movw r22,r14
+ 2141 0516 605D      		subi r22,-48
+ 2142 0518 7F4F      		sbci r23,-1
+ 2143 051a C701      		movw r24,r14
+ 2144 051c 8E96      		adiw r24,46
+ 2145 051e 0E94 0000 		call GetDosTimeStamp
+ 2146 0522 F701      		movw r30,r14
+ 2147 0524 80A9      		ldd r24,Z+48
+ 2148 0526 91A9      		ldd r25,Z+49
+ 2149 0528 93A7      		std Z+43,r25
+ 2150 052a 82A7      		std Z+42,r24
+ 2151 052c 83A1      		ldd r24,Z+35
+ 2152 052e 8062      		ori r24,lo8(32)
+ 2153 0530 83A3      		std Z+35,r24
+ 2154 0532 8081      		ld r24,Z
+ 2155 0534 9181      		ldd r25,Z+1
+ 2156 0536 A281      		ldd r26,Z+2
+ 2157 0538 B381      		ldd r27,Z+3
+ 2158 053a 44A9      		ldd r20,Z+52
+ 2159 053c 55A9      		ldd r21,Z+53
+ 2160 053e 66A9      		ldd r22,Z+54
+ 2161 0540 77A9      		ldd r23,Z+55
+ 2162 0542 4817      		cp r20,r24
+ 2163 0544 5907      		cpc r21,r25
+ 2164 0546 6A07      		cpc r22,r26
+ 2165 0548 7B07      		cpc r23,r27
+ 2166 054a 00F4      		brsh .L172
+GAS LISTING /tmp/ccKdzQHI.s 			page 39
+
+
+ 2167 054c 84AB      		std Z+52,r24
+ 2168 054e 95AB      		std Z+53,r25
+ 2169 0550 A6AB      		std Z+54,r26
+ 2170 0552 B7AB      		std Z+55,r27
+ 2171               	.L172:
+ 2172 0554 F701      		movw r30,r14
+ 2173 0556 E05C      		subi r30,-64
+ 2174 0558 FF4F      		sbci r31,-1
+ 2175 055a 81E0      		ldi r24,lo8(1)
+ 2176 055c 90E0      		ldi r25,0
+ 2177 055e 9183      		std Z+1,r25
+ 2178 0560 8083      		st Z,r24
+ 2179               	.L173:
+ 2180 0562 C601      		movw r24,r12
+ 2181 0564 00C0      		rjmp .L177
+ 2182               	.L153:
+ 2183 0566 8FEF      		ldi r24,lo8(-1)
+ 2184 0568 9FEF      		ldi r25,lo8(-1)
+ 2185               	.L177:
+ 2186               	/* epilogue start */
+ 2187 056a 6296      		adiw r28,18
+ 2188 056c 0FB6      		in __tmp_reg__,__SREG__
+ 2189 056e F894      		cli
+ 2190 0570 DEBF      		out __SP_H__,r29
+ 2191 0572 0FBE      		out __SREG__,__tmp_reg__
+ 2192 0574 CDBF      		out __SP_L__,r28
+ 2193 0576 DF91      		pop r29
+ 2194 0578 CF91      		pop r28
+ 2195 057a 1F91      		pop r17
+ 2196 057c 0F91      		pop r16
+ 2197 057e FF90      		pop r15
+ 2198 0580 EF90      		pop r14
+ 2199 0582 DF90      		pop r13
+ 2200 0584 CF90      		pop r12
+ 2201 0586 BF90      		pop r11
+ 2202 0588 AF90      		pop r10
+ 2203 058a 9F90      		pop r9
+ 2204 058c 8F90      		pop r8
+ 2205 058e 7F90      		pop r7
+ 2206 0590 6F90      		pop r6
+ 2207 0592 5F90      		pop r5
+ 2208 0594 4F90      		pop r4
+ 2209 0596 3F90      		pop r3
+ 2210 0598 2F90      		pop r2
+ 2211 059a 0895      		ret
+ 2212               		.size	PhatFileWrite, .-PhatFileWrite
+ 2213               		.section	.text.PhatApiFileWrite,"ax",@progbits
+ 2214               		.type	PhatApiFileWrite, @function
+ 2215               	PhatApiFileWrite:
+ 2216 0000 CF92      		push r12
+ 2217 0002 DF92      		push r13
+ 2218 0004 EF92      		push r14
+ 2219 0006 FF92      		push r15
+ 2220 0008 0F93      		push r16
+ 2221 000a 1F93      		push r17
+ 2222 000c CF93      		push r28
+ 2223 000e DF93      		push r29
+GAS LISTING /tmp/ccKdzQHI.s 			page 40
+
+
+ 2224               	/* prologue: function */
+ 2225               	/* frame size = 0 */
+ 2226               	/* stack size = 8 */
+ 2227               	.L__stack_usage = 8
+ 2228 0010 8C01      		movw r16,r24
+ 2229 0012 7B01      		movw r14,r22
+ 2230 0014 6A01      		movw r12,r20
+ 2231 0016 DC01      		movw r26,r24
+ 2232 0018 ED91      		ld r30,X+
+ 2233 001a FC91      		ld r31,X
+ 2234 001c C189      		ldd r28,Z+17
+ 2235 001e D289      		ldd r29,Z+18
+ 2236 0020 6496      		adiw r28,20
+ 2237 0022 40E0      		ldi r20,0
+ 2238 0024 50E0      		ldi r21,0
+ 2239 0026 BA01      		movw r22,r20
+ 2240 0028 CE01      		movw r24,r28
+ 2241 002a 0E94 0000 		call NutEventWait
+ 2242 002e A601      		movw r20,r12
+ 2243 0030 B701      		movw r22,r14
+ 2244 0032 C801      		movw r24,r16
+ 2245 0034 0E94 0000 		call PhatFileWrite
+ 2246 0038 8C01      		movw r16,r24
+ 2247 003a CE01      		movw r24,r28
+ 2248 003c 0E94 0000 		call NutEventPost
+ 2249 0040 C801      		movw r24,r16
+ 2250               	/* epilogue start */
+ 2251 0042 DF91      		pop r29
+ 2252 0044 CF91      		pop r28
+ 2253 0046 1F91      		pop r17
+ 2254 0048 0F91      		pop r16
+ 2255 004a FF90      		pop r15
+ 2256 004c EF90      		pop r14
+ 2257 004e DF90      		pop r13
+ 2258 0050 CF90      		pop r12
+ 2259 0052 0895      		ret
+ 2260               		.size	PhatApiFileWrite, .-PhatApiFileWrite
+ 2261               		.section	.text.PhatFileWrite_P,"ax",@progbits
+ 2262               	.global	PhatFileWrite_P
+ 2263               		.type	PhatFileWrite_P, @function
+ 2264               	PhatFileWrite_P:
+ 2265               	/* prologue: function */
+ 2266               	/* frame size = 0 */
+ 2267               	/* stack size = 0 */
+ 2268               	.L__stack_usage = 0
+ 2269 0000 8FEF      		ldi r24,lo8(-1)
+ 2270 0002 9FEF      		ldi r25,lo8(-1)
+ 2271 0004 0895      		ret
+ 2272               		.size	PhatFileWrite_P, .-PhatFileWrite_P
+ 2273               		.section	.text.PhatFileRead,"ax",@progbits
+ 2274               	.global	PhatFileRead
+ 2275               		.type	PhatFileRead, @function
+ 2276               	PhatFileRead:
+ 2277 0000 2F92      		push r2
+ 2278 0002 3F92      		push r3
+ 2279 0004 4F92      		push r4
+ 2280 0006 5F92      		push r5
+GAS LISTING /tmp/ccKdzQHI.s 			page 41
+
+
+ 2281 0008 6F92      		push r6
+ 2282 000a 7F92      		push r7
+ 2283 000c 8F92      		push r8
+ 2284 000e 9F92      		push r9
+ 2285 0010 AF92      		push r10
+ 2286 0012 BF92      		push r11
+ 2287 0014 CF92      		push r12
+ 2288 0016 DF92      		push r13
+ 2289 0018 EF92      		push r14
+ 2290 001a FF92      		push r15
+ 2291 001c 0F93      		push r16
+ 2292 001e 1F93      		push r17
+ 2293 0020 CF93      		push r28
+ 2294 0022 DF93      		push r29
+ 2295 0024 00D0      		rcall .
+ 2296 0026 00D0      		rcall .
+ 2297 0028 CDB7      		in r28,__SP_L__
+ 2298 002a DEB7      		in r29,__SP_H__
+ 2299               	/* prologue: function */
+ 2300               	/* frame size = 6 */
+ 2301               	/* stack size = 24 */
+ 2302               	.L__stack_usage = 24
+ 2303 002c 4C01      		movw r8,r24
+ 2304 002e 7E83      		std Y+6,r23
+ 2305 0030 6D83      		std Y+5,r22
+ 2306 0032 6A01      		movw r12,r20
+ 2307 0034 672B      		or r22,r23
+ 2308 0036 01F4      		brne .+2
+ 2309 0038 00C0      		rjmp .L201
+ 2310 003a 452B      		or r20,r21
+ 2311 003c 01F4      		brne .+2
+ 2312 003e 00C0      		rjmp .L201
+ 2313 0040 FC01      		movw r30,r24
+ 2314 0042 0281      		ldd r16,Z+2
+ 2315 0044 1381      		ldd r17,Z+3
+ 2316 0046 F801      		movw r30,r16
+ 2317 0048 83A1      		ldd r24,Z+35
+ 2318 004a 84FD      		sbrc r24,4
+ 2319 004c 00C0      		rjmp .L188
+ 2320 004e 4081      		ld r20,Z
+ 2321 0050 5181      		ldd r21,Z+1
+ 2322 0052 6281      		ldd r22,Z+2
+ 2323 0054 7381      		ldd r23,Z+3
+ 2324 0056 44A8      		ldd r4,Z+52
+ 2325 0058 55A8      		ldd r5,Z+53
+ 2326 005a 66A8      		ldd r6,Z+54
+ 2327 005c 77A8      		ldd r7,Z+55
+ 2328 005e C601      		movw r24,r12
+ 2329 0060 0D2C      		mov __tmp_reg__,r13
+ 2330 0062 000C      		lsl r0
+ 2331 0064 AA0B      		sbc r26,r26
+ 2332 0066 BB0B      		sbc r27,r27
+ 2333 0068 840F      		add r24,r20
+ 2334 006a 951F      		adc r25,r21
+ 2335 006c A61F      		adc r26,r22
+ 2336 006e B71F      		adc r27,r23
+ 2337 0070 8415      		cp r24,r4
+GAS LISTING /tmp/ccKdzQHI.s 			page 42
+
+
+ 2338 0072 9505      		cpc r25,r5
+ 2339 0074 A605      		cpc r26,r6
+ 2340 0076 B705      		cpc r27,r7
+ 2341 0078 00F0      		brlo .L188
+ 2342 007a 6201      		movw r12,r4
+ 2343 007c C41A      		sub r12,r20
+ 2344 007e D50A      		sbc r13,r21
+ 2345               	.L188:
+ 2346 0080 F401      		movw r30,r8
+ 2347 0082 A080      		ld r10,Z
+ 2348 0084 B180      		ldd r11,Z+1
+ 2349 0086 F501      		movw r30,r10
+ 2350 0088 2188      		ldd r2,Z+17
+ 2351 008a 3288      		ldd r3,Z+18
+ 2352 008c E12C      		mov r14,__zero_reg__
+ 2353 008e F12C      		mov r15,__zero_reg__
+ 2354               	.L189:
+ 2355 0090 EC14      		cp r14,r12
+ 2356 0092 FD04      		cpc r15,r13
+ 2357 0094 04F0      		brlt .+2
+ 2358 0096 00C0      		rjmp .L202
+ 2359 0098 F101      		movw r30,r2
+ 2360 009a 808D      		ldd r24,Z+24
+ 2361 009c 918D      		ldd r25,Z+25
+ 2362 009e A0E0      		ldi r26,0
+ 2363 00a0 B0E0      		ldi r27,0
+ 2364 00a2 F801      		movw r30,r16
+ 2365 00a4 4485      		ldd r20,Z+12
+ 2366 00a6 5585      		ldd r21,Z+13
+ 2367 00a8 6685      		ldd r22,Z+14
+ 2368 00aa 7785      		ldd r23,Z+15
+ 2369 00ac 4817      		cp r20,r24
+ 2370 00ae 5907      		cpc r21,r25
+ 2371 00b0 6A07      		cpc r22,r26
+ 2372 00b2 7B07      		cpc r23,r27
+ 2373 00b4 00F4      		brsh .+2
+ 2374 00b6 00C0      		rjmp .L190
+ 2375 00b8 C401      		movw r24,r8
+ 2376 00ba 0E94 0000 		call IsFixedRootDir
+ 2377 00be F801      		movw r30,r16
+ 2378 00c0 4085      		ldd r20,Z+8
+ 2379 00c2 5185      		ldd r21,Z+9
+ 2380 00c4 6285      		ldd r22,Z+10
+ 2381 00c6 7385      		ldd r23,Z+11
+ 2382 00c8 4F5F      		subi r20,-1
+ 2383 00ca 5F4F      		sbci r21,-1
+ 2384 00cc 6F4F      		sbci r22,-1
+ 2385 00ce 7F4F      		sbci r23,-1
+ 2386 00d0 F101      		movw r30,r2
+ 2387 00d2 892B      		or r24,r25
+ 2388 00d4 01F0      		breq .L191
+ 2389 00d6 80A5      		ldd r24,Z+40
+ 2390 00d8 91A5      		ldd r25,Z+41
+ 2391 00da A0E0      		ldi r26,0
+ 2392 00dc B0E0      		ldi r27,0
+ 2393 00de 4817      		cp r20,r24
+ 2394 00e0 5907      		cpc r21,r25
+GAS LISTING /tmp/ccKdzQHI.s 			page 43
+
+
+ 2395 00e2 6A07      		cpc r22,r26
+ 2396 00e4 7B07      		cpc r23,r27
+ 2397 00e6 00F4      		brsh .+2
+ 2398 00e8 00C0      		rjmp .L193
+ 2399 00ea 00C0      		rjmp .L202
+ 2400               	.L191:
+ 2401 00ec 828D      		ldd r24,Z+26
+ 2402 00ee 938D      		ldd r25,Z+27
+ 2403 00f0 A0E0      		ldi r26,0
+ 2404 00f2 B0E0      		ldi r27,0
+ 2405 00f4 4817      		cp r20,r24
+ 2406 00f6 5907      		cpc r21,r25
+ 2407 00f8 6A07      		cpc r22,r26
+ 2408 00fa 7B07      		cpc r23,r27
+ 2409 00fc 00F4      		brsh .+2
+ 2410 00fe 00C0      		rjmp .L193
+ 2411 0100 8081      		ld r24,Z
+ 2412 0102 9181      		ldd r25,Z+1
+ 2413 0104 F801      		movw r30,r16
+ 2414 0106 4481      		ldd r20,Z+4
+ 2415 0108 5581      		ldd r21,Z+5
+ 2416 010a 6681      		ldd r22,Z+6
+ 2417 010c 7781      		ldd r23,Z+7
+ 2418 010e 9E01      		movw r18,r28
+ 2419 0110 2F5F      		subi r18,-1
+ 2420 0112 3F4F      		sbci r19,-1
+ 2421 0114 8032      		cpi r24,32
+ 2422 0116 9105      		cpc r25,__zero_reg__
+ 2423 0118 01F4      		brne .L194
+ 2424 011a C501      		movw r24,r10
+ 2425 011c 0E94 0000 		call Phat32GetClusterLink
+ 2426 0120 892B      		or r24,r25
+ 2427 0122 01F0      		breq .+2
+ 2428 0124 00C0      		rjmp .L202
+ 2429 0126 8981      		ldd r24,Y+1
+ 2430 0128 9A81      		ldd r25,Y+2
+ 2431 012a AB81      		ldd r26,Y+3
+ 2432 012c BC81      		ldd r27,Y+4
+ 2433 012e 883F      		cpi r24,-8
+ 2434 0130 9F4F      		sbci r25,-1
+ 2435 0132 AF4F      		sbci r26,-1
+ 2436 0134 BF40      		sbci r27,15
+ 2437 0136 00F0      		brlo .+2
+ 2438 0138 00C0      		rjmp .L202
+ 2439               	.L197:
+ 2440 013a F801      		movw r30,r16
+ 2441 013c 1086      		std Z+8,__zero_reg__
+ 2442 013e 1186      		std Z+9,__zero_reg__
+ 2443 0140 1286      		std Z+10,__zero_reg__
+ 2444 0142 1386      		std Z+11,__zero_reg__
+ 2445 0144 8481      		ldd r24,Z+4
+ 2446 0146 9581      		ldd r25,Z+5
+ 2447 0148 A681      		ldd r26,Z+6
+ 2448 014a B781      		ldd r27,Z+7
+ 2449 014c 808B      		std Z+16,r24
+ 2450 014e 918B      		std Z+17,r25
+ 2451 0150 A28B      		std Z+18,r26
+GAS LISTING /tmp/ccKdzQHI.s 			page 44
+
+
+ 2452 0152 B38B      		std Z+19,r27
+ 2453 0154 8981      		ldd r24,Y+1
+ 2454 0156 9A81      		ldd r25,Y+2
+ 2455 0158 AB81      		ldd r26,Y+3
+ 2456 015a BC81      		ldd r27,Y+4
+ 2457 015c 8483      		std Z+4,r24
+ 2458 015e 9583      		std Z+5,r25
+ 2459 0160 A683      		std Z+6,r26
+ 2460 0162 B783      		std Z+7,r27
+ 2461 0164 00C0      		rjmp .L192
+ 2462               	.L194:
+ 2463 0166 4097      		sbiw r24,16
+ 2464 0168 01F4      		brne .L196
+ 2465 016a C501      		movw r24,r10
+ 2466 016c 0E94 0000 		call Phat16GetClusterLink
+ 2467 0170 892B      		or r24,r25
+ 2468 0172 01F0      		breq .+2
+ 2469 0174 00C0      		rjmp .L202
+ 2470 0176 8981      		ldd r24,Y+1
+ 2471 0178 9A81      		ldd r25,Y+2
+ 2472 017a AB81      		ldd r26,Y+3
+ 2473 017c BC81      		ldd r27,Y+4
+ 2474 017e 883F      		cpi r24,-8
+ 2475 0180 9F4F      		sbci r25,-1
+ 2476 0182 A105      		cpc r26,__zero_reg__
+ 2477 0184 B105      		cpc r27,__zero_reg__
+ 2478 0186 00F0      		brlo .L197
+ 2479 0188 00C0      		rjmp .L202
+ 2480               	.L196:
+ 2481 018a C501      		movw r24,r10
+ 2482 018c 0E94 0000 		call Phat12GetClusterLink
+ 2483 0190 892B      		or r24,r25
+ 2484 0192 01F0      		breq .+2
+ 2485 0194 00C0      		rjmp .L202
+ 2486 0196 8981      		ldd r24,Y+1
+ 2487 0198 9A81      		ldd r25,Y+2
+ 2488 019a AB81      		ldd r26,Y+3
+ 2489 019c BC81      		ldd r27,Y+4
+ 2490 019e 883F      		cpi r24,-8
+ 2491 01a0 9F40      		sbci r25,15
+ 2492 01a2 A105      		cpc r26,__zero_reg__
+ 2493 01a4 B105      		cpc r27,__zero_reg__
+ 2494 01a6 00F0      		brlo .L197
+ 2495 01a8 00C0      		rjmp .L202
+ 2496               	.L193:
+ 2497 01aa F801      		movw r30,r16
+ 2498 01ac 4087      		std Z+8,r20
+ 2499 01ae 5187      		std Z+9,r21
+ 2500 01b0 6287      		std Z+10,r22
+ 2501 01b2 7387      		std Z+11,r23
+ 2502               	.L192:
+ 2503 01b4 F801      		movw r30,r16
+ 2504 01b6 1486      		std Z+12,__zero_reg__
+ 2505 01b8 1586      		std Z+13,__zero_reg__
+ 2506 01ba 1686      		std Z+14,__zero_reg__
+ 2507 01bc 1786      		std Z+15,__zero_reg__
+ 2508               	.L190:
+GAS LISTING /tmp/ccKdzQHI.s 			page 45
+
+
+ 2509 01be F801      		movw r30,r16
+ 2510 01c0 4481      		ldd r20,Z+4
+ 2511 01c2 5581      		ldd r21,Z+5
+ 2512 01c4 6681      		ldd r22,Z+6
+ 2513 01c6 7781      		ldd r23,Z+7
+ 2514 01c8 C401      		movw r24,r8
+ 2515 01ca 0E94 0000 		call PhatClusterSector
+ 2516 01ce F801      		movw r30,r16
+ 2517 01d0 4084      		ldd r4,Z+8
+ 2518 01d2 5184      		ldd r5,Z+9
+ 2519 01d4 6284      		ldd r6,Z+10
+ 2520 01d6 7384      		ldd r7,Z+11
+ 2521 01d8 AB01      		movw r20,r22
+ 2522 01da BC01      		movw r22,r24
+ 2523 01dc 440D      		add r20,r4
+ 2524 01de 551D      		adc r21,r5
+ 2525 01e0 661D      		adc r22,r6
+ 2526 01e2 771D      		adc r23,r7
+ 2527 01e4 F401      		movw r30,r8
+ 2528 01e6 8081      		ld r24,Z
+ 2529 01e8 9181      		ldd r25,Z+1
+ 2530 01ea 0E94 0000 		call PhatSectorLoad
+ 2531 01ee 2C01      		movw r4,r24
+ 2532 01f0 97FD      		sbrc r25,7
+ 2533 01f2 00C0      		rjmp .L203
+ 2534 01f4 F801      		movw r30,r16
+ 2535 01f6 6485      		ldd r22,Z+12
+ 2536 01f8 7585      		ldd r23,Z+13
+ 2537 01fa F101      		movw r30,r2
+ 2538 01fc 608C      		ldd r6,Z+24
+ 2539 01fe 718C      		ldd r7,Z+25
+ 2540 0200 C601      		movw r24,r12
+ 2541 0202 8E19      		sub r24,r14
+ 2542 0204 9F09      		sbc r25,r15
+ 2543 0206 661A      		sub r6,r22
+ 2544 0208 770A      		sbc r7,r23
+ 2545 020a 8615      		cp r24,r6
+ 2546 020c 9705      		cpc r25,r7
+ 2547 020e 04F4      		brge .L198
+ 2548 0210 3C01      		movw r6,r24
+ 2549               	.L198:
+ 2550 0212 9201      		movw r18,r4
+ 2551 0214 2F5F      		subi r18,-1
+ 2552 0216 3F4F      		sbci r19,-1
+ 2553 0218 FAE0      		ldi r31,lo8(10)
+ 2554 021a F29F      		mul r31,r18
+ 2555 021c C001      		movw r24,r0
+ 2556 021e F39F      		mul r31,r19
+ 2557 0220 900D      		add r25,r0
+ 2558 0222 1124      		clr __zero_reg__
+ 2559 0224 F101      		movw r30,r2
+ 2560 0226 E80F      		add r30,r24
+ 2561 0228 F91F      		adc r31,r25
+ 2562 022a 8081      		ld r24,Z
+ 2563 022c 9181      		ldd r25,Z+1
+ 2564 022e 680F      		add r22,r24
+ 2565 0230 791F      		adc r23,r25
+GAS LISTING /tmp/ccKdzQHI.s 			page 46
+
+
+ 2566 0232 A301      		movw r20,r6
+ 2567 0234 8D81      		ldd r24,Y+5
+ 2568 0236 9E81      		ldd r25,Y+6
+ 2569 0238 8E0D      		add r24,r14
+ 2570 023a 9F1D      		adc r25,r15
+ 2571 023c 0E94 0000 		call memcpy
+ 2572 0240 B201      		movw r22,r4
+ 2573 0242 C501      		movw r24,r10
+ 2574 0244 0E94 0000 		call PhatSectorBufferRelease
+ 2575 0248 C301      		movw r24,r6
+ 2576 024a 072C      		mov __tmp_reg__,r7
+ 2577 024c 000C      		lsl r0
+ 2578 024e AA0B      		sbc r26,r26
+ 2579 0250 BB0B      		sbc r27,r27
+ 2580 0252 F801      		movw r30,r16
+ 2581 0254 4081      		ld r20,Z
+ 2582 0256 5181      		ldd r21,Z+1
+ 2583 0258 6281      		ldd r22,Z+2
+ 2584 025a 7381      		ldd r23,Z+3
+ 2585 025c 480F      		add r20,r24
+ 2586 025e 591F      		adc r21,r25
+ 2587 0260 6A1F      		adc r22,r26
+ 2588 0262 7B1F      		adc r23,r27
+ 2589 0264 4083      		st Z,r20
+ 2590 0266 5183      		std Z+1,r21
+ 2591 0268 6283      		std Z+2,r22
+ 2592 026a 7383      		std Z+3,r23
+ 2593 026c 4485      		ldd r20,Z+12
+ 2594 026e 5585      		ldd r21,Z+13
+ 2595 0270 6685      		ldd r22,Z+14
+ 2596 0272 7785      		ldd r23,Z+15
+ 2597 0274 840F      		add r24,r20
+ 2598 0276 951F      		adc r25,r21
+ 2599 0278 A61F      		adc r26,r22
+ 2600 027a B71F      		adc r27,r23
+ 2601 027c 8487      		std Z+12,r24
+ 2602 027e 9587      		std Z+13,r25
+ 2603 0280 A687      		std Z+14,r26
+ 2604 0282 B787      		std Z+15,r27
+ 2605 0284 E60C      		add r14,r6
+ 2606 0286 F71C      		adc r15,r7
+ 2607 0288 00C0      		rjmp .L189
+ 2608               	.L201:
+ 2609 028a 80E0      		ldi r24,0
+ 2610 028c 90E0      		ldi r25,0
+ 2611 028e 00C0      		rjmp .L187
+ 2612               	.L202:
+ 2613 0290 C701      		movw r24,r14
+ 2614 0292 00C0      		rjmp .L187
+ 2615               	.L203:
+ 2616 0294 8FEF      		ldi r24,lo8(-1)
+ 2617 0296 9FEF      		ldi r25,lo8(-1)
+ 2618               	.L187:
+ 2619               	/* epilogue start */
+ 2620 0298 2696      		adiw r28,6
+ 2621 029a 0FB6      		in __tmp_reg__,__SREG__
+ 2622 029c F894      		cli
+GAS LISTING /tmp/ccKdzQHI.s 			page 47
+
+
+ 2623 029e DEBF      		out __SP_H__,r29
+ 2624 02a0 0FBE      		out __SREG__,__tmp_reg__
+ 2625 02a2 CDBF      		out __SP_L__,r28
+ 2626 02a4 DF91      		pop r29
+ 2627 02a6 CF91      		pop r28
+ 2628 02a8 1F91      		pop r17
+ 2629 02aa 0F91      		pop r16
+ 2630 02ac FF90      		pop r15
+ 2631 02ae EF90      		pop r14
+ 2632 02b0 DF90      		pop r13
+ 2633 02b2 CF90      		pop r12
+ 2634 02b4 BF90      		pop r11
+ 2635 02b6 AF90      		pop r10
+ 2636 02b8 9F90      		pop r9
+ 2637 02ba 8F90      		pop r8
+ 2638 02bc 7F90      		pop r7
+ 2639 02be 6F90      		pop r6
+ 2640 02c0 5F90      		pop r5
+ 2641 02c2 4F90      		pop r4
+ 2642 02c4 3F90      		pop r3
+ 2643 02c6 2F90      		pop r2
+ 2644 02c8 0895      		ret
+ 2645               		.size	PhatFileRead, .-PhatFileRead
+ 2646               		.section	.text.PhatApiFileRead,"ax",@progbits
+ 2647               		.type	PhatApiFileRead, @function
+ 2648               	PhatApiFileRead:
+ 2649 0000 CF92      		push r12
+ 2650 0002 DF92      		push r13
+ 2651 0004 EF92      		push r14
+ 2652 0006 FF92      		push r15
+ 2653 0008 0F93      		push r16
+ 2654 000a 1F93      		push r17
+ 2655 000c CF93      		push r28
+ 2656 000e DF93      		push r29
+ 2657               	/* prologue: function */
+ 2658               	/* frame size = 0 */
+ 2659               	/* stack size = 8 */
+ 2660               	.L__stack_usage = 8
+ 2661 0010 8C01      		movw r16,r24
+ 2662 0012 7B01      		movw r14,r22
+ 2663 0014 6A01      		movw r12,r20
+ 2664 0016 DC01      		movw r26,r24
+ 2665 0018 ED91      		ld r30,X+
+ 2666 001a FC91      		ld r31,X
+ 2667 001c C189      		ldd r28,Z+17
+ 2668 001e D289      		ldd r29,Z+18
+ 2669 0020 6496      		adiw r28,20
+ 2670 0022 40E0      		ldi r20,0
+ 2671 0024 50E0      		ldi r21,0
+ 2672 0026 BA01      		movw r22,r20
+ 2673 0028 CE01      		movw r24,r28
+ 2674 002a 0E94 0000 		call NutEventWait
+ 2675 002e A601      		movw r20,r12
+ 2676 0030 B701      		movw r22,r14
+ 2677 0032 C801      		movw r24,r16
+ 2678 0034 0E94 0000 		call PhatFileRead
+ 2679 0038 8C01      		movw r16,r24
+GAS LISTING /tmp/ccKdzQHI.s 			page 48
+
+
+ 2680 003a CE01      		movw r24,r28
+ 2681 003c 0E94 0000 		call NutEventPost
+ 2682 0040 C801      		movw r24,r16
+ 2683               	/* epilogue start */
+ 2684 0042 DF91      		pop r29
+ 2685 0044 CF91      		pop r28
+ 2686 0046 1F91      		pop r17
+ 2687 0048 0F91      		pop r16
+ 2688 004a FF90      		pop r15
+ 2689 004c EF90      		pop r14
+ 2690 004e DF90      		pop r13
+ 2691 0050 CF90      		pop r12
+ 2692 0052 0895      		ret
+ 2693               		.size	PhatApiFileRead, .-PhatApiFileRead
+ 2694               	.global	devPhat1
+ 2695               		.data
+ 2696               		.type	devPhat1, @object
+ 2697               		.size	devPhat1, 37
+ 2698               	devPhat1:
+ 2699 0000 0000      		.word	0
+ 2700 0002 50        		.byte	80
+ 2701 0003 48        		.byte	72
+ 2702 0004 41        		.byte	65
+ 2703 0005 54        		.byte	84
+ 2704 0006 31        		.byte	49
+ 2705 0007 00        		.byte	0
+ 2706 0008 00        		.byte	0
+ 2707 0009 00        		.byte	0
+ 2708 000a 00        		.byte	0
+ 2709 000b 10        		.byte	16
+ 2710 000c 0000      		.word	0
+ 2711 000e 00        		.byte	0
+ 2712 000f 0000      		.word	0
+ 2713 0011 0000      		.word	0
+ 2714 0013 0000      		.word	gs(PhatInit)
+ 2715 0015 0000      		.word	gs(PhatApiIOCtl)
+ 2716 0017 0000      		.word	gs(PhatApiFileRead)
+ 2717 0019 0000      		.word	gs(PhatApiFileWrite)
+ 2718 001b 0000      		.word	gs(PhatApiFileWrite_P)
+ 2719 001d 0000      		.word	gs(PhatApiFileOpen)
+ 2720 001f 0000      		.word	gs(PhatApiFileClose)
+ 2721 0021 0000      		.word	gs(PhatFileSize)
+ 2722 0023 0000      		.word	0
+ 2723               	.global	devPhat0
+ 2724               		.type	devPhat0, @object
+ 2725               		.size	devPhat0, 37
+ 2726               	devPhat0:
+ 2727 0025 0000      		.word	0
+ 2728 0027 50        		.byte	80
+ 2729 0028 48        		.byte	72
+ 2730 0029 41        		.byte	65
+ 2731 002a 54        		.byte	84
+ 2732 002b 30        		.byte	48
+ 2733 002c 00        		.byte	0
+ 2734 002d 00        		.byte	0
+ 2735 002e 00        		.byte	0
+ 2736 002f 00        		.byte	0
+GAS LISTING /tmp/ccKdzQHI.s 			page 49
+
+
+ 2737 0030 10        		.byte	16
+ 2738 0031 0000      		.word	0
+ 2739 0033 00        		.byte	0
+ 2740 0034 0000      		.word	0
+ 2741 0036 0000      		.word	0
+ 2742 0038 0000      		.word	gs(PhatInit)
+ 2743 003a 0000      		.word	gs(PhatApiIOCtl)
+ 2744 003c 0000      		.word	gs(PhatApiFileRead)
+ 2745 003e 0000      		.word	gs(PhatApiFileWrite)
+ 2746 0040 0000      		.word	gs(PhatApiFileWrite_P)
+ 2747 0042 0000      		.word	gs(PhatApiFileOpen)
+ 2748 0044 0000      		.word	gs(PhatApiFileClose)
+ 2749 0046 0000      		.word	gs(PhatFileSize)
+ 2750 0048 0000      		.word	0
+ 2751               		.ident	"GCC: (GNU) 5.3.0"
+ 2752               	.global __do_copy_data
+GAS LISTING /tmp/ccKdzQHI.s 			page 50
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 phatfs.c
+     /tmp/ccKdzQHI.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccKdzQHI.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccKdzQHI.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccKdzQHI.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccKdzQHI.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccKdzQHI.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccKdzQHI.s:10     .text.PhatFileSize:0000000000000000 PhatFileSize
+     /tmp/ccKdzQHI.s:28     .text.PhatInit:0000000000000000 PhatInit
+     /tmp/ccKdzQHI.s:39     .text.SearchFreeCluster:0000000000000000 SearchFreeCluster
+     /tmp/ccKdzQHI.s:233    .text.AllocCluster:0000000000000000 AllocCluster
+     /tmp/ccKdzQHI.s:338    .text.AllocNextCluster:0000000000000000 AllocNextCluster
+     /tmp/ccKdzQHI.s:465    .text.PhatFileFlush:0000000000000000 PhatFileFlush
+     /tmp/ccKdzQHI.s:514    .text.PhatApiFileWrite_P:0000000000000000 PhatApiFileWrite_P
+     /tmp/ccKdzQHI.s:544    .text.AllocFirstCluster:0000000000000000 AllocFirstCluster
+     /tmp/ccKdzQHI.s:663    .text.PhatFileClose:0000000000000000 PhatFileClose
+     /tmp/ccKdzQHI.s:710    .text.PhatApiFileClose:0000000000000000 PhatApiFileClose
+     /tmp/ccKdzQHI.s:746    .text.PhatApiIOCtl:0000000000000000 PhatApiIOCtl
+     /tmp/ccKdzQHI.s:1016   .text.PhatFileOpen:0000000000000000 PhatFileOpen
+     /tmp/ccKdzQHI.s:1407   .text.PhatApiFileOpen:0000000000000000 PhatApiFileOpen
+     /tmp/ccKdzQHI.s:1482   .text.PhatFileWrite:0000000000000000 PhatFileWrite
+     /tmp/ccKdzQHI.s:2215   .text.PhatApiFileWrite:0000000000000000 PhatApiFileWrite
+     /tmp/ccKdzQHI.s:2264   .text.PhatFileWrite_P:0000000000000000 PhatFileWrite_P
+     /tmp/ccKdzQHI.s:2276   .text.PhatFileRead:0000000000000000 PhatFileRead
+     /tmp/ccKdzQHI.s:2648   .text.PhatApiFileRead:0000000000000000 PhatApiFileRead
+     /tmp/ccKdzQHI.s:2698   .data:0000000000000000 devPhat1
+     /tmp/ccKdzQHI.s:2726   .data:0000000000000025 devPhat0
+
+UNDEFINED SYMBOLS
+Phat32GetClusterLink
+Phat16GetClusterLink
+Phat12GetClusterLink
+errno
+Phat32SetClusterLink
+Phat16SetClusterLink
+Phat12SetClusterLink
+PhatDirEntryUpdate
+NutEventWait
+PhatSectorFlush
+NutEventPost
+free
+PhatDirEntryStatus
+PhatDirDelEntry
+PhatDirRenameEntry
+PhatDirCreate
+PhatDirRemove
+PhatDirOpen
+PhatDirRead
+PhatFilePosSet
+PhatVolMount
+PhatVolUnmount
+PhatDirOpenParent
+malloc
+PhatDirEntryFind
+PhatDirEntryCreate
+PhatDirReleaseChain
+GAS LISTING /tmp/ccKdzQHI.s 			page 51
+
+
+PhatClusterSector
+__udivmodsi4
+IsFixedRootDir
+__udivmodhi4
+PhatSectorWrite
+PhatSectorLoad
+memcpy
+PhatSectorBufferRelease
+GetDosTimeStamp
+__do_copy_data

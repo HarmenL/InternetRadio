@@ -1,0 +1,554 @@
+GAS LISTING /tmp/ccPbfL9C.s 			page 1
+
+
+   1               		.file	"streamio.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.StreamInit,"ax",@progbits
+   9               	.global	StreamInit
+  10               		.type	StreamInit, @function
+  11               	StreamInit:
+  12               	/* prologue: function */
+  13               	/* frame size = 0 */
+  14               	/* stack size = 0 */
+  15               	.L__stack_usage = 0
+  16 0000 80E0      		ldi r24,0
+  17 0002 90E0      		ldi r25,0
+  18 0004 0895      		ret
+  19               		.size	StreamInit, .-StreamInit
+  20               		.section	.rodata.str1.1,"aMS",@progbits,1
+  21               	.LC0:
+  22 0000 722B 6200 		.string	"r+b"
+  23               		.section	.text.StreamClientAccept,"ax",@progbits
+  24               	.global	StreamClientAccept
+  25               		.type	StreamClientAccept, @function
+  26               	StreamClientAccept:
+  27 0000 CF93      		push r28
+  28 0002 DF93      		push r29
+  29 0004 00D0      		rcall .
+  30 0006 1F92      		push __zero_reg__
+  31 0008 CDB7      		in r28,__SP_L__
+  32 000a DEB7      		in r29,__SP_H__
+  33               	/* prologue: function */
+  34               	/* frame size = 4 */
+  35               	/* stack size = 6 */
+  36               	.L__stack_usage = 6
+  37 000c 5C01      		movw r10,r24
+  38 000e CB01      		movw r24,r22
+  39 0010 0097      		sbiw r24,0
+  40 0012 01F0      		breq .L8
+  41 0014 0E94 0000 		call atoi
+  42 0018 7C01      		movw r14,r24
+  43 001a 00C0      		rjmp .L3
+  44               	.L8:
+  45 001c 90E5      		ldi r25,lo8(80)
+  46 001e E92E      		mov r14,r25
+  47 0020 F12C      		mov r15,__zero_reg__
+  48               	.L3:
+  49 0022 88EE      		ldi r24,lo8(-24)
+  50 0024 482E      		mov r4,r24
+  51 0026 83E0      		ldi r24,lo8(3)
+  52 0028 582E      		mov r5,r24
+  53 002a 612C      		mov r6,__zero_reg__
+  54 002c 712C      		mov r7,__zero_reg__
+  55               	.L7:
+  56 002e 0E94 0000 		call NutTcpCreateSocket
+  57 0032 8C01      		movw r16,r24
+GAS LISTING /tmp/ccPbfL9C.s 			page 2
+
+
+  58 0034 0097      		sbiw r24,0
+  59 0036 01F0      		breq .L5
+  60 0038 22E0      		ldi r18,lo8(2)
+  61 003a 30E0      		ldi r19,0
+  62 003c 40E0      		ldi r20,lo8(mss.3170)
+  63 003e 50E0      		ldi r21,hi8(mss.3170)
+  64 0040 62E0      		ldi r22,lo8(2)
+  65 0042 70E0      		ldi r23,0
+  66 0044 0E94 0000 		call NutTcpSetSockOpt
+  67 0048 22E0      		ldi r18,lo8(2)
+  68 004a 30E0      		ldi r19,0
+  69 004c 40E0      		ldi r20,lo8(tcpbufsiz.3171)
+  70 004e 50E0      		ldi r21,hi8(tcpbufsiz.3171)
+  71 0050 62E0      		ldi r22,lo8(2)
+  72 0052 70E1      		ldi r23,lo8(16)
+  73 0054 C801      		movw r24,r16
+  74 0056 0E94 0000 		call NutTcpSetSockOpt
+  75 005a B701      		movw r22,r14
+  76 005c C801      		movw r24,r16
+  77 005e 0E94 0000 		call NutTcpAccept
+  78 0062 892B      		or r24,r25
+  79 0064 01F4      		brne .L5
+  80 0066 4982      		std Y+1,r4
+  81 0068 5A82      		std Y+2,r5
+  82 006a 6B82      		std Y+3,r6
+  83 006c 7C82      		std Y+4,r7
+  84 006e 24E0      		ldi r18,lo8(4)
+  85 0070 30E0      		ldi r19,0
+  86 0072 AE01      		movw r20,r28
+  87 0074 4F5F      		subi r20,-1
+  88 0076 5F4F      		sbci r21,-1
+  89 0078 66E0      		ldi r22,lo8(6)
+  90 007a 70E1      		ldi r23,lo8(16)
+  91 007c C801      		movw r24,r16
+  92 007e 0E94 0000 		call NutTcpSetSockOpt
+  93 0082 60E0      		ldi r22,lo8(.LC0)
+  94 0084 70E0      		ldi r23,hi8(.LC0)
+  95 0086 C801      		movw r24,r16
+  96 0088 0E94 0000 		call _fdopen
+  97 008c 6C01      		movw r12,r24
+  98 008e F501      		movw r30,r10
+  99 0090 1995      		eicall
+ 100 0092 C601      		movw r24,r12
+ 101 0094 0E94 0000 		call fclose
+ 102               	.L5:
+ 103 0098 C801      		movw r24,r16
+ 104 009a 0E94 0000 		call NutTcpCloseSocket
+ 105 009e 00C0      		rjmp .L7
+ 106               		.size	StreamClientAccept, .-StreamClientAccept
+ 107               		.section	.text.StreamReadUntilChars,"ax",@progbits
+ 108               	.global	StreamReadUntilChars
+ 109               		.type	StreamReadUntilChars, @function
+ 110               	StreamReadUntilChars:
+ 111 0000 4F92      		push r4
+ 112 0002 5F92      		push r5
+ 113 0004 6F92      		push r6
+ 114 0006 7F92      		push r7
+GAS LISTING /tmp/ccPbfL9C.s 			page 3
+
+
+ 115 0008 8F92      		push r8
+ 116 000a 9F92      		push r9
+ 117 000c AF92      		push r10
+ 118 000e BF92      		push r11
+ 119 0010 CF92      		push r12
+ 120 0012 DF92      		push r13
+ 121 0014 EF92      		push r14
+ 122 0016 FF92      		push r15
+ 123 0018 0F93      		push r16
+ 124 001a 1F93      		push r17
+ 125 001c CF93      		push r28
+ 126 001e DF93      		push r29
+ 127               	/* prologue: function */
+ 128               	/* frame size = 0 */
+ 129               	/* stack size = 16 */
+ 130               	.L__stack_usage = 16
+ 131 0020 6C01      		movw r12,r24
+ 132 0022 5B01      		movw r10,r22
+ 133 0024 4A01      		movw r8,r20
+ 134 0026 7901      		movw r14,r18
+ 135 0028 3801      		movw r6,r16
+ 136 002a 00E0      		ldi r16,0
+ 137 002c 10E0      		ldi r17,0
+ 138 002e C0E0      		ldi r28,0
+ 139 0030 D0E0      		ldi r29,0
+ 140               	.L11:
+ 141 0032 C615      		cp r28,r6
+ 142 0034 D705      		cpc r29,r7
+ 143 0036 04F4      		brge .L13
+ 144 0038 C601      		movw r24,r12
+ 145 003a 0E94 0000 		call fgetc
+ 146 003e 2C01      		movw r4,r24
+ 147 0040 8FEF      		ldi r24,-1
+ 148 0042 4816      		cp r4,r24
+ 149 0044 5806      		cpc r5,r24
+ 150 0046 01F4      		brne .L12
+ 151 0048 C601      		movw r24,r12
+ 152 004a 0E94 0000 		call ferror
+ 153 004e 892B      		or r24,r25
+ 154 0050 01F0      		breq .L13
+ 155 0052 00E0      		ldi r16,0
+ 156 0054 10E0      		ldi r17,0
+ 157 0056 CFEF      		ldi r28,lo8(-1)
+ 158 0058 DFEF      		ldi r29,lo8(-1)
+ 159 005a 00C0      		rjmp .L13
+ 160               	.L12:
+ 161 005c 842D      		mov r24,r4
+ 162 005e 2097      		sbiw r28,0
+ 163 0060 01F4      		brne .L14
+ 164 0062 8032      		cpi r24,lo8(32)
+ 165 0064 01F4      		brne .L14
+ 166 0066 0F5F      		subi r16,-1
+ 167 0068 1F4F      		sbci r17,-1
+ 168 006a 00C0      		rjmp .L11
+ 169               	.L14:
+ 170 006c 2196      		adiw r28,1
+ 171 006e A114      		cp r10,__zero_reg__
+GAS LISTING /tmp/ccPbfL9C.s 			page 4
+
+
+ 172 0070 B104      		cpc r11,__zero_reg__
+ 173 0072 01F0      		breq .L16
+ 174 0074 642D      		mov r22,r4
+ 175 0076 042C      		mov __tmp_reg__,r4
+ 176 0078 000C      		lsl r0
+ 177 007a 770B      		sbc r23,r23
+ 178 007c C501      		movw r24,r10
+ 179 007e 0E94 0000 		call strchr
+ 180 0082 892B      		or r24,r25
+ 181 0084 01F4      		brne .L13
+ 182               	.L16:
+ 183 0086 E114      		cp r14,__zero_reg__
+ 184 0088 F104      		cpc r15,__zero_reg__
+ 185 008a 01F0      		breq .L11
+ 186 008c 8114      		cp r8,__zero_reg__
+ 187 008e 9104      		cpc r9,__zero_reg__
+ 188 0090 01F0      		breq .L17
+ 189 0092 642D      		mov r22,r4
+ 190 0094 042C      		mov __tmp_reg__,r4
+ 191 0096 000C      		lsl r0
+ 192 0098 770B      		sbc r23,r23
+ 193 009a C401      		movw r24,r8
+ 194 009c 0E94 0000 		call strchr
+ 195 00a0 892B      		or r24,r25
+ 196 00a2 01F4      		brne .L11
+ 197               	.L17:
+ 198 00a4 F701      		movw r30,r14
+ 199 00a6 4082      		st Z,r4
+ 200 00a8 C701      		movw r24,r14
+ 201 00aa 0196      		adiw r24,1
+ 202 00ac 7C01      		movw r14,r24
+ 203 00ae 00C0      		rjmp .L11
+ 204               	.L13:
+ 205 00b0 E114      		cp r14,__zero_reg__
+ 206 00b2 F104      		cpc r15,__zero_reg__
+ 207 00b4 01F0      		breq .L19
+ 208 00b6 F701      		movw r30,r14
+ 209 00b8 1082      		st Z,__zero_reg__
+ 210               	.L19:
+ 211 00ba CE01      		movw r24,r28
+ 212 00bc 800F      		add r24,r16
+ 213 00be 911F      		adc r25,r17
+ 214               	/* epilogue start */
+ 215 00c0 DF91      		pop r29
+ 216 00c2 CF91      		pop r28
+ 217 00c4 1F91      		pop r17
+ 218 00c6 0F91      		pop r16
+ 219 00c8 FF90      		pop r15
+ 220 00ca EF90      		pop r14
+ 221 00cc DF90      		pop r13
+ 222 00ce CF90      		pop r12
+ 223 00d0 BF90      		pop r11
+ 224 00d2 AF90      		pop r10
+ 225 00d4 9F90      		pop r9
+ 226 00d6 8F90      		pop r8
+ 227 00d8 7F90      		pop r7
+ 228 00da 6F90      		pop r6
+GAS LISTING /tmp/ccPbfL9C.s 			page 5
+
+
+ 229 00dc 5F90      		pop r5
+ 230 00de 4F90      		pop r4
+ 231 00e0 0895      		ret
+ 232               		.size	StreamReadUntilChars, .-StreamReadUntilChars
+ 233               		.section	.text.StreamReadUntilString,"ax",@progbits
+ 234               	.global	StreamReadUntilString
+ 235               		.type	StreamReadUntilString, @function
+ 236               	StreamReadUntilString:
+ 237 0000 6F92      		push r6
+ 238 0002 7F92      		push r7
+ 239 0004 8F92      		push r8
+ 240 0006 9F92      		push r9
+ 241 0008 AF92      		push r10
+ 242 000a BF92      		push r11
+ 243 000c CF92      		push r12
+ 244 000e DF92      		push r13
+ 245 0010 EF92      		push r14
+ 246 0012 FF92      		push r15
+ 247 0014 0F93      		push r16
+ 248 0016 1F93      		push r17
+ 249 0018 CF93      		push r28
+ 250 001a DF93      		push r29
+ 251               	/* prologue: function */
+ 252               	/* frame size = 0 */
+ 253               	/* stack size = 14 */
+ 254               	.L__stack_usage = 14
+ 255 001c 4C01      		movw r8,r24
+ 256 001e 5B01      		movw r10,r22
+ 257 0020 3901      		movw r6,r18
+ 258 0022 FB01      		movw r30,r22
+ 259               		0:
+ 260 0024 0190      		ld __tmp_reg__,Z+
+ 261 0026 0020      		tst __tmp_reg__
+ 262 0028 01F4      		brne 0b
+ 263 002a 3197      		sbiw r30,1
+ 264 002c 8F01      		movw r16,r30
+ 265 002e 061B      		sub r16,r22
+ 266 0030 170B      		sbc r17,r23
+ 267 0032 6A01      		movw r12,r20
+ 268 0034 E12C      		mov r14,__zero_reg__
+ 269 0036 F12C      		mov r15,__zero_reg__
+ 270 0038 C0E0      		ldi r28,0
+ 271 003a D0E0      		ldi r29,0
+ 272               	.L36:
+ 273 003c C615      		cp r28,r6
+ 274 003e D705      		cpc r29,r7
+ 275 0040 04F4      		brge .L37
+ 276 0042 C401      		movw r24,r8
+ 277 0044 0E94 0000 		call fgetc
+ 278 0048 8F3F      		cpi r24,-1
+ 279 004a 2FEF      		ldi r18,-1
+ 280 004c 9207      		cpc r25,r18
+ 281 004e 01F0      		breq .L40
+ 282 0050 F601      		movw r30,r12
+ 283 0052 8193      		st Z+,r24
+ 284 0054 6F01      		movw r12,r30
+ 285 0056 2196      		adiw r28,1
+GAS LISTING /tmp/ccPbfL9C.s 			page 6
+
+
+ 286 0058 F501      		movw r30,r10
+ 287 005a EE0D      		add r30,r14
+ 288 005c FF1D      		adc r31,r15
+ 289 005e 2081      		ld r18,Z
+ 290 0060 022E      		mov __tmp_reg__,r18
+ 291 0062 000C      		lsl r0
+ 292 0064 330B      		sbc r19,r19
+ 293 0066 8217      		cp r24,r18
+ 294 0068 9307      		cpc r25,r19
+ 295 006a 01F4      		brne .L41
+ 296 006c FFEF      		ldi r31,-1
+ 297 006e EF1A      		sub r14,r31
+ 298 0070 FF0A      		sbc r15,r31
+ 299 0072 E016      		cp r14,r16
+ 300 0074 F106      		cpc r15,r17
+ 301 0076 04F0      		brlt .L36
+ 302 0078 00C0      		rjmp .L37
+ 303               	.L41:
+ 304 007a E12C      		mov r14,__zero_reg__
+ 305 007c F12C      		mov r15,__zero_reg__
+ 306 007e 00C0      		rjmp .L36
+ 307               	.L40:
+ 308 0080 CFEF      		ldi r28,lo8(-1)
+ 309 0082 DFEF      		ldi r29,lo8(-1)
+ 310               	.L37:
+ 311 0084 CE01      		movw r24,r28
+ 312               	/* epilogue start */
+ 313 0086 DF91      		pop r29
+ 314 0088 CF91      		pop r28
+ 315 008a 1F91      		pop r17
+ 316 008c 0F91      		pop r16
+ 317 008e FF90      		pop r15
+ 318 0090 EF90      		pop r14
+ 319 0092 DF90      		pop r13
+ 320 0094 CF90      		pop r12
+ 321 0096 BF90      		pop r11
+ 322 0098 AF90      		pop r10
+ 323 009a 9F90      		pop r9
+ 324 009c 8F90      		pop r8
+ 325 009e 7F90      		pop r7
+ 326 00a0 6F90      		pop r6
+ 327 00a2 0895      		ret
+ 328               		.size	StreamReadUntilString, .-StreamReadUntilString
+ 329               		.section	.text.s_vputs,"ax",@progbits
+ 330               	.global	s_vputs
+ 331               		.type	s_vputs, @function
+ 332               	s_vputs:
+ 333 0000 CF92      		push r12
+ 334 0002 DF92      		push r13
+ 335 0004 EF92      		push r14
+ 336 0006 FF92      		push r15
+ 337 0008 0F93      		push r16
+ 338 000a 1F93      		push r17
+ 339 000c CF93      		push r28
+ 340 000e DF93      		push r29
+ 341 0010 CDB7      		in r28,__SP_L__
+ 342 0012 DEB7      		in r29,__SP_H__
+GAS LISTING /tmp/ccPbfL9C.s 			page 7
+
+
+ 343               	/* prologue: function */
+ 344               	/* frame size = 0 */
+ 345               	/* stack size = 8 */
+ 346               	.L__stack_usage = 8
+ 347 0014 CE01      		movw r24,r28
+ 348 0016 0C96      		adiw r24,12
+ 349 0018 DC01      		movw r26,r24
+ 350 001a CD90      		ld r12,X+
+ 351 001c DD90      		ld r13,X+
+ 352 001e 7D01      		movw r14,r26
+ 353 0020 FD01      		movw r30,r26
+ 354 0022 80E0      		ldi r24,0
+ 355 0024 90E0      		ldi r25,0
+ 356               	.L43:
+ 357 0026 9F01      		movw r18,r30
+ 358 0028 2E5F      		subi r18,-2
+ 359 002a 3F4F      		sbci r19,-1
+ 360 002c A081      		ld r26,Z
+ 361 002e B181      		ldd r27,Z+1
+ 362 0030 1097      		sbiw r26,0
+ 363 0032 01F0      		breq .L50
+ 364 0034 FD01      		movw r30,r26
+ 365               		0:
+ 366 0036 0190      		ld __tmp_reg__,Z+
+ 367 0038 0020      		tst __tmp_reg__
+ 368 003a 01F4      		brne 0b
+ 369 003c 3197      		sbiw r30,1
+ 370 003e EA1B      		sub r30,r26
+ 371 0040 FB0B      		sbc r31,r27
+ 372 0042 8E0F      		add r24,r30
+ 373 0044 9F1F      		adc r25,r31
+ 374 0046 F901      		movw r30,r18
+ 375 0048 00C0      		rjmp .L43
+ 376               	.L50:
+ 377 004a 0196      		adiw r24,1
+ 378 004c 0E94 0000 		call malloc
+ 379 0050 8C01      		movw r16,r24
+ 380 0052 0097      		sbiw r24,0
+ 381 0054 01F0      		breq .L49
+ 382 0056 F701      		movw r30,r14
+ 383 0058 DC01      		movw r26,r24
+ 384 005a 1C92      		st X,__zero_reg__
+ 385               	.L46:
+ 386 005c 7F01      		movw r14,r30
+ 387 005e B2E0      		ldi r27,2
+ 388 0060 EB0E      		add r14,r27
+ 389 0062 F11C      		adc r15,__zero_reg__
+ 390 0064 6081      		ld r22,Z
+ 391 0066 7181      		ldd r23,Z+1
+ 392 0068 6115      		cp r22,__zero_reg__
+ 393 006a 7105      		cpc r23,__zero_reg__
+ 394 006c 01F0      		breq .L51
+ 395 006e C801      		movw r24,r16
+ 396 0070 0E94 0000 		call strcat
+ 397 0074 F701      		movw r30,r14
+ 398 0076 00C0      		rjmp .L46
+ 399               	.L51:
+GAS LISTING /tmp/ccPbfL9C.s 			page 8
+
+
+ 400 0078 F801      		movw r30,r16
+ 401               		0:
+ 402 007a 0190      		ld __tmp_reg__,Z+
+ 403 007c 0020      		tst __tmp_reg__
+ 404 007e 01F4      		brne 0b
+ 405 0080 3197      		sbiw r30,1
+ 406 0082 AF01      		movw r20,r30
+ 407 0084 401B      		sub r20,r16
+ 408 0086 510B      		sbc r21,r17
+ 409 0088 9601      		movw r18,r12
+ 410 008a 61E0      		ldi r22,lo8(1)
+ 411 008c 70E0      		ldi r23,0
+ 412 008e C801      		movw r24,r16
+ 413 0090 0E94 0000 		call fwrite
+ 414 0094 F801      		movw r30,r16
+ 415               		0:
+ 416 0096 0190      		ld __tmp_reg__,Z+
+ 417 0098 0020      		tst __tmp_reg__
+ 418 009a 01F4      		brne 0b
+ 419 009c 3197      		sbiw r30,1
+ 420 009e E01B      		sub r30,r16
+ 421 00a0 F10B      		sbc r31,r17
+ 422 00a2 21E0      		ldi r18,lo8(1)
+ 423 00a4 30E0      		ldi r19,0
+ 424 00a6 8E17      		cp r24,r30
+ 425 00a8 9F07      		cpc r25,r31
+ 426 00aa 01F4      		brne .L48
+ 427 00ac 20E0      		ldi r18,0
+ 428 00ae 30E0      		ldi r19,0
+ 429               	.L48:
+ 430 00b0 EE24      		clr r14
+ 431 00b2 FF24      		clr r15
+ 432 00b4 E21A      		sub r14,r18
+ 433 00b6 F30A      		sbc r15,r19
+ 434 00b8 C801      		movw r24,r16
+ 435 00ba 0E94 0000 		call free
+ 436 00be 00C0      		rjmp .L45
+ 437               	.L49:
+ 438 00c0 EE24      		clr r14
+ 439 00c2 EA94      		dec r14
+ 440 00c4 FE2C      		mov r15,r14
+ 441               	.L45:
+ 442 00c6 C701      		movw r24,r14
+ 443               	/* epilogue start */
+ 444 00c8 DF91      		pop r29
+ 445 00ca CF91      		pop r28
+ 446 00cc 1F91      		pop r17
+ 447 00ce 0F91      		pop r16
+ 448 00d0 FF90      		pop r15
+ 449 00d2 EF90      		pop r14
+ 450 00d4 DF90      		pop r13
+ 451 00d6 CF90      		pop r12
+ 452 00d8 0895      		ret
+ 453               		.size	s_vputs, .-s_vputs
+ 454               		.section	.rodata.str1.1
+ 455               	.LC1:
+ 456 0004 00        		.string	""
+GAS LISTING /tmp/ccPbfL9C.s 			page 9
+
+
+ 457               		.section	.text.StreamInfo,"ax",@progbits
+ 458               	.global	StreamInfo
+ 459               		.type	StreamInfo, @function
+ 460               	StreamInfo:
+ 461               	/* prologue: function */
+ 462               	/* frame size = 0 */
+ 463               	/* stack size = 0 */
+ 464               	.L__stack_usage = 0
+ 465 0000 8091 0000 		lds r24,env_value.3219
+ 466 0004 9091 0000 		lds r25,env_value.3219+1
+ 467 0008 0E94 0000 		call free
+ 468 000c 80E0      		ldi r24,lo8(.LC1)
+ 469 000e 90E0      		ldi r25,hi8(.LC1)
+ 470 0010 0E94 0000 		call strdup
+ 471 0014 9093 0000 		sts env_value.3219+1,r25
+ 472 0018 8093 0000 		sts env_value.3219,r24
+ 473 001c 0895      		ret
+ 474               		.size	StreamInfo, .-StreamInfo
+ 475               		.local	env_value.3219
+ 476               		.comm	env_value.3219,2,1
+ 477               		.data
+ 478               		.type	tcpbufsiz.3171, @object
+ 479               		.size	tcpbufsiz.3171, 2
+ 480               	tcpbufsiz.3171:
+ 481 0000 405B      		.word	23360
+ 482               		.type	mss.3170, @object
+ 483               		.size	mss.3170, 2
+ 484               	mss.3170:
+ 485 0002 0004      		.word	1024
+ 486               		.ident	"GCC: (GNU) 5.3.0"
+ 487               	.global __do_copy_data
+ 488               	.global __do_clear_bss
+GAS LISTING /tmp/ccPbfL9C.s 			page 10
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 streamio.c
+     /tmp/ccPbfL9C.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccPbfL9C.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccPbfL9C.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccPbfL9C.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccPbfL9C.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccPbfL9C.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccPbfL9C.s:11     .text.StreamInit:0000000000000000 StreamInit
+     /tmp/ccPbfL9C.s:26     .text.StreamClientAccept:0000000000000000 StreamClientAccept
+     /tmp/ccPbfL9C.s:484    .data:0000000000000002 mss.3170
+     /tmp/ccPbfL9C.s:480    .data:0000000000000000 tcpbufsiz.3171
+     /tmp/ccPbfL9C.s:110    .text.StreamReadUntilChars:0000000000000000 StreamReadUntilChars
+     /tmp/ccPbfL9C.s:236    .text.StreamReadUntilString:0000000000000000 StreamReadUntilString
+     /tmp/ccPbfL9C.s:332    .text.s_vputs:0000000000000000 s_vputs
+     /tmp/ccPbfL9C.s:460    .text.StreamInfo:0000000000000000 StreamInfo
+                             .bss:0000000000000000 env_value.3219
+
+UNDEFINED SYMBOLS
+atoi
+NutTcpCreateSocket
+NutTcpSetSockOpt
+NutTcpAccept
+_fdopen
+fclose
+NutTcpCloseSocket
+fgetc
+ferror
+strchr
+malloc
+strcat
+fwrite
+free
+strdup
+__do_copy_data
+__do_clear_bss

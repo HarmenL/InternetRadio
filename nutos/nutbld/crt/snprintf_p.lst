@@ -1,0 +1,53 @@
+GAS LISTING /tmp/cc2X1RcF.s 			page 1
+
+
+   1               		.file	"snprintf_p.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.snprintf_P,"ax",@progbits
+   9               	.global	snprintf_P
+  10               		.type	snprintf_P, @function
+  11               	snprintf_P:
+  12 0000 CF93      		push r28
+  13 0002 DF93      		push r29
+  14 0004 CDB7      		in r28,__SP_L__
+  15 0006 DEB7      		in r29,__SP_H__
+  16               	/* prologue: function */
+  17               	/* frame size = 0 */
+  18               	/* stack size = 2 */
+  19               	.L__stack_usage = 2
+  20 0008 9E01      		movw r18,r28
+  21 000a 245F      		subi r18,-12
+  22 000c 3F4F      		sbci r19,-1
+  23 000e 4A85      		ldd r20,Y+10
+  24 0010 5B85      		ldd r21,Y+11
+  25 0012 6885      		ldd r22,Y+8
+  26 0014 7985      		ldd r23,Y+9
+  27 0016 8E81      		ldd r24,Y+6
+  28 0018 9F81      		ldd r25,Y+7
+  29 001a 0E94 0000 		call vsnprintf_P
+  30               	/* epilogue start */
+  31 001e DF91      		pop r29
+  32 0020 CF91      		pop r28
+  33 0022 0895      		ret
+  34               		.size	snprintf_P, .-snprintf_P
+  35               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/cc2X1RcF.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 snprintf_p.c
+     /tmp/cc2X1RcF.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cc2X1RcF.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cc2X1RcF.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cc2X1RcF.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cc2X1RcF.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cc2X1RcF.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cc2X1RcF.s:11     .text.snprintf_P:0000000000000000 snprintf_P
+
+UNDEFINED SYMBOLS
+vsnprintf_P

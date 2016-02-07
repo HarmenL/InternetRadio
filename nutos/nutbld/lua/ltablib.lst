@@ -1,0 +1,1412 @@
+GAS LISTING /tmp/cc9xdd5f.s 			page 1
+
+
+   1               		.file	"ltablib.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.rodata.str1.1,"aMS",@progbits,1
+   9               	.LC0:
+  10 0000 2773 6574 		.string	"'setn' is obsolete"
+  10      6E27 2069 
+  10      7320 6F62 
+  10      736F 6C65 
+  10      7465 00
+  11               		.section	.text.setn,"ax",@progbits
+  12               		.type	setn, @function
+  13               	setn:
+  14 0000 CF93      		push r28
+  15 0002 DF93      		push r29
+  16               	/* prologue: function */
+  17               	/* frame size = 0 */
+  18               	/* stack size = 2 */
+  19               	.L__stack_usage = 2
+  20 0004 D82F      		mov r29,r24
+  21 0006 C92F      		mov r28,r25
+  22 0008 47E0      		ldi r20,lo8(7)
+  23 000a 50E0      		ldi r21,0
+  24 000c 61E0      		ldi r22,lo8(1)
+  25 000e 70E0      		ldi r23,0
+  26 0010 0E94 0000 		call luaL_checktype
+  27 0014 80E0      		ldi r24,lo8(.LC0)
+  28 0016 90E0      		ldi r25,hi8(.LC0)
+  29 0018 9F93      		push r25
+  30 001a 8F93      		push r24
+  31 001c CF93      		push r28
+  32 001e DF93      		push r29
+  33 0020 0E94 0000 		call luaL_error
+  34 0024 61E0      		ldi r22,lo8(1)
+  35 0026 70E0      		ldi r23,0
+  36 0028 8D2F      		mov r24,r29
+  37 002a 9C2F      		mov r25,r28
+  38 002c 0E94 0000 		call lua_pushvalue
+  39 0030 0F90      		pop __tmp_reg__
+  40 0032 0F90      		pop __tmp_reg__
+  41 0034 0F90      		pop __tmp_reg__
+  42 0036 0F90      		pop __tmp_reg__
+  43 0038 81E0      		ldi r24,lo8(1)
+  44 003a 90E0      		ldi r25,0
+  45               	/* epilogue start */
+  46 003c DF91      		pop r29
+  47 003e CF91      		pop r28
+  48 0040 0895      		ret
+  49               		.size	setn, .-setn
+  50               		.section	.text.set2,"ax",@progbits
+  51               		.type	set2, @function
+  52               	set2:
+  53 0000 0F93      		push r16
+GAS LISTING /tmp/cc9xdd5f.s 			page 2
+
+
+  54 0002 1F93      		push r17
+  55 0004 CF93      		push r28
+  56 0006 DF93      		push r29
+  57               	/* prologue: function */
+  58               	/* frame size = 0 */
+  59               	/* stack size = 4 */
+  60               	.L__stack_usage = 4
+  61 0008 EC01      		movw r28,r24
+  62 000a 8A01      		movw r16,r20
+  63 000c AB01      		movw r20,r22
+  64 000e 61E0      		ldi r22,lo8(1)
+  65 0010 70E0      		ldi r23,0
+  66 0012 0E94 0000 		call lua_rawseti
+  67 0016 A801      		movw r20,r16
+  68 0018 61E0      		ldi r22,lo8(1)
+  69 001a 70E0      		ldi r23,0
+  70 001c CE01      		movw r24,r28
+  71               	/* epilogue start */
+  72 001e DF91      		pop r29
+  73 0020 CF91      		pop r28
+  74 0022 1F91      		pop r17
+  75 0024 0F91      		pop r16
+  76 0026 0C94 0000 		jmp lua_rawseti
+  77               		.size	set2, .-set2
+  78               		.section	.text.tremove,"ax",@progbits
+  79               		.type	tremove, @function
+  80               	tremove:
+  81 0000 CF92      		push r12
+  82 0002 DF92      		push r13
+  83 0004 EF92      		push r14
+  84 0006 FF92      		push r15
+  85 0008 0F93      		push r16
+  86 000a 1F93      		push r17
+  87 000c CF93      		push r28
+  88 000e DF93      		push r29
+  89               	/* prologue: function */
+  90               	/* frame size = 0 */
+  91               	/* stack size = 8 */
+  92               	.L__stack_usage = 8
+  93 0010 EC01      		movw r28,r24
+  94 0012 47E0      		ldi r20,lo8(7)
+  95 0014 50E0      		ldi r21,0
+  96 0016 61E0      		ldi r22,lo8(1)
+  97 0018 70E0      		ldi r23,0
+  98 001a 0E94 0000 		call luaL_checktype
+  99 001e 61E0      		ldi r22,lo8(1)
+ 100 0020 70E0      		ldi r23,0
+ 101 0022 CE01      		movw r24,r28
+ 102 0024 0E94 0000 		call lua_objlen
+ 103 0028 7C01      		movw r14,r24
+ 104 002a AC01      		movw r20,r24
+ 105 002c 62E0      		ldi r22,lo8(2)
+ 106 002e 70E0      		ldi r23,0
+ 107 0030 CE01      		movw r24,r28
+ 108 0032 0E94 0000 		call luaL_optinteger
+ 109 0036 8C01      		movw r16,r24
+ 110 0038 1816      		cp __zero_reg__,r24
+GAS LISTING /tmp/cc9xdd5f.s 			page 3
+
+
+ 111 003a 1906      		cpc __zero_reg__,r25
+ 112 003c 04F4      		brge .L8
+ 113 003e E816      		cp r14,r24
+ 114 0040 F906      		cpc r15,r25
+ 115 0042 04F0      		brlt .L8
+ 116 0044 AC01      		movw r20,r24
+ 117 0046 61E0      		ldi r22,lo8(1)
+ 118 0048 70E0      		ldi r23,0
+ 119 004a CE01      		movw r24,r28
+ 120 004c 0E94 0000 		call lua_rawgeti
+ 121               	.L5:
+ 122 0050 0E15      		cp r16,r14
+ 123 0052 1F05      		cpc r17,r15
+ 124 0054 01F0      		breq .L10
+ 125 0056 6801      		movw r12,r16
+ 126 0058 8FEF      		ldi r24,-1
+ 127 005a C81A      		sub r12,r24
+ 128 005c D80A      		sbc r13,r24
+ 129 005e A601      		movw r20,r12
+ 130 0060 61E0      		ldi r22,lo8(1)
+ 131 0062 70E0      		ldi r23,0
+ 132 0064 CE01      		movw r24,r28
+ 133 0066 0E94 0000 		call lua_rawgeti
+ 134 006a A801      		movw r20,r16
+ 135 006c 61E0      		ldi r22,lo8(1)
+ 136 006e 70E0      		ldi r23,0
+ 137 0070 CE01      		movw r24,r28
+ 138 0072 0E94 0000 		call lua_rawseti
+ 139 0076 8601      		movw r16,r12
+ 140 0078 00C0      		rjmp .L5
+ 141               	.L10:
+ 142 007a CE01      		movw r24,r28
+ 143 007c 0E94 0000 		call lua_pushnil
+ 144 0080 A801      		movw r20,r16
+ 145 0082 61E0      		ldi r22,lo8(1)
+ 146 0084 70E0      		ldi r23,0
+ 147 0086 CE01      		movw r24,r28
+ 148 0088 0E94 0000 		call lua_rawseti
+ 149 008c 81E0      		ldi r24,lo8(1)
+ 150 008e 90E0      		ldi r25,0
+ 151 0090 00C0      		rjmp .L4
+ 152               	.L8:
+ 153 0092 80E0      		ldi r24,0
+ 154 0094 90E0      		ldi r25,0
+ 155               	.L4:
+ 156               	/* epilogue start */
+ 157 0096 DF91      		pop r29
+ 158 0098 CF91      		pop r28
+ 159 009a 1F91      		pop r17
+ 160 009c 0F91      		pop r16
+ 161 009e FF90      		pop r15
+ 162 00a0 EF90      		pop r14
+ 163 00a2 DF90      		pop r13
+ 164 00a4 CF90      		pop r12
+ 165 00a6 0895      		ret
+ 166               		.size	tremove, .-tremove
+ 167               		.section	.rodata.str1.1
+GAS LISTING /tmp/cc9xdd5f.s 			page 4
+
+
+ 168               	.LC1:
+ 169 0013 7772 6F6E 		.string	"wrong number of arguments to 'insert'"
+ 169      6720 6E75 
+ 169      6D62 6572 
+ 169      206F 6620 
+ 169      6172 6775 
+ 170               		.section	.text.tinsert,"ax",@progbits
+ 171               		.type	tinsert, @function
+ 172               	tinsert:
+ 173 0000 CF92      		push r12
+ 174 0002 DF92      		push r13
+ 175 0004 EF92      		push r14
+ 176 0006 FF92      		push r15
+ 177 0008 0F93      		push r16
+ 178 000a 1F93      		push r17
+ 179 000c CF93      		push r28
+ 180 000e DF93      		push r29
+ 181               	/* prologue: function */
+ 182               	/* frame size = 0 */
+ 183               	/* stack size = 8 */
+ 184               	.L__stack_usage = 8
+ 185 0010 D82F      		mov r29,r24
+ 186 0012 C92F      		mov r28,r25
+ 187 0014 47E0      		ldi r20,lo8(7)
+ 188 0016 50E0      		ldi r21,0
+ 189 0018 61E0      		ldi r22,lo8(1)
+ 190 001a 70E0      		ldi r23,0
+ 191 001c 0E94 0000 		call luaL_checktype
+ 192 0020 61E0      		ldi r22,lo8(1)
+ 193 0022 70E0      		ldi r23,0
+ 194 0024 8D2F      		mov r24,r29
+ 195 0026 9C2F      		mov r25,r28
+ 196 0028 0E94 0000 		call lua_objlen
+ 197 002c 8C01      		movw r16,r24
+ 198 002e 0F5F      		subi r16,-1
+ 199 0030 1F4F      		sbci r17,-1
+ 200 0032 8D2F      		mov r24,r29
+ 201 0034 9C2F      		mov r25,r28
+ 202 0036 0E94 0000 		call lua_gettop
+ 203 003a 8230      		cpi r24,2
+ 204 003c 9105      		cpc r25,__zero_reg__
+ 205 003e 01F0      		breq .L18
+ 206 0040 0397      		sbiw r24,3
+ 207 0042 01F4      		brne .L19
+ 208 0044 62E0      		ldi r22,lo8(2)
+ 209 0046 70E0      		ldi r23,0
+ 210 0048 8D2F      		mov r24,r29
+ 211 004a 9C2F      		mov r25,r28
+ 212 004c 0E94 0000 		call luaL_checkinteger
+ 213 0050 7C01      		movw r14,r24
+ 214 0052 0817      		cp r16,r24
+ 215 0054 1907      		cpc r17,r25
+ 216 0056 04F0      		brlt .L13
+ 217               	.L15:
+ 218 0058 0E15      		cp r16,r14
+ 219 005a 1F05      		cpc r17,r15
+ 220 005c 01F0      		breq .L13
+GAS LISTING /tmp/cc9xdd5f.s 			page 5
+
+
+ 221 005e 6801      		movw r12,r16
+ 222 0060 81E0      		ldi r24,1
+ 223 0062 C81A      		sub r12,r24
+ 224 0064 D108      		sbc r13,__zero_reg__
+ 225 0066 A601      		movw r20,r12
+ 226 0068 61E0      		ldi r22,lo8(1)
+ 227 006a 70E0      		ldi r23,0
+ 228 006c 8D2F      		mov r24,r29
+ 229 006e 9C2F      		mov r25,r28
+ 230 0070 0E94 0000 		call lua_rawgeti
+ 231 0074 A801      		movw r20,r16
+ 232 0076 61E0      		ldi r22,lo8(1)
+ 233 0078 70E0      		ldi r23,0
+ 234 007a 8D2F      		mov r24,r29
+ 235 007c 9C2F      		mov r25,r28
+ 236 007e 0E94 0000 		call lua_rawseti
+ 237 0082 8601      		movw r16,r12
+ 238 0084 00C0      		rjmp .L15
+ 239               	.L19:
+ 240 0086 80E0      		ldi r24,lo8(.LC1)
+ 241 0088 90E0      		ldi r25,hi8(.LC1)
+ 242 008a 9F93      		push r25
+ 243 008c 8F93      		push r24
+ 244 008e CF93      		push r28
+ 245 0090 DF93      		push r29
+ 246 0092 0E94 0000 		call luaL_error
+ 247 0096 0F90      		pop __tmp_reg__
+ 248 0098 0F90      		pop __tmp_reg__
+ 249 009a 0F90      		pop __tmp_reg__
+ 250 009c 0F90      		pop __tmp_reg__
+ 251 009e 00C0      		rjmp .L17
+ 252               	.L18:
+ 253 00a0 7801      		movw r14,r16
+ 254               	.L13:
+ 255 00a2 A701      		movw r20,r14
+ 256 00a4 61E0      		ldi r22,lo8(1)
+ 257 00a6 70E0      		ldi r23,0
+ 258 00a8 8D2F      		mov r24,r29
+ 259 00aa 9C2F      		mov r25,r28
+ 260 00ac 0E94 0000 		call lua_rawseti
+ 261 00b0 80E0      		ldi r24,0
+ 262 00b2 90E0      		ldi r25,0
+ 263               	.L17:
+ 264               	/* epilogue start */
+ 265 00b4 DF91      		pop r29
+ 266 00b6 CF91      		pop r28
+ 267 00b8 1F91      		pop r17
+ 268 00ba 0F91      		pop r16
+ 269 00bc FF90      		pop r15
+ 270 00be EF90      		pop r14
+ 271 00c0 DF90      		pop r13
+ 272 00c2 CF90      		pop r12
+ 273 00c4 0895      		ret
+ 274               		.size	tinsert, .-tinsert
+ 275               		.section	.text.maxn,"ax",@progbits
+ 276               		.type	maxn, @function
+ 277               	maxn:
+GAS LISTING /tmp/cc9xdd5f.s 			page 6
+
+
+ 278 0000 CF92      		push r12
+ 279 0002 DF92      		push r13
+ 280 0004 EF92      		push r14
+ 281 0006 FF92      		push r15
+ 282 0008 CF93      		push r28
+ 283 000a DF93      		push r29
+ 284               	/* prologue: function */
+ 285               	/* frame size = 0 */
+ 286               	/* stack size = 6 */
+ 287               	.L__stack_usage = 6
+ 288 000c EC01      		movw r28,r24
+ 289 000e 47E0      		ldi r20,lo8(7)
+ 290 0010 50E0      		ldi r21,0
+ 291 0012 61E0      		ldi r22,lo8(1)
+ 292 0014 70E0      		ldi r23,0
+ 293 0016 0E94 0000 		call luaL_checktype
+ 294 001a CE01      		movw r24,r28
+ 295 001c 0E94 0000 		call lua_pushnil
+ 296 0020 C12C      		mov r12,__zero_reg__
+ 297 0022 D12C      		mov r13,__zero_reg__
+ 298 0024 7601      		movw r14,r12
+ 299               	.L22:
+ 300 0026 61E0      		ldi r22,lo8(1)
+ 301 0028 70E0      		ldi r23,0
+ 302 002a CE01      		movw r24,r28
+ 303 002c 0E94 0000 		call lua_next
+ 304 0030 892B      		or r24,r25
+ 305 0032 01F0      		breq .L26
+ 306 0034 6EEF      		ldi r22,lo8(-2)
+ 307 0036 7FEF      		ldi r23,lo8(-1)
+ 308 0038 CE01      		movw r24,r28
+ 309 003a 0E94 0000 		call lua_settop
+ 310 003e 6FEF      		ldi r22,lo8(-1)
+ 311 0040 7FEF      		ldi r23,lo8(-1)
+ 312 0042 CE01      		movw r24,r28
+ 313 0044 0E94 0000 		call lua_type
+ 314 0048 0597      		sbiw r24,5
+ 315 004a 01F4      		brne .L22
+ 316 004c 6FEF      		ldi r22,lo8(-1)
+ 317 004e 7FEF      		ldi r23,lo8(-1)
+ 318 0050 CE01      		movw r24,r28
+ 319 0052 0E94 0000 		call lua_tonumber
+ 320 0056 C616      		cp r12,r22
+ 321 0058 D706      		cpc r13,r23
+ 322 005a E806      		cpc r14,r24
+ 323 005c F906      		cpc r15,r25
+ 324 005e 04F4      		brge .L22
+ 325 0060 6B01      		movw r12,r22
+ 326 0062 7C01      		movw r14,r24
+ 327 0064 00C0      		rjmp .L22
+ 328               	.L26:
+ 329 0066 B701      		movw r22,r14
+ 330 0068 A601      		movw r20,r12
+ 331 006a CE01      		movw r24,r28
+ 332 006c 0E94 0000 		call lua_pushnumber
+ 333 0070 81E0      		ldi r24,lo8(1)
+ 334 0072 90E0      		ldi r25,0
+GAS LISTING /tmp/cc9xdd5f.s 			page 7
+
+
+ 335               	/* epilogue start */
+ 336 0074 DF91      		pop r29
+ 337 0076 CF91      		pop r28
+ 338 0078 FF90      		pop r15
+ 339 007a EF90      		pop r14
+ 340 007c DF90      		pop r13
+ 341 007e CF90      		pop r12
+ 342 0080 0895      		ret
+ 343               		.size	maxn, .-maxn
+ 344               		.section	.text.getn,"ax",@progbits
+ 345               		.type	getn, @function
+ 346               	getn:
+ 347 0000 CF93      		push r28
+ 348 0002 DF93      		push r29
+ 349               	/* prologue: function */
+ 350               	/* frame size = 0 */
+ 351               	/* stack size = 2 */
+ 352               	.L__stack_usage = 2
+ 353 0004 EC01      		movw r28,r24
+ 354 0006 47E0      		ldi r20,lo8(7)
+ 355 0008 50E0      		ldi r21,0
+ 356 000a 61E0      		ldi r22,lo8(1)
+ 357 000c 70E0      		ldi r23,0
+ 358 000e 0E94 0000 		call luaL_checktype
+ 359 0012 61E0      		ldi r22,lo8(1)
+ 360 0014 70E0      		ldi r23,0
+ 361 0016 CE01      		movw r24,r28
+ 362 0018 0E94 0000 		call lua_objlen
+ 363 001c BC01      		movw r22,r24
+ 364 001e CE01      		movw r24,r28
+ 365 0020 0E94 0000 		call lua_pushinteger
+ 366 0024 81E0      		ldi r24,lo8(1)
+ 367 0026 90E0      		ldi r25,0
+ 368               	/* epilogue start */
+ 369 0028 DF91      		pop r29
+ 370 002a CF91      		pop r28
+ 371 002c 0895      		ret
+ 372               		.size	getn, .-getn
+ 373               		.section	.text.foreachi,"ax",@progbits
+ 374               		.type	foreachi, @function
+ 375               	foreachi:
+ 376 0000 EF92      		push r14
+ 377 0002 FF92      		push r15
+ 378 0004 0F93      		push r16
+ 379 0006 1F93      		push r17
+ 380 0008 CF93      		push r28
+ 381 000a DF93      		push r29
+ 382               	/* prologue: function */
+ 383               	/* frame size = 0 */
+ 384               	/* stack size = 6 */
+ 385               	.L__stack_usage = 6
+ 386 000c EC01      		movw r28,r24
+ 387 000e 47E0      		ldi r20,lo8(7)
+ 388 0010 50E0      		ldi r21,0
+ 389 0012 61E0      		ldi r22,lo8(1)
+ 390 0014 70E0      		ldi r23,0
+ 391 0016 0E94 0000 		call luaL_checktype
+GAS LISTING /tmp/cc9xdd5f.s 			page 8
+
+
+ 392 001a 61E0      		ldi r22,lo8(1)
+ 393 001c 70E0      		ldi r23,0
+ 394 001e CE01      		movw r24,r28
+ 395 0020 0E94 0000 		call lua_objlen
+ 396 0024 7C01      		movw r14,r24
+ 397 0026 62E0      		ldi r22,lo8(2)
+ 398 0028 70E0      		ldi r23,0
+ 399 002a CE01      		movw r24,r28
+ 400 002c 0E94 0000 		call luaL_checkanyfunction
+ 401 0030 01E0      		ldi r16,lo8(1)
+ 402 0032 10E0      		ldi r17,0
+ 403               	.L29:
+ 404 0034 E016      		cp r14,r16
+ 405 0036 F106      		cpc r15,r17
+ 406 0038 04F0      		brlt .L33
+ 407 003a 62E0      		ldi r22,lo8(2)
+ 408 003c 70E0      		ldi r23,0
+ 409 003e CE01      		movw r24,r28
+ 410 0040 0E94 0000 		call lua_pushvalue
+ 411 0044 B801      		movw r22,r16
+ 412 0046 CE01      		movw r24,r28
+ 413 0048 0E94 0000 		call lua_pushinteger
+ 414 004c A801      		movw r20,r16
+ 415 004e 61E0      		ldi r22,lo8(1)
+ 416 0050 70E0      		ldi r23,0
+ 417 0052 CE01      		movw r24,r28
+ 418 0054 0E94 0000 		call lua_rawgeti
+ 419 0058 41E0      		ldi r20,lo8(1)
+ 420 005a 50E0      		ldi r21,0
+ 421 005c 62E0      		ldi r22,lo8(2)
+ 422 005e 70E0      		ldi r23,0
+ 423 0060 CE01      		movw r24,r28
+ 424 0062 0E94 0000 		call lua_call
+ 425 0066 6FEF      		ldi r22,lo8(-1)
+ 426 0068 7FEF      		ldi r23,lo8(-1)
+ 427 006a CE01      		movw r24,r28
+ 428 006c 0E94 0000 		call lua_type
+ 429 0070 892B      		or r24,r25
+ 430 0072 01F4      		brne .L32
+ 431 0074 6EEF      		ldi r22,lo8(-2)
+ 432 0076 7FEF      		ldi r23,lo8(-1)
+ 433 0078 CE01      		movw r24,r28
+ 434 007a 0E94 0000 		call lua_settop
+ 435 007e 0F5F      		subi r16,-1
+ 436 0080 1F4F      		sbci r17,-1
+ 437 0082 00C0      		rjmp .L29
+ 438               	.L33:
+ 439 0084 80E0      		ldi r24,0
+ 440 0086 90E0      		ldi r25,0
+ 441 0088 00C0      		rjmp .L30
+ 442               	.L32:
+ 443 008a 81E0      		ldi r24,lo8(1)
+ 444 008c 90E0      		ldi r25,0
+ 445               	.L30:
+ 446               	/* epilogue start */
+ 447 008e DF91      		pop r29
+ 448 0090 CF91      		pop r28
+GAS LISTING /tmp/cc9xdd5f.s 			page 9
+
+
+ 449 0092 1F91      		pop r17
+ 450 0094 0F91      		pop r16
+ 451 0096 FF90      		pop r15
+ 452 0098 EF90      		pop r14
+ 453 009a 0895      		ret
+ 454               		.size	foreachi, .-foreachi
+ 455               		.section	.text.foreach,"ax",@progbits
+ 456               		.type	foreach, @function
+ 457               	foreach:
+ 458 0000 CF93      		push r28
+ 459 0002 DF93      		push r29
+ 460               	/* prologue: function */
+ 461               	/* frame size = 0 */
+ 462               	/* stack size = 2 */
+ 463               	.L__stack_usage = 2
+ 464 0004 EC01      		movw r28,r24
+ 465 0006 47E0      		ldi r20,lo8(7)
+ 466 0008 50E0      		ldi r21,0
+ 467 000a 61E0      		ldi r22,lo8(1)
+ 468 000c 70E0      		ldi r23,0
+ 469 000e 0E94 0000 		call luaL_checktype
+ 470 0012 62E0      		ldi r22,lo8(2)
+ 471 0014 70E0      		ldi r23,0
+ 472 0016 CE01      		movw r24,r28
+ 473 0018 0E94 0000 		call luaL_checkanyfunction
+ 474 001c CE01      		movw r24,r28
+ 475 001e 0E94 0000 		call lua_pushnil
+ 476               	.L35:
+ 477 0022 61E0      		ldi r22,lo8(1)
+ 478 0024 70E0      		ldi r23,0
+ 479 0026 CE01      		movw r24,r28
+ 480 0028 0E94 0000 		call lua_next
+ 481 002c 0097      		sbiw r24,0
+ 482 002e 01F0      		breq .L36
+ 483 0030 62E0      		ldi r22,lo8(2)
+ 484 0032 70E0      		ldi r23,0
+ 485 0034 CE01      		movw r24,r28
+ 486 0036 0E94 0000 		call lua_pushvalue
+ 487 003a 6DEF      		ldi r22,lo8(-3)
+ 488 003c 7FEF      		ldi r23,lo8(-1)
+ 489 003e CE01      		movw r24,r28
+ 490 0040 0E94 0000 		call lua_pushvalue
+ 491 0044 6DEF      		ldi r22,lo8(-3)
+ 492 0046 7FEF      		ldi r23,lo8(-1)
+ 493 0048 CE01      		movw r24,r28
+ 494 004a 0E94 0000 		call lua_pushvalue
+ 495 004e 41E0      		ldi r20,lo8(1)
+ 496 0050 50E0      		ldi r21,0
+ 497 0052 62E0      		ldi r22,lo8(2)
+ 498 0054 70E0      		ldi r23,0
+ 499 0056 CE01      		movw r24,r28
+ 500 0058 0E94 0000 		call lua_call
+ 501 005c 6FEF      		ldi r22,lo8(-1)
+ 502 005e 7FEF      		ldi r23,lo8(-1)
+ 503 0060 CE01      		movw r24,r28
+ 504 0062 0E94 0000 		call lua_type
+ 505 0066 892B      		or r24,r25
+GAS LISTING /tmp/cc9xdd5f.s 			page 10
+
+
+ 506 0068 01F4      		brne .L38
+ 507 006a 6DEF      		ldi r22,lo8(-3)
+ 508 006c 7FEF      		ldi r23,lo8(-1)
+ 509 006e CE01      		movw r24,r28
+ 510 0070 0E94 0000 		call lua_settop
+ 511 0074 00C0      		rjmp .L35
+ 512               	.L38:
+ 513 0076 81E0      		ldi r24,lo8(1)
+ 514 0078 90E0      		ldi r25,0
+ 515               	.L36:
+ 516               	/* epilogue start */
+ 517 007a DF91      		pop r29
+ 518 007c CF91      		pop r28
+ 519 007e 0895      		ret
+ 520               		.size	foreach, .-foreach
+ 521               		.section	.rodata.str1.1
+ 522               	.LC2:
+ 523 0039 696E 7661 		.string	"invalid value (%s) at index %d in table for 'concat'"
+ 523      6C69 6420 
+ 523      7661 6C75 
+ 523      6520 2825 
+ 523      7329 2061 
+ 524               		.section	.text.addfield,"ax",@progbits
+ 525               		.type	addfield, @function
+ 526               	addfield:
+ 527 0000 EF92      		push r14
+ 528 0002 FF92      		push r15
+ 529 0004 0F93      		push r16
+ 530 0006 1F93      		push r17
+ 531 0008 CF93      		push r28
+ 532 000a DF93      		push r29
+ 533               	/* prologue: function */
+ 534               	/* frame size = 0 */
+ 535               	/* stack size = 6 */
+ 536               	.L__stack_usage = 6
+ 537 000c EC01      		movw r28,r24
+ 538 000e 7B01      		movw r14,r22
+ 539 0010 142F      		mov r17,r20
+ 540 0012 052F      		mov r16,r21
+ 541 0014 61E0      		ldi r22,lo8(1)
+ 542 0016 70E0      		ldi r23,0
+ 543 0018 0E94 0000 		call lua_rawgeti
+ 544 001c 6FEF      		ldi r22,lo8(-1)
+ 545 001e 7FEF      		ldi r23,lo8(-1)
+ 546 0020 CE01      		movw r24,r28
+ 547 0022 0E94 0000 		call lua_isstring
+ 548 0026 892B      		or r24,r25
+ 549 0028 01F4      		brne .L40
+ 550 002a 6FEF      		ldi r22,lo8(-1)
+ 551 002c 7FEF      		ldi r23,lo8(-1)
+ 552 002e CE01      		movw r24,r28
+ 553 0030 0E94 0000 		call lua_type
+ 554 0034 BC01      		movw r22,r24
+ 555 0036 CE01      		movw r24,r28
+ 556 0038 0E94 0000 		call lua_typename
+ 557 003c 0F93      		push r16
+ 558 003e 1F93      		push r17
+GAS LISTING /tmp/cc9xdd5f.s 			page 11
+
+
+ 559 0040 9F93      		push r25
+ 560 0042 8F93      		push r24
+ 561 0044 80E0      		ldi r24,lo8(.LC2)
+ 562 0046 90E0      		ldi r25,hi8(.LC2)
+ 563 0048 9F93      		push r25
+ 564 004a 8F93      		push r24
+ 565 004c DF93      		push r29
+ 566 004e CF93      		push r28
+ 567 0050 0E94 0000 		call luaL_error
+ 568 0054 8DB7      		in r24,__SP_L__
+ 569 0056 9EB7      		in r25,__SP_H__
+ 570 0058 0896      		adiw r24,8
+ 571 005a 0FB6      		in __tmp_reg__,__SREG__
+ 572 005c F894      		cli
+ 573 005e 9EBF      		out __SP_H__,r25
+ 574 0060 0FBE      		out __SREG__,__tmp_reg__
+ 575 0062 8DBF      		out __SP_L__,r24
+ 576               	.L40:
+ 577 0064 C701      		movw r24,r14
+ 578               	/* epilogue start */
+ 579 0066 DF91      		pop r29
+ 580 0068 CF91      		pop r28
+ 581 006a 1F91      		pop r17
+ 582 006c 0F91      		pop r16
+ 583 006e FF90      		pop r15
+ 584 0070 EF90      		pop r14
+ 585 0072 0C94 0000 		jmp luaL_addvalue
+ 586               		.size	addfield, .-addfield
+ 587               		.section	.rodata.str1.1
+ 588               	.LC3:
+ 589 006e 00        		.string	""
+ 590               		.section	.text.tconcat,"ax",@progbits
+ 591               		.type	tconcat, @function
+ 592               	tconcat:
+ 593 0000 AF92      		push r10
+ 594 0002 BF92      		push r11
+ 595 0004 CF92      		push r12
+ 596 0006 DF92      		push r13
+ 597 0008 EF92      		push r14
+ 598 000a FF92      		push r15
+ 599 000c 0F93      		push r16
+ 600 000e 1F93      		push r17
+ 601 0010 CF93      		push r28
+ 602 0012 DF93      		push r29
+ 603 0014 CDB7      		in r28,__SP_L__
+ 604 0016 DEB7      		in r29,__SP_H__
+ 605 0018 C850      		subi r28,8
+ 606 001a D440      		sbci r29,4
+ 607 001c 0FB6      		in __tmp_reg__,__SREG__
+ 608 001e F894      		cli
+ 609 0020 DEBF      		out __SP_H__,r29
+ 610 0022 0FBE      		out __SREG__,__tmp_reg__
+ 611 0024 CDBF      		out __SP_L__,r28
+ 612               	/* prologue: function */
+ 613               	/* frame size = 1032 */
+ 614               	/* stack size = 1042 */
+ 615               	.L__stack_usage = 1042
+GAS LISTING /tmp/cc9xdd5f.s 			page 12
+
+
+ 616 0026 8C01      		movw r16,r24
+ 617 0028 9E01      		movw r18,r28
+ 618 002a 295F      		subi r18,-7
+ 619 002c 3B4F      		sbci r19,-5
+ 620 002e 40E0      		ldi r20,lo8(.LC3)
+ 621 0030 50E0      		ldi r21,hi8(.LC3)
+ 622 0032 62E0      		ldi r22,lo8(2)
+ 623 0034 70E0      		ldi r23,0
+ 624 0036 0E94 0000 		call luaL_optlstring
+ 625 003a 5C01      		movw r10,r24
+ 626 003c 47E0      		ldi r20,lo8(7)
+ 627 003e 50E0      		ldi r21,0
+ 628 0040 61E0      		ldi r22,lo8(1)
+ 629 0042 70E0      		ldi r23,0
+ 630 0044 C801      		movw r24,r16
+ 631 0046 0E94 0000 		call luaL_checktype
+ 632 004a 41E0      		ldi r20,lo8(1)
+ 633 004c 50E0      		ldi r21,0
+ 634 004e 63E0      		ldi r22,lo8(3)
+ 635 0050 70E0      		ldi r23,0
+ 636 0052 C801      		movw r24,r16
+ 637 0054 0E94 0000 		call luaL_optinteger
+ 638 0058 7C01      		movw r14,r24
+ 639 005a 64E0      		ldi r22,lo8(4)
+ 640 005c 70E0      		ldi r23,0
+ 641 005e C801      		movw r24,r16
+ 642 0060 0E94 0000 		call lua_type
+ 643 0064 1816      		cp __zero_reg__,r24
+ 644 0066 1906      		cpc __zero_reg__,r25
+ 645 0068 04F0      		brlt .L42
+ 646 006a 61E0      		ldi r22,lo8(1)
+ 647 006c 70E0      		ldi r23,0
+ 648 006e C801      		movw r24,r16
+ 649 0070 0E94 0000 		call lua_objlen
+ 650 0074 00C0      		rjmp .L47
+ 651               	.L42:
+ 652 0076 64E0      		ldi r22,lo8(4)
+ 653 0078 70E0      		ldi r23,0
+ 654 007a C801      		movw r24,r16
+ 655 007c 0E94 0000 		call luaL_checkinteger
+ 656               	.L47:
+ 657 0080 6C01      		movw r12,r24
+ 658 0082 BE01      		movw r22,r28
+ 659 0084 6F5F      		subi r22,-1
+ 660 0086 7F4F      		sbci r23,-1
+ 661 0088 C801      		movw r24,r16
+ 662 008a 0E94 0000 		call luaL_buffinit
+ 663               	.L44:
+ 664 008e EC14      		cp r14,r12
+ 665 0090 FD04      		cpc r15,r13
+ 666 0092 04F4      		brge .L48
+ 667 0094 A701      		movw r20,r14
+ 668 0096 BE01      		movw r22,r28
+ 669 0098 6F5F      		subi r22,-1
+ 670 009a 7F4F      		sbci r23,-1
+ 671 009c C801      		movw r24,r16
+ 672 009e 0E94 0000 		call addfield
+GAS LISTING /tmp/cc9xdd5f.s 			page 13
+
+
+ 673 00a2 C95F      		subi r28,lo8(-1031)
+ 674 00a4 DB4F      		sbci r29,hi8(-1031)
+ 675 00a6 4881      		ld r20,Y
+ 676 00a8 5981      		ldd r21,Y+1
+ 677 00aa C750      		subi r28,lo8(1031)
+ 678 00ac D440      		sbci r29,hi8(1031)
+ 679 00ae B501      		movw r22,r10
+ 680 00b0 CE01      		movw r24,r28
+ 681 00b2 0196      		adiw r24,1
+ 682 00b4 0E94 0000 		call luaL_addlstring
+ 683 00b8 8FEF      		ldi r24,-1
+ 684 00ba E81A      		sub r14,r24
+ 685 00bc F80A      		sbc r15,r24
+ 686 00be 00C0      		rjmp .L44
+ 687               	.L48:
+ 688 00c0 EC14      		cp r14,r12
+ 689 00c2 FD04      		cpc r15,r13
+ 690 00c4 01F4      		brne .L46
+ 691 00c6 A701      		movw r20,r14
+ 692 00c8 BE01      		movw r22,r28
+ 693 00ca 6F5F      		subi r22,-1
+ 694 00cc 7F4F      		sbci r23,-1
+ 695 00ce C801      		movw r24,r16
+ 696 00d0 0E94 0000 		call addfield
+ 697               	.L46:
+ 698 00d4 CE01      		movw r24,r28
+ 699 00d6 0196      		adiw r24,1
+ 700 00d8 0E94 0000 		call luaL_pushresult
+ 701 00dc 81E0      		ldi r24,lo8(1)
+ 702 00de 90E0      		ldi r25,0
+ 703               	/* epilogue start */
+ 704 00e0 C85F      		subi r28,-8
+ 705 00e2 DB4F      		sbci r29,-5
+ 706 00e4 0FB6      		in __tmp_reg__,__SREG__
+ 707 00e6 F894      		cli
+ 708 00e8 DEBF      		out __SP_H__,r29
+ 709 00ea 0FBE      		out __SREG__,__tmp_reg__
+ 710 00ec CDBF      		out __SP_L__,r28
+ 711 00ee DF91      		pop r29
+ 712 00f0 CF91      		pop r28
+ 713 00f2 1F91      		pop r17
+ 714 00f4 0F91      		pop r16
+ 715 00f6 FF90      		pop r15
+ 716 00f8 EF90      		pop r14
+ 717 00fa DF90      		pop r13
+ 718 00fc CF90      		pop r12
+ 719 00fe BF90      		pop r11
+ 720 0100 AF90      		pop r10
+ 721 0102 0895      		ret
+ 722               		.size	tconcat, .-tconcat
+ 723               		.section	.text.sort_comp,"ax",@progbits
+ 724               		.type	sort_comp, @function
+ 725               	sort_comp:
+ 726 0000 EF92      		push r14
+ 727 0002 FF92      		push r15
+ 728 0004 0F93      		push r16
+ 729 0006 1F93      		push r17
+GAS LISTING /tmp/cc9xdd5f.s 			page 14
+
+
+ 730 0008 CF93      		push r28
+ 731 000a DF93      		push r29
+ 732               	/* prologue: function */
+ 733               	/* frame size = 0 */
+ 734               	/* stack size = 6 */
+ 735               	.L__stack_usage = 6
+ 736 000c EC01      		movw r28,r24
+ 737 000e 8B01      		movw r16,r22
+ 738 0010 7A01      		movw r14,r20
+ 739 0012 62E0      		ldi r22,lo8(2)
+ 740 0014 70E0      		ldi r23,0
+ 741 0016 0E94 0000 		call lua_type
+ 742 001a 892B      		or r24,r25
+ 743 001c 01F4      		brne .L53
+ 744 001e A701      		movw r20,r14
+ 745 0020 B801      		movw r22,r16
+ 746 0022 CE01      		movw r24,r28
+ 747               	/* epilogue start */
+ 748 0024 DF91      		pop r29
+ 749 0026 CF91      		pop r28
+ 750 0028 1F91      		pop r17
+ 751 002a 0F91      		pop r16
+ 752 002c FF90      		pop r15
+ 753 002e EF90      		pop r14
+ 754 0030 0C94 0000 		jmp lua_lessthan
+ 755               	.L53:
+ 756 0034 62E0      		ldi r22,lo8(2)
+ 757 0036 70E0      		ldi r23,0
+ 758 0038 CE01      		movw r24,r28
+ 759 003a 0E94 0000 		call lua_pushvalue
+ 760 003e B801      		movw r22,r16
+ 761 0040 6150      		subi r22,1
+ 762 0042 7109      		sbc r23,__zero_reg__
+ 763 0044 CE01      		movw r24,r28
+ 764 0046 0E94 0000 		call lua_pushvalue
+ 765 004a B701      		movw r22,r14
+ 766 004c 6250      		subi r22,2
+ 767 004e 7109      		sbc r23,__zero_reg__
+ 768 0050 CE01      		movw r24,r28
+ 769 0052 0E94 0000 		call lua_pushvalue
+ 770 0056 41E0      		ldi r20,lo8(1)
+ 771 0058 50E0      		ldi r21,0
+ 772 005a 62E0      		ldi r22,lo8(2)
+ 773 005c 70E0      		ldi r23,0
+ 774 005e CE01      		movw r24,r28
+ 775 0060 0E94 0000 		call lua_call
+ 776 0064 6FEF      		ldi r22,lo8(-1)
+ 777 0066 7FEF      		ldi r23,lo8(-1)
+ 778 0068 CE01      		movw r24,r28
+ 779 006a 0E94 0000 		call lua_toboolean
+ 780 006e 8C01      		movw r16,r24
+ 781 0070 6EEF      		ldi r22,lo8(-2)
+ 782 0072 7FEF      		ldi r23,lo8(-1)
+ 783 0074 CE01      		movw r24,r28
+ 784 0076 0E94 0000 		call lua_settop
+ 785 007a C801      		movw r24,r16
+ 786               	/* epilogue start */
+GAS LISTING /tmp/cc9xdd5f.s 			page 15
+
+
+ 787 007c DF91      		pop r29
+ 788 007e CF91      		pop r28
+ 789 0080 1F91      		pop r17
+ 790 0082 0F91      		pop r16
+ 791 0084 FF90      		pop r15
+ 792 0086 EF90      		pop r14
+ 793 0088 0895      		ret
+ 794               		.size	sort_comp, .-sort_comp
+ 795               		.section	.rodata.str1.1
+ 796               	.LC4:
+ 797 006f 696E 7661 		.string	"invalid order function for sorting"
+ 797      6C69 6420 
+ 797      6F72 6465 
+ 797      7220 6675 
+ 797      6E63 7469 
+ 798               		.section	.text.auxsort,"ax",@progbits
+ 799               		.type	auxsort, @function
+ 800               	auxsort:
+ 801 0000 4F92      		push r4
+ 802 0002 5F92      		push r5
+ 803 0004 6F92      		push r6
+ 804 0006 7F92      		push r7
+ 805 0008 8F92      		push r8
+ 806 000a 9F92      		push r9
+ 807 000c AF92      		push r10
+ 808 000e BF92      		push r11
+ 809 0010 CF92      		push r12
+ 810 0012 DF92      		push r13
+ 811 0014 EF92      		push r14
+ 812 0016 FF92      		push r15
+ 813 0018 0F93      		push r16
+ 814 001a 1F93      		push r17
+ 815 001c CF93      		push r28
+ 816 001e DF93      		push r29
+ 817               	/* prologue: function */
+ 818               	/* frame size = 0 */
+ 819               	/* stack size = 16 */
+ 820               	.L__stack_usage = 16
+ 821 0020 582E      		mov r5,r24
+ 822 0022 492E      		mov r4,r25
+ 823 0024 8B01      		movw r16,r22
+ 824 0026 EA01      		movw r28,r20
+ 825 0028 90E0      		ldi r25,lo8(.LC4)
+ 826 002a 692E      		mov r6,r25
+ 827 002c 90E0      		ldi r25,hi8(.LC4)
+ 828 002e 792E      		mov r7,r25
+ 829               	.L55:
+ 830 0030 0C17      		cp r16,r28
+ 831 0032 1D07      		cpc r17,r29
+ 832 0034 04F0      		brlt .+2
+ 833 0036 00C0      		rjmp .L54
+ 834 0038 A801      		movw r20,r16
+ 835 003a 61E0      		ldi r22,lo8(1)
+ 836 003c 70E0      		ldi r23,0
+ 837 003e 852D      		mov r24,r5
+ 838 0040 942D      		mov r25,r4
+ 839 0042 0E94 0000 		call lua_rawgeti
+GAS LISTING /tmp/cc9xdd5f.s 			page 16
+
+
+ 840 0046 AE01      		movw r20,r28
+ 841 0048 61E0      		ldi r22,lo8(1)
+ 842 004a 70E0      		ldi r23,0
+ 843 004c 852D      		mov r24,r5
+ 844 004e 942D      		mov r25,r4
+ 845 0050 0E94 0000 		call lua_rawgeti
+ 846 0054 4EEF      		ldi r20,lo8(-2)
+ 847 0056 5FEF      		ldi r21,lo8(-1)
+ 848 0058 6FEF      		ldi r22,lo8(-1)
+ 849 005a 7FEF      		ldi r23,lo8(-1)
+ 850 005c 852D      		mov r24,r5
+ 851 005e 942D      		mov r25,r4
+ 852 0060 0E94 0000 		call sort_comp
+ 853 0064 892B      		or r24,r25
+ 854 0066 01F0      		breq .L56
+ 855 0068 AE01      		movw r20,r28
+ 856 006a B801      		movw r22,r16
+ 857 006c 852D      		mov r24,r5
+ 858 006e 942D      		mov r25,r4
+ 859 0070 0E94 0000 		call set2
+ 860 0074 00C0      		rjmp .L57
+ 861               	.L56:
+ 862 0076 6DEF      		ldi r22,lo8(-3)
+ 863 0078 7FEF      		ldi r23,lo8(-1)
+ 864 007a 852D      		mov r24,r5
+ 865 007c 942D      		mov r25,r4
+ 866 007e 0E94 0000 		call lua_settop
+ 867               	.L57:
+ 868 0082 6E01      		movw r12,r28
+ 869 0084 C01A      		sub r12,r16
+ 870 0086 D10A      		sbc r13,r17
+ 871 0088 81E0      		ldi r24,1
+ 872 008a C816      		cp r12,r24
+ 873 008c D104      		cpc r13,__zero_reg__
+ 874 008e 01F4      		brne .+2
+ 875 0090 00C0      		rjmp .L54
+ 876 0092 7801      		movw r14,r16
+ 877 0094 EC0E      		add r14,r28
+ 878 0096 FD1E      		adc r15,r29
+ 879 0098 F7FE      		sbrs r15,7
+ 880 009a 00C0      		rjmp .L59
+ 881 009c 8FEF      		ldi r24,-1
+ 882 009e E81A      		sub r14,r24
+ 883 00a0 F80A      		sbc r15,r24
+ 884               	.L59:
+ 885 00a2 F594      		asr r15
+ 886 00a4 E794      		ror r14
+ 887 00a6 A701      		movw r20,r14
+ 888 00a8 61E0      		ldi r22,lo8(1)
+ 889 00aa 70E0      		ldi r23,0
+ 890 00ac 852D      		mov r24,r5
+ 891 00ae 942D      		mov r25,r4
+ 892 00b0 0E94 0000 		call lua_rawgeti
+ 893 00b4 A801      		movw r20,r16
+ 894 00b6 61E0      		ldi r22,lo8(1)
+ 895 00b8 70E0      		ldi r23,0
+ 896 00ba 852D      		mov r24,r5
+GAS LISTING /tmp/cc9xdd5f.s 			page 17
+
+
+ 897 00bc 942D      		mov r25,r4
+ 898 00be 0E94 0000 		call lua_rawgeti
+ 899 00c2 4FEF      		ldi r20,lo8(-1)
+ 900 00c4 5FEF      		ldi r21,lo8(-1)
+ 901 00c6 6EEF      		ldi r22,lo8(-2)
+ 902 00c8 7FEF      		ldi r23,lo8(-1)
+ 903 00ca 852D      		mov r24,r5
+ 904 00cc 942D      		mov r25,r4
+ 905 00ce 0E94 0000 		call sort_comp
+ 906 00d2 892B      		or r24,r25
+ 907 00d4 01F0      		breq .L60
+ 908 00d6 A801      		movw r20,r16
+ 909 00d8 00C0      		rjmp .L80
+ 910               	.L60:
+ 911 00da 6EEF      		ldi r22,lo8(-2)
+ 912 00dc 7FEF      		ldi r23,lo8(-1)
+ 913 00de 852D      		mov r24,r5
+ 914 00e0 942D      		mov r25,r4
+ 915 00e2 0E94 0000 		call lua_settop
+ 916 00e6 AE01      		movw r20,r28
+ 917 00e8 61E0      		ldi r22,lo8(1)
+ 918 00ea 70E0      		ldi r23,0
+ 919 00ec 852D      		mov r24,r5
+ 920 00ee 942D      		mov r25,r4
+ 921 00f0 0E94 0000 		call lua_rawgeti
+ 922 00f4 4EEF      		ldi r20,lo8(-2)
+ 923 00f6 5FEF      		ldi r21,lo8(-1)
+ 924 00f8 6FEF      		ldi r22,lo8(-1)
+ 925 00fa 7FEF      		ldi r23,lo8(-1)
+ 926 00fc 852D      		mov r24,r5
+ 927 00fe 942D      		mov r25,r4
+ 928 0100 0E94 0000 		call sort_comp
+ 929 0104 892B      		or r24,r25
+ 930 0106 01F0      		breq .L62
+ 931 0108 AE01      		movw r20,r28
+ 932               	.L80:
+ 933 010a B701      		movw r22,r14
+ 934 010c 852D      		mov r24,r5
+ 935 010e 942D      		mov r25,r4
+ 936 0110 0E94 0000 		call set2
+ 937 0114 00C0      		rjmp .L61
+ 938               	.L62:
+ 939 0116 6DEF      		ldi r22,lo8(-3)
+ 940 0118 7FEF      		ldi r23,lo8(-1)
+ 941 011a 852D      		mov r24,r5
+ 942 011c 942D      		mov r25,r4
+ 943 011e 0E94 0000 		call lua_settop
+ 944               	.L61:
+ 945 0122 82E0      		ldi r24,2
+ 946 0124 C816      		cp r12,r24
+ 947 0126 D104      		cpc r13,__zero_reg__
+ 948 0128 01F4      		brne .+2
+ 949 012a 00C0      		rjmp .L54
+ 950 012c A701      		movw r20,r14
+ 951 012e 61E0      		ldi r22,lo8(1)
+ 952 0130 70E0      		ldi r23,0
+ 953 0132 852D      		mov r24,r5
+GAS LISTING /tmp/cc9xdd5f.s 			page 18
+
+
+ 954 0134 942D      		mov r25,r4
+ 955 0136 0E94 0000 		call lua_rawgeti
+ 956 013a 6FEF      		ldi r22,lo8(-1)
+ 957 013c 7FEF      		ldi r23,lo8(-1)
+ 958 013e 852D      		mov r24,r5
+ 959 0140 942D      		mov r25,r4
+ 960 0142 0E94 0000 		call lua_pushvalue
+ 961 0146 4E01      		movw r8,r28
+ 962 0148 81E0      		ldi r24,1
+ 963 014a 881A      		sub r8,r24
+ 964 014c 9108      		sbc r9,__zero_reg__
+ 965 014e A401      		movw r20,r8
+ 966 0150 61E0      		ldi r22,lo8(1)
+ 967 0152 70E0      		ldi r23,0
+ 968 0154 852D      		mov r24,r5
+ 969 0156 942D      		mov r25,r4
+ 970 0158 0E94 0000 		call lua_rawgeti
+ 971 015c A401      		movw r20,r8
+ 972 015e B701      		movw r22,r14
+ 973 0160 852D      		mov r24,r5
+ 974 0162 942D      		mov r25,r4
+ 975 0164 0E94 0000 		call set2
+ 976 0168 5401      		movw r10,r8
+ 977 016a 6801      		movw r12,r16
+ 978               	.L64:
+ 979 016c 7601      		movw r14,r12
+ 980 016e 8FEF      		ldi r24,-1
+ 981 0170 E81A      		sub r14,r24
+ 982 0172 F80A      		sbc r15,r24
+ 983 0174 A701      		movw r20,r14
+ 984 0176 61E0      		ldi r22,lo8(1)
+ 985 0178 70E0      		ldi r23,0
+ 986 017a 852D      		mov r24,r5
+ 987 017c 942D      		mov r25,r4
+ 988 017e 0E94 0000 		call lua_rawgeti
+ 989 0182 4EEF      		ldi r20,lo8(-2)
+ 990 0184 5FEF      		ldi r21,lo8(-1)
+ 991 0186 6FEF      		ldi r22,lo8(-1)
+ 992 0188 7FEF      		ldi r23,lo8(-1)
+ 993 018a 852D      		mov r24,r5
+ 994 018c 942D      		mov r25,r4
+ 995 018e 0E94 0000 		call sort_comp
+ 996 0192 892B      		or r24,r25
+ 997 0194 01F0      		breq .L67
+ 998 0196 CE15      		cp r28,r14
+ 999 0198 DF05      		cpc r29,r15
+ 1000 019a 04F4      		brge .L65
+ 1001 019c 7F92      		push r7
+ 1002 019e 6F92      		push r6
+ 1003 01a0 4F92      		push r4
+ 1004 01a2 5F92      		push r5
+ 1005 01a4 0E94 0000 		call luaL_error
+ 1006 01a8 0F90      		pop __tmp_reg__
+ 1007 01aa 0F90      		pop __tmp_reg__
+ 1008 01ac 0F90      		pop __tmp_reg__
+ 1009 01ae 0F90      		pop __tmp_reg__
+ 1010               	.L65:
+GAS LISTING /tmp/cc9xdd5f.s 			page 19
+
+
+ 1011 01b0 6EEF      		ldi r22,lo8(-2)
+ 1012 01b2 7FEF      		ldi r23,lo8(-1)
+ 1013 01b4 852D      		mov r24,r5
+ 1014 01b6 942D      		mov r25,r4
+ 1015 01b8 0E94 0000 		call lua_settop
+ 1016               	.L73:
+ 1017 01bc 6701      		movw r12,r14
+ 1018 01be 00C0      		rjmp .L64
+ 1019               	.L69:
+ 1020 01c0 A016      		cp r10,r16
+ 1021 01c2 B106      		cpc r11,r17
+ 1022 01c4 04F4      		brge .L68
+ 1023 01c6 7F92      		push r7
+ 1024 01c8 6F92      		push r6
+ 1025 01ca 4F92      		push r4
+ 1026 01cc 5F92      		push r5
+ 1027 01ce 0E94 0000 		call luaL_error
+ 1028 01d2 0F90      		pop __tmp_reg__
+ 1029 01d4 0F90      		pop __tmp_reg__
+ 1030 01d6 0F90      		pop __tmp_reg__
+ 1031 01d8 0F90      		pop __tmp_reg__
+ 1032               	.L68:
+ 1033 01da 6EEF      		ldi r22,lo8(-2)
+ 1034 01dc 7FEF      		ldi r23,lo8(-1)
+ 1035 01de 852D      		mov r24,r5
+ 1036 01e0 942D      		mov r25,r4
+ 1037 01e2 0E94 0000 		call lua_settop
+ 1038               	.L67:
+ 1039 01e6 81E0      		ldi r24,1
+ 1040 01e8 A81A      		sub r10,r24
+ 1041 01ea B108      		sbc r11,__zero_reg__
+ 1042 01ec A501      		movw r20,r10
+ 1043 01ee 61E0      		ldi r22,lo8(1)
+ 1044 01f0 70E0      		ldi r23,0
+ 1045 01f2 852D      		mov r24,r5
+ 1046 01f4 942D      		mov r25,r4
+ 1047 01f6 0E94 0000 		call lua_rawgeti
+ 1048 01fa 4FEF      		ldi r20,lo8(-1)
+ 1049 01fc 5FEF      		ldi r21,lo8(-1)
+ 1050 01fe 6DEF      		ldi r22,lo8(-3)
+ 1051 0200 7FEF      		ldi r23,lo8(-1)
+ 1052 0202 852D      		mov r24,r5
+ 1053 0204 942D      		mov r25,r4
+ 1054 0206 0E94 0000 		call sort_comp
+ 1055 020a 892B      		or r24,r25
+ 1056 020c 01F4      		brne .L69
+ 1057 020e AE14      		cp r10,r14
+ 1058 0210 BF04      		cpc r11,r15
+ 1059 0212 04F4      		brge .L70
+ 1060 0214 6CEF      		ldi r22,lo8(-4)
+ 1061 0216 7FEF      		ldi r23,lo8(-1)
+ 1062 0218 852D      		mov r24,r5
+ 1063 021a 942D      		mov r25,r4
+ 1064 021c 0E94 0000 		call lua_settop
+ 1065 0220 A401      		movw r20,r8
+ 1066 0222 61E0      		ldi r22,lo8(1)
+ 1067 0224 70E0      		ldi r23,0
+GAS LISTING /tmp/cc9xdd5f.s 			page 20
+
+
+ 1068 0226 852D      		mov r24,r5
+ 1069 0228 942D      		mov r25,r4
+ 1070 022a 0E94 0000 		call lua_rawgeti
+ 1071 022e A701      		movw r20,r14
+ 1072 0230 61E0      		ldi r22,lo8(1)
+ 1073 0232 70E0      		ldi r23,0
+ 1074 0234 852D      		mov r24,r5
+ 1075 0236 942D      		mov r25,r4
+ 1076 0238 0E94 0000 		call lua_rawgeti
+ 1077 023c A701      		movw r20,r14
+ 1078 023e B401      		movw r22,r8
+ 1079 0240 852D      		mov r24,r5
+ 1080 0242 942D      		mov r25,r4
+ 1081 0244 0E94 0000 		call set2
+ 1082 0248 A701      		movw r20,r14
+ 1083 024a 401B      		sub r20,r16
+ 1084 024c 510B      		sbc r21,r17
+ 1085 024e 9E01      		movw r18,r28
+ 1086 0250 2E19      		sub r18,r14
+ 1087 0252 3F09      		sbc r19,r15
+ 1088 0254 C601      		movw r24,r12
+ 1089 0256 0296      		adiw r24,2
+ 1090 0258 4217      		cp r20,r18
+ 1091 025a 5307      		cpc r21,r19
+ 1092 025c 04F4      		brge .L81
+ 1093 025e B801      		movw r22,r16
+ 1094 0260 A601      		movw r20,r12
+ 1095 0262 8C01      		movw r16,r24
+ 1096 0264 00C0      		rjmp .L74
+ 1097               	.L70:
+ 1098 0266 A501      		movw r20,r10
+ 1099 0268 B701      		movw r22,r14
+ 1100 026a 852D      		mov r24,r5
+ 1101 026c 942D      		mov r25,r4
+ 1102 026e 0E94 0000 		call set2
+ 1103 0272 00C0      		rjmp .L73
+ 1104               	.L81:
+ 1105 0274 BC01      		movw r22,r24
+ 1106 0276 AE01      		movw r20,r28
+ 1107 0278 E601      		movw r28,r12
+ 1108               	.L74:
+ 1109 027a 852D      		mov r24,r5
+ 1110 027c 942D      		mov r25,r4
+ 1111 027e 0E94 0000 		call auxsort
+ 1112 0282 00C0      		rjmp .L55
+ 1113               	.L54:
+ 1114               	/* epilogue start */
+ 1115 0284 DF91      		pop r29
+ 1116 0286 CF91      		pop r28
+ 1117 0288 1F91      		pop r17
+ 1118 028a 0F91      		pop r16
+ 1119 028c FF90      		pop r15
+ 1120 028e EF90      		pop r14
+ 1121 0290 DF90      		pop r13
+ 1122 0292 CF90      		pop r12
+ 1123 0294 BF90      		pop r11
+ 1124 0296 AF90      		pop r10
+GAS LISTING /tmp/cc9xdd5f.s 			page 21
+
+
+ 1125 0298 9F90      		pop r9
+ 1126 029a 8F90      		pop r8
+ 1127 029c 7F90      		pop r7
+ 1128 029e 6F90      		pop r6
+ 1129 02a0 5F90      		pop r5
+ 1130 02a2 4F90      		pop r4
+ 1131 02a4 0895      		ret
+ 1132               		.size	auxsort, .-auxsort
+ 1133               		.section	.text.sort,"ax",@progbits
+ 1134               		.type	sort, @function
+ 1135               	sort:
+ 1136 0000 0F93      		push r16
+ 1137 0002 1F93      		push r17
+ 1138 0004 CF93      		push r28
+ 1139 0006 DF93      		push r29
+ 1140               	/* prologue: function */
+ 1141               	/* frame size = 0 */
+ 1142               	/* stack size = 4 */
+ 1143               	.L__stack_usage = 4
+ 1144 0008 EC01      		movw r28,r24
+ 1145 000a 47E0      		ldi r20,lo8(7)
+ 1146 000c 50E0      		ldi r21,0
+ 1147 000e 61E0      		ldi r22,lo8(1)
+ 1148 0010 70E0      		ldi r23,0
+ 1149 0012 0E94 0000 		call luaL_checktype
+ 1150 0016 61E0      		ldi r22,lo8(1)
+ 1151 0018 70E0      		ldi r23,0
+ 1152 001a CE01      		movw r24,r28
+ 1153 001c 0E94 0000 		call lua_objlen
+ 1154 0020 8C01      		movw r16,r24
+ 1155 0022 40E0      		ldi r20,lo8(.LC3)
+ 1156 0024 50E0      		ldi r21,hi8(.LC3)
+ 1157 0026 68E2      		ldi r22,lo8(40)
+ 1158 0028 70E0      		ldi r23,0
+ 1159 002a CE01      		movw r24,r28
+ 1160 002c 0E94 0000 		call luaL_checkstack
+ 1161 0030 62E0      		ldi r22,lo8(2)
+ 1162 0032 70E0      		ldi r23,0
+ 1163 0034 CE01      		movw r24,r28
+ 1164 0036 0E94 0000 		call lua_type
+ 1165 003a 1816      		cp __zero_reg__,r24
+ 1166 003c 1906      		cpc __zero_reg__,r25
+ 1167 003e 04F4      		brge .L83
+ 1168 0040 48E0      		ldi r20,lo8(8)
+ 1169 0042 50E0      		ldi r21,0
+ 1170 0044 62E0      		ldi r22,lo8(2)
+ 1171 0046 70E0      		ldi r23,0
+ 1172 0048 CE01      		movw r24,r28
+ 1173 004a 0E94 0000 		call luaL_checktype
+ 1174               	.L83:
+ 1175 004e 62E0      		ldi r22,lo8(2)
+ 1176 0050 70E0      		ldi r23,0
+ 1177 0052 CE01      		movw r24,r28
+ 1178 0054 0E94 0000 		call lua_settop
+ 1179 0058 A801      		movw r20,r16
+ 1180 005a 61E0      		ldi r22,lo8(1)
+ 1181 005c 70E0      		ldi r23,0
+GAS LISTING /tmp/cc9xdd5f.s 			page 22
+
+
+ 1182 005e CE01      		movw r24,r28
+ 1183 0060 0E94 0000 		call auxsort
+ 1184 0064 80E0      		ldi r24,0
+ 1185 0066 90E0      		ldi r25,0
+ 1186               	/* epilogue start */
+ 1187 0068 DF91      		pop r29
+ 1188 006a CF91      		pop r28
+ 1189 006c 1F91      		pop r17
+ 1190 006e 0F91      		pop r16
+ 1191 0070 0895      		ret
+ 1192               		.size	sort, .-sort
+ 1193               		.section	.rodata.str1.1
+ 1194               	.LC5:
+ 1195 0092 7461 626C 		.string	"table"
+ 1195      6500 
+ 1196               		.section	.text.luaopen_table,"ax",@progbits
+ 1197               	.global	luaopen_table
+ 1198               		.type	luaopen_table, @function
+ 1199               	luaopen_table:
+ 1200               	/* prologue: function */
+ 1201               	/* frame size = 0 */
+ 1202               	/* stack size = 0 */
+ 1203               	.L__stack_usage = 0
+ 1204 0000 40E0      		ldi r20,lo8(tab_funcs)
+ 1205 0002 50E0      		ldi r21,hi8(tab_funcs)
+ 1206 0004 60E0      		ldi r22,lo8(.LC5)
+ 1207 0006 70E0      		ldi r23,hi8(.LC5)
+ 1208 0008 0E94 0000 		call luaL_register
+ 1209 000c 81E0      		ldi r24,lo8(1)
+ 1210 000e 90E0      		ldi r25,0
+ 1211 0010 0895      		ret
+ 1212               		.size	luaopen_table, .-luaopen_table
+ 1213               	.global	tab_funcs
+ 1214               		.section	.rodata.str1.1
+ 1215               	.LC6:
+ 1216 0098 636F 6E63 		.string	"concat"
+ 1216      6174 00
+ 1217               	.LC7:
+ 1218 009f 666F 7265 		.string	"foreach"
+ 1218      6163 6800 
+ 1219               	.LC8:
+ 1220 00a7 666F 7265 		.string	"foreachi"
+ 1220      6163 6869 
+ 1220      00
+ 1221               	.LC9:
+ 1222 00b0 6765 746E 		.string	"getn"
+ 1222      00
+ 1223               	.LC10:
+ 1224 00b5 6D61 786E 		.string	"maxn"
+ 1224      00
+ 1225               	.LC11:
+ 1226 00ba 696E 7365 		.string	"insert"
+ 1226      7274 00
+ 1227               	.LC12:
+ 1228 00c1 7265 6D6F 		.string	"remove"
+ 1228      7665 00
+ 1229               	.LC13:
+GAS LISTING /tmp/cc9xdd5f.s 			page 23
+
+
+ 1230 00c8 7365 746E 		.string	"setn"
+ 1230      00
+ 1231               	.LC14:
+ 1232 00cd 736F 7274 		.string	"sort"
+ 1232      00
+ 1233               		.section	.rodata
+ 1234               		.type	tab_funcs, @object
+ 1235               		.size	tab_funcs, 40
+ 1236               	tab_funcs:
+ 1237 0000 0000      		.word	.LC6
+ 1238 0002 0000      		.word	gs(tconcat)
+ 1239 0004 0000      		.word	.LC7
+ 1240 0006 0000      		.word	gs(foreach)
+ 1241 0008 0000      		.word	.LC8
+ 1242 000a 0000      		.word	gs(foreachi)
+ 1243 000c 0000      		.word	.LC9
+ 1244 000e 0000      		.word	gs(getn)
+ 1245 0010 0000      		.word	.LC10
+ 1246 0012 0000      		.word	gs(maxn)
+ 1247 0014 0000      		.word	.LC11
+ 1248 0016 0000      		.word	gs(tinsert)
+ 1249 0018 0000      		.word	.LC12
+ 1250 001a 0000      		.word	gs(tremove)
+ 1251 001c 0000      		.word	.LC13
+ 1252 001e 0000      		.word	gs(setn)
+ 1253 0020 0000      		.word	.LC14
+ 1254 0022 0000      		.word	gs(sort)
+ 1255 0024 0000      		.word	0
+ 1256 0026 0000      		.word	0
+ 1257               		.ident	"GCC: (GNU) 5.3.0"
+ 1258               	.global __do_copy_data
+GAS LISTING /tmp/cc9xdd5f.s 			page 24
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 ltablib.c
+     /tmp/cc9xdd5f.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cc9xdd5f.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cc9xdd5f.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cc9xdd5f.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cc9xdd5f.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cc9xdd5f.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cc9xdd5f.s:13     .text.setn:0000000000000000 setn
+     /tmp/cc9xdd5f.s:52     .text.set2:0000000000000000 set2
+     /tmp/cc9xdd5f.s:80     .text.tremove:0000000000000000 tremove
+     /tmp/cc9xdd5f.s:172    .text.tinsert:0000000000000000 tinsert
+     /tmp/cc9xdd5f.s:277    .text.maxn:0000000000000000 maxn
+     /tmp/cc9xdd5f.s:346    .text.getn:0000000000000000 getn
+     /tmp/cc9xdd5f.s:375    .text.foreachi:0000000000000000 foreachi
+     /tmp/cc9xdd5f.s:457    .text.foreach:0000000000000000 foreach
+     /tmp/cc9xdd5f.s:526    .text.addfield:0000000000000000 addfield
+     /tmp/cc9xdd5f.s:592    .text.tconcat:0000000000000000 tconcat
+     /tmp/cc9xdd5f.s:725    .text.sort_comp:0000000000000000 sort_comp
+     /tmp/cc9xdd5f.s:800    .text.auxsort:0000000000000000 auxsort
+     /tmp/cc9xdd5f.s:1135   .text.sort:0000000000000000 sort
+     /tmp/cc9xdd5f.s:1199   .text.luaopen_table:0000000000000000 luaopen_table
+     /tmp/cc9xdd5f.s:1236   .rodata:0000000000000000 tab_funcs
+
+UNDEFINED SYMBOLS
+luaL_checktype
+luaL_error
+lua_pushvalue
+lua_rawseti
+lua_objlen
+luaL_optinteger
+lua_rawgeti
+lua_pushnil
+lua_gettop
+luaL_checkinteger
+lua_next
+lua_settop
+lua_type
+lua_tonumber
+lua_pushnumber
+lua_pushinteger
+luaL_checkanyfunction
+lua_call
+lua_isstring
+lua_typename
+luaL_addvalue
+luaL_optlstring
+luaL_buffinit
+luaL_addlstring
+luaL_pushresult
+lua_lessthan
+lua_toboolean
+luaL_checkstack
+luaL_register
+__do_copy_data

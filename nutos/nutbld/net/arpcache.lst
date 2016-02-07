@@ -1,0 +1,585 @@
+GAS LISTING /tmp/cc0RJeUx.s 			page 1
+
+
+   1               		.file	"arpcache.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.ArpCacheFlush,"ax",@progbits
+   9               		.type	ArpCacheFlush, @function
+  10               	ArpCacheFlush:
+  11 0000 0F93      		push r16
+  12 0002 1F93      		push r17
+  13 0004 CF93      		push r28
+  14 0006 DF93      		push r29
+  15               	/* prologue: function */
+  16               	/* frame size = 0 */
+  17               	/* stack size = 4 */
+  18               	.L__stack_usage = 4
+  19 0008 FC01      		movw r30,r24
+  20 000a C38D      		ldd r28,Z+27
+  21 000c D48D      		ldd r29,Z+28
+  22 000e 8C01      		movw r16,r24
+  23 0010 055E      		subi r16,-27
+  24 0012 1F4F      		sbci r17,-1
+  25               	.L2:
+  26 0014 2097      		sbiw r28,0
+  27 0016 01F0      		breq .L7
+  28 0018 8C85      		ldd r24,Y+12
+  29 001a 80FF      		sbrs r24,0
+  30 001c 00C0      		rjmp .L3
+  31 001e CE01      		movw r24,r28
+  32 0020 0E96      		adiw r24,14
+  33 0022 0E94 0000 		call NutEventBroadcastAsync
+  34 0026 8881      		ld r24,Y
+  35 0028 9981      		ldd r25,Y+1
+  36 002a F801      		movw r30,r16
+  37 002c 9183      		std Z+1,r25
+  38 002e 8083      		st Z,r24
+  39 0030 CE01      		movw r24,r28
+  40 0032 0E94 0000 		call free
+  41 0036 F801      		movw r30,r16
+  42 0038 C081      		ld r28,Z
+  43 003a D181      		ldd r29,Z+1
+  44 003c 00C0      		rjmp .L2
+  45               	.L3:
+  46 003e 8E01      		movw r16,r28
+  47 0040 0990      		ld __tmp_reg__,Y+
+  48 0042 D881      		ld r29,Y
+  49 0044 C02D      		mov r28,__tmp_reg__
+  50 0046 00C0      		rjmp .L2
+  51               	.L7:
+  52               	/* epilogue start */
+  53 0048 DF91      		pop r29
+  54 004a CF91      		pop r28
+  55 004c 1F91      		pop r17
+  56 004e 0F91      		pop r16
+  57 0050 0895      		ret
+GAS LISTING /tmp/cc0RJeUx.s 			page 2
+
+
+  58               		.size	ArpCacheFlush, .-ArpCacheFlush
+  59               		.section	.text.ArpCacheAging,"ax",@progbits
+  60               		.type	ArpCacheAging, @function
+  61               	ArpCacheAging:
+  62 0000 0F93      		push r16
+  63 0002 1F93      		push r17
+  64 0004 CF93      		push r28
+  65 0006 DF93      		push r29
+  66               	/* prologue: function */
+  67               	/* frame size = 0 */
+  68               	/* stack size = 4 */
+  69               	.L__stack_usage = 4
+  70 0008 0E94 0000 		call NutGetSeconds
+  71 000c 0091 0000 		lds r16,last_update.2690
+  72 0010 1091 0000 		lds r17,last_update.2690+1
+  73 0014 2091 0000 		lds r18,last_update.2690+2
+  74 0018 3091 0000 		lds r19,last_update.2690+3
+  75 001c DC01      		movw r26,r24
+  76 001e CB01      		movw r24,r22
+  77 0020 801B      		sub r24,r16
+  78 0022 910B      		sbc r25,r17
+  79 0024 A20B      		sbc r26,r18
+  80 0026 B30B      		sbc r27,r19
+  81 0028 CC97      		sbiw r24,60
+  82 002a A105      		cpc r26,__zero_reg__
+  83 002c B105      		cpc r27,__zero_reg__
+  84 002e 00F0      		brlo .L8
+  85 0030 0E94 0000 		call NutGetSeconds
+  86 0034 6093 0000 		sts last_update.2690,r22
+  87 0038 7093 0000 		sts last_update.2690+1,r23
+  88 003c 8093 0000 		sts last_update.2690+2,r24
+  89 0040 9093 0000 		sts last_update.2690+3,r25
+  90 0044 C091 0000 		lds r28,nutDeviceList
+  91 0048 D091 0000 		lds r29,nutDeviceList+1
+  92               	.L10:
+  93 004c 2097      		sbiw r28,0
+  94 004e 01F0      		breq .L8
+  95 0050 8B85      		ldd r24,Y+11
+  96 0052 8330      		cpi r24,lo8(3)
+  97 0054 01F4      		brne .L12
+  98 0056 8F85      		ldd r24,Y+15
+  99 0058 9889      		ldd r25,Y+16
+ 100 005a 0097      		sbiw r24,0
+ 101 005c 01F0      		breq .L12
+ 102 005e DC01      		movw r26,r24
+ 103 0060 2C91      		ld r18,X
+ 104 0062 2630      		cpi r18,lo8(6)
+ 105 0064 01F4      		brne .L12
+ 106 0066 5B96      		adiw r26,27
+ 107 0068 ED91      		ld r30,X+
+ 108 006a FC91      		ld r31,X
+ 109 006c 5C97      		sbiw r26,27+1
+ 110 006e 30E0      		ldi r19,0
+ 111               	.L14:
+ 112 0070 3097      		sbiw r30,0
+ 113 0072 01F0      		breq .L27
+ 114 0074 2485      		ldd r18,Z+12
+GAS LISTING /tmp/cc0RJeUx.s 			page 3
+
+
+ 115 0076 22FD      		sbrc r18,2
+ 116 0078 00C0      		rjmp .L16
+ 117 007a 4585      		ldd r20,Z+13
+ 118 007c 51E0      		ldi r21,lo8(1)
+ 119 007e 540F      		add r21,r20
+ 120 0080 5587      		std Z+13,r21
+ 121 0082 4930      		cpi r20,lo8(9)
+ 122 0084 00F0      		brlo .L16
+ 123 0086 2160      		ori r18,lo8(1)
+ 124 0088 2487      		std Z+12,r18
+ 125               	.L16:
+ 126 008a 2485      		ldd r18,Z+12
+ 127 008c 322B      		or r19,r18
+ 128 008e 0190      		ld __tmp_reg__,Z+
+ 129 0090 F081      		ld r31,Z
+ 130 0092 E02D      		mov r30,__tmp_reg__
+ 131 0094 00C0      		rjmp .L14
+ 132               	.L27:
+ 133 0096 30FD      		sbrc r19,0
+ 134 0098 0E94 0000 		call ArpCacheFlush
+ 135               	.L12:
+ 136 009c 0990      		ld __tmp_reg__,Y+
+ 137 009e D881      		ld r29,Y
+ 138 00a0 C02D      		mov r28,__tmp_reg__
+ 139 00a2 00C0      		rjmp .L10
+ 140               	.L8:
+ 141               	/* epilogue start */
+ 142 00a4 DF91      		pop r29
+ 143 00a6 CF91      		pop r28
+ 144 00a8 1F91      		pop r17
+ 145 00aa 0F91      		pop r16
+ 146 00ac 0895      		ret
+ 147               		.size	ArpCacheAging, .-ArpCacheAging
+ 148               		.section	.text.NutArpCacheUpdate,"ax",@progbits
+ 149               	.global	NutArpCacheUpdate
+ 150               		.type	NutArpCacheUpdate, @function
+ 151               	NutArpCacheUpdate:
+ 152 0000 EF92      		push r14
+ 153 0002 FF92      		push r15
+ 154 0004 0F93      		push r16
+ 155 0006 1F93      		push r17
+ 156 0008 CF93      		push r28
+ 157 000a DF93      		push r29
+ 158 000c 00D0      		rcall .
+ 159 000e 1F92      		push __zero_reg__
+ 160 0010 CDB7      		in r28,__SP_L__
+ 161 0012 DEB7      		in r29,__SP_H__
+ 162               	/* prologue: function */
+ 163               	/* frame size = 4 */
+ 164               	/* stack size = 10 */
+ 165               	.L__stack_usage = 10
+ 166 0014 7901      		movw r14,r18
+ 167 0016 FC01      		movw r30,r24
+ 168 0018 0785      		ldd r16,Z+15
+ 169 001a 1089      		ldd r17,Z+16
+ 170 001c F801      		movw r30,r16
+ 171 001e 238D      		ldd r18,Z+27
+GAS LISTING /tmp/cc0RJeUx.s 			page 4
+
+
+ 172 0020 348D      		ldd r19,Z+28
+ 173               	.L29:
+ 174 0022 2115      		cp r18,__zero_reg__
+ 175 0024 3105      		cpc r19,__zero_reg__
+ 176 0026 01F0      		breq .L42
+ 177 0028 F901      		movw r30,r18
+ 178 002a 8281      		ldd r24,Z+2
+ 179 002c 9381      		ldd r25,Z+3
+ 180 002e A481      		ldd r26,Z+4
+ 181 0030 B581      		ldd r27,Z+5
+ 182 0032 4817      		cp r20,r24
+ 183 0034 5907      		cpc r21,r25
+ 184 0036 6A07      		cpc r22,r26
+ 185 0038 7B07      		cpc r23,r27
+ 186 003a 01F0      		breq .L30
+ 187 003c 2081      		ld r18,Z
+ 188 003e 3181      		ldd r19,Z+1
+ 189 0040 00C0      		rjmp .L29
+ 190               	.L30:
+ 191 0042 F901      		movw r30,r18
+ 192 0044 8485      		ldd r24,Z+12
+ 193 0046 82FD      		sbrc r24,2
+ 194 0048 00C0      		rjmp .L35
+ 195 004a F901      		movw r30,r18
+ 196 004c 1586      		std Z+13,__zero_reg__
+ 197 004e 96E0      		ldi r25,lo8(6)
+ 198 0050 F701      		movw r30,r14
+ 199 0052 D901      		movw r26,r18
+ 200 0054 1696      		adiw r26,6
+ 201               		0:
+ 202 0056 0190      		ld r0,Z+
+ 203 0058 0D92      		st X+,r0
+ 204 005a 9A95      		dec r25
+ 205 005c 01F4      		brne 0b
+ 206 005e 8260      		ori r24,lo8(2)
+ 207 0060 F901      		movw r30,r18
+ 208 0062 8487      		std Z+12,r24
+ 209               	.L35:
+ 210 0064 C901      		movw r24,r18
+ 211 0066 0E96      		adiw r24,14
+ 212               	/* epilogue start */
+ 213 0068 0F90      		pop __tmp_reg__
+ 214 006a 0F90      		pop __tmp_reg__
+ 215 006c 0F90      		pop __tmp_reg__
+ 216 006e 0F90      		pop __tmp_reg__
+ 217 0070 DF91      		pop r29
+ 218 0072 CF91      		pop r28
+ 219 0074 1F91      		pop r17
+ 220 0076 0F91      		pop r16
+ 221 0078 FF90      		pop r15
+ 222 007a EF90      		pop r14
+ 223 007c 0C94 0000 		jmp NutEventBroadcast
+ 224               	.L42:
+ 225 0080 4983      		std Y+1,r20
+ 226 0082 5A83      		std Y+2,r21
+ 227 0084 6B83      		std Y+3,r22
+ 228 0086 7C83      		std Y+4,r23
+GAS LISTING /tmp/cc0RJeUx.s 			page 5
+
+
+ 229 0088 0E94 0000 		call ArpCacheAging
+ 230 008c 80E1      		ldi r24,lo8(16)
+ 231 008e 90E0      		ldi r25,0
+ 232 0090 0E94 0000 		call malloc
+ 233 0094 9C01      		movw r18,r24
+ 234 0096 4981      		ldd r20,Y+1
+ 235 0098 5A81      		ldd r21,Y+2
+ 236 009a 6B81      		ldd r22,Y+3
+ 237 009c 7C81      		ldd r23,Y+4
+ 238 009e 892B      		or r24,r25
+ 239 00a0 01F0      		breq .L28
+ 240 00a2 80E1      		ldi r24,lo8(16)
+ 241 00a4 F901      		movw r30,r18
+ 242               		0:
+ 243 00a6 1192      		st Z+,__zero_reg__
+ 244 00a8 8A95      		dec r24
+ 245 00aa 01F4      		brne 0b
+ 246 00ac F901      		movw r30,r18
+ 247 00ae 4283      		std Z+2,r20
+ 248 00b0 5383      		std Z+3,r21
+ 249 00b2 6483      		std Z+4,r22
+ 250 00b4 7583      		std Z+5,r23
+ 251 00b6 E114      		cp r14,__zero_reg__
+ 252 00b8 F104      		cpc r15,__zero_reg__
+ 253 00ba 01F0      		breq .L33
+ 254 00bc 86E0      		ldi r24,lo8(6)
+ 255 00be F701      		movw r30,r14
+ 256 00c0 D901      		movw r26,r18
+ 257 00c2 1696      		adiw r26,6
+ 258               		0:
+ 259 00c4 0190      		ld r0,Z+
+ 260 00c6 0D92      		st X+,r0
+ 261 00c8 8A95      		dec r24
+ 262 00ca 01F4      		brne 0b
+ 263 00cc 82E0      		ldi r24,lo8(2)
+ 264 00ce F901      		movw r30,r18
+ 265 00d0 8487      		std Z+12,r24
+ 266               	.L33:
+ 267 00d2 F801      		movw r30,r16
+ 268 00d4 838D      		ldd r24,Z+27
+ 269 00d6 948D      		ldd r25,Z+28
+ 270 00d8 F901      		movw r30,r18
+ 271 00da 9183      		std Z+1,r25
+ 272 00dc 8083      		st Z,r24
+ 273 00de F801      		movw r30,r16
+ 274 00e0 348F      		std Z+28,r19
+ 275 00e2 238F      		std Z+27,r18
+ 276               	.L28:
+ 277               	/* epilogue start */
+ 278 00e4 0F90      		pop __tmp_reg__
+ 279 00e6 0F90      		pop __tmp_reg__
+ 280 00e8 0F90      		pop __tmp_reg__
+ 281 00ea 0F90      		pop __tmp_reg__
+ 282 00ec DF91      		pop r29
+ 283 00ee CF91      		pop r28
+ 284 00f0 1F91      		pop r17
+ 285 00f2 0F91      		pop r16
+GAS LISTING /tmp/cc0RJeUx.s 			page 6
+
+
+ 286 00f4 FF90      		pop r15
+ 287 00f6 EF90      		pop r14
+ 288 00f8 0895      		ret
+ 289               		.size	NutArpCacheUpdate, .-NutArpCacheUpdate
+ 290               		.section	.text.NutArpCacheQuery,"ax",@progbits
+ 291               	.global	NutArpCacheQuery
+ 292               		.type	NutArpCacheQuery, @function
+ 293               	NutArpCacheQuery:
+ 294 0000 4F92      		push r4
+ 295 0002 5F92      		push r5
+ 296 0004 6F92      		push r6
+ 297 0006 7F92      		push r7
+ 298 0008 AF92      		push r10
+ 299 000a BF92      		push r11
+ 300 000c CF92      		push r12
+ 301 000e DF92      		push r13
+ 302 0010 EF92      		push r14
+ 303 0012 FF92      		push r15
+ 304 0014 0F93      		push r16
+ 305 0016 1F93      		push r17
+ 306 0018 CF93      		push r28
+ 307 001a DF93      		push r29
+ 308               	/* prologue: function */
+ 309               	/* frame size = 0 */
+ 310               	/* stack size = 14 */
+ 311               	.L__stack_usage = 14
+ 312 001c 5C01      		movw r10,r24
+ 313 001e 2A01      		movw r4,r20
+ 314 0020 3B01      		movw r6,r22
+ 315 0022 6901      		movw r12,r18
+ 316 0024 DC01      		movw r26,r24
+ 317 0026 1F96      		adiw r26,15
+ 318 0028 ED90      		ld r14,X+
+ 319 002a FC90      		ld r15,X
+ 320 002c 5097      		sbiw r26,15+1
+ 321 002e 0E94 0000 		call ArpCacheAging
+ 322 0032 F701      		movw r30,r14
+ 323 0034 C38D      		ldd r28,Z+27
+ 324 0036 D48D      		ldd r29,Z+28
+ 325               	.L44:
+ 326 0038 2097      		sbiw r28,0
+ 327 003a 01F4      		brne .+2
+ 328 003c 00C0      		rjmp .L78
+ 329 003e 8A81      		ldd r24,Y+2
+ 330 0040 9B81      		ldd r25,Y+3
+ 331 0042 AC81      		ldd r26,Y+4
+ 332 0044 BD81      		ldd r27,Y+5
+ 333 0046 4816      		cp r4,r24
+ 334 0048 5906      		cpc r5,r25
+ 335 004a 6A06      		cpc r6,r26
+ 336 004c 7B06      		cpc r7,r27
+ 337 004e 01F0      		breq .L68
+ 338 0050 0990      		ld __tmp_reg__,Y+
+ 339 0052 D881      		ld r29,Y
+ 340 0054 C02D      		mov r28,__tmp_reg__
+ 341 0056 00C0      		rjmp .L44
+ 342               	.L68:
+GAS LISTING /tmp/cc0RJeUx.s 			page 7
+
+
+ 343 0058 00E0      		ldi r16,0
+ 344 005a 10E0      		ldi r17,0
+ 345               	.L45:
+ 346 005c 8C85      		ldd r24,Y+12
+ 347 005e 81FD      		sbrc r24,1
+ 348 0060 00C0      		rjmp .L49
+ 349 0062 0115      		cp r16,__zero_reg__
+ 350 0064 1105      		cpc r17,__zero_reg__
+ 351 0066 01F4      		brne .L50
+ 352               	.L53:
+ 353 0068 44EF      		ldi r20,lo8(-12)
+ 354 006a 51E0      		ldi r21,lo8(1)
+ 355 006c 60E0      		ldi r22,0
+ 356 006e 70E0      		ldi r23,0
+ 357 0070 CE01      		movw r24,r28
+ 358 0072 0E96      		adiw r24,14
+ 359 0074 0E94 0000 		call NutEventWait
+ 360 0078 D701      		movw r26,r14
+ 361 007a 5B96      		adiw r26,27
+ 362 007c CD91      		ld r28,X+
+ 363 007e DC91      		ld r29,X
+ 364 0080 5C97      		sbiw r26,27+1
+ 365 0082 00C0      		rjmp .L51
+ 366               	.L50:
+ 367 0084 B801      		movw r22,r16
+ 368 0086 C501      		movw r24,r10
+ 369 0088 0E94 0000 		call NutArpOutput
+ 370 008c 892B      		or r24,r25
+ 371 008e 01F0      		breq .L53
+ 372 0090 D701      		movw r26,r14
+ 373 0092 5B96      		adiw r26,27
+ 374 0094 ED91      		ld r30,X+
+ 375 0096 FC91      		ld r31,X
+ 376 0098 5C97      		sbiw r26,27+1
+ 377 009a 00C0      		rjmp .L58
+ 378               	.L79:
+ 379 009c 8A81      		ldd r24,Y+2
+ 380 009e 9B81      		ldd r25,Y+3
+ 381 00a0 AC81      		ldd r26,Y+4
+ 382 00a2 BD81      		ldd r27,Y+5
+ 383 00a4 4816      		cp r4,r24
+ 384 00a6 5906      		cpc r5,r25
+ 385 00a8 6A06      		cpc r6,r26
+ 386 00aa 7B06      		cpc r7,r27
+ 387 00ac 01F0      		breq .L55
+ 388 00ae 0990      		ld __tmp_reg__,Y+
+ 389 00b0 D881      		ld r29,Y
+ 390 00b2 C02D      		mov r28,__tmp_reg__
+ 391               	.L51:
+ 392 00b4 2097      		sbiw r28,0
+ 393 00b6 01F4      		brne .L79
+ 394 00b8 00C0      		rjmp .L54
+ 395               	.L55:
+ 396 00ba 8C85      		ldd r24,Y+12
+ 397 00bc 81FF      		sbrs r24,1
+ 398 00be 00C0      		rjmp .L73
+ 399               	.L49:
+GAS LISTING /tmp/cc0RJeUx.s 			page 8
+
+
+ 400 00c0 2C96      		adiw r28,12
+ 401 00c2 F601      		movw r30,r12
+ 402 00c4 3696      		adiw r30,6
+ 403               	.L56:
+ 404 00c6 8A91      		ld r24,-Y
+ 405 00c8 8293      		st -Z,r24
+ 406 00ca CE16      		cp r12,r30
+ 407 00cc DF06      		cpc r13,r31
+ 408 00ce 01F4      		brne .L56
+ 409 00d0 00C0      		rjmp .L80
+ 410               	.L60:
+ 411 00d2 8281      		ldd r24,Z+2
+ 412 00d4 9381      		ldd r25,Z+3
+ 413 00d6 A481      		ldd r26,Z+4
+ 414 00d8 B581      		ldd r27,Z+5
+ 415 00da 4816      		cp r4,r24
+ 416 00dc 5906      		cpc r5,r25
+ 417 00de 6A06      		cpc r6,r26
+ 418 00e0 7B06      		cpc r7,r27
+ 419 00e2 01F0      		breq .L59
+ 420 00e4 0190      		ld __tmp_reg__,Z+
+ 421 00e6 F081      		ld r31,Z
+ 422 00e8 E02D      		mov r30,__tmp_reg__
+ 423               	.L58:
+ 424 00ea 3097      		sbiw r30,0
+ 425 00ec 01F4      		brne .L60
+ 426 00ee 00C0      		rjmp .L74
+ 427               	.L78:
+ 428 00f0 0E94 0000 		call ArpCacheAging
+ 429 00f4 80E1      		ldi r24,lo8(16)
+ 430 00f6 90E0      		ldi r25,0
+ 431 00f8 0E94 0000 		call malloc
+ 432 00fc EC01      		movw r28,r24
+ 433 00fe 892B      		or r24,r25
+ 434 0100 01F4      		brne .+2
+ 435 0102 00C0      		rjmp .L74
+ 436 0104 80E1      		ldi r24,lo8(16)
+ 437 0106 DE01      		movw r26,r28
+ 438               		0:
+ 439 0108 1D92      		st X+,__zero_reg__
+ 440 010a 8A95      		dec r24
+ 441 010c 01F4      		brne 0b
+ 442 010e 4A82      		std Y+2,r4
+ 443 0110 5B82      		std Y+3,r5
+ 444 0112 6C82      		std Y+4,r6
+ 445 0114 7D82      		std Y+5,r7
+ 446 0116 F701      		movw r30,r14
+ 447 0118 838D      		ldd r24,Z+27
+ 448 011a 948D      		ldd r25,Z+28
+ 449 011c 9983      		std Y+1,r25
+ 450 011e 8883      		st Y,r24
+ 451 0120 D48F      		std Z+28,r29
+ 452 0122 C38F      		std Z+27,r28
+ 453 0124 20E0      		ldi r18,0
+ 454 0126 30E0      		ldi r19,0
+ 455 0128 B301      		movw r22,r6
+ 456 012a A201      		movw r20,r4
+GAS LISTING /tmp/cc0RJeUx.s 			page 9
+
+
+ 457 012c 81E0      		ldi r24,lo8(1)
+ 458 012e 90E0      		ldi r25,0
+ 459 0130 0E94 0000 		call NutArpAllocNetBuf
+ 460 0134 8C01      		movw r16,r24
+ 461 0136 892B      		or r24,r25
+ 462 0138 01F0      		breq .+2
+ 463 013a 00C0      		rjmp .L45
+ 464 013c 00C0      		rjmp .L75
+ 465               	.L59:
+ 466 013e 8485      		ldd r24,Z+12
+ 467 0140 81FD      		sbrc r24,1
+ 468 0142 00C0      		rjmp .L74
+ 469 0144 8160      		ori r24,lo8(1)
+ 470 0146 8487      		std Z+12,r24
+ 471 0148 00C0      		rjmp .L77
+ 472               	.L80:
+ 473 014a 0115      		cp r16,__zero_reg__
+ 474 014c 1105      		cpc r17,__zero_reg__
+ 475 014e 01F0      		breq .L76
+ 476 0150 C801      		movw r24,r16
+ 477 0152 0E94 0000 		call NutNetBufFree
+ 478               	.L76:
+ 479 0156 80E0      		ldi r24,0
+ 480 0158 90E0      		ldi r25,0
+ 481 015a 00C0      		rjmp .L71
+ 482               	.L54:
+ 483 015c 0115      		cp r16,__zero_reg__
+ 484 015e 1105      		cpc r17,__zero_reg__
+ 485 0160 01F0      		breq .L74
+ 486 0162 C801      		movw r24,r16
+ 487 0164 0E94 0000 		call NutNetBufFree
+ 488 0168 00C0      		rjmp .L74
+ 489               	.L73:
+ 490 016a 0115      		cp r16,__zero_reg__
+ 491 016c 1105      		cpc r17,__zero_reg__
+ 492 016e 01F0      		breq .L74
+ 493 0170 C801      		movw r24,r16
+ 494 0172 0E94 0000 		call NutNetBufFree
+ 495               	.L75:
+ 496 0176 8C85      		ldd r24,Y+12
+ 497 0178 8160      		ori r24,lo8(1)
+ 498 017a 8C87      		std Y+12,r24
+ 499               	.L77:
+ 500 017c C701      		movw r24,r14
+ 501 017e 0E94 0000 		call ArpCacheFlush
+ 502               	.L74:
+ 503 0182 8FEF      		ldi r24,lo8(-1)
+ 504 0184 9FEF      		ldi r25,lo8(-1)
+ 505               	.L71:
+ 506               	/* epilogue start */
+ 507 0186 DF91      		pop r29
+ 508 0188 CF91      		pop r28
+ 509 018a 1F91      		pop r17
+ 510 018c 0F91      		pop r16
+ 511 018e FF90      		pop r15
+ 512 0190 EF90      		pop r14
+ 513 0192 DF90      		pop r13
+GAS LISTING /tmp/cc0RJeUx.s 			page 10
+
+
+ 514 0194 CF90      		pop r12
+ 515 0196 BF90      		pop r11
+ 516 0198 AF90      		pop r10
+ 517 019a 7F90      		pop r7
+ 518 019c 6F90      		pop r6
+ 519 019e 5F90      		pop r5
+ 520 01a0 4F90      		pop r4
+ 521 01a2 0895      		ret
+ 522               		.size	NutArpCacheQuery, .-NutArpCacheQuery
+ 523               		.local	last_update.2690
+ 524               		.comm	last_update.2690,4,1
+ 525               		.ident	"GCC: (GNU) 5.3.0"
+ 526               	.global __do_clear_bss
+GAS LISTING /tmp/cc0RJeUx.s 			page 11
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 arpcache.c
+     /tmp/cc0RJeUx.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cc0RJeUx.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cc0RJeUx.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cc0RJeUx.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cc0RJeUx.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cc0RJeUx.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cc0RJeUx.s:10     .text.ArpCacheFlush:0000000000000000 ArpCacheFlush
+     /tmp/cc0RJeUx.s:61     .text.ArpCacheAging:0000000000000000 ArpCacheAging
+                             .bss:0000000000000000 last_update.2690
+     /tmp/cc0RJeUx.s:151    .text.NutArpCacheUpdate:0000000000000000 NutArpCacheUpdate
+     /tmp/cc0RJeUx.s:293    .text.NutArpCacheQuery:0000000000000000 NutArpCacheQuery
+
+UNDEFINED SYMBOLS
+NutEventBroadcastAsync
+free
+NutGetSeconds
+nutDeviceList
+NutEventBroadcast
+malloc
+NutEventWait
+NutArpOutput
+NutArpAllocNetBuf
+NutNetBufFree
+__do_clear_bss

@@ -1,0 +1,551 @@
+GAS LISTING /tmp/cc0Y1vLr.s 			page 1
+
+
+   1               		.file	"spi_node_at45d.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.At45dNodeLock,"ax",@progbits
+   9               	.global	At45dNodeLock
+  10               		.type	At45dNodeLock, @function
+  11               	At45dNodeLock:
+  12               	/* prologue: function */
+  13               	/* frame size = 0 */
+  14               	/* stack size = 0 */
+  15               	.L__stack_usage = 0
+  16 0000 40E0      		ldi r20,0
+  17 0002 50E0      		ldi r21,0
+  18 0004 BA01      		movw r22,r20
+  19 0006 FC01      		movw r30,r24
+  20 0008 8485      		ldd r24,Z+12
+  21 000a 9585      		ldd r25,Z+13
+  22 000c 0C94 0000 		jmp NutEventWait
+  23               		.size	At45dNodeLock, .-At45dNodeLock
+  24               		.section	.text.At45dNodeUnlock,"ax",@progbits
+  25               	.global	At45dNodeUnlock
+  26               		.type	At45dNodeUnlock, @function
+  27               	At45dNodeUnlock:
+  28               	/* prologue: function */
+  29               	/* frame size = 0 */
+  30               	/* stack size = 0 */
+  31               	.L__stack_usage = 0
+  32 0000 FC01      		movw r30,r24
+  33 0002 8485      		ldd r24,Z+12
+  34 0004 9585      		ldd r25,Z+13
+  35 0006 0C94 0000 		jmp NutEventPost
+  36               		.size	At45dNodeUnlock, .-At45dNodeUnlock
+  37               		.section	.text.At45dNodeTransfer,"ax",@progbits
+  38               	.global	At45dNodeTransfer
+  39               		.type	At45dNodeTransfer, @function
+  40               	At45dNodeTransfer:
+  41 0000 2F92      		push r2
+  42 0002 3F92      		push r3
+  43 0004 4F92      		push r4
+  44 0006 5F92      		push r5
+  45 0008 6F92      		push r6
+  46 000a 7F92      		push r7
+  47 000c 8F92      		push r8
+  48 000e 9F92      		push r9
+  49 0010 AF92      		push r10
+  50 0012 BF92      		push r11
+  51 0014 CF92      		push r12
+  52 0016 DF92      		push r13
+  53 0018 EF92      		push r14
+  54 001a FF92      		push r15
+  55 001c 0F93      		push r16
+  56 001e 1F93      		push r17
+  57 0020 CF93      		push r28
+GAS LISTING /tmp/cc0Y1vLr.s 			page 2
+
+
+  58 0022 DF93      		push r29
+  59 0024 CDB7      		in r28,__SP_L__
+  60 0026 DEB7      		in r29,__SP_H__
+  61 0028 2A97      		sbiw r28,10
+  62 002a 0FB6      		in __tmp_reg__,__SREG__
+  63 002c F894      		cli
+  64 002e DEBF      		out __SP_H__,r29
+  65 0030 0FBE      		out __SREG__,__tmp_reg__
+  66 0032 CDBF      		out __SP_L__,r28
+  67               	/* prologue: function */
+  68               	/* frame size = 10 */
+  69               	/* stack size = 28 */
+  70               	.L__stack_usage = 28
+  71 0034 4C01      		movw r8,r24
+  72 0036 6987      		std Y+9,r22
+  73 0038 2901      		movw r4,r18
+  74 003a 3A01      		movw r6,r20
+  75 003c DC01      		movw r26,r24
+  76 003e 2D90      		ld r2,X+
+  77 0040 3C90      		ld r3,X
+  78 0042 D101      		movw r26,r2
+  79 0044 1A96      		adiw r26,10
+  80 0046 ED91      		ld r30,X+
+  81 0048 FC91      		ld r31,X
+  82 004a 1B97      		sbiw r26,10+1
+  83 004c 40E0      		ldi r20,0
+  84 004e 50E0      		ldi r21,0
+  85 0050 BA01      		movw r22,r20
+  86 0052 0A87      		std Y+10,r16
+  87 0054 1995      		eicall
+  88 0056 8C01      		movw r16,r24
+  89 0058 2A85      		ldd r18,Y+10
+  90 005a 892B      		or r24,r25
+  91 005c 01F4      		brne .L4
+  92 005e BE01      		movw r22,r28
+  93 0060 6F5F      		subi r22,-1
+  94 0062 7F4F      		sbci r23,-1
+  95 0064 88E0      		ldi r24,lo8(8)
+  96 0066 FB01      		movw r30,r22
+  97               		0:
+  98 0068 1192      		st Z+,__zero_reg__
+  99 006a 8A95      		dec r24
+ 100 006c 01F4      		brne 0b
+ 101 006e F985      		ldd r31,Y+9
+ 102 0070 F983      		std Y+1,r31
+ 103 0072 4114      		cp r4,__zero_reg__
+ 104 0074 5104      		cpc r5,__zero_reg__
+ 105 0076 6104      		cpc r6,__zero_reg__
+ 106 0078 7104      		cpc r7,__zero_reg__
+ 107 007a 01F0      		breq .L5
+ 108 007c 6A82      		std Y+2,r6
+ 109 007e 5B82      		std Y+3,r5
+ 110 0080 4C82      		std Y+4,r4
+ 111               	.L5:
+ 112 0082 30E0      		ldi r19,0
+ 113 0084 D401      		movw r26,r8
+ 114 0086 ED91      		ld r30,X+
+GAS LISTING /tmp/cc0Y1vLr.s 			page 3
+
+
+ 115 0088 FC91      		ld r31,X
+ 116 008a 0684      		ldd __tmp_reg__,Z+14
+ 117 008c F785      		ldd r31,Z+15
+ 118 008e E02D      		mov r30,__tmp_reg__
+ 119 0090 40E0      		ldi r20,0
+ 120 0092 50E0      		ldi r21,0
+ 121 0094 C401      		movw r24,r8
+ 122 0096 1995      		eicall
+ 123 0098 8C01      		movw r16,r24
+ 124 009a 892B      		or r24,r25
+ 125 009c 01F4      		brne .L6
+ 126 009e A114      		cp r10,__zero_reg__
+ 127 00a0 B104      		cpc r11,__zero_reg__
+ 128 00a2 01F0      		breq .L6
+ 129 00a4 D101      		movw r26,r2
+ 130 00a6 1E96      		adiw r26,14
+ 131 00a8 ED91      		ld r30,X+
+ 132 00aa FC91      		ld r31,X
+ 133 00ac 1F97      		sbiw r26,14+1
+ 134 00ae 9501      		movw r18,r10
+ 135 00b0 A601      		movw r20,r12
+ 136 00b2 B701      		movw r22,r14
+ 137 00b4 C401      		movw r24,r8
+ 138 00b6 1995      		eicall
+ 139 00b8 8C01      		movw r16,r24
+ 140               	.L6:
+ 141 00ba D101      		movw r26,r2
+ 142 00bc 1C96      		adiw r26,12
+ 143 00be ED91      		ld r30,X+
+ 144 00c0 FC91      		ld r31,X
+ 145 00c2 1D97      		sbiw r26,12+1
+ 146 00c4 C401      		movw r24,r8
+ 147 00c6 1995      		eicall
+ 148               	.L4:
+ 149 00c8 C801      		movw r24,r16
+ 150               	/* epilogue start */
+ 151 00ca 2A96      		adiw r28,10
+ 152 00cc 0FB6      		in __tmp_reg__,__SREG__
+ 153 00ce F894      		cli
+ 154 00d0 DEBF      		out __SP_H__,r29
+ 155 00d2 0FBE      		out __SREG__,__tmp_reg__
+ 156 00d4 CDBF      		out __SP_L__,r28
+ 157 00d6 DF91      		pop r29
+ 158 00d8 CF91      		pop r28
+ 159 00da 1F91      		pop r17
+ 160 00dc 0F91      		pop r16
+ 161 00de FF90      		pop r15
+ 162 00e0 EF90      		pop r14
+ 163 00e2 DF90      		pop r13
+ 164 00e4 CF90      		pop r12
+ 165 00e6 BF90      		pop r11
+ 166 00e8 AF90      		pop r10
+ 167 00ea 9F90      		pop r9
+ 168 00ec 8F90      		pop r8
+ 169 00ee 7F90      		pop r7
+ 170 00f0 6F90      		pop r6
+ 171 00f2 5F90      		pop r5
+GAS LISTING /tmp/cc0Y1vLr.s 			page 4
+
+
+ 172 00f4 4F90      		pop r4
+ 173 00f6 3F90      		pop r3
+ 174 00f8 2F90      		pop r2
+ 175 00fa 0895      		ret
+ 176               		.size	At45dNodeTransfer, .-At45dNodeTransfer
+ 177               		.section	.text.At45dNodeCommand,"ax",@progbits
+ 178               	.global	At45dNodeCommand
+ 179               		.type	At45dNodeCommand, @function
+ 180               	At45dNodeCommand:
+ 181 0000 AF92      		push r10
+ 182 0002 BF92      		push r11
+ 183 0004 CF92      		push r12
+ 184 0006 DF92      		push r13
+ 185 0008 EF92      		push r14
+ 186 000a FF92      		push r15
+ 187 000c 0F93      		push r16
+ 188               	/* prologue: function */
+ 189               	/* frame size = 0 */
+ 190               	/* stack size = 7 */
+ 191               	.L__stack_usage = 7
+ 192 000e A12C      		mov r10,__zero_reg__
+ 193 0010 B12C      		mov r11,__zero_reg__
+ 194 0012 C12C      		mov r12,__zero_reg__
+ 195 0014 D12C      		mov r13,__zero_reg__
+ 196 0016 E12C      		mov r14,__zero_reg__
+ 197 0018 F12C      		mov r15,__zero_reg__
+ 198 001a 0E94 0000 		call At45dNodeTransfer
+ 199               	/* epilogue start */
+ 200 001e 0F91      		pop r16
+ 201 0020 FF90      		pop r15
+ 202 0022 EF90      		pop r14
+ 203 0024 DF90      		pop r13
+ 204 0026 CF90      		pop r12
+ 205 0028 BF90      		pop r11
+ 206 002a AF90      		pop r10
+ 207 002c 0895      		ret
+ 208               		.size	At45dNodeCommand, .-At45dNodeCommand
+ 209               		.section	.text.At45dNodeStatus,"ax",@progbits
+ 210               	.global	At45dNodeStatus
+ 211               		.type	At45dNodeStatus, @function
+ 212               	At45dNodeStatus:
+ 213 0000 CF92      		push r12
+ 214 0002 DF92      		push r13
+ 215 0004 EF92      		push r14
+ 216 0006 FF92      		push r15
+ 217 0008 0F93      		push r16
+ 218 000a 1F93      		push r17
+ 219 000c CF93      		push r28
+ 220 000e DF93      		push r29
+ 221 0010 1F92      		push __zero_reg__
+ 222 0012 1F92      		push __zero_reg__
+ 223 0014 CDB7      		in r28,__SP_L__
+ 224 0016 DEB7      		in r29,__SP_H__
+ 225               	/* prologue: function */
+ 226               	/* frame size = 2 */
+ 227               	/* stack size = 10 */
+ 228               	.L__stack_usage = 10
+GAS LISTING /tmp/cc0Y1vLr.s 			page 5
+
+
+ 229 0018 7C01      		movw r14,r24
+ 230 001a 87ED      		ldi r24,lo8(-41)
+ 231 001c 8983      		std Y+1,r24
+ 232 001e 8FEF      		ldi r24,lo8(-1)
+ 233 0020 8A83      		std Y+2,r24
+ 234 0022 D701      		movw r26,r14
+ 235 0024 CD90      		ld r12,X+
+ 236 0026 DC90      		ld r13,X
+ 237 0028 D601      		movw r26,r12
+ 238 002a 1A96      		adiw r26,10
+ 239 002c ED91      		ld r30,X+
+ 240 002e FC91      		ld r31,X
+ 241 0030 1B97      		sbiw r26,10+1
+ 242 0032 40E0      		ldi r20,0
+ 243 0034 50E0      		ldi r21,0
+ 244 0036 BA01      		movw r22,r20
+ 245 0038 C701      		movw r24,r14
+ 246 003a 1995      		eicall
+ 247 003c 8C01      		movw r16,r24
+ 248 003e 892B      		or r24,r25
+ 249 0040 01F4      		brne .L16
+ 250 0042 D601      		movw r26,r12
+ 251 0044 1E96      		adiw r26,14
+ 252 0046 ED91      		ld r30,X+
+ 253 0048 FC91      		ld r31,X
+ 254 004a 1F97      		sbiw r26,14+1
+ 255 004c 22E0      		ldi r18,lo8(2)
+ 256 004e 30E0      		ldi r19,0
+ 257 0050 AE01      		movw r20,r28
+ 258 0052 4F5F      		subi r20,-1
+ 259 0054 5F4F      		sbci r21,-1
+ 260 0056 BA01      		movw r22,r20
+ 261 0058 C701      		movw r24,r14
+ 262 005a 1995      		eicall
+ 263 005c 8C01      		movw r16,r24
+ 264 005e 892B      		or r24,r25
+ 265 0060 01F4      		brne .L17
+ 266 0062 D601      		movw r26,r12
+ 267 0064 5096      		adiw r26,16
+ 268 0066 ED91      		ld r30,X+
+ 269 0068 FC91      		ld r31,X
+ 270 006a 5197      		sbiw r26,16+1
+ 271 006c 40E0      		ldi r20,0
+ 272 006e 50E0      		ldi r21,0
+ 273 0070 BA01      		movw r22,r20
+ 274 0072 C701      		movw r24,r14
+ 275 0074 1995      		eicall
+ 276 0076 0A81      		ldd r16,Y+2
+ 277               	.L17:
+ 278 0078 D601      		movw r26,r12
+ 279 007a 1C96      		adiw r26,12
+ 280 007c ED91      		ld r30,X+
+ 281 007e FC91      		ld r31,X
+ 282 0080 1D97      		sbiw r26,12+1
+ 283 0082 C701      		movw r24,r14
+ 284 0084 1995      		eicall
+ 285               	.L16:
+GAS LISTING /tmp/cc0Y1vLr.s 			page 6
+
+
+ 286 0086 802F      		mov r24,r16
+ 287               	/* epilogue start */
+ 288 0088 0F90      		pop __tmp_reg__
+ 289 008a 0F90      		pop __tmp_reg__
+ 290 008c DF91      		pop r29
+ 291 008e CF91      		pop r28
+ 292 0090 1F91      		pop r17
+ 293 0092 0F91      		pop r16
+ 294 0094 FF90      		pop r15
+ 295 0096 EF90      		pop r14
+ 296 0098 DF90      		pop r13
+ 297 009a CF90      		pop r12
+ 298 009c 0895      		ret
+ 299               		.size	At45dNodeStatus, .-At45dNodeStatus
+ 300               		.section	.text.At45dNodeWaitReady,"ax",@progbits
+ 301               	.global	At45dNodeWaitReady
+ 302               		.type	At45dNodeWaitReady, @function
+ 303               	At45dNodeWaitReady:
+ 304 0000 CF92      		push r12
+ 305 0002 DF92      		push r13
+ 306 0004 EF92      		push r14
+ 307 0006 FF92      		push r15
+ 308 0008 0F93      		push r16
+ 309 000a 1F93      		push r17
+ 310 000c CF93      		push r28
+ 311 000e DF93      		push r29
+ 312               	/* prologue: function */
+ 313               	/* frame size = 0 */
+ 314               	/* stack size = 8 */
+ 315               	.L__stack_usage = 8
+ 316 0010 EC01      		movw r28,r24
+ 317 0012 6A01      		movw r12,r20
+ 318 0014 7B01      		movw r14,r22
+ 319 0016 8901      		movw r16,r18
+ 320               	.L19:
+ 321 0018 CE01      		movw r24,r28
+ 322 001a 0E94 0000 		call At45dNodeStatus
+ 323 001e 87FD      		sbrc r24,7
+ 324 0020 00C0      		rjmp .L24
+ 325 0022 0115      		cp r16,__zero_reg__
+ 326 0024 1105      		cpc r17,__zero_reg__
+ 327 0026 01F4      		brne .L20
+ 328 0028 61E0      		ldi r22,lo8(1)
+ 329 002a 70E0      		ldi r23,0
+ 330 002c 80E0      		ldi r24,0
+ 331 002e 90E0      		ldi r25,0
+ 332 0030 0E94 0000 		call NutSleep
+ 333               	.L20:
+ 334 0034 D701      		movw r26,r14
+ 335 0036 C601      		movw r24,r12
+ 336 0038 0197      		sbiw r24,1
+ 337 003a A109      		sbc r26,__zero_reg__
+ 338 003c B109      		sbc r27,__zero_reg__
+ 339 003e CD28      		or r12,r13
+ 340 0040 CE28      		or r12,r14
+ 341 0042 CF28      		or r12,r15
+ 342 0044 01F0      		breq .L23
+GAS LISTING /tmp/cc0Y1vLr.s 			page 7
+
+
+ 343 0046 6C01      		movw r12,r24
+ 344 0048 7D01      		movw r14,r26
+ 345 004a 00C0      		rjmp .L19
+ 346               	.L24:
+ 347 004c 80E0      		ldi r24,0
+ 348 004e 90E0      		ldi r25,0
+ 349 0050 00C0      		rjmp .L21
+ 350               	.L23:
+ 351 0052 8FEF      		ldi r24,lo8(-1)
+ 352 0054 9FEF      		ldi r25,lo8(-1)
+ 353               	.L21:
+ 354               	/* epilogue start */
+ 355 0056 DF91      		pop r29
+ 356 0058 CF91      		pop r28
+ 357 005a 1F91      		pop r17
+ 358 005c 0F91      		pop r16
+ 359 005e FF90      		pop r15
+ 360 0060 EF90      		pop r14
+ 361 0062 DF90      		pop r13
+ 362 0064 CF90      		pop r12
+ 363 0066 0895      		ret
+ 364               		.size	At45dNodeWaitReady, .-At45dNodeWaitReady
+ 365               		.section	.text.At45dNodeProbe,"ax",@progbits
+ 366               	.global	At45dNodeProbe
+ 367               		.type	At45dNodeProbe, @function
+ 368               	At45dNodeProbe:
+ 369 0000 CF93      		push r28
+ 370 0002 DF93      		push r29
+ 371               	/* prologue: function */
+ 372               	/* frame size = 0 */
+ 373               	/* stack size = 2 */
+ 374               	.L__stack_usage = 2
+ 375 0004 EC01      		movw r28,r24
+ 376 0006 21E0      		ldi r18,lo8(1)
+ 377 0008 30E0      		ldi r19,0
+ 378 000a 4AE0      		ldi r20,lo8(10)
+ 379 000c 50E0      		ldi r21,0
+ 380 000e 60E0      		ldi r22,0
+ 381 0010 70E0      		ldi r23,0
+ 382 0012 0E94 0000 		call At45dNodeWaitReady
+ 383 0016 892B      		or r24,r25
+ 384 0018 01F0      		breq .L26
+ 385               	.L28:
+ 386 001a 80E0      		ldi r24,0
+ 387 001c 90E0      		ldi r25,0
+ 388 001e 00C0      		rjmp .L27
+ 389               	.L26:
+ 390 0020 CE01      		movw r24,r28
+ 391 0022 0E94 0000 		call At45dNodeStatus
+ 392 0026 8F3F      		cpi r24,lo8(-1)
+ 393 0028 01F0      		breq .L28
+ 394 002a 8D73      		andi r24,lo8(61)
+ 395 002c 9091 0000 		lds r25,at45d_known_types
+ 396               	.L29:
+ 397 0030 9150      		subi r25,lo8(-(-1))
+ 398 0032 97FD      		sbrc r25,7
+ 399 0034 00C0      		rjmp .L28
+GAS LISTING /tmp/cc0Y1vLr.s 			page 8
+
+
+ 400 0036 28E0      		ldi r18,lo8(8)
+ 401 0038 9202      		muls r25,r18
+ 402 003a F001      		movw r30,r0
+ 403 003c 1124      		clr __zero_reg__
+ 404 003e E050      		subi r30,lo8(-(at45d_info))
+ 405 0040 F040      		sbci r31,hi8(-(at45d_info))
+ 406 0042 2781      		ldd r18,Z+7
+ 407 0044 8213      		cpse r24,r18
+ 408 0046 00C0      		rjmp .L29
+ 409 0048 CF01      		movw r24,r30
+ 410               	.L27:
+ 411               	/* epilogue start */
+ 412 004a DF91      		pop r29
+ 413 004c CF91      		pop r28
+ 414 004e 0895      		ret
+ 415               		.size	At45dNodeProbe, .-At45dNodeProbe
+ 416               	.global	nodeAt45d3
+ 417               		.data
+ 418               		.type	nodeAt45d3, @object
+ 419               		.size	nodeAt45d3, 14
+ 420               	nodeAt45d3:
+ 421 0000 0000      		.word	0
+ 422 0002 0000      		.word	0
+ 423 0004 40        		.byte	64
+ 424 0005 8A        		.byte	-118
+ 425 0006 F7        		.byte	-9
+ 426 0007 01        		.byte	1
+ 427 0008 0300      		.word	3
+ 428 000a 08        		.byte	8
+ 429 000b 00        		.byte	0
+ 430 000c 0000      		.word	dcbAt45d3
+ 431               	.global	nodeAt45d2
+ 432               		.type	nodeAt45d2, @object
+ 433               		.size	nodeAt45d2, 14
+ 434               	nodeAt45d2:
+ 435 000e 0000      		.word	0
+ 436 0010 0000      		.word	0
+ 437 0012 40        		.byte	64
+ 438 0013 8A        		.byte	-118
+ 439 0014 F7        		.byte	-9
+ 440 0015 01        		.byte	1
+ 441 0016 0300      		.word	3
+ 442 0018 08        		.byte	8
+ 443 0019 00        		.byte	0
+ 444 001a 0000      		.word	dcbAt45d2
+ 445               	.global	nodeAt45d1
+ 446               		.type	nodeAt45d1, @object
+ 447               		.size	nodeAt45d1, 14
+ 448               	nodeAt45d1:
+ 449 001c 0000      		.word	0
+ 450 001e 0000      		.word	0
+ 451 0020 40        		.byte	64
+ 452 0021 8A        		.byte	-118
+ 453 0022 F7        		.byte	-9
+ 454 0023 01        		.byte	1
+ 455 0024 0300      		.word	3
+ 456 0026 08        		.byte	8
+GAS LISTING /tmp/cc0Y1vLr.s 			page 9
+
+
+ 457 0027 00        		.byte	0
+ 458 0028 0000      		.word	dcbAt45d1
+ 459               	.global	nodeAt45d0
+ 460               		.type	nodeAt45d0, @object
+ 461               		.size	nodeAt45d0, 14
+ 462               	nodeAt45d0:
+ 463 002a 0000      		.word	0
+ 464 002c 0000      		.word	0
+ 465 002e 40        		.byte	64
+ 466 002f 8A        		.byte	-118
+ 467 0030 F7        		.byte	-9
+ 468 0031 01        		.byte	1
+ 469 0032 0300      		.word	3
+ 470 0034 08        		.byte	8
+ 471 0035 00        		.byte	0
+ 472 0036 0000      		.word	dcbAt45d0
+ 473               		.type	dcbAt45d3, @object
+ 474               		.size	dcbAt45d3, 2
+ 475               	dcbAt45d3:
+ 476 0038 FFFF      		.word	-1
+ 477               		.type	dcbAt45d2, @object
+ 478               		.size	dcbAt45d2, 2
+ 479               	dcbAt45d2:
+ 480 003a FFFF      		.word	-1
+ 481               		.type	dcbAt45d1, @object
+ 482               		.size	dcbAt45d1, 2
+ 483               	dcbAt45d1:
+ 484 003c FFFF      		.word	-1
+ 485               		.type	dcbAt45d0, @object
+ 486               		.size	dcbAt45d0, 2
+ 487               	dcbAt45d0:
+ 488 003e FFFF      		.word	-1
+ 489               		.ident	"GCC: (GNU) 5.3.0"
+ 490               	.global __do_copy_data
+GAS LISTING /tmp/cc0Y1vLr.s 			page 10
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 spi_node_at45d.c
+     /tmp/cc0Y1vLr.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cc0Y1vLr.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cc0Y1vLr.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cc0Y1vLr.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cc0Y1vLr.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cc0Y1vLr.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cc0Y1vLr.s:11     .text.At45dNodeLock:0000000000000000 At45dNodeLock
+     /tmp/cc0Y1vLr.s:27     .text.At45dNodeUnlock:0000000000000000 At45dNodeUnlock
+     /tmp/cc0Y1vLr.s:40     .text.At45dNodeTransfer:0000000000000000 At45dNodeTransfer
+     /tmp/cc0Y1vLr.s:180    .text.At45dNodeCommand:0000000000000000 At45dNodeCommand
+     /tmp/cc0Y1vLr.s:212    .text.At45dNodeStatus:0000000000000000 At45dNodeStatus
+     /tmp/cc0Y1vLr.s:303    .text.At45dNodeWaitReady:0000000000000000 At45dNodeWaitReady
+     /tmp/cc0Y1vLr.s:368    .text.At45dNodeProbe:0000000000000000 At45dNodeProbe
+     /tmp/cc0Y1vLr.s:420    .data:0000000000000000 nodeAt45d3
+     /tmp/cc0Y1vLr.s:475    .data:0000000000000038 dcbAt45d3
+     /tmp/cc0Y1vLr.s:434    .data:000000000000000e nodeAt45d2
+     /tmp/cc0Y1vLr.s:479    .data:000000000000003a dcbAt45d2
+     /tmp/cc0Y1vLr.s:448    .data:000000000000001c nodeAt45d1
+     /tmp/cc0Y1vLr.s:483    .data:000000000000003c dcbAt45d1
+     /tmp/cc0Y1vLr.s:462    .data:000000000000002a nodeAt45d0
+     /tmp/cc0Y1vLr.s:487    .data:000000000000003e dcbAt45d0
+
+UNDEFINED SYMBOLS
+NutEventWait
+NutEventPost
+NutSleep
+at45d_known_types
+at45d_info
+__do_copy_data

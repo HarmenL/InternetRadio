@@ -1,0 +1,639 @@
+GAS LISTING /tmp/ccdpm2ic.s 			page 1
+
+
+   1               		.file	"utils.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.DecodeHex,"ax",@progbits
+   9               		.type	DecodeHex, @function
+  10               	DecodeHex:
+  11               	/* prologue: function */
+  12               	/* frame size = 0 */
+  13               	/* stack size = 0 */
+  14               	.L__stack_usage = 0
+  15 0000 90ED      		ldi r25,lo8(-48)
+  16 0002 980F      		add r25,r24
+  17 0004 9A30      		cpi r25,lo8(10)
+  18 0006 00F4      		brsh .L2
+  19 0008 082E      		mov __tmp_reg__,r24
+  20 000a 000C      		lsl r0
+  21 000c 990B      		sbc r25,r25
+  22 000e C097      		sbiw r24,48
+  23 0010 0895      		ret
+  24               	.L2:
+  25 0012 9FE9      		ldi r25,lo8(-97)
+  26 0014 980F      		add r25,r24
+  27 0016 9630      		cpi r25,lo8(6)
+  28 0018 00F4      		brsh .L4
+  29 001a 082E      		mov __tmp_reg__,r24
+  30 001c 000C      		lsl r0
+  31 001e 990B      		sbc r25,r25
+  32 0020 8755      		subi r24,87
+  33 0022 9109      		sbc r25,__zero_reg__
+  34 0024 0895      		ret
+  35               	.L4:
+  36 0026 9FEB      		ldi r25,lo8(-65)
+  37 0028 980F      		add r25,r24
+  38 002a 9630      		cpi r25,lo8(6)
+  39 002c 00F4      		brsh .L5
+  40 002e 082E      		mov __tmp_reg__,r24
+  41 0030 000C      		lsl r0
+  42 0032 990B      		sbc r25,r25
+  43 0034 C797      		sbiw r24,55
+  44 0036 0895      		ret
+  45               	.L5:
+  46 0038 8FEF      		ldi r24,lo8(-1)
+  47 003a 9FEF      		ldi r25,lo8(-1)
+  48 003c 0895      		ret
+  49               		.size	DecodeHex, .-DecodeHex
+  50               		.section	.text.HttpUrlUnescape,"ax",@progbits
+  51               	.global	HttpUrlUnescape
+  52               		.type	HttpUrlUnescape, @function
+  53               	HttpUrlUnescape:
+  54 0000 DF92      		push r13
+  55 0002 EF92      		push r14
+  56 0004 FF92      		push r15
+  57 0006 0F93      		push r16
+GAS LISTING /tmp/ccdpm2ic.s 			page 2
+
+
+  58 0008 1F93      		push r17
+  59 000a CF93      		push r28
+  60 000c DF93      		push r29
+  61 000e 00D0      		rcall .
+  62 0010 CDB7      		in r28,__SP_L__
+  63 0012 DEB7      		in r29,__SP_H__
+  64               	/* prologue: function */
+  65               	/* frame size = 3 */
+  66               	/* stack size = 10 */
+  67               	.L__stack_usage = 10
+  68 0014 8C01      		movw r16,r24
+  69 0016 1B82      		std Y+3,__zero_reg__
+  70 0018 7C01      		movw r14,r24
+  71 001a 80E2      		ldi r24,lo8(32)
+  72 001c D82E      		mov r13,r24
+  73               	.L8:
+  74 001e F801      		movw r30,r16
+  75 0020 8081      		ld r24,Z
+  76 0022 8823      		tst r24
+  77 0024 01F0      		breq .L13
+  78 0026 8B32      		cpi r24,lo8(43)
+  79 0028 01F4      		brne .L9
+  80 002a F701      		movw r30,r14
+  81 002c D082      		st Z,r13
+  82 002e 00C0      		rjmp .L10
+  83               	.L9:
+  84 0030 8532      		cpi r24,lo8(37)
+  85 0032 01F4      		brne .L11
+  86 0034 F801      		movw r30,r16
+  87 0036 8181      		ldd r24,Z+1
+  88 0038 8983      		std Y+1,r24
+  89 003a 8281      		ldd r24,Z+2
+  90 003c 8A83      		std Y+2,r24
+  91 003e 40E1      		ldi r20,lo8(16)
+  92 0040 50E0      		ldi r21,0
+  93 0042 60E0      		ldi r22,0
+  94 0044 70E0      		ldi r23,0
+  95 0046 CE01      		movw r24,r28
+  96 0048 0196      		adiw r24,1
+  97 004a 0E94 0000 		call strtol
+  98 004e F701      		movw r30,r14
+  99 0050 6083      		st Z,r22
+ 100 0052 0E5F      		subi r16,-2
+ 101 0054 1F4F      		sbci r17,-1
+ 102 0056 00C0      		rjmp .L10
+ 103               	.L11:
+ 104 0058 F701      		movw r30,r14
+ 105 005a 8083      		st Z,r24
+ 106               	.L10:
+ 107 005c 0F5F      		subi r16,-1
+ 108 005e 1F4F      		sbci r17,-1
+ 109 0060 FFEF      		ldi r31,-1
+ 110 0062 EF1A      		sub r14,r31
+ 111 0064 FF0A      		sbc r15,r31
+ 112 0066 00C0      		rjmp .L8
+ 113               	.L13:
+ 114 0068 F701      		movw r30,r14
+GAS LISTING /tmp/ccdpm2ic.s 			page 3
+
+
+ 115 006a 1082      		st Z,__zero_reg__
+ 116               	/* epilogue start */
+ 117 006c 0F90      		pop __tmp_reg__
+ 118 006e 0F90      		pop __tmp_reg__
+ 119 0070 0F90      		pop __tmp_reg__
+ 120 0072 DF91      		pop r29
+ 121 0074 CF91      		pop r28
+ 122 0076 1F91      		pop r17
+ 123 0078 0F91      		pop r16
+ 124 007a FF90      		pop r15
+ 125 007c EF90      		pop r14
+ 126 007e DF90      		pop r13
+ 127 0080 0895      		ret
+ 128               		.size	HttpUrlUnescape, .-HttpUrlUnescape
+ 129               		.section	.text.UriUnescape,"ax",@progbits
+ 130               	.global	UriUnescape
+ 131               		.type	UriUnescape, @function
+ 132               	UriUnescape:
+ 133 0000 8F92      		push r8
+ 134 0002 9F92      		push r9
+ 135 0004 AF92      		push r10
+ 136 0006 BF92      		push r11
+ 137 0008 CF92      		push r12
+ 138 000a DF92      		push r13
+ 139 000c EF92      		push r14
+ 140 000e FF92      		push r15
+ 141 0010 0F93      		push r16
+ 142 0012 1F93      		push r17
+ 143 0014 CF93      		push r28
+ 144 0016 DF93      		push r29
+ 145               	/* prologue: function */
+ 146               	/* frame size = 0 */
+ 147               	/* stack size = 12 */
+ 148               	.L__stack_usage = 12
+ 149 0018 8C01      		movw r16,r24
+ 150 001a FC01      		movw r30,r24
+ 151 001c B080      		ld r11,Z
+ 152 001e FFE2      		ldi r31,lo8(47)
+ 153 0020 BF12      		cpse r11,r31
+ 154 0022 00C0      		rjmp .L23
+ 155 0024 6C01      		movw r12,r24
+ 156 0026 EC01      		movw r28,r24
+ 157 0028 8FE2      		ldi r24,lo8(47)
+ 158 002a A82E      		mov r10,r24
+ 159               	.L16:
+ 160 002c 7E01      		movw r14,r28
+ 161 002e 9FEF      		ldi r25,-1
+ 162 0030 E91A      		sub r14,r25
+ 163 0032 F90A      		sbc r15,r25
+ 164 0034 8981      		ldd r24,Y+1
+ 165 0036 8823      		tst r24
+ 166 0038 01F0      		breq .L22
+ 167 003a 8532      		cpi r24,lo8(37)
+ 168 003c 01F4      		brne .L17
+ 169 003e 8A81      		ldd r24,Y+2
+ 170 0040 0E94 0000 		call DecodeHex
+ 171 0044 4C01      		movw r8,r24
+GAS LISTING /tmp/ccdpm2ic.s 			page 4
+
+
+ 172 0046 97FD      		sbrc r25,7
+ 173 0048 00C0      		rjmp .L17
+ 174 004a 8B81      		ldd r24,Y+3
+ 175 004c 0E94 0000 		call DecodeHex
+ 176 0050 97FD      		sbrc r25,7
+ 177 0052 00C0      		rjmp .L17
+ 178 0054 7E01      		movw r14,r28
+ 179 0056 23E0      		ldi r18,3
+ 180 0058 E20E      		add r14,r18
+ 181 005a F11C      		adc r15,__zero_reg__
+ 182 005c E0E1      		ldi r30,lo8(16)
+ 183 005e 8E9E      		mul r8,r30
+ 184 0060 800D      		add r24,r0
+ 185 0062 1124      		clr __zero_reg__
+ 186 0064 8B83      		std Y+3,r24
+ 187 0066 8111      		cpse r24,__zero_reg__
+ 188 0068 00C0      		rjmp .L17
+ 189               	.L22:
+ 190 006a F601      		movw r30,r12
+ 191 006c 1082      		st Z,__zero_reg__
+ 192 006e C801      		movw r24,r16
+ 193 0070 00C0      		rjmp .L15
+ 194               	.L17:
+ 195 0072 F701      		movw r30,r14
+ 196 0074 8081      		ld r24,Z
+ 197 0076 8C35      		cpi r24,lo8(92)
+ 198 0078 01F4      		brne .L18
+ 199 007a A082      		st Z,r10
+ 200               	.L18:
+ 201 007c F701      		movw r30,r14
+ 202 007e 9081      		ld r25,Z
+ 203 0080 82ED      		ldi r24,lo8(-46)
+ 204 0082 8B0D      		add r24,r11
+ 205 0084 8230      		cpi r24,lo8(2)
+ 206 0086 00F4      		brsh .L19
+ 207 0088 82ED      		ldi r24,lo8(-46)
+ 208 008a 890F      		add r24,r25
+ 209 008c 8230      		cpi r24,lo8(2)
+ 210 008e 00F0      		brlo .L20
+ 211               	.L19:
+ 212 0090 B92E      		mov r11,r25
+ 213 0092 F601      		movw r30,r12
+ 214 0094 9083      		st Z,r25
+ 215 0096 C601      		movw r24,r12
+ 216 0098 0196      		adiw r24,1
+ 217 009a 6C01      		movw r12,r24
+ 218               	.L20:
+ 219 009c E701      		movw r28,r14
+ 220 009e 00C0      		rjmp .L16
+ 221               	.L23:
+ 222 00a0 80E0      		ldi r24,0
+ 223 00a2 90E0      		ldi r25,0
+ 224               	.L15:
+ 225               	/* epilogue start */
+ 226 00a4 DF91      		pop r29
+ 227 00a6 CF91      		pop r28
+ 228 00a8 1F91      		pop r17
+GAS LISTING /tmp/ccdpm2ic.s 			page 5
+
+
+ 229 00aa 0F91      		pop r16
+ 230 00ac FF90      		pop r15
+ 231 00ae EF90      		pop r14
+ 232 00b0 DF90      		pop r13
+ 233 00b2 CF90      		pop r12
+ 234 00b4 BF90      		pop r11
+ 235 00b6 AF90      		pop r10
+ 236 00b8 9F90      		pop r9
+ 237 00ba 8F90      		pop r8
+ 238 00bc 0895      		ret
+ 239               		.size	UriUnescape, .-UriUnescape
+ 240               		.section	.text.HttpDecodeBase64,"ax",@progbits
+ 241               	.global	HttpDecodeBase64
+ 242               		.type	HttpDecodeBase64, @function
+ 243               	HttpDecodeBase64:
+ 244 0000 CF93      		push r28
+ 245 0002 DF93      		push r29
+ 246               	/* prologue: function */
+ 247               	/* frame size = 0 */
+ 248               	/* stack size = 2 */
+ 249               	.L__stack_usage = 2
+ 250 0004 C82F      		mov r28,r24
+ 251 0006 D92F      		mov r29,r25
+ 252 0008 FC01      		movw r30,r24
+ 253 000a 20E0      		ldi r18,0
+ 254 000c 3FEF      		ldi r19,lo8(-1)
+ 255               	.L25:
+ 256 000e A991      		ld r26,Y+
+ 257 0010 AA23      		tst r26
+ 258 0012 01F0      		breq .L36
+ 259 0014 A032      		cpi r26,lo8(32)
+ 260 0016 04F0      		brlt .L32
+ 261 0018 0A2E      		mov __tmp_reg__,r26
+ 262 001a 000C      		lsl r0
+ 263 001c BB0B      		sbc r27,r27
+ 264 001e A050      		subi r26,lo8(-(base64dtab-32))
+ 265 0020 B040      		sbci r27,hi8(-(base64dtab-32))
+ 266 0022 4C91      		ld r20,X
+ 267 0024 4F3F      		cpi r20,lo8(-1)
+ 268 0026 01F0      		breq .L32
+ 269 0028 51E0      		ldi r21,lo8(1)
+ 270 002a 520F      		add r21,r18
+ 271 002c 2230      		cpi r18,lo8(2)
+ 272 002e 01F0      		breq .L27
+ 273 0030 2330      		cpi r18,lo8(3)
+ 274 0032 01F0      		breq .L28
+ 275 0034 2130      		cpi r18,lo8(1)
+ 276 0036 01F4      		brne .L34
+ 277 0038 242F      		mov r18,r20
+ 278 003a 2073      		andi r18,lo8(48)
+ 279 003c 622F      		mov r22,r18
+ 280 003e 6295      		swap r22
+ 281 0040 6F70      		andi r22,lo8(15)
+ 282 0042 74E0      		ldi r23,lo8(4)
+ 283 0044 00C0      		rjmp .L35
+ 284               	.L27:
+ 285 0046 242F      		mov r18,r20
+GAS LISTING /tmp/ccdpm2ic.s 			page 6
+
+
+ 286 0048 2C73      		andi r18,lo8(60)
+ 287 004a 622F      		mov r22,r18
+ 288 004c 6695      		lsr r22
+ 289 004e 6695      		lsr r22
+ 290 0050 70E1      		ldi r23,lo8(16)
+ 291               	.L35:
+ 292 0052 3702      		muls r19,r23
+ 293 0054 9001      		movw r18,r0
+ 294 0056 1124      		clr __zero_reg__
+ 295 0058 262B      		or r18,r22
+ 296 005a 2083      		st Z,r18
+ 297 005c 252F      		mov r18,r21
+ 298 005e 3196      		adiw r30,1
+ 299 0060 00C0      		rjmp .L26
+ 300               	.L28:
+ 301 0062 50E4      		ldi r21,lo8(64)
+ 302 0064 3502      		muls r19,r21
+ 303 0066 9001      		movw r18,r0
+ 304 0068 1124      		clr __zero_reg__
+ 305 006a 242B      		or r18,r20
+ 306 006c 2083      		st Z,r18
+ 307 006e 3196      		adiw r30,1
+ 308 0070 20E0      		ldi r18,0
+ 309 0072 00C0      		rjmp .L26
+ 310               	.L32:
+ 311 0074 432F      		mov r20,r19
+ 312 0076 00C0      		rjmp .L26
+ 313               	.L34:
+ 314 0078 252F      		mov r18,r21
+ 315               	.L26:
+ 316 007a 342F      		mov r19,r20
+ 317 007c 00C0      		rjmp .L25
+ 318               	.L36:
+ 319 007e 1082      		st Z,__zero_reg__
+ 320               	/* epilogue start */
+ 321 0080 DF91      		pop r29
+ 322 0082 CF91      		pop r28
+ 323 0084 0895      		ret
+ 324               		.size	HttpDecodeBase64, .-HttpDecodeBase64
+ 325               		.section	.text.AllocConcatStrings,"ax",@progbits
+ 326               	.global	AllocConcatStrings
+ 327               		.type	AllocConcatStrings, @function
+ 328               	AllocConcatStrings:
+ 329 0000 CF92      		push r12
+ 330 0002 DF92      		push r13
+ 331 0004 EF92      		push r14
+ 332 0006 FF92      		push r15
+ 333 0008 0F93      		push r16
+ 334 000a 1F93      		push r17
+ 335 000c CF93      		push r28
+ 336 000e DF93      		push r29
+ 337 0010 CDB7      		in r28,__SP_L__
+ 338 0012 DEB7      		in r29,__SP_H__
+ 339               	/* prologue: function */
+ 340               	/* frame size = 0 */
+ 341               	/* stack size = 8 */
+ 342               	.L__stack_usage = 8
+GAS LISTING /tmp/ccdpm2ic.s 			page 7
+
+
+ 343 0014 8E01      		movw r16,r28
+ 344 0016 045F      		subi r16,-12
+ 345 0018 1F4F      		sbci r17,-1
+ 346 001a F801      		movw r30,r16
+ 347 001c E190      		ld r14,Z+
+ 348 001e F190      		ld r15,Z+
+ 349 0020 8F01      		movw r16,r30
+ 350 0022 D701      		movw r26,r14
+ 351               		0:
+ 352 0024 0D90      		ld __tmp_reg__,X+
+ 353 0026 0020      		tst __tmp_reg__
+ 354 0028 01F4      		brne 0b
+ 355 002a 1197      		sbiw r26,1
+ 356 002c CD01      		movw r24,r26
+ 357 002e 8E19      		sub r24,r14
+ 358 0030 9F09      		sbc r25,r15
+ 359               	.L38:
+ 360 0032 9F01      		movw r18,r30
+ 361 0034 2E5F      		subi r18,-2
+ 362 0036 3F4F      		sbci r19,-1
+ 363 0038 A081      		ld r26,Z
+ 364 003a B181      		ldd r27,Z+1
+ 365 003c 1097      		sbiw r26,0
+ 366 003e 01F0      		breq .L46
+ 367 0040 FD01      		movw r30,r26
+ 368               		0:
+ 369 0042 0190      		ld __tmp_reg__,Z+
+ 370 0044 0020      		tst __tmp_reg__
+ 371 0046 01F4      		brne 0b
+ 372 0048 3197      		sbiw r30,1
+ 373 004a EA1B      		sub r30,r26
+ 374 004c FB0B      		sbc r31,r27
+ 375 004e 8E0F      		add r24,r30
+ 376 0050 9F1F      		adc r25,r31
+ 377 0052 F901      		movw r30,r18
+ 378 0054 00C0      		rjmp .L38
+ 379               	.L46:
+ 380 0056 0196      		adiw r24,1
+ 381 0058 0E94 0000 		call malloc
+ 382 005c 6C01      		movw r12,r24
+ 383 005e 0097      		sbiw r24,0
+ 384 0060 01F0      		breq .L40
+ 385 0062 B701      		movw r22,r14
+ 386 0064 0E94 0000 		call strcpy
+ 387               	.L41:
+ 388 0068 7801      		movw r14,r16
+ 389 006a F2E0      		ldi r31,2
+ 390 006c EF0E      		add r14,r31
+ 391 006e F11C      		adc r15,__zero_reg__
+ 392 0070 F801      		movw r30,r16
+ 393 0072 6081      		ld r22,Z
+ 394 0074 7181      		ldd r23,Z+1
+ 395 0076 6115      		cp r22,__zero_reg__
+ 396 0078 7105      		cpc r23,__zero_reg__
+ 397 007a 01F0      		breq .L40
+ 398 007c C601      		movw r24,r12
+ 399 007e 0E94 0000 		call strcat
+GAS LISTING /tmp/ccdpm2ic.s 			page 8
+
+
+ 400 0082 8701      		movw r16,r14
+ 401 0084 00C0      		rjmp .L41
+ 402               	.L40:
+ 403 0086 C601      		movw r24,r12
+ 404               	/* epilogue start */
+ 405 0088 DF91      		pop r29
+ 406 008a CF91      		pop r28
+ 407 008c 1F91      		pop r17
+ 408 008e 0F91      		pop r16
+ 409 0090 FF90      		pop r15
+ 410 0092 EF90      		pop r14
+ 411 0094 DF90      		pop r13
+ 412 0096 CF90      		pop r12
+ 413 0098 0895      		ret
+ 414               		.size	AllocConcatStrings, .-AllocConcatStrings
+ 415               		.section	.text.AllocConcatStringLen,"ax",@progbits
+ 416               	.global	AllocConcatStringLen
+ 417               		.type	AllocConcatStringLen, @function
+ 418               	AllocConcatStringLen:
+ 419 0000 AF92      		push r10
+ 420 0002 BF92      		push r11
+ 421 0004 CF92      		push r12
+ 422 0006 DF92      		push r13
+ 423 0008 EF92      		push r14
+ 424 000a FF92      		push r15
+ 425 000c 0F93      		push r16
+ 426 000e 1F93      		push r17
+ 427 0010 CF93      		push r28
+ 428 0012 DF93      		push r29
+ 429               	/* prologue: function */
+ 430               	/* frame size = 0 */
+ 431               	/* stack size = 10 */
+ 432               	.L__stack_usage = 10
+ 433 0014 5C01      		movw r10,r24
+ 434 0016 6B01      		movw r12,r22
+ 435 0018 8A01      		movw r16,r20
+ 436 001a FC01      		movw r30,r24
+ 437               		0:
+ 438 001c 0190      		ld __tmp_reg__,Z+
+ 439 001e 0020      		tst __tmp_reg__
+ 440 0020 01F4      		brne 0b
+ 441 0022 3197      		sbiw r30,1
+ 442 0024 EF01      		movw r28,r30
+ 443 0026 C81B      		sub r28,r24
+ 444 0028 D90B      		sbc r29,r25
+ 445 002a CE01      		movw r24,r28
+ 446 002c 840F      		add r24,r20
+ 447 002e 951F      		adc r25,r21
+ 448 0030 0196      		adiw r24,1
+ 449 0032 0E94 0000 		call malloc
+ 450 0036 7C01      		movw r14,r24
+ 451 0038 0097      		sbiw r24,0
+ 452 003a 01F0      		breq .L48
+ 453 003c B501      		movw r22,r10
+ 454 003e 0E94 0000 		call strcpy
+ 455 0042 CE0D      		add r28,r14
+ 456 0044 DF1D      		adc r29,r15
+GAS LISTING /tmp/ccdpm2ic.s 			page 9
+
+
+ 457 0046 A801      		movw r20,r16
+ 458 0048 B601      		movw r22,r12
+ 459 004a CE01      		movw r24,r28
+ 460 004c 0E94 0000 		call strncpy
+ 461 0050 C00F      		add r28,r16
+ 462 0052 D11F      		adc r29,r17
+ 463 0054 1882      		st Y,__zero_reg__
+ 464               	.L48:
+ 465 0056 C701      		movw r24,r14
+ 466               	/* epilogue start */
+ 467 0058 DF91      		pop r29
+ 468 005a CF91      		pop r28
+ 469 005c 1F91      		pop r17
+ 470 005e 0F91      		pop r16
+ 471 0060 FF90      		pop r15
+ 472 0062 EF90      		pop r14
+ 473 0064 DF90      		pop r13
+ 474 0066 CF90      		pop r12
+ 475 0068 BF90      		pop r11
+ 476 006a AF90      		pop r10
+ 477 006c 0895      		ret
+ 478               		.size	AllocConcatStringLen, .-AllocConcatStringLen
+ 479               		.section	.rodata
+ 480               		.type	base64dtab, @object
+ 481               		.size	base64dtab, 96
+ 482               	base64dtab:
+ 483 0000 FF        		.byte	-1
+ 484 0001 FF        		.byte	-1
+ 485 0002 FF        		.byte	-1
+ 486 0003 FF        		.byte	-1
+ 487 0004 FF        		.byte	-1
+ 488 0005 FF        		.byte	-1
+ 489 0006 FF        		.byte	-1
+ 490 0007 FF        		.byte	-1
+ 491 0008 FF        		.byte	-1
+ 492 0009 FF        		.byte	-1
+ 493 000a FF        		.byte	-1
+ 494 000b 3E        		.byte	62
+ 495 000c FF        		.byte	-1
+ 496 000d FF        		.byte	-1
+ 497 000e FF        		.byte	-1
+ 498 000f 3F        		.byte	63
+ 499 0010 34        		.byte	52
+ 500 0011 35        		.byte	53
+ 501 0012 36        		.byte	54
+ 502 0013 37        		.byte	55
+ 503 0014 38        		.byte	56
+ 504 0015 39        		.byte	57
+ 505 0016 3A        		.byte	58
+ 506 0017 3B        		.byte	59
+ 507 0018 3C        		.byte	60
+ 508 0019 3D        		.byte	61
+ 509 001a FF        		.byte	-1
+ 510 001b FF        		.byte	-1
+ 511 001c FF        		.byte	-1
+ 512 001d FF        		.byte	-1
+ 513 001e FF        		.byte	-1
+GAS LISTING /tmp/ccdpm2ic.s 			page 10
+
+
+ 514 001f FF        		.byte	-1
+ 515 0020 FF        		.byte	-1
+ 516 0021 00        		.byte	0
+ 517 0022 01        		.byte	1
+ 518 0023 02        		.byte	2
+ 519 0024 03        		.byte	3
+ 520 0025 04        		.byte	4
+ 521 0026 05        		.byte	5
+ 522 0027 06        		.byte	6
+ 523 0028 07        		.byte	7
+ 524 0029 08        		.byte	8
+ 525 002a 09        		.byte	9
+ 526 002b 0A        		.byte	10
+ 527 002c 0B        		.byte	11
+ 528 002d 0C        		.byte	12
+ 529 002e 0D        		.byte	13
+ 530 002f 0E        		.byte	14
+ 531 0030 0F        		.byte	15
+ 532 0031 10        		.byte	16
+ 533 0032 11        		.byte	17
+ 534 0033 12        		.byte	18
+ 535 0034 13        		.byte	19
+ 536 0035 14        		.byte	20
+ 537 0036 15        		.byte	21
+ 538 0037 16        		.byte	22
+ 539 0038 17        		.byte	23
+ 540 0039 18        		.byte	24
+ 541 003a 19        		.byte	25
+ 542 003b FF        		.byte	-1
+ 543 003c FF        		.byte	-1
+ 544 003d FF        		.byte	-1
+ 545 003e FF        		.byte	-1
+ 546 003f FF        		.byte	-1
+ 547 0040 FF        		.byte	-1
+ 548 0041 1A        		.byte	26
+ 549 0042 1B        		.byte	27
+ 550 0043 1C        		.byte	28
+ 551 0044 1D        		.byte	29
+ 552 0045 1E        		.byte	30
+ 553 0046 1F        		.byte	31
+ 554 0047 20        		.byte	32
+ 555 0048 21        		.byte	33
+ 556 0049 22        		.byte	34
+ 557 004a 23        		.byte	35
+ 558 004b 24        		.byte	36
+ 559 004c 25        		.byte	37
+ 560 004d 26        		.byte	38
+ 561 004e 27        		.byte	39
+ 562 004f 28        		.byte	40
+ 563 0050 29        		.byte	41
+ 564 0051 2A        		.byte	42
+ 565 0052 2B        		.byte	43
+ 566 0053 2C        		.byte	44
+ 567 0054 2D        		.byte	45
+ 568 0055 2E        		.byte	46
+ 569 0056 2F        		.byte	47
+ 570 0057 30        		.byte	48
+GAS LISTING /tmp/ccdpm2ic.s 			page 11
+
+
+ 571 0058 31        		.byte	49
+ 572 0059 32        		.byte	50
+ 573 005a 33        		.byte	51
+ 574 005b FF        		.byte	-1
+ 575 005c FF        		.byte	-1
+ 576 005d FF        		.byte	-1
+ 577 005e FF        		.byte	-1
+ 578 005f FF        		.byte	-1
+ 579               		.ident	"GCC: (GNU) 5.3.0"
+ 580               	.global __do_copy_data
+GAS LISTING /tmp/ccdpm2ic.s 			page 12
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 utils.c
+     /tmp/ccdpm2ic.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccdpm2ic.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccdpm2ic.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccdpm2ic.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccdpm2ic.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccdpm2ic.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccdpm2ic.s:10     .text.DecodeHex:0000000000000000 DecodeHex
+     /tmp/ccdpm2ic.s:53     .text.HttpUrlUnescape:0000000000000000 HttpUrlUnescape
+     /tmp/ccdpm2ic.s:132    .text.UriUnescape:0000000000000000 UriUnescape
+     /tmp/ccdpm2ic.s:243    .text.HttpDecodeBase64:0000000000000000 HttpDecodeBase64
+     /tmp/ccdpm2ic.s:482    .rodata:0000000000000000 base64dtab
+     /tmp/ccdpm2ic.s:328    .text.AllocConcatStrings:0000000000000000 AllocConcatStrings
+     /tmp/ccdpm2ic.s:418    .text.AllocConcatStringLen:0000000000000000 AllocConcatStringLen
+
+UNDEFINED SYMBOLS
+strtol
+malloc
+strcpy
+strcat
+strncpy
+__do_copy_data

@@ -1,0 +1,134 @@
+GAS LISTING /tmp/ccGjUJGM.s 			page 1
+
+
+   1               		.file	"ethin.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.NutEtherInput,"ax",@progbits
+   9               	.global	NutEtherInput
+  10               		.type	NutEtherInput, @function
+  11               	NutEtherInput:
+  12 0000 EF92      		push r14
+  13 0002 FF92      		push r15
+  14 0004 0F93      		push r16
+  15 0006 1F93      		push r17
+  16 0008 CF93      		push r28
+  17 000a DF93      		push r29
+  18               	/* prologue: function */
+  19               	/* frame size = 0 */
+  20               	/* stack size = 6 */
+  21               	.L__stack_usage = 6
+  22 000c 8C01      		movw r16,r24
+  23 000e EB01      		movw r28,r22
+  24 0010 EB80      		ldd r14,Y+3
+  25 0012 FC80      		ldd r15,Y+4
+  26 0014 C701      		movw r24,r14
+  27 0016 0E96      		adiw r24,14
+  28 0018 9887      		std Y+8,r25
+  29 001a 8F83      		std Y+7,r24
+  30 001c 8D81      		ldd r24,Y+5
+  31 001e 9E81      		ldd r25,Y+6
+  32 0020 0E97      		sbiw r24,14
+  33 0022 9A87      		std Y+10,r25
+  34 0024 8987      		std Y+9,r24
+  35 0026 8EE0      		ldi r24,lo8(14)
+  36 0028 90E0      		ldi r25,0
+  37 002a 9E83      		std Y+6,r25
+  38 002c 8D83      		std Y+5,r24
+  39 002e E091 0000 		lds r30,ether_demux
+  40 0032 F091 0000 		lds r31,ether_demux+1
+  41 0036 3097      		sbiw r30,0
+  42 0038 01F4      		brne .L2
+  43               	.L6:
+  44 003a F701      		movw r30,r14
+  45 003c 8485      		ldd r24,Z+12
+  46 003e 9585      		ldd r25,Z+13
+  47               	/* #APP */
+  48               	 ;  309 "../../nut/include/sys/types.h" 1
+  49 0040 082E      		mov __tmp_reg__, r24
+  50 0042 892F      		mov r24, r25
+  51 0044 902D      		mov r25, __tmp_reg__
+  52               		
+  53               	 ;  0 "" 2
+  54               	/* #NOAPP */
+  55 0046 8115      		cp r24,__zero_reg__
+  56 0048 F8E0      		ldi r31,8
+  57 004a 9F07      		cpc r25,r31
+GAS LISTING /tmp/ccGjUJGM.s 			page 2
+
+
+  58 004c 01F0      		breq .L4
+  59 004e 8630      		cpi r24,6
+  60 0050 9840      		sbci r25,8
+  61 0052 01F4      		brne .L11
+  62 0054 BE01      		movw r22,r28
+  63 0056 C801      		movw r24,r16
+  64               	/* epilogue start */
+  65 0058 DF91      		pop r29
+  66 005a CF91      		pop r28
+  67 005c 1F91      		pop r17
+  68 005e 0F91      		pop r16
+  69 0060 FF90      		pop r15
+  70 0062 EF90      		pop r14
+  71 0064 0C94 0000 		jmp NutArpInput
+  72               	.L2:
+  73 0068 C801      		movw r24,r16
+  74 006a 1995      		eicall
+  75 006c 892B      		or r24,r25
+  76 006e 01F4      		brne .L6
+  77               	/* epilogue start */
+  78 0070 DF91      		pop r29
+  79 0072 CF91      		pop r28
+  80 0074 1F91      		pop r17
+  81 0076 0F91      		pop r16
+  82 0078 FF90      		pop r15
+  83 007a EF90      		pop r14
+  84 007c 0895      		ret
+  85               	.L4:
+  86 007e BE01      		movw r22,r28
+  87 0080 C801      		movw r24,r16
+  88               	/* epilogue start */
+  89 0082 DF91      		pop r29
+  90 0084 CF91      		pop r28
+  91 0086 1F91      		pop r17
+  92 0088 0F91      		pop r16
+  93 008a FF90      		pop r15
+  94 008c EF90      		pop r14
+  95 008e 0C94 0000 		jmp NutIpInput
+  96               	.L11:
+  97 0092 CE01      		movw r24,r28
+  98               	/* epilogue start */
+  99 0094 DF91      		pop r29
+ 100 0096 CF91      		pop r28
+ 101 0098 1F91      		pop r17
+ 102 009a 0F91      		pop r16
+ 103 009c FF90      		pop r15
+ 104 009e EF90      		pop r14
+ 105 00a0 0C94 0000 		jmp NutNetBufFree
+ 106               		.size	NutEtherInput, .-NutEtherInput
+ 107               		.comm	ether_demux,2,1
+ 108               		.ident	"GCC: (GNU) 5.3.0"
+ 109               	.global __do_clear_bss
+GAS LISTING /tmp/ccGjUJGM.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 ethin.c
+     /tmp/ccGjUJGM.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccGjUJGM.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccGjUJGM.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccGjUJGM.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccGjUJGM.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccGjUJGM.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccGjUJGM.s:11     .text.NutEtherInput:0000000000000000 NutEtherInput
+                            *COM*:0000000000000002 ether_demux
+
+UNDEFINED SYMBOLS
+NutArpInput
+NutIpInput
+NutNetBufFree
+__do_clear_bss

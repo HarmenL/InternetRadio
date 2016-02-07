@@ -1,0 +1,45 @@
+GAS LISTING /tmp/ccXp8AsG.s 			page 1
+
+
+   1               		.file	"lstrcmp.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.LiLiCompareStringItems,"ax",@progbits
+   9               	.global	LiLiCompareStringItems
+  10               		.type	LiLiCompareStringItems, @function
+  11               	LiLiCompareStringItems:
+  12               	/* prologue: function */
+  13               	/* frame size = 0 */
+  14               	/* stack size = 0 */
+  15               	.L__stack_usage = 0
+  16 0000 0097      		sbiw r24,0
+  17 0002 01F0      		breq .L2
+  18 0004 6115      		cp r22,__zero_reg__
+  19 0006 7105      		cpc r23,__zero_reg__
+  20 0008 01F0      		breq .L2
+  21 000a 0C94 0000 		jmp strcmp
+  22               	.L2:
+  23 000e 861B      		sub r24,r22
+  24 0010 970B      		sbc r25,r23
+  25 0012 0895      		ret
+  26               		.size	LiLiCompareStringItems, .-LiLiCompareStringItems
+  27               		.ident	"GCC: (GNU) 5.3.0"
+GAS LISTING /tmp/ccXp8AsG.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 lstrcmp.c
+     /tmp/ccXp8AsG.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccXp8AsG.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccXp8AsG.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccXp8AsG.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccXp8AsG.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccXp8AsG.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccXp8AsG.s:11     .text.LiLiCompareStringItems:0000000000000000 LiLiCompareStringItems
+
+UNDEFINED SYMBOLS
+strcmp

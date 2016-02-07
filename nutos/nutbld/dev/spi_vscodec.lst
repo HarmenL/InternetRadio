@@ -1,0 +1,2201 @@
+GAS LISTING /tmp/cclioYfa.s 			page 1
+
+
+   1               		.file	"spi_vscodec.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.section	.text.VsCodecWaitReady,"ax",@progbits
+   9               	.global	VsCodecWaitReady
+  10               		.type	VsCodecWaitReady, @function
+  11               	VsCodecWaitReady:
+  12 0000 CF92      		push r12
+  13 0002 DF92      		push r13
+  14 0004 EF92      		push r14
+  15 0006 FF92      		push r15
+  16 0008 0F93      		push r16
+  17 000a 1F93      		push r17
+  18 000c CF93      		push r28
+  19 000e DF93      		push r29
+  20               	/* prologue: function */
+  21               	/* frame size = 0 */
+  22               	/* stack size = 8 */
+  23               	.L__stack_usage = 8
+  24 0010 6A01      		movw r12,r20
+  25 0012 7B01      		movw r14,r22
+  26 0014 FC01      		movw r30,r24
+  27 0016 C189      		ldd r28,Z+17
+  28 0018 D289      		ldd r29,Z+18
+  29 001a 8E01      		movw r16,r28
+  30 001c 0A5D      		subi r16,-38
+  31 001e 1F4F      		sbci r17,-1
+  32               	.L2:
+  33 0020 EBAD      		ldd r30,Y+59
+  34 0022 FCAD      		ldd r31,Y+60
+  35 0024 1995      		eicall
+  36 0026 892B      		or r24,r25
+  37 0028 01F4      		brne .L7
+  38 002a B701      		movw r22,r14
+  39 002c A601      		movw r20,r12
+  40 002e C801      		movw r24,r16
+  41 0030 0E94 0000 		call NutEventWait
+  42 0034 892B      		or r24,r25
+  43 0036 01F0      		breq .L2
+  44 0038 8FEF      		ldi r24,lo8(-1)
+  45 003a 9FEF      		ldi r25,lo8(-1)
+  46 003c 00C0      		rjmp .L3
+  47               	.L7:
+  48 003e 80E0      		ldi r24,0
+  49 0040 90E0      		ldi r25,0
+  50               	.L3:
+  51               	/* epilogue start */
+  52 0042 DF91      		pop r29
+  53 0044 CF91      		pop r28
+  54 0046 1F91      		pop r17
+  55 0048 0F91      		pop r16
+  56 004a FF90      		pop r15
+  57 004c EF90      		pop r14
+GAS LISTING /tmp/cclioYfa.s 			page 2
+
+
+  58 004e DF90      		pop r13
+  59 0050 CF90      		pop r12
+  60 0052 0895      		ret
+  61               		.size	VsCodecWaitReady, .-VsCodecWaitReady
+  62               		.section	.text.VsCodecReg,"ax",@progbits
+  63               	.global	VsCodecReg
+  64               		.type	VsCodecReg, @function
+  65               	VsCodecReg:
+  66 0000 0F93      		push r16
+  67 0002 1F93      		push r17
+  68 0004 CF93      		push r28
+  69 0006 DF93      		push r29
+  70 0008 00D0      		rcall .
+  71 000a 1F92      		push __zero_reg__
+  72 000c CDB7      		in r28,__SP_L__
+  73 000e DEB7      		in r29,__SP_H__
+  74               	/* prologue: function */
+  75               	/* frame size = 4 */
+  76               	/* stack size = 8 */
+  77               	.L__stack_usage = 8
+  78 0010 DC01      		movw r26,r24
+  79 0012 5196      		adiw r26,17
+  80 0014 0D91      		ld r16,X+
+  81 0016 1C91      		ld r17,X
+  82 0018 5297      		sbiw r26,17+1
+  83 001a 6983      		std Y+1,r22
+  84 001c 4A83      		std Y+2,r20
+  85 001e 3B83      		std Y+3,r19
+  86 0020 2C83      		std Y+4,r18
+  87 0022 40E0      		ldi r20,0
+  88 0024 50E0      		ldi r21,0
+  89 0026 BA01      		movw r22,r20
+  90 0028 0E94 0000 		call VsCodecWaitReady
+  91 002c D801      		movw r26,r16
+  92 002e DD96      		adiw r26,61
+  93 0030 ED91      		ld r30,X+
+  94 0032 FC91      		ld r31,X
+  95 0034 DE97      		sbiw r26,61+1
+  96 0036 64E0      		ldi r22,lo8(4)
+  97 0038 70E0      		ldi r23,0
+  98 003a CE01      		movw r24,r28
+  99 003c 0196      		adiw r24,1
+ 100 003e 1995      		eicall
+ 101 0040 8B81      		ldd r24,Y+3
+ 102 0042 9C81      		ldd r25,Y+4
+ 103 0044 9827      		eor r25,r24
+ 104 0046 8927      		eor r24,r25
+ 105 0048 9827      		eor r25,r24
+ 106               	/* epilogue start */
+ 107 004a 0F90      		pop __tmp_reg__
+ 108 004c 0F90      		pop __tmp_reg__
+ 109 004e 0F90      		pop __tmp_reg__
+ 110 0050 0F90      		pop __tmp_reg__
+ 111 0052 DF91      		pop r29
+ 112 0054 CF91      		pop r28
+ 113 0056 1F91      		pop r17
+ 114 0058 0F91      		pop r16
+GAS LISTING /tmp/cclioYfa.s 			page 3
+
+
+ 115 005a 0895      		ret
+ 116               		.size	VsCodecReg, .-VsCodecReg
+ 117               		.section	.text.VsCodecMode,"ax",@progbits
+ 118               	.global	VsCodecMode
+ 119               		.type	VsCodecMode, @function
+ 120               	VsCodecMode:
+ 121 0000 CF92      		push r12
+ 122 0002 DF92      		push r13
+ 123 0004 EF92      		push r14
+ 124 0006 FF92      		push r15
+ 125 0008 0F93      		push r16
+ 126 000a 1F93      		push r17
+ 127 000c CF93      		push r28
+ 128 000e DF93      		push r29
+ 129               	/* prologue: function */
+ 130               	/* frame size = 0 */
+ 131               	/* stack size = 8 */
+ 132               	.L__stack_usage = 8
+ 133 0010 6C01      		movw r12,r24
+ 134 0012 8B01      		movw r16,r22
+ 135 0014 EA01      		movw r28,r20
+ 136 0016 20E0      		ldi r18,0
+ 137 0018 30E0      		ldi r19,0
+ 138 001a 40E0      		ldi r20,0
+ 139 001c 63E0      		ldi r22,lo8(3)
+ 140 001e 0E94 0000 		call VsCodecReg
+ 141 0022 7C01      		movw r14,r24
+ 142 0024 CE01      		movw r24,r28
+ 143 0026 802B      		or r24,r16
+ 144 0028 912B      		or r25,r17
+ 145 002a 892B      		or r24,r25
+ 146 002c 01F0      		breq .L11
+ 147 002e 9E01      		movw r18,r28
+ 148 0030 2095      		com r18
+ 149 0032 3095      		com r19
+ 150 0034 2E21      		and r18,r14
+ 151 0036 3F21      		and r19,r15
+ 152 0038 202B      		or r18,r16
+ 153 003a 312B      		or r19,r17
+ 154 003c 40E0      		ldi r20,0
+ 155 003e 62E0      		ldi r22,lo8(2)
+ 156 0040 C601      		movw r24,r12
+ 157 0042 0E94 0000 		call VsCodecReg
+ 158 0046 02FF      		sbrs r16,2
+ 159 0048 00C0      		rjmp .L11
+ 160 004a 60E0      		ldi r22,0
+ 161 004c 70E0      		ldi r23,0
+ 162 004e CB01      		movw r24,r22
+ 163 0050 0E94 0000 		call NutSleep
+ 164               	.L11:
+ 165 0054 C701      		movw r24,r14
+ 166               	/* epilogue start */
+ 167 0056 DF91      		pop r29
+ 168 0058 CF91      		pop r28
+ 169 005a 1F91      		pop r17
+ 170 005c 0F91      		pop r16
+ 171 005e FF90      		pop r15
+GAS LISTING /tmp/cclioYfa.s 			page 4
+
+
+ 172 0060 EF90      		pop r14
+ 173 0062 DF90      		pop r13
+ 174 0064 CF90      		pop r12
+ 175 0066 0895      		ret
+ 176               		.size	VsCodecMode, .-VsCodecMode
+ 177               		.section	.text.VsDecoderSetVolume,"ax",@progbits
+ 178               	.global	VsDecoderSetVolume
+ 179               		.type	VsDecoderSetVolume, @function
+ 180               	VsDecoderSetVolume:
+ 181 0000 EF92      		push r14
+ 182 0002 FF92      		push r15
+ 183 0004 0F93      		push r16
+ 184 0006 1F93      		push r17
+ 185 0008 CF93      		push r28
+ 186 000a DF93      		push r29
+ 187               	/* prologue: function */
+ 188               	/* frame size = 0 */
+ 189               	/* stack size = 6 */
+ 190               	.L__stack_usage = 6
+ 191 000c FC01      		movw r30,r24
+ 192 000e E188      		ldd r14,Z+17
+ 193 0010 F288      		ldd r15,Z+18
+ 194 0012 8B01      		movw r16,r22
+ 195 0014 1616      		cp __zero_reg__,r22
+ 196 0016 1706      		cpc __zero_reg__,r23
+ 197 0018 04F4      		brge .L17
+ 198 001a 00E0      		ldi r16,0
+ 199 001c 10E0      		ldi r17,0
+ 200               	.L17:
+ 201 001e 0138      		cpi r16,-127
+ 202 0020 FFEF      		ldi r31,-1
+ 203 0022 1F07      		cpc r17,r31
+ 204 0024 04F4      		brge .L18
+ 205 0026 01E8      		ldi r16,lo8(-127)
+ 206 0028 1FEF      		ldi r17,lo8(-1)
+ 207               	.L18:
+ 208 002a 9A01      		movw r18,r20
+ 209 002c 1416      		cp __zero_reg__,r20
+ 210 002e 1506      		cpc __zero_reg__,r21
+ 211 0030 04F4      		brge .L19
+ 212 0032 20E0      		ldi r18,0
+ 213 0034 30E0      		ldi r19,0
+ 214               	.L19:
+ 215 0036 E901      		movw r28,r18
+ 216 0038 C138      		cpi r28,-127
+ 217 003a 2FEF      		ldi r18,-1
+ 218 003c D207      		cpc r29,r18
+ 219 003e 04F4      		brge .L20
+ 220 0040 C1E8      		ldi r28,lo8(-127)
+ 221 0042 DFEF      		ldi r29,lo8(-1)
+ 222               	.L20:
+ 223 0044 2227      		clr r18
+ 224 0046 3327      		clr r19
+ 225 0048 201B      		sub r18,r16
+ 226 004a 310B      		sbc r19,r17
+ 227 004c A901      		movw r20,r18
+ 228 004e 542F      		mov r21,r20
+GAS LISTING /tmp/cclioYfa.s 			page 5
+
+
+ 229 0050 4427      		clr r20
+ 230 0052 550F      		lsl r21
+ 231 0054 2227      		clr r18
+ 232 0056 3327      		clr r19
+ 233 0058 2C1B      		sub r18,r28
+ 234 005a 3D0B      		sbc r19,r29
+ 235 005c 220F      		lsl r18
+ 236 005e 331F      		rol r19
+ 237 0060 242B      		or r18,r20
+ 238 0062 352B      		or r19,r21
+ 239 0064 4BE0      		ldi r20,lo8(11)
+ 240 0066 62E0      		ldi r22,lo8(2)
+ 241 0068 0E94 0000 		call VsCodecReg
+ 242 006c F701      		movw r30,r14
+ 243 006e 1187      		std Z+9,r17
+ 244 0070 0087      		std Z+8,r16
+ 245 0072 D783      		std Z+7,r29
+ 246 0074 C683      		std Z+6,r28
+ 247 0076 80E0      		ldi r24,0
+ 248 0078 90E0      		ldi r25,0
+ 249               	/* epilogue start */
+ 250 007a DF91      		pop r29
+ 251 007c CF91      		pop r28
+ 252 007e 1F91      		pop r17
+ 253 0080 0F91      		pop r16
+ 254 0082 FF90      		pop r15
+ 255 0084 EF90      		pop r14
+ 256 0086 0895      		ret
+ 257               		.size	VsDecoderSetVolume, .-VsDecoderSetVolume
+ 258               		.section	.text.VsDecoderSetBass,"ax",@progbits
+ 259               	.global	VsDecoderSetBass
+ 260               		.type	VsDecoderSetBass, @function
+ 261               	VsDecoderSetBass:
+ 262               	/* prologue: function */
+ 263               	/* frame size = 0 */
+ 264               	/* stack size = 0 */
+ 265               	.L__stack_usage = 0
+ 266 0000 80E0      		ldi r24,0
+ 267 0002 90E0      		ldi r25,0
+ 268 0004 0895      		ret
+ 269               		.size	VsDecoderSetBass, .-VsDecoderSetBass
+ 270               		.section	.text.VsCodecBeep,"ax",@progbits
+ 271               	.global	VsCodecBeep
+ 272               		.type	VsCodecBeep, @function
+ 273               	VsCodecBeep:
+ 274 0000 2F92      		push r2
+ 275 0002 3F92      		push r3
+ 276 0004 4F92      		push r4
+ 277 0006 5F92      		push r5
+ 278 0008 6F92      		push r6
+ 279 000a 7F92      		push r7
+ 280 000c 8F92      		push r8
+ 281 000e 9F92      		push r9
+ 282 0010 AF92      		push r10
+ 283 0012 BF92      		push r11
+ 284 0014 CF92      		push r12
+ 285 0016 DF92      		push r13
+GAS LISTING /tmp/cclioYfa.s 			page 6
+
+
+ 286 0018 EF92      		push r14
+ 287 001a FF92      		push r15
+ 288 001c 0F93      		push r16
+ 289 001e 1F93      		push r17
+ 290 0020 CF93      		push r28
+ 291 0022 DF93      		push r29
+ 292 0024 CDB7      		in r28,__SP_L__
+ 293 0026 DEB7      		in r29,__SP_H__
+ 294 0028 2E97      		sbiw r28,14
+ 295 002a 0FB6      		in __tmp_reg__,__SREG__
+ 296 002c F894      		cli
+ 297 002e DEBF      		out __SP_H__,r29
+ 298 0030 0FBE      		out __SREG__,__tmp_reg__
+ 299 0032 CDBF      		out __SP_L__,r28
+ 300               	/* prologue: function */
+ 301               	/* frame size = 14 */
+ 302               	/* stack size = 32 */
+ 303               	.L__stack_usage = 32
+ 304 0034 5C01      		movw r10,r24
+ 305 0036 8B01      		movw r16,r22
+ 306 0038 DC01      		movw r26,r24
+ 307 003a 5196      		adiw r26,17
+ 308 003c 8D90      		ld r8,X+
+ 309 003e 9C90      		ld r9,X
+ 310 0040 5297      		sbiw r26,17+1
+ 311 0042 6115      		cp r22,__zero_reg__
+ 312 0044 7105      		cpc r23,__zero_reg__
+ 313 0046 01F4      		brne .+2
+ 314 0048 00C0      		rjmp .L23
+ 315 004a 7B83      		std Y+3,r23
+ 316 004c 6A83      		std Y+2,r22
+ 317 004e CB01      		movw r24,r22
+ 318 0050 A0E0      		ldi r26,0
+ 319 0052 B0E0      		ldi r27,0
+ 320 0054 9C01      		movw r18,r24
+ 321 0056 AD01      		movw r20,r26
+ 322 0058 67E0      		ldi r22,7
+ 323               		1:
+ 324 005a 220F      		lsl r18
+ 325 005c 331F      		rol r19
+ 326 005e 441F      		rol r20
+ 327 0060 551F      		rol r21
+ 328 0062 6A95      		dec r22
+ 329 0064 01F4      		brne 1b
+ 330 0066 2D83      		std Y+5,r18
+ 331 0068 3E83      		std Y+6,r19
+ 332 006a 4F83      		std Y+7,r20
+ 333 006c 5887      		std Y+8,r21
+ 334 006e 3091 0000 		lds r19,on.2731+3
+ 335 0072 3C83      		std Y+4,r19
+ 336 0074 47E0      		ldi r20,lo8(7)
+ 337 0076 4D87      		std Y+13,r20
+ 338 0078 1E86      		std Y+14,__zero_reg__
+ 339 007a 1982      		std Y+1,__zero_reg__
+ 340 007c 212C      		mov r2,__zero_reg__
+ 341 007e 312C      		mov r3,__zero_reg__
+ 342 0080 8987      		std Y+9,r24
+GAS LISTING /tmp/cclioYfa.s 			page 7
+
+
+ 343 0082 9A87      		std Y+10,r25
+ 344 0084 AB87      		std Y+11,r26
+ 345 0086 BC87      		std Y+12,r27
+ 346               	.L24:
+ 347 0088 3981      		ldd r19,Y+1
+ 348 008a 4D85      		ldd r20,Y+13
+ 349 008c 4317      		cp r20,r19
+ 350 008e 04F4      		brge .+2
+ 351 0090 00C0      		rjmp .L35
+ 352 0092 5D85      		ldd r21,Y+13
+ 353 0094 E52F      		mov r30,r21
+ 354 0096 EE0F      		lsl r30
+ 355 0098 FF0B      		sbc r31,r31
+ 356 009a E050      		subi r30,lo8(-(ftab.2733))
+ 357 009c F040      		sbci r31,hi8(-(ftab.2733))
+ 358 009e C080      		ld r12,Z
+ 359 00a0 D180      		ldd r13,Z+1
+ 360 00a2 E12C      		mov r14,__zero_reg__
+ 361 00a4 F12C      		mov r15,__zero_reg__
+ 362 00a6 D701      		movw r26,r14
+ 363 00a8 C601      		movw r24,r12
+ 364 00aa B695      		lsr r27
+ 365 00ac A795      		ror r26
+ 366 00ae 9795      		ror r25
+ 367 00b0 8795      		ror r24
+ 368 00b2 2D81      		ldd r18,Y+5
+ 369 00b4 3E81      		ldd r19,Y+6
+ 370 00b6 4F81      		ldd r20,Y+7
+ 371 00b8 5885      		ldd r21,Y+8
+ 372 00ba 280F      		add r18,r24
+ 373 00bc 391F      		adc r19,r25
+ 374 00be 4A1F      		adc r20,r26
+ 375 00c0 5B1F      		adc r21,r27
+ 376 00c2 CA01      		movw r24,r20
+ 377 00c4 B901      		movw r22,r18
+ 378 00c6 A701      		movw r20,r14
+ 379 00c8 9601      		movw r18,r12
+ 380 00ca 0E94 0000 		call __udivmodsi4
+ 381 00ce 2901      		movw r4,r18
+ 382 00d0 3A01      		movw r6,r20
+ 383 00d2 C901      		movw r24,r18
+ 384 00d4 0197      		sbiw r24,1
+ 385 00d6 4F97      		sbiw r24,31
+ 386 00d8 00F4      		brsh .L25
+ 387 00da 4427      		clr r20
+ 388 00dc 5527      		clr r21
+ 389 00de C701      		movw r24,r14
+ 390 00e0 B601      		movw r22,r12
+ 391 00e2 0E94 0000 		call __mulsi3
+ 392 00e6 AB01      		movw r20,r22
+ 393 00e8 BC01      		movw r22,r24
+ 394 00ea 405C      		subi r20,-64
+ 395 00ec 5F4F      		sbci r21,-1
+ 396 00ee 6F4F      		sbci r22,-1
+ 397 00f0 7F4F      		sbci r23,-1
+ 398 00f2 87E0      		ldi r24,7
+ 399               		1:
+GAS LISTING /tmp/cclioYfa.s 			page 8
+
+
+ 400 00f4 7695      		lsr r23
+ 401 00f6 6795      		ror r22
+ 402 00f8 5795      		ror r21
+ 403 00fa 4795      		ror r20
+ 404 00fc 8A95      		dec r24
+ 405 00fe 01F4      		brne 1b
+ 406 0100 8985      		ldd r24,Y+9
+ 407 0102 9A85      		ldd r25,Y+10
+ 408 0104 AB85      		ldd r26,Y+11
+ 409 0106 BC85      		ldd r27,Y+12
+ 410 0108 4817      		cp r20,r24
+ 411 010a 5907      		cpc r21,r25
+ 412 010c 6A07      		cpc r22,r26
+ 413 010e 7B07      		cpc r23,r27
+ 414 0110 00F4      		brsh .L26
+ 415 0112 C801      		movw r24,r16
+ 416 0114 841B      		sub r24,r20
+ 417 0116 950B      		sbc r25,r21
+ 418 0118 00C0      		rjmp .L27
+ 419               	.L26:
+ 420 011a CA01      		movw r24,r20
+ 421 011c 801B      		sub r24,r16
+ 422 011e 910B      		sbc r25,r17
+ 423               	.L27:
+ 424 0120 AA81      		ldd r26,Y+2
+ 425 0122 BB81      		ldd r27,Y+3
+ 426 0124 8A17      		cp r24,r26
+ 427 0126 9B07      		cpc r25,r27
+ 428 0128 00F4      		brsh .L25
+ 429 012a 9B83      		std Y+3,r25
+ 430 012c 8A83      		std Y+2,r24
+ 431 012e 1A01      		movw r2,r20
+ 432 0130 8D85      		ldd r24,Y+13
+ 433 0132 8295      		swap r24
+ 434 0134 880F      		lsl r24
+ 435 0136 807E      		andi r24,lo8(-32)
+ 436 0138 8429      		or r24,r4
+ 437 013a 8C83      		std Y+4,r24
+ 438 013c BD85      		ldd r27,Y+13
+ 439 013e B230      		cpi r27,lo8(2)
+ 440 0140 04F0      		brlt .L31
+ 441 0142 B250      		subi r27,lo8(-(-2))
+ 442 0144 B983      		std Y+1,r27
+ 443 0146 E1E0      		ldi r30,lo8(1)
+ 444 0148 EE87      		std Y+14,r30
+ 445 014a 00C0      		rjmp .L25
+ 446               	.L31:
+ 447 014c F1E0      		ldi r31,lo8(1)
+ 448 014e FE87      		std Y+14,r31
+ 449               	.L25:
+ 450 0150 2D85      		ldd r18,Y+13
+ 451 0152 2150      		subi r18,lo8(-(-1))
+ 452 0154 2D87      		std Y+13,r18
+ 453 0156 00C0      		rjmp .L24
+ 454               	.L35:
+ 455 0158 5E85      		ldd r21,Y+14
+ 456 015a 5523      		tst r21
+GAS LISTING /tmp/cclioYfa.s 			page 9
+
+
+ 457 015c 01F0      		breq .L29
+ 458 015e 8C81      		ldd r24,Y+4
+ 459 0160 8093 0000 		sts on.2731+3,r24
+ 460               	.L29:
+ 461 0164 44E0      		ldi r20,lo8(4)
+ 462 0166 50E0      		ldi r21,0
+ 463 0168 64E0      		ldi r22,lo8(4)
+ 464 016a 70E0      		ldi r23,0
+ 465 016c C501      		movw r24,r10
+ 466 016e 0E94 0000 		call VsCodecMode
+ 467 0172 9093 0000 		sts mode.2734+1,r25
+ 468 0176 8093 0000 		sts mode.2734,r24
+ 469 017a F401      		movw r30,r8
+ 470 017c FF96      		adiw r30,63
+ 471 017e 0190      		ld __tmp_reg__,Z+
+ 472 0180 F081      		ld r31,Z
+ 473 0182 E02D      		mov r30,__tmp_reg__
+ 474 0184 68E0      		ldi r22,lo8(8)
+ 475 0186 70E0      		ldi r23,0
+ 476 0188 80E0      		ldi r24,lo8(on.2731)
+ 477 018a 90E0      		ldi r25,hi8(on.2731)
+ 478 018c 1995      		eicall
+ 479 018e 00C0      		rjmp .L30
+ 480               	.L23:
+ 481 0190 F401      		movw r30,r8
+ 482 0192 FF96      		adiw r30,63
+ 483 0194 0190      		ld __tmp_reg__,Z+
+ 484 0196 F081      		ld r31,Z
+ 485 0198 E02D      		mov r30,__tmp_reg__
+ 486 019a 68E0      		ldi r22,lo8(8)
+ 487 019c 70E0      		ldi r23,0
+ 488 019e 80E0      		ldi r24,lo8(off.2732)
+ 489 01a0 90E0      		ldi r25,hi8(off.2732)
+ 490 01a2 1995      		eicall
+ 491 01a4 44E0      		ldi r20,lo8(4)
+ 492 01a6 50E0      		ldi r21,0
+ 493 01a8 64E0      		ldi r22,lo8(4)
+ 494 01aa 70E0      		ldi r23,0
+ 495 01ac C501      		movw r24,r10
+ 496 01ae 0E94 0000 		call VsCodecMode
+ 497 01b2 6091 0000 		lds r22,mode.2734
+ 498 01b6 7091 0000 		lds r23,mode.2734+1
+ 499 01ba 4FEF      		ldi r20,lo8(-1)
+ 500 01bc 5FEF      		ldi r21,lo8(-1)
+ 501 01be C501      		movw r24,r10
+ 502 01c0 0E94 0000 		call VsCodecMode
+ 503 01c4 212C      		mov r2,__zero_reg__
+ 504 01c6 312C      		mov r3,__zero_reg__
+ 505               	.L30:
+ 506 01c8 C101      		movw r24,r2
+ 507               	/* epilogue start */
+ 508 01ca 2E96      		adiw r28,14
+ 509 01cc 0FB6      		in __tmp_reg__,__SREG__
+ 510 01ce F894      		cli
+ 511 01d0 DEBF      		out __SP_H__,r29
+ 512 01d2 0FBE      		out __SREG__,__tmp_reg__
+ 513 01d4 CDBF      		out __SP_L__,r28
+GAS LISTING /tmp/cclioYfa.s 			page 10
+
+
+ 514 01d6 DF91      		pop r29
+ 515 01d8 CF91      		pop r28
+ 516 01da 1F91      		pop r17
+ 517 01dc 0F91      		pop r16
+ 518 01de FF90      		pop r15
+ 519 01e0 EF90      		pop r14
+ 520 01e2 DF90      		pop r13
+ 521 01e4 CF90      		pop r12
+ 522 01e6 BF90      		pop r11
+ 523 01e8 AF90      		pop r10
+ 524 01ea 9F90      		pop r9
+ 525 01ec 8F90      		pop r8
+ 526 01ee 7F90      		pop r7
+ 527 01f0 6F90      		pop r6
+ 528 01f2 5F90      		pop r5
+ 529 01f4 4F90      		pop r4
+ 530 01f6 3F90      		pop r3
+ 531 01f8 2F90      		pop r2
+ 532 01fa 0895      		ret
+ 533               		.size	VsCodecBeep, .-VsCodecBeep
+ 534               		.section	.text.VsDecoderBufferInit,"ax",@progbits
+ 535               	.global	VsDecoderBufferInit
+ 536               		.type	VsDecoderBufferInit, @function
+ 537               	VsDecoderBufferInit:
+ 538 0000 0F93      		push r16
+ 539 0002 1F93      		push r17
+ 540 0004 CF93      		push r28
+ 541 0006 DF93      		push r29
+ 542               	/* prologue: function */
+ 543               	/* frame size = 0 */
+ 544               	/* stack size = 4 */
+ 545               	.L__stack_usage = 4
+ 546 0008 FC01      		movw r30,r24
+ 547 000a 0189      		ldd r16,Z+17
+ 548 000c 1289      		ldd r17,Z+18
+ 549 000e F801      		movw r30,r16
+ 550 0010 C081      		ld r28,Z
+ 551 0012 D181      		ldd r29,Z+1
+ 552 0014 2097      		sbiw r28,0
+ 553 0016 01F0      		breq .L37
+ 554               	.L39:
+ 555 0018 CFEF      		ldi r28,lo8(-1)
+ 556 001a DFEF      		ldi r29,lo8(-1)
+ 557 001c 00C0      		rjmp .L38
+ 558               	.L37:
+ 559 001e CA01      		movw r24,r20
+ 560 0020 0E94 0000 		call NutSegBufInit
+ 561 0024 892B      		or r24,r25
+ 562 0026 01F0      		breq .L39
+ 563 0028 0E94 0000 		call NutSegBufAvailable
+ 564 002c 23E0      		ldi r18,lo8(3)
+ 565 002e 30E0      		ldi r19,0
+ 566 0030 40E0      		ldi r20,0
+ 567 0032 50E0      		ldi r21,0
+ 568 0034 0E94 0000 		call __udivmodsi4
+ 569 0038 F801      		movw r30,r16
+ 570 003a 248B      		std Z+20,r18
+GAS LISTING /tmp/cclioYfa.s 			page 11
+
+
+ 571 003c 358B      		std Z+21,r19
+ 572 003e 468B      		std Z+22,r20
+ 573 0040 578B      		std Z+23,r21
+ 574 0042 DA01      		movw r26,r20
+ 575 0044 C901      		movw r24,r18
+ 576 0046 880F      		lsl r24
+ 577 0048 991F      		rol r25
+ 578 004a AA1F      		rol r26
+ 579 004c BB1F      		rol r27
+ 580 004e 808F      		std Z+24,r24
+ 581 0050 918F      		std Z+25,r25
+ 582 0052 A28F      		std Z+26,r26
+ 583 0054 B38F      		std Z+27,r27
+ 584               	.L38:
+ 585 0056 CE01      		movw r24,r28
+ 586               	/* epilogue start */
+ 587 0058 DF91      		pop r29
+ 588 005a CF91      		pop r28
+ 589 005c 1F91      		pop r17
+ 590 005e 0F91      		pop r16
+ 591 0060 0895      		ret
+ 592               		.size	VsDecoderBufferInit, .-VsDecoderBufferInit
+ 593               		.section	.text.FeederThread,"ax",@progbits
+ 594               	.global	FeederThread
+ 595               		.type	FeederThread, @function
+ 596               	FeederThread:
+ 597 0000 CF93      		push r28
+ 598 0002 DF93      		push r29
+ 599 0004 00D0      		rcall .
+ 600 0006 CDB7      		in r28,__SP_L__
+ 601 0008 DEB7      		in r29,__SP_H__
+ 602               	/* prologue: function */
+ 603               	/* frame size = 3 */
+ 604               	/* stack size = 5 */
+ 605               	.L__stack_usage = 5
+ 606 000a 6C01      		movw r12,r24
+ 607 000c DC01      		movw r26,r24
+ 608 000e 5196      		adiw r26,17
+ 609 0010 0D91      		ld r16,X+
+ 610 0012 1C91      		ld r17,X
+ 611 0014 5297      		sbiw r26,17+1
+ 612 0016 87E0      		ldi r24,lo8(7)
+ 613 0018 0E94 0000 		call NutThreadSetPriority
+ 614 001c E12C      		mov r14,__zero_reg__
+ 615 001e F12C      		mov r15,__zero_reg__
+ 616 0020 1801      		movw r2,r16
+ 617 0022 B6E2      		ldi r27,38
+ 618 0024 2B0E      		add r2,r27
+ 619 0026 311C      		adc r3,__zero_reg__
+ 620 0028 4424      		clr r4
+ 621 002a 4394      		inc r4
+ 622 002c 512C      		mov r5,__zero_reg__
+ 623 002e 52E0      		ldi r21,lo8(2)
+ 624 0030 652E      		mov r6,r21
+ 625 0032 712C      		mov r7,__zero_reg__
+ 626 0034 5801      		movw r10,r16
+ 627 0036 E4E2      		ldi r30,36
+GAS LISTING /tmp/cclioYfa.s 			page 12
+
+
+ 628 0038 AE0E      		add r10,r30
+ 629 003a B11C      		adc r11,__zero_reg__
+ 630 003c 4801      		movw r8,r16
+ 631 003e FFE3      		ldi r31,63
+ 632 0040 8F0E      		add r8,r31
+ 633 0042 911C      		adc r9,__zero_reg__
+ 634               	.L44:
+ 635 0044 D801      		movw r26,r16
+ 636 0046 8D91      		ld r24,X+
+ 637 0048 9C91      		ld r25,X
+ 638 004a 892B      		or r24,r25
+ 639 004c 01F0      		breq .+2
+ 640 004e 00C0      		rjmp .L46
+ 641 0050 1B82      		std Y+3,__zero_reg__
+ 642               	.L80:
+ 643 0052 40E0      		ldi r20,0
+ 644 0054 50E0      		ldi r21,0
+ 645 0056 BA01      		movw r22,r20
+ 646 0058 C101      		movw r24,r2
+ 647 005a 0E94 0000 		call NutEventWait
+ 648 005e F801      		movw r30,r16
+ 649 0060 8281      		ldd r24,Z+2
+ 650 0062 84FF      		sbrs r24,4
+ 651 0064 00C0      		rjmp .L47
+ 652 0066 03AC      		ldd __tmp_reg__,Z+59
+ 653 0068 F4AD      		ldd r31,Z+60
+ 654 006a E02D      		mov r30,__tmp_reg__
+ 655 006c 1995      		eicall
+ 656 006e 892B      		or r24,r25
+ 657 0070 01F0      		breq .L47
+ 658 0072 F801      		movw r30,r16
+ 659 0074 8281      		ldd r24,Z+2
+ 660 0076 9381      		ldd r25,Z+3
+ 661 0078 A481      		ldd r26,Z+4
+ 662 007a B581      		ldd r27,Z+5
+ 663 007c 8F7E      		andi r24,239
+ 664 007e 8283      		std Z+2,r24
+ 665 0080 9383      		std Z+3,r25
+ 666 0082 A483      		std Z+4,r26
+ 667 0084 B583      		std Z+5,r27
+ 668 0086 6289      		ldd r22,Z+18
+ 669 0088 7389      		ldd r23,Z+19
+ 670 008a C601      		movw r24,r12
+ 671 008c 0E94 0000 		call VsCodecBeep
+ 672 0090 21E0      		ldi r18,lo8(1)
+ 673 0092 2B83      		std Y+3,r18
+ 674 0094 892B      		or r24,r25
+ 675 0096 01F4      		brne .L80
+ 676 0098 00C0      		rjmp .L88
+ 677               	.L47:
+ 678 009a 2B81      		ldd r18,Y+3
+ 679 009c 2111      		cpse r18,__zero_reg__
+ 680 009e 00C0      		rjmp .L80
+ 681               	.L88:
+ 682 00a0 F801      		movw r30,r16
+ 683 00a2 8281      		ldd r24,Z+2
+ 684 00a4 9381      		ldd r25,Z+3
+GAS LISTING /tmp/cclioYfa.s 			page 13
+
+
+ 685 00a6 A481      		ldd r26,Z+4
+ 686 00a8 B581      		ldd r27,Z+5
+ 687 00aa 85FF      		sbrs r24,5
+ 688 00ac 00C0      		rjmp .L50
+ 689 00ae 8D7D      		andi r24,221
+ 690 00b0 8283      		std Z+2,r24
+ 691 00b2 9383      		std Z+3,r25
+ 692 00b4 A483      		std Z+4,r26
+ 693 00b6 B583      		std Z+5,r27
+ 694 00b8 7182      		std Z+1,r7
+ 695 00ba 6082      		st Z,r6
+ 696 00bc 24E3      		ldi r18,lo8(52)
+ 697 00be 30E0      		ldi r19,0
+ 698 00c0 4AE0      		ldi r20,lo8(10)
+ 699 00c2 62E0      		ldi r22,lo8(2)
+ 700 00c4 C601      		movw r24,r12
+ 701 00c6 0E94 0000 		call VsCodecReg
+ 702 00ca 00C0      		rjmp .L46
+ 703               	.L50:
+ 704 00cc 80FF      		sbrs r24,0
+ 705 00ce 00C0      		rjmp .L51
+ 706               	.L52:
+ 707 00d0 F801      		movw r30,r16
+ 708 00d2 8281      		ldd r24,Z+2
+ 709 00d4 9381      		ldd r25,Z+3
+ 710 00d6 A481      		ldd r26,Z+4
+ 711 00d8 B581      		ldd r27,Z+5
+ 712 00da 8C7F      		andi r24,252
+ 713 00dc 8283      		std Z+2,r24
+ 714 00de 9383      		std Z+3,r25
+ 715 00e0 A483      		std Z+4,r26
+ 716 00e2 B583      		std Z+5,r27
+ 717 00e4 5182      		std Z+1,r5
+ 718 00e6 4082      		st Z,r4
+ 719 00e8 4681      		ldd r20,Z+6
+ 720 00ea 5781      		ldd r21,Z+7
+ 721 00ec 6085      		ldd r22,Z+8
+ 722 00ee 7185      		ldd r23,Z+9
+ 723 00f0 C601      		movw r24,r12
+ 724 00f2 0E94 0000 		call VsDecoderSetVolume
+ 725 00f6 00C0      		rjmp .L46
+ 726               	.L51:
+ 727 00f8 0E94 0000 		call NutSegBufUsed
+ 728 00fc D801      		movw r26,r16
+ 729 00fe 5896      		adiw r26,24
+ 730 0100 2D91      		ld r18,X+
+ 731 0102 3D91      		ld r19,X+
+ 732 0104 4D91      		ld r20,X+
+ 733 0106 5C91      		ld r21,X
+ 734 0108 5B97      		sbiw r26,24+3
+ 735 010a 6217      		cp r22,r18
+ 736 010c 7307      		cpc r23,r19
+ 737 010e 8407      		cpc r24,r20
+ 738 0110 9507      		cpc r25,r21
+ 739 0112 00F4      		brsh .L52
+ 740               	.L46:
+ 741 0114 F801      		movw r30,r16
+GAS LISTING /tmp/cclioYfa.s 			page 14
+
+
+ 742 0116 8081      		ld r24,Z
+ 743 0118 9181      		ldd r25,Z+1
+ 744 011a 8130      		cpi r24,1
+ 745 011c 9105      		cpc r25,__zero_reg__
+ 746 011e 01F0      		breq .+2
+ 747 0120 00C0      		rjmp .L54
+ 748 0122 40E0      		ldi r20,0
+ 749 0124 50E0      		ldi r21,0
+ 750 0126 BA01      		movw r22,r20
+ 751 0128 C601      		movw r24,r12
+ 752 012a 0E94 0000 		call VsCodecWaitReady
+ 753 012e F801      		movw r30,r16
+ 754 0130 8281      		ldd r24,Z+2
+ 755 0132 9381      		ldd r25,Z+3
+ 756 0134 A481      		ldd r26,Z+4
+ 757 0136 B581      		ldd r27,Z+5
+ 758 0138 81FF      		sbrs r24,1
+ 759 013a 00C0      		rjmp .L55
+ 760 013c 8D7F      		andi r24,253
+ 761 013e 8283      		std Z+2,r24
+ 762 0140 9383      		std Z+3,r25
+ 763 0142 A483      		std Z+4,r26
+ 764 0144 B583      		std Z+5,r27
+ 765 0146 0E94 0000 		call NutSegBufReset
+ 766               	.L55:
+ 767 014a CE01      		movw r24,r28
+ 768 014c 0196      		adiw r24,1
+ 769 014e 0E94 0000 		call NutSegBufReadRequest
+ 770 0152 6981      		ldd r22,Y+1
+ 771 0154 7A81      		ldd r23,Y+2
+ 772 0156 6115      		cp r22,__zero_reg__
+ 773 0158 7105      		cpc r23,__zero_reg__
+ 774 015a 01F0      		breq .L56
+ 775 015c D401      		movw r26,r8
+ 776 015e ED91      		ld r30,X+
+ 777 0160 FC91      		ld r31,X
+ 778 0162 1995      		eicall
+ 779 0164 0097      		sbiw r24,0
+ 780 0166 01F0      		breq .L57
+ 781 0168 0E94 0000 		call NutSegBufReadLast
+ 782 016c C501      		movw r24,r10
+ 783 016e 0E94 0000 		call NutEventPost
+ 784 0172 E12C      		mov r14,__zero_reg__
+ 785 0174 38E0      		ldi r19,lo8(8)
+ 786 0176 F32E      		mov r15,r19
+ 787               	.L57:
+ 788 0178 F801      		movw r30,r16
+ 789 017a 8281      		ldd r24,Z+2
+ 790 017c 82FF      		sbrs r24,2
+ 791 017e 00C0      		rjmp .L58
+ 792 0180 4681      		ldd r20,Z+6
+ 793 0182 5781      		ldd r21,Z+7
+ 794 0184 6085      		ldd r22,Z+8
+ 795 0186 7185      		ldd r23,Z+9
+ 796 0188 C601      		movw r24,r12
+ 797 018a 0E94 0000 		call VsDecoderSetVolume
+ 798 018e F801      		movw r30,r16
+GAS LISTING /tmp/cclioYfa.s 			page 15
+
+
+ 799 0190 8281      		ldd r24,Z+2
+ 800 0192 9381      		ldd r25,Z+3
+ 801 0194 A481      		ldd r26,Z+4
+ 802 0196 B581      		ldd r27,Z+5
+ 803 0198 8B7F      		andi r24,251
+ 804 019a 8283      		std Z+2,r24
+ 805 019c 9383      		std Z+3,r25
+ 806 019e A483      		std Z+4,r26
+ 807 01a0 B583      		std Z+5,r27
+ 808               	.L58:
+ 809 01a2 F801      		movw r30,r16
+ 810 01a4 8281      		ldd r24,Z+2
+ 811 01a6 9381      		ldd r25,Z+3
+ 812 01a8 A481      		ldd r26,Z+4
+ 813 01aa B581      		ldd r27,Z+5
+ 814 01ac 83FF      		sbrs r24,3
+ 815 01ae 00C0      		rjmp .L44
+ 816 01b0 877F      		andi r24,247
+ 817 01b2 8283      		std Z+2,r24
+ 818 01b4 9383      		std Z+3,r25
+ 819 01b6 A483      		std Z+4,r26
+ 820 01b8 B583      		std Z+5,r27
+ 821 01ba 00C0      		rjmp .L44
+ 822               	.L56:
+ 823 01bc 0E94 0000 		call NutSegBufUsed
+ 824 01c0 672B      		or r22,r23
+ 825 01c2 682B      		or r22,r24
+ 826 01c4 692B      		or r22,r25
+ 827 01c6 01F0      		breq .+2
+ 828 01c8 00C0      		rjmp .L44
+ 829 01ca E114      		cp r14,__zero_reg__
+ 830 01cc F104      		cpc r15,__zero_reg__
+ 831 01ce 01F4      		brne .L60
+ 832               	.L61:
+ 833 01d0 D801      		movw r26,r16
+ 834 01d2 1D92      		st X+,__zero_reg__
+ 835 01d4 1C92      		st X,__zero_reg__
+ 836 01d6 C501      		movw r24,r10
+ 837 01d8 0E94 0000 		call NutEventPost
+ 838 01dc E12C      		mov r14,__zero_reg__
+ 839 01de F12C      		mov r15,__zero_reg__
+ 840 01e0 00C0      		rjmp .L44
+ 841               	.L60:
+ 842 01e2 D401      		movw r26,r8
+ 843 01e4 ED91      		ld r30,X+
+ 844 01e6 FC91      		ld r31,X
+ 845 01e8 B701      		movw r22,r14
+ 846 01ea 80E0      		ldi r24,0
+ 847 01ec 90E0      		ldi r25,0
+ 848 01ee 1995      		eicall
+ 849 01f0 E81A      		sub r14,r24
+ 850 01f2 F90A      		sbc r15,r25
+ 851 01f4 01F0      		breq .+2
+ 852 01f6 00C0      		rjmp .L44
+ 853 01f8 00C0      		rjmp .L61
+ 854               	.L54:
+ 855 01fa 0297      		sbiw r24,2
+GAS LISTING /tmp/cclioYfa.s 			page 16
+
+
+ 856 01fc 01F0      		breq .+2
+ 857 01fe 00C0      		rjmp .L44
+ 858               	.L64:
+ 859 0200 F801      		movw r30,r16
+ 860 0202 8281      		ldd r24,Z+2
+ 861 0204 9381      		ldd r25,Z+3
+ 862 0206 A481      		ldd r26,Z+4
+ 863 0208 B581      		ldd r27,Z+5
+ 864 020a 81FF      		sbrs r24,1
+ 865 020c 00C0      		rjmp .L62
+ 866 020e 8D7F      		andi r24,253
+ 867 0210 8283      		std Z+2,r24
+ 868 0212 9383      		std Z+3,r25
+ 869 0214 A483      		std Z+4,r26
+ 870 0216 B583      		std Z+5,r27
+ 871 0218 1182      		std Z+1,__zero_reg__
+ 872 021a 1082      		st Z,__zero_reg__
+ 873 021c 00C0      		rjmp .L63
+ 874               	.L62:
+ 875 021e CE01      		movw r24,r28
+ 876 0220 0196      		adiw r24,1
+ 877 0222 0E94 0000 		call NutSegBufWriteRequest
+ 878 0226 8981      		ldd r24,Y+1
+ 879 0228 9A81      		ldd r25,Y+2
+ 880 022a 9695      		lsr r25
+ 881 022c 8795      		ror r24
+ 882 022e 9A83      		std Y+2,r25
+ 883 0230 8983      		std Y+1,r24
+ 884 0232 892B      		or r24,r25
+ 885 0234 01F4      		brne .L64
+ 886 0236 D801      		movw r26,r16
+ 887 0238 1D92      		st X+,__zero_reg__
+ 888 023a 1C92      		st X,__zero_reg__
+ 889               	.L63:
+ 890 023c C501      		movw r24,r10
+ 891 023e 0E94 0000 		call NutEventPost
+ 892 0242 00C0      		rjmp .L44
+ 893               		.size	FeederThread, .-FeederThread
+ 894               		.section	.text.VsCodecIOCtl,"ax",@progbits
+ 895               	.global	VsCodecIOCtl
+ 896               		.type	VsCodecIOCtl, @function
+ 897               	VsCodecIOCtl:
+ 898 0000 9F92      		push r9
+ 899 0002 AF92      		push r10
+ 900 0004 BF92      		push r11
+ 901 0006 CF92      		push r12
+ 902 0008 DF92      		push r13
+ 903 000a EF92      		push r14
+ 904 000c FF92      		push r15
+ 905 000e 0F93      		push r16
+ 906 0010 1F93      		push r17
+ 907 0012 CF93      		push r28
+ 908 0014 DF93      		push r29
+ 909               	/* prologue: function */
+ 910               	/* frame size = 0 */
+ 911               	/* stack size = 11 */
+ 912               	.L__stack_usage = 11
+GAS LISTING /tmp/cclioYfa.s 			page 17
+
+
+ 913 0016 8C01      		movw r16,r24
+ 914 0018 CB01      		movw r24,r22
+ 915 001a EA01      		movw r28,r20
+ 916 001c D801      		movw r26,r16
+ 917 001e 5196      		adiw r26,17
+ 918 0020 ED91      		ld r30,X+
+ 919 0022 FC91      		ld r31,X
+ 920 0024 5297      		sbiw r26,17+1
+ 921 0026 6A30      		cpi r22,10
+ 922 0028 B0E3      		ldi r27,48
+ 923 002a 7B07      		cpc r23,r27
+ 924 002c 01F4      		brne .+2
+ 925 002e 00C0      		rjmp .L91
+ 926 0030 04F0      		brlt .+2
+ 927 0032 00C0      		rjmp .L92
+ 928 0034 6430      		cpi r22,4
+ 929 0036 A0E3      		ldi r26,48
+ 930 0038 7A07      		cpc r23,r26
+ 931 003a 01F4      		brne .+2
+ 932 003c 00C0      		rjmp .L93
+ 933 003e 04F4      		brge .L94
+ 934 0040 6130      		cpi r22,1
+ 935 0042 20E3      		ldi r18,48
+ 936 0044 7207      		cpc r23,r18
+ 937 0046 01F4      		brne .+2
+ 938 0048 00C0      		rjmp .L95
+ 939 004a 04F4      		brge .L96
+ 940 004c 6D30      		cpi r22,13
+ 941 004e B1E0      		ldi r27,1
+ 942 0050 7B07      		cpc r23,r27
+ 943 0052 01F4      		brne .+2
+ 944 0054 00C0      		rjmp .L97
+ 945 0056 6E30      		cpi r22,14
+ 946 0058 7140      		sbci r23,1
+ 947 005a 01F0      		breq .+2
+ 948 005c 00C0      		rjmp .L90
+ 949 005e 848D      		ldd r24,Z+28
+ 950 0060 958D      		ldd r25,Z+29
+ 951 0062 A68D      		ldd r26,Z+30
+ 952 0064 B78D      		ldd r27,Z+31
+ 953 0066 00C0      		rjmp .L145
+ 954               	.L96:
+ 955 0068 6230      		cpi r22,2
+ 956 006a A0E3      		ldi r26,48
+ 957 006c 7A07      		cpc r23,r26
+ 958 006e 01F4      		brne .+2
+ 959 0070 00C0      		rjmp .L99
+ 960 0072 6330      		cpi r22,3
+ 961 0074 7043      		sbci r23,48
+ 962 0076 01F0      		breq .+2
+ 963 0078 00C0      		rjmp .L90
+ 964 007a 8081      		ld r24,Z
+ 965 007c 9181      		ldd r25,Z+1
+ 966 007e 00C0      		rjmp .L125
+ 967               	.L94:
+ 968 0080 6730      		cpi r22,7
+ 969 0082 20E3      		ldi r18,48
+GAS LISTING /tmp/cclioYfa.s 			page 18
+
+
+ 970 0084 7207      		cpc r23,r18
+ 971 0086 01F4      		brne .+2
+ 972 0088 00C0      		rjmp .L101
+ 973 008a 04F4      		brge .L102
+ 974 008c 6530      		cpi r22,5
+ 975 008e B0E3      		ldi r27,48
+ 976 0090 7B07      		cpc r23,r27
+ 977 0092 01F4      		brne .+2
+ 978 0094 00C0      		rjmp .L103
+ 979 0096 6630      		cpi r22,6
+ 980 0098 7043      		sbci r23,48
+ 981 009a 01F0      		breq .+2
+ 982 009c 00C0      		rjmp .L90
+ 983 009e 0E94 0000 		call NutSegBufAvailable
+ 984 00a2 6B01      		movw r12,r22
+ 985 00a4 7C01      		movw r14,r24
+ 986 00a6 0E94 0000 		call NutSegBufUsed
+ 987 00aa DC01      		movw r26,r24
+ 988 00ac CB01      		movw r24,r22
+ 989 00ae 8C0D      		add r24,r12
+ 990 00b0 9D1D      		adc r25,r13
+ 991 00b2 AE1D      		adc r26,r14
+ 992 00b4 BF1D      		adc r27,r15
+ 993 00b6 00C0      		rjmp .L145
+ 994               	.L102:
+ 995 00b8 6830      		cpi r22,8
+ 996 00ba A0E3      		ldi r26,48
+ 997 00bc 7A07      		cpc r23,r26
+ 998 00be 01F4      		brne .+2
+ 999 00c0 00C0      		rjmp .L105
+ 1000 00c2 6930      		cpi r22,9
+ 1001 00c4 7043      		sbci r23,48
+ 1002 00c6 01F0      		breq .+2
+ 1003 00c8 00C0      		rjmp .L90
+ 1004 00ca 8489      		ldd r24,Z+20
+ 1005 00cc 9589      		ldd r25,Z+21
+ 1006 00ce A689      		ldd r26,Z+22
+ 1007 00d0 B789      		ldd r27,Z+23
+ 1008 00d2 00C0      		rjmp .L145
+ 1009               	.L92:
+ 1010 00d4 6931      		cpi r22,25
+ 1011 00d6 20E3      		ldi r18,48
+ 1012 00d8 7207      		cpc r23,r18
+ 1013 00da 01F4      		brne .+2
+ 1014 00dc 00C0      		rjmp .L107
+ 1015 00de 04F4      		brge .L108
+ 1016 00e0 6F30      		cpi r22,15
+ 1017 00e2 B0E3      		ldi r27,48
+ 1018 00e4 7B07      		cpc r23,r27
+ 1019 00e6 01F4      		brne .+2
+ 1020 00e8 00C0      		rjmp .L109
+ 1021 00ea 04F4      		brge .L110
+ 1022 00ec 6B30      		cpi r22,11
+ 1023 00ee A0E3      		ldi r26,48
+ 1024 00f0 7A07      		cpc r23,r26
+ 1025 00f2 01F4      		brne .+2
+ 1026 00f4 00C0      		rjmp .L111
+GAS LISTING /tmp/cclioYfa.s 			page 19
+
+
+ 1027 00f6 6C30      		cpi r22,12
+ 1028 00f8 7043      		sbci r23,48
+ 1029 00fa 01F0      		breq .+2
+ 1030 00fc 00C0      		rjmp .L90
+ 1031 00fe 8881      		ld r24,Y
+ 1032 0100 9981      		ldd r25,Y+1
+ 1033 0102 AA81      		ldd r26,Y+2
+ 1034 0104 BB81      		ldd r27,Y+3
+ 1035 0106 808F      		std Z+24,r24
+ 1036 0108 918F      		std Z+25,r25
+ 1037 010a A28F      		std Z+26,r26
+ 1038 010c B38F      		std Z+27,r27
+ 1039 010e 00C0      		rjmp .L142
+ 1040               	.L110:
+ 1041 0110 6131      		cpi r22,17
+ 1042 0112 20E3      		ldi r18,48
+ 1043 0114 7207      		cpc r23,r18
+ 1044 0116 01F4      		brne .+2
+ 1045 0118 00C0      		rjmp .L113
+ 1046 011a 6531      		cpi r22,21
+ 1047 011c 7043      		sbci r23,48
+ 1048 011e 01F0      		breq .+2
+ 1049 0120 00C0      		rjmp .L90
+ 1050 0122 87A5      		ldd r24,Z+47
+ 1051 0124 90A9      		ldd r25,Z+48
+ 1052 0126 A1A9      		ldd r26,Z+49
+ 1053 0128 B2A9      		ldd r27,Z+50
+ 1054 012a 00C0      		rjmp .L145
+ 1055               	.L108:
+ 1056 012c 6E31      		cpi r22,30
+ 1057 012e B0E3      		ldi r27,48
+ 1058 0130 7B07      		cpc r23,r27
+ 1059 0132 01F4      		brne .+2
+ 1060 0134 00C0      		rjmp .L115
+ 1061 0136 04F4      		brge .L116
+ 1062 0138 6A31      		cpi r22,26
+ 1063 013a A0E3      		ldi r26,48
+ 1064 013c 7A07      		cpc r23,r26
+ 1065 013e 01F4      		brne .+2
+ 1066 0140 00C0      		rjmp .L117
+ 1067 0142 6C31      		cpi r22,28
+ 1068 0144 7043      		sbci r23,48
+ 1069 0146 01F0      		breq .+2
+ 1070 0148 00C0      		rjmp .L90
+ 1071 014a 8881      		ld r24,Y
+ 1072 014c 9981      		ldd r25,Y+1
+ 1073 014e 9587      		std Z+13,r25
+ 1074 0150 8487      		std Z+12,r24
+ 1075 0152 00C0      		rjmp .L147
+ 1076               	.L116:
+ 1077 0154 6033      		cpi r22,48
+ 1078 0156 20E3      		ldi r18,48
+ 1079 0158 7207      		cpc r23,r18
+ 1080 015a 01F4      		brne .+2
+ 1081 015c 00C0      		rjmp .L119
+ 1082 015e 6833      		cpi r22,56
+ 1083 0160 A0E3      		ldi r26,48
+GAS LISTING /tmp/cclioYfa.s 			page 20
+
+
+ 1084 0162 7A07      		cpc r23,r26
+ 1085 0164 01F4      		brne .+2
+ 1086 0166 00C0      		rjmp .L120
+ 1087 0168 6032      		cpi r22,32
+ 1088 016a 7043      		sbci r23,48
+ 1089 016c 01F0      		breq .+2
+ 1090 016e 00C0      		rjmp .L90
+ 1091 0170 8881      		ld r24,Y
+ 1092 0172 9981      		ldd r25,Y+1
+ 1093 0174 918B      		std Z+17,r25
+ 1094 0176 808B      		std Z+16,r24
+ 1095 0178 00C0      		rjmp .L147
+ 1096               	.L95:
+ 1097 017a 8081      		ld r24,Z
+ 1098 017c 9181      		ldd r25,Z+1
+ 1099 017e 892B      		or r24,r25
+ 1100 0180 01F0      		breq .+2
+ 1101 0182 00C0      		rjmp .L143
+ 1102 0184 8281      		ldd r24,Z+2
+ 1103 0186 9381      		ldd r25,Z+3
+ 1104 0188 A481      		ldd r26,Z+4
+ 1105 018a B581      		ldd r27,Z+5
+ 1106 018c 8160      		ori r24,1
+ 1107 018e 00C0      		rjmp .L144
+ 1108               	.L99:
+ 1109 0190 8081      		ld r24,Z
+ 1110 0192 9181      		ldd r25,Z+1
+ 1111 0194 0197      		sbiw r24,1
+ 1112 0196 01F0      		breq .+2
+ 1113 0198 00C0      		rjmp .L143
+ 1114 019a 8281      		ldd r24,Z+2
+ 1115 019c 9381      		ldd r25,Z+3
+ 1116 019e A481      		ldd r26,Z+4
+ 1117 01a0 B581      		ldd r27,Z+5
+ 1118 01a2 8260      		ori r24,2
+ 1119 01a4 00C0      		rjmp .L144
+ 1120               	.L93:
+ 1121 01a6 2681      		ldd r18,Z+6
+ 1122 01a8 3781      		ldd r19,Z+7
+ 1123 01aa 8085      		ldd r24,Z+8
+ 1124 01ac 9185      		ldd r25,Z+9
+ 1125 01ae 8217      		cp r24,r18
+ 1126 01b0 9307      		cpc r25,r19
+ 1127 01b2 04F4      		brge .L125
+ 1128 01b4 C901      		movw r24,r18
+ 1129               	.L125:
+ 1130 01b6 9983      		std Y+1,r25
+ 1131 01b8 8883      		st Y,r24
+ 1132 01ba 00C0      		rjmp .L142
+ 1133               	.L103:
+ 1134 01bc 8881      		ld r24,Y
+ 1135 01be 9981      		ldd r25,Y+1
+ 1136 01c0 9187      		std Z+9,r25
+ 1137 01c2 8087      		std Z+8,r24
+ 1138 01c4 8881      		ld r24,Y
+ 1139 01c6 9981      		ldd r25,Y+1
+ 1140 01c8 9783      		std Z+7,r25
+GAS LISTING /tmp/cclioYfa.s 			page 21
+
+
+ 1141 01ca 8683      		std Z+6,r24
+ 1142 01cc 8281      		ldd r24,Z+2
+ 1143 01ce 9381      		ldd r25,Z+3
+ 1144 01d0 A481      		ldd r26,Z+4
+ 1145 01d2 B581      		ldd r27,Z+5
+ 1146 01d4 8460      		ori r24,4
+ 1147 01d6 00C0      		rjmp .L146
+ 1148               	.L117:
+ 1149 01d8 8881      		ld r24,Y
+ 1150 01da 9981      		ldd r25,Y+1
+ 1151 01dc 9387      		std Z+11,r25
+ 1152 01de 8287      		std Z+10,r24
+ 1153 01e0 00C0      		rjmp .L147
+ 1154               	.L115:
+ 1155 01e2 8881      		ld r24,Y
+ 1156 01e4 9981      		ldd r25,Y+1
+ 1157 01e6 9787      		std Z+15,r25
+ 1158 01e8 8687      		std Z+14,r24
+ 1159               	.L147:
+ 1160 01ea 8281      		ldd r24,Z+2
+ 1161 01ec 9381      		ldd r25,Z+3
+ 1162 01ee A481      		ldd r26,Z+4
+ 1163 01f0 B581      		ldd r27,Z+5
+ 1164 01f2 8860      		ori r24,8
+ 1165               	.L146:
+ 1166 01f4 8283      		std Z+2,r24
+ 1167 01f6 9383      		std Z+3,r25
+ 1168 01f8 A483      		std Z+4,r26
+ 1169 01fa B583      		std Z+5,r27
+ 1170 01fc 00C0      		rjmp .L142
+ 1171               	.L101:
+ 1172 01fe 4881      		ld r20,Y
+ 1173 0200 5981      		ldd r21,Y+1
+ 1174 0202 6A81      		ldd r22,Y+2
+ 1175 0204 7B81      		ldd r23,Y+3
+ 1176 0206 C801      		movw r24,r16
+ 1177               	/* epilogue start */
+ 1178 0208 DF91      		pop r29
+ 1179 020a CF91      		pop r28
+ 1180 020c 1F91      		pop r17
+ 1181 020e 0F91      		pop r16
+ 1182 0210 FF90      		pop r15
+ 1183 0212 EF90      		pop r14
+ 1184 0214 DF90      		pop r13
+ 1185 0216 CF90      		pop r12
+ 1186 0218 BF90      		pop r11
+ 1187 021a AF90      		pop r10
+ 1188 021c 9F90      		pop r9
+ 1189 021e 0C94 0000 		jmp VsDecoderBufferInit
+ 1190               	.L105:
+ 1191 0222 0E94 0000 		call NutSegBufUsed
+ 1192 0226 6883      		st Y,r22
+ 1193 0228 7983      		std Y+1,r23
+ 1194 022a 8A83      		std Y+2,r24
+ 1195 022c 9B83      		std Y+3,r25
+ 1196 022e 00C0      		rjmp .L142
+ 1197               	.L91:
+GAS LISTING /tmp/cclioYfa.s 			page 22
+
+
+ 1198 0230 8881      		ld r24,Y
+ 1199 0232 9981      		ldd r25,Y+1
+ 1200 0234 AA81      		ldd r26,Y+2
+ 1201 0236 BB81      		ldd r27,Y+3
+ 1202 0238 848B      		std Z+20,r24
+ 1203 023a 958B      		std Z+21,r25
+ 1204 023c A68B      		std Z+22,r26
+ 1205 023e B78B      		std Z+23,r27
+ 1206 0240 00C0      		rjmp .L142
+ 1207               	.L111:
+ 1208 0242 808D      		ldd r24,Z+24
+ 1209 0244 918D      		ldd r25,Z+25
+ 1210 0246 A28D      		ldd r26,Z+26
+ 1211 0248 B38D      		ldd r27,Z+27
+ 1212 024a 00C0      		rjmp .L145
+ 1213               	.L97:
+ 1214 024c 8881      		ld r24,Y
+ 1215 024e 9981      		ldd r25,Y+1
+ 1216 0250 AA81      		ldd r26,Y+2
+ 1217 0252 BB81      		ldd r27,Y+3
+ 1218 0254 848F      		std Z+28,r24
+ 1219 0256 958F      		std Z+29,r25
+ 1220 0258 A68F      		std Z+30,r26
+ 1221 025a B78F      		std Z+31,r27
+ 1222 025c 00C0      		rjmp .L142
+ 1223               	.L109:
+ 1224 025e 8081      		ld r24,Z
+ 1225 0260 9181      		ldd r25,Z+1
+ 1226 0262 892B      		or r24,r25
+ 1227 0264 01F0      		breq .+2
+ 1228 0266 00C0      		rjmp .L141
+ 1229 0268 8881      		ld r24,Y
+ 1230 026a 9981      		ldd r25,Y+1
+ 1231 026c 938B      		std Z+19,r25
+ 1232 026e 828B      		std Z+18,r24
+ 1233 0270 8281      		ldd r24,Z+2
+ 1234 0272 9381      		ldd r25,Z+3
+ 1235 0274 A481      		ldd r26,Z+4
+ 1236 0276 B581      		ldd r27,Z+5
+ 1237 0278 8061      		ori r24,16
+ 1238               	.L144:
+ 1239 027a 8283      		std Z+2,r24
+ 1240 027c 9383      		std Z+3,r25
+ 1241 027e A483      		std Z+4,r26
+ 1242 0280 B583      		std Z+5,r27
+ 1243               	.L143:
+ 1244 0282 CF01      		movw r24,r30
+ 1245 0284 8696      		adiw r24,38
+ 1246 0286 0E94 0000 		call NutEventPost
+ 1247               	.L142:
+ 1248 028a 80E0      		ldi r24,0
+ 1249 028c 90E0      		ldi r25,0
+ 1250 028e 00C0      		rjmp .L123
+ 1251               	.L113:
+ 1252 0290 83A5      		ldd r24,Z+43
+ 1253 0292 94A5      		ldd r25,Z+44
+ 1254 0294 A5A5      		ldd r26,Z+45
+GAS LISTING /tmp/cclioYfa.s 			page 23
+
+
+ 1255 0296 B6A5      		ldd r27,Z+46
+ 1256 0298 00C0      		rjmp .L145
+ 1257               	.L107:
+ 1258 029a 83A9      		ldd r24,Z+51
+ 1259 029c 94A9      		ldd r25,Z+52
+ 1260 029e A5A9      		ldd r26,Z+53
+ 1261 02a0 B6A9      		ldd r27,Z+54
+ 1262               	.L145:
+ 1263 02a2 8883      		st Y,r24
+ 1264 02a4 9983      		std Y+1,r25
+ 1265 02a6 AA83      		std Y+2,r26
+ 1266 02a8 BB83      		std Y+3,r27
+ 1267 02aa 00C0      		rjmp .L142
+ 1268               	.L119:
+ 1269 02ac 20E0      		ldi r18,0
+ 1270 02ae 30EC      		ldi r19,lo8(-64)
+ 1271 02b0 43E0      		ldi r20,lo8(3)
+ 1272 02b2 62E0      		ldi r22,lo8(2)
+ 1273 02b4 C801      		movw r24,r16
+ 1274 02b6 0E94 0000 		call VsCodecReg
+ 1275 02ba 64E6      		ldi r22,lo8(100)
+ 1276 02bc 70E0      		ldi r23,0
+ 1277 02be 80E0      		ldi r24,0
+ 1278 02c0 90E0      		ldi r25,0
+ 1279 02c2 0E94 0000 		call NutSleep
+ 1280 02c6 20E0      		ldi r18,0
+ 1281 02c8 30E0      		ldi r19,0
+ 1282 02ca 4AE0      		ldi r20,lo8(10)
+ 1283 02cc 62E0      		ldi r22,lo8(2)
+ 1284 02ce C801      		movw r24,r16
+ 1285 02d0 0E94 0000 		call VsCodecReg
+ 1286 02d4 2AE1      		ldi r18,lo8(26)
+ 1287 02d6 30EC      		ldi r19,lo8(-64)
+ 1288 02d8 47E0      		ldi r20,lo8(7)
+ 1289 02da 62E0      		ldi r22,lo8(2)
+ 1290 02dc C801      		movw r24,r16
+ 1291 02de 0E94 0000 		call VsCodecReg
+ 1292 02e2 22E0      		ldi r18,lo8(2)
+ 1293 02e4 30E0      		ldi r19,0
+ 1294 02e6 46E0      		ldi r20,lo8(6)
+ 1295 02e8 62E0      		ldi r22,lo8(2)
+ 1296 02ea C801      		movw r24,r16
+ 1297 02ec 0E94 0000 		call VsCodecReg
+ 1298 02f0 20E0      		ldi r18,0
+ 1299 02f2 30E0      		ldi r19,0
+ 1300               	.L126:
+ 1301 02f4 5901      		movw r10,r18
+ 1302 02f6 B3E0      		ldi r27,3
+ 1303 02f8 AB0E      		add r10,r27
+ 1304 02fa B11C      		adc r11,__zero_reg__
+ 1305 02fc 4881      		ld r20,Y
+ 1306 02fe 5981      		ldd r21,Y+1
+ 1307 0300 4A15      		cp r20,r10
+ 1308 0302 5B05      		cpc r21,r11
+ 1309 0304 00F4      		brsh .+2
+ 1310 0306 00C0      		rjmp .L131
+ 1311 0308 EA81      		ldd r30,Y+2
+GAS LISTING /tmp/cclioYfa.s 			page 24
+
+
+ 1312 030a FB81      		ldd r31,Y+3
+ 1313 030c 6901      		movw r12,r18
+ 1314 030e CC0C      		lsl r12
+ 1315 0310 DD1C      		rol r13
+ 1316 0312 EC0D      		add r30,r12
+ 1317 0314 FD1D      		adc r31,r13
+ 1318 0316 9080      		ld r9,Z
+ 1319 0318 2E5F      		subi r18,-2
+ 1320 031a 3F4F      		sbci r19,-1
+ 1321 031c E280      		ldd r14,Z+2
+ 1322 031e F380      		ldd r15,Z+3
+ 1323 0320 F7FE      		sbrs r15,7
+ 1324 0322 00C0      		rjmp .L127
+ 1325 0324 E894      		clt
+ 1326 0326 F7F8      		bld r15,7
+ 1327 0328 24E0      		ldi r18,4
+ 1328 032a C20E      		add r12,r18
+ 1329 032c D11C      		adc r13,__zero_reg__
+ 1330               	.L128:
+ 1331 032e 81E0      		ldi r24,1
+ 1332 0330 E81A      		sub r14,r24
+ 1333 0332 F108      		sbc r15,__zero_reg__
+ 1334 0334 00F0      		brcs .L130
+ 1335 0336 EA81      		ldd r30,Y+2
+ 1336 0338 FB81      		ldd r31,Y+3
+ 1337 033a EC0D      		add r30,r12
+ 1338 033c FD1D      		adc r31,r13
+ 1339 033e 2081      		ld r18,Z
+ 1340 0340 3181      		ldd r19,Z+1
+ 1341 0342 492D      		mov r20,r9
+ 1342 0344 62E0      		ldi r22,lo8(2)
+ 1343 0346 C801      		movw r24,r16
+ 1344 0348 0E94 0000 		call VsCodecReg
+ 1345 034c 00C0      		rjmp .L128
+ 1346               	.L127:
+ 1347 034e 5901      		movw r10,r18
+ 1348 0350 AE0C      		add r10,r14
+ 1349 0352 BF1C      		adc r11,r15
+ 1350 0354 4A15      		cp r20,r10
+ 1351 0356 5B05      		cpc r21,r11
+ 1352 0358 00F0      		brlo .L131
+ 1353 035a B4E0      		ldi r27,4
+ 1354 035c CB0E      		add r12,r27
+ 1355 035e D11C      		adc r13,__zero_reg__
+ 1356               	.L132:
+ 1357 0360 81E0      		ldi r24,1
+ 1358 0362 E81A      		sub r14,r24
+ 1359 0364 F108      		sbc r15,__zero_reg__
+ 1360 0366 00F0      		brcs .L130
+ 1361 0368 EA81      		ldd r30,Y+2
+ 1362 036a FB81      		ldd r31,Y+3
+ 1363 036c EC0D      		add r30,r12
+ 1364 036e FD1D      		adc r31,r13
+ 1365 0370 2081      		ld r18,Z
+ 1366 0372 3181      		ldd r19,Z+1
+ 1367 0374 492D      		mov r20,r9
+ 1368 0376 62E0      		ldi r22,lo8(2)
+GAS LISTING /tmp/cclioYfa.s 			page 25
+
+
+ 1369 0378 C801      		movw r24,r16
+ 1370 037a 0E94 0000 		call VsCodecReg
+ 1371 037e 22E0      		ldi r18,2
+ 1372 0380 C20E      		add r12,r18
+ 1373 0382 D11C      		adc r13,__zero_reg__
+ 1374 0384 00C0      		rjmp .L132
+ 1375               	.L130:
+ 1376 0386 9501      		movw r18,r10
+ 1377 0388 00C0      		rjmp .L126
+ 1378               	.L131:
+ 1379 038a 81E0      		ldi r24,lo8(1)
+ 1380 038c 90E0      		ldi r25,0
+ 1381 038e 4217      		cp r20,r18
+ 1382 0390 5307      		cpc r21,r19
+ 1383 0392 01F4      		brne .L135
+ 1384 0394 80E0      		ldi r24,0
+ 1385 0396 90E0      		ldi r25,0
+ 1386               	.L135:
+ 1387 0398 9195      		neg r25
+ 1388 039a 8195      		neg r24
+ 1389 039c 9109      		sbc r25,__zero_reg__
+ 1390 039e 00C0      		rjmp .L123
+ 1391               	.L120:
+ 1392 03a0 2097      		sbiw r28,0
+ 1393 03a2 01F4      		brne .L136
+ 1394 03a4 20E0      		ldi r18,0
+ 1395 03a6 30EC      		ldi r19,lo8(-64)
+ 1396 03a8 43E0      		ldi r20,lo8(3)
+ 1397 03aa 62E0      		ldi r22,lo8(2)
+ 1398 03ac C801      		movw r24,r16
+ 1399 03ae 0E94 0000 		call VsCodecReg
+ 1400 03b2 64E6      		ldi r22,lo8(100)
+ 1401 03b4 70E0      		ldi r23,0
+ 1402 03b6 80E0      		ldi r24,0
+ 1403 03b8 90E0      		ldi r25,0
+ 1404 03ba 0E94 0000 		call NutSleep
+ 1405 03be 20E0      		ldi r18,0
+ 1406 03c0 30E0      		ldi r19,0
+ 1407 03c2 4AE0      		ldi r20,lo8(10)
+ 1408 03c4 62E0      		ldi r22,lo8(2)
+ 1409 03c6 C801      		movw r24,r16
+ 1410 03c8 0E94 0000 		call VsCodecReg
+ 1411 03cc 2AE1      		ldi r18,lo8(26)
+ 1412 03ce 30EC      		ldi r19,lo8(-64)
+ 1413 03d0 47E0      		ldi r20,lo8(7)
+ 1414 03d2 62E0      		ldi r22,lo8(2)
+ 1415 03d4 C801      		movw r24,r16
+ 1416 03d6 0E94 0000 		call VsCodecReg
+ 1417 03da 22E0      		ldi r18,lo8(2)
+ 1418 03dc 30E0      		ldi r19,0
+ 1419 03de 46E0      		ldi r20,lo8(6)
+ 1420 03e0 62E0      		ldi r22,lo8(2)
+ 1421 03e2 C801      		movw r24,r16
+ 1422 03e4 0E94 0000 		call VsCodecReg
+ 1423 03e8 00C0      		rjmp .L142
+ 1424               	.L136:
+ 1425 03ea 8C81      		ldd r24,Y+4
+GAS LISTING /tmp/cclioYfa.s 			page 26
+
+
+ 1426 03ec 9D81      		ldd r25,Y+5
+ 1427 03ee 892B      		or r24,r25
+ 1428 03f0 01F4      		brne .+2
+ 1429 03f2 00C0      		rjmp .L142
+ 1430 03f4 2881      		ld r18,Y
+ 1431 03f6 3981      		ldd r19,Y+1
+ 1432 03f8 47E0      		ldi r20,lo8(7)
+ 1433 03fa 62E0      		ldi r22,lo8(2)
+ 1434 03fc C801      		movw r24,r16
+ 1435 03fe 0E94 0000 		call VsCodecReg
+ 1436 0402 E12C      		mov r14,__zero_reg__
+ 1437 0404 F12C      		mov r15,__zero_reg__
+ 1438               	.L138:
+ 1439 0406 8A81      		ldd r24,Y+2
+ 1440 0408 9B81      		ldd r25,Y+3
+ 1441 040a E816      		cp r14,r24
+ 1442 040c F906      		cpc r15,r25
+ 1443 040e 00F0      		brlo .+2
+ 1444 0410 00C0      		rjmp .L142
+ 1445 0412 C701      		movw r24,r14
+ 1446 0414 880F      		lsl r24
+ 1447 0416 991F      		rol r25
+ 1448 0418 EC81      		ldd r30,Y+4
+ 1449 041a FD81      		ldd r31,Y+5
+ 1450 041c E80F      		add r30,r24
+ 1451 041e F91F      		adc r31,r25
+ 1452 0420 2081      		ld r18,Z
+ 1453 0422 3181      		ldd r19,Z+1
+ 1454 0424 46E0      		ldi r20,lo8(6)
+ 1455 0426 62E0      		ldi r22,lo8(2)
+ 1456 0428 C801      		movw r24,r16
+ 1457 042a 0E94 0000 		call VsCodecReg
+ 1458 042e 2FEF      		ldi r18,-1
+ 1459 0430 E21A      		sub r14,r18
+ 1460 0432 F20A      		sbc r15,r18
+ 1461 0434 00C0      		rjmp .L138
+ 1462               	.L90:
+ 1463 0436 EF5B      		subi r30,-65
+ 1464 0438 FF4F      		sbci r31,-1
+ 1465 043a 0190      		ld __tmp_reg__,Z+
+ 1466 043c F081      		ld r31,Z
+ 1467 043e E02D      		mov r30,__tmp_reg__
+ 1468 0440 BE01      		movw r22,r28
+ 1469               	/* epilogue start */
+ 1470 0442 DF91      		pop r29
+ 1471 0444 CF91      		pop r28
+ 1472 0446 1F91      		pop r17
+ 1473 0448 0F91      		pop r16
+ 1474 044a FF90      		pop r15
+ 1475 044c EF90      		pop r14
+ 1476 044e DF90      		pop r13
+ 1477 0450 CF90      		pop r12
+ 1478 0452 BF90      		pop r11
+ 1479 0454 AF90      		pop r10
+ 1480 0456 9F90      		pop r9
+ 1481 0458 1994      		eijmp
+ 1482               	.L141:
+GAS LISTING /tmp/cclioYfa.s 			page 27
+
+
+ 1483 045a 8FEF      		ldi r24,lo8(-1)
+ 1484 045c 9FEF      		ldi r25,lo8(-1)
+ 1485               	.L123:
+ 1486               	/* epilogue start */
+ 1487 045e DF91      		pop r29
+ 1488 0460 CF91      		pop r28
+ 1489 0462 1F91      		pop r17
+ 1490 0464 0F91      		pop r16
+ 1491 0466 FF90      		pop r15
+ 1492 0468 EF90      		pop r14
+ 1493 046a DF90      		pop r13
+ 1494 046c CF90      		pop r12
+ 1495 046e BF90      		pop r11
+ 1496 0470 AF90      		pop r10
+ 1497 0472 9F90      		pop r9
+ 1498 0474 0895      		ret
+ 1499               		.size	VsCodecIOCtl, .-VsCodecIOCtl
+ 1500               		.section	.text.VsDecoderBufferFlush,"ax",@progbits
+ 1501               		.type	VsDecoderBufferFlush, @function
+ 1502               	VsDecoderBufferFlush:
+ 1503 0000 8F92      		push r8
+ 1504 0002 9F92      		push r9
+ 1505 0004 AF92      		push r10
+ 1506 0006 BF92      		push r11
+ 1507 0008 EF92      		push r14
+ 1508 000a FF92      		push r15
+ 1509 000c 0F93      		push r16
+ 1510 000e 1F93      		push r17
+ 1511 0010 CF93      		push r28
+ 1512 0012 DF93      		push r29
+ 1513               	/* prologue: function */
+ 1514               	/* frame size = 0 */
+ 1515               	/* stack size = 10 */
+ 1516               	.L__stack_usage = 10
+ 1517 0014 8C01      		movw r16,r24
+ 1518 0016 4A01      		movw r8,r20
+ 1519 0018 5B01      		movw r10,r22
+ 1520 001a FC01      		movw r30,r24
+ 1521 001c C189      		ldd r28,Z+17
+ 1522 001e D289      		ldd r29,Z+18
+ 1523 0020 7E01      		movw r14,r28
+ 1524 0022 F4E2      		ldi r31,36
+ 1525 0024 EF0E      		add r14,r31
+ 1526 0026 F11C      		adc r15,__zero_reg__
+ 1527               	.L152:
+ 1528 0028 0E94 0000 		call NutSegBufUsed
+ 1529 002c 672B      		or r22,r23
+ 1530 002e 682B      		or r22,r24
+ 1531 0030 692B      		or r22,r25
+ 1532 0032 01F0      		breq .L149
+ 1533 0034 40E0      		ldi r20,0
+ 1534 0036 50E0      		ldi r21,0
+ 1535 0038 61E0      		ldi r22,lo8(1)
+ 1536 003a 70E3      		ldi r23,lo8(48)
+ 1537 003c C801      		movw r24,r16
+ 1538 003e 0E94 0000 		call VsCodecIOCtl
+ 1539 0042 00C0      		rjmp .L150
+GAS LISTING /tmp/cclioYfa.s 			page 28
+
+
+ 1540               	.L149:
+ 1541 0044 8881      		ld r24,Y
+ 1542 0046 9981      		ldd r25,Y+1
+ 1543 0048 892B      		or r24,r25
+ 1544 004a 01F0      		breq .L153
+ 1545               	.L150:
+ 1546 004c B501      		movw r22,r10
+ 1547 004e A401      		movw r20,r8
+ 1548 0050 C701      		movw r24,r14
+ 1549 0052 0E94 0000 		call NutEventWait
+ 1550 0056 0097      		sbiw r24,0
+ 1551 0058 01F0      		breq .L152
+ 1552 005a 00C0      		rjmp .L151
+ 1553               	.L153:
+ 1554 005c 80E0      		ldi r24,0
+ 1555 005e 90E0      		ldi r25,0
+ 1556               	.L151:
+ 1557               	/* epilogue start */
+ 1558 0060 DF91      		pop r29
+ 1559 0062 CF91      		pop r28
+ 1560 0064 1F91      		pop r17
+ 1561 0066 0F91      		pop r16
+ 1562 0068 FF90      		pop r15
+ 1563 006a EF90      		pop r14
+ 1564 006c BF90      		pop r11
+ 1565 006e AF90      		pop r10
+ 1566 0070 9F90      		pop r9
+ 1567 0072 8F90      		pop r8
+ 1568 0074 0895      		ret
+ 1569               		.size	VsDecoderBufferFlush, .-VsDecoderBufferFlush
+ 1570               		.section	.text.VsCodecRead,"ax",@progbits
+ 1571               	.global	VsCodecRead
+ 1572               		.type	VsCodecRead, @function
+ 1573               	VsCodecRead:
+ 1574 0000 4F92      		push r4
+ 1575 0002 5F92      		push r5
+ 1576 0004 6F92      		push r6
+ 1577 0006 7F92      		push r7
+ 1578 0008 8F92      		push r8
+ 1579 000a 9F92      		push r9
+ 1580 000c AF92      		push r10
+ 1581 000e BF92      		push r11
+ 1582 0010 CF92      		push r12
+ 1583 0012 DF92      		push r13
+ 1584 0014 EF92      		push r14
+ 1585 0016 FF92      		push r15
+ 1586 0018 0F93      		push r16
+ 1587 001a 1F93      		push r17
+ 1588 001c CF93      		push r28
+ 1589 001e DF93      		push r29
+ 1590 0020 1F92      		push __zero_reg__
+ 1591 0022 1F92      		push __zero_reg__
+ 1592 0024 CDB7      		in r28,__SP_L__
+ 1593 0026 DEB7      		in r29,__SP_H__
+ 1594               	/* prologue: function */
+ 1595               	/* frame size = 2 */
+ 1596               	/* stack size = 18 */
+GAS LISTING /tmp/cclioYfa.s 			page 29
+
+
+ 1597               	.L__stack_usage = 18
+ 1598 0028 5B01      		movw r10,r22
+ 1599 002a 6A01      		movw r12,r20
+ 1600 002c 672B      		or r22,r23
+ 1601 002e 01F4      		brne .+2
+ 1602 0030 00C0      		rjmp .L165
+ 1603 0032 452B      		or r20,r21
+ 1604 0034 01F4      		brne .+2
+ 1605 0036 00C0      		rjmp .L165
+ 1606 0038 DC01      		movw r26,r24
+ 1607 003a ED91      		ld r30,X+
+ 1608 003c FC91      		ld r31,X
+ 1609 003e 0189      		ldd r16,Z+17
+ 1610 0040 1289      		ldd r17,Z+18
+ 1611 0042 F801      		movw r30,r16
+ 1612 0044 8081      		ld r24,Z
+ 1613 0046 9181      		ldd r25,Z+1
+ 1614 0048 8130      		cpi r24,1
+ 1615 004a 9105      		cpc r25,__zero_reg__
+ 1616 004c 01F4      		brne .+2
+ 1617 004e 00C0      		rjmp .L166
+ 1618 0050 892B      		or r24,r25
+ 1619 0052 01F4      		brne .L158
+ 1620 0054 8281      		ldd r24,Z+2
+ 1621 0056 9381      		ldd r25,Z+3
+ 1622 0058 A481      		ldd r26,Z+4
+ 1623 005a B581      		ldd r27,Z+5
+ 1624 005c 8062      		ori r24,32
+ 1625 005e 8283      		std Z+2,r24
+ 1626 0060 9383      		std Z+3,r25
+ 1627 0062 A483      		std Z+4,r26
+ 1628 0064 B583      		std Z+5,r27
+ 1629 0066 C801      		movw r24,r16
+ 1630 0068 8696      		adiw r24,38
+ 1631 006a 0E94 0000 		call NutEventPost
+ 1632               	.L158:
+ 1633 006e E12C      		mov r14,__zero_reg__
+ 1634 0070 F12C      		mov r15,__zero_reg__
+ 1635 0072 3801      		movw r6,r16
+ 1636 0074 F4E2      		ldi r31,36
+ 1637 0076 6F0E      		add r6,r31
+ 1638 0078 711C      		adc r7,__zero_reg__
+ 1639 007a 4801      		movw r8,r16
+ 1640 007c 86E2      		ldi r24,38
+ 1641 007e 880E      		add r8,r24
+ 1642 0080 911C      		adc r9,__zero_reg__
+ 1643               	.L159:
+ 1644 0082 CE01      		movw r24,r28
+ 1645 0084 0196      		adiw r24,1
+ 1646 0086 0E94 0000 		call NutSegBufReadRequest
+ 1647 008a 2981      		ldd r18,Y+1
+ 1648 008c 3A81      		ldd r19,Y+2
+ 1649 008e 2115      		cp r18,__zero_reg__
+ 1650 0090 3105      		cpc r19,__zero_reg__
+ 1651 0092 01F0      		breq .L160
+ 1652 0094 C216      		cp r12,r18
+ 1653 0096 D306      		cpc r13,r19
+GAS LISTING /tmp/cclioYfa.s 			page 30
+
+
+ 1654 0098 00F4      		brsh .L161
+ 1655 009a DA82      		std Y+2,r13
+ 1656 009c C982      		std Y+1,r12
+ 1657               	.L161:
+ 1658 009e 4980      		ldd r4,Y+1
+ 1659 00a0 5A80      		ldd r5,Y+2
+ 1660 00a2 A201      		movw r20,r4
+ 1661 00a4 BC01      		movw r22,r24
+ 1662 00a6 C501      		movw r24,r10
+ 1663 00a8 0E94 0000 		call memcpy
+ 1664 00ac C201      		movw r24,r4
+ 1665 00ae 0E94 0000 		call NutSegBufReadLast
+ 1666 00b2 C401      		movw r24,r8
+ 1667 00b4 0E94 0000 		call NutEventPost
+ 1668 00b8 8981      		ldd r24,Y+1
+ 1669 00ba 9A81      		ldd r25,Y+2
+ 1670 00bc C81A      		sub r12,r24
+ 1671 00be D90A      		sbc r13,r25
+ 1672 00c0 E80E      		add r14,r24
+ 1673 00c2 F91E      		adc r15,r25
+ 1674 00c4 A80E      		add r10,r24
+ 1675 00c6 B91E      		adc r11,r25
+ 1676 00c8 C114      		cp r12,__zero_reg__
+ 1677 00ca D104      		cpc r13,__zero_reg__
+ 1678 00cc 01F4      		brne .L159
+ 1679 00ce 00C0      		rjmp .L170
+ 1680               	.L160:
+ 1681 00d0 D801      		movw r26,r16
+ 1682 00d2 9096      		adiw r26,32
+ 1683 00d4 4D91      		ld r20,X+
+ 1684 00d6 5D91      		ld r21,X+
+ 1685 00d8 6D91      		ld r22,X+
+ 1686 00da 7C91      		ld r23,X
+ 1687 00dc 9397      		sbiw r26,32+3
+ 1688 00de C301      		movw r24,r6
+ 1689 00e0 0E94 0000 		call NutEventWait
+ 1690 00e4 892B      		or r24,r25
+ 1691 00e6 01F0      		breq .L159
+ 1692               	.L170:
+ 1693 00e8 C701      		movw r24,r14
+ 1694 00ea 00C0      		rjmp .L157
+ 1695               	.L165:
+ 1696 00ec 80E0      		ldi r24,0
+ 1697 00ee 90E0      		ldi r25,0
+ 1698 00f0 00C0      		rjmp .L157
+ 1699               	.L166:
+ 1700 00f2 8FEF      		ldi r24,lo8(-1)
+ 1701 00f4 9FEF      		ldi r25,lo8(-1)
+ 1702               	.L157:
+ 1703               	/* epilogue start */
+ 1704 00f6 0F90      		pop __tmp_reg__
+ 1705 00f8 0F90      		pop __tmp_reg__
+ 1706 00fa DF91      		pop r29
+ 1707 00fc CF91      		pop r28
+ 1708 00fe 1F91      		pop r17
+ 1709 0100 0F91      		pop r16
+ 1710 0102 FF90      		pop r15
+GAS LISTING /tmp/cclioYfa.s 			page 31
+
+
+ 1711 0104 EF90      		pop r14
+ 1712 0106 DF90      		pop r13
+ 1713 0108 CF90      		pop r12
+ 1714 010a BF90      		pop r11
+ 1715 010c AF90      		pop r10
+ 1716 010e 9F90      		pop r9
+ 1717 0110 8F90      		pop r8
+ 1718 0112 7F90      		pop r7
+ 1719 0114 6F90      		pop r6
+ 1720 0116 5F90      		pop r5
+ 1721 0118 4F90      		pop r4
+ 1722 011a 0895      		ret
+ 1723               		.size	VsCodecRead, .-VsCodecRead
+ 1724               		.section	.text.VsCodecWrite,"ax",@progbits
+ 1725               	.global	VsCodecWrite
+ 1726               		.type	VsCodecWrite, @function
+ 1727               	VsCodecWrite:
+ 1728 0000 6F92      		push r6
+ 1729 0002 7F92      		push r7
+ 1730 0004 8F92      		push r8
+ 1731 0006 9F92      		push r9
+ 1732 0008 AF92      		push r10
+ 1733 000a BF92      		push r11
+ 1734 000c CF92      		push r12
+ 1735 000e DF92      		push r13
+ 1736 0010 EF92      		push r14
+ 1737 0012 FF92      		push r15
+ 1738 0014 0F93      		push r16
+ 1739 0016 1F93      		push r17
+ 1740 0018 CF93      		push r28
+ 1741 001a DF93      		push r29
+ 1742 001c 1F92      		push __zero_reg__
+ 1743 001e 1F92      		push __zero_reg__
+ 1744 0020 CDB7      		in r28,__SP_L__
+ 1745 0022 DEB7      		in r29,__SP_H__
+ 1746               	/* prologue: function */
+ 1747               	/* frame size = 2 */
+ 1748               	/* stack size = 16 */
+ 1749               	.L__stack_usage = 16
+ 1750 0024 7B01      		movw r14,r22
+ 1751 0026 3A01      		movw r6,r20
+ 1752 0028 FC01      		movw r30,r24
+ 1753 002a 8081      		ld r24,Z
+ 1754 002c 9181      		ldd r25,Z+1
+ 1755 002e FC01      		movw r30,r24
+ 1756 0030 C188      		ldd r12,Z+17
+ 1757 0032 D288      		ldd r13,Z+18
+ 1758 0034 672B      		or r22,r23
+ 1759 0036 01F0      		breq .L172
+ 1760 0038 452B      		or r20,r21
+ 1761 003a 01F0      		breq .L172
+ 1762 003c 00E0      		ldi r16,0
+ 1763 003e 10E0      		ldi r17,0
+ 1764 0040 5601      		movw r10,r12
+ 1765 0042 F6E2      		ldi r31,38
+ 1766 0044 AF0E      		add r10,r31
+ 1767 0046 B11C      		adc r11,__zero_reg__
+GAS LISTING /tmp/cclioYfa.s 			page 32
+
+
+ 1768 0048 4601      		movw r8,r12
+ 1769 004a 84E2      		ldi r24,36
+ 1770 004c 880E      		add r8,r24
+ 1771 004e 911C      		adc r9,__zero_reg__
+ 1772 0050 00C0      		rjmp .L173
+ 1773               	.L172:
+ 1774 0052 F601      		movw r30,r12
+ 1775 0054 448D      		ldd r20,Z+28
+ 1776 0056 558D      		ldd r21,Z+29
+ 1777 0058 668D      		ldd r22,Z+30
+ 1778 005a 778D      		ldd r23,Z+31
+ 1779 005c 0E94 0000 		call VsDecoderBufferFlush
+ 1780 0060 00C0      		rjmp .L174
+ 1781               	.L186:
+ 1782 0062 F601      		movw r30,r12
+ 1783 0064 448D      		ldd r20,Z+28
+ 1784 0066 558D      		ldd r21,Z+29
+ 1785 0068 668D      		ldd r22,Z+30
+ 1786 006a 778D      		ldd r23,Z+31
+ 1787 006c C401      		movw r24,r8
+ 1788 006e 0E94 0000 		call NutEventWait
+ 1789 0072 892B      		or r24,r25
+ 1790 0074 01F4      		brne .L179
+ 1791               	.L173:
+ 1792 0076 CE01      		movw r24,r28
+ 1793 0078 0196      		adiw r24,1
+ 1794 007a 0E94 0000 		call NutSegBufWriteRequest
+ 1795 007e 2981      		ldd r18,Y+1
+ 1796 0080 3A81      		ldd r19,Y+2
+ 1797 0082 2115      		cp r18,__zero_reg__
+ 1798 0084 3105      		cpc r19,__zero_reg__
+ 1799 0086 01F0      		breq .L186
+ 1800 0088 6216      		cp r6,r18
+ 1801 008a 7306      		cpc r7,r19
+ 1802 008c 00F4      		brsh .L177
+ 1803 008e 7A82      		std Y+2,r7
+ 1804 0090 6982      		std Y+1,r6
+ 1805               	.L177:
+ 1806 0092 4981      		ldd r20,Y+1
+ 1807 0094 5A81      		ldd r21,Y+2
+ 1808 0096 B701      		movw r22,r14
+ 1809 0098 0E94 0000 		call memcpy
+ 1810 009c 8981      		ldd r24,Y+1
+ 1811 009e 9A81      		ldd r25,Y+2
+ 1812 00a0 0E94 0000 		call NutSegBufWriteLast
+ 1813 00a4 C501      		movw r24,r10
+ 1814 00a6 0E94 0000 		call NutEventPost
+ 1815 00aa 8981      		ldd r24,Y+1
+ 1816 00ac 9A81      		ldd r25,Y+2
+ 1817 00ae 681A      		sub r6,r24
+ 1818 00b0 790A      		sbc r7,r25
+ 1819 00b2 080F      		add r16,r24
+ 1820 00b4 191F      		adc r17,r25
+ 1821 00b6 E80E      		add r14,r24
+ 1822 00b8 F91E      		adc r15,r25
+ 1823 00ba 6114      		cp r6,__zero_reg__
+ 1824 00bc 7104      		cpc r7,__zero_reg__
+GAS LISTING /tmp/cclioYfa.s 			page 33
+
+
+ 1825 00be 01F4      		brne .L173
+ 1826               	.L179:
+ 1827 00c0 C801      		movw r24,r16
+ 1828               	.L174:
+ 1829               	/* epilogue start */
+ 1830 00c2 0F90      		pop __tmp_reg__
+ 1831 00c4 0F90      		pop __tmp_reg__
+ 1832 00c6 DF91      		pop r29
+ 1833 00c8 CF91      		pop r28
+ 1834 00ca 1F91      		pop r17
+ 1835 00cc 0F91      		pop r16
+ 1836 00ce FF90      		pop r15
+ 1837 00d0 EF90      		pop r14
+ 1838 00d2 DF90      		pop r13
+ 1839 00d4 CF90      		pop r12
+ 1840 00d6 BF90      		pop r11
+ 1841 00d8 AF90      		pop r10
+ 1842 00da 9F90      		pop r9
+ 1843 00dc 8F90      		pop r8
+ 1844 00de 7F90      		pop r7
+ 1845 00e0 6F90      		pop r6
+ 1846 00e2 0895      		ret
+ 1847               		.size	VsCodecWrite, .-VsCodecWrite
+ 1848               		.section	.text.VsCodecWrite_P,"ax",@progbits
+ 1849               	.global	VsCodecWrite_P
+ 1850               		.type	VsCodecWrite_P, @function
+ 1851               	VsCodecWrite_P:
+ 1852               	/* prologue: function */
+ 1853               	/* frame size = 0 */
+ 1854               	/* stack size = 0 */
+ 1855               	.L__stack_usage = 0
+ 1856 0000 8FEF      		ldi r24,lo8(-1)
+ 1857 0002 9FEF      		ldi r25,lo8(-1)
+ 1858 0004 0895      		ret
+ 1859               		.size	VsCodecWrite_P, .-VsCodecWrite_P
+ 1860               		.section	.rodata.str1.1,"aMS",@progbits,1
+ 1861               	.LC0:
+ 1862 0000 766F 7262 		.string	"vorbis"
+ 1862      6973 00
+ 1863               		.section	.text.VsCodecOpen,"ax",@progbits
+ 1864               	.global	VsCodecOpen
+ 1865               		.type	VsCodecOpen, @function
+ 1866               	VsCodecOpen:
+ 1867 0000 EF92      		push r14
+ 1868 0002 FF92      		push r15
+ 1869 0004 0F93      		push r16
+ 1870 0006 1F93      		push r17
+ 1871 0008 CF93      		push r28
+ 1872 000a DF93      		push r29
+ 1873 000c 00D0      		rcall .
+ 1874 000e 1F92      		push __zero_reg__
+ 1875 0010 CDB7      		in r28,__SP_L__
+ 1876 0012 DEB7      		in r29,__SP_H__
+ 1877               	/* prologue: function */
+ 1878               	/* frame size = 4 */
+ 1879               	/* stack size = 10 */
+ 1880               	.L__stack_usage = 10
+GAS LISTING /tmp/cclioYfa.s 			page 34
+
+
+ 1881 0014 7C01      		movw r14,r24
+ 1882 0016 CB01      		movw r24,r22
+ 1883 0018 40FF      		sbrs r20,0
+ 1884 001a 00C0      		rjmp .L189
+ 1885 001c 81E0      		ldi r24,lo8(1)
+ 1886 001e 90E0      		ldi r25,0
+ 1887 0020 A0E0      		ldi r26,0
+ 1888 0022 B0E0      		ldi r27,0
+ 1889 0024 8983      		std Y+1,r24
+ 1890 0026 9A83      		std Y+2,r25
+ 1891 0028 AB83      		std Y+3,r26
+ 1892 002a BC83      		std Y+4,r27
+ 1893 002c AE01      		movw r20,r28
+ 1894 002e 4F5F      		subi r20,-1
+ 1895 0030 5F4F      		sbci r21,-1
+ 1896 0032 61E3      		ldi r22,lo8(49)
+ 1897 0034 70E3      		ldi r23,lo8(48)
+ 1898 0036 C701      		movw r24,r14
+ 1899 0038 0E94 0000 		call VsCodecIOCtl
+ 1900 003c 892B      		or r24,r25
+ 1901 003e 01F0      		breq .L192
+ 1902 0040 80E0      		ldi r24,0
+ 1903 0042 90E0      		ldi r25,0
+ 1904 0044 00C0      		rjmp .L191
+ 1905               	.L189:
+ 1906 0046 F701      		movw r30,r14
+ 1907 0048 0189      		ldd r16,Z+17
+ 1908 004a 1289      		ldd r17,Z+18
+ 1909 004c 60E0      		ldi r22,lo8(.LC0)
+ 1910 004e 70E0      		ldi r23,hi8(.LC0)
+ 1911 0050 0E94 0000 		call strcmp
+ 1912 0054 892B      		or r24,r25
+ 1913 0056 01F4      		brne .L193
+ 1914 0058 80E0      		ldi r24,0
+ 1915 005a 91E0      		ldi r25,lo8(1)
+ 1916 005c A0E0      		ldi r26,0
+ 1917 005e B0E0      		ldi r27,0
+ 1918 0060 00C0      		rjmp .L201
+ 1919               	.L193:
+ 1920 0062 88E0      		ldi r24,lo8(8)
+ 1921 0064 90E0      		ldi r25,0
+ 1922 0066 A0E0      		ldi r26,0
+ 1923 0068 B0E0      		ldi r27,0
+ 1924               	.L201:
+ 1925 006a F801      		movw r30,r16
+ 1926 006c 87AB      		std Z+55,r24
+ 1927 006e 90AF      		std Z+56,r25
+ 1928 0070 A1AF      		std Z+57,r26
+ 1929 0072 B2AF      		std Z+58,r27
+ 1930               	.L192:
+ 1931 0074 84E0      		ldi r24,lo8(4)
+ 1932 0076 90E0      		ldi r25,0
+ 1933 0078 0E94 0000 		call malloc
+ 1934 007c 8C01      		movw r16,r24
+ 1935 007e 0097      		sbiw r24,0
+ 1936 0080 01F0      		breq .L194
+ 1937 0082 FC01      		movw r30,r24
+GAS LISTING /tmp/cclioYfa.s 			page 35
+
+
+ 1938 0084 F182      		std Z+1,r15
+ 1939 0086 E082      		st Z,r14
+ 1940 0088 1382      		std Z+3,__zero_reg__
+ 1941 008a 1282      		std Z+2,__zero_reg__
+ 1942               	.L194:
+ 1943 008c 0E94 0000 		call NutSegBufReset
+ 1944 0090 C801      		movw r24,r16
+ 1945               	.L191:
+ 1946               	/* epilogue start */
+ 1947 0092 0F90      		pop __tmp_reg__
+ 1948 0094 0F90      		pop __tmp_reg__
+ 1949 0096 0F90      		pop __tmp_reg__
+ 1950 0098 0F90      		pop __tmp_reg__
+ 1951 009a DF91      		pop r29
+ 1952 009c CF91      		pop r28
+ 1953 009e 1F91      		pop r17
+ 1954 00a0 0F91      		pop r16
+ 1955 00a2 FF90      		pop r15
+ 1956 00a4 EF90      		pop r14
+ 1957 00a6 0895      		ret
+ 1958               		.size	VsCodecOpen, .-VsCodecOpen
+ 1959               		.section	.text.VsCodecClose,"ax",@progbits
+ 1960               	.global	VsCodecClose
+ 1961               		.type	VsCodecClose, @function
+ 1962               	VsCodecClose:
+ 1963 0000 0F93      		push r16
+ 1964 0002 1F93      		push r17
+ 1965 0004 CF93      		push r28
+ 1966 0006 DF93      		push r29
+ 1967               	/* prologue: function */
+ 1968               	/* frame size = 0 */
+ 1969               	/* stack size = 4 */
+ 1970               	.L__stack_usage = 4
+ 1971 0008 EC01      		movw r28,r24
+ 1972 000a 8881      		ld r24,Y
+ 1973 000c 9981      		ldd r25,Y+1
+ 1974 000e DC01      		movw r26,r24
+ 1975 0010 5196      		adiw r26,17
+ 1976 0012 ED91      		ld r30,X+
+ 1977 0014 FC91      		ld r31,X
+ 1978 0016 5297      		sbiw r26,17+1
+ 1979 0018 448D      		ldd r20,Z+28
+ 1980 001a 558D      		ldd r21,Z+29
+ 1981 001c 668D      		ldd r22,Z+30
+ 1982 001e 778D      		ldd r23,Z+31
+ 1983 0020 0E94 0000 		call VsDecoderBufferFlush
+ 1984 0024 8C01      		movw r16,r24
+ 1985 0026 2097      		sbiw r28,0
+ 1986 0028 01F0      		breq .L203
+ 1987 002a CE01      		movw r24,r28
+ 1988 002c 0E94 0000 		call free
+ 1989               	.L203:
+ 1990 0030 C801      		movw r24,r16
+ 1991               	/* epilogue start */
+ 1992 0032 DF91      		pop r29
+ 1993 0034 CF91      		pop r28
+ 1994 0036 1F91      		pop r17
+GAS LISTING /tmp/cclioYfa.s 			page 36
+
+
+ 1995 0038 0F91      		pop r16
+ 1996 003a 0895      		ret
+ 1997               		.size	VsCodecClose, .-VsCodecClose
+ 1998               		.section	.rodata
+ 1999               		.type	off.2732, @object
+ 2000               		.size	off.2732, 8
+ 2001               	off.2732:
+ 2002 0000 45        		.byte	69
+ 2003 0001 78        		.byte	120
+ 2004 0002 69        		.byte	105
+ 2005 0003 74        		.byte	116
+ 2006 0004 00        		.byte	0
+ 2007 0005 00        		.byte	0
+ 2008 0006 00        		.byte	0
+ 2009 0007 00        		.byte	0
+ 2010               		.local	mode.2734
+ 2011               		.comm	mode.2734,2,1
+ 2012               		.data
+ 2013               		.type	on.2731, @object
+ 2014               		.size	on.2731, 8
+ 2015               	on.2731:
+ 2016 0000 53        		.byte	83
+ 2017 0001 EF        		.byte	-17
+ 2018 0002 6E        		.byte	110
+ 2019 0003 3F        		.byte	63
+ 2020 0004 00        		.byte	0
+ 2021 0005 00        		.byte	0
+ 2022 0006 00        		.byte	0
+ 2023 0007 00        		.byte	0
+ 2024               		.section	.rodata
+ 2025               		.type	ftab.2733, @object
+ 2026               		.size	ftab.2733, 16
+ 2027               	ftab.2733:
+ 2028 0008 44AC      		.word	-21436
+ 2029 000a 80BB      		.word	-17536
+ 2030 000c 007D      		.word	32000
+ 2031 000e 2256      		.word	22050
+ 2032 0010 C05D      		.word	24000
+ 2033 0012 803E      		.word	16000
+ 2034 0014 112B      		.word	11025
+ 2035 0016 E02E      		.word	12000
+ 2036               		.comm	zero_chunk,32,1
+ 2037               		.ident	"GCC: (GNU) 5.3.0"
+ 2038               	.global __do_copy_data
+ 2039               	.global __do_clear_bss
+GAS LISTING /tmp/cclioYfa.s 			page 37
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 spi_vscodec.c
+     /tmp/cclioYfa.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cclioYfa.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cclioYfa.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cclioYfa.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cclioYfa.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cclioYfa.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cclioYfa.s:11     .text.VsCodecWaitReady:0000000000000000 VsCodecWaitReady
+     /tmp/cclioYfa.s:65     .text.VsCodecReg:0000000000000000 VsCodecReg
+     /tmp/cclioYfa.s:120    .text.VsCodecMode:0000000000000000 VsCodecMode
+     /tmp/cclioYfa.s:180    .text.VsDecoderSetVolume:0000000000000000 VsDecoderSetVolume
+     /tmp/cclioYfa.s:261    .text.VsDecoderSetBass:0000000000000000 VsDecoderSetBass
+     /tmp/cclioYfa.s:273    .text.VsCodecBeep:0000000000000000 VsCodecBeep
+     /tmp/cclioYfa.s:2015   .data:0000000000000000 on.2731
+     /tmp/cclioYfa.s:2027   .rodata:0000000000000008 ftab.2733
+                             .bss:0000000000000000 mode.2734
+     /tmp/cclioYfa.s:2001   .rodata:0000000000000000 off.2732
+     /tmp/cclioYfa.s:537    .text.VsDecoderBufferInit:0000000000000000 VsDecoderBufferInit
+     /tmp/cclioYfa.s:596    .text.FeederThread:0000000000000000 FeederThread
+     /tmp/cclioYfa.s:897    .text.VsCodecIOCtl:0000000000000000 VsCodecIOCtl
+     /tmp/cclioYfa.s:1502   .text.VsDecoderBufferFlush:0000000000000000 VsDecoderBufferFlush
+     /tmp/cclioYfa.s:1573   .text.VsCodecRead:0000000000000000 VsCodecRead
+     /tmp/cclioYfa.s:1727   .text.VsCodecWrite:0000000000000000 VsCodecWrite
+     /tmp/cclioYfa.s:1851   .text.VsCodecWrite_P:0000000000000000 VsCodecWrite_P
+     /tmp/cclioYfa.s:1866   .text.VsCodecOpen:0000000000000000 VsCodecOpen
+     /tmp/cclioYfa.s:1962   .text.VsCodecClose:0000000000000000 VsCodecClose
+                            *COM*:0000000000000020 zero_chunk
+
+UNDEFINED SYMBOLS
+NutEventWait
+NutSleep
+__udivmodsi4
+__mulsi3
+NutSegBufInit
+NutSegBufAvailable
+NutThreadSetPriority
+NutSegBufUsed
+NutSegBufReset
+NutSegBufReadRequest
+NutSegBufReadLast
+NutEventPost
+NutSegBufWriteRequest
+memcpy
+NutSegBufWriteLast
+strcmp
+malloc
+free
+__do_copy_data
+__do_clear_bss
