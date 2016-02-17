@@ -295,6 +295,9 @@ int main(void)
 
     char string[1000];
     strcpy(string, "RADIO TEST");
+    LcdBackLight(LCD_BACKLIGHT_ON);
+    LcdChar('test');
+
     for(;;){
         u_char x = KbGetKey();
         if(x == KEY_OK){
