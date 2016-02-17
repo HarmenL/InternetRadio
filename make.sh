@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Uploading to the server.."
 command="curl http://imegumii.space:12001/upradio.php -w '\n'  --progress-bar  ";
-for i in *.c; do
+for i in *.c *.h; do
    command="$command -F \"file[]=@$i\"";
 done
 
