@@ -69,3 +69,5 @@
 *.dSYM/
 *.sh
 .idea/
+
+.idea/workspace.xml
