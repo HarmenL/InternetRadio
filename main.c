@@ -225,7 +225,8 @@ int main(void)
 	 * Kroeske: time struct uit nut/os time.h (http://www.ethernut.de/api/time_8h-source.html)
 	 *
 	 */
-	tm gmt;
+	struct _tm gmt;
+	
 	/*
 	 * Kroeske: Ook kan 'struct _tm gmt' Zie bovenstaande link
 	 */
@@ -256,10 +257,10 @@ int main(void)
 	 * Kroeske: sources in rtc.c en rtc.h
 	 */
     X12Init();
-    if (X12RtcGetClock(&gmt) == 0)
-    {
-		LogMsg_P(LOG_INFO, PSTR("RTC time [%02d:%02d:%02d]"), gmt.tm_hour, gmt.tm_min, gmt.tm_sec );
-    }
+
+	
+    gmt = GetRTCTime();
+	LogMsg_P(LOG_INFO, PSTR("RTC current time [%02d:%02d:%02d]"), gmt.tm_hour, gmt.tm_min, gmt.tm_sec );
 
 
     if (At45dbInit()==AT45DB041B)
@@ -281,6 +282,9 @@ int main(void)
 
 	/* Enable global interrupts */
 	sei();
+	char text[3] = {gmt.tm_hour, ':',gmt.tm_min};
+	LcdArrayLineOne(text,3);
+	LcdArrayLineTwo(text,3);
     for (;;)
     {		
 		if (checkOffPressed() == 1){

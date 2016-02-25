@@ -53,8 +53,9 @@ extern void LcdChar(char);
 extern void LcdBackLight(u_char);
 extern void LcdInit(void);
 extern void LcdLowLevelInit(void);
-void ClearLcd(void);
-void LcdArray(char*, int);
+extern void ClearLcd(void);
+extern void LcdArrayLineOne(char*, int);
+extern void LcdArrayLineTwo(char*, int);
 
 #endif /* _Display_H */
 /*  様様  End Of File  様様様様 様様様様様様様様様様様様様様様様様様様様様様 */
