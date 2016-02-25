@@ -43,7 +43,21 @@ void GetTime(){
         }
     }
     puts("Opgehaald.\n");
+
     ntp_datetime = localtime(&ntp_time);
-    printf("NTP tijd is: %02d:%02d:%02d\n", ntp_datetime->tm_hour, ntp_datetime->tm_min, ntp_datetime->tm_sec);
-    //return ntp_datetime;
+
+    printf("NTP time is: %02d:%02d:%02d\n", ntp_datetime->tm_hour, ntp_datetime->tm_min, ntp_datetime->tm_sec);
+    printf("NTP date is: %02d.%02d.%02d\n\n", ntp_datetime->tm_mday, (ntp_datetime->tm_mon + 1), (ntp_datetime->tm_year + 1900));
+
+    NutRtcSetTime(ntp_datetime);
+
+
+    // This isn't working...
+    tm *test;
+
+    X12RtcGetClock(test);
+
+    printf("RTC time is: %02d:%02d:%02d\n", test->tm_hour, test->tm_min, test->tm_sec);
+    printf("RTC date is: %02d.%02d.%02d\n\n", test->tm_mday, (test->tm_mon + 1), (test->tm_year + 1900));
 }
+
