@@ -41,6 +41,7 @@
 #include "watchdog.h"
 #include "flash.h"
 #include "spidrv.h"
+#include "network.h"
 
 #include <time.h>
 #include "rtc.h"
@@ -236,6 +237,7 @@ int main(void)
 
     CardInit();
 
+    NetworkInit();
 	/*
 	 * Kroeske: sources in rtc.c en rtc.h
 	 */
@@ -250,6 +252,7 @@ int main(void)
     {
         // ......
     }
+
 
 
     RcInit();
