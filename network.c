@@ -21,6 +21,6 @@ void NetworkInit() {
     else if (NutDhcpIfConfig(DEV_ETHER_NAME, NULL, 0)) {
         /* Done. */
     }else {
-        printf("Now try 'ping %s' on your PC.\n", inet_ntoa(confnet.cdn_ip_addr));
+        printf("Ik heb een internet connectie. Ip is: %s", inet_ntoa(confnet.cdn_ip_addr));
     }
 }

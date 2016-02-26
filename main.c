@@ -273,7 +273,7 @@ int main(void)
 
     NetworkInit();
 
-    NtpInit();
+    //NtpInit();
 	/*
 	 * Kroeske: sources in rtc.c en rtc.h
 	 */
