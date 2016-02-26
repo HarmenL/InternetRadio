@@ -167,7 +167,6 @@ void SysInitIO(void)
      */
     outp(0x18, DDRG);
 }
-
 /* ����������������������������������������������������������������������� */
 /*!
  * \brief Starts or stops the 4.44 msec mainbeat of the system
@@ -225,13 +224,13 @@ int checkOffPressed(){
 
 void displayAlarm()
 {
-    struct _tm gmt;
-    gmt = GetRTCTime();
+    struct _tm alarmtime;
+    alarmtime = GetRTCTime();
     long flags;
-    X12RtcGetAlarm(1,&gmt,1<<7);
+    X12RtcGetAlarm(0,&alarmtime,0b00000111);
     char str[12];
-    sprintf(str, "    %02d:%02d:%02d", gmt.tm_hour, gmt.tm_min, gmt.tm_sec);
-    LogMsg_P(LOG_INFO, PSTR("Alarm : [%02d:%02d:%02d]"), gmt.tm_hour, gmt.tm_min, gmt.tm_sec );
+    sprintf(str, "    %02d:%02d:%02d", alarmtime.tm_hour, alarmtime.tm_min - 80, alarmtime.tm_sec);
+    LogMsg_P(LOG_INFO, PSTR("Alarm : [%02d:%02d:%02d]"), alarmtime.tm_hour, alarmtime.tm_min - 80, alarmtime.tm_sec );
     LcdArrayLineOne(str,12);
 
     char str2[6];
@@ -251,6 +250,7 @@ void displayAlarm()
  * \return \b never returns
  */
 /* ����������������������������������������������������������������������� */
+
 int main(void)
 {
 	time_t start;
@@ -260,7 +260,7 @@ int main(void)
 	 *
 	 */
 	struct _tm gmt;
-	
+	struct _tm alarmtime;
 	/*
 	 * Kroeske: Ook kan 'struct _tm gmt' Zie bovenstaande link
 	 */
@@ -319,13 +319,20 @@ int main(void)
 
 	/* Enable global interrupts */
 	sei();
-	
+    alarmtime = GetRTCTime();
+    alarmtime.tm_hour = 5;
+    alarmtime.tm_min = 51;
+    alarmtime.tm_sec= 40;
+    printf("test");
+    X12RtcSetAlarm(0,&alarmtime,0b0000111);
+    printf("test2");
     for (;;)
     {		
 		//Check if a button is pressed
 		if (checkOffPressed() == 1){
 			start = time(0);
 			running = 1;
+            LcdBacklightKnipperen(startLCD);
 		}
 		
 		//Check if background LED is on, and compare to timer
@@ -335,13 +342,17 @@ int main(void)
 				LcdBackLight(LCD_BACKLIGHT_OFF);
 			}
 		}
-		/*displayTime();
-		displayDate();*/
-        gmt.tm_hour = 04;
-        gmt.tm_min = 04;
-        gmt.tm_sec= 10;
-        X12RtcSetAlarm(1,&gmt,1<<7);
-        displayAlarm();
+        if(X12RtcGetStatus(5) == 0)
+        {
+            displayAlarm();
+            printf("test3");
+            printf("data %d", X12RtcGetStatus(5));
+            printf("RTC2 time %d %d %d]\n", gmt.tm_hour, gmt.tm_min, gmt.tm_sec);
+        }
+        else {
+            displayTime();
+            displayDate();
+        }
         WatchDogRestart();
     }
 
