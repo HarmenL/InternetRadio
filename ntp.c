@@ -19,7 +19,7 @@
 
 #include "ntp.h"
 
-#define TIME_ZONE 0
+#define TIME_ZONE 1
 
 time_t ntp_time = 0;
 tm *ntp_datetime;
