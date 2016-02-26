@@ -210,8 +210,8 @@ void displayTime(){
 }
 
 int timer(time_t start){
-    time_t diff = time(0) - start;
-    return diff;
+	time_t diff = time(0) - start;
+	return diff;
 }
 
 int checkOffPressed(){
@@ -239,7 +239,6 @@ void displayAlarm()
     LcdArrayLineTwo(str2,6);
     LcdBacklightKnipperen(startLCD);
 }
-
 /* ����������������������������������������������������������������������� */
 /*!
  * \brief Main entry of the SIR firmware

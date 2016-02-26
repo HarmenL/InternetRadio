@@ -74,7 +74,6 @@ void LcdBackLight(u_char Mode)
     if (Mode==LCD_BACKLIGHT_ON)
     {
         sbi(LCD_BL_PORT, LCD_BL_BIT);   // Turn on backlight
-
     }
 
     if (Mode==LCD_BACKLIGHT_OFF)
@@ -82,6 +81,7 @@ void LcdBackLight(u_char Mode)
         cbi(LCD_BL_PORT, LCD_BL_BIT);   // Turn off backlight
     }
 }
+
 
 /* ����������������������������������������������������������������������� */
 
@@ -105,6 +105,9 @@ void LcdBacklightKnipperen(u_char Mode)
     }
 }
 /*
+
+/* ����������������������������������������������������������������������� */
+/*!
  * \brief Write a single character on the LCD
  *
  * Writes a single character on the LCD on the current cursor position
