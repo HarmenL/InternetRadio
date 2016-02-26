@@ -210,8 +210,8 @@ void displayTime(){
 }
 
 int timer(time_t start){
-    time_t diff = time(0) - start;
-    return diff;
+	time_t diff = time(0) - start;
+	return diff;
 }
 
 int checkOffPressed(){
@@ -221,14 +221,6 @@ int checkOffPressed(){
 	} else {
 		return 0;
 	}
-}
-
-void displayAlarm()
-{
-    long flags;
-    X12RtcGetAlarm(0,&gmt.tm,flags);
-    char str[12];
-    sprintf(str, "    %02d:%02d:%02d", gmt.tm_hour, gmt.tm_min, gmt.tm_sec);
 }
 
 /* ����������������������������������������������������������������������� */
@@ -329,8 +321,7 @@ int main(void)
 		}
 		displayTime();
 		displayDate();
-        X12RtcSetAlarm(0,get);
-        LcdBacklightKnipperen();
+		
         WatchDogRestart();
     }
 
