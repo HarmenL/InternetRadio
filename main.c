@@ -12,9 +12,6 @@
  *  COPYRIGHT (C) STREAMIT BV 2010
  *  \date 19 december 2003
  */
- 
- 
- 
 
 #define LOG_MODULE  LOG_MAIN_MODULE
 
@@ -29,6 +26,7 @@
 #include <sys/version.h>
 #include <dev/irqreg.h>
 
+#include "displayHandler.h"
 #include "system.h"
 #include "portio.h"
 #include "display.h"
@@ -47,9 +45,6 @@
 #include <time.h>
 #include "rtc.h"
 #include "ntp.h"
-
-#define MONTH_OFFSET 1
-#define YEAR_OFFSET 1900
 
 
 /*-------------------------------------------------------------------------*/
@@ -196,22 +191,6 @@ static void SysControlMainBeat(u_char OnOff)
     }
 }
 
-void displayDate(){
-	struct _tm gmt;
-	gmt = GetRTCTime();
-	char str[13];
-	sprintf(str, "   %02d-%02d-%04d", gmt.tm_mday, gmt.tm_mon+MONTH_OFFSET, gmt.tm_year+YEAR_OFFSET);
-	LcdArrayLineOne(str,13);
-}
-
-void displayTime(){
-	struct _tm gmt;
-	gmt = GetRTCTime();
-	char str[12];
-	sprintf(str, "    %02d:%02d:%02d", gmt.tm_hour, gmt.tm_min, gmt.tm_sec);
-	LcdArrayLineTwo(str,12);
-}
-
 int timer(time_t start){
 	time_t diff = time(0) - start;
 	return diff;
@@ -242,16 +221,7 @@ int main(void)
 {
 	time_t start;
 	int running = 0;
-	/* 
-	 * Kroeske: time struct uit nut/os time.h (http://www.ethernut.de/api/time_8h-source.html)
-	 *
-	 */
-	struct _tm gmt;
-	
-	/*
-	 * Kroeske: Ook kan 'struct _tm gmt' Zie bovenstaande link
-	 */
-	
+
     /*
      *  First disable the watchdog
      */
@@ -282,11 +252,6 @@ int main(void)
 	/*
 	 * Kroeske: sources in rtc.c en rtc.h
 	 */
-
-	gmt = GetRTCTime();
-	LogMsg_P(LOG_INFO, PSTR("RTC time [%02d:%02d:%02d]"), gmt.tm_hour, gmt.tm_min, gmt.tm_sec );
-	
-
 
     if (At45dbInit()==AT45DB041B)
     {
@@ -324,8 +289,9 @@ int main(void)
 				LcdBackLight(LCD_BACKLIGHT_OFF);
 			}
 		}
-		displayTime();
-		displayDate();
+
+        displayDate(0);
+		displayTime(1);
 		
         WatchDogRestart();
     }
