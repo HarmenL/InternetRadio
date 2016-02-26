@@ -56,9 +56,9 @@ extern void LcdLowLevelInit(void);
 extern void ClearLcd(void);
 extern void LcdArrayLineOne(char*, int);
 extern void LcdArrayLineTwo(char*, int);
-
+extern void LcdBacklightKnipperen(u_char);
 #endif /* _Display_H */
-/*  ออออ  End Of File  ออออออออ ออออออออออออออออออออออออออออออออออออออออออออ */
+/*  ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ  End Of File  ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ๏ฟฝ */
 
 
 
