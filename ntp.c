@@ -17,9 +17,11 @@
 #include <string.h>
 #include <time.h>
 
+#include "log.h"
 #include "ntp.h"
 
 #define TIME_ZONE 1
+#define LOG_MODULE  LOG_NTP_MODULE
 
 time_t ntp_time = 0;
 tm *ntp_datetime;
@@ -55,12 +57,11 @@ void GetTime(){
 
 
     NutDelay(100);
-//
-//    // This isn't working...
-//    struct _tm* test;
-//    X12RtcGetClock(test);
-//
-//    printf("RTC time is: %02d:%02d:%02d\n", test->tm_hour, test->tm_min, test->tm_sec);
-//    printf("RTC date is: %02d.%02d.%02d\n\n", test->tm_mday, (test->tm_mon + 1), (test->tm_year + 1900));
+
+
+    // for logging purposes
+    tm gmt;
+    X12RtcGetClock(&gmt);
+    LogMsg_P(LOG_INFO, PSTR("RTC time [%02d:%02d:%02d]"), gmt.tm_hour, gmt.tm_min, gmt.tm_sec );
 }
 
