@@ -468,4 +468,10 @@ int X12Init(void)
     return (rc);
 }
 
+struct _tm GetRTCTime(){
+	struct _tm gmt;
+	X12RtcGetClock(&gmt);
+	return gmt;
+}
+
 

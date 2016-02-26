@@ -223,12 +223,20 @@ void ClearLcd()
 	LcdWriteByte(WRITE_COMMAND, 0x01);
 }
 
-void LcdArray(char *data, int size)
+void LcdArrayLineOne(char *data, int size)
 {
 	int i;
-	
-	ClearLcd();
-	NutSleep(5);
+	LcdWriteByte(WRITE_COMMAND, 0x80);
+	NutSleep(2);
+	for(i = 0; i < size; i = i + 1){
+		LcdChar(data[i]);
+	}
+}
+
+void LcdArrayLineTwo(char *data, int size){
+	int i;
+	LcdWriteByte(WRITE_COMMAND, 0xC0);
+	NutSleep(2);
 	for(i = 0; i < size; i = i + 1){
 		LcdChar(data[i]);
 	}
