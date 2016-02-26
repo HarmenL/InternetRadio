@@ -191,6 +191,22 @@ static void SysControlMainBeat(u_char OnOff)
     }
 }
 
+void displayDate(){
+	struct _tm gmt;
+	gmt = GetRTCTime();
+	char str[13];
+	sprintf(str, "   %02d/%02d/%04d", gmt.tm_mday, gmt.tm_mon, gmt.tm_year+1900);
+	LcdArrayLineOne(str,13);
+}
+
+void displayTime(){
+	struct _tm gmt;
+	gmt = GetRTCTime();
+	char str[12];
+	sprintf(str, "    %02d:%02d:%02d", gmt.tm_hour, gmt.tm_min, gmt.tm_sec);
+	LcdArrayLineTwo(str,12);
+}
+
 int timer(time_t start){
 	time_t diff = time(0) - start;
 	return diff;
@@ -237,7 +253,7 @@ int main(void)
     WatchDogDisable();
 
     NutDelay(100);
-
+	
     SysInitIO();
 	
 	SPIinit();
@@ -257,10 +273,11 @@ int main(void)
 	 * Kroeske: sources in rtc.c en rtc.h
 	 */
     X12Init();
-
+	gmt.tm_year = 1906;
+	gmt.tm_mday = 25;
+	gmt.tm_mon = 2;
+	X12RtcSetClock(&gmt);
 	
-    gmt = GetRTCTime();
-	LogMsg_P(LOG_INFO, PSTR("RTC current time [%02d:%02d:%02d]"), gmt.tm_hour, gmt.tm_min, gmt.tm_sec );
 
 
     if (At45dbInit()==AT45DB041B)
@@ -282,22 +299,24 @@ int main(void)
 
 	/* Enable global interrupts */
 	sei();
-	char text[3] = {gmt.tm_hour, ':',gmt.tm_min};
-	LcdArrayLineOne(text,3);
-	LcdArrayLineTwo(text,3);
+	
     for (;;)
     {		
+		//Check if a button is pressed
 		if (checkOffPressed() == 1){
 			start = time(0);
 			running = 1;
 		}
 		
+		//Check if background LED is on, and compare to timer
 		if (running == 1){
 			if (timer(start) >= 10){
 				running = 0;
 				LcdBackLight(LCD_BACKLIGHT_OFF);
 			}
 		}
+		displayTime();
+		displayDate();
 		
         WatchDogRestart();
     }
