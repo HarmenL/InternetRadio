@@ -26,7 +26,7 @@
 #include "portio.h"
 #include "display.h"
 #include "log.h"
-
+#include <time.h>
 /*-------------------------------------------------------------------------*/
 /* local defines                                                           */
 /*-------------------------------------------------------------------------*/
@@ -42,14 +42,14 @@ static void LcdWriteByte(u_char, u_char);
 static void LcdWriteNibble(u_char, u_char);
 static void LcdWaitBusy(void);
 
-int timer(u_char Mode){
+int timerLCD(u_char Mode){
     time_t Start;
-    if(Mode == start)
+    if(Mode == startLCD)
     {
             time_t diff = time(0) - Start;
             return diff;
     }
-    else if(Mode == stop)
+    else if(Mode == stopLCD)
     {
         Start = time(0);
     }
@@ -91,17 +91,17 @@ void LcdBackLight(u_char Mode)
 
 void LcdBacklightKnipperen(u_char Mode)
 {
-    time_t start;
-    time_t stop;
-    if (Mode==LCD_BACKLIGHT_ON)
+    time_t Start;
+    time_t Stop;
+    if (Mode==startLCD)
     {
         sbi(LCD_BL_PORT, LCD_BL_BIT);   // Turn on backlight
-        timer(start);
+        timer(Start);
     }
-    if (Mode==LCD_BACKLIGHT_OFF)
+    if (Mode==stopLCD)
     {
         cbi(LCD_BL_PORT, LCD_BL_BIT);   // Turn off backlight
-        timer(stop);
+        timer(Stop);
     }
 }
 /*

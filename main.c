@@ -225,10 +225,19 @@ int checkOffPressed(){
 
 void displayAlarm()
 {
+    struct _tm gmt;
+    gmt = GetRTCTime();
     long flags;
-    X12RtcGetAlarm(0,&gmt.tm,flags);
+    X12RtcGetAlarm(1,&gmt,1<<7);
     char str[12];
     sprintf(str, "    %02d:%02d:%02d", gmt.tm_hour, gmt.tm_min, gmt.tm_sec);
+    LogMsg_P(LOG_INFO, PSTR("Alarm : [%02d:%02d:%02d]"), gmt.tm_hour, gmt.tm_min, gmt.tm_sec );
+    LcdArrayLineOne(str,12);
+
+    char str2[6];
+    sprintf(str2,"Wekker");
+    LcdArrayLineTwo(str2,6);
+    LcdBacklightKnipperen(startLCD);
 }
 
 /* ����������������������������������������������������������������������� */
@@ -327,10 +336,13 @@ int main(void)
 				LcdBackLight(LCD_BACKLIGHT_OFF);
 			}
 		}
-		displayTime();
-		displayDate();
-        X12RtcSetAlarm(0,get);
-        LcdBacklightKnipperen();
+		/*displayTime();
+		displayDate();*/
+        gmt.tm_hour = 04;
+        gmt.tm_min = 04;
+        gmt.tm_sec= 10;
+        X12RtcSetAlarm(1,&gmt,1<<7);
+        displayAlarm();
         WatchDogRestart();
     }
 

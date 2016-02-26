@@ -30,7 +30,8 @@
 
 #define LCD_BACKLIGHT_ON            1
 #define LCD_BACKLIGHT_OFF           0
-
+#define startLCD        1
+#define stopLCD          0
 #define ALL_ZERO          			0x00      // 0000 0000 B
 #define WRITE_COMMAND     			0x02      // 0000 0010 B
 #define WRITE_DATA        			0x03      // 0000 0011 B
