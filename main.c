@@ -48,6 +48,9 @@
 #include "rtc.h"
 #include "ntp.h"
 
+#define MONTH_OFFSET 1
+#define YEAR_OFFSET 1900
+
 
 /*-------------------------------------------------------------------------*/
 /* global variable definitions                                             */
@@ -197,7 +200,7 @@ void displayDate(){
 	struct _tm gmt;
 	gmt = GetRTCTime();
 	char str[13];
-	sprintf(str, "   %02d-%02d-%04d", gmt.tm_mday, gmt.tm_mon, gmt.tm_year+1900);
+	sprintf(str, "   %02d-%02d-%04d", gmt.tm_mday, gmt.tm_mon+MONTH_OFFSET, gmt.tm_year+YEAR_OFFSET);
 	LcdArrayLineOne(str,13);
 }
 
@@ -267,17 +270,19 @@ int main(void)
     Uart0DriverInit();
     Uart0DriverStart();
 	LogInit();
-	
 
     CardInit();
 
+    X12Init();
+
     NetworkInit();
 
-    //NtpInit();
+    NtpInit();
+
 	/*
 	 * Kroeske: sources in rtc.c en rtc.h
 	 */
-    X12Init();
+
 	gmt = GetRTCTime();
 	LogMsg_P(LOG_INFO, PSTR("RTC time [%02d:%02d:%02d]"), gmt.tm_hour, gmt.tm_min, gmt.tm_sec );
 	
