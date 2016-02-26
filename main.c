@@ -273,10 +273,8 @@ int main(void)
 	 * Kroeske: sources in rtc.c en rtc.h
 	 */
     X12Init();
-	gmt.tm_year = 1906;
-	gmt.tm_mday = 25;
-	gmt.tm_mon = 2;
-	X12RtcSetClock(&gmt);
+	gmt = GetRTCTime();
+	LogMsg_P(LOG_INFO, PSTR("RTC time [%02d:%02d:%02d]"), gmt.tm_hour, gmt.tm_min, gmt.tm_sec );
 	
 
 
