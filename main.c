@@ -197,7 +197,7 @@ void displayDate(){
 	struct _tm gmt;
 	gmt = GetRTCTime();
 	char str[13];
-	sprintf(str, "   %02d-%02d-%04d", gmt.tm_mday, gmt.tm_mon, gmt.tm_year+1900);
+	sprintf(str, "   %02d/%02d/%04d", gmt.tm_mday, gmt.tm_mon, gmt.tm_year+1900);
 	LcdArrayLineOne(str,13);
 }
 
