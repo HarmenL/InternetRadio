@@ -23,6 +23,7 @@
 #define TIME_ZONE 1
 #define LOG_MODULE  LOG_NTP_MODULE
 
+bool isSyncing;
 time_t ntp_time = 0;
 tm *ntp_datetime;
 uint32_t timeserver = 0;
@@ -33,8 +34,13 @@ void NtpInit() {
     GetTime();
 }
 
+bool NtpIsSyncing(){
+    return isSyncing;
+}
+
 void GetTime(){
     /* Ophalen van pool.ntp.org */
+    isSyncing = true;
     puts("Tijd ophalen van pool.ntp.org (213.154.229.24)");
     timeserver = inet_addr("213.154.229.24");
 
@@ -55,5 +61,5 @@ void GetTime(){
 
     X12RtcSetClock(ntp_datetime);
 
-
+    isSyncing = false;
 }

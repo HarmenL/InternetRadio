@@ -8,6 +8,7 @@
 
 #include "display.h"
 #include "displayHandler.h"
+#include "ntp.h"
 #include "rtc.h"
 
 #define MONTH_OFFSET 1
@@ -34,6 +35,8 @@ void displayDate(int line_number){
     char str[13];
     sprintf(str, "   %02d-%02d-%04d", time->tm_mday, time->tm_mon+MONTH_OFFSET, time->tm_year+YEAR_OFFSET);
 
+    if(NtpIsSyncing())
+        str[1] = 'S';
     if (line_number > -1 && line_number < 2){
         (*write_display_ptr[line_number])(str, 13);
     }
