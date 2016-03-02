@@ -21,7 +21,11 @@ void displayTime(int line_number){
     X12RtcGetClock(&time);
 
     char str[12];
-    sprintf(str, "    %02d:%02d:%02d", time.tm_hour, time.tm_min, time.tm_sec);
+    if (NtpTimeIsValid()){
+        sprintf(str, "    %02d:%02d:%02d", time.tm_hour, time.tm_min, time.tm_sec);
+    }else {
+        sprintf(str, "    ??:??:??");
+    }
 
     if (line_number > -1 && line_number < 2){
         (*write_display_ptr[line_number])(str, 12);
@@ -33,10 +37,15 @@ void displayDate(int line_number){
     X12RtcGetClock(time);
 
     char str[13];
-    sprintf(str, "   %02d-%02d-%04d", time->tm_mday, time->tm_mon+MONTH_OFFSET, time->tm_year+YEAR_OFFSET);
+    if (NtpTimeIsValid()){
+        sprintf(str, "   %02d-%02d-%04d", time->tm_mday, time->tm_mon+MONTH_OFFSET, time->tm_year+YEAR_OFFSET);
+    }else {
+        sprintf(str, "   ??-??-????");
+    }
 
     if(NtpIsSyncing())
         str[1] = 'S';
+
     if (line_number > -1 && line_number < 2){
         (*write_display_ptr[line_number])(str, 13);
     }

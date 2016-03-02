@@ -221,7 +221,7 @@ int checkOffPressed(){
 THREAD(StartupInit, arg)
 {
     NetworkInit();
-    NtpInit();
+    NtpSync();
     NutThreadExit();
 }
 
@@ -253,7 +253,10 @@ int main(void)
 
     X12Init();
 
-    NutThreadCreate("Bg", StartupInit, NULL, 512);
+    LcdBackLight(LCD_BACKLIGHT_ON);
+    NtpInit();
+
+    NutThreadCreate("BackgroundThread", StartupInit, NULL, 512);
 
 	/*
 	 * Kroeske: sources in rtc.c en rtc.h
