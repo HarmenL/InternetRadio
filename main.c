@@ -217,6 +217,14 @@ int checkOffPressed(){
  * \return \b never returns
  */
 /* ����������������������������������������������������������������������� */
+
+THREAD(StartupInit, arg)
+{
+    NetworkInit();
+    NtpInit();
+    NutThreadExit();
+}
+
 int main(void)
 {
 	time_t start;
@@ -245,9 +253,7 @@ int main(void)
 
     X12Init();
 
-    NetworkInit();
-
-    NtpInit();
+    NutThreadCreate("Bg", StartupInit, NULL, 512);
 
 	/*
 	 * Kroeske: sources in rtc.c en rtc.h

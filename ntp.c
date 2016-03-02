@@ -56,12 +56,4 @@ void GetTime(){
     X12RtcSetClock(ntp_datetime);
 
 
-    NutDelay(100);
-
-
-    // for logging purposes
-    tm gmt;
-    X12RtcGetClock(&gmt);
-    LogMsg_P(LOG_INFO, PSTR("RTC time [%02d:%02d:%02d]"), gmt.tm_hour, gmt.tm_min, gmt.tm_sec );
 }
-
