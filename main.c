@@ -190,6 +190,21 @@ static void SysControlMainBeat(u_char OnOff)
     }
 }
 
+void handleAlarm(){
+	struct _tm alarmtime;
+    alarmtime = GetRTCTime();
+    long flags;
+	
+    X12RtcGetAlarm(0,&alarmtime,0b11111111);
+	alarmtime.tm_min = (alarmtime.tm_min-80);
+	alarmtime.tm_mday = (alarmtime.tm_mday - 79);
+	
+	LogMsg_P(LOG_INFO, PSTR("Alarm : day = %02d,[%02d:%02d:%02d]"),alarmtime.tm_mday, alarmtime.tm_hour, alarmtime.tm_min, alarmtime.tm_sec);
+	
+	X12RtcSetAlarm(0,&alarmtime, 0b11111111);
+	NutDelay(100);
+}
+
 int timer(time_t start){
 	time_t diff = time(0) - start;
 	return diff;
@@ -249,7 +264,6 @@ int main(void)
 	 * Kroeske: time struct uit nut/os time.h (http://www.ethernut.de/api/time_8h-source.html)
 	 *
 	 */
-	struct _tm gmt;
 	struct _tm alarmtime;
 	/*
 	 * Kroeske: Ook kan 'struct _tm gmt' Zie bovenstaande link
@@ -303,17 +317,13 @@ int main(void)
 
 	/* Enable global interrupts */
 	sei();
-    gmt = GetRTCTime();
-    LogMsg_P(LOG_INFO, PSTR("Alarm : [%02d:%02d:%02d]"),gmt.tm_hour, gmt.tm_min, gmt.tm_sec);
+	
     alarmtime = GetRTCTime();
-    alarmtime.tm_hour = 10;
-    alarmtime.tm_min = 26;
-    alarmtime.tm_sec= 30;
-    printf("test");
+    alarmtime.tm_sec = alarmtime.tm_sec+10;
+    
     X12RtcSetAlarm(0,&alarmtime,0b11111111);
     NutDelay(100);
-    //printf("alarm set: %d \n",X12RtcGetAlarm(0, &alarmtime, 0b11111111));
-    printf("test2");
+	
     for (;;)
     {		
 		//Check if a button is pressed
@@ -330,17 +340,19 @@ int main(void)
 				LcdBackLight(LCD_BACKLIGHT_OFF);
 			}
 		}
-        LogMsg_P(LOG_INFO, PSTR("RTC Time : [%02d:%02d:%02d]"),gmt.tm_hour, gmt.tm_min, gmt.tm_sec);
-        LogMsg_P(LOG_INFO, PSTR("Alarm : [%02d:%02d:%02d]"), alarmtime.tm_hour, alarmtime.tm_min, alarmtime.tm_sec );
-        if(X12RtcGetStatus(5))
+        
+		
+		LogMsg_P(LOG_INFO, PSTR("voor if: %d"), X12RtcGetStatus(5));
+        if(X12RtcGetStatus(5) > 0)
         {
-            //if(X12RtcGetStatus(5) == 0)
-           // {
-                displayAlarm(0,1);
-                printf("test3");
-                printf("test4");
-                printf("Getstatus %d \n", X12RtcGetStatus(5));
-            //}
+			displayAlarm(0,1);
+			if (KbScan() < -1){
+				LogMsg_P(LOG_INFO, PSTR("voor: %d"), X12RtcGetStatus(5));
+				X12RtcClearStatus(5);
+				NutDelay(100);
+				LogMsg_P(LOG_INFO, PSTR("na: %d"), X12RtcGetStatus(5));
+				handleAlarm();
+			}
         }
         else {
             displayTime(0);
