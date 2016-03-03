@@ -48,7 +48,6 @@ void displayAlarm(int line_number, int line_numberTwo)
     alarmtime = GetRTCTime();
     long flags;
     X12RtcGetAlarm(0,&alarmtime,0b11111111);
-    NutDelay(100);
     char str[12];
     sprintf(str, "    %02d:%02d:%02d", alarmtime.tm_hour, alarmtime.tm_min - 80, alarmtime.tm_sec);
     if (line_number > -1 && line_number < 2){
