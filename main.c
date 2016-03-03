@@ -204,12 +204,13 @@ int checkOffPressed(){
 	}
 }
 
-void displayAlarm()
+/*void displayAlarm()
 {
     struct _tm alarmtime;
     alarmtime = GetRTCTime();
     long flags;
-    X12RtcGetAlarm(0,&alarmtime,0b00000111);
+    X12RtcGetAlarm(0,&alarmtime,0b11111111);
+    NutDelay(100);
     char str[12];
     sprintf(str, "    %02d:%02d:%02d", alarmtime.tm_hour, alarmtime.tm_min - 80, alarmtime.tm_sec);
     LogMsg_P(LOG_INFO, PSTR("Alarm : [%02d:%02d:%02d]"), alarmtime.tm_hour, alarmtime.tm_min - 80, alarmtime.tm_sec );
@@ -219,7 +220,7 @@ void displayAlarm()
     sprintf(str2,"Wekker");
     LcdArrayLineTwo(str2,6);
     LcdBacklightKnipperen(startLCD);
-}
+}*/
 /* ����������������������������������������������������������������������� */
 /*!
  * \brief Main entry of the SIR firmware
@@ -305,11 +306,12 @@ int main(void)
     gmt = GetRTCTime();
     LogMsg_P(LOG_INFO, PSTR("Alarm : [%02d:%02d:%02d]"),gmt.tm_hour, gmt.tm_min, gmt.tm_sec);
     alarmtime = GetRTCTime();
-    alarmtime.tm_hour = 14;
-    alarmtime.tm_min = 32;
-    alarmtime.tm_sec= 00;
+    alarmtime.tm_hour = 10;
+    alarmtime.tm_min = 26;
+    alarmtime.tm_sec= 30;
     printf("test");
     X12RtcSetAlarm(0,&alarmtime,0b11111111);
+    NutDelay(100);
     //printf("alarm set: %d \n",X12RtcGetAlarm(0, &alarmtime, 0b11111111));
     printf("test2");
     for (;;)
@@ -330,11 +332,11 @@ int main(void)
 		}
         LogMsg_P(LOG_INFO, PSTR("RTC Time : [%02d:%02d:%02d]"),gmt.tm_hour, gmt.tm_min, gmt.tm_sec);
         LogMsg_P(LOG_INFO, PSTR("Alarm : [%02d:%02d:%02d]"), alarmtime.tm_hour, alarmtime.tm_min, alarmtime.tm_sec );
-        if( gmt.tm_sec == alarmtime.tm_sec && gmt.tm_min == alarmtime.tm_min && gmt.tm_hour == alarmtime.tm_hour )
+        if(X12RtcGetStatus(5))
         {
             //if(X12RtcGetStatus(5) == 0)
            // {
-                displayAlarm();
+                displayAlarm(0,1);
                 printf("test3");
                 printf("test4");
                 printf("Getstatus %d \n", X12RtcGetStatus(5));
