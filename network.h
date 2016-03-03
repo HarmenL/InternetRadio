@@ -6,5 +6,6 @@
 #define _Network_H
 
 extern void NetworkInit(void);
+extern void httpGet(void);
 
 #endif /* _Network_H */

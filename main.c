@@ -222,6 +222,7 @@ THREAD(StartupInit, arg)
 {
     NetworkInit();
     NtpSync();
+    httpGet();
     NutThreadExit();
 }
 
