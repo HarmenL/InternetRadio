@@ -48,9 +48,10 @@ void httpGet(){
             printf("Writing headers failed.");
         }else{
             printf("Headers writed. Now reading.");
-            while(fread(buffer, 1, sizeof(buffer), stream) > 0){
-                printf("%s", buffer);
-            };
+            NutTcpReceive(sock, buffer, sizeof(buffer));
+                //fread(buffer, 1, sizeof(buffer), stream);
+                NutDelay(1000);
+                printf("buffer: %s", buffer);
         };
         fclose(stream);
     }
