@@ -12,9 +12,6 @@
  *  COPYRIGHT (C) STREAMIT BV 2010
  *  \date 19 december 2003
  */
- 
- 
- 
 
 #define LOG_MODULE  LOG_MAIN_MODULE
 
@@ -29,6 +26,7 @@
 #include <sys/version.h>
 #include <dev/irqreg.h>
 
+#include "displayHandler.h"
 #include "system.h"
 #include "portio.h"
 #include "display.h"
@@ -192,22 +190,6 @@ static void SysControlMainBeat(u_char OnOff)
     }
 }
 
-void displayDate(){
-	struct _tm gmt;
-	gmt = GetRTCTime();
-	char str[13];
-	sprintf(str, "   %02d-%02d-%04d", gmt.tm_mday, gmt.tm_mon, gmt.tm_year+1900);
-	LcdArrayLineOne(str,13);
-}
-
-void displayTime(){
-	struct _tm gmt;
-	gmt = GetRTCTime();
-	char str[12];
-	sprintf(str, "    %02d:%02d:%02d", gmt.tm_hour, gmt.tm_min, gmt.tm_sec);
-	LcdArrayLineTwo(str,12);
-}
-
 int timer(time_t start){
 	time_t diff = time(0) - start;
 	return diff;
@@ -251,6 +233,13 @@ void displayAlarm()
  */
 /* ����������������������������������������������������������������������� */
 
+THREAD(StartupInit, arg)
+{
+    NetworkInit();
+    NtpInit();
+    NutThreadExit();
+}
+
 int main(void)
 {
 	time_t start;
@@ -264,7 +253,6 @@ int main(void)
 	/*
 	 * Kroeske: Ook kan 'struct _tm gmt' Zie bovenstaande link
 	 */
-	
     /*
      *  First disable the watchdog
      */
@@ -283,21 +271,16 @@ int main(void)
     Uart0DriverInit();
     Uart0DriverStart();
 	LogInit();
-	
 
     CardInit();
 
-    NetworkInit();
+    X12Init();
 
-    //NtpInit();
+    NutThreadCreate("Bg", StartupInit, NULL, 512);
+
 	/*
 	 * Kroeske: sources in rtc.c en rtc.h
 	 */
-    X12Init();
-	gmt = GetRTCTime();
-	LogMsg_P(LOG_INFO, PSTR("RTC time [%02d:%02d:%02d]"), gmt.tm_hour, gmt.tm_min, gmt.tm_sec );
-	
-
 
     if (At45dbInit()==AT45DB041B)
     {
@@ -319,12 +302,15 @@ int main(void)
 
 	/* Enable global interrupts */
 	sei();
+    gmt = GetRTCTime();
+    LogMsg_P(LOG_INFO, PSTR("Alarm : [%02d:%02d:%02d]"),gmt.tm_hour, gmt.tm_min, gmt.tm_sec);
     alarmtime = GetRTCTime();
-    alarmtime.tm_hour = 5;
-    alarmtime.tm_min = 51;
-    alarmtime.tm_sec= 40;
+    alarmtime.tm_hour = 14;
+    alarmtime.tm_min = 32;
+    alarmtime.tm_sec= 00;
     printf("test");
-    X12RtcSetAlarm(0,&alarmtime,0b0000111);
+    X12RtcSetAlarm(0,&alarmtime,0b11111111);
+    //printf("alarm set: %d \n",X12RtcGetAlarm(0, &alarmtime, 0b11111111));
     printf("test2");
     for (;;)
     {		
@@ -342,16 +328,21 @@ int main(void)
 				LcdBackLight(LCD_BACKLIGHT_OFF);
 			}
 		}
-        if(X12RtcGetStatus(5) == 0)
+        LogMsg_P(LOG_INFO, PSTR("RTC Time : [%02d:%02d:%02d]"),gmt.tm_hour, gmt.tm_min, gmt.tm_sec);
+        LogMsg_P(LOG_INFO, PSTR("Alarm : [%02d:%02d:%02d]"), alarmtime.tm_hour, alarmtime.tm_min, alarmtime.tm_sec );
+        if( gmt.tm_sec == alarmtime.tm_sec && gmt.tm_min == alarmtime.tm_min && gmt.tm_hour == alarmtime.tm_hour )
         {
-            displayAlarm();
-            printf("test3");
-            printf("data %d", X12RtcGetStatus(5));
-            printf("RTC2 time %d %d %d]\n", gmt.tm_hour, gmt.tm_min, gmt.tm_sec);
+            //if(X12RtcGetStatus(5) == 0)
+           // {
+                displayAlarm();
+                printf("test3");
+                printf("test4");
+                printf("Getstatus %d \n", X12RtcGetStatus(5));
+            //}
         }
         else {
-            displayTime();
-            displayDate();
+            displayTime(0);
+            displayDate(1);
         }
         WatchDogRestart();
     }
