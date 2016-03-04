@@ -34,15 +34,18 @@ void NetworkInit() {
     }
 }
 
-void httpGet(){
+void httpGet(char address[]){
     printf("komt in httpget()");
     NutDelay(1000);
     TCPSOCKET* sock = NutTcpCreateSocket();
-    char http[] = "GET /Projecten/projectgroepa6/internetradio/gettimezone.php HTTP/1.1\r\nHost: jancokock.me \r\n\r\n";
+    char http[150];
+    sprintf(http, "GET %s HTTP/1.1\r\nHost: jancokock.me \r\n\r\n", address);
+    printf("%s", http);
+    NutDelay(100);
     char buffer[200];
     int len = sizeof(http);
     if (NutTcpConnect(sock, inet_addr("62.195.226.247"), 80)) {
-        printf("Can't connect to sever\n");
+        printf("Can't connect to server\n");
     }else{
         FILE *stream;
         stream = _fdopen((int) sock, "r b");
@@ -82,7 +85,7 @@ void httpGet(){
         }
     }
     content[t] = '\0';
-    printf("Contnt size %d\n", t);
+    printf("Content size %d\n", t);
     printf("content: ");
     printf("%s\n", content);
 }

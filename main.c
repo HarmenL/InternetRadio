@@ -222,7 +222,7 @@ THREAD(StartupInit, arg)
 {
     NetworkInit();
     NtpSync();
-    httpGet();
+    httpGet("/Projecten/projectgroepa6/internetradio/getAlarmen.php?radioid=DE370");
     NutThreadExit();
 }
 
