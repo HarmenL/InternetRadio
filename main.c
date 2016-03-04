@@ -44,6 +44,7 @@
 
 #include <time.h>
 #include "rtc.h"
+#include "alarm.h"
 #include "ntp.h"
 
 
@@ -190,20 +191,19 @@ static void SysControlMainBeat(u_char OnOff)
     }
 }
 
-void handleAlarm(){
+/*void handleAlarm(){
 	struct _tm alarmtime;
     alarmtime = GetRTCTime();
     long flags;
 	
     X12RtcGetAlarm(0,&alarmtime,0b11111111);
-	alarmtime.tm_min = (alarmtime.tm_min-80);
-	alarmtime.tm_mday = (alarmtime.tm_mday - 79);
+	alarmtime.tm_min = (alarmtime.tm_min-79);
 	
 	LogMsg_P(LOG_INFO, PSTR("Alarm : day = %02d,[%02d:%02d:%02d]"),alarmtime.tm_mday, alarmtime.tm_hour, alarmtime.tm_min, alarmtime.tm_sec);
 	
 	X12RtcSetAlarm(0,&alarmtime, 0b11111111);
 	NutDelay(100);
-}
+}*/
 
 int timer(time_t start){
 	time_t diff = time(0) - start;
@@ -320,7 +320,8 @@ int main(void)
 	
     alarmtime = GetRTCTime();
     alarmtime.tm_sec = alarmtime.tm_sec+10;
-    
+    LogMsg_P(LOG_INFO, PSTR("alarmtime %02d-%02d-%04d || %02d-%02d-%02d"), alarmtime.tm_mday, alarmtime.tm_mon+1, alarmtime.tm_year+1900, alarmtime.tm_hour, alarmtime.tm_min, alarmtime.tm_sec);
+	
     X12RtcSetAlarm(0,&alarmtime,0b11111111);
     NutDelay(100);
 	
@@ -342,16 +343,12 @@ int main(void)
 		}
         
 		
-		LogMsg_P(LOG_INFO, PSTR("voor if: %d"), X12RtcGetStatus(5));
         if(X12RtcGetStatus(5) > 0)
         {
 			displayAlarm(0,1);
-			if (KbScan() < -1){
-				LogMsg_P(LOG_INFO, PSTR("voor: %d"), X12RtcGetStatus(5));
-				X12RtcClearStatus(5);
-				NutDelay(100);
-				LogMsg_P(LOG_INFO, PSTR("na: %d"), X12RtcGetStatus(5));
+			if (KbScan() < -1 || checkTime() == 1){
 				handleAlarm();
+				LcdBackLight(LCD_BACKLIGHT_OFF);
 			}
         }
         else {
