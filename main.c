@@ -252,7 +252,7 @@ int checkOffPressed(){
 THREAD(StartupInit, arg)
 {
     NetworkInit();
-    NtpInit();
+    NtpSync();
     NutThreadExit();
 }
 
@@ -291,7 +291,14 @@ int main(void)
 
     X12Init();
 
-    NutThreadCreate("Bg", StartupInit, NULL, 512);
+    LcdBackLight(LCD_BACKLIGHT_ON);
+    NtpInit();
+
+    NutThreadCreate("BackgroundThread", StartupInit, NULL, 512);
+    
+    /** Quick fix for turning off the display after 10 seconds boot */
+    start = time(0);
+    running = 1;
 
 	/*
 	 * Kroeske: sources in rtc.c en rtc.h
