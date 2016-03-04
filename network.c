@@ -64,7 +64,7 @@ void httpGet(){
     int i;
     int enters = 0;
     int t = 0;
-    char content[50];
+    char* content = (char*) malloc(1 * sizeof(buffer));
     for(i = 0; i < strlen(buffer); i++)
     {
         if(enters > 3) {
@@ -84,7 +84,5 @@ void httpGet(){
     content[t] = '\0';
     printf("Contnt size %d\n", t);
     printf("content: ");
-    for(i = 0; i < 10; i++)
-        printf("%d -> %d\n", i, content[i]);
-  //  printf("%s\n", content);
+    printf("%s\n", content);
 }
