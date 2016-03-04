@@ -34,7 +34,7 @@ void NetworkInit() {
     }
 }
 
-void httpGet(char address[]){
+char* httpGet(char address[]){
     printf("komt in httpget()");
     NutDelay(1000);
     TCPSOCKET* sock = NutTcpCreateSocket();
@@ -67,7 +67,7 @@ void httpGet(char address[]){
     int i;
     int enters = 0;
     int t = 0;
-    char* content = (char*) malloc(1 * sizeof(buffer));
+    char* content = (char*) calloc(1 , sizeof(buffer));
     for(i = 0; i < strlen(buffer); i++)
     {
         if(enters > 3) {
@@ -86,6 +86,5 @@ void httpGet(char address[]){
     }
     content[t] = '\0';
     printf("Content size %d\n", t);
-    printf("content: ");
-    printf("%s\n", content);
+    return content;
 }

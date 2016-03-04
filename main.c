@@ -222,7 +222,8 @@ THREAD(StartupInit, arg)
 {
     NetworkInit();
     NtpSync();
-    httpGet("/Projecten/projectgroepa6/internetradio/getAlarmen.php?radioid=DE370");
+    char* content = httpGet("/Projecten/projectgroepa6/internetradio/getAlarmen.php?radioid=DE370");
+    printf("%s", content);
     NutThreadExit();
 }
 
