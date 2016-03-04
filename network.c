@@ -35,9 +35,11 @@ void NetworkInit() {
 }
 
 void httpGet(){
+    printf("komt in httpget()");
+    NutDelay(1000);
     TCPSOCKET* sock = NutTcpCreateSocket();
     char http[] = "GET /Projecten/projectgroepa6/internetradio/gettimezone.php HTTP/1.1\r\nHost: jancokock.me \r\n\r\n";
-    char buffer = (char *) malloc(8);
+    char buffer[200];
     int len = sizeof(http);
     if (NutTcpConnect(sock, inet_addr("62.195.226.247"), 80)) {
         printf("Can't connect to sever\n");
@@ -46,14 +48,43 @@ void httpGet(){
         stream = _fdopen((int) sock, "r b");
         if(NutTcpSend(sock, http, len) != len){
             printf("Writing headers failed.");
+            NutDelay(1000);
         }else{
             printf("Headers writed. Now reading.");
+            NutDelay(1000);
             NutTcpReceive(sock, buffer, sizeof(buffer));
                 //fread(buffer, 1, sizeof(buffer), stream);
-                NutDelay(1000);
-                printf("buffer: %s", buffer);
+            NutDelay(1000);
+            printf(buffer);
         };
         fclose(stream);
+
     }
     NutTcpCloseSocket(sock);
+    int i;
+    int enters = 0;
+    int t = 0;
+    char content[50];
+    for(i = 0; i < strlen(buffer); i++)
+    {
+        if(enters > 3) {
+            enters = 10;
+            content[t] = buffer[i];
+            t++;
+        }
+        if(buffer[i] == '\n' || buffer[i] == '\r')
+        {
+            enters++;
+        }
+        else if(enters < 10)
+        {
+            enters = 0;
+        }
+    }
+    content[t] = '\0';
+    printf("Contnt size %d\n", t);
+    printf("content: ");
+    for(i = 0; i < 10; i++)
+        printf("%d -> %d\n", i, content[i]);
+  //  printf("%s\n", content);
 }
