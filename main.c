@@ -44,6 +44,7 @@
 
 #include <time.h>
 #include "rtc.h"
+#include "alarm.h"
 #include "ntp.h"
 
 
@@ -165,7 +166,6 @@ void SysInitIO(void)
      */
     outp(0x18, DDRG);
 }
-
 /* ����������������������������������������������������������������������� */
 /*!
  * \brief Starts or stops the 4.44 msec mainbeat of the system
@@ -191,6 +191,20 @@ static void SysControlMainBeat(u_char OnOff)
     }
 }
 
+/*void handleAlarm(){
+	struct _tm alarmtime;
+    alarmtime = GetRTCTime();
+    long flags;
+	
+    X12RtcGetAlarm(0,&alarmtime,0b11111111);
+	alarmtime.tm_min = (alarmtime.tm_min-79);
+	
+	LogMsg_P(LOG_INFO, PSTR("Alarm : day = %02d,[%02d:%02d:%02d]"),alarmtime.tm_mday, alarmtime.tm_hour, alarmtime.tm_min, alarmtime.tm_sec);
+	
+	X12RtcSetAlarm(0,&alarmtime, 0b11111111);
+	NutDelay(100);
+}*/
+
 int timer(time_t start){
 	time_t diff = time(0) - start;
 	return diff;
@@ -205,6 +219,23 @@ int checkOffPressed(){
 	}
 }
 
+/*void displayAlarm()
+{
+    struct _tm alarmtime;
+    alarmtime = GetRTCTime();
+    long flags;
+    X12RtcGetAlarm(0,&alarmtime,0b11111111);
+    NutDelay(100);
+    char str[12];
+    sprintf(str, "    %02d:%02d:%02d", alarmtime.tm_hour, alarmtime.tm_min - 80, alarmtime.tm_sec);
+    LogMsg_P(LOG_INFO, PSTR("Alarm : [%02d:%02d:%02d]"), alarmtime.tm_hour, alarmtime.tm_min - 80, alarmtime.tm_sec );
+    LcdArrayLineOne(str,12);
+
+    char str2[6];
+    sprintf(str2,"Wekker");
+    LcdArrayLineTwo(str2,6);
+    LcdBacklightKnipperen(startLCD);
+}*/
 /* ����������������������������������������������������������������������� */
 /*!
  * \brief Main entry of the SIR firmware
@@ -232,7 +263,14 @@ int main(void)
 {
 	time_t start;
 	int running = 0;
-
+	/* 
+	 * Kroeske: time struct uit nut/os time.h (http://www.ethernut.de/api/time_8h-source.html)
+	 *
+	 */
+	struct _tm alarmtime;
+	/*
+	 * Kroeske: Ook kan 'struct _tm gmt' Zie bovenstaande link
+	 */
     /*
      *  First disable the watchdog
      */
@@ -290,12 +328,20 @@ int main(void)
 	/* Enable global interrupts */
 	sei();
 	
+    alarmtime = GetRTCTime();
+    alarmtime.tm_sec = alarmtime.tm_sec+10;
+    LogMsg_P(LOG_INFO, PSTR("alarmtime %02d-%02d-%04d || %02d-%02d-%02d"), alarmtime.tm_mday, alarmtime.tm_mon+1, alarmtime.tm_year+1900, alarmtime.tm_hour, alarmtime.tm_min, alarmtime.tm_sec);
+	
+    X12RtcSetAlarm(0,&alarmtime,0b11111111);
+    NutDelay(100);
+	
     for (;;)
     {		
 		//Check if a button is pressed
 		if (checkOffPressed() == 1){
 			start = time(0);
 			running = 1;
+            LcdBacklightKnipperen(startLCD);
 		}
 		
 		//Check if background LED is on, and compare to timer
@@ -305,10 +351,20 @@ int main(void)
 				LcdBackLight(LCD_BACKLIGHT_OFF);
 			}
 		}
-
-        displayDate(0);
-		displayTime(1);
+        
 		
+        if(X12RtcGetStatus(5) > 0)
+        {
+			displayAlarm(0,1);
+			if (KbScan() < -1 || checkTime() == 1){
+				handleAlarm();
+				LcdBackLight(LCD_BACKLIGHT_OFF);
+			}
+        }
+        else {
+            displayTime(0);
+            displayDate(1);
+        }
         WatchDogRestart();
     }
 
