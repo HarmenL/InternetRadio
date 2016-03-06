@@ -7,6 +7,6 @@
 
 extern void NetworkInit(void);
 char* httpGet(char address[]);
-void parseJson(char* content);
+void parseAlarmJson(char* content);
 
 #endif /* _Network_H */

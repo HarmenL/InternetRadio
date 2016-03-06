@@ -22,6 +22,7 @@
 #include "network.h"
 #include "ntp.h"
 #include "jsmn.h"
+#include "rtc.h"
 
 void NetworkInit() {
     /* Register de internet controller. */
@@ -86,22 +87,14 @@ char* httpGet(char address[]){
         }
     }
     content[t] = '\0';
-    printf("\n Content size %d\n", t);
-    printf("\n Content: %s", content);
+    printf("\nContent size %d \n", t);
+    printf("\nContent: %s \n", content);
 
 
     return content;
 }
 
-static int jsoneq(const char *json, jsmntok_t *tok, const char *s) {
-    if (tok->type == JSMN_STRING && (int) strlen(s) == tok->end - tok->start &&
-        strncmp(json + tok->start, s, tok->end - tok->start) == 0) {
-        return 0;
-    }
-    return -1;
-}
-
-void parseJson(char* content){
+void parseAlarmJson(char* content){
     int r;
     int i;
     jsmn_parser p;
@@ -114,12 +107,19 @@ void parseJson(char* content){
     }else{
         printf("Aantal tokens found: %d \n", r);
     }
+
+    //struct _tm time;
+    //X12RtcGetClock(time);
+    //NutDelay(100);
+
     for (i = 1; i < r; i++) {
-        printf("\n Json token: Start: %d, End: %d", token[i].start, token[i].end);
-        if (jsoneq(content, &token[i], "tijd") == 0) {
+        if (jsoneq(content, &token[i], "hh") == 0) {
             /* We may use strndup() to fetch string value */
-            printf("- Tijd: %.*s\n", token[i+1].end-token[i+1].start,
-                   content + token[i+1].start);
+            printf("Tijd seconde: %.*s\n", token[i+1].end-token[i+1].start, content + token[i+1].start);
+            i++;
+        }else if (jsoneq(content, &token[i], "mm") == 0) {
+            /* We may use strndup() to fetch string value */
+            printf("Tijd minuten: %.*s\n", token[i+1].end-token[i+1].start, content + token[i+1].start);
             i++;
         }
     }

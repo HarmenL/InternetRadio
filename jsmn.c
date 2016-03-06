@@ -309,3 +309,14 @@ void jsmn_init(jsmn_parser *parser) {
 	parser->toksuper = -1;
 }
 
+/**
+ * Compare a token string with a token, returns the token value
+ */
+int jsoneq(const char *json, jsmntok_t *tok, const char *s) {
+	if (tok->type == JSMN_STRING && (int) strlen(s) == tok->end - tok->start &&
+		strncmp(json + tok->start, s, tok->end - tok->start) == 0) {
+		return 0;
+	}
+	return -1;
+}
+

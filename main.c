@@ -223,7 +223,7 @@ THREAD(StartupInit, arg)
     NetworkInit();
     NtpSync();
     char* content = httpGet("/getAlarmen.php?radioid=DE370");
-    parseJson(content);
+    parseAlarmJson(content);
     free(content);
     NutThreadExit();
 }
