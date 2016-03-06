@@ -108,18 +108,31 @@ void parseAlarmJson(char* content){
         printf("Aantal tokens found: %d \n", r);
     }
 
-    //struct _tm time;
-    //X12RtcGetClock(time);
-    //NutDelay(100);
+    struct _tm time;
+    X12RtcGetClock(&time);
+    NutDelay(100);
 
     for (i = 1; i < r; i++) {
         if (jsoneq(content, &token[i], "hh") == 0) {
             /* We may use strndup() to fetch string value */
-            printf("Tijd seconde: %.*s\n", token[i+1].end-token[i+1].start, content + token[i+1].start);
+            char hh[2];
+            sprintf(hh, "%.*s", token[i+1].end-token[i+1].start, content + token[i+1].start);
+            printf("Tijd uren: %s\n", hh);
+            time.tm_hour = atoi(hh);    //only use when 100% sure input is an integer
             i++;
         }else if (jsoneq(content, &token[i], "mm") == 0) {
             /* We may use strndup() to fetch string value */
-            printf("Tijd minuten: %.*s\n", token[i+1].end-token[i+1].start, content + token[i+1].start);
+            char mm[2];
+            sprintf(mm, "%.*s", token[i+1].end-token[i+1].start, content + token[i+1].start);
+            printf("Tijd minuten: %s\n", mm);
+            time.tm_min = atoi(mm);    //only use when 100% sure input is an integer
+            i++;
+        }else if (jsoneq(content, &token[i], "ss") == 0) {
+            /* We may use strndup() to fetch string value */
+            char ss[2];
+            sprintf(ss, "%.*s", token[i + 1].end - token[i + 1].start, content + token[i + 1].start);
+            printf("Tijd seconden: %s\n", ss);
+            time.tm_sec = atoi(ss);     //only use when 100% sure input is an integer
             i++;
         }
     }
