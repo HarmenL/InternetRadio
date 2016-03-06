@@ -222,8 +222,9 @@ THREAD(StartupInit, arg)
 {
     NetworkInit();
     NtpSync();
-    char* content = httpGet("/Projecten/projectgroepa6/internetradio/getAlarmen.php?radioid=DE370");
-    printf("%s", content);
+    char* content = httpGet("/getAlarmen.php?radioid=DE370");
+    parseJson(content);
+    free(content);
     NutThreadExit();
 }
 
@@ -258,7 +259,7 @@ int main(void)
     LcdBackLight(LCD_BACKLIGHT_ON);
     NtpInit();
 
-    NutThreadCreate("BackgroundThread", StartupInit, NULL, 512);
+    NutThreadCreate("BackgroundThread", StartupInit, NULL, 1024);
     
     /** Quick fix for turning off the display after 10 seconds boot */
     start = time(0);

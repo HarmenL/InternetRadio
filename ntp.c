@@ -54,13 +54,13 @@ void NtpCheckValidTime(void){
 
     if (eeprom_tm_struct.len != sizeof(eeprom_tm_struct)){
         // Size mismatch: There is no valid configuration present.
-        puts("NtpCheckValidTime(): Size mismatch");
+        puts("NtpCheckValidTime(): Size mismatch \n");
         validTime = false;
         return;
     }
 
     // Valid configuration available.
-    puts("NtpCheckValidTime(): Valid config available");
+    puts("NtpCheckValidTime(): Valid config available \n");
     tm stored_tm = eeprom_tm_struct.tm_struct;
 
     // Check time is valid;
@@ -69,16 +69,16 @@ void NtpCheckValidTime(void){
 
     validTime = NtpCompareTime(current_tm, stored_tm);
     if (validTime){
-        puts("NtpCheckValidTime(): Time was valid");
+        puts("NtpCheckValidTime(): Time was valid \n");
     }else {
-        puts("NtpCheckValidTime(): Invalid time!");
+        puts("NtpCheckValidTime(): Invalid time! \n");
     }
 }
 
 //Tests if t1 is after t2.
 bool NtpCompareTime(tm t1, tm t2){
     char debug[120];
-    sprintf(&debug, "Comparing two times\nt1=%04d-%02d-%02d+%02d:%02d:%02d\nt2=%04d-%02d-%02d+%02d:%02d:%02d",
+    sprintf(&debug, "Comparing two times\nt1=%04d-%02d-%02d+%02d:%02d:%02d\nt2=%04d-%02d-%02d+%02d:%02d:%02d \n",
             t1.tm_year+1900,
             t1.tm_mon+1,
             t1.tm_mday,
@@ -151,7 +151,7 @@ void NtpWriteTimeToEeprom(tm time_struct){
     eeprom_tm_struct.tm_struct = time_struct;
 
     int success = NutNvMemSave(256, &eeprom_tm_struct, sizeof(eeprom_tm_struct));
-    if (success == 0){ puts("NtpWriteTimeToEeprom: Time succesfully written to eeprom"); }
+    if (success == 0){ puts("NtpWriteTimeToEeprom: Time succesfully written to eeprom \n"); }
 
     NutDelay(100);
 }

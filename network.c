@@ -21,6 +21,7 @@
 #include <pro/sntp.h>
 #include "network.h"
 #include "ntp.h"
+#include "jsmn.h"
 
 void NetworkInit() {
     /* Register de internet controller. */
@@ -39,10 +40,10 @@ char* httpGet(char address[]){
     NutDelay(1000);
     TCPSOCKET* sock = NutTcpCreateSocket();
     char http[150];
-    sprintf(http, "GET %s HTTP/1.1\r\nHost: jancokock.me \r\n\r\n", address);
+    sprintf(http, "GET %s HTTP/1.1\r\nHost: saltyradio.jancokock.me \r\n\r\n", address);
     printf("%s", http);
     NutDelay(100);
-    char buffer[200];
+    char buffer[250];
     int len = sizeof(http);
     if (NutTcpConnect(sock, inet_addr("62.195.226.247"), 80)) {
         printf("Can't connect to server\n");
@@ -85,6 +86,41 @@ char* httpGet(char address[]){
         }
     }
     content[t] = '\0';
-    printf("Content size %d\n", t);
+    printf("\n Content size %d\n", t);
+    printf("\n Content: %s", content);
+
+
     return content;
+}
+
+static int jsoneq(const char *json, jsmntok_t *tok, const char *s) {
+    if (tok->type == JSMN_STRING && (int) strlen(s) == tok->end - tok->start &&
+        strncmp(json + tok->start, s, tok->end - tok->start) == 0) {
+        return 0;
+    }
+    return -1;
+}
+
+void parseJson(char* content){
+    int r;
+    int i;
+    jsmn_parser p;
+    jsmntok_t token[50]; /* We expect no more than 128 tokens */
+
+    jsmn_init(&p);
+    r = jsmn_parse(&p, content, strlen(content), token, sizeof(token)/sizeof(token[0]));
+    if (r < 0) {
+        printf("Failed to parse JSON: %d \n", r);
+    }else{
+        printf("Aantal tokens found: %d \n", r);
+    }
+    for (i = 1; i < r; i++) {
+        printf("\n Json token: Start: %d, End: %d", token[i].start, token[i].end);
+        if (jsoneq(content, &token[i], "tijd") == 0) {
+            /* We may use strndup() to fetch string value */
+            printf("- Tijd: %.*s\n", token[i+1].end-token[i+1].start,
+                   content + token[i+1].start);
+            i++;
+        }
+    }
 }
