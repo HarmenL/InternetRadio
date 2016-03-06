@@ -46,7 +46,6 @@ void displayDate(int line_number){
     }else {
         sprintf(str, "   ??-??-????   ");
     }
->>>>>>> origin/developer
 
     if(NtpIsSyncing())
         str[1] = 'S';
