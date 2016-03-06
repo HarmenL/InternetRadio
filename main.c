@@ -191,6 +191,7 @@ THREAD(StartupInit, arg)
 {
     isAlarmSyncing = 1;
     NetworkInit();
+
     NtpSync();
 
     char* content = httpGet("/getAlarmen.php?radioid=DE370");
@@ -227,13 +228,13 @@ int main(void)
     WatchDogDisable();
 
     NutDelay(100);
-	
+
     SysInitIO();
-	
+
 	SPIinit();
-    
+
 	LedInit();
-	
+
 	LcdLowLevelInit();
 
     Uart0DriverInit();
@@ -248,13 +249,13 @@ int main(void)
     NtpInit();
 
     NutThreadCreate("BackgroundThread", StartupInit, NULL, 1024);
-    
+
     /** Quick fix for turning off the display after 10 seconds boot */
     start = time(0);
     running = 1;
 
     RcInit();
-    
+
 	KbInit();
 
     SysControlMainBeat(ON);             // enable 4.4 msecs heartbeat interrupt
@@ -268,14 +269,14 @@ int main(void)
 	sei();
 
     for (;;)
-    {		
+    {
 		//Check if a button is pressed
 		if (checkOffPressed() == 1){
 			start = time(0);
 			running = 1;
             LcdBacklightKnipperen(startLCD);
 		}
-		
+
 		//Check if background LED is on, and compare to timer
 		if (running == 1){
 			if (timer(start) >= 10){

@@ -68,6 +68,11 @@ void jsmn_init(jsmn_parser *parser);
 int jsoneq(const char *json, jsmntok_t *tok, const char *s);
 
 /**
+ * Get the value of the token in a integer format.
+ */
+int getIntegerToken(const char *json, jsmntok_t *tok);
+
+/**
  * Run JSON parser. It parses a JSON data string into and array of tokens, each describing
  * a single JSON object.
  */
