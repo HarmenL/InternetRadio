@@ -324,7 +324,7 @@ int jsoneq(const char *json, jsmntok_t *tok, const char *s) {
  * Get the value of the token in a integer format.
  */
 int getIntegerToken(const char *json, jsmntok_t *tok){
-	char s[ (tok->end - tok->start) + 1 ];
+	char s[ ((tok->end - tok->start) + 1) ];
 	sprintf(s, "%.*s", tok->end - tok->start, json + tok->start);
 	return atoi(s);
 }
