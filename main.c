@@ -269,37 +269,34 @@ int main(void)
 
     for (;;)
     {
-            //Check if a button is pressed
-            if (checkOffPressed() == 1){
-                start = time(0);
-                running = 1;
-                LcdBacklightKnipperen(startLCD);
-            }
+		//Check if a button is pressed
+		if (checkOffPressed() == 1){
+			start = time(0);
+			running = 1;
+            LcdBacklightKnipperen(startLCD);
+		}
 
-            //Check if background LED is on, and compare to timer
-            if (running == 1){
-                if (timer(start) >= 10){
-                    running = 0;
-                    LcdBackLight(LCD_BACKLIGHT_OFF);
-                }
-            }
+		//Check if background LED is on, and compare to timer
+		if (running == 1){
+			if (timer(start) >= 10){
+				running = 0;
+				LcdBackLight(LCD_BACKLIGHT_OFF);
+			}
+		}
 
-
-            if(!isAlarmSyncing)
-            {
-                if(X12RtcGetStatus(5) > 0) {
-                    displayAlarm(0, 1);
-                    if (KbScan() < -1 || checkTime() == 1) {
-                        handleAlarm();
-                        LcdBackLight(LCD_BACKLIGHT_OFF);
-                    }
-                }
-            }
-            else {
-                displayTime(0);
-                displayDate(1);
-            }
-            WatchDogRestart();
+        if(!isAlarmSyncing && X12RtcGetStatus(5) > 0)
+        {
+			displayAlarm(0,1);
+			if (KbScan() < -1 || checkTime() == 1){
+				handleAlarm();
+				LcdBackLight(LCD_BACKLIGHT_OFF);
+			}
+        }
+        else {
+            displayTime(0);
+            displayDate(1);
+        }
+        WatchDogRestart();
     }
 
     return(0);
