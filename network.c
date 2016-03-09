@@ -25,6 +25,8 @@
 #include "rtc.h"
 #include "alarm.h"
 
+bool isReceiving;
+
 void NetworkInit() {
     /* Register de internet controller. */
     if (NutRegisterDevice(&DEV_ETHER, 0, 0)) {
@@ -38,6 +40,7 @@ void NetworkInit() {
 }
 
 char* httpGet(char address[]){
+    isReceiving = true;
     NutDelay(1000);
     printf("\n\n #-- HTTP get -- #\n");
 
@@ -87,6 +90,7 @@ char* httpGet(char address[]){
     }
     content[t] = '\0';
     printf("\nContent size: %d, Content: %s \n", t, content);
+    isReceiving = false;
     return content;
 }
 
@@ -133,4 +137,8 @@ void parseAlarmJson(char* content){
 
     X12RtcSetAlarm(0,&time,0b11111111);
     NutDelay(1000);
+}
+
+bool NetworkIsReceiving(void){
+    return isReceiving;
 }

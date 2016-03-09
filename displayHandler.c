@@ -13,6 +13,7 @@
 #include "log.h"
 #include "rtc.h"
 #include "alarm.h"
+#include "network.h"
 
 #define MONTH_OFFSET 1
 #define YEAR_OFFSET 1900
@@ -35,20 +36,23 @@ void displayTime(int line_number){
     }
 }
 
-void displayDate(int line_number){
+void displayDate(int line_number) {
     tm *time;
     X12RtcGetClock(time);
 
     char str[13];
 
-    if (NtpTimeIsValid()){
-        sprintf(str, "   %02d-%02d-%04d   ", time->tm_mday, time->tm_mon+MONTH_OFFSET, time->tm_year+YEAR_OFFSET);
-    }else {
+    if (NtpTimeIsValid()) {
+        sprintf(str, "   %02d-%02d-%04d   ", time->tm_mday, time->tm_mon + MONTH_OFFSET, time->tm_year + YEAR_OFFSET);
+    } else {
         sprintf(str, "   ??-??-????   ");
     }
 
-    if(NtpIsSyncing())
-        str[1] = 'S';
+    if (NtpIsSyncing()) {
+       str[1] = 'S';
+    }else if(NetworkIsReceiving()){
+        str[1] = 'N';
+    }
 
     if (line_number > -1 && line_number < 2){
         (*write_display_ptr[line_number])(str, 13);
