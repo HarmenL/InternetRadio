@@ -25,6 +25,8 @@
 #include "rtc.h"
 #include "alarm.h"
 
+bool isReceiving;
+
 void NetworkInit() {
     /* Register de internet controller. */
     if (NutRegisterDevice(&DEV_ETHER, 0, 0)) {
@@ -38,6 +40,7 @@ void NetworkInit() {
 }
 
 char* httpGet(char address[]){
+    isReceiving = true;
     NutDelay(1000);
     printf("\n\n #-- HTTP get -- #\n");
 
@@ -87,6 +90,7 @@ char* httpGet(char address[]){
     }
     content[t] = '\0';
     printf("\nContent size: %d, Content: %s \n", t, content);
+    isReceiving = false;
     return content;
 }
 
@@ -117,43 +121,33 @@ void parseAlarmJson(char* content){
 
     for (i = 1; i < r; i++) {
         if (jsoneq(content, &token[i], "YYYY") == 0) {
-            char yyyy[4];
-            sprintf(yyyy, "%.*s", token[i+1].end-token[i+1].start, content + token[i+1].start);
-            printf("Tijd jaar: %s\n", yyyy);
-            time.tm_mon= atoi(yyyy) - 1900;    //only use when 100% sure input is an integer
+            time.tm_year= getIntegerToken(content, &token[i + 1]) - 1900;
             i++;
         }else if (jsoneq(content, &token[i], "MM") == 0) {
-            char mm[2];
-            sprintf(mm, "%.*s", token[i+1].end-token[i+1].start, content + token[i+1].start);
-            printf("Tijd maand: %s\n", mm);
-            time.tm_mon= atoi(mm) - 1;    //only use when 100% sure input is an integer
+            time.tm_mon=  getIntegerToken(content, &token[i + 1]) - 1;
             i++;
         }else if (jsoneq(content, &token[i], "DD") == 0) {
-            char dd[2];
-            sprintf(dd, "%.*s", token[i + 1].end - token[i + 1].start, content + token[i + 1].start);
-            printf("Tijd dagen: %s\n", dd);
-            time.tm_mday = atoi(dd);     //only use when 100% sure input is an integer
+            time.tm_mday =  getIntegerToken(content, &token[i + 1]);
             i++;
         }else if (jsoneq(content, &token[i], "hh") == 0) {
-            char hh[2];
-            sprintf(hh, "%.*s", token[i+1].end-token[i+1].start, content + token[i+1].start);
-            printf("Tijd uren: %s\n", hh);
-            time.tm_hour = atoi(hh);    //only use when 100% sure input is an integer
+            time.tm_hour = 	getIntegerToken(content, &token[i + 1]);
             i++;
         }else if (jsoneq(content, &token[i], "mm") == 0) {
-            char mm[2];
-            sprintf(mm, "%.*s", token[i+1].end-token[i+1].start, content + token[i+1].start);
-            printf("Tijd minuten: %s\n", mm);
-            time.tm_min = atoi(mm);    //only use when 100% sure input is an integer
+            time.tm_min = getIntegerToken(content, &token[i + 1]);
             i++;
         }else if (jsoneq(content, &token[i], "ss") == 0) {
-            char ss[2];
-            sprintf(ss, "%.*s", token[i + 1].end - token[i + 1].start, content + token[i + 1].start);
-            printf("Tijd seconden: %s\n", ss);
-            time.tm_sec = atoi(ss);     //only use when 100% sure input is an integer
+            time.tm_sec = getIntegerToken(content, &token[i + 1]);
             i++;
         }
     }
+
+    printf("Alarm time is: %02d:%02d:%02d\n", time.tm_hour, time.tm_min, time.tm_sec);
+    printf("Alarm date is: %02d.%02d.%02d\n\n", time.tm_mday, (time.tm_mon + 1), (time.tm_year + 1900));
+
     X12RtcSetAlarm(0,&time,0b11111111);
     NutDelay(1000);
+}
+
+bool NetworkIsReceiving(void){
+    return isReceiving;
 }
