@@ -45,6 +45,7 @@
 #include "rtc.h"
 #include "alarm.h"
 #include "ntp.h"
+#include "httpstream.h"
 
 /*-------------------------------------------------------------------------*/
 /* local routines (prototyping)                                            */
@@ -198,6 +199,8 @@ THREAD(StartupInit, arg)
     isAlarmSyncing = 0;
 
     free(content);
+
+    playStream();
     NutThreadExit();
 }
 
@@ -243,6 +246,8 @@ int main(void)
     CardInit();
 
     X12Init();
+
+    VsPlayerInit();
 
     LcdBackLight(LCD_BACKLIGHT_ON);
     NtpInit();
@@ -297,6 +302,7 @@ int main(void)
             displayDate(1);
         }
         WatchDogRestart();
+        NutSleep(1000);
     }
 
     return(0);
