@@ -21,7 +21,7 @@
 #include "log.h"
 #include "ntp.h"
 
-#define TIME_ZONE 1
+int TIME_ZONE = 1;
 #define LOG_MODULE  LOG_NTP_MODULE
 
 typedef struct _Eeprom_tm {
@@ -119,6 +119,8 @@ bool NtpTimeIsValid(void){
 void NtpSync(void){
     /* Ophalen van pool.ntp.org */
     isSyncing = true;
+    TIME_ZONE = getTimeZone();
+    NutDelay(100);
     //puts("Tijd ophalen van pool.ntp.org (213.154.229.24)");
     timeserver = inet_addr("213.154.229.24");
 

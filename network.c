@@ -90,6 +90,15 @@ char* httpGet(char address[]){
     return content;
 }
 
+int getTimeZone()
+{
+    char* content = httpGet("/gettimezone.php");
+    int timezone = atoi(content);
+    free(content);
+    printf("%d", timezone);
+    return timezone;
+}
+
 void parseAlarmJson(char* content){
     int r;
     int i;

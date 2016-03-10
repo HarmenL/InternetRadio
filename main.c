@@ -195,9 +195,9 @@ THREAD(StartupInit, arg)
 
     char* content = httpGet("/getAlarmen.php?radioid=DE370");
     parseAlarmJson(content);
+    free(content);
     isAlarmSyncing = 0;
 
-    free(content);
     NutThreadExit();
 }
 
@@ -247,7 +247,7 @@ int main(void)
     LcdBackLight(LCD_BACKLIGHT_ON);
     NtpInit();
 
-    NutThreadCreate("BackgroundThread", StartupInit, NULL, 1024);
+    NutThreadCreate("BackgroundThread", StartupInit, NULL, 1500);
 
     /** Quick fix for turning off the display after 10 seconds boot */
     start = time(0);
