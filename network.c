@@ -128,10 +128,10 @@ void parseAlarmJson(char* content){
 
 
 
-    for(i = 0; i > r; i++)
+    for(i = 1; i > r; i++)
     {
         struct _tm time = GetRTCTime();
-        for (i = 1; i % 14 == 0; i++) {
+        for (i = i; i % 14 == 0; i++) {
             if (jsoneq(content, &token[i], "YYYY") == 0) {
                 time.tm_year= getIntegerToken(content, &token[i + 1]) - 1900;
                 i++;
@@ -156,11 +156,9 @@ void parseAlarmJson(char* content){
         printf("Alarm date is: %02d.%02d.%02d\n\n", time.tm_mday, (time.tm_mon + 1), (time.tm_year + 1900));
 
         X12RtcSetAlarm(0,&time,0b11111111);
+        NutDelay(1000);
+
     }
-
-
-
-    NutDelay(1000);
 }
 
 bool NetworkIsReceiving(void){
