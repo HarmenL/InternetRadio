@@ -197,7 +197,22 @@ THREAD(StartupInit, arg)
     parseAlarmJson(content);
     free(content);
     isAlarmSyncing = 0;
+    initialized = 1;
+    NutThreadExit();
+}
 
+
+THREAD(Alarmsync, arg)
+{
+    for(;;)
+    {
+        isAlarmSyncing = 1;
+        char* content = httpGet("/getAlarmen.php?radioid=DE370");
+        parseAlarmJson(content);
+        free(content);
+        isAlarmSyncing = 1;
+        NutSleep(30000);
+    }
     NutThreadExit();
 }
 
