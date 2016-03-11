@@ -278,6 +278,21 @@ void LcdArrayLineTwo(char *data, int size){
 	}
 }
 
+void setXCursorPos(int leftRight,int count)
+{
+    int i;
+    for ( i = 0; i <count ; ++i)
+    {
+        switch(leftRight)
+        {
+            case 0: LcdWriteByte(1,0x18);		// shift rechts
+                break;
+            case 1: LcdWriteByte(1,0x1c);		// shift links
+                break;
+        }
+    }
+}
+
 /* ---------- end of module ------------------------------------------------ */
 	
 /*@}*/

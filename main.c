@@ -225,18 +225,19 @@ int timer(time_t start){
 }
 
 int checkOffPressed(){
-    if (KbScan() < -1){
+    if (KbGetKey() > 1){
         LcdBackLight(LCD_BACKLIGHT_ON);
         return 1;
     } else {
         return 0;
     }
 }
-
+int VOL2;
 int main(void)
 {
-    initialized = 0;
+	initialized = 0;
 	time_t start;
+    time_t startVolumeTime;
 	int running = 0;
 
     WatchDogDisable();
@@ -266,6 +267,7 @@ int main(void)
     NutThreadCreate("BackgroundThread", Alarmsync, NULL, 1024);
     /** Quick fix for turning off the display after 10 seconds boot */
     start = time(0);
+    startVolumeTime = time(0);
     running = 1;
 
     RcInit();
@@ -281,7 +283,9 @@ int main(void)
 
 	/* Enable global interrupts */
 	sei();
-
+    unsigned char VOL = 64;
+    displayDate(1);
+    displayTime(0);
     for (;;)
     {
 		//Check if a button is pressed
@@ -302,15 +306,43 @@ int main(void)
         if(!isAlarmSyncing && X12RtcGetStatus(5) > 0)
         {
 			displayAlarm(0,1);
-			if (KbScan() < -1 || checkTime() == 1){
+			if (KbGetKey() < -1 || checkTime() == 1){
 				handleAlarm();
 				LcdBackLight(LCD_BACKLIGHT_OFF);
 			}
         }
         else {
-            displayTime(0);
-            displayDate(1);
+                if (timer(startVolumeTime) >= 10) {
+                    startVolumeTime = time(0);
+                    ClearLcd();
+                    displayTime(0);
+                    displayDate(1);
+                }
+            }
+
+        VOL = VOL2;
+        if(KbGetKey() == KEY_DOWN)
+        {
+            NutSleep(150);
+            startVolumeTime = time(0);
+            if(VOL > 1){
+            VOL -= 8;
+            VsSetVolume (128-VOL, 128-VOL);
+            displayVolume(VOL/8);
+                }
         }
+        else if(KbGetKey() == KEY_UP)
+        {
+            NutSleep(150);
+            startVolumeTime = time(0);
+            if(VOL < 128) {
+                VOL += 8;
+                VsSetVolume(128-VOL, 128-VOL);
+                displayVolume(VOL/8);
+
+            }
+        }
+        VOL2 = VOL;
         WatchDogRestart();
     }
 
