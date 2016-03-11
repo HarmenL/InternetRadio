@@ -5,7 +5,8 @@
 #ifndef _Network_H
 #define _Network_H
 
-
+bool hasNetworkConnection(void);
+bool NetworkIsReceiving(void);
 extern void NetworkInit(void);
 char* httpGet(char address[]);
 void parseAlarmJson(char* content);

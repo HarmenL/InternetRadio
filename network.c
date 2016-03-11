@@ -20,18 +20,21 @@
 #include <arpa/inet.h>
 #include <pro/dhcp.h>
 #include <pro/sntp.h>
-#include "network.h"
+
 #include "ntp.h"
+#include "network.h"
 #include "jsmn.h"
 #include "rtc.h"
 #include "alarm.h"
 
 bool isReceiving;
+bool hasNetwork;
 u_short mss = 1460;
 u_long rx_to = 3000;
 u_short tcpbufsiz = 1500;
 
 void NetworkInit() {
+    hasNetwork = false;
     /* Register de internet controller. */
     if (NutRegisterDevice(&DEV_ETHER, 0, 0)) {
         printf("Registering  failed. \n");
@@ -41,6 +44,7 @@ void NetworkInit() {
     }else {
         printf("Ik heb een internet connectie. Ip is: %s \n\n", inet_ntoa(confnet.cdn_ip_addr));
     }
+    hasNetwork = true;
 }
 
 char* httpGet(char address[]){
@@ -156,4 +160,8 @@ void parseAlarmJson(char* content){
 
 bool NetworkIsReceiving(void){
     return isReceiving;
+}
+
+bool hasNetworkConnection(void){
+    return hasNetwork;
 }
