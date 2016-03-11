@@ -221,6 +221,7 @@ int checkOffPressed(){
 
 int main(void)
 {
+	int idx = 0;
 	time_t start;
 	int running = 0;
 
@@ -267,6 +268,13 @@ int main(void)
 	/* Enable global interrupts */
 	sei();
 
+	struct _tm tm;
+	tm = GetRTCTime();
+	tm.tm_sec += 10;
+	
+	setAlarm(tm,"    test1234      ", "0.0.0.0", 8001,1,0,0);
+	tm.tm_sec +=20;
+	setAlarm(tm,"    test5678      ", "0.0.0.0", 8001,1,0,1);
     for (;;)
     {
 		//Check if a button is pressed
@@ -283,19 +291,27 @@ int main(void)
 				LcdBackLight(LCD_BACKLIGHT_OFF);
 			}
 		}
-
-        if(!isAlarmSyncing && X12RtcGetStatus(5) > 0)
+	
+		u_short n = KbScan();
+        if(checkAlarms() == 1)
         {
-			displayAlarm(0,1);
-			if (KbScan() < -1 || checkTime() == 1){
-				handleAlarm();
-				LcdBackLight(LCD_BACKLIGHT_OFF);
+			for (idx = 0; idx < 3; idx++){
+				if (getState(idx) == 1){
+					displayAlarm(0,1,idx);
+					if (n == -17){
+						NutDelay(50);
+						handleAlarm(idx);
+						NutDelay(50);
+						LcdBackLight(LCD_BACKLIGHT_OFF);
+					}
+				}
 			}
-        }
-        else {
-            displayTime(0);
-            displayDate(1);
-        }
+		}
+		else {
+			displayTime(0);				
+			displayDate(1);
+		}
+	
         WatchDogRestart();
     }
 

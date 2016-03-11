@@ -59,30 +59,23 @@ void displayDate(int line_number) {
     }
 }
 
-void displayAlarm(int line_number, int line_numberTwo)
+void displayAlarm(int line_number, int line_numberTwo, int idx)
 {
-    struct _tm alarmtime;
 	int i;
-    alarmtime = GetRTCTime();
-	
-    X12RtcGetAlarm(0,&alarmtime,0b11111111);
     char str[12];
-    sprintf(str, "    %02d:%02d:%02d    ", alarmtime.tm_hour, alarmtime.tm_min - 80, alarmtime.tm_sec);
+	struct _alarm am = getAlarm(idx);
+    sprintf(str, "    %02d:%02d:%02d    ", am.time.tm_hour, am.time.tm_min, am.time.tm_sec);
     if (line_number > -1 && line_number < 2){
         (*write_display_ptr[line_number])(str, 12);
     }
 
-    char str2[17];
-	char *data = getName();
+    char str2[16];
 	for(i = 0; i < 17; i++){
-		str2[i] = data[i];
+		str2[i] = am.name[i];
 	}
-	//LogMsg_P(LOG_INFO, PSTR("%d"), str2);
-    //sprintf(str2,"     Wekker     ");
-	//LogMsg_P(LOG_INFO, PSTR("%d"), str2);
     if (line_numberTwo > -1 && line_numberTwo < 2){
         (*write_display_ptr[line_numberTwo])(str2, 16);
-        LcdBacklightKnipperen(startLCD);
+        LcdBackLight(LCD_BACKLIGHT_ON);
     }
 }
 

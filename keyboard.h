@@ -90,7 +90,7 @@
 /* export global routines (interface)                                      */
 /*-------------------------------------------------------------------------*/
 void    KbInit(void);
-int    KbScan(void);
+u_short    KbScan(void);
 int 	CheckKey();
 int     KbWaitForKeyEvent(u_long);
 u_char  KbGetKey(void);

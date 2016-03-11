@@ -8,83 +8,124 @@
 #include "rtc.h"
 #include "alarm.h"
 
-struct _alarm{
-	int seconds;
-	char name[16];
+#define n 3
+
+
+struct _snooze
+{
+	struct _tm snoozeStart;
+	struct _tm snoozeEnd;
 };
 
-void setAlarm(struct _tm time, char *name, int sec){
-	struct _alarm al;
-	
-	X12RtcSetAlarm(0, &time, AFLGS);
-	NutDelay(100);
-	
-	al.seconds = sec;
-	strncpy(al.name, name, sizeof(al.name));
-	
-	//Schrijf struct naar eeprom
-}
+struct _alarm alarm[n];
+struct _snooze snooze[n];
 
-int getDuration(){
-	//Haal duration op uit eeprom
-	return 10;
-}
 
-char* getName(){
-	//haal naam op uit eeprom en geef de pointer mee
-	char str[17];
-	//int x = 561;
-	//sprintf(str,"test123456789%d", x);
-	sprintf(str, "     Wekker     ");
-	return str;
-}
-
-void handleAlarm(){
-	struct _tm alarmtime;
-	
-    alarmtime = GetRTCTime();
-	
-    X12RtcGetAlarm(0,&alarmtime,AFLGS);
-	alarmtime.tm_min = (alarmtime.tm_min-79);
-	alarmtime.tm_mday = (alarmtime.tm_mday - 80);
-	alarmtime.tm_mon = (alarmtime.tm_mon - 80);
-	
-		
-	X12RtcSetAlarm(0,&alarmtime, AFLGS);
-	NutDelay(100);
-	X12RtcClearStatus(ALARM_1);
-}
-
-int checkTime(){
-	/*struct _tm ctime;
-	struct _tm atime;
-	time_t at;
-	time_t ct;
-	time_t diff;
-	
-	atime = GetRTCTime();
-	ctime = GetRTCTime();
-	
-	X12RtcGetAlarm(0,&atime,0b11111111);
-	atime.tm_min = atime.tm_min - 80;
-	atime.tm_mday = (atime.tm_mday - 80);
-	atime.tm_mon = (atime.tm_mon - 80);
-	atime.tm_year = 116;
-	
-	LogMsg_P(LOG_INFO, PSTR("at %02d-%02d-%04d || %02d-%02d-%02d"), atime.tm_mday, atime.tm_mon+1, atime.tm_year+1900, atime.tm_hour, atime.tm_min, atime.tm_sec);
-	
-	ct = mktime(&ctime);
-	at = mktime(&atime);
-	
-	at += getDuration();
-	
-	LogMsg_P(LOG_INFO, PSTR("at = %d, ct = %d"), at, ct);
-	
-	diff = ct - at;
-	
-	if (diff > 0){
+int checkAlarms(){
+	int i = 0;
+	int check = 0;
+	for (i = 0; i < n; i++){
+		setState(i);
+		if (alarm[i].state == 1){
+			check = 1;
+		}
+	}
+	if (check == 1){
 		return 1;
-	}*/
+	}
+	
 	return 0;
+}
+
+struct _alarm getAlarm(int idx){
+	return alarm[idx];
+}
+
+int getState(int idx){
+	return alarm[idx].state;
+}
+
+void setState(int idx){
+	struct _tm ct;
+	X12RtcGetClock(&ct);
+	
+	if (compareTime(ct, alarm[idx].time) == 1 && alarm[idx].time.tm_year != 0){
+		alarm[idx].state = 1;
+	} else {
+		alarm[idx].state = 0;
+	}
+	
+	/*if (compareTime(alarm[idx].time,snooze[idx].snoozeStart)){
+		alarm[idx].state = 2;
+	}
+	
+	if (alarm[idx].state == 2){
+		if (compareTime(alarm[idx].time, snooze[idx].snoozeEnd)){
+			snooze[idx].snoozeStart.tm_min += alarm[idx].snooze + 1;
+			snooze[idx].snoozeEnd.tm_min += alarm[idx].snooze + 1;
+		}
+	}*/
+}
+
+/*void getAlarm(struct _alarm *am){
+	int i = 0;
+	for (i = 0; i < n; i++){
+		am[i] = alarm[i]; 
+	}
+}*/
+
+void setAlarm(struct _tm time, char* name, char* ip, u_short port, int snooze, int type, int idx){
+	alarm[idx].time = time;
+	
+	strncpy(alarm[idx].name, name, sizeof(alarm[idx].name));
+	strncpy(alarm[idx].ip, name, sizeof(alarm[idx].ip));
+	alarm[idx].port = port;
+	
+	alarm[idx].snooze = snooze;
+	alarm[idx].type = type;
+	alarm[idx].state = 0;
+
+	//snooze[idx].snoozeStart = time;
+	//snooze[idx].snoozeEnd = time;
+	//snooze[idx].snoozeStart += 1;
+	//snooze[idx].snoozeEnd += (snooze +1);
+}
+
+
+void deleteAlarm(int idx){
+	struct _tm tm;
+	alarm[idx].time = tm;
+	alarm[idx].port = 0;
+	alarm[idx].snooze = 5;
+	alarm[idx].type = -1;
+	alarm[idx].state = -1;
+}
+
+void handleAlarm(int idx){
+	alarm[idx].time.tm_min = alarm[idx].time.tm_min + 1;
+	alarm[idx].state = 0;
+}
+
+int compareTime(tm t1,tm t2){
+    if (t1.tm_year > t2.tm_year){
+        return 1;
+	}
+    if (t1.tm_year == t2.tm_year && t1.tm_mon > t2.tm_mon){
+        return 1;
+	}
+    if (t1.tm_year == t2.tm_year && t1.tm_mon == t2.tm_mon && t1.tm_mday > t2.tm_mday){
+        return 1;
+	}
+    if (t1.tm_year == t2.tm_year && t1.tm_mon == t2.tm_mon && t1.tm_mday == t2.tm_mday && t1.tm_hour > t2.tm_hour){
+        return 1;
+	}
+    if (t1.tm_year == t2.tm_year && t1.tm_mon == t2.tm_mon && t1.tm_mday == t2.tm_mday && t1.tm_hour == t2.tm_hour && t1.tm_min > t2.tm_min){
+        return 1;
+	}
+    if (t1.tm_year == t2.tm_year && t1.tm_mon == t2.tm_mon && t1.tm_mday == t2.tm_mday && t1.tm_hour == t2.tm_hour && t1.tm_min == t2.tm_min &&t1.tm_sec > t2.tm_sec){
+        return 1;
+	}
+
+    return 0;
 }
 

@@ -7,5 +7,7 @@
 
 void displayTime(int);
 void displayDate(int);
-void displayAlarm(int line_number, int line_numberTwo);
+//void displayAlarm(int line_number, int line_numberTwo, struct _alarm am);
+void displayAlarm(int line_number, int line_numberTwo, int idx);
+
 #endif //MUTLI_OS_BUILD_DISPLAYHANDLER_H

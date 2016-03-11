@@ -103,7 +103,7 @@ static void KbClearEvent(HANDLE *pEvent)
  * After each keyboard-scan, check for a valid MMCard
  */
 /* อออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ */
-int KbScan()
+u_short KbScan()
 {
     u_char KeyNibble0, KeyNibble1, KeyNibble2, KeyNibble3;
 
