@@ -6,6 +6,7 @@
 #include <sys/timer.h>
 #include <sys/confnet.h>
 #include <sys/socket.h>
+#include <netinet/tcp.h>
 
 #include <stdlib.h>
 #include <string.h>
@@ -26,6 +27,9 @@
 #include "alarm.h"
 
 bool isReceiving;
+u_short mss = 1460;
+u_long rx_to = 3000;
+u_short tcpbufsiz = 1500;
 
 void NetworkInit() {
     /* Register de internet controller. */
@@ -51,6 +55,8 @@ char* httpGet(char address[]){
     int len = sizeof(http);
 
     char buffer[300];
+    memset(buffer, 0, 300);
+
     if (NutTcpConnect(sock, inet_addr("62.195.226.247"), 80)) {
         printf("Can't connect to server\n");
     }else{
@@ -92,6 +98,15 @@ char* httpGet(char address[]){
     printf("\nContent size: %d, Content: %s \n", t, content);
     isReceiving = false;
     return content;
+}
+
+int getTimeZone()
+{
+    char* content = httpGet("/gettimezone.php");
+    int timezone = atoi(content);
+    free(content);
+    printf("%d", timezone);
+    return timezone;
 }
 
 void parseAlarmJson(char* content){
