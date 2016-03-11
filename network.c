@@ -29,9 +29,6 @@
 
 bool isReceiving;
 bool hasNetwork;
-u_short mss = 1460;
-u_long rx_to = 3000;
-u_short tcpbufsiz = 1500;
 
 void NetworkInit() {
     hasNetwork = false;

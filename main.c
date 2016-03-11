@@ -40,11 +40,14 @@
 #include "flash.h"
 #include "spidrv.h"
 #include "network.h"
+#include "typedefs.h"
+
 
 #include <time.h>
 #include "rtc.h"
 #include "alarm.h"
 #include "ntp.h"
+#include "httpstream.h"
 
 /*-------------------------------------------------------------------------*/
 /* local routines (prototyping)                                            */
@@ -257,7 +260,6 @@ int main(void)
 	initialized = 0;
     int VOL2;
     time_t start;
-    time_t startVolumeTime;
 	int idx = 0;
 
 	int running;
@@ -282,6 +284,8 @@ int main(void)
 
     X12Init();
 
+    VsPlayerInit();
+
     LcdBackLight(LCD_BACKLIGHT_ON);
     NtpInit();
 
@@ -304,16 +308,18 @@ int main(void)
 	/* Enable global interrupts */
 	sei();
 
-    //struct _tm tm;
-	//tm = GetRTCTime();
-	//tm.tm_sec += 10;
-    //setAlarm(tm,"    test1234      ", "0.0.0.0", 8001,1,0,0);
-	//tm.tm_sec +=20;
-	//setAlarm(tm,"    test5678      ", "0.0.0.0", 8001,1,0,1);
+   /* struct _tm tm;
+	tm = GetRTCTime();
+	tm.tm_sec += 10;
+    setAlarm(tm,"    test1234      ", "0.0.0.0", 8001,1,0,0);
+	tm.tm_sec +=20;
+	setAlarm(tm,"    test5678      ", "0.0.0.0", 8001,1,0,1);*/
 
+/*    if(hasNetworkConnection() == true){
+        playStream("145.58.53.152", 80, "/3fm-bb-mp3");
+    }*/
     start = time(0) - 10;
     unsigned char VOL = 64;
-    startVolumeTime = time(0) - 5;
 
     running = 1;
 
@@ -338,8 +344,8 @@ int main(void)
         if(KbGetKey() == KEY_DOWN)
         {
             NutSleep(150);
-            startVolumeTime = time(0);
-            if(VOL > 1){
+            start = time(0);
+            if(VOL > 8){
                 VOL -= 8;
                 VsSetVolume (128-VOL, 128-VOL);
                 displayVolume(VOL/8);
@@ -348,15 +354,14 @@ int main(void)
         else if(KbGetKey() == KEY_UP)
         {
             NutSleep(150);
-            startVolumeTime = time(0);
+            start = time(0);
             if(VOL < 128) {
                 VOL += 8;
                 VsSetVolume(128-VOL, 128-VOL);
                 displayVolume(VOL/8);
-
             }
         }
-        else if(timer(startVolumeTime) >= 5 && checkAlarms() == 1)
+        else if(timer(start) >= 5 && checkAlarms() == 1)
         {
 			for (idx = 0; idx < 3; idx++){
 				if (getState(idx) == 1){
@@ -370,7 +375,7 @@ int main(void)
 				}
 			}
 		}
-		else if (timer(startVolumeTime) >= 5){
+		else if (timer(start) >= 5){
             displayTime(0);
             displayDate(1);
 		}
