@@ -6,6 +6,7 @@
 #include <sys/timer.h>
 #include <sys/confnet.h>
 #include <sys/socket.h>
+#include <netinet/tcp.h>
 
 #include <stdlib.h>
 #include <string.h>
@@ -26,6 +27,9 @@
 #include "alarm.h"
 
 bool isReceiving;
+u_short mss = 1460;
+u_long rx_to = 3000;
+u_short tcpbufsiz = 1500;
 
 void NetworkInit() {
     /* Register de internet controller. */
@@ -50,7 +54,9 @@ char* httpGet(char address[]){
     sprintf(http, "GET %s HTTP/1.1\r\nHost: saltyradio.jancokock.me \r\n\r\n", address);
     int len = sizeof(http);
 
-    char* buffer = (char*) calloc(300, sizeof(char));
+    char buffer[300];
+    memset(buffer, 0, 300);
+
     if (NutTcpConnect(sock, inet_addr("62.195.226.247"), 80)) {
         printf("Can't connect to server\n");
     }else{
@@ -62,10 +68,10 @@ char* httpGet(char address[]){
         }else{
             printf("Headers %s writed. Now reading.", http);
             NutDelay(1000);
-            NutTcpReceive(sock, &buffer, sizeof(&buffer));
+            NutTcpReceive(sock, buffer, sizeof(buffer));
             //fread(buffer, 1, sizeof(buffer), stream);
             NutDelay(1000);
-            printf(&buffer);
+            printf(buffer);
         };
         //fclose(stream);
     }
@@ -73,14 +79,14 @@ char* httpGet(char address[]){
     int i;
     int enters = 0;
     int t = 0;
-    char* content = (char*) calloc(strlen(&buffer) , sizeof(&buffer));
-    for(i = 0; i < strlen(&buffer); i++)
+    char* content = (char*) calloc(1 , sizeof(buffer));
+    for(i = 0; i < strlen(buffer); i++)
     {
         if(enters == 4) {
-            content[t] = &buffer[i];
+            content[t] = buffer[i];
             t++;
         }else {
-            if (&buffer[i] == '\n' || &buffer[i] == '\r') {
+            if (buffer[i] == '\n' || buffer[i] == '\r') {
                 enters++;
             }
             else {
@@ -90,7 +96,6 @@ char* httpGet(char address[]){
     }
     content[t] = '\0';
     printf("\nContent size: %d, Content: %s \n", t, content);
-    free(buffer);
     isReceiving = false;
     return content;
 }
