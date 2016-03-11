@@ -197,8 +197,23 @@ THREAD(StartupInit, arg)
     NutThreadExit();
 }
 
+THREAD(NTPSync, arg)
+{
+    for(;;)
+    {
+        if(initialized && (hasNetworkConnection() == true))
+        {
+            while(isAlarmSyncing)
+            {
+                NutSleep(2000);
+            }
+            NtpSync();
+        }
+        NutSleep(86400000);
+    }
+}
 
-THREAD(Alarmsync, arg)
+THREAD(AlarmSync, arg)
 {
     for(;;)
     {
@@ -264,7 +279,8 @@ int main(void)
     NtpInit();
 
     NutThreadCreate("BackgroundThread", StartupInit, NULL, 1024);
-    NutThreadCreate("BackgroundThread", Alarmsync, NULL, 1024);
+    NutThreadCreate("BackgroundThread", AlarmSync, NULL, 1024);
+    NutThreadCreate("BackgroundThread", NTPSync, NULL, 1024);
     /** Quick fix for turning off the display after 10 seconds boot */
     start = time(0);
     startVolumeTime = time(0);
