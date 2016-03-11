@@ -179,6 +179,7 @@ static void SysControlMainBeat(u_char OnOff)
 /* global variable definitions                                             */
 /*-------------------------------------------------------------------------*/
 int isAlarmSyncing;
+int initialized;
 /*-------------------------------------------------------------------------*/
 /* local variable definitions                                              */
 /*-------------------------------------------------------------------------*/
@@ -188,15 +189,10 @@ int isAlarmSyncing;
 /*-------------------------------------------------------------------------*/
 THREAD(StartupInit, arg)
 {
-    isAlarmSyncing = 1;
     NetworkInit();
 
     NtpSync();
 
-    char* content = httpGet("/getAlarmen.php?radioid=DE370");
-    parseAlarmJson(content);
-    free(content);
-    isAlarmSyncing = 0;
     initialized = 1;
     NutThreadExit();
 }
@@ -206,11 +202,14 @@ THREAD(Alarmsync, arg)
 {
     for(;;)
     {
-        isAlarmSyncing = 1;
-        char* content = httpGet("/getAlarmen.php?radioid=DE370");
-        parseAlarmJson(content);
-        free(content);
-        isAlarmSyncing = 1;
+        if(initialized && (hasNetworkConnection() == true))
+        {
+            isAlarmSyncing = 1;
+            char* content = httpGet("/getAlarmen.php?radioid=DE370");
+            parseAlarmJson(content);
+            free(content);
+            isAlarmSyncing = 0;
+        }
         NutSleep(30000);
     }
     NutThreadExit();
@@ -236,6 +235,7 @@ int checkOffPressed(){
 
 int main(void)
 {
+    initialized = 0;
 	time_t start;
 	int running = 0;
 
@@ -262,8 +262,8 @@ int main(void)
     LcdBackLight(LCD_BACKLIGHT_ON);
     NtpInit();
 
-    NutThreadCreate("BackgroundThread", StartupInit, NULL, 1500);
-
+    NutThreadCreate("BackgroundThread", StartupInit, NULL, 1024);
+    NutThreadCreate("BackgroundThread", Alarmsync, NULL, 1024);
     /** Quick fix for turning off the display after 10 seconds boot */
     start = time(0);
     running = 1;

@@ -44,6 +44,7 @@ void NetworkInit() {
     }else {
         printf("Ik heb een internet connectie. Ip is: %s \n\n", inet_ntoa(confnet.cdn_ip_addr));
     }
+    NutSleep(2000);
     hasNetwork = true;
 }
 
