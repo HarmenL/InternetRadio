@@ -218,7 +218,7 @@ int checkOffPressed(){
         return 0;
     }
 }
-
+int VOL2;
 int main(void)
 {
     unsigned char rightSave;
@@ -269,12 +269,10 @@ int main(void)
 
 	/* Enable global interrupts */
 	sei();
-    unsigned char left = 64;
-    unsigned char right = 64;
+    unsigned char VOL = 64;
     displayDate(1);
     for (;;)
     {
-        printf("%d \n", KbGetKey());
 		//Check if a button is pressed
 		if (checkOffPressed() == 1){
 			start = time(0);
@@ -302,42 +300,34 @@ int main(void)
             displayTime(0);
                 if (timer(startVolumeTime) >= 10) {
                     startVolumeTime = time(0);
-                    printf("%d \n", left);
-                    left = rightSave;
                     displayDate(1);
                    // printf("%d \n", right);
                 }
             }
 
-
+        VOL = VOL2;
         if(KbGetKey() == KEY_DOWN)
         {
             startVolumeTime = time(0);
-            if(left > 1){
-            left -= 8;
-            right = left;
-            VsSetVolume (left, right);
-            //LogMsg_P(LOG_INFO, PSTR("klikU : %d"), right/8);
-              // LogMsg_P(LOG_INFO, PSTR("klikU : %d"), left);
+            if(VOL > 1){
+            VOL -= 8;
+            VsSetVolume (VOL, VOL);
               //  printf("%d \n", right);
-            displayVolume(left/8);
+            displayVolume(VOL/8);
                 }
-            rightSave = left;
         }
         if(KbGetKey() == KEY_UP)
         {
             startVolumeTime = time(0);
-            if(left < 128) {
-                left += 8;
-                right = left;
-                VsSetVolume(left, right);
-               // LogMsg_P(LOG_INFO, PSTR("klikD : %d"), right/8);
-               // LogMsg_P(LOG_INFO, PSTR("klikD : %d"), left);
+            if(VOL < 128) {
+                VOL += 8;
+                VsSetVolume(VOL, VOL);
                 //printf("%d \n", right);
-                displayVolume(left/8);
-                rightSave = left;
+                displayVolume(VOL/8);
+
             }
         }
+        VOL2 = VOL;
         WatchDogRestart();
     }
 
