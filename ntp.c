@@ -119,7 +119,8 @@ bool NtpTimeIsValid(void){
 void NtpSync(void){
     /* Ophalen van pool.ntp.org */
     isSyncing = true;
-    TIME_ZONE = getTimeZone();
+    _timezone = -getTimeZone() * 3600;
+    printf(TIME_ZONE);
     NutDelay(100);
     //puts("Tijd ophalen van pool.ntp.org (213.154.229.24)");
     timeserver = inet_addr("213.154.229.24");
