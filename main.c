@@ -211,7 +211,7 @@ int timer(time_t start){
 }
 
 int checkOffPressed(){
-    if (KbScan() < -1){
+    if (KbGetKey() > 1){
         LcdBackLight(LCD_BACKLIGHT_ON);
         return 1;
     } else {
@@ -293,7 +293,7 @@ int main(void)
         if(!isAlarmSyncing && X12RtcGetStatus(5) > 0)
         {
 			displayAlarm(0,1);
-			if (KbScan() < -1 || checkTime() == 1){
+			if (KbGetKey() < -1 || checkTime() == 1){
 				handleAlarm();
 				LcdBackLight(LCD_BACKLIGHT_OFF);
 			}
@@ -310,7 +310,7 @@ int main(void)
             }
 
 
-        if(KbScan() == -2049)
+        if(KbGetKey() == KEY_DOWN)
         {
             startVolumeTime = time(0);
             if(left > 1){
@@ -324,7 +324,7 @@ int main(void)
                 }
             rightSave = left;
         }
-        if(KbScan() == -1025)
+        if(KbGetKey() == KEY_UP)
         {
             startVolumeTime = time(0);
             if(left < 128) {
