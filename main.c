@@ -180,6 +180,10 @@ static void SysControlMainBeat(u_char OnOff)
 /*-------------------------------------------------------------------------*/
 int isAlarmSyncing;
 int initialized;
+int VOL2;
+time_t start;
+time_t startVolumeTime;
+
 /*-------------------------------------------------------------------------*/
 /* local variable definitions                                              */
 /*-------------------------------------------------------------------------*/
@@ -192,6 +196,9 @@ THREAD(StartupInit, arg)
     NetworkInit();
 
     NtpSync();
+
+    start = time(0);
+    startVolumeTime = time(0);
 
     initialized = 1;
     NutThreadExit();
@@ -232,12 +239,14 @@ int checkOffPressed(){
         return 0;
     }
 }
-int VOL2;
+
+
+
 int main(void)
 {
 	initialized = 0;
-	time_t start;
-    time_t startVolumeTime;
+	int idx = 0;
+
 	int running = 0;
 
     WatchDogDisable();
@@ -266,9 +275,6 @@ int main(void)
     NutThreadCreate("BackgroundThread", StartupInit, NULL, 1024);
     NutThreadCreate("BackgroundThread", Alarmsync, NULL, 1024);
     /** Quick fix for turning off the display after 10 seconds boot */
-    start = time(0);
-    startVolumeTime = time(0);
-    running = 1;
 
     RcInit();
 
@@ -286,6 +292,18 @@ int main(void)
     unsigned char VOL = 64;
     displayDate(1);
     displayTime(0);
+
+    struct _tm tm;
+	tm = GetRTCTime();
+	tm.tm_sec += 10;
+    setAlarm(tm,"    test1234      ", "0.0.0.0", 8001,1,0,0);
+	tm.tm_sec +=20;
+	setAlarm(tm,"    test5678      ", "0.0.0.0", 8001,1,0,1);
+
+    start = time(0);
+    startVolumeTime = time(0);
+    running = 1;
+
     for (;;)
     {
 		//Check if a button is pressed
@@ -303,33 +321,16 @@ int main(void)
 			}
 		}
 
-        if(!isAlarmSyncing && X12RtcGetStatus(5) > 0)
-        {
-			displayAlarm(0,1);
-			if (KbGetKey() < -1 || checkTime() == 1){
-				handleAlarm();
-				LcdBackLight(LCD_BACKLIGHT_OFF);
-			}
-        }
-        else {
-                if (timer(startVolumeTime) >= 10) {
-                    startVolumeTime = time(0);
-                    ClearLcd();
-                    displayTime(0);
-                    displayDate(1);
-                }
-            }
-
         VOL = VOL2;
         if(KbGetKey() == KEY_DOWN)
         {
             NutSleep(150);
             startVolumeTime = time(0);
             if(VOL > 1){
-            VOL -= 8;
-            VsSetVolume (128-VOL, 128-VOL);
-            displayVolume(VOL/8);
-                }
+                VOL -= 8;
+                VsSetVolume (128-VOL, 128-VOL);
+                displayVolume(VOL/8);
+            }
         }
         else if(KbGetKey() == KEY_UP)
         {
@@ -342,6 +343,27 @@ int main(void)
 
             }
         }
+        else if(timer(startVolumeTime) >= 5 && checkAlarms() == 1)
+        {
+			for (idx = 0; idx < 3; idx++){
+				if (getState(idx) == 1){
+					displayAlarm(0,1,idx);
+					if (KbGetKey() == KEY_ESC){
+						NutDelay(50);
+						handleAlarm(idx);
+						NutDelay(50);
+						LcdBackLight(LCD_BACKLIGHT_OFF);
+					}
+				}
+			}
+		}
+		else if (timer(startVolumeTime) >= 5){
+            displayTime(0);
+            displayDate(1);
+		}
+        printf("%d", timer(startVolumeTime));
+
+
         VOL2 = VOL;
         WatchDogRestart();
     }
