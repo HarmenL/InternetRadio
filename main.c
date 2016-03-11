@@ -274,7 +274,7 @@ int main(void)
     displayDate(1);
     for (;;)
     {
-        printf("%d \n", KbScan());
+        printf("%d \n", KbGetKey());
 		//Check if a button is pressed
 		if (checkOffPressed() == 1){
 			start = time(0);

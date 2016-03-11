@@ -103,7 +103,7 @@ static void KbClearEvent(HANDLE *pEvent)
  * After each keyboard-scan, check for a valid MMCard
  */
 /* ����������������������������������������������������������������������� */
-u_short KbScan()
+void KbScan()
 {
     u_char KeyNibble0, KeyNibble1, KeyNibble2, KeyNibble3;
 
@@ -156,7 +156,6 @@ u_short KbScan()
     KeyFound |= (KeyNibble1 & 0x00F0);          // b7..b4 in 'KeyNibble1' to b7...b4  in 'KeyFound' -- do nothing
     KeyFound |= ((KeyNibble2<<4) & 0x0F00);     // b7..b4 in 'KeyNibble2' to b11..b8  in 'KeyFound' << shift 4 left
     KeyFound |= ((KeyNibble3<<8) & 0xF000);     // b7..b4 in 'KeyNibble3' to b15..b12 in 'KeyFound' << shift 8 left
-	return KeyFound;
 #endif  // USE_JTAG
 
 }
