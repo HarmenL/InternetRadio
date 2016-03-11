@@ -271,6 +271,7 @@ int main(void)
 	sei();
     unsigned char VOL = 64;
     displayDate(1);
+    displayTime(0);
     for (;;)
     {
 		//Check if a button is pressed
@@ -297,32 +298,32 @@ int main(void)
 			}
         }
         else {
-            displayTime(0);
                 if (timer(startVolumeTime) >= 10) {
                     startVolumeTime = time(0);
+                    ClearLcd();
+                    displayTime(0);
                     displayDate(1);
-                   // printf("%d \n", right);
                 }
             }
 
         VOL = VOL2;
         if(KbGetKey() == KEY_DOWN)
         {
+            NutSleep(150);
             startVolumeTime = time(0);
             if(VOL > 1){
             VOL -= 8;
             VsSetVolume (VOL, VOL);
-              //  printf("%d \n", right);
             displayVolume(VOL/8);
                 }
         }
-        if(KbGetKey() == KEY_UP)
+        else if(KbGetKey() == KEY_UP)
         {
+            NutSleep(150);
             startVolumeTime = time(0);
             if(VOL < 128) {
                 VOL += 8;
                 VsSetVolume(VOL, VOL);
-                //printf("%d \n", right);
                 displayVolume(VOL/8);
 
             }

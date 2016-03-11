@@ -78,7 +78,7 @@ void displayAlarm(int line_number, int line_numberTwo)
 		str2[i] = data[i];
 	}
 	//LogMsg_P(LOG_INFO, PSTR("%d"), str2);
-    //sprintf(str2,"     Wekker     ");
+    sprintf(str2,"     Wekker     ");
 	//LogMsg_P(LOG_INFO, PSTR("%d"), str2);
     if (line_numberTwo > -1 && line_numberTwo < 2){
         (*write_display_ptr[line_numberTwo])(str2, 16);
@@ -88,16 +88,17 @@ void displayAlarm(int line_number, int line_numberTwo)
 
 void displayVolume(int pos)
 {
+    ClearLcd();
     int i;
+    LcdArrayLineOne("     Volume     ", 16);
+
     char characters[17];
 
     for(i = 0; i < 17; i++)
     {
         characters[i] = 0xFF;
     }
-        ClearLcd();
         LcdArrayLineTwo(characters,pos);
-
 }
 
 
