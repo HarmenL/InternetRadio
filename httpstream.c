@@ -25,33 +25,41 @@
 #include <pro/discover.h>
 #include <dev/nicrtl.h>
 
-#define RADIO_URL "/3fm-bb-mp3"
+#include "ntp.h"
+#include "httpstream.h"
+
 #define MAX_HEADERLINE 512
+
+bool isStreaming;
 
 TCPSOCKET *sock;
 u_short mss = 1460;
 u_long rx_to = 3000;
 u_short tcpbufsiz = 8760;
-u_long radio_ip;
 FILE *stream;
 u_long metaint;
 
 
-void playStream(){
-    printf("Set volume %d", VsSetVolume(40, 40));
-    radio_ip = inet_addr("145.58.53.152");
-    ConnectStation(sock, radio_ip, 80, &metaint);
-
+void playStream(char *ipaddr, u_short port, char *radiourl){
+    isStreaming = true;
+    ConnectStation(sock, inet_addr(ipaddr), port, radiourl, &metaint);
     if(stream) {
         PlayMp3Stream(stream, metaint);
-        fclose(stream);
     }
+    stopStream();
+}
+
+void stopStream(){
+    isStreaming = false;
+    fclose(stream);
     NutTcpCloseSocket(sock);
 }
 
+bool HttpIsStreaming(){
+    return isStreaming;
+}
 
-
-void ConnectStation(TCPSOCKET *sock, u_long ip, u_short port, u_long *metaint){
+void ConnectStation(TCPSOCKET *sock, u_long ip, u_short port, char *radiourl, u_long *metaint){
     int rc;
     u_char *line;
     u_char *cp;
@@ -59,9 +67,8 @@ void ConnectStation(TCPSOCKET *sock, u_long ip, u_short port, u_long *metaint){
     /*
      * Connect the TCP server.
      */
-    if ((sock = NutTcpCreateSocket()) == 0) {
+    if ((sock = NutTcpCreateSocket()) == 0)
         printf("Probleem bij het creereen van tcp socket");
-    }
     if (NutTcpSetSockOpt(sock, TCP_MAXSEG, &mss, sizeof(mss)))
         printf("Probleem bij het creereen van tcp socket");
     if (NutTcpSetSockOpt(sock, SO_RCVTIMEO, &rx_to, sizeof(rx_to)))
@@ -84,8 +91,8 @@ void ConnectStation(TCPSOCKET *sock, u_long ip, u_short port, u_long *metaint){
     /*
      * Send the HTTP request.
      */
-    printf("GET %s HTTP/1.0\n\n", RADIO_URL);
-    fprintf(stream, "GET %s HTTP/1.0\r\n", RADIO_URL);
+    printf("GET %s HTTP/1.0\n\n", radiourl);
+    fprintf(stream, "GET %s HTTP/1.0\r\n", radiourl);
     fprintf(stream, "Host: %s\r\n", inet_ntoa(ip));
     fprintf(stream, "User-Agent: Ethernut\r\n");
     fprintf(stream, "Accept: */*\r\n");
@@ -208,7 +215,7 @@ void PlayMp3Stream(FILE *stream, u_long metaint)
     VsPlayerInterrupts(ief);
     last = NutGetSeconds();
 
-    for (;;) {
+    while (isStreaming == true) {
         /*
          * Query number of byte available in MP3 buffer.
          */
@@ -237,7 +244,7 @@ void PlayMp3Stream(FILE *stream, u_long metaint)
         /*
          * Read data directly into the MP3 buffer.
          */
-        while (rbytes) {
+        while (rbytes && (isStreaming == true)) {
             if ((got = fread(mp3buf, 1, rbytes, stream)) > 0) {
                 ief = VsPlayerInterrupts(0);
                 mp3buf = NutSegBufWriteCommit(got);

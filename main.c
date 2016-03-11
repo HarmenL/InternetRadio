@@ -40,6 +40,8 @@
 #include "flash.h"
 #include "spidrv.h"
 #include "network.h"
+#include "typedefs.h"
+
 
 #include <time.h>
 #include "rtc.h"
@@ -200,7 +202,7 @@ THREAD(StartupInit, arg)
 
     free(content);
 
-    playStream();
+    //playStream("145.58.53.152", 80, "/3fm-bb-mp3");
     NutThreadExit();
 }
 
