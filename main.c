@@ -221,7 +221,9 @@ int checkOffPressed(){
 
 int main(void)
 {
+    unsigned char rightSave;
 	time_t start;
+    time_t startVolumeTime;
 	int running = 0;
 
     WatchDogDisable();
@@ -251,6 +253,7 @@ int main(void)
 
     /** Quick fix for turning off the display after 10 seconds boot */
     start = time(0);
+    startVolumeTime = time(0);
     running = 1;
 
     RcInit();
@@ -266,9 +269,12 @@ int main(void)
 
 	/* Enable global interrupts */
 	sei();
-
+    unsigned char left = 64;
+    unsigned char right = 64;
+    displayDate(1);
     for (;;)
     {
+        printf("%d \n", KbScan());
 		//Check if a button is pressed
 		if (checkOffPressed() == 1){
 			start = time(0);
@@ -294,7 +300,43 @@ int main(void)
         }
         else {
             displayTime(0);
-            displayDate(1);
+                if (timer(startVolumeTime) >= 10) {
+                    startVolumeTime = time(0);
+                    printf("%d \n", left);
+                    left = rightSave;
+                    displayDate(1);
+                   // printf("%d \n", right);
+                }
+            }
+
+
+        if(KbScan() == -2049)
+        {
+            startVolumeTime = time(0);
+            if(left > 1){
+            left -= 8;
+            right = left;
+            VsSetVolume (left, right);
+            //LogMsg_P(LOG_INFO, PSTR("klikU : %d"), right/8);
+              // LogMsg_P(LOG_INFO, PSTR("klikU : %d"), left);
+              //  printf("%d \n", right);
+            displayVolume(left/8);
+                }
+            rightSave = left;
+        }
+        if(KbScan() == -1025)
+        {
+            startVolumeTime = time(0);
+            if(left < 128) {
+                left += 8;
+                right = left;
+                VsSetVolume(left, right);
+               // LogMsg_P(LOG_INFO, PSTR("klikD : %d"), right/8);
+               // LogMsg_P(LOG_INFO, PSTR("klikD : %d"), left);
+                //printf("%d \n", right);
+                displayVolume(left/8);
+                rightSave = left;
+            }
         }
         WatchDogRestart();
     }

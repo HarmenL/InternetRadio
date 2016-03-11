@@ -86,5 +86,19 @@ void displayAlarm(int line_number, int line_numberTwo)
     }
 }
 
+void displayVolume(int pos)
+{
+    int i;
+    char characters[17];
+
+    for(i = 0; i < 17; i++)
+    {
+        characters[i] = 0xFF;
+    }
+        ClearLcd();
+        LcdArrayLineTwo(characters,pos);
+
+}
+
 
 

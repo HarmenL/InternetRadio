@@ -8,4 +8,5 @@
 void displayTime(int);
 void displayDate(int);
 void displayAlarm(int line_number, int line_numberTwo);
+void displayVolume(int pos);
 #endif //MUTLI_OS_BUILD_DISPLAYHANDLER_H
