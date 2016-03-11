@@ -102,7 +102,7 @@ void deleteAlarm(int idx){
 }
 
 void handleAlarm(int idx){
-	alarm[idx].time.tm_min = alarm[idx].time.tm_min + 1;
+	alarm[idx].time.tm_mday = alarm[idx].time.tm_mday + 1;
 	alarm[idx].state = 0;
 }
 

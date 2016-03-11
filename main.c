@@ -180,9 +180,7 @@ static void SysControlMainBeat(u_char OnOff)
 /*-------------------------------------------------------------------------*/
 int isAlarmSyncing;
 int initialized;
-int VOL2;
-time_t start;
-time_t startVolumeTime;
+
 
 /*-------------------------------------------------------------------------*/
 /* local variable definitions                                              */
@@ -196,9 +194,6 @@ THREAD(StartupInit, arg)
     NetworkInit();
 
     NtpSync();
-
-    start = time(0);
-    startVolumeTime = time(0);
 
     initialized = 1;
     NutThreadExit();
@@ -232,7 +227,7 @@ int timer(time_t start){
 }
 
 int checkOffPressed(){
-    if (KbGetKey() > 1){
+    if (KbGetKey() == KEY_POWER){
         LcdBackLight(LCD_BACKLIGHT_ON);
         return 1;
     } else {
@@ -245,9 +240,12 @@ int checkOffPressed(){
 int main(void)
 {
 	initialized = 0;
+    int VOL2;
+    time_t start;
+    time_t startVolumeTime;
 	int idx = 0;
 
-	int running = 0;
+	int running;
 
     WatchDogDisable();
 
@@ -289,19 +287,18 @@ int main(void)
 
 	/* Enable global interrupts */
 	sei();
+
+    //struct _tm tm;
+	//tm = GetRTCTime();
+	//tm.tm_sec += 10;
+    //setAlarm(tm,"    test1234      ", "0.0.0.0", 8001,1,0,0);
+	//tm.tm_sec +=20;
+	//setAlarm(tm,"    test5678      ", "0.0.0.0", 8001,1,0,1);
+
+    start = time(0) - 10;
     unsigned char VOL = 64;
-    displayDate(1);
-    displayTime(0);
+    startVolumeTime = time(0) - 5;
 
-    struct _tm tm;
-	tm = GetRTCTime();
-	tm.tm_sec += 10;
-    setAlarm(tm,"    test1234      ", "0.0.0.0", 8001,1,0,0);
-	tm.tm_sec +=20;
-	setAlarm(tm,"    test5678      ", "0.0.0.0", 8001,1,0,1);
-
-    start = time(0);
-    startVolumeTime = time(0);
     running = 1;
 
     for (;;)
@@ -361,8 +358,6 @@ int main(void)
             displayTime(0);
             displayDate(1);
 		}
-        printf("%d", timer(startVolumeTime));
-
 
         VOL2 = VOL;
         WatchDogRestart();
