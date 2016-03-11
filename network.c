@@ -59,8 +59,8 @@ char* httpGet(char address[]){
     sprintf(http, "GET %s HTTP/1.1\r\nHost: saltyradio.jancokock.me \r\n\r\n", address);
     int len = sizeof(http);
 
-    char buffer[300];
-    memset(buffer, 0, 300);
+    char buffer[700];
+    memset(buffer, 0, 700);
 
     if (NutTcpConnect(sock, inet_addr("62.195.226.247"), 80)) {
         printf("Can't connect to server\n");
@@ -118,7 +118,7 @@ void parseAlarmJson(char* content){
     int r;
     int i;
     jsmn_parser p;
-    jsmntok_t token[50]; /* We expect no more than 128 tokens */
+    jsmntok_t token[80]; /* We expect no more than 128 tokens */
 
     jsmn_init(&p);
     r = jsmn_parse(&p, content, strlen(content), token, sizeof(token)/sizeof(token[0]));
@@ -128,34 +128,41 @@ void parseAlarmJson(char* content){
         printf("Aantal tokens found: %d \n", r);
     }
 
-    struct _tm time = GetRTCTime();
 
-    for (i = 1; i < r; i++) {
-        if (jsoneq(content, &token[i], "YYYY") == 0) {
-            time.tm_year= getIntegerToken(content, &token[i + 1]) - 1900;
-            i++;
-        }else if (jsoneq(content, &token[i], "MM") == 0) {
-            time.tm_mon=  getIntegerToken(content, &token[i + 1]) - 1;
-            i++;
-        }else if (jsoneq(content, &token[i], "DD") == 0) {
-            time.tm_mday =  getIntegerToken(content, &token[i + 1]);
-            i++;
-        }else if (jsoneq(content, &token[i], "hh") == 0) {
-            time.tm_hour = 	getIntegerToken(content, &token[i + 1]);
-            i++;
-        }else if (jsoneq(content, &token[i], "mm") == 0) {
-            time.tm_min = getIntegerToken(content, &token[i + 1]);
-            i++;
-        }else if (jsoneq(content, &token[i], "ss") == 0) {
-            time.tm_sec = getIntegerToken(content, &token[i + 1]);
-            i++;
+
+
+    for(i = 0; i > r; i++)
+    {
+        struct _tm time = GetRTCTime();
+        for (i = 1; i % 14 == 0; i++) {
+            if (jsoneq(content, &token[i], "YYYY") == 0) {
+                time.tm_year= getIntegerToken(content, &token[i + 1]) - 1900;
+                i++;
+            }else if (jsoneq(content, &token[i], "MM") == 0) {
+                time.tm_mon=  getIntegerToken(content, &token[i + 1]) - 1;
+                i++;
+            }else if (jsoneq(content, &token[i], "DD") == 0) {
+                time.tm_mday =  getIntegerToken(content, &token[i + 1]);
+                i++;
+            }else if (jsoneq(content, &token[i], "hh") == 0) {
+                time.tm_hour = 	getIntegerToken(content, &token[i + 1]);
+                i++;
+            }else if (jsoneq(content, &token[i], "mm") == 0) {
+                time.tm_min = getIntegerToken(content, &token[i + 1]);
+                i++;
+            }else if (jsoneq(content, &token[i], "ss") == 0) {
+                time.tm_sec = getIntegerToken(content, &token[i + 1]);
+                i++;
+            }
         }
+        printf("Alarm time is: %02d:%02d:%02d\n", time.tm_hour, time.tm_min, time.tm_sec);
+        printf("Alarm date is: %02d.%02d.%02d\n\n", time.tm_mday, (time.tm_mon + 1), (time.tm_year + 1900));
+
+        X12RtcSetAlarm(0,&time,0b11111111);
     }
 
-    printf("Alarm time is: %02d:%02d:%02d\n", time.tm_hour, time.tm_min, time.tm_sec);
-    printf("Alarm date is: %02d.%02d.%02d\n\n", time.tm_mday, (time.tm_mon + 1), (time.tm_year + 1900));
 
-    X12RtcSetAlarm(0,&time,0b11111111);
+
     NutDelay(1000);
 }
 
