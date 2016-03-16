@@ -278,7 +278,7 @@ int main(void)
     NtpInit();
 
     NutThreadCreate("BackgroundThread", StartupInit, NULL, 1024);
-    NutThreadCreate("BackgroundThread", AlarmSync, NULL, 1024);
+    NutThreadCreate("BackgroundThread", AlarmSync, NULL, 2000);
     NutThreadCreate("BackgroundThread", NTPSync, NULL, 1024);
     /** Quick fix for turning off the display after 10 seconds boot */
     start = time(0);

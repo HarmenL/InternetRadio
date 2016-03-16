@@ -118,7 +118,7 @@ void parseAlarmJson(char* content){
     int r;
     int i;
     jsmn_parser p;
-    jsmntok_t token[80]; /* We expect no more than 128 tokens */
+    jsmntok_t token[300]; /* We expect no more than 128 tokens */
 
     jsmn_init(&p);
     r = jsmn_parse(&p, content, strlen(content), token, sizeof(token)/sizeof(token[0]));
@@ -131,10 +131,10 @@ void parseAlarmJson(char* content){
 
 
 
-    for(i = 1; i > r; i++)
+    for(i = 1; i < r; i++)
     {
         struct _tm time = GetRTCTime();
-        for (i = i; i % 14 == 0; i++) {
+        for (i = i; !(i % 14 == 0); i++) {
             if (jsoneq(content, &token[i], "YYYY") == 0) {
                 time.tm_year= getIntegerToken(content, &token[i + 1]) - 1900;
                 i++;
@@ -160,7 +160,6 @@ void parseAlarmJson(char* content){
 
         X12RtcSetAlarm(0,&time,0b11111111);
         NutDelay(1000);
-
     }
 }
 
