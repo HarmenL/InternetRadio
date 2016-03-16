@@ -222,6 +222,7 @@ THREAD(AlarmSync, arg)
 {
     for(;;)
     {
+        printf("tset");
         if(initialized && (hasNetworkConnection() == true))
         {
             isAlarmSyncing = 1;

@@ -127,11 +127,11 @@ void parseAlarmJson(char* content){
 
 
 
-
+    int start = 0;
     for(i = 1; i < r; i++)
     {
         struct _tm time = GetRTCTime();
-        for (i = i; !(i % 14 == 0); i++) {
+        for (i = i; !((i + start) % 21 == 0); i++) {
             if (jsoneq(content, &token[i], "YYYY") == 0) {
                 time.tm_year= getIntegerToken(content, &token[i + 1]) - 1900;
                 i++;
@@ -151,6 +151,7 @@ void parseAlarmJson(char* content){
                 time.tm_sec = getIntegerToken(content, &token[i + 1]);
                 i++;
             }
+            start = 1;
         }
         printf("Alarm time is: %02d:%02d:%02d\n", time.tm_hour, time.tm_min, time.tm_sec);
         printf("Alarm date is: %02d.%02d.%02d\n\n", time.tm_mday, (time.tm_mon + 1), (time.tm_year + 1900));
