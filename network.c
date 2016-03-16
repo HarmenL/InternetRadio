@@ -56,8 +56,8 @@ char* httpGet(char address[]){
     sprintf(http, "GET %s HTTP/1.1\r\nHost: saltyradio.jancokock.me \r\n\r\n", address);
     int len = sizeof(http);
 
-    char buffer[700];
-    memset(buffer, 0, 700);
+    char buffer[800];
+    memset(buffer, 0, 800);
 
     if (NutTcpConnect(sock, inet_addr("62.195.226.247"), 80)) {
         printf("Can't connect to server\n");
@@ -72,7 +72,7 @@ char* httpGet(char address[]){
             NutDelay(1000);
             NutTcpReceive(sock, buffer, sizeof(buffer));
             //fread(buffer, 1, sizeof(buffer), stream);
-            NutDelay(1000);
+            NutDelay(1200);
             printf(buffer);
         };
         //fclose(stream);
