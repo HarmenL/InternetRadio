@@ -20,14 +20,11 @@
 
 #include "log.h"
 #include "ntp.h"
+#include "eeprom.h"
+#include "typedefs.h"
 
 #define TIME_ZONE 1
 #define LOG_MODULE  LOG_NTP_MODULE
-
-typedef struct _Eeprom_tm {
-    size_t len;
-    tm tm_struct;
-} Eeprom_tm;
 
 bool isSyncing;
 bool validTime = false;
@@ -47,32 +44,54 @@ bool NtpIsSyncing(void){
 }
 
 void NtpCheckValidTime(void){
+    TCache *cache;
 
-    Eeprom_tm eeprom_tm_struct;
-
-    NutNvMemLoad(256, &eeprom_tm_struct, sizeof(eeprom_tm_struct));
-
-    if (eeprom_tm_struct.len != sizeof(eeprom_tm_struct)){
-        // Size mismatch: There is no valid configuration present.
-        puts("NtpCheckValidTime(): Size mismatch");
+    if (EepromGetCache(cache) == false){
+        puts("NtpCheckValidTime(): No cache available");
         validTime = false;
         return;
     }
 
-    // Valid configuration available.
-    puts("NtpCheckValidTime(): Valid config available");
-    tm stored_tm = eeprom_tm_struct.tm_struct;
+    // Cache is present
+    puts("NtpCheckValidTime(): Cache is available");
 
-    // Check time is valid;
+    // Check if time is valid;
     tm current_tm;
     X12RtcGetClock(&current_tm);
 
-    validTime = NtpCompareTime(current_tm, stored_tm);
+    validTime = NtpCompareTime(current_tm, cache->last_sync);
+
     if (validTime){
         puts("NtpCheckValidTime(): Time was valid");
     }else {
         puts("NtpCheckValidTime(): Invalid time!");
     }
+
+//    Eeprom_tm eeprom_tm_struct;
+//
+//    NutNvMemLoad(256, &eeprom_tm_struct, sizeof(eeprom_tm_struct));
+//
+//    if (eeprom_tm_struct.len != sizeof(eeprom_tm_struct)){
+//        // Size mismatch: There is no valid configuration present.
+//        puts("NtpCheckValidTime(): Size mismatch");
+//        validTime = false;
+//        return;
+//    }
+//
+//    // Valid configuration available.
+//    puts("NtpCheckValidTime(): Valid config available");
+//    tm stored_tm = eeprom_tm_struct.tm_struct;
+//
+//    // Check time is valid;
+//    tm current_tm;
+//    X12RtcGetClock(&current_tm);
+//
+//    validTime = NtpCompareTime(current_tm, stored_tm);
+//    if (validTime){
+//        puts("NtpCheckValidTime(): Time was valid");
+//    }else {
+//        puts("NtpCheckValidTime(): Invalid time!");
+//    }
 }
 
 //Tests if t1 is after t2.
@@ -145,15 +164,20 @@ void NtpSync(void){
 }
 
 void NtpWriteTimeToEeprom(tm time_struct){
-    Eeprom_tm eeprom_tm_struct;
+    TCache cache;
 
-    eeprom_tm_struct.len = sizeof(eeprom_tm_struct);
-    eeprom_tm_struct.tm_struct = time_struct;
+    cache.last_sync = time_struct;
+    EepromSetCache(&cache);
 
-    int success = NutNvMemSave(256, &eeprom_tm_struct, sizeof(eeprom_tm_struct));
-    if (success == 0){ puts("NtpWriteTimeToEeprom: Time succesfully written to eeprom"); }
-
-    NutDelay(100);
+//    Eeprom_tm eeprom_tm_struct;
+//
+//    eeprom_tm_struct.len = sizeof(eeprom_tm_struct);
+//    eeprom_tm_struct.tm_struct = time_struct;
+//
+//    int success = NutNvMemSave(256, &eeprom_tm_struct, sizeof(eeprom_tm_struct));
+//    if (success == 0){ puts("NtpWriteTimeToEeprom: Time succesfully written to eeprom"); }
+//
+//    NutDelay(100);
 }
 
 //unsigned long TmStructToEpoch(tm tm_struct){

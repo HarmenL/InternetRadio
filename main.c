@@ -20,31 +20,33 @@
 /*--------------------------------------------------------------------------*/
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 #include <sys/thread.h>
 #include <sys/timer.h>
 #include <sys/version.h>
 #include <dev/irqreg.h>
 
-#include "displayHandler.h"
-#include "system.h"
-#include "portio.h"
+// Jordy: Please keep this in alphabetical order!
 #include "display.h"
-#include "remcon.h"
+#include "displayHandler.h"
+#include "eeprom.h"
+#include "flash.h"
 #include "keyboard.h"
 #include "led.h"
 #include "log.h"
-#include "uart0driver.h"
 #include "mmc.h"
-#include "watchdog.h"
-#include "flash.h"
-#include "spidrv.h"
 #include "network.h"
-
-
-#include <time.h>
-#include "rtc.h"
 #include "ntp.h"
+#include "portio.h"
+#include "remcon.h"
+#include "rtc.h"
+#include "spidrv.h"
+#include "system.h"
+#include "uart0driver.h"
+#include "watchdog.h"
+
+
 
 
 /*-------------------------------------------------------------------------*/

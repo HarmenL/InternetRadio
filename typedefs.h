@@ -25,6 +25,8 @@
 /*--------------------------------------------------------------------------*/
 /*  Type declarations                                                       */
 /*--------------------------------------------------------------------------*/
+typedef enum {false, true} bool;
+
 /* RL: this 'table' has now a mirror table in 'Display.c' (LcdErrorStrings) */
 /*     Make sure that any modification made to this table are reflected by  */
 /*     the LcdErrorStirngs table! (an error is bad but showing the wrong    */
