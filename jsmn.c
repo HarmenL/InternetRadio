@@ -328,3 +328,10 @@ int getIntegerToken(const char *json, jsmntok_t *tok){
 	sprintf(s, "%.*s", tok->end - tok->start, json + tok->start);
 	return atoi(s);
 }
+
+/**
+ * Get the value of the token in a char[] format.
+ */
+void getStringToken(const char *json, jsmntok_t *tok, char *res){
+	sprintf(res, "%.*s", tok->end - tok->start, json + tok->start);
+}

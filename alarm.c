@@ -3,12 +3,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include <assert.h>
 
 #include "log.h"
 #include "rtc.h"
 #include "alarm.h"
 
-#define n 3
+#define n 2
 
 
 struct _snooze
@@ -37,12 +38,26 @@ int checkAlarms(){
 	return 0;
 }
 
+int alarmExist(int id){
+	int g;
+	for (g = 0; g < n; g++){
+		if (alarm[g].id == id){
+			return g;
+		}
+	}
+	return -1;
+}
+
 struct _alarm getAlarm(int idx){
 	return alarm[idx];
 }
 
 int getState(int idx){
 	return alarm[idx].state;
+}
+
+int maxAlarms(){
+	return n;
 }
 
 void setState(int idx){
@@ -74,15 +89,16 @@ void setState(int idx){
 	}
 }*/
 
-void setAlarm(struct _tm time, char* name, char* ip, u_short port, int snooze, int type, int idx){
+void setAlarm(struct _tm time, char* name, char* ip, u_short port, char* url, int snooze, int id, int idx){
 	alarm[idx].time = time;
 	
 	strncpy(alarm[idx].name, name, sizeof(alarm[idx].name));
-	strncpy(alarm[idx].ip, name, sizeof(alarm[idx].ip));
+	strncpy(alarm[idx].ip, ip, sizeof(alarm[idx].ip));
 	alarm[idx].port = port;
-	
+	strncpy(alarm[idx].url, url, sizeof(alarm[idx].url));
+
 	alarm[idx].snooze = snooze;
-	alarm[idx].type = type;
+	alarm[idx].id = id;
 	alarm[idx].state = 0;
 
 	//snooze[idx].snoozeStart = time;
@@ -94,10 +110,11 @@ void setAlarm(struct _tm time, char* name, char* ip, u_short port, int snooze, i
 
 void deleteAlarm(int idx){
 	struct _tm tm;
+	tm.tm_year = 0;
 	alarm[idx].time = tm;
 	alarm[idx].port = 0;
 	alarm[idx].snooze = 5;
-	alarm[idx].type = -1;
+	alarm[idx].id = -1;
 	alarm[idx].state = -1;
 }
 
