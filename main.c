@@ -222,7 +222,6 @@ THREAD(AlarmSync, arg)
 {
     for(;;)
     {
-        printf("tset");
         if(initialized && (hasNetworkConnection() == true))
         {
             isAlarmSyncing = 1;
@@ -231,7 +230,7 @@ THREAD(AlarmSync, arg)
             free(content);
             isAlarmSyncing = 0;
         }
-        NutSleep(30000);
+        NutSleep(3000);
     }
     NutThreadExit();
 }
@@ -292,7 +291,7 @@ int main(void)
 
     NutThreadCreate("BackgroundThread", StartupInit, NULL, 1024);
     NutThreadCreate("BackgroundThread", AlarmSync, NULL, 2500);
-    NutThreadCreate("BackgroundThread", NTPSync, NULL, 1024);
+    NutThreadCreate("BackgroundThread", NTPSync, NULL, 700);
     /** Quick fix for turning off the display after 10 seconds boot */
 
     RcInit();
@@ -372,6 +371,7 @@ int main(void)
 						handleAlarm(idx);
 						NutDelay(50);
 						LcdBackLight(LCD_BACKLIGHT_OFF);
+                        stopStream();
 					}
 				}
 			}

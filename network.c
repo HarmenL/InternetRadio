@@ -115,7 +115,7 @@ void parseAlarmJson(char* content){
     int r;
     int i;
     jsmn_parser p;
-    jsmntok_t token[300]; /* We expect no more than 128 tokens */
+    jsmntok_t token[100]; /* We expect no more than 128 tokens */
 
     jsmn_init(&p);
     r = jsmn_parse(&p, content, strlen(content), token, sizeof(token)/sizeof(token[0]));
@@ -128,10 +128,20 @@ void parseAlarmJson(char* content){
 
 
     int start = 0;
+    int usedAlarms[maxAlarms()];
+    int j;
+    for(j = 0; j < maxAlarms(); j++){
+        usedAlarms[j] = 0;
+    }
     for(i = 1; i < r; i++)
     {
         struct _tm time = GetRTCTime();
-        for (i = i; !((i + start) % 21 == 0); i++) {
+        u_short port;
+        char url[24];
+        char ip[24];
+        char name[16];
+        int id;
+        for (i = i; !((i + start) % 22 == 0); i++) {
             if (jsoneq(content, &token[i], "YYYY") == 0) {
                 time.tm_year= getIntegerToken(content, &token[i + 1]) - 1900;
                 i++;
@@ -150,14 +160,50 @@ void parseAlarmJson(char* content){
             }else if (jsoneq(content, &token[i], "ss") == 0) {
                 time.tm_sec = getIntegerToken(content, &token[i + 1]);
                 i++;
+            }else if (jsoneq(content, &token[i], "id") == 0) {
+                id = getIntegerToken(content, &token[i + 1]);
+                i++;
+            }else if (jsoneq(content, &token[i], "port") == 0) {
+                port = getIntegerToken(content, &token[i + 1]);
+                i++;
+            }else if (jsoneq(content, &token[i], "ip") == 0) {
+                getStringToken(content, &token[i + 1], ip);
+                i++;
+            }else if (jsoneq(content, &token[i], "url") == 0) {
+                getStringToken(content, &token[i + 1], url);
+                i++;
+            }else if (jsoneq(content, &token[i], "name") == 0) {
+                getStringToken(name, &token[i + 1], name);
+                i++;
             }
-            start = 1;
         }
-        printf("Alarm time is: %02d:%02d:%02d\n", time.tm_hour, time.tm_min, time.tm_sec);
-        printf("Alarm date is: %02d.%02d.%02d\n\n", time.tm_mday, (time.tm_mon + 1), (time.tm_year + 1900));
+        start = 1;
 
-        X12RtcSetAlarm(0,&time,0b11111111);
+        int idx = alarmExist(id);
+        if(idx == -1){
+            printf("New alarm found!\n");
+            printf("Alarm time is: %02d:%02d:%02d\n", time.tm_hour, time.tm_min, time.tm_sec);
+            printf("Alarm date is: %02d.%02d.%02d\n", time.tm_mday, (time.tm_mon + 1), (time.tm_year + 1900));
+            printf("Alarm stream data is: %s:%d%s\n", ip, port, url);
+            printf("Alarm id and name is: %d %s\n\n", id, name);
+
+            //zoek naar een vrije plaats in de alarm array
+            for(j = 0; j < maxAlarms(); j++){
+                if(usedAlarms[j] == 0){ //Dit is een lege plaats, hier kunnen we ons nieuwe alarm plaatsen
+                    setAlarm(time, name, ip, port, url, 5, id, j);
+                    usedAlarms[j] = 1;
+                    j = 10;
+                }
+            }
+        }else{
+            usedAlarms[idx] = 1; //Alarm bestaat al, dus we houden deze plaats vrij voor dat alarm
+        }
         NutDelay(1000);
+    }
+    for(j = 0; j < maxAlarms(); j++){ //Alle overige plaatsen, die wij niet gezet hebben, verwijderen.
+        if(usedAlarms[j] == 0){
+            deleteAlarm(j);
+        };
     }
 }
 

@@ -73,6 +73,11 @@ int jsoneq(const char *json, jsmntok_t *tok, const char *s);
 int getIntegerToken(const char *json, jsmntok_t *tok);
 
 /**
+ * Get the value of the token in a string format.
+ */
+void getStringToken(const char *json, jsmntok_t *tok, char* res);
+
+/**
  * Run JSON parser. It parses a JSON data string into and array of tokens, each describing
  * a single JSON object.
  */
