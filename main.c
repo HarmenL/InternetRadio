@@ -315,9 +315,6 @@ int main(void)
 	tm.tm_sec +=20;
 	setAlarm(tm,"    test5678      ", "0.0.0.0", 8001,1,0,1);*/
 
-/*    if(hasNetworkConnection() == true){
-        playStream("145.58.53.152", 80, "/3fm-bb-mp3");
-    }*/
     start = time(0) - 10;
     unsigned char VOL = 64;
 
@@ -339,6 +336,10 @@ int main(void)
 				LcdBackLight(LCD_BACKLIGHT_OFF);
 			}
 		}
+
+        if (KbGetKey() == KEY_01){
+            playStream("145.58.53.152", 80, "/3fm-bb-mp3");
+        }
 
         VOL = VOL2;
         if(KbGetKey() == KEY_DOWN)
