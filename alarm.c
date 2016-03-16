@@ -9,7 +9,7 @@
 #include "rtc.h"
 #include "alarm.h"
 
-#define n 5
+#define n 2
 
 
 struct _snooze
@@ -110,6 +110,7 @@ void setAlarm(struct _tm time, char* name, char* ip, u_short port, char* url, in
 
 void deleteAlarm(int idx){
 	struct _tm tm;
+	tm.tm_year = 0;
 	alarm[idx].time = tm;
 	alarm[idx].port = 0;
 	alarm[idx].snooze = 5;

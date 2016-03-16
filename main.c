@@ -384,6 +384,5 @@ int main(void)
         VOL2 = VOL;
         WatchDogRestart();
     }
-
     return(0);
 }

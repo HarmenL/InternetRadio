@@ -127,7 +127,7 @@ void parseAlarmJson(char* content){
 
 
 
-    int start = 0;
+    int start = 1;
     int usedAlarms[maxAlarms()];
     int j;
     for(j = 0; j < maxAlarms(); j++){
@@ -141,7 +141,7 @@ void parseAlarmJson(char* content){
         char ip[24];
         char name[16];
         int id;
-        for (i = i; !((i + start) % 22 == 0); i++) {
+        for (i = i; !((i + start) % 23 == 0); i++) {
             if (jsoneq(content, &token[i], "YYYY") == 0) {
                 time.tm_year= getIntegerToken(content, &token[i + 1]) - 1900;
                 i++;
@@ -177,7 +177,7 @@ void parseAlarmJson(char* content){
                 i++;
             }
         }
-        start = 1;
+        start = 0;
 
         int idx = alarmExist(id);
         if(idx == -1){
