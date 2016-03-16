@@ -9,8 +9,8 @@
  */
 
 /*! \file
- *  COPYRIGHT (C) STREAMIT BV 2010
- *  \date 19 december 2003
+ *  COPYRIGHT (C) SaltyRadio 2016
+ *  \date 20-02-2016
  */
 
 #define LOG_MODULE  LOG_MAIN_MODULE
@@ -28,10 +28,12 @@
 #include <dev/irqreg.h>
 
 // Jordy: Please keep this in alphabetical order!
+#include "alarm.h"
 #include "display.h"
 #include "displayHandler.h"
 #include "eeprom.h"
 #include "flash.h"
+#include "httpstream.h"
 #include "keyboard.h"
 #include "led.h"
 #include "log.h"
@@ -45,17 +47,6 @@
 #include "system.h"
 #include "uart0driver.h"
 #include "watchdog.h"
-
-
-
-
-/*-------------------------------------------------------------------------*/
-/* global variable definitions                                             */
-/*-------------------------------------------------------------------------*/
-
-/*-------------------------------------------------------------------------*/
-/* local variable definitions                                              */
-/*-------------------------------------------------------------------------*/
 
 
 /*-------------------------------------------------------------------------*/
@@ -80,7 +71,6 @@ static void SysControlMainBeat(u_char);
 /*-------------------------------------------------------------------------*/
 
 
-/* ����������������������������������������������������������������������� */
 /*!
  * \brief ISR MainBeat Timer Interrupt (Timer 2 for Mega128, Timer 0 for Mega256).
  *
@@ -91,7 +81,6 @@ static void SysControlMainBeat(u_char);
  *
  * \param *p not used (might be used to pass parms from the ISR)
  */
-/* ����������������������������������������������������������������������� */
 static void SysMainBeatInterrupt(void *p)
 {
 
@@ -102,8 +91,6 @@ static void SysMainBeatInterrupt(void *p)
     CardCheckCard();
 }
 
-
-/* ����������������������������������������������������������������������� */
 /*!
  * \brief Initialise Digital IO
  *  init inputs to '0', outputs to '1' (DDRxn='0' or '1')
@@ -111,7 +98,6 @@ static void SysMainBeatInterrupt(void *p)
  *  Pull-ups are enabled when the pin is set to input (DDRxn='0') and then a '1'
  *  is written to the pin (PORTxn='1')
  */
-/* ����������������������������������������������������������������������� */
 void SysInitIO(void)
 {
     /*
@@ -168,12 +154,10 @@ void SysInitIO(void)
     outp(0x18, DDRG);
 }
 
-/* ����������������������������������������������������������������������� */
 /*!
  * \brief Starts or stops the 4.44 msec mainbeat of the system
  * \param OnOff indicates if the mainbeat needs to start or to stop
  */
-/* ����������������������������������������������������������������������� */
 static void SysControlMainBeat(u_char OnOff)
 {
     int nError = 0;
@@ -193,58 +177,103 @@ static void SysControlMainBeat(u_char OnOff)
     }
 }
 
-int timer(time_t start){
-	time_t diff = time(0) - start;
-	return diff;
-}
 
-int checkOffPressed(){
-	if (KbScan() < -1){
-		LcdBackLight(LCD_BACKLIGHT_ON);
-		return 1;
-	} else {
-		return 0;
-	}
-}
+/*-------------------------------------------------------------------------*/
+/* global variable definitions                                             */
+/*-------------------------------------------------------------------------*/
+int isAlarmSyncing;
+int initialized;
 
-/* ����������������������������������������������������������������������� */
-/*!
- * \brief Main entry of the SIR firmware
- *
- * All the initialisations before entering the for(;;) loop are done BEFORE
- * the first key is ever pressed. So when entering the Setup (POWER + VOLMIN) some
- * initialisatons need to be done again when leaving the Setup because new values
- * might be current now
- *
- * \return \b never returns
- */
-/* ����������������������������������������������������������������������� */
 
+/*-------------------------------------------------------------------------*/
+/* local variable definitions                                              */
+/*-------------------------------------------------------------------------*/
+
+/*-------------------------------------------------------------------------*/
+/* Thread init                                                             */
+/*-------------------------------------------------------------------------*/
 THREAD(StartupInit, arg)
 {
     NetworkInit();
+
     NtpSync();
+
+    initialized = 1;
     NutThreadExit();
 }
 
+THREAD(NTPSync, arg)
+{
+    for(;;)
+    {
+        if(initialized && (hasNetworkConnection() == true))
+        {
+            while(isAlarmSyncing)
+            {
+                NutSleep(2000);
+            }
+            NtpSync();
+        }
+        NutSleep(86400000);
+    }
+}
+
+THREAD(AlarmSync, arg)
+{
+    for(;;)
+    {
+        if(initialized && (hasNetworkConnection() == true))
+        {
+            isAlarmSyncing = 1;
+            char* content = httpGet("/getAlarmen.php?radioid=DE370");
+            parseAlarmJson(content);
+            free(content);
+            isAlarmSyncing = 0;
+        }
+        NutSleep(30000);
+    }
+    NutThreadExit();
+}
+
+/*-------------------------------------------------------------------------*/
+/* Global functions                                                        */
+/*-------------------------------------------------------------------------*/
+
+int timer(time_t start){
+    time_t diff = time(0) - start;
+    return diff;
+}
+
+int checkOffPressed(){
+    if (KbGetKey() == KEY_POWER){
+        LcdBackLight(LCD_BACKLIGHT_ON);
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+
+
 int main(void)
 {
-	time_t start;
-	int running = 0;
+	initialized = 0;
+    int VOL2;
+    time_t start;
+	int idx = 0;
 
-    /*
-     *  First disable the watchdog
-     */
+	int running;
+
     WatchDogDisable();
 
     NutDelay(100);
-	
+
     SysInitIO();
-	
+
 	SPIinit();
-    
+
 	LedInit();
-	
+
 	LcdLowLevelInit();
 
     Uart0DriverInit();
@@ -255,31 +284,21 @@ int main(void)
 
     X12Init();
 
+    VsPlayerInit();
+
     LcdBackLight(LCD_BACKLIGHT_ON);
     NtpInit();
 
-    NutThreadCreate("BackgroundThread", StartupInit, NULL, 512);
-    
+    NutThreadCreate("BackgroundThread", StartupInit, NULL, 1024);
+    NutThreadCreate("BackgroundThread", AlarmSync, NULL, 1024);
+    NutThreadCreate("BackgroundThread", NTPSync, NULL, 1024);
     /** Quick fix for turning off the display after 10 seconds boot */
-    start = time(0);
-    running = 1;
-
-	/*
-	 * Kroeske: sources in rtc.c en rtc.h
-	 */
-
-    if (At45dbInit()==AT45DB041B)
-    {
-        // ......
-    }
-
-
 
     RcInit();
-    
+
 	KbInit();
 
-    SysControlMainBeat(ON);             // enable 4.4 msecs hartbeat interrupt
+    SysControlMainBeat(ON);             // enable 4.4 msecs heartbeat interrupt
 
     /*
      * Increase our priority so we can feed the watchdog.
@@ -288,15 +307,31 @@ int main(void)
 
 	/* Enable global interrupts */
 	sei();
-	
+
+   /* struct _tm tm;
+	tm = GetRTCTime();
+	tm.tm_sec += 10;
+    setAlarm(tm,"    test1234      ", "0.0.0.0", 8001,1,0,0);
+	tm.tm_sec +=20;
+	setAlarm(tm,"    test5678      ", "0.0.0.0", 8001,1,0,1);*/
+
+/*    if(hasNetworkConnection() == true){
+        playStream("145.58.53.152", 80, "/3fm-bb-mp3");
+    }*/
+    start = time(0) - 10;
+    unsigned char VOL = 64;
+
+    running = 1;
+
     for (;;)
-    {		
+    {
 		//Check if a button is pressed
 		if (checkOffPressed() == 1){
 			start = time(0);
 			running = 1;
+            LcdBacklightKnipperen(startLCD);
 		}
-		
+
 		//Check if background LED is on, and compare to timer
 		if (running == 1){
 			if (timer(start) >= 10){
@@ -305,11 +340,49 @@ int main(void)
 			}
 		}
 
-        displayDate(0);
-		displayTime(1);
-		
+        VOL = VOL2;
+        if(KbGetKey() == KEY_DOWN)
+        {
+            NutSleep(150);
+            start = time(0);
+            if(VOL > 8){
+                VOL -= 8;
+                VsSetVolume (128-VOL, 128-VOL);
+                displayVolume(VOL/8);
+            }
+        }
+        else if(KbGetKey() == KEY_UP)
+        {
+            NutSleep(150);
+            start = time(0);
+            if(VOL < 128) {
+                VOL += 8;
+                VsSetVolume(128-VOL, 128-VOL);
+                displayVolume(VOL/8);
+            }
+        }
+        else if(timer(start) >= 5 && checkAlarms() == 1)
+        {
+			for (idx = 0; idx < 3; idx++){
+				if (getState(idx) == 1){
+					displayAlarm(0,1,idx);
+					if (KbGetKey() == KEY_ESC){
+						NutDelay(50);
+						handleAlarm(idx);
+						NutDelay(50);
+						LcdBackLight(LCD_BACKLIGHT_OFF);
+					}
+				}
+			}
+		}
+		else if (timer(start) >= 5){
+            displayTime(0);
+            displayDate(1);
+		}
+
+        VOL2 = VOL;
         WatchDogRestart();
     }
 
-    return(0);      // never reached, but 'main()' returns a non-void, so.....
+    return(0);
 }

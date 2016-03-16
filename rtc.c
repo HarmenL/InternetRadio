@@ -352,7 +352,7 @@ int X12RtcGetStatus(u_long *sflgs)
  */
 int X12RtcClearStatus(u_long sflgs)
 {
-    rtc_status &= ~sflgs;
+    rtc_status &= sflgs;
 
     return(0);
 }

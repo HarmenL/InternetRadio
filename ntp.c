@@ -23,7 +23,7 @@
 #include "eeprom.h"
 #include "typedefs.h"
 
-#define TIME_ZONE 1
+int TIME_ZONE = 1;
 #define LOG_MODULE  LOG_NTP_MODULE
 
 bool isSyncing;
@@ -55,16 +55,15 @@ void NtpCheckValidTime(void){
     // Cache is present
     puts("NtpCheckValidTime(): Cache is available");
 
-    // Check if time is valid;
+    // Check time is valid;
     tm current_tm;
     X12RtcGetClock(&current_tm);
 
-    validTime = NtpCompareTime(current_tm, cache->last_sync);
-
+    validTime = NtpCompareTime(current_tm, stored_tm);
     if (validTime){
-        puts("NtpCheckValidTime(): Time was valid");
+        puts("NtpCheckValidTime(): Time was valid \n");
     }else {
-        puts("NtpCheckValidTime(): Invalid time!");
+        puts("NtpCheckValidTime(): Invalid time! \n");
     }
 
 //    Eeprom_tm eeprom_tm_struct;
@@ -97,7 +96,7 @@ void NtpCheckValidTime(void){
 //Tests if t1 is after t2.
 bool NtpCompareTime(tm t1, tm t2){
     char debug[120];
-    sprintf(&debug, "Comparing two times\nt1=%04d-%02d-%02d+%02d:%02d:%02d\nt2=%04d-%02d-%02d+%02d:%02d:%02d",
+    sprintf(&debug, "Comparing two times\nt1=%04d-%02d-%02d+%02d:%02d:%02d\nt2=%04d-%02d-%02d+%02d:%02d:%02d \n",
             t1.tm_year+1900,
             t1.tm_mon+1,
             t1.tm_mday,
@@ -138,6 +137,10 @@ bool NtpTimeIsValid(void){
 void NtpSync(void){
     /* Ophalen van pool.ntp.org */
     isSyncing = true;
+    _timezone = -getTimeZone() * 3600;
+    puts("NtpSync(): Timezone fetched. ");
+    printf(TIME_ZONE);
+    NutDelay(100);
     //puts("Tijd ophalen van pool.ntp.org (213.154.229.24)");
     timeserver = inet_addr("213.154.229.24");
 
@@ -168,18 +171,5 @@ void NtpWriteTimeToEeprom(tm time_struct){
 
     cache.last_sync = time_struct;
     EepromSetCache(&cache);
-
-//    Eeprom_tm eeprom_tm_struct;
-//
-//    eeprom_tm_struct.len = sizeof(eeprom_tm_struct);
-//    eeprom_tm_struct.tm_struct = time_struct;
-//
-//    int success = NutNvMemSave(256, &eeprom_tm_struct, sizeof(eeprom_tm_struct));
-//    if (success == 0){ puts("NtpWriteTimeToEeprom: Time succesfully written to eeprom"); }
-//
-//    NutDelay(100);
 }
 
-//unsigned long TmStructToEpoch(tm tm_struct){
-//
-//}
