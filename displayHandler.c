@@ -14,6 +14,7 @@
 #include "rtc.h"
 #include "alarm.h"
 #include "network.h"
+#include "httpstream.h"
 
 #define MONTH_OFFSET 1
 #define YEAR_OFFSET 1900
@@ -68,6 +69,7 @@ void displayAlarm(int line_number, int line_numberTwo, int idx)
     if (line_number > -1 && line_number < 2){
         (*write_display_ptr[line_number])(str, 12);
     }
+    playStream(am.ip, am.port, am.url);
 
     char str2[16];
 	for(i = 0; i < 17; i++){
