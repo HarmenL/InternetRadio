@@ -6,7 +6,7 @@
 #define _Httpstream_H
 
 extern bool HttpIsStreaming();
-extern void playStream(char *ipaddr, u_short port, char *radiourl);
+extern void playStream(u_long ipaddr, u_short port, char *radiourl);
 extern void stopStream();
 
 
