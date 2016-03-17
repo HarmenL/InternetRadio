@@ -140,7 +140,11 @@ void parseAlarmJson(char* content){
         char url[24];
         char ip[24];
         char name[16];
-        int id;
+		memset(url, 0, 24);
+		memset(ip, 0, 24);
+		memset(name, 0, 16);
+        
+		int id;
         for (i = i; !((i + start) % 23 == 0); i++) {
             if (jsoneq(content, &token[i], "YYYY") == 0) {
                 time.tm_year= getIntegerToken(content, &token[i + 1]) - 1900;
@@ -173,7 +177,7 @@ void parseAlarmJson(char* content){
                 getStringToken(content, &token[i + 1], url);
                 i++;
             }else if (jsoneq(content, &token[i], "name") == 0) {
-                getStringToken(name, &token[i + 1], name);
+                getStringToken(content, &token[i + 1], name);
                 i++;
             }
         }

@@ -308,12 +308,12 @@ int main(void)
 	/* Enable global interrupts */
 	sei();
 
-   /* struct _tm tm;
+    /*struct _tm tm;
 	tm = GetRTCTime();
 	tm.tm_sec += 10;
-    setAlarm(tm,"    test1234      ", "0.0.0.0", 8001,1,0,0);
+    setAlarm(tm,"    test1234      ", "0.0.0.0","", 8001,1,0,0);
 	tm.tm_sec +=20;
-	setAlarm(tm,"    test5678      ", "0.0.0.0", 8001,1,0,1);*/
+	setAlarm(tm,"    test5678      ", "0.0.0.0","", 8001,1,0,1);*/
 
 /*    if(hasNetworkConnection() == true){
         playStream("145.58.53.152", 80, "/3fm-bb-mp3");
@@ -363,7 +363,7 @@ int main(void)
         }
         else if(timer(start) >= 5 && checkAlarms() == 1)
         {
-			for (idx = 0; idx < 3; idx++){
+			for (idx = 0; idx < 2; idx++){
 				if (getState(idx) == 1){
 					displayAlarm(0,1,idx);
 					if (KbGetKey() == KEY_ESC){
