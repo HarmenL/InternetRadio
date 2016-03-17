@@ -48,10 +48,10 @@ THREAD(Stream, args)
     NutThreadExit();
 }
 
-void playStream(char *ipaddr, u_short port, char *radiourl){
+void playStream(u_long ipaddr, u_short port, char *radiourl){
     if(isStreaming != true){
         isStreaming = true;
-        ConnectStation(sock, inet_addr(ipaddr), port, radiourl, &metaint);
+        ConnectStation(sock, ipaddr, port, radiourl, &metaint);
         NutThreadCreate("Stream", Stream, NULL, 1024);
     }
 }

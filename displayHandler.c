@@ -85,7 +85,7 @@ void displayVolume(int pos)
 {
     ClearLcd();
     int i;
-    LcdArrayLineOne("     Volume     ", 16);
+    (*write_display_ptr[0])("     Volume     ", 16);
 
     char characters[17];
 
@@ -93,7 +93,8 @@ void displayVolume(int pos)
     {
         characters[i] = 0xFF;
     }
-        LcdArrayLineTwo(characters,pos);
+
+    (*write_display_ptr[1])(characters, pos);
 }
 
 

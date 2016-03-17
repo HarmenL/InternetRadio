@@ -36,15 +36,11 @@ typedef struct _TCache
     tm last_sync;                      // TODO: figure out the size
 } TCache;
 
-typedef struct _TAlarmGeneral
-{
-    char snooze_time;                 // size = ?, desc: snooze_time in minutes.
-} TAlarmGeneral;
-
-typedef struct _TAlarm
+typedef struct _TAlarm // Max 5
 {
     tm alarm_time;
     char name[16];
+    char snooze_time;                 // size = ?, desc: snooze_time in minutes.
 } TAlarm;
 
 /*!\brief Settings to write on Eeprom */
@@ -52,7 +48,7 @@ typedef struct _TSettings
 {
     size_t              Checksum;      // Checksum for validation TSettings-struct
     TSettingsSystem     System;        // System settings
-    TAlarmGeneral       Alarm_general; // General alarms settings
+    TAlarm              Alarm_general; // Alarms settings
     TCache              Cache;         // Cache
 } TSettings;
 

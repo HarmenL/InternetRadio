@@ -190,7 +190,7 @@ void parseAlarmJson(char* content){
             //zoek naar een vrije plaats in de alarm array
             for(j = 0; j < maxAlarms(); j++){
                 if(usedAlarms[j] == 0){ //Dit is een lege plaats, hier kunnen we ons nieuwe alarm plaatsen
-                    setAlarm(time, name, ip, port, url, 5, id, j);
+                    setAlarm(time, name, inet_addr(ip), port, url, 5, id, j);
                     usedAlarms[j] = 1;
                     j = 10;
                 }
