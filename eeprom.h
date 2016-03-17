@@ -27,21 +27,33 @@
 /*!\brief System settings */
 typedef struct _TSettingsSystem
 {
-    u_long  lSerialnumber;         // size = 4
-} TSettingsSystem;                 // totalsize = 4
+    u_long  lSerialnumber;             // size = 4
+} TSettingsSystem;                     // totalsize = 4
 
 /*!\brief System Cache */
 typedef struct _TCache
 {
-    tm last_sync;                  // TODO: figure out the size
+    tm last_sync;                      // TODO: figure out the size
 } TCache;
+
+typedef struct _TAlarmGeneral
+{
+    char snooze_time;                 // size = ?, desc: snooze_time in minutes.
+} TAlarmGeneral;
+
+typedef struct _TAlarm
+{
+    tm alarm_time;
+    char name[16];
+} TAlarm;
 
 /*!\brief Settings to write on Eeprom */
 typedef struct _TSettings
 {
-    size_t              Checksum;  // Checksum for validation TSettings-struct
-    TSettingsSystem     System;    // System settings
-    TCache              Cache;     // Cache
+    size_t              Checksum;      // Checksum for validation TSettings-struct
+    TSettingsSystem     System;        // System settings
+    TAlarmGeneral       Alarm_general; // General alarms settings
+    TCache              Cache;         // Cache
 } TSettings;
 
 
