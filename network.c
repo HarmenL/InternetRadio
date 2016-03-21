@@ -54,48 +54,39 @@ char* httpGet(char address[]){
 
     char http[strlen(address) + 49]; //49 chars based on get command. Change this number if you change the domain name
     sprintf(http, "GET %s HTTP/1.1\r\nHost: saltyradio.jancokock.me \r\n\r\n", address);
-    int len = sizeof(http);
 
-    char buffer[800];
-    memset(buffer, 0, 800);
+    char buffer[2];
+    char* content = (char*) calloc(1 , 512);
+    int enters = 0;
+    int t = 0;
 
     if (NutTcpConnect(sock, inet_addr("62.195.226.247"), 80)) {
         printf("Can't connect to server\n");
     }else{
-        //FILE *stream;
-        //stream = _fdopen((int) sock, "r b");
-        if(NutTcpSend(sock, http, len) != len){
-            printf("Writing headers failed.\n");
-            NutDelay(1000);
-        }else{
+        FILE *stream;
+        stream = _fdopen((int) sock, "r+b");
+            fprintf(stream, http);
+            fflush(stream);
             printf("Headers %s writed. Now reading.", http);
-            NutDelay(1000);
-            NutTcpReceive(sock, buffer, sizeof(buffer));
-            //fread(buffer, 1, sizeof(buffer), stream);
-            NutDelay(1200);
-            printf(buffer);
-        };
-        //fclose(stream);
+            NutDelay(3000);
+            //Removing header:
+            while(fgets(buffer, sizeof(buffer), stream) != NULL) {
+                if(enters == 4) {
+                    content[t] = buffer[0];
+                    t++;
+                }else {
+                    if (buffer[0] == '\n' || buffer[0] == '\r') {
+                        enters++;
+                    }
+                    else {
+                        enters = 0;
+                    }
+                }
+            }
+        fclose(stream);
     }
     NutTcpCloseSocket(sock);
-    int i;
-    int enters = 0;
-    int t = 0;
-    char* content = (char*) calloc(1 , sizeof(buffer));
-    for(i = 0; i < strlen(buffer); i++)
-    {
-        if(enters == 4) {
-            content[t] = buffer[i];
-            t++;
-        }else {
-            if (buffer[i] == '\n' || buffer[i] == '\r') {
-                enters++;
-            }
-            else {
-                enters = 0;
-            }
-        }
-    }
+
     content[t] = '\0';
     printf("\nContent size: %d, Content: %s \n", t, content);
     isReceiving = false;
@@ -173,7 +164,7 @@ void parseAlarmJson(char* content){
                 getStringToken(content, &token[i + 1], url);
                 i++;
             }else if (jsoneq(content, &token[i], "name") == 0) {
-                getStringToken(name, &token[i + 1], name);
+                getStringToken(content, &token[i + 1], name);
                 i++;
             }
         }
