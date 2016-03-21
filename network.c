@@ -47,42 +47,43 @@ void NetworkInit() {
 
 char* httpGet(char address[]){
     isReceiving = true;
-    NutDelay(1000);
     printf("\n\n #-- HTTP get -- #\n");
 
     TCPSOCKET* sock = NutTcpCreateSocket();
 
-    char http[strlen(address) + 49]; //49 chars based on get command. Change this number if you change the domain name
-    sprintf(http, "GET %s HTTP/1.1\r\nHost: saltyradio.jancokock.me \r\n\r\n", address);
-
     char buffer[2];
     char* content = (char*) calloc(1 , 512);
-    int enters = 0;
+    char enters = 0;
     int t = 0;
 
-    if (NutTcpConnect(sock, inet_addr("62.195.226.247"), 80)) {
+    if(content == 0){
+        printf("Can't calloc memory\n");
+    }else if (NutTcpConnect(sock, inet_addr("62.195.226.247"), 80)) {
         printf("Can't connect to server\n");
     }else{
         FILE *stream;
         stream = _fdopen((int) sock, "r+b");
-            fprintf(stream, http);
-            fflush(stream);
-            printf("Headers %s writed. Now reading.", http);
-            NutDelay(3000);
-            //Removing header:
-            while(fgets(buffer, sizeof(buffer), stream) != NULL) {
-                if(enters == 4) {
-                    content[t] = buffer[0];
-                    t++;
-                }else {
-                    if (buffer[0] == '\n' || buffer[0] == '\r') {
-                        enters++;
-                    }
-                    else {
-                        enters = 0;
-                    }
+
+        //Writing http GET to stream
+        fprintf(stream, "GET %s HTTP/1.1\r\nHost: saltyradio.jancokock.me \r\n\r\n", address);
+        fflush(stream);
+
+        printf("Headers writed. Now reading.");
+        NutDelay(500);
+        //Removing header:
+        while(fgets(buffer, sizeof(buffer), stream) != NULL) {
+            if(enters == 4) {
+                content[t] = buffer[0];
+                t++;
+            }else {
+                if (buffer[0] == '\n' || buffer[0] == '\r') {
+                    enters++;
+                }
+                else {
+                    enters = 0;
                 }
             }
+        }
         fclose(stream);
     }
     NutTcpCloseSocket(sock);
