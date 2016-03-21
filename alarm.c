@@ -5,11 +5,9 @@
 #include <time.h>
 #include <assert.h>
 
-#include "alarm.h"
 #include "log.h"
-#include "ntp.h"
-#include "typedefs.h"
 #include "rtc.h"
+#include "alarm.h"
 
 #define n 2
 
@@ -66,18 +64,18 @@ void setState(int idx){
 	struct _tm ct;
 	X12RtcGetClock(&ct);
 	
-	if (NtpCompareTime(ct, alarm[idx].time) == 1 && alarm[idx].time.tm_year != false){
+	if (compareTime(ct, alarm[idx].time) == 1 && alarm[idx].time.tm_year != 0){
 		alarm[idx].state = 1;
 	} else {
 		alarm[idx].state = 0;
 	}
 	
-	/*if (NtpCompareTime(alarm[idx].time,snooze[idx].snoozeStart)){
+	/*if (compareTime(alarm[idx].time,snooze[idx].snoozeStart)){
 		alarm[idx].state = 2;
 	}
 	
 	if (alarm[idx].state == 2){
-		if (NtpCompareTime(alarm[idx].time, snooze[idx].snoozeEnd)){
+		if (compareTime(alarm[idx].time, snooze[idx].snoozeEnd)){
 			snooze[idx].snoozeStart.tm_min += alarm[idx].snooze + 1;
 			snooze[idx].snoozeEnd.tm_min += alarm[idx].snooze + 1;
 		}
@@ -91,11 +89,11 @@ void setState(int idx){
 	}
 }*/
 
-void setAlarm(struct _tm time, char* name, u_long ip, u_short port, char* url, char snooze, int id, int idx){
+void setAlarm(struct _tm time, char* name, char* ip, u_short port, char* url, int snooze, int id, int idx){
 	alarm[idx].time = time;
 	
 	strncpy(alarm[idx].name, name, sizeof(alarm[idx].name));
-	alarm[idx].ip = ip;
+	strncpy(alarm[idx].ip, ip, sizeof(alarm[idx].ip));
 	alarm[idx].port = port;
 	strncpy(alarm[idx].url, url, sizeof(alarm[idx].url));
 
@@ -125,4 +123,26 @@ void handleAlarm(int idx){
 	alarm[idx].state = 0;
 }
 
+int compareTime(tm t1,tm t2){
+    if (t1.tm_year > t2.tm_year){
+        return 1;
+	}
+    if (t1.tm_year == t2.tm_year && t1.tm_mon > t2.tm_mon){
+        return 1;
+	}
+    if (t1.tm_year == t2.tm_year && t1.tm_mon == t2.tm_mon && t1.tm_mday > t2.tm_mday){
+        return 1;
+	}
+    if (t1.tm_year == t2.tm_year && t1.tm_mon == t2.tm_mon && t1.tm_mday == t2.tm_mday && t1.tm_hour > t2.tm_hour){
+        return 1;
+	}
+    if (t1.tm_year == t2.tm_year && t1.tm_mon == t2.tm_mon && t1.tm_mday == t2.tm_mday && t1.tm_hour == t2.tm_hour && t1.tm_min > t2.tm_min){
+        return 1;
+	}
+    if (t1.tm_year == t2.tm_year && t1.tm_mon == t2.tm_mon && t1.tm_mday == t2.tm_mday && t1.tm_hour == t2.tm_hour && t1.tm_min == t2.tm_min &&t1.tm_sec > t2.tm_sec){
+        return 1;
+	}
+
+    return 0;
+}
 
