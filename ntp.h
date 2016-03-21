@@ -5,7 +5,7 @@
 #ifndef _Ntp_H
 #define _Ntp_H
 
-#include "typedefs.h"
+typedef enum {false, true} bool;
 
 extern bool NtpIsSyncing(void);
 extern void NtpInit(void);

@@ -1,26 +1,30 @@
+/* Alarm get/set status values */
+#define ALARM_1 	5
+#define ALARM_2		6
+
+#define AFLGS		0b11111111
 
 #ifndef _ALARM_DEFINED
-typedef struct _alarm
+struct _alarm
 {
-    struct _tm time;   // Alarm time                          ?
-    u_long ip;         // IP of the stream to be played       4
-	u_short port;      // Port of the stream to be played     2
-	char url[24];      // Get url                            24
-	char name[16];     // Name of the alarm                  16
-	char snooze;       // Snooze time in minutes              1
-	int id;            // Database identifier                 2
-	signed char state; // Enum: [-1 ... 2]                    1
-} AAlarm;              // Total size:                        50 + ?
-
+	struct _tm time;
+	char ip[24];
+	u_short port;
+	char url[24];
+	char name[16];
+	int snooze;
+	int id;
+	int state;
+};
+#define _ALARM_DEFINED
+#endif
 
 void handleAlarm(int idx);
 int checkAlarms(void);
-void setAlarm(struct _tm time, char* name, u_long ip, u_short port, char* url, char snooze, int id, int idx); // TODO: Linked list?
+void setAlarm(struct _tm time, char* name, char* ip, u_short port, char* url, int snooze, int id, int idx);
 int alarmExist(int id);
 void deleteAlarm(int idx);
+int compareTime(tm t1, tm t2);
 void setState(int idx);
 int getState(int idx);
 struct _alarm getAlarm(int idx);
-
-#define _ALARM_DEFINED
-#endif
