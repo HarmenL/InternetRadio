@@ -63,17 +63,41 @@ void displayDate(int line_number) {
 void displayAlarm(int line_number, int line_numberTwo, int idx)
 {
 	int i;
-    char str[12];
+	int j;
+	int startidx;
+    char str[16];
 	struct _alarm am = getAlarm(idx);
+	
     sprintf(str, "    %02d:%02d:%02d    ", am.time.tm_hour, am.time.tm_min, am.time.tm_sec);
     if (line_number > -1 && line_number < 2){
-        (*write_display_ptr[line_number])(str, 12);
+        (*write_display_ptr[line_number])(str, 16);
     }
     playStream(am.ip, am.port, am.url);
 
+	j = 0;
     char str2[16];
-	for(i = 0; i < 17; i++){
-		str2[i] = am.name[i];
+	for (i = 0; i < 16;i++){
+		if (am.name[i] != 0){
+			j = j + 1;
+		}
+	}
+	
+	if (j != 16){
+		startidx = (8-(j/2));
+	}
+	printf("startidx: %d, %d",startidx, j);
+	j = 0;
+	for(i = 0; i < 16; i++){
+		if (i >= startidx){
+			if (am.name[j] != 0){
+				str2[i] = am.name[j];
+			} else {
+				str2[i] = ' ';
+			}
+			j++;
+		} else {
+			str2[i] = ' ';
+		}
 	}
     if (line_numberTwo > -1 && line_numberTwo < 2){
         (*write_display_ptr[line_numberTwo])(str2, 16);
