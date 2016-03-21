@@ -52,7 +52,7 @@ char* httpGet(char address[]){
     TCPSOCKET* sock = NutTcpCreateSocket();
 
     char buffer[2];
-    char* content = (char*) calloc(1 , 512);
+    char* content = (char*) calloc(1 , 800);
     char enters = 0;
     int t = 0;
 
@@ -107,7 +107,7 @@ void parseAlarmJson(char* content){
     int r;
     int i;
     jsmn_parser p;
-    jsmntok_t token[100]; /* We expect no more than 128 tokens */
+    jsmntok_t token[150]; /* We expect no more than 128 tokens */
 
     jsmn_init(&p);
     r = jsmn_parse(&p, content, strlen(content), token, sizeof(token)/sizeof(token[0]));
