@@ -225,7 +225,9 @@ THREAD(AlarmSync, arg)
         if(initialized && (hasNetworkConnection() == true))
         {
             isAlarmSyncing = 1;
-            char* content = httpGet("/getAlarmen.php?radioid=DE370");
+            char url[43];
+            sprintf(url, "%s%s", "/getAlarmen.php?radiomac=", getMacAdress());
+            char* content = httpGet(url);
             parseAlarmJson(content);
             free(content);
             isAlarmSyncing = 0;
