@@ -113,6 +113,7 @@ void parseAlarmJson(char* content){
     r = jsmn_parse(&p, content, strlen(content), token, sizeof(token)/sizeof(token[0]));
     if (r < 0) {
         printf("Failed to parse JSON: %d \n", r);
+        return;
     }else{
         printf("Aantal tokens found: %d \n", r);
     }
