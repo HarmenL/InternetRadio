@@ -2,6 +2,7 @@
 // Created by malek on 23-3-2016.
 //
 
+/*
 #include "keyboard.h"
 
 void buttonCheck()
@@ -11,4 +12,4 @@ void buttonCheck()
     for (int i = 0; i < 5; ++i) {
 
     }
-}
+}*/
