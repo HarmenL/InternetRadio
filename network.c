@@ -39,10 +39,14 @@ void NetworkInit() {
     else if (NutDhcpIfConfig(DEV_ETHER_NAME, NULL, 0)) {
         printf("DHCP failed. \n");
     }else {
-        printf("Ik heb een internet connectie. Ip is: %s \n\n", inet_ntoa(confnet.cdn_ip_addr));
+        printf("Ik heb een internet connectie. Ip is: %s \nMac address is:  %s\n\n", inet_ntoa(confnet.cdn_ip_addr),  ether_ntoa(confnet.cdn_mac));
     }
     NutSleep(2000);
     hasNetwork = true;
+}
+
+char* getMacAdress(){
+    ether_ntoa(confnet.cdn_mac);
 }
 
 char* httpGet(char address[]){
@@ -111,7 +115,7 @@ void parseAlarmJson(char* content){
 
     jsmn_init(&p);
     r = jsmn_parse(&p, content, strlen(content), token, sizeof(token)/sizeof(token[0]));
-    if (r < 0) {
+    if (r <= 0) {
         printf("Failed to parse JSON: %d \n", r);
         return;
     }else{
@@ -195,7 +199,6 @@ void parseAlarmJson(char* content){
         }else{
             usedAlarms[idx] = 1; //Alarm bestaat al, dus we houden deze plaats vrij voor dat alarm
         }
-        NutDelay(1000);
     }
     for(j = 0; j < maxAlarms(); j++){ //Alle overige plaatsen, die wij niet gezet hebben, verwijderen.
         if(usedAlarms[j] == 0){
