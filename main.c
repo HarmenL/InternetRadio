@@ -300,7 +300,7 @@ int main(void)
     NtpInit();
 
     NutThreadCreate("BackgroundThread", StartupInit, NULL, 1024);
-    NutThreadCreate("BackgroundThread", AlarmSync, NULL, 2500);
+    //NutThreadCreate("BackgroundThread", AlarmSync, NULL, 2500);
     NutThreadCreate("BackgroundThread", NTPSync, NULL, 700);
     /** Quick fix for turning off the display after 10 seconds boot */
 
@@ -322,8 +322,6 @@ int main(void)
 	tm = GetRTCTime();
 	tm.tm_sec += 10;
     setAlarm(tm,"test1234", "0.0.0.0","", 8001,1,0,0);
-	//tm.tm_sec +=20;
-	//setAlarm(tm,"    test5678      ", "0.0.0.0","", 8001,1,0,1);*/
 
 /*    if(hasNetworkConnection() == true){
         playStream("145.58.53.152", 80, "/3fm-bb-mp3");
@@ -336,7 +334,7 @@ int main(void)
 
     for (;;)
     {
-		printf("running = %d, time = %d\n", running, timerStruct(start));
+		//printf("running = %d, time = %d\n", running, timerStruct(start));
 		
 		if (timerStruct(start) < 0){
 			X12RtcGetClock(&start);
@@ -384,19 +382,19 @@ int main(void)
         }
         else if(timerStruct(timeCheck) >= 5 && checkAlarms() == 1)
         {
-			for (idx = 0; idx < 2; idx++){
+			for (idx = 0; idx < 5; idx++){
 				if (getState(idx) == 1){
 					displayAlarm(0,1,idx);
 					if (KbGetKey() == KEY_ESC){
-						NutDelay(50);
+						//NutDelay(50);
 						handleAlarm(idx);
-						NutDelay(50);
+						//NutDelay(50);
 						LcdBackLight(LCD_BACKLIGHT_OFF);
-                        //stopStream();
+                        stopStream();
 					} else if (KbGetKey() == KEY_01 || KbGetKey() == KEY_02 || KbGetKey() == KEY_03 || KbGetKey() == KEY_04 || KbGetKey() == KEY_05 || KbGetKey() == KEY_ALT){
 						setSnooze(idx);
 						LcdBackLight(LCD_BACKLIGHT_OFF);
-                        //stopStream();
+                        stopStream();
 					}
 				}
 			}
