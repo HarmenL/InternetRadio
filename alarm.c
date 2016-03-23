@@ -9,6 +9,7 @@
 #include "rtc.h"
 #include "alarm.h"
 #include "display.h"
+#include "httpstream.h"
 
 #define n 5
 
@@ -70,6 +71,7 @@ void setSnooze(int idx){
 	alarm[idx].state = 2;
 	snooze[idx].snoozeTime = ct;
 	snooze[idx].snoozeTime.tm_min += alarm[idx].snooze;
+	stopStream();
 }
 
 int daysInMonth(int m, int y) {

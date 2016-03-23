@@ -300,7 +300,7 @@ int main(void)
     NtpInit();
 
     NutThreadCreate("BackgroundThread", StartupInit, NULL, 1024);
-    //NutThreadCreate("BackgroundThread", AlarmSync, NULL, 2500);
+    NutThreadCreate("BackgroundThread", AlarmSync, NULL, 2500);
     NutThreadCreate("BackgroundThread", NTPSync, NULL, 700);
     /** Quick fix for turning off the display after 10 seconds boot */
 
@@ -318,14 +318,7 @@ int main(void)
 	/* Enable global interrupts */
 	sei();
 
-    struct _tm tm;
-	tm = GetRTCTime();
-	tm.tm_sec += 10;
-    setAlarm(tm,"test1234", "0.0.0.0","", 8001,1,0,0);
 
-/*    if(hasNetworkConnection() == true){
-        playStream("145.58.53.152", 80, "/3fm-bb-mp3");
-    }*/
     unsigned char VOL = 64;
 	
 	LcdBackLight(LCD_BACKLIGHT_OFF);
