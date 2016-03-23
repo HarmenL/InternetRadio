@@ -5,11 +5,13 @@
 #ifndef _Network_H
 #define _Network_H
 
-//bool hasNetworkConnection(void);
-//bool NetworkIsReceiving(void);
+#include "typedefs.h"
+
+bool hasNetworkConnection(void);
+bool NetworkIsReceiving(void);
 extern void NetworkInit(void);
 char* httpGet(char address[]);
 void parseAlarmJson(char* content);
-int getTimeZone();
+int getTimeZone(void);
 
 #endif /* _Network_H */

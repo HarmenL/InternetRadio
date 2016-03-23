@@ -1,11 +1,20 @@
-//
-// Created by janco on 25-2-16.
-//
+/*
+ *  Copyright 20152016-TI2.3A6, 2016.
+ *
+ *  Project             : 20152016-TI2.3a6-Internet Radio
+ *  Module              : NTP
+ *  File name           : ntp.h
+ *  Revision            : 1.1
+ *  Creation Date       : 2016
+ *
+ *  Description         : This module syncs the time from a network time
+ *                        server using the NTP-protocol.
+ */
 
 #ifndef _Ntp_H
 #define _Ntp_H
 
-typedef enum {false, true} bool;
+#include "typedefs.h"
 
 extern bool NtpIsSyncing(void);
 extern void NtpInit(void);

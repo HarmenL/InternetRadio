@@ -1,3 +1,15 @@
+/*
+ *  Copyright 20152016-TI2.3A6, 2016.
+ *
+ *  Project             : 20152016-TI2.3a6-Internet Radio
+ *  Module              : Alarm
+ *  File name           : alarm.h
+ *  Revision            : 1.0
+ *  Creation Date       : 2016
+ *
+ *  Description         :
+ */
+
 /* Alarm get/set status values */
 #define ALARM_1 	5
 #define ALARM_2		6
@@ -16,8 +28,6 @@ struct _alarm
 	int id;
 	int state;
 };
-#define _ALARM_DEFINED
-#endif
 
 void handleAlarm(int idx);
 int checkAlarms(void);
@@ -28,3 +38,7 @@ int compareTime(tm t1, tm t2);
 void setState(int idx);
 int getState(int idx);
 struct _alarm getAlarm(int idx);
+
+#define _ALARM_DEFINED
+#endif
+

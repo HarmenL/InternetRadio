@@ -12,6 +12,22 @@
  * [PURPOSE]    global typedefs
  * ======================================================================== */
 
+/*
+ *  Copyright 20152016-TI2.3a6, 2016.
+ *
+ *  Project             : 20152016-TI2.3a6-Internet Radio
+ *  Module              : Type definitions
+ *  File name           : Typedefs.h
+ *  Revision            : 1.1
+ *  Creation Date       : 2016/03/04
+ *
+ *  Description         : Global type definitions for the SIR100/120
+ *                        firmware.
+ *
+ *  Changelog       1.1 : Add type definitions for TI2.3a6 software.
+ *                        - Add bool
+ */
+
 
 /*--------------------------------------------------------------------------*/
 /*  Include files                                                           */
@@ -25,6 +41,18 @@
 /*--------------------------------------------------------------------------*/
 /*  Type declarations                                                       */
 /*--------------------------------------------------------------------------*/
+
+// Additions based on version 1.1
+
+typedef enum {false, true} bool;
+
+
+
+
+
+
+// Original StreamIT v1.0 code
+
 /* RL: this 'table' has now a mirror table in 'Display.c' (LcdErrorStrings) */
 /*     Make sure that any modification made to this table are reflected by  */
 /*     the LcdErrorStirngs table! (an error is bad but showing the wrong    */

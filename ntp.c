@@ -1,6 +1,16 @@
-//
-// Created by janco on 25-2-16.
-//
+/*
+ *  Copyright 20152016-TI2.3A6, 2016.
+ *
+ *  Project             : 20152016-TI2.3a6-Internet Radio
+ *  Module              : NTP
+ *  File name           : ntp.c
+ *  Revision            : 1.1
+ *  Creation Date       : 2016
+ *
+ *  Description         : This module syncs the time from a network time
+ *                        server using the NTP-protocol.
+ */
+
 #include <dev/board.h>
 #include <dev/debug.h>
 #include <dev/nvmem.h>
@@ -18,22 +28,18 @@
 #include <string.h>
 #include <time.h>
 
+#include "eeprom.h"
 #include "log.h"
 #include "ntp.h"
+#include "typedefs.h"
 
-int TIME_ZONE = 1;
 #define LOG_MODULE  LOG_NTP_MODULE
 
-typedef struct _Eeprom_tm {
-    size_t len;
-    tm tm_struct;
-} Eeprom_tm;
-
-bool isSyncing;
-bool validTime = false;
+extern bool isSyncing = false;
+extern bool validTime = false;
 time_t ntp_time = 0;
 tm *ntp_datetime;
-uint32_t timeserver = 0;
+int TIME_ZONE = 1;
 
 void NtpInit(void) {
     puts("Func: NtpInit(void)");
@@ -47,25 +53,23 @@ bool NtpIsSyncing(void){
 }
 
 void NtpCheckValidTime(void){
+    puts("Func: NtpCheckValidTime(void)");
+    TCache *cache;
 
-    Eeprom_tm eeprom_tm_struct;
-
-    NutNvMemLoad(256, &eeprom_tm_struct, sizeof(eeprom_tm_struct));
-
-    if (eeprom_tm_struct.len != sizeof(eeprom_tm_struct)){
-        // Size mismatch: There is no valid configuration present.
-        puts("NtpCheckValidTime(): Size mismatch \n");
+    if (EepromGetCache(cache) == false){
+        puts("NtpCheckValidTime(): No cache available");
         validTime = false;
         return;
     }
 
-    // Valid configuration available.
-    puts("NtpCheckValidTime(): Valid config available \n");
-    tm stored_tm = eeprom_tm_struct.tm_struct;
+    // Cache is present
+    puts("NtpCheckValidTime(): Cache is available");
 
     // Check time is valid;
     tm current_tm;
     X12RtcGetClock(&current_tm);
+
+    tm stored_tm = cache->last_sync;
 
     validTime = NtpCompareTime(current_tm, stored_tm);
     if (validTime){
@@ -95,20 +99,25 @@ bool NtpCompareTime(tm t1, tm t2){
     );
     puts(debug);
 
-    if (t1.tm_year > t2.tm_year)
+    if (t1.tm_year > t2.tm_year){
         return true;
-    if (t1.tm_mon > t2.tm_mon)
+    }
+    if (t1.tm_year == t2.tm_year && t1.tm_mon > t2.tm_mon){
         return true;
-    if (t1.tm_mday > t2.tm_mday)
+    }
+    if (t1.tm_year == t2.tm_year && t1.tm_mon == t2.tm_mon && t1.tm_mday > t2.tm_mday){
         return true;
-    if (t1.tm_hour > t2.tm_hour)
+    }
+    if (t1.tm_year == t2.tm_year && t1.tm_mon == t2.tm_mon && t1.tm_mday == t2.tm_mday && t1.tm_hour > t2.tm_hour){
         return true;
-    if (t1.tm_min > t2.tm_min)
+    }
+    if (t1.tm_year == t2.tm_year && t1.tm_mon == t2.tm_mon && t1.tm_mday == t2.tm_mday && t1.tm_hour == t2.tm_hour && t1.tm_min > t2.tm_min){
         return true;
-    if (t1.tm_sec > t2.tm_sec)
+    }
+    if (t1.tm_year == t2.tm_year && t1.tm_mon == t2.tm_mon && t1.tm_mday == t2.tm_mday && t1.tm_hour == t2.tm_hour && t1.tm_min == t2.tm_min &&t1.tm_sec > t2.tm_sec){
         return true;
+    }
 
-    //else
     return false;
 }
 
@@ -119,21 +128,21 @@ bool NtpTimeIsValid(void){
 void NtpSync(void){
     /* Ophalen van pool.ntp.org */
     isSyncing = true;
-    _timezone = -getTimeZone() * 3600;
-    printf(TIME_ZONE);
+    //_timezone = -getTimeZone() * 3600;
+    puts("NtpSync(): Timezone fetched. ");
+
     NutDelay(100);
-    //puts("Tijd ophalen van pool.ntp.org (213.154.229.24)");
-    timeserver = inet_addr("213.154.229.24");
+    puts("Tijd ophalen van pool.ntp.org (213.154.229.24)");
+    uint32_t timeserver = inet_addr("213.154.229.24");
 
     for (;;) {
         if (NutSNTPGetTime(&timeserver, &ntp_time) == 0) {
             break;
         } else {
-            NutSleep(400);
             puts("Fout bij het ontvangen van de tijd");
+            NutSleep(1000);
         }
     }
-    //puts("Opgehaald.\n");
 
     ntp_datetime = localtime(&ntp_time);
 
@@ -145,20 +154,13 @@ void NtpSync(void){
 
     isSyncing = false;
     validTime = true;
+
+    NutSleep(100);
 }
 
 void NtpWriteTimeToEeprom(tm time_struct){
-    Eeprom_tm eeprom_tm_struct;
+    TCache cache;
 
-    eeprom_tm_struct.len = sizeof(eeprom_tm_struct);
-    eeprom_tm_struct.tm_struct = time_struct;
-
-    int success = NutNvMemSave(256, &eeprom_tm_struct, sizeof(eeprom_tm_struct));
-    if (success == 0){ puts("NtpWriteTimeToEeprom: Time succesfully written to eeprom \n"); }
-
-    NutDelay(100);
+    cache.last_sync = time_struct;
+    EepromSetCache(&cache);
 }
-
-//unsigned long TmStructToEpoch(tm tm_struct){
-//
-//}

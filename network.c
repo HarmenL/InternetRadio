@@ -21,14 +21,14 @@
 #include <pro/dhcp.h>
 #include <pro/sntp.h>
 
+#include "alarm.h"
+#include "jsmn.h"
 #include "ntp.h"
 #include "network.h"
-#include "jsmn.h"
 #include "rtc.h"
-#include "alarm.h"
 
-bool isReceiving;
-bool hasNetwork;
+bool isReceiving = false;
+bool hasNetwork = false;
 
 void NetworkInit() {
     hasNetwork = false;
@@ -41,14 +41,14 @@ void NetworkInit() {
     }else {
         printf("Ik heb een internet connectie. Ip is: %s \n\n", inet_ntoa(confnet.cdn_ip_addr));
     }
-    NutSleep(2000);
+    NutSleep(100);
     hasNetwork = true;
 }
 
 char* httpGet(char address[]){
     isReceiving = true;
     NutDelay(1000);
-    printf("\n\n #-- HTTP get -- #\n");
+    //printf("\n\n #-- HTTP get -- #\n");
 
     TCPSOCKET* sock = NutTcpCreateSocket();
 
@@ -68,12 +68,12 @@ char* httpGet(char address[]){
             printf("Writing headers failed.\n");
             NutDelay(1000);
         }else{
-            printf("Headers %s writed. Now reading.", http);
+            printf("Headers written: %sNow reading...\n", http);
             NutDelay(1000);
             NutTcpReceive(sock, buffer, sizeof(buffer));
             //fread(buffer, 1, sizeof(buffer), stream);
             NutDelay(1200);
-            printf(buffer);
+            //printf(buffer);
         };
         //fclose(stream);
     }
@@ -97,7 +97,7 @@ char* httpGet(char address[]){
         }
     }
     content[t] = '\0';
-    printf("\nContent size: %d, Content: %s \n", t, content);
+    //printf("\nContent size: %d, Content: %s \n", t, content);
     isReceiving = false;
     return content;
 }
@@ -122,7 +122,7 @@ void parseAlarmJson(char* content){
     if (r < 0) {
         printf("Failed to parse JSON: %d \n", r);
     }else{
-        printf("Aantal tokens found: %d \n", r);
+        printf("Aantal tokens found: %d \n\n", r);
     }
 
 

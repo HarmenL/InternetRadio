@@ -7,14 +7,14 @@
 #include <string.h>
 #include <time.h>
 
+#include "alarm.h"
 #include "display.h"
 #include "displayHandler.h"
-#include "ntp.h"
-#include "log.h"
-#include "rtc.h"
-#include "alarm.h"
-#include "network.h"
 #include "httpstream.h"
+#include "log.h"
+#include "network.h"
+#include "ntp.h"
+#include "rtc.h"
 
 #define MONTH_OFFSET 1
 #define YEAR_OFFSET 1900
@@ -85,7 +85,6 @@ void displayVolume(int pos)
 {
     ClearLcd();
     int i;
-    LcdArrayLineOne("     Volume     ", 16);
 
     char characters[17];
 
@@ -93,7 +92,9 @@ void displayVolume(int pos)
     {
         characters[i] = 0xFF;
     }
-        LcdArrayLineTwo(characters,pos);
+
+    (*write_display_ptr[0])("     Volume     ",  17);
+    (*write_display_ptr[1])(characters, pos);
 }
 
 

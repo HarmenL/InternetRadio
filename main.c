@@ -183,6 +183,7 @@ static void SysControlMainBeat(u_char OnOff)
 /*-------------------------------------------------------------------------*/
 int isAlarmSyncing;
 int initialized;
+u_char VS_volume = 7; //[0-15];
 
 
 /*-------------------------------------------------------------------------*/
@@ -194,44 +195,42 @@ int initialized;
 /*-------------------------------------------------------------------------*/
 THREAD(StartupInit, arg)
 {
+    NutThreadSetPriority(5);
+
+    puts("Thread: StartupInit start\n\n");
     NetworkInit();
 
-    NtpSync();
-
     initialized = 1;
-    NutThreadExit();
-}
 
-THREAD(NTPSync, arg)
-{
-    for(;;)
-    {
-        if(initialized && (hasNetworkConnection() == true))
-        {
-            while(isAlarmSyncing)
-            {
-                NutSleep(2000);
-            }
-            NtpSync();
-        }
-        NutSleep(86400000);
-    }
+    puts("Thread: StartupInit stop\n\n");
+    NutThreadExit();
 }
 
 THREAD(AlarmSync, arg)
 {
+    NutThreadSetPriority(200);
+
+    puts("Thread: AlarmSync > Ready and on hold.\n\n");
+    while(!(initialized && (hasNetworkConnection() == true))){
+        NutSleep(1000);
+    }
+
+    puts("Thread: AlarmSync > Starting normal operation\n\n");
+
+    NtpSync();
+
     for(;;)
     {
-        if(initialized && (hasNetworkConnection() == true))
-        {
-            isAlarmSyncing = 1;
-            char* content = httpGet("/getAlarmen.php?radioid=DE370");
-            parseAlarmJson(content);
-            free(content);
-            isAlarmSyncing = 0;
-        }
+        isAlarmSyncing = 1;
+        char* content = httpGet("/getAlarmen.php?radioid=DE370");
+        parseAlarmJson(content);
+        free(content);
+        isAlarmSyncing = 0;
+
         NutSleep(3000);
     }
+
+    // Unreachable code...
     NutThreadExit();
 }
 
@@ -289,11 +288,6 @@ int main(void)
     LcdBackLight(LCD_BACKLIGHT_ON);
     NtpInit();
 
-    NutThreadCreate("BackgroundThread", StartupInit, NULL, 1024);
-    NutThreadCreate("BackgroundThread", AlarmSync, NULL, 2500);
-    NutThreadCreate("BackgroundThread", NTPSync, NULL, 700);
-    /** Quick fix for turning off the display after 10 seconds boot */
-
     RcInit();
 
 	KbInit();
@@ -308,20 +302,12 @@ int main(void)
 	/* Enable global interrupts */
 	sei();
 
-   /* struct _tm tm;
-	tm = GetRTCTime();
-	tm.tm_sec += 10;
-    setAlarm(tm,"    test1234      ", "0.0.0.0", 8001,1,0,0);
-	tm.tm_sec +=20;
-	setAlarm(tm,"    test5678      ", "0.0.0.0", 8001,1,0,1);*/
-
-/*    if(hasNetworkConnection() == true){
-        playStream("145.58.53.152", 80, "/3fm-bb-mp3");
-    }*/
     start = time(0) - 10;
-    unsigned char VOL = 64;
 
     running = 1;
+
+    NutThreadCreate("Startup", StartupInit, NULL, 1024);
+    NutThreadCreate("Alarm", AlarmSync, NULL, 2500);
 
     for (;;)
     {
@@ -340,25 +326,24 @@ int main(void)
 			}
 		}
 
-        VOL = VOL2;
         if(KbGetKey() == KEY_DOWN)
         {
             NutSleep(150);
             start = time(0);
-            if(VOL > 8){
-                VOL -= 8;
-                VsSetVolume (128-VOL, 128-VOL);
-                displayVolume(VOL/8);
+            if (VS_volume >= 1){
+                VS_volume = (--VS_volume) % 17;
+                VsSetVolume (128-(VS_volume*8), 128-(VS_volume*8));
+                displayVolume(VS_volume);
             }
         }
         else if(KbGetKey() == KEY_UP)
         {
             NutSleep(150);
             start = time(0);
-            if(VOL < 128) {
-                VOL += 8;
-                VsSetVolume(128-VOL, 128-VOL);
-                displayVolume(VOL/8);
+            if (VS_volume <= 15){
+                VS_volume = (++VS_volume) % 17;
+                VsSetVolume (128-(VS_volume*8), 128-(VS_volume*8));
+                displayVolume(VS_volume);
             }
         }
         else if(timer(start) >= 5 && checkAlarms() == 1)
@@ -381,7 +366,6 @@ int main(void)
             displayDate(1);
 		}
 
-        VOL2 = VOL;
         WatchDogRestart();
     }
     return(0);
