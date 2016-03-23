@@ -27,6 +27,9 @@ int checkAlarms(){
 	int check = 0;
 	for (i = 0; i < n; i++){
 		setState(i);
+		if (alarm[i].time.tm_year == 0){
+			alarm[i].state = 0;
+		}
 		if (alarm[i].state == 1){
 			check = 1;
 		}
@@ -118,24 +121,24 @@ void setState(int idx){
 		AddSnoozeMinutes(idx,1);
 	}
 	
-	if (NtpCompareTime(ct, alarm[idx].time) == 1 && alarm[idx].time.tm_year != 0 && alarm[idx].state != 2){
+	if (compareTime(ct, alarm[idx].time) >= 1 && alarm[idx].time.tm_year != 0 && alarm[idx].state != 2){
 		alarm[idx].state = 1;
 	} else if (alarm[idx].state != 2){
 		alarm[idx].state = 0;
 	}
 	
-	if (NtpCompareTime(alarm[idx].time,snooze[idx].snoozeTime)){
+	if (compareTime(alarm[idx].time,snooze[idx].snoozeTime) >= 1){
 		alarm[idx].state = 2;
 	}
 	
-	if (alarm[idx].state == 1 && compareTime(ct, snooze[idx].snoozeTime) == 1){
+	if (alarm[idx].state == 1 && compareTime(ct, snooze[idx].snoozeTime) >= 1){
 		alarm[idx].state = 2;
 		snooze[idx].snoozeTime = ct;
 		AddSnoozeMinutes(idx, alarm[idx].snooze);
 		LcdBackLight(LCD_BACKLIGHT_OFF);
 	}
 	
-	if (alarm[idx].state == 2 && compareTime(ct, snooze[idx].snoozeTime) == 1){
+	if (alarm[idx].state == 2 && compareTime(ct, snooze[idx].snoozeTime) >= 1){
 		alarm[idx].state = 1;
 		AddSnoozeMinutes(idx, 1);
 	}
@@ -173,8 +176,9 @@ void deleteAlarm(int idx){
 }
 
 void handleAlarm(int idx){
-	alarm[idx].time.tm_mday += 1;
 	alarm[idx].state = 0;
+	alarm[idx].time.tm_mday += 1;
+	printf("state is %d \n",alarm[idx].state);
 }
 
 int compareTime(tm t1,tm t2){
@@ -182,19 +186,19 @@ int compareTime(tm t1,tm t2){
         return 1;
 	}
     if (t1.tm_year == t2.tm_year && t1.tm_mon > t2.tm_mon){
-        return 1;
+        return 2;
 	}
     if (t1.tm_year == t2.tm_year && t1.tm_mon == t2.tm_mon && t1.tm_mday > t2.tm_mday){
-        return 1;
+        return 3;
 	}
     if (t1.tm_year == t2.tm_year && t1.tm_mon == t2.tm_mon && t1.tm_mday == t2.tm_mday && t1.tm_hour > t2.tm_hour){
-        return 1;
+        return 4;
 	}
     if (t1.tm_year == t2.tm_year && t1.tm_mon == t2.tm_mon && t1.tm_mday == t2.tm_mday && t1.tm_hour == t2.tm_hour && t1.tm_min > t2.tm_min){
-        return 1;
+        return 5;
 	}
     if (t1.tm_year == t2.tm_year && t1.tm_mon == t2.tm_mon && t1.tm_mday == t2.tm_mday && t1.tm_hour == t2.tm_hour && t1.tm_min == t2.tm_min &&t1.tm_sec > t2.tm_sec){
-        return 1;
+        return 6;
 	}
 
     return 0;
