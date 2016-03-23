@@ -173,17 +173,7 @@ void deleteAlarm(int idx){
 }
 
 void handleAlarm(int idx){
-		if ((alarm[idx].time.tm_mday + 1) <= daysInMonth((alarm[idx].time.tm_mon+1), (alarm[idx].time.tm_year+1900))){ 
-		alarm[idx].time.tm_mday += 1;
-	} else {
-		alarm[idx].time.tm_mday = 1;
-		if ((alarm[idx].time.tm_mon + 1) > 11){					
-			alarm[idx].time.tm_mon = 0;
-			alarm[idx].time.tm_year += 1;
-		} else {
-			alarm[idx].time.tm_mon += 1;
-		}
-	}
+	alarm[idx].time.tm_mday += 1;
 	alarm[idx].state = 0;
 }
 

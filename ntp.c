@@ -77,23 +77,6 @@ void NtpCheckValidTime(void){
 
 //Tests if t1 is after t2.
 bool NtpCompareTime(tm t1, tm t2){
-    char debug[120];
-    sprintf(&debug, "Comparing two times\nt1=%04d-%02d-%02d+%02d:%02d:%02d\nt2=%04d-%02d-%02d+%02d:%02d:%02d \n",
-            t1.tm_year+1900,
-            t1.tm_mon+1,
-            t1.tm_mday,
-            t1.tm_hour,
-            t1.tm_min,
-            t1.tm_sec,
-
-            t2.tm_year+1900,
-            t2.tm_mon+1,
-            t2.tm_mday,
-            t2.tm_hour,
-            t2.tm_min,
-            t2.tm_sec
-    );
-    puts(debug);
 
     if (t1.tm_year > t2.tm_year)
         return true;

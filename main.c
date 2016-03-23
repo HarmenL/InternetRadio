@@ -256,7 +256,7 @@ long timerStruct(struct _tm s){
 }
 
 int checkOffPressed(){
-    if (KbGetKey() == KEY_UNDEFINED){
+    if (KbGetKey() != KEY_UNDEFINED){
         LcdBackLight(LCD_BACKLIGHT_ON);
         return 1;
     } else {
@@ -318,24 +318,25 @@ int main(void)
 	/* Enable global interrupts */
 	sei();
 
-    /*struct _tm tm;
+    struct _tm tm;
 	tm = GetRTCTime();
 	tm.tm_sec += 10;
-    setAlarm(tm,"    test1234      ", "0.0.0.0","", 8001,1,0,0);
-	tm.tm_sec +=20;
-	setAlarm(tm,"    test5678      ", "0.0.0.0","", 8001,1,0,1);*/
+    setAlarm(tm,"test1234", "0.0.0.0","", 8001,1,0,0);
+	//tm.tm_sec +=20;
+	//setAlarm(tm,"    test5678      ", "0.0.0.0","", 8001,1,0,1);*/
 
 /*    if(hasNetworkConnection() == true){
         playStream("145.58.53.152", 80, "/3fm-bb-mp3");
     }*/
     unsigned char VOL = 64;
 	
+	LcdBackLight(LCD_BACKLIGHT_OFF);
 	X12RtcGetClock(&timeCheck);
 	X12RtcGetClock(&start);
-	LcdBackLight(LCD_BACKLIGHT_OFF);
 
     for (;;)
     {
+		printf("running = %d, time = %d\n", running, timerStruct(start));
 		
 		if (timerStruct(start) < 0){
 			X12RtcGetClock(&start);
@@ -349,7 +350,7 @@ int main(void)
 		if (checkOffPressed() == 1){
 			X12RtcGetClock(&start);
 			running = 1;
-            LcdBacklight(LCD_BACKLIGHT_ON);
+            LcdBackLight(LCD_BACKLIGHT_ON);
 		}
 
 		//Check if background LED is on, and compare to timer
@@ -391,11 +392,11 @@ int main(void)
 						handleAlarm(idx);
 						NutDelay(50);
 						LcdBackLight(LCD_BACKLIGHT_OFF);
-                        stopStream();
+                        //stopStream();
 					} else if (KbGetKey() == KEY_01 || KbGetKey() == KEY_02 || KbGetKey() == KEY_03 || KbGetKey() == KEY_04 || KbGetKey() == KEY_05 || KbGetKey() == KEY_ALT){
 						setSnooze(idx);
 						LcdBackLight(LCD_BACKLIGHT_OFF);
-                        stopStream();
+                        //stopStream();
 					}
 				}
 			}

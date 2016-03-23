@@ -26,7 +26,7 @@ void displayTime(int line_number){
     X12RtcGetClock(&time);
 
     char str[16];
-    if (NtpTimeIsValid()){
+    if (1){
         sprintf(str, "    %02d:%02d:%02d    ", time.tm_hour, time.tm_min, time.tm_sec);
     }else {
         sprintf(str, "    ??:??:??    ");
@@ -43,7 +43,7 @@ void displayDate(int line_number) {
 
     char str[16];
 
-    if (NtpTimeIsValid()) {
+    if (1) {
         sprintf(str, "   %02d-%02d-%04d      ", time->tm_mday, time->tm_mon + MONTH_OFFSET, time->tm_year + YEAR_OFFSET);
     } else {
         sprintf(str, "   ??-??-????      ");
@@ -72,7 +72,7 @@ void displayAlarm(int line_number, int line_numberTwo, int idx)
     if (line_number > -1 && line_number < 2){
         (*write_display_ptr[line_number])(str, 16);
     }
-    playStream(am.ip, am.port, am.url);
+    //playStream(am.ip, am.port, am.url);
 
 	j = 0;
     char str2[16];
@@ -85,7 +85,6 @@ void displayAlarm(int line_number, int line_numberTwo, int idx)
 	if (j != 16){
 		startidx = (8-(j/2));
 	}
-	printf("startidx: %d, %d",startidx, j);
 	j = 0;
 	for(i = 0; i < 16; i++){
 		if (i >= startidx){
