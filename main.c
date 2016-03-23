@@ -234,6 +234,8 @@ THREAD(AlarmSync, arg)
             parseAlarmJson(content);
             free(content);
             content = httpGet(urlb);
+            parsePrefixJson(content);
+            free(content);
             isAlarmSyncing = 0;
         }
         NutSleep(3000);
