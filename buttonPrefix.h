@@ -6,6 +6,9 @@
 #define INTERNETRADIO_BUTTONPREFIX_H
 
 #endif //INTERNETRADIO_BUTTONPREFIX_H
+
+struct _LeftButtons getButtonPrefix();
+
 struct _LeftButtons
 {
     u_short id;
