@@ -225,11 +225,14 @@ THREAD(AlarmSync, arg)
         if(initialized && (hasNetworkConnection() == true))
         {
             isAlarmSyncing = 1;
-            char url[43];
-            sprintf(url, "%s%s", "/getAlarmen.php?radiomac=", getMacAdress());
-            char* content = httpGet(url);
+            char urla[43];
+            char urlb[43];
+            sprintf(urla, "%s%s", "/getAlarmen.php?radiomac=", getMacAdress());
+            sprintf(urlb, "%s%s", "/getButtons.php?radioid=", getMacAdress());
+            char* content = httpGet(urla);
             parseAlarmJson(content);
             free(content);
+            content = httpGet(urlb);
             isAlarmSyncing = 0;
         }
         NutSleep(3000);
