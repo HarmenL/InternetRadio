@@ -10,7 +10,7 @@
 #include "alarm.h"
 #include "display.h"
 
-#define n 2
+#define n 5
 
 
 struct _snooze
