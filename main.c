@@ -348,7 +348,7 @@ int main(void)
         }
         else if(timer(start) >= 5 && checkAlarms() == 1)
         {
-			for (idx = 0; idx < 3; idx++){
+			for (idx = 0; idx < 2; idx++){
 				if (getState(idx) == 1){
 					displayAlarm(0,1,idx);
 					if (KbGetKey() == KEY_ESC){

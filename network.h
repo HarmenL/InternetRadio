@@ -11,6 +11,7 @@ bool hasNetworkConnection(void);
 bool NetworkIsReceiving(void);
 extern void NetworkInit(void);
 char* httpGet(char address[]);
+char* getMacAdress();
 void parseAlarmJson(char* content);
 int getTimeZone(void);
 

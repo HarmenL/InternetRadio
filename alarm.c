@@ -9,7 +9,7 @@
 #include "rtc.h"
 #include "alarm.h"
 
-#define n 2
+#define n 5
 
 
 struct _snooze
