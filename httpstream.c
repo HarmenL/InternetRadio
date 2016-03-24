@@ -52,6 +52,7 @@ void playStream(char *ipaddr, u_short port, char *radiourl){
     if(isStreaming != true){
         isStreaming = true;
         ConnectStation(sock, inet_addr(ipaddr), port, radiourl, &metaint);
+        VsPlayerKick();
         NutThreadCreate("Stream", Stream, NULL, 1024);
     }
 }
@@ -60,6 +61,7 @@ void stopStream(){
     isStreaming = false;
     fclose(stream);
     NutTcpCloseSocket(sock);
+    VsPlayerStop();
 }
 
 bool HttpIsStreaming(){

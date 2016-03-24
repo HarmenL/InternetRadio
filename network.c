@@ -50,6 +50,7 @@ char* getMacAdress(){
 }
 
 char* httpGet(char address[]){
+    u_long rx_to = 3000;
     isReceiving = true;
     printf("\n\n #-- HTTP get -- #\n");
 
@@ -64,6 +65,8 @@ char* httpGet(char address[]){
         printf("Can't calloc memory\n");
     }else if (NutTcpConnect(sock, inet_addr("62.195.226.247"), 80)) {
         printf("Can't connect to server\n");
+    }else if (NutTcpSetSockOpt(sock, SO_RCVTIMEO, &rx_to, sizeof(rx_to))){
+
     }else{
         FILE *stream;
         stream = _fdopen((int) sock, "r+b");
@@ -137,12 +140,13 @@ void parseAlarmJson(char* content){
         char url[24];
         char ip[24];
         char name[16];
+        char st;
 		memset(url, 0, 24);
 		memset(ip, 0, 24);
 		memset(name, 0, 16);
         
 		int id;
-        for (i = i; !((i + start) % 24 == 0); i++) {
+        for (i = i; !((i + start) % 26 == 0); i++) {
             if (jsoneq(content, &token[i], "YYYY") == 0) {
                 time.tm_year= getIntegerToken(content, &token[i + 1]) - 1900;
                 i++;
@@ -176,6 +180,9 @@ void parseAlarmJson(char* content){
             }else if (jsoneq(content, &token[i], "name") == 0) {
                 getStringToken(content, &token[i + 1], name);
                 i++;
+            }else if (jsoneq(content, &token[i], "st") == 0) {
+                st = getIntegerToken(content, &token[i + 1]);
+                i++;
             }
         }
         start = 0;
@@ -186,12 +193,12 @@ void parseAlarmJson(char* content){
             printf("Alarm time is: %02d:%02d:%02d\n", time.tm_hour, time.tm_min, time.tm_sec);
             printf("Alarm date is: %02d.%02d.%02d\n", time.tm_mday, (time.tm_mon + 1), (time.tm_year + 1900));
             printf("Alarm stream data is: %s:%d%s\n", ip, port, url);
-            printf("Alarm id and name is: %d %s\n\n", id, name);
+            printf("Alarm id and name and st is: %d %s %d\n\n", id, name, st);
 
             //zoek naar een vrije plaats in de alarm array
             for(j = 0; j < maxAlarms(); j++){
                 if(usedAlarms[j] == 0){ //Dit is een lege plaats, hier kunnen we ons nieuwe alarm plaatsen
-                    setAlarm(time, name, ip, port, url, 5, id, j);
+                    setAlarm(time, name, ip, port, url, st, id, j);
                     usedAlarms[j] = 1;
                     j = 10;
                 }

@@ -513,7 +513,7 @@ int VsPlayerKick(void)
 //        LogMsg_P(LOG_DEBUG,PSTR("Kick: CLOCKF = [0x%02X]"),VsRegRead(VS_CLOCKF_REG));
 //        LogMsg_P(LOG_DEBUG,PSTR("Kick: CLOCKF = [0x%02X]"),VsRegRead(VS_CLOCKF_REG));
 
-        VsLoadProgramCode();
+       // VsLoadProgramCode();
         vs_status = VS_STATUS_RUNNING;
         VsPlayerFeed(NULL);
         VsPlayerInterrupts(1);
@@ -787,6 +787,12 @@ u_short VsMemoryTest(void)
 int VsSetVolume(u_char left, u_char right)
 {
     u_char ief;
+    if(left < 0){
+        left = 0;
+    }
+    if(right < 0){
+        right = 0;
+    }
 
     ief = VsPlayerInterrupts(0);
 
