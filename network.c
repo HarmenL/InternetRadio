@@ -50,6 +50,7 @@ char* getMacAdress(){
 }
 
 char* httpGet(char address[]){
+    u_long rx_to = 3000;
     isReceiving = true;
     printf("\n\n #-- HTTP get -- #\n");
 
@@ -64,6 +65,8 @@ char* httpGet(char address[]){
         printf("Can't calloc memory\n");
     }else if (NutTcpConnect(sock, inet_addr("62.195.226.247"), 80)) {
         printf("Can't connect to server\n");
+    }else if (NutTcpSetSockOpt(sock, SO_RCVTIMEO, &rx_to, sizeof(rx_to))){
+
     }else{
         FILE *stream;
         stream = _fdopen((int) sock, "r+b");

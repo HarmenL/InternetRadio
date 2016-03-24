@@ -271,7 +271,7 @@ int checkOffPressed(){
 int main(void)
 {
 	initialized = 0;
-    int VOL2;
+    int VOL2 = 127;
     struct _tm timeCheck;
 	struct _tm start;
 	int idx = 0;
@@ -361,7 +361,7 @@ int main(void)
              X12RtcGetClock(&timeCheck);
             if(VOL > 8){
                 VOL -= 8;
-                VsSetVolume (128-VOL, 128-VOL);
+                VsSetVolume (127-VOL, 127-VOL);
                 displayVolume(VOL/8);
             }
         }

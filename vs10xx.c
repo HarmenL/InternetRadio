@@ -787,6 +787,12 @@ u_short VsMemoryTest(void)
 int VsSetVolume(u_char left, u_char right)
 {
     u_char ief;
+    if(left < 0){
+        left = 0;
+    }
+    if(right < 0){
+        right = 0;
+    }
 
     ief = VsPlayerInterrupts(0);
 

@@ -138,6 +138,7 @@ void setState(int idx){
 		snooze[idx].snoozeTime = ct;
 		AddSnoozeMinutes(idx, alarm[idx].snooze);
 		LcdBackLight(LCD_BACKLIGHT_OFF);
+		stopStream();
 	}
 	
 	if (alarm[idx].state == 2 && compareTime(ct, snooze[idx].snoozeTime) >= 1){
