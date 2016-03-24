@@ -184,7 +184,7 @@ static void SysControlMainBeat(u_char OnOff)
 int isAlarmSyncing;
 int initialized;
 int running = 0;
-
+unsigned char VOL = 64;
 
 /*-------------------------------------------------------------------------*/
 /* local variable definitions                                              */
@@ -321,7 +321,7 @@ int main(void)
 	sei();
 
 
-    unsigned char VOL = 64;
+
 	
 	LcdBackLight(LCD_BACKLIGHT_OFF);
 	X12RtcGetClock(&timeCheck);
