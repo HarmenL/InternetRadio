@@ -78,6 +78,8 @@ char* httpGet(char address[]){
         //Removing header:
         while(fgets(buffer, sizeof(buffer), stream) != NULL) {
             if(enters == 4) {
+
+                //printf("\nbuffer : %s \n", buffer);
                 content[t] = buffer[0];
                 t++;
             }else {
@@ -220,7 +222,7 @@ void parsePrefixJson(char* content){
         printf("Failed to parse JSON: %d \n", r);
         return;
     }else{
-        printf("Aantal tokens found: %d \n", r);
+        printf("Aantal tokens found prefix: %d \n", r);
     }
 
     int start = 1;

@@ -230,6 +230,7 @@ THREAD(AlarmSync, arg)
             char urlb[43];
             sprintf(urla, "%s%s", "/getAlarmen.php?radiomac=", getMacAdress());
             sprintf(urlb, "%s%s", "/getButtons.php?radioid=", getMacAdress());
+            printf("macadress : %d  ", getMacAdress());
             char* content = httpGet(urla);
             parseAlarmJson(content);
             free(content);
