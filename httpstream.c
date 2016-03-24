@@ -60,6 +60,7 @@ void stopStream(){
     isStreaming = false;
     fclose(stream);
     NutTcpCloseSocket(sock);
+    VsPlayerStop();
 }
 
 bool HttpIsStreaming(){
