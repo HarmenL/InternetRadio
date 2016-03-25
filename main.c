@@ -48,6 +48,7 @@
 #include "alarm.h"
 #include "ntp.h"
 #include "httpstream.h"
+#include "contentparser.h"
 
 /*-------------------------------------------------------------------------*/
 /* local routines (prototyping)                                            */
@@ -228,9 +229,7 @@ THREAD(AlarmSync, arg)
             isAlarmSyncing = 1;
             char url[43];
             sprintf(url, "%s%s", "/getAlarmen.php?radiomac=", getMacAdress());
-            char* content = httpGet(url);
-            parseAlarmJson(content);
-            free(content);
+            httpGet(url, parseAlarmJson);
             isAlarmSyncing = 0;
         }
         NutSleep(3000);

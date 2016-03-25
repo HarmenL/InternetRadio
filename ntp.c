@@ -20,6 +20,7 @@
 
 #include "log.h"
 #include "ntp.h"
+#include "contentparser.h"
 
 int TIME_ZONE = 1;
 #define LOG_MODULE  LOG_NTP_MODULE
@@ -102,7 +103,7 @@ bool NtpTimeIsValid(void){
 void NtpSync(void){
     /* Ophalen van pool.ntp.org */
     isSyncing = true;
-    _timezone = -getTimeZone() * 3600;
+    httpGet("/gettimezone.php", parsetimezone);
     printf(TIME_ZONE);
     NutDelay(100);
     //puts("Tijd ophalen van pool.ntp.org (213.154.229.24)");
@@ -142,6 +143,6 @@ void NtpWriteTimeToEeprom(tm time_struct){
     NutDelay(100);
 }
 
-//unsigned long TmStructToEpoch(tm tm_struct){
-//
-//}
+void setTimeZone(int timezone){
+    _timezone = -timezone * 3600;
+}
