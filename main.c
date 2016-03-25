@@ -226,12 +226,18 @@ THREAD(AlarmSync, arg)
     {
         if(initialized && (hasNetworkConnection() == true))
         {
+            //Normal alarm sync
             isAlarmSyncing = 1;
             char url[43];
             sprintf(url, "%s%s", "/getAlarmen.php?radiomac=", getMacAdress());
             httpGet(url, parseAlarmJson);
             isAlarmSyncing = 0;
-        }
+
+            //Command que (Telegram) sync
+            sprintf(url, "%s%s", "/getCommands.php?radiomac=", getMacAdress());
+            httpGet(url, parseCommandQue);
+
+}
         NutSleep(3000);
     }
     NutThreadExit();
@@ -352,7 +358,9 @@ int main(void)
 				LcdBackLight(LCD_BACKLIGHT_OFF);
 			}
 		}
-
+        if(KbGetKey() == KEY_01){
+            playStream("62.195.226.247", 80, "/test.mp3");
+        }
         VOL = VOL2;
         if(KbGetKey() == KEY_DOWN)
         {

@@ -7,6 +7,8 @@
 #include "jsmn.h"
 #include "rtc.h"
 #include "alarm.h"
+#include "vs10xx.h"
+#include "httpstream.h"
 
 void parseAlarmJson(char* content){
     int r;
@@ -107,6 +109,47 @@ void parseAlarmJson(char* content){
         if(usedAlarms[j] == 0){
             deleteAlarm(j);
         };
+    }
+}
+
+void parseCommandQue(char* content){
+    int r;
+    int i;
+    jsmn_parser p;
+    jsmntok_t token[150]; /* We expect no more than 128 tokens */
+
+    jsmn_init(&p);
+    r = jsmn_parse(&p, content, strlen(content), token, sizeof(token)/sizeof(token[0]));
+    if (r <= 0) {
+        printf("Failed to parse JSON: %d \n", r);
+        return;
+    }else{
+        printf("Aantal tokens found: %d \n", r);
+    }
+
+    for(i = 0; i < r; i++)
+    {
+        if (jsoneq(content, &token[i], "command") == 0) {
+            if(jsoneq(content, &token[i + 1], "volume") == 0){
+                char vol = getIntegerToken(content, &token[i + 3]);
+                printf("%d", vol);
+                vol = 128 - ((vol * 128) / 100);
+                printf("%d", vol);
+                VsSetVolume(vol, vol);
+                i += 3;
+            }else if(jsoneq(content, &token[i + 1], "stopstream") == 0){
+                stopStream();
+                i += 3;
+            }else if(jsoneq(content, &token[i + 1], "startstream") == 0){
+                u_short port = getIntegerToken(content, &token[i + 9]);
+                char url[24];
+                char ip[24];
+                getStringToken(content, &token[i + 7], url);
+                getStringToken(content, &token[i + 5], ip);
+                playStream(ip, port, url);
+                i += 9;
+            }
+        }
     }
 }
 

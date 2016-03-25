@@ -58,7 +58,7 @@ void httpGet(char address[], void (*parser)(char*)){
     TCPSOCKET* sock = NutTcpCreateSocket();
 
     char buffer[2];
-    char* content = (char*) calloc(1 , 800);
+    char* content = (char*) malloc(800);
     char enters = 0;
     int t = 0;
 
@@ -77,7 +77,6 @@ void httpGet(char address[], void (*parser)(char*)){
         fflush(stream);
 
         printf("Headers writed. Now reading.");
-        NutDelay(500);
         //Removing header:
         while(fgets(buffer, sizeof(buffer), stream) != NULL) {
             if(enters == 4) {
