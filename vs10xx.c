@@ -793,6 +793,7 @@ int VsSetVolume(u_char left, u_char right)
     if(right < 0){
         right = 0;
     }
+    printf("%d %d", left, right);
 
     ief = VsPlayerInterrupts(0);
 

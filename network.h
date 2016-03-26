@@ -8,9 +8,7 @@
 //bool hasNetworkConnection(void);
 //bool NetworkIsReceiving(void);
 extern void NetworkInit(void);
-char* httpGet(char address[]);
+extern void httpGet(char address[], void (*parser)(char*));
 char* getMacAdress();
-void parseAlarmJson(char* content);
-int getTimeZone();
 
 #endif /* _Network_H */
