@@ -7,9 +7,13 @@
 
 #include "ntp.h"
 
-extern bool HttpIsStreaming();
-extern void playStream(char *ipaddr, u_short port, char *radiourl);
-extern void stopStream();
+#define MAX_HEADERLINE 512
+#define MSS 1460
+#define RX_TO 3000
+#define TCPBUFSIZE 8760
 
+extern bool HttpIsStreaming(void);
+extern void playStream(char *ipaddr, u_short port, char *radiourl);
+extern void stopStream(void);
 
 #endif /* _Httpstream_H */

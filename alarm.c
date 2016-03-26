@@ -71,7 +71,7 @@ void setSnooze(int idx){
 	alarm[idx].state = 2;
 	snooze[idx].snoozeTime = ct;
 	snooze[idx].snoozeTime.tm_min += alarm[idx].snooze;
-	stopStream();
+	//stopStream();
 }
 
 int daysInMonth(int m, int y) {
@@ -124,7 +124,11 @@ void setState(int idx){
 	}
 	
 	if (compareTime(ct, alarm[idx].time) >= 1 && alarm[idx].time.tm_year != 0 && alarm[idx].state != 2){
-		alarm[idx].state = 1;
+		if(alarm[idx].state != 1) {
+			alarm[idx].state = 1;
+			printf("\n\nAlarm gaat nu af!\n\n");
+			playStream(alarm[idx].ip, alarm[idx].port, alarm[idx].url);
+		}
 	} else if (alarm[idx].state != 2){
 		alarm[idx].state = 0;
 	}

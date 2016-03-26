@@ -28,14 +28,9 @@
 #include "ntp.h"
 #include "httpstream.h"
 
-#define MAX_HEADERLINE 512
-
 bool isStreaming;
 
 TCPSOCKET *sock;
-u_short mss = 1460;
-u_long rx_to = 3000;
-u_short tcpbufsiz = 8760;
 FILE *stream;
 u_long metaint;
 
@@ -44,24 +39,24 @@ THREAD(Stream, args)
     if(stream) {
         PlayMp3Stream(stream, metaint);
     }
+    fclose(stream);
+    NutTcpCloseSocket(sock);
+    VsPlayerStop();
     stopStream();
+    printf("Stopping http stream..");
     NutThreadExit();
 }
 
 void playStream(char *ipaddr, u_short port, char *radiourl){
     if(isStreaming != true){
-        isStreaming = true;
         ConnectStation(sock, inet_addr(ipaddr), port, radiourl, &metaint);
-        VsPlayerKick();
-        NutThreadCreate("Stream", Stream, NULL, 1024);
+        isStreaming = true;
+        NutThreadCreate("Stream", Stream, NULL, 512);
     }
 }
 
 void stopStream(){
     isStreaming = false;
-    fclose(stream);
-    NutTcpCloseSocket(sock);
-    VsPlayerStop();
 }
 
 bool HttpIsStreaming(){
@@ -78,23 +73,23 @@ void ConnectStation(TCPSOCKET *sock, u_long ip, u_short port, char *radiourl, u_
      */
     if ((sock = NutTcpCreateSocket()) == 0)
         printf("Probleem bij het creereen van tcp socket");
-    if (NutTcpSetSockOpt(sock, TCP_MAXSEG, &mss, sizeof(mss)))
+    if (NutTcpSetSockOpt(sock, TCP_MAXSEG, MSS, sizeof(MSS)))
         printf("Probleem bij het creereen van tcp socket");
-    if (NutTcpSetSockOpt(sock, SO_RCVTIMEO, &rx_to, sizeof(rx_to)))
+    if (NutTcpSetSockOpt(sock, SO_RCVTIMEO, RX_TO, sizeof(RX_TO)))
         printf("Probleem bij het creereen van tcp socket");
-    if (NutTcpSetSockOpt(sock, SO_RCVBUF, &tcpbufsiz, sizeof(tcpbufsiz)))
+    if (NutTcpSetSockOpt(sock, SO_RCVBUF, TCPBUFSIZE, sizeof(TCPBUFSIZE)))
         printf("Probleem bij het creereen van tcp socket");
 
     printf("Connecting %s:%u...", inet_ntoa(ip), port);
     if ((rc = NutTcpConnect(sock, ip, port))) {
         printf("Error: Connect failed with %d\n", ip);
-        return 0;
+        return;
     }
     puts("OK");
 
     if ((stream = _fdopen((int) sock, "r+b")) == 0) {
         printf("Error: Can't create stream");
-        return 0;
+        return;
     }
 
     /*
@@ -192,7 +187,7 @@ int ProcessMetaData(FILE *stream)
 
 void PlayMp3Stream(FILE *stream, u_long metaint)
 {
-    size_t rbytes;
+    size_t rbytes = 0;
     u_char *mp3buf;
     u_char ief;
     int got = 0;

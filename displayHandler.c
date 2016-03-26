@@ -72,7 +72,6 @@ void displayAlarm(int line_number, int line_numberTwo, int idx)
     if (line_number > -1 && line_number < 2){
         (*write_display_ptr[line_number])(str, 16);
     }
-    playStream(am.ip, am.port, am.url);
 
 	j = 0;
     char str2[16];
