@@ -227,9 +227,12 @@ THREAD(AlarmSync, arg)
         if(initialized && (hasNetworkConnection() == true))
         {
             isAlarmSyncing = 1;
-            char url[43];
+            char url[43];           //cause of memory leak maybe?
             sprintf(url, "%s%s", "/getAlarmen.php?radiomac=", getMacAdress());
             httpGet(url, parseAlarmJson);
+            char url2[43];
+            sprintf(url2, "/getTwitch.php?radiomac=%s", getMacAdress());
+            httpGet(url2, parseTwitch);
             isAlarmSyncing = 0;
         }
         NutSleep(3000);

@@ -102,3 +102,40 @@ void parsetimezone(char* content)
     int timezone = atoi(content);
     printf("%d", timezone);
 }
+
+void parseTwitch(char* content)
+{
+    int r;
+    int i = 2;
+    jsmn_parser p;
+    jsmntok_t token[20]; /* We expect no more than 20 tokens */
+
+    jsmn_init(&p);
+    r = jsmn_parse(&p, content, strlen(content), token, sizeof(token)/sizeof(token[0]));
+    if (r <= 0) {
+        printf("Failed to parse JSON: %d \n", r);
+        return;
+    }else{
+        printf("Aantal tokens found: %d \n", r);
+    }
+
+    char name[20];
+    char title[30];
+    char game[20];
+
+    for(i; i < r; i+=2)
+    {
+        if(jsoneq(content, &token[i], "Name"))
+        {
+            getStringToken(content, &token[i+1], name);
+        }
+        else if(jsoneq(content, &token[i], "Title"))
+        {
+            getStringToken(content, &token[i+1], title);
+        }
+        else if(jsoneq(content, &token[i], "Game"))
+        {
+            getStringToken(content, &token[i+1], game);
+        }
+    }
+}
