@@ -31,7 +31,6 @@
 #include "eeprom.h"
 #include "log.h"
 #include "ntp.h"
-#include "typedefs.h"
 
 #define LOG_MODULE  LOG_NTP_MODULE
 
@@ -81,23 +80,6 @@ void NtpCheckValidTime(void){
 
 //Tests if t1 is after t2.
 bool NtpCompareTime(tm t1, tm t2){
-    char debug[120];
-    sprintf(&debug, "Comparing two times\nt1=%04d-%02d-%02d+%02d:%02d:%02d\nt2=%04d-%02d-%02d+%02d:%02d:%02d \n",
-            t1.tm_year+1900,
-            t1.tm_mon+1,
-            t1.tm_mday,
-            t1.tm_hour,
-            t1.tm_min,
-            t1.tm_sec,
-
-            t2.tm_year+1900,
-            t2.tm_mon+1,
-            t2.tm_mday,
-            t2.tm_hour,
-            t2.tm_min,
-            t2.tm_sec
-    );
-    puts(debug);
 
     if (t1.tm_year > t2.tm_year){
         return true;
@@ -128,9 +110,8 @@ bool NtpTimeIsValid(void){
 void NtpSync(void){
     /* Ophalen van pool.ntp.org */
     isSyncing = true;
-    //_timezone = -getTimeZone() * 3600;
-    puts("NtpSync(): Timezone fetched. ");
-
+    httpGet("/gettimezone.php", parsetimezone);
+    printf(TIME_ZONE);
     NutDelay(100);
     puts("Tijd ophalen van pool.ntp.org (213.154.229.24)");
     uint32_t timeserver = inet_addr("213.154.229.24");
@@ -164,3 +145,7 @@ void NtpWriteTimeToEeprom(tm time_struct){
     cache.last_sync = time_struct;
     EepromSetCache(&cache);
 }
+
+//unsigned long TmStructToEpoch(tm tm_struct){
+//
+//}

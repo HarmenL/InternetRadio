@@ -22,6 +22,7 @@
 #include <pro/sntp.h>
 
 #include "alarm.h"
+#include "contentparser.h"
 #include "jsmn.h"
 #include "ntp.h"
 #include "network.h"
@@ -49,7 +50,8 @@ char* getMacAdress(){
     ether_ntoa(confnet.cdn_mac);
 }
 
-char* httpGet(char address[]){
+void httpGet(char address[], void (*parser)(char*)){
+    u_long rx_to = 3000;
     isReceiving = true;
     printf("\n\n #-- HTTP get -- #\n");
 
@@ -64,6 +66,8 @@ char* httpGet(char address[]){
         printf("Can't calloc memory\n");
     }else if (NutTcpConnect(sock, inet_addr("62.195.226.247"), 80)) {
         printf("Can't connect to server\n");
+    }else if (NutTcpSetSockOpt(sock, SO_RCVTIMEO, &rx_to, sizeof(rx_to))){
+
     }else{
         FILE *stream;
         stream = _fdopen((int) sock, "r+b");
@@ -93,118 +97,12 @@ char* httpGet(char address[]){
     NutTcpCloseSocket(sock);
 
     content[t] = '\0';
-    //printf("\nContent size: %d, Content: %s \n", t, content);
+    printf("\nContent size: %d, Content: %s \n", t, content);
+    parser(content);
+    free(content);
+
     isReceiving = false;
     return content;
-}
-
-int getTimeZone()
-{
-    char* content = httpGet("/gettimezone.php");
-    int timezone = atoi(content);
-    free(content);
-    printf("%d", timezone);
-    return timezone;
-}
-
-void parseAlarmJson(char* content){
-    int r;
-    int i;
-    jsmn_parser p;
-    jsmntok_t token[150]; /* We expect no more than 128 tokens */
-
-    jsmn_init(&p);
-    r = jsmn_parse(&p, content, strlen(content), token, sizeof(token)/sizeof(token[0]));
-    if (r <= 0) {
-        printf("Failed to parse JSON: %d \n", r);
-        return;
-    }else{
-        printf("Aantal tokens found: %d \n\n", r);
-    }
-
-
-
-    int start = 1;
-    int usedAlarms[maxAlarms()];
-    int j;
-    for(j = 0; j < maxAlarms(); j++){
-        usedAlarms[j] = 0;
-    }
-    for(i = 1; i < r; i++)
-    {
-        struct _tm time = GetRTCTime();
-        u_short port;
-        char url[24];
-        char ip[24];
-        char name[16];
-		memset(url, 0, 24);
-		memset(ip, 0, 24);
-		memset(name, 0, 16);
-        
-		int id;
-        for (i = i; !((i + start) % 24 == 0); i++) {
-            if (jsoneq(content, &token[i], "YYYY") == 0) {
-                time.tm_year= getIntegerToken(content, &token[i + 1]) - 1900;
-                i++;
-            }else if (jsoneq(content, &token[i], "MM") == 0) {
-                time.tm_mon=  getIntegerToken(content, &token[i + 1]) - 1;
-                i++;
-            }else if (jsoneq(content, &token[i], "DD") == 0) {
-                time.tm_mday =  getIntegerToken(content, &token[i + 1]);
-                i++;
-            }else if (jsoneq(content, &token[i], "hh") == 0) {
-                time.tm_hour = 	getIntegerToken(content, &token[i + 1]);
-                i++;
-            }else if (jsoneq(content, &token[i], "mm") == 0) {
-                time.tm_min = getIntegerToken(content, &token[i + 1]);
-                i++;
-            }else if (jsoneq(content, &token[i], "ss") == 0) {
-                time.tm_sec = getIntegerToken(content, &token[i + 1]);
-                i++;
-            }else if (jsoneq(content, &token[i], "id") == 0) {
-                id = getIntegerToken(content, &token[i + 1]);
-                i++;
-            }else if (jsoneq(content, &token[i], "port") == 0) {
-                port = getIntegerToken(content, &token[i + 1]);
-                i++;
-            }else if (jsoneq(content, &token[i], "ip") == 0) {
-                getStringToken(content, &token[i + 1], ip);
-                i++;
-            }else if (jsoneq(content, &token[i], "url") == 0) {
-                getStringToken(content, &token[i + 1], url);
-                i++;
-            }else if (jsoneq(content, &token[i], "name") == 0) {
-                getStringToken(content, &token[i + 1], name);
-                i++;
-            }
-        }
-        start = 0;
-
-        int idx = alarmExist(id);
-        if(idx == -1){
-            printf("New alarm found!\n");
-            printf("Alarm time is: %02d:%02d:%02d\n", time.tm_hour, time.tm_min, time.tm_sec);
-            printf("Alarm date is: %02d.%02d.%02d\n", time.tm_mday, (time.tm_mon + 1), (time.tm_year + 1900));
-            printf("Alarm stream data is: %s:%d%s\n", ip, port, url);
-            printf("Alarm id and name is: %d %s\n\n", id, name);
-
-            //zoek naar een vrije plaats in de alarm array
-            for(j = 0; j < maxAlarms(); j++){
-                if(usedAlarms[j] == 0){ //Dit is een lege plaats, hier kunnen we ons nieuwe alarm plaatsen
-                    setAlarm(time, name, ip, port, url, 5, id, j);
-                    usedAlarms[j] = 1;
-                    j = 10;
-                }
-            }
-        }else{
-            usedAlarms[idx] = 1; //Alarm bestaat al, dus we houden deze plaats vrij voor dat alarm
-        }
-    }
-    for(j = 0; j < maxAlarms(); j++){ //Alle overige plaatsen, die wij niet gezet hebben, verwijderen.
-        if(usedAlarms[j] == 0){
-            deleteAlarm(j);
-        };
-    }
 }
 
 bool NetworkIsReceiving(void){

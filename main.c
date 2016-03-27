@@ -48,6 +48,7 @@
 #include "alarm.h"
 #include "ntp.h"
 #include "httpstream.h"
+#include "contentparser.h"
 
 /*-------------------------------------------------------------------------*/
 /* local routines (prototyping)                                            */
@@ -221,12 +222,16 @@ THREAD(AlarmSync, arg)
 
     for(;;)
     {
-        isAlarmSyncing = 1;
-        char* content = httpGet("/getAlarmen.php?radioid=DE370");
-        parseAlarmJson(content);
-        free(content);
-        isAlarmSyncing = 0;
-
+        if(initialized && (hasNetworkConnection() == true))
+        {
+            isAlarmSyncing = 1;
+            char url[43];
+            sprintf(url, "%s%s", "/getAlarmen.php?radiomac=", getMacAdress());
+            char* content = httpGet(url);
+            parseAlarmJson(content);
+            free(content);
+            isAlarmSyncing = 0;
+        }
         NutSleep(3000);
     }
 
@@ -243,8 +248,18 @@ int timer(time_t start){
     return diff;
 }
 
+long timerStruct(struct _tm s){
+	struct _tm ct;
+	X12RtcGetClock(&ct);
+	
+	long stime = (s.tm_hour * 3600) + (s.tm_min * 60) + s.tm_sec;
+	long ctime = (ct.tm_hour * 3600) + (ct.tm_min * 60) + ct.tm_sec;
+	
+	return ctime - stime;
+}
+
 int checkOffPressed(){
-    if (KbGetKey() == KEY_POWER){
+    if (KbGetKey() != KEY_UNDEFINED){
         LcdBackLight(LCD_BACKLIGHT_ON);
         return 1;
     } else {
@@ -257,11 +272,10 @@ int checkOffPressed(){
 int main(void)
 {
 	initialized = 0;
-    int VOL2;
-    time_t start;
+    int VOL2 = 127;
+    struct _tm timeCheck;
+	struct _tm start;
 	int idx = 0;
-
-	int running;
 
     WatchDogDisable();
 
@@ -285,7 +299,7 @@ int main(void)
 
     VsPlayerInit();
 
-    LcdBackLight(LCD_BACKLIGHT_ON);
+ 
     NtpInit();
 
     RcInit();
@@ -302,25 +316,49 @@ int main(void)
 	/* Enable global interrupts */
 	sei();
 
-    start = time(0) - 10;
+    /*struct _tm tm;
+	tm = GetRTCTime();
+	tm.tm_sec += 10;
+    setAlarm(tm,"    test1234      ", "0.0.0.0","", 8001,1,0,0);
+	tm.tm_sec +=20;
+	setAlarm(tm,"    test5678      ", "0.0.0.0","", 8001,1,0,1);*/
 
-    running = 1;
+/*    if(hasNetworkConnection() == true){
+        playStream("145.58.53.152", 80, "/3fm-bb-mp3");
+    }*/
+    start = time(0) - 10;
+    unsigned char VOL = 64;
+
+	
+	LcdBackLight(LCD_BACKLIGHT_OFF);
+	X12RtcGetClock(&timeCheck);
+	X12RtcGetClock(&start);
 
     NutThreadCreate("Startup", StartupInit, NULL, 1024);
     NutThreadCreate("Alarm", AlarmSync, NULL, 2500);
 
     for (;;)
     {
+		//printf("running = %d, time = %d\n", running, timerStruct(start));
+		
+		if (timerStruct(start) < 0){
+			X12RtcGetClock(&start);
+		}
+		
+		if (timerStruct(timeCheck) < 0){
+			X12RtcGetClock(&timeCheck);
+		}
+		
 		//Check if a button is pressed
 		if (checkOffPressed() == 1){
-			start = time(0);
+			X12RtcGetClock(&start);
 			running = 1;
-            LcdBacklightKnipperen(startLCD);
+            LcdBackLight(LCD_BACKLIGHT_ON);
 		}
 
 		//Check if background LED is on, and compare to timer
 		if (running == 1){
-			if (timer(start) >= 10){
+			if (timerStruct(start) >= 10 || running > 1){
 				running = 0;
 				LcdBackLight(LCD_BACKLIGHT_OFF);
 			}
@@ -330,38 +368,42 @@ int main(void)
         {
             NutSleep(150);
             start = time(0);
-            if (VS_volume >= 1){
-                VS_volume = (--VS_volume) % 17;
-                VsSetVolume (128-(VS_volume*8), 128-(VS_volume*8));
-                displayVolume(VS_volume);
+            if(VOL > 8){
+                VOL -= 8;
+                VsSetVolume (128-VOL, 128-VOL);
+                displayVolume(VOL/8);
             }
         }
         else if(KbGetKey() == KEY_UP)
         {
             NutSleep(150);
             start = time(0);
-            if (VS_volume <= 15){
-                VS_volume = (++VS_volume) % 17;
-                VsSetVolume (128-(VS_volume*8), 128-(VS_volume*8));
-                displayVolume(VS_volume);
+            if(VOL < 128) {
+                VOL += 8;
+                VsSetVolume(128-VOL, 128-VOL);
+                displayVolume(VOL/8);
             }
         }
-        else if(timer(start) >= 5 && checkAlarms() == 1)
+        else if(timerStruct(timeCheck) >= 5 && checkAlarms() == 1)
         {
-			for (idx = 0; idx < 2; idx++){
+			for (idx = 0; idx < 5; idx++){
 				if (getState(idx) == 1){
 					displayAlarm(0,1,idx);
 					if (KbGetKey() == KEY_ESC){
-						NutDelay(50);
+						//NutDelay(50);
 						handleAlarm(idx);
-						NutDelay(50);
+						//NutDelay(50);
+						LcdBackLight(LCD_BACKLIGHT_OFF);
+                        stopStream();
+					} else if (KbGetKey() == KEY_01 || KbGetKey() == KEY_02 || KbGetKey() == KEY_03 || KbGetKey() == KEY_04 || KbGetKey() == KEY_05 || KbGetKey() == KEY_ALT){
+						setSnooze(idx);
 						LcdBackLight(LCD_BACKLIGHT_OFF);
                         stopStream();
 					}
 				}
 			}
 		}
-		else if (timer(start) >= 5){
+		else if (timerStruct(timeCheck) >= 5){
             displayTime(0);
             displayDate(1);
 		}

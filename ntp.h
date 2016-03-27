@@ -19,6 +19,7 @@
 extern bool NtpIsSyncing(void);
 extern void NtpInit(void);
 extern void NtpSync(void);
+extern void setTimeZone(int timezone);
 extern bool NtpTimeIsValid(void);
 
 void NtpCheckValidTime(void);

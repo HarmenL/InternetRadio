@@ -5,6 +5,7 @@
 #ifndef _Httpstream_H
 #define _Httpstream_H
 
+#include "ntp.h"
 #include "typedefs.h"
 
 extern bool HttpIsStreaming(void);
