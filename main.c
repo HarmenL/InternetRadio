@@ -15,40 +15,44 @@
 
 #define LOG_MODULE  LOG_MAIN_MODULE
 
+#define _SUPPRESS_ALARMSYNC
+
 /*--------------------------------------------------------------------------*/
 /*  Include files                                                           */
 /*--------------------------------------------------------------------------*/
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 #include <sys/thread.h>
 #include <sys/timer.h>
 #include <sys/version.h>
 #include <dev/irqreg.h>
 
-#include "displayHandler.h"
-#include "system.h"
-#include "portio.h"
+// Note: Please keep the includes in alphabetical order!    - Jordy
+#include "alarm.h"
+#include "contentparser.h"
 #include "display.h"
-#include "remcon.h"
+#include "displayHandler.h"
+#include "flash.h"
+#include "httpstream.h"
 #include "keyboard.h"
 #include "led.h"
 #include "log.h"
-#include "uart0driver.h"
+#include "mp3stream.h"
 #include "mmc.h"
-#include "watchdog.h"
-#include "flash.h"
-#include "spidrv.h"
 #include "network.h"
-#include "typedefs.h"
-
-
-#include <time.h>
-#include "rtc.h"
-#include "alarm.h"
 #include "ntp.h"
-#include "httpstream.h"
-#include "contentparser.h"
+#include "portio.h"
+#include "remcon.h"
+#include "rtc.h"
+#include "spidrv.h"
+#include "system.h"
+#include "typedefs.h"
+#include "uart0driver.h"
+#include "watchdog.h"
+
+
 
 /*-------------------------------------------------------------------------*/
 /* local routines (prototyping)                                            */
@@ -186,8 +190,6 @@ bool isAlarmSyncing = false;
 bool initialized = false;
 bool running = false;
 
-u_char VS_volume = 7; //[0-15];
-
 /*-------------------------------------------------------------------------*/
 /* local variable definitions                                              */
 /*-------------------------------------------------------------------------*/
@@ -216,6 +218,7 @@ THREAD(AlarmSync, arg)
 
     NtpSync();
 
+    #ifndef _SUPPRESS_ALARMSYNC
     for(;;)
     {
         if((initialized == true) && (hasNetworkConnection() == true))
@@ -232,6 +235,7 @@ THREAD(AlarmSync, arg)
         }
         NutSleep(3000);
     }
+    #endif
     NutThreadExit();
 }
 
@@ -358,24 +362,16 @@ int main(void)
             NutSleep(150);
             X12RtcGetClock(&timeCheck);
 
-            if (VS_volume > 0){
-                --VS_volume;
-                VS_volume = VS_volume % 17;
-                VsSetVolume((127 - (VS_volume * 8)) % 128);
-            }
-            displayVolume(VS_volume);
+            u_char newVolume = volumeDown();
+            displayVolume((int)newVolume);
         }
         else if(KbGetKey() == KEY_UP)
         {
             NutSleep(150);
             X12RtcGetClock(&timeCheck);
 
-            if (VS_volume < 16){
-                ++VS_volume;
-                VS_volume = VS_volume % 17;
-                VsSetVolume((127 - (VS_volume * 8)) % 128);
-            }
-            displayVolume(VS_volume);
+            u_char newVolume = volumeUp();
+            displayVolume((int)newVolume);
         }
         else if(timerStruct(timeCheck) >= 5 && checkAlarms() == 1)
         {
