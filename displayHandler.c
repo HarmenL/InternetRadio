@@ -120,4 +120,10 @@ void displayVolume(int pos)
 }
 
 
-
+void displayTwitch(char name[], char title[], char game[])
+{
+    ClearLcd();
+    LcdArrayLineOne(name, strlen(name));
+    LcdArrayLineTwo("Streaming", 9);
+    LcdBackLight(LCD_BACKLIGHT_ON);
+}
