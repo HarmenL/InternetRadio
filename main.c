@@ -182,10 +182,11 @@ static void SysControlMainBeat(u_char OnOff)
 /*-------------------------------------------------------------------------*/
 /* global variable definitions                                             */
 /*-------------------------------------------------------------------------*/
-int isAlarmSyncing;
-int initialized;
-int running = 0;
-unsigned char VOL = 64;
+bool isAlarmSyncing = false;
+bool initialized = false;
+bool running = false;
+
+u_char VS_volume = 7; //[0-15];
 
 /*-------------------------------------------------------------------------*/
 /* local variable definitions                                              */
@@ -196,11 +197,12 @@ unsigned char VOL = 64;
 /*-------------------------------------------------------------------------*/
 THREAD(StartupInit, arg)
 {
+    NutThreadSetPriority(5);
+
     NetworkInit();
 
-    NtpSync();
+    initialized = true;
 
-    initialized = 1;
     NutThreadExit();
 }
 
@@ -222,15 +224,23 @@ THREAD(NTPSync, arg)
 
 THREAD(AlarmSync, arg)
 {
+    NutThreadSetPriority(200);
+
+    while(initialized == false){
+        NutSleep(1000);
+    }
+
+    NtpSync();
+
     for(;;)
     {
-        if(initialized && (hasNetworkConnection() == true))
+        if((initialized == true) && (hasNetworkConnection() == true))
         {
-            isAlarmSyncing = 1;
+            isAlarmSyncing = true;
             char url[43];
             sprintf(url, "%s%s", "/getAlarmen.php?radiomac=", getMacAdress());
             httpGet(url, parseAlarmJson);
-            isAlarmSyncing = 0;
+            isAlarmSyncing = false;
         }
         NutSleep(3000);
     }
@@ -302,7 +312,7 @@ int main(void)
 
     NutThreadCreate("BackgroundThread", StartupInit, NULL, 1024);
     NutThreadCreate("BackgroundThread", AlarmSync, NULL, 2500);
-    NutThreadCreate("BackgroundThread", NTPSync, NULL, 700);
+    //NutThreadCreate("BackgroundThread", NTPSync, NULL, 700);
     /** Quick fix for turning off the display after 10 seconds boot */
 
     RcInit();
@@ -341,38 +351,41 @@ int main(void)
 		//Check if a button is pressed
 		if (checkOffPressed() == 1){
 			X12RtcGetClock(&start);
-			running = 1;
+			running = true;
             LcdBackLight(LCD_BACKLIGHT_ON);
 		}
 
 		//Check if background LED is on, and compare to timer
-		if (running == 1){
+		if (running == true){
 			if (timerStruct(start) >= 10 || running > 1){
-				running = 0;
+				running = false;
 				LcdBackLight(LCD_BACKLIGHT_OFF);
 			}
 		}
 
-        VOL = VOL2;
         if(KbGetKey() == KEY_DOWN)
         {
             NutSleep(150);
-             X12RtcGetClock(&timeCheck);
-            if(VOL > 8){
-                VOL -= 8;
-                VsSetVolume (127-VOL, 127-VOL);
-                displayVolume(VOL/8);
+            X12RtcGetClock(&timeCheck);
+
+            if (VS_volume > 0){
+                --VS_volume;
+                VS_volume = VS_volume % 17;
+                VsSetVolume((127 - (VS_volume * 8)) % 128);
             }
+            displayVolume(VS_volume);
         }
         else if(KbGetKey() == KEY_UP)
         {
             NutSleep(150);
-             X12RtcGetClock(&timeCheck);
-            if(VOL < 128) {
-                VOL += 8;
-                VsSetVolume(128-VOL, 128-VOL);
-                displayVolume(VOL/8);
+            X12RtcGetClock(&timeCheck);
+
+            if (VS_volume < 16){
+                ++VS_volume;
+                VS_volume = VS_volume % 17;
+                VsSetVolume((127 - (VS_volume * 8)) % 128);
             }
+            displayVolume(VS_volume);
         }
         else if(timerStruct(timeCheck) >= 5 && checkAlarms() == 1)
         {
@@ -397,8 +410,7 @@ int main(void)
             displayTime(0);
             displayDate(1);
 		}
-
-        VOL2 = VOL;
+        
         WatchDogRestart();
     }
     return(0);
