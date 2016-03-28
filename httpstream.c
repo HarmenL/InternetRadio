@@ -15,7 +15,7 @@
 
 #include <sys/confnet.h>
 
-#include <arpa/inet.h>
+
 #include <net/route.h>
 
 #include <dev/board.h>

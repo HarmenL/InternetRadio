@@ -354,7 +354,11 @@ int main(void)
 		}
 
         if(KbGetKey() == KEY_01){
-            playStream("62.195.226.247", 80, "/test.mp3");
+            //> "62.195.226.247";
+            printf("KEY_01 DETECTED\n");
+            connectToStream(inet_addr("62.195.226.247"), 80, "/test.mp3");
+            play();
+            //playStream("62.195.226.247", 80, "/test.mp3");
         }
 
         if(KbGetKey() == KEY_DOWN)

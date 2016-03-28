@@ -5,12 +5,16 @@
 #ifndef MUTLI_OS_BUILD_MP3STREAM_H
 #define MUTLI_OS_BUILD_MP3STREAM_H
 
+#include "typedefs.h"
+
+#include <netinet/tcp.h>
+#include <sys/socket.h>
+
 #include <stdio.h>
 #include <string.h>
 
-#include "typedefs.h"
-
-bool play(FILE *stream);
+bool play(void);
+bool connectToStream(u_long ipAddressStream, u_short port, char *radioUrl);
 
 u_char volumeUp(void);
 u_char volumeDown(void);
