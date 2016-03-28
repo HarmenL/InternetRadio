@@ -105,6 +105,10 @@ void parsetimezone(char* content)
 
 void parseTwitch(char* content)
 {
+    if(strcmp("null", content))
+    {
+        return;
+    }
     int r;
     int i = 2;
     jsmn_parser p;
