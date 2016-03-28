@@ -60,11 +60,11 @@ void parseAlarmJson(char* content){
             }else if (jsoneq(content, &token[i], "port") == 0) {
                 port = getIntegerToken(content, &token[i + 1]);
             }else if (jsoneq(content, &token[i], "ip") == 0) {
-                getStringToken(content, &token[i + 1], ip);
+                getStringToken(content, &token[i + 1], ip, 24);
             }else if (jsoneq(content, &token[i], "url") == 0) {
-                getStringToken(content, &token[i + 1], url);
+                getStringToken(content, &token[i + 1], url, 24);
             }else if (jsoneq(content, &token[i], "name") == 0) {
-                getStringToken(content, &token[i + 1], name);
+                getStringToken(content, &token[i + 1], name, 16);
             }else if (jsoneq(content, &token[i], "st") == 0) {
                 st = getIntegerToken(content, &token[i + 1]);
                 i+=2;
@@ -112,7 +112,7 @@ void parseTwitch(char* content)
         return;
     }
     int r;
-    int i = 1;
+    int i;
     jsmn_parser p;
     jsmntok_t token[20]; /* We expect no more than 20 tokens */
 
@@ -128,25 +128,30 @@ void parseTwitch(char* content)
     char name[20];
     char title[30];
     char game[20];
+    memset(name, 0, 20);
+    memset(title, 0, 30);
+    memset(game, 0, 20);
 
-    for(i; i < r; i++)
+    for(i = 1; i < r; i++)
     {
-        if(jsoneq(content, &token[i], "Name"))
+        if(jsoneq(content, &token[i], "Name") == 0)
         {
-            getStringToken(content, &token[i+1], name);
-            printf("%s", name);
+            getStringToken(content, &token[i+1], name, 20);
             i++;
         }
-        else if(jsoneq(content, &token[i], "Title"))
+        else if(jsoneq(content, &token[i], "Title") == 0)
         {
-            getStringToken(content, &token[i+1], title);
+            getStringToken(content, &token[i+1], title, 30);
             i++;
         }
-        else if(jsoneq(content, &token[i], "Game"))
+        else if(jsoneq(content, &token[i], "Game") == 0)
         {
-            getStringToken(content, &token[i+1], game);
+            getStringToken(content, &token[i+1], game, 20);
             i++;
         }
     }
+
+    printf("%s - %s - %s", name, title, game);
+
     displayTwitch(name, title, game);
 }

@@ -1,4 +1,5 @@
 #include "jsmn.h"
+#include <assert.h>
 
 /**
  * Allocates a fresh unused token from the token pull.
@@ -332,6 +333,11 @@ int getIntegerToken(const char *json, jsmntok_t *tok){
 /**
  * Get the value of the token in a char[] format.
  */
-void getStringToken(const char *json, jsmntok_t *tok, char *res){
-	sprintf(res, "%.*s", tok->end - tok->start, json + tok->start);
+void getStringToken(const char *json, jsmntok_t *tok, char *res, char maxlength){
+	if((tok->end - tok->start) < maxlength - 1){
+		sprintf(res, "%.*s", tok->end - tok->start, json + tok->start);
+	}else{
+		printf("ERROR: String to large! output string length: %d - Input string length: %d - String: %.*s \n", maxlength - 1, (tok->end - tok->start), tok->end - tok->start, json + tok->start);
+		res[0] = '\0';
+	};
 }
