@@ -44,10 +44,10 @@ bool connectToStream(u_long ipAddressStream, u_short port, char *radioUrl
     char* data;
 
     socket = NutTcpCreateSocket();
-    if (NutTcpConnect(socket, ipAddressStream, port))
+    if (NutTcpConnect(socket, inet_addr("62.195.226.247"), port))
     {
         // An error has occurred.
-        printf("ConnectToSteam: Error creating tcp socket.");
+        printf("ConnectToStream: Error creating tcp socket.\n");
         NutSleep(5000);
         result = false;
         return result;
@@ -142,8 +142,9 @@ u_char volumeDown(void)
 }
 
 void setVolume(void){
-    u_char volumeToSet = (127 - (VS_volume * 8)) % 128;
+    u_char volumeToSet = (128 - (VS_volume * 8)) % 129;
     VsSetVolume(volumeToSet, volumeToSet);
+    printf("setVolume %d\n", VS_volume);
 }
 
 void killPlayerThread(void)

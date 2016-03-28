@@ -356,9 +356,17 @@ int main(void)
         if(KbGetKey() == KEY_01){
             //> "62.195.226.247";
             printf("KEY_01 DETECTED\n");
-            connectToStream(inet_addr("62.195.226.247"), 80, "/test.mp3");
-            play();
+
+            bool success = connectToStream(inet_addr("62.195.226.247"), 80, "/test.mp3");
+            if (success == true){
+                play();
+            }else {
+                printf("ConnectToStream failed. Aborting.\n\n");
+            }
             //playStream("62.195.226.247", 80, "/test.mp3");
+        }
+        if(KbGetKey() == KEY_02){
+            killPlayerThread();
         }
 
         if(KbGetKey() == KEY_DOWN)
