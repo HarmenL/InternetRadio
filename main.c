@@ -221,8 +221,8 @@ THREAD(AlarmSync, arg)
         if((initialized == true) && (hasNetworkConnection() == true))
         {
             isAlarmSyncing = true;
-            char url[43];
-            sprintf(url, "%s%s", "/getAlarmen.php?radiomac=", getMacAdress());
+            char url[49];
+            sprintf(url, "/getAlarmen.php?radiomac=%s&tz=%d", getMacAdress(), getTimeZone());
             httpGet(url, parseAlarmJson);
             isAlarmSyncing = false;
         }

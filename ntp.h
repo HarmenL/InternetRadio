@@ -16,4 +16,7 @@ extern bool NtpTimeIsValid(void);
 void NtpCheckValidTime(void);
 void NtpWriteTimeToEeprom(tm);
 bool NtpCompareTime(tm, tm);
+
+void setTimeZone(int timezone);
+int getTimeZone();
 #endif /* _Ntp_H */

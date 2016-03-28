@@ -113,5 +113,5 @@ void parseAlarmJson(char* content){
 void parsetimezone(char* content)
 {
     int timezone = atoi(content);
-    printf("%d", timezone);
+    setTimeZone(timezone);
 }
