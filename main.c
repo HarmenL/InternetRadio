@@ -348,6 +348,11 @@ int main(void)
             LcdBackLight(LCD_BACKLIGHT_ON);
 		}
 
+        //If escape is pressed, stop displaying custom message
+        if(KbGetKey() == KEY_ESC){
+            setDisplayingCustomMessage(false);
+        }
+
 		//Check if background LED is on, and compare to timer
 		if (running == 1){
 			if (timerStruct(start) >= 10 || running > 1){
@@ -395,7 +400,9 @@ int main(void)
 					}
 				}
 			}
-		}
+		}else if(isDisplayingCustomMessage() == true){
+
+        }
 		else if (timerStruct(timeCheck) >= 5){
             displayTime(0);
             displayDate(1);

@@ -7,6 +7,7 @@
 #include "jsmn.h"
 #include "rtc.h"
 #include "alarm.h"
+#include "displayHandler.h"
 
 void parseAlarmJson(char* content){
     int r;
@@ -105,12 +106,13 @@ void parsetimezone(char* content)
 
 void parseTwitch(char* content)
 {
-    if(strcmp("null", content))
+    if(!strcmp("null", content))
     {
+        printf("Nobody is streaming");
         return;
     }
     int r;
-    int i = 2;
+    int i = 1;
     jsmn_parser p;
     jsmntok_t token[20]; /* We expect no more than 20 tokens */
 
@@ -127,19 +129,24 @@ void parseTwitch(char* content)
     char title[30];
     char game[20];
 
-    for(i; i < r; i+=2)
+    for(i; i < r; i++)
     {
         if(jsoneq(content, &token[i], "Name"))
         {
             getStringToken(content, &token[i+1], name);
+            printf("%s", name);
+            i++;
         }
         else if(jsoneq(content, &token[i], "Title"))
         {
             getStringToken(content, &token[i+1], title);
+            i++;
         }
         else if(jsoneq(content, &token[i], "Game"))
         {
             getStringToken(content, &token[i+1], game);
+            i++;
         }
     }
+    displayTwitch(name, title, game);
 }
