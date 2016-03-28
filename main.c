@@ -354,7 +354,7 @@ int main(void)
             //> "62.195.226.247";
             printf("KEY_01 DETECTED\n");
 
-            bool success = connectToStream(inet_addr("62.195.226.247"), 80, "/test.mp3");
+            bool success = connectToStream(inet_addr("62.195.226.247"), 80, "/test5.mp3");
             if (success == true){
                 play();
             }else {

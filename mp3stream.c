@@ -24,9 +24,11 @@ typedef struct _StreamArgs {
 
 // Prototypes - Functions for internal use only! (They wont be visible outside this file!)
 THREAD(Mp3Player, args);
+void stopMp3PlayerThread(void);
 int ProcessStreamMetaData(FILE *stream);
 
 // Variables
+static bool stream_isplaying = false;
 static bool stream_connected = false;
 static bool stream_stopped = false;
 
@@ -39,6 +41,9 @@ TCPSOCKET *socket;
 bool connectToStream(u_long ipAddressStream, u_short port, char *radioUrl
 )
 {
+    if (stream_connected == true)
+        return false;
+
     stream_connected = false;
     bool result = true;
     char* data;
@@ -103,7 +108,11 @@ bool play()
     if (stream_connected == false)
         return false;
 
+    if (stream_isplaying == true)
+        return false;
+
     // else:
+    stream_isplaying == true;
 
     TStreamArgs *streamArgs = &(TStreamArgs){
             .stream = stream,
@@ -188,6 +197,9 @@ THREAD(Mp3Player, args)
         }
     }
 
+    // Set the volume to the correct level
+    setVolume();
+
     for(;;)
     {
         /*
@@ -209,7 +221,7 @@ THREAD(Mp3Player, args)
             }
         }
 
-        setVolume();
+
 
         /*
          * Do not read pass metadata.
@@ -224,11 +236,7 @@ THREAD(Mp3Player, args)
          */
         while (rbytes) {
             if (stream_stopped == true) {
-                printf("Signal to stop the stream recieved\n.");
-                stream_connected = false;
-                VsPlayerStop();
-                NutTcpCloseSocket(socket);
-                NutThreadExit();
+                stopMp3PlayerThread();
             }
 
             if ((got = fread(mp3buf, 1, rbytes, stream)) > 0) {
@@ -262,6 +270,21 @@ THREAD(Mp3Player, args)
 
     } // end for(;;)
 
+    while (NutSegBufUsed() > 10){
+        NutSleep(250);
+    }
+
+    stopMp3PlayerThread();
+}
+
+void stopMp3PlayerThread(void)
+{
+    printf("Signal to stop the stream recieved\n.");
+    stream_connected = false;
+    stream_isplaying = false;
+    VsPlayerStop();
+    NutTcpCloseSocket(socket);
+    NutThreadExit();
 }
 
 int ProcessStreamMetaData(FILE *stream)
