@@ -209,6 +209,8 @@ THREAD(Mp3Player, args)
             }
         }
 
+        setVolume();
+
         /*
          * Do not read pass metadata.
          * This causes ugly hiccups.

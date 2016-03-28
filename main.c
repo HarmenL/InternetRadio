@@ -318,9 +318,6 @@ int main(void)
 
 	/* Enable global interrupts */
 	sei();
-
-    // Set volume to its default value
-    setVolume();
 	
 	LcdBackLight(LCD_BACKLIGHT_OFF);
 	X12RtcGetClock(&timeCheck);
