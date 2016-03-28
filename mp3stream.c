@@ -12,9 +12,11 @@
 
 #include "vs10xx.h"
 
-#define OK       1
-#define NOK      0
-#define MSIZE    1024
+#define OK              1
+#define NOK             0
+#define DEFAULT_VOLUME  7
+#define MSIZE           1024
+#define NUTSEGBUFFER    4096
 
 typedef struct _StreamArgs {
     FILE *stream;
@@ -22,23 +24,21 @@ typedef struct _StreamArgs {
 
 // Prototypes - Functions for internal use only! (They wont be visible outside this file!)
 THREAD(Mp3Player, args);
-void setVolume(void);
 int ProcessStreamMetaData(FILE *stream);
 
 // Variables
 static bool stream_connected = false;
 static bool stream_stopped = false;
 
-static u_char VS_volume = 7; //[0-16]; (Default volume = 7/16
+static u_char VS_volume = DEFAULT_VOLUME; //[0-16]; (Default volume = 7/16
 static u_long metaInt = 0;
 
 FILE *stream;
-
+TCPSOCKET *socket;
 
 bool connectToStream(u_long ipAddressStream, u_short port, char *radioUrl
 )
 {
-    TCPSOCKET *socket;
     stream_connected = false;
     bool result = true;
     char* data;
@@ -68,6 +68,7 @@ bool connectToStream(u_long ipAddressStream, u_short port, char *radioUrl
 
     // Server will respond with a HTTP-header. Fetch it to the buffer.
     stream_connected = true;
+    stream_stopped = false;
 
     data = (char *)malloc(MSIZE * sizeof(char));
 
@@ -144,11 +145,12 @@ u_char volumeDown(void)
 void setVolume(void){
     u_char volumeToSet = (128 - (VS_volume * 8)) % 129;
     VsSetVolume(volumeToSet, volumeToSet);
-    printf("setVolume %d\n", VS_volume);
+    printf("- VS_volume level: %d/16\n", VS_volume);
 }
 
 void killPlayerThread(void)
 {
+    printf("Signal to stop the stream sent.\n");
     stream_stopped = true;
 }
 
@@ -168,7 +170,7 @@ THREAD(Mp3Player, args)
     u_long mp3left = metaInt;
 
     // Init MP3-buffer. NutSegBuf is a global system buffer.
-    if (0 != NutSegBufInit(8192)){
+    if (0 != NutSegBufInit(NUTSEGBUFFER)){
         // Reset the global buffer.
         ief = VsPlayerInterrupts(0);
         NutSegBufReset();
@@ -220,7 +222,10 @@ THREAD(Mp3Player, args)
          */
         while (rbytes) {
             if (stream_stopped == true) {
+                printf("Signal to stop the stream recieved\n.");
+                stream_connected = false;
                 VsPlayerStop();
+                NutTcpCloseSocket(socket);
                 NutThreadExit();
             }
 
