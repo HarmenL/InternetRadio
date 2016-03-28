@@ -206,22 +206,6 @@ THREAD(StartupInit, arg)
     NutThreadExit();
 }
 
-THREAD(NTPSync, arg)
-{
-    for(;;)
-    {
-        if(initialized && (hasNetworkConnection() == true))
-        {
-            while(isAlarmSyncing)
-            {
-                NutSleep(2000);
-            }
-            NtpSync();
-        }
-        NutSleep(86400000);
-    }
-}
-
 THREAD(AlarmSync, arg)
 {
     NutThreadSetPriority(200);
@@ -410,7 +394,7 @@ int main(void)
             displayTime(0);
             displayDate(1);
 		}
-        
+
         WatchDogRestart();
     }
     return(0);
