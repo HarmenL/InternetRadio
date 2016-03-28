@@ -132,9 +132,7 @@ void parseCommandQue(char* content){
         if (jsoneq(content, &token[i], "command") == 0) {
             if(jsoneq(content, &token[i + 1], "volume") == 0){
                 char vol = getIntegerToken(content, &token[i + 3]);
-                printf("%d", vol);
                 vol = 128 - ((vol * 128) / 100);
-                printf("%d", vol);
                 VsSetVolume(vol, vol);
                 i += 3;
             }else if(jsoneq(content, &token[i + 1], "stopstream") == 0){
@@ -156,5 +154,6 @@ void parseCommandQue(char* content){
 void parsetimezone(char* content)
 {
     int timezone = atoi(content);
+    setTimeZone(timezone);
     printf("%d", timezone);
 }

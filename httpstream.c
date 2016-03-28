@@ -109,6 +109,10 @@ void ConnectStation(TCPSOCKET *sock, u_long ip, u_short port, char *radiourl, u_
      * Receive the HTTP header.
      */
     line = malloc(MAX_HEADERLINE);
+    if(line == 0){
+        printf("Can't malloc memory in httpstream\n");
+        return;
+    }
     while(fgets(line, MAX_HEADERLINE, stream)) {
 
         /*
@@ -161,6 +165,7 @@ int ProcessMetaData(FILE *stream)
 
         cnt = blks * 16;
         if ((mbuf = malloc(cnt + 1)) == 0) {
+            printf("Can't malloc memory for metadata parsing\n");
             return -1;
         }
 

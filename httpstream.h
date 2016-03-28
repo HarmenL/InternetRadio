@@ -8,7 +8,7 @@
 #include "ntp.h"
 
 #define MAX_HEADERLINE 512
-#define MSS 1460
+#define MSS 536
 #define RX_TO 3000
 #define TCPBUFSIZE 8760
 
