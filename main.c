@@ -226,6 +226,9 @@ THREAD(AlarmSync, arg)
             httpGet(url, parseAlarmJson);
             sprintf(url,"/getTwitter.php?radiomac=%s&tz=%d", getMacAdress());
             httpGet(url,TwitterParser);
+            char url2[43];
+            sprintf(url2, "/getTwitch.php?radiomac=%s", getMacAdress());
+            httpGet(url2, parseTwitch);
             isAlarmSyncing = false;
         }
         NutSleep(3000);
@@ -260,8 +263,6 @@ int checkOffPressed(){
         return 0;
     }
 }
-
-
 
 int main(void)
 {
@@ -341,6 +342,11 @@ int main(void)
             LcdBackLight(LCD_BACKLIGHT_ON);
 		}
 
+        //If escape is pressed, stop displaying custom message
+        if(KbGetKey() == KEY_ESC){
+            setDisplayingCustomMessage(false);
+        }
+
 		//Check if background LED is on, and compare to timer
 		if (running == true){
 			if (timerStruct(start) >= 10 || running > 1){
@@ -394,7 +400,14 @@ int main(void)
                     }
 				}
 			}
-		}
+		}else if(isDisplayingCustomMessage() == true){
+            if(timerStruct(timeCheck) >= 5)
+            {
+                setDisplayingCustomMessage(false);
+                LcdBackLight(LCD_BACKLIGHT_OFF);
+            }
+
+        }
 		else if (timerStruct(timeCheck) >= 5){
             displayTime(0);
             displayDate(1);

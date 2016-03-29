@@ -8,6 +8,9 @@
 #include "rtc.h"
 #include "alarm.h"
 #include "displayHandler.h"
+
+int streamid;
+
 void parseAlarmJson(char* content){
     int r;
     int i = 2;
@@ -59,11 +62,11 @@ void parseAlarmJson(char* content){
             }else if (jsoneq(content, &token[i], "port") == 0) {
                 port = getIntegerToken(content, &token[i + 1]);
             }else if (jsoneq(content, &token[i], "ip") == 0) {
-                getStringToken(content, &token[i + 1], ip);
+                getStringToken(content, &token[i + 1], ip, 24);
             }else if (jsoneq(content, &token[i], "url") == 0) {
-                getStringToken(content, &token[i + 1], url);
+                getStringToken(content, &token[i + 1], url, 24);
             }else if (jsoneq(content, &token[i], "name") == 0) {
-                getStringToken(content, &token[i + 1], name);
+                getStringToken(content, &token[i + 1], name, 16);
             }else if (jsoneq(content, &token[i], "st") == 0) {
                 st = getIntegerToken(content, &token[i + 1]);
                 i+=2;
@@ -99,10 +102,58 @@ void parseAlarmJson(char* content){
 
 void parsetimezone(char* content)
 {
-    int timezone = atoi(content);
+    int timezone = atoi(content); //parsing string to int (only works when everything is int)
     setTimeZone(timezone);
 }
 
+void parseTwitch(char* content) {
+    if (!strcmp("null", content)) {
+        printf("Nobody is streaming");
+        return;
+    }
+    int r;
+    int i;
+    jsmn_parser p;
+    jsmntok_t token[20]; /* We expect no more than 20 tokens */
+
+    jsmn_init(&p);
+    r = jsmn_parse(&p, content, strlen(content), token, sizeof(token) / sizeof(token[0]));
+    if (r <= 0) {
+        printf("Failed to parse JSON: %d \n", r);
+        return;
+    } else {
+        printf("Aantal tokens found: %d \n", r);
+    }
+
+    char name[20];
+    char title[30];
+    char game[20];
+    memset(name, 0, 20);
+    memset(title, 0, 30);
+    memset(game, 0, 20);
+
+    for (i = 1; i < r; i++) {
+        if (jsoneq(content, &token[i], "Name") == 0) {
+            getStringToken(content, &token[i + 1], name, 20);
+            i++;
+        }
+        else if (jsoneq(content, &token[i], "Title") == 0) {
+            getStringToken(content, &token[i + 1], title, 30);
+            i++;
+        }
+        else if (jsoneq(content, &token[i], "Game") == 0) {
+            getStringToken(content, &token[i + 1], game, 20);
+            i++;
+        }
+        else if (jsoneq(content, &token[i], "Date") == 0) {
+            //convert date to int
+        }
+    }
+
+    printf("%s - %s - %s", name, title, game);
+
+    displayTwitch(name, title, game);
+}
 void TwitterParser(char* content)
 {
     char* tweet = content;

@@ -19,6 +19,8 @@
 #define MONTH_OFFSET 1
 #define YEAR_OFFSET 1900
 
+bool displayingCustomMessage = false;
+
 void (*write_display_ptr[2])(char*, int) = {LcdArrayLineOne, LcdArrayLineTwo};
 
 void displayTime(int line_number){
@@ -130,4 +132,19 @@ void displayTwitter(int lineNumber,char text[])
 }
 
 
+void displayTwitch(char name[], char title[], char game[])
+{
+    displayingCustomMessage = true;
+    ClearLcd();
+    LcdArrayLineOne(name, strlen(name));
+    LcdArrayLineTwo("Streaming", 9);
+    LcdBackLight(LCD_BACKLIGHT_ON);
+}
 
+bool isDisplayingCustomMessage(){
+    return displayingCustomMessage;
+}
+
+void setDisplayingCustomMessage(bool value){
+    displayingCustomMessage = value;
+}

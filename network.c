@@ -51,7 +51,7 @@ char* getMacAdress(){
 }
 
 void httpGet(char address[], void (*parser)(char*)){
-    u_long rx_to = 3000;
+    u_long rx_to = 10000;
     isReceiving = true;
     printf("\n\n #-- HTTP get -- #\n");
 
