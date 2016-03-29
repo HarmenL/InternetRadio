@@ -49,7 +49,7 @@
 #include "ntp.h"
 #include "httpstream.h"
 #include "contentparser.h"
-
+#include "gotosleep.h"
 /*-------------------------------------------------------------------------*/
 /* local routines (prototyping)                                            */
 /*-------------------------------------------------------------------------*/
