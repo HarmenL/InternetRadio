@@ -377,12 +377,14 @@ int main(void)
 		else if(KbGetKey() == KEY_LEFT /*the key I can use or you guys want to use, for now KEY_LEFT*/)
         {
             NutSleep(150);
+			VOL = 40;
+			VsSetVolume(128-VOL, 128-VOL);
             X12RtcGetClock(&timeCheck);
             setSleep();
         }
         else if(timerStruct(timeCheck) >= 5 && checkAlarms() == 1)
         {
-			checkSleep();
+
 			for (idx = 0; idx < 5; idx++){
 				if (getState(idx) == 1){
 					displayAlarm(0,1,idx);
@@ -404,7 +406,7 @@ int main(void)
             displayTime(0);
             displayDate(1);
 		}
-
+		checkSleep();
         VOL2 = VOL;
         WatchDogRestart();
     }
