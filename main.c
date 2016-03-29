@@ -215,7 +215,8 @@ THREAD(AlarmSync, arg)
     }
 
     NtpSync();
-
+    int dayCounter;
+    dayCounter = 0;
     for(;;)
     {
         if((initialized == true) && (hasNetworkConnection() == true))
@@ -229,6 +230,12 @@ THREAD(AlarmSync, arg)
             httpGet(url2, parseTwitch);
             isAlarmSyncing = false;
         }
+        if(dayCounter > 28800 && (hasNetworkConnection() == true))
+        {
+            NtpSync();
+            dayCounter = 0;
+        }
+        dayCounter++;
         NutSleep(3000);
     }
     NutThreadExit();
@@ -403,7 +410,6 @@ int main(void)
                 setDisplayingCustomMessage(false);
                 LcdBackLight(LCD_BACKLIGHT_OFF);
             }
-
         }
 		else if (timerStruct(timeCheck) >= 5){
             displayTime(0);

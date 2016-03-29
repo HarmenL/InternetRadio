@@ -126,10 +126,11 @@ void parseTwitch(char* content) {
     }
 
     char name[20];
-    char title[30];
+    char title[20];
     char game[20];
+    int date;
     memset(name, 0, 20);
-    memset(title, 0, 30);
+    memset(title, 0, 20);
     memset(game, 0, 20);
 
     for (i = 1; i < r; i++) {
@@ -138,7 +139,7 @@ void parseTwitch(char* content) {
             i++;
         }
         else if (jsoneq(content, &token[i], "Title") == 0) {
-            getStringToken(content, &token[i + 1], title, 30);
+            getStringToken(content, &token[i + 1], title, 20);
             i++;
         }
         else if (jsoneq(content, &token[i], "Game") == 0) {
@@ -146,13 +147,17 @@ void parseTwitch(char* content) {
             i++;
         }
         else if (jsoneq(content, &token[i], "Date") == 0) {
-            //convert date to int
+            date = getIntegerToken(content, &token[i + 1]);
+            i++;
         }
     }
+    if(streamid != date)
+    {
+        printf("%s - %s - %s", name, title, game);
+        streamid = date;
+        displayTwitch(name, title, game);
+    }
 
-    printf("%s - %s - %s", name, title, game);
-
-    displayTwitch(name, title, game);
 }
 void TwitterParser(char* content)
 {
