@@ -9,6 +9,8 @@
 #include "alarm.h"
 #include "displayHandler.h"
 
+int streamid;
+
 void parseAlarmJson(char* content){
     int r;
     int i = 2;
@@ -100,7 +102,7 @@ void parseAlarmJson(char* content){
 
 void parsetimezone(char* content)
 {
-    int timezone = atoi(content);
+    int timezone = atoi(content); //parsing string to int (only works when everything is int)
     setTimeZone(timezone);
 }
 
@@ -148,6 +150,10 @@ void parseTwitch(char* content)
         {
             getStringToken(content, &token[i+1], game, 20);
             i++;
+        }
+        else if(jsoneq(content, &token[i], "Date") == 0)
+        {
+            //convert date to int
         }
     }
 

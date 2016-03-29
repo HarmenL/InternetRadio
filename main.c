@@ -398,6 +398,11 @@ int main(void)
 				}
 			}
 		}else if(isDisplayingCustomMessage() == true){
+            if(timerStruct(timeCheck) >= 5)
+            {
+                setDisplayingCustomMessage(false);
+                LcdBackLight(LCD_BACKLIGHT_OFF);
+            }
 
         }
 		else if (timerStruct(timeCheck) >= 5){
