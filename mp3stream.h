@@ -14,7 +14,7 @@
 #include <string.h>
 
 bool play(void);
-bool connectToStream(u_long ipAddressStream, u_short port, char *radioUrl);
+bool connectToStream(char* ipaddr, u_short port, char *radioUrl);
 void killPlayerThread(void);
 
 u_char volumeUp(void);

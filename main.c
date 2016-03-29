@@ -15,8 +15,6 @@
 
 #define LOG_MODULE  LOG_MAIN_MODULE
 
-#define _SUPPRESS_ALARMSYNC
-
 /*--------------------------------------------------------------------------*/
 /*  Include files                                                           */
 /*--------------------------------------------------------------------------*/
@@ -34,17 +32,13 @@
 #include "contentparser.h"
 #include "display.h"
 #include "displayHandler.h"
-#include "flash.h"
-#include "httpstream.h"
 #include "keyboard.h"
 #include "led.h"
 #include "log.h"
 #include "mp3stream.h"
-#include "mmc.h"
 #include "network.h"
 #include "ntp.h"
 #include "portio.h"
-#include "remcon.h"
 #include "rtc.h"
 #include "spidrv.h"
 #include "system.h"
@@ -90,10 +84,13 @@ static void SysMainBeatInterrupt(void *p)
 {
 
     /*
-     *  scan for valid keys AND check if a MMCard is inserted or removed
+     *  scan for valid keys
      */
     KbScan();
-    CardCheckCard();
+
+    if(KbGetKey() != KEY_NO_KEY){
+        LcdBackLight(LCD_BACKLIGHT_ON);
+    }
 }
 
 /*!
@@ -210,7 +207,7 @@ THREAD(StartupInit, arg)
 
 THREAD(AlarmSync, arg)
 {
-    NutThreadSetPriority(200);
+    NutThreadSetPriority(50);
 
     while(initialized == false){
         NutSleep(1000);
@@ -218,7 +215,6 @@ THREAD(AlarmSync, arg)
 
     NtpSync();
 
-    #ifndef _SUPPRESS_ALARMSYNC
     for(;;)
     {
         if((initialized == true) && (hasNetworkConnection() == true))
@@ -235,7 +231,6 @@ THREAD(AlarmSync, arg)
         }
         NutSleep(3000);
     }
-    #endif
     NutThreadExit();
 }
 
@@ -291,21 +286,16 @@ int main(void)
     Uart0DriverStart();
 	LogInit();
 
-    CardInit();
-
     X12Init();
 
     VsPlayerInit();
 
- 
-    NtpInit();
+     NtpInit();
 
     NutThreadCreate("BackgroundThread", StartupInit, NULL, 1024);
     NutThreadCreate("BackgroundThread", AlarmSync, NULL, 2500);
     //NutThreadCreate("BackgroundThread", NTPSync, NULL, 700);
     /** Quick fix for turning off the display after 10 seconds boot */
-
-    RcInit();
 
 	KbInit();
 
@@ -350,22 +340,6 @@ int main(void)
 			}
 		}
 
-        if(KbGetKey() == KEY_01){
-            //> "62.195.226.247";
-            printf("KEY_01 DETECTED\n");
-
-            bool success = connectToStream(inet_addr("62.195.226.247"), 80, "/test5.mp3");
-            if (success == true){
-                play();
-            }else {
-                printf("ConnectToStream failed. Aborting.\n\n");
-            }
-            //playStream("62.195.226.247", 80, "/test.mp3");
-        }
-        if(KbGetKey() == KEY_02){
-            killPlayerThread();
-        }
-
         if(KbGetKey() == KEY_DOWN)
         {
             NutSleep(150);
@@ -392,12 +366,11 @@ int main(void)
 						handleAlarm(idx);
 						//NutDelay(50);
 						LcdBackLight(LCD_BACKLIGHT_OFF);
-                        stopStream();
-					} else if (KbGetKey() == KEY_01 || KbGetKey() == KEY_02 || KbGetKey() == KEY_03 || KbGetKey() == KEY_04 || KbGetKey() == KEY_05 || KbGetKey() == KEY_ALT){
+                    } else if (KbGetKey() == KEY_01 || KbGetKey() == KEY_02 || KbGetKey() == KEY_03 || KbGetKey() == KEY_04 || KbGetKey() == KEY_05 || KbGetKey() == KEY_ALT){
 						setSnooze(idx);
 						LcdBackLight(LCD_BACKLIGHT_OFF);
-                        stopStream();
-					}
+                        killPlayerThread();
+                    }
 				}
 			}
 		}

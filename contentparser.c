@@ -5,10 +5,10 @@
 #include "ntp.h"
 #include "network.h"
 #include "jsmn.h"
+#include "mp3stream.h"
 #include "rtc.h"
 #include "alarm.h"
 #include "vs10xx.h"
-#include "httpstream.h"
 
 void parseAlarmJson(char* content){
     int r;
@@ -123,7 +123,7 @@ void parseCommandQue(char* content){
                 VsSetVolume(vol, vol);
                 i += 3;
             }else if(jsoneq(content, &token[i + 1], "stopstream") == 0){
-                stopStream();
+                killPlayerThread();
                 i += 3;
             }else if(jsoneq(content, &token[i + 1], "startstream") == 0){
                 u_short port = getIntegerToken(content, &token[i + 9]);
@@ -131,7 +131,12 @@ void parseCommandQue(char* content){
                 char ip[24];
                 getStringToken(content, &token[i + 7], url);
                 getStringToken(content, &token[i + 5], ip);
-                playStream(ip, port, url);
+                bool success = connectToStream(ip, port, url);
+                if (success == true){
+                    play();
+                }else {
+                    printf("ConnectToStream failed. Aborting.\n\n");
+                }
                 i += 9;
             }
         }
@@ -142,5 +147,5 @@ void parsetimezone(char* content)
 {
     int timezone = atoi(content);
     setTimeZone(timezone);
-    printf("%d", timezone);
 }
+

@@ -38,8 +38,7 @@ static u_long metaInt = 0;
 FILE *stream;
 TCPSOCKET *socket;
 
-bool connectToStream(u_long ipAddressStream, u_short port, char *radioUrl
-)
+bool connectToStream(char *ipaddr, u_short port, char *radioUrl)
 {
     if (stream_connected == true)
         return false;
@@ -49,7 +48,8 @@ bool connectToStream(u_long ipAddressStream, u_short port, char *radioUrl
     char* data;
 
     socket = NutTcpCreateSocket();
-    if (NutTcpConnect(socket, inet_addr("62.195.226.247"), port))
+    printf("Connecting to %s:%d%s\r\n", ipaddr, port, radioUrl);
+    if (NutTcpConnect(socket, inet_addr(ipaddr), port))
     {
         // An error has occurred.
         printf("ConnectToStream: Error creating tcp socket.\n");
@@ -60,11 +60,8 @@ bool connectToStream(u_long ipAddressStream, u_short port, char *radioUrl
 
     stream = _fdopen((int)socket, "r+b");
 
-    // Tell the console what we are doing.
-    printf("GET %s HTTP/1.0\r\n", radioUrl);
-
     fprintf(stream, "GET %s HTTP/1.0\r\n", radioUrl);
-    fprintf(stream, "Host: %s\r\n", inet_ntoa(ipAddressStream));
+    fprintf(stream, "Host: %s\r\n", ipaddr);
     fprintf(stream, "User-Agent: Ethernut\r\n");
     fprintf(stream, "Accept: */*\r\n");
     fprintf(stream, "Icy-MetaData: 1\r\n");
