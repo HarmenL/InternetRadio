@@ -10,7 +10,7 @@
 #include "displayHandler.h"
 void parseAlarmJson(char* content){
     int r;
-    int i;
+    int i = 2;
     jsmn_parser p;
     jsmntok_t token[150]; /* We expect no more than 128 tokens */
 
@@ -23,65 +23,52 @@ void parseAlarmJson(char* content){
         printf("Aantal tokens found: %d \n", r);
     }
 
-    int start = 1;
     int usedAlarms[maxAlarms()];
     int j;
+    struct _tm time = GetRTCTime();
     for(j = 0; j < maxAlarms(); j++){
         usedAlarms[j] = 0;
     }
-    for(i = 1; i < r; i++)
+    for(i; i < r; i++)
     {
-        struct _tm time = GetRTCTime();
+        int id;
         u_short port;
         char url[24];
         char ip[24];
         char name[16];
-        char st;
+        char st = -1;
         memset(url, 0, 24);
         memset(ip, 0, 24);
-        memset(name, 0, 16);
+        memset(name, 0, 17);
 
-        int id;
-        for (i = i; !((i + start) % 26 == 0); i++) {
+        for (i; (st == -1 && i < r); i+=2) {                                //Zodra ST is gevonden, betekent dit de laatste token van een alarm.
             if (jsoneq(content, &token[i], "YYYY") == 0) {
                 time.tm_year= getIntegerToken(content, &token[i + 1]) - 1900;
-                i++;
             }else if (jsoneq(content, &token[i], "MM") == 0) {
                 time.tm_mon=  getIntegerToken(content, &token[i + 1]) - 1;
-                i++;
             }else if (jsoneq(content, &token[i], "DD") == 0) {
                 time.tm_mday =  getIntegerToken(content, &token[i + 1]);
-                i++;
             }else if (jsoneq(content, &token[i], "hh") == 0) {
                 time.tm_hour = 	getIntegerToken(content, &token[i + 1]);
-                i++;
             }else if (jsoneq(content, &token[i], "mm") == 0) {
                 time.tm_min = getIntegerToken(content, &token[i + 1]);
-                i++;
             }else if (jsoneq(content, &token[i], "ss") == 0) {
                 time.tm_sec = getIntegerToken(content, &token[i + 1]);
-                i++;
             }else if (jsoneq(content, &token[i], "id") == 0) {
                 id = getIntegerToken(content, &token[i + 1]);
-                i++;
             }else if (jsoneq(content, &token[i], "port") == 0) {
                 port = getIntegerToken(content, &token[i + 1]);
-                i++;
             }else if (jsoneq(content, &token[i], "ip") == 0) {
                 getStringToken(content, &token[i + 1], ip);
-                i++;
             }else if (jsoneq(content, &token[i], "url") == 0) {
                 getStringToken(content, &token[i + 1], url);
-                i++;
             }else if (jsoneq(content, &token[i], "name") == 0) {
                 getStringToken(content, &token[i + 1], name);
-                i++;
             }else if (jsoneq(content, &token[i], "st") == 0) {
                 st = getIntegerToken(content, &token[i + 1]);
-                i++;
+                i+=2;
             }
         }
-        start = 0;
 
         int idx = alarmExist(id);
         if(idx == -1){
@@ -96,7 +83,7 @@ void parseAlarmJson(char* content){
                 if(usedAlarms[j] == 0){ //Dit is een lege plaats, hier kunnen we ons nieuwe alarm plaatsen
                     setAlarm(time, name, ip, port, url, st, id, j);
                     usedAlarms[j] = 1;
-                    j = 10;
+                    j = 10;             //Uit de for loop
                 }
             }
         }else{
@@ -113,7 +100,7 @@ void parseAlarmJson(char* content){
 void parsetimezone(char* content)
 {
     int timezone = atoi(content);
-    printf("%d", timezone);
+    setTimeZone(timezone);
 }
 
 void TwitterParser(char* content)
