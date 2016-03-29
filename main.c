@@ -229,7 +229,9 @@ THREAD(AlarmSync, arg)
             isAlarmSyncing = 1;
             char url[43];
             sprintf(url, "%s%s", "/getAlarmen.php?radiomac=", getMacAdress());
+            sprintf(url, "%s%s", "/getTwitter.php", getMacAdress());
             httpGet(url, parseAlarmJson);
+            httpGet(url2,TwitterParser);
             isAlarmSyncing = 0;
         }
         NutSleep(3000);
@@ -389,7 +391,9 @@ int main(void)
 						setSnooze(idx);
 						LcdBackLight(LCD_BACKLIGHT_OFF);
                         stopStream();
-					}
+					}else if(KbGetKey() == KEY_LEFT)
+                    {
+                    }
 				}
 			}
 		}

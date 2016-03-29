@@ -7,7 +7,7 @@
 #include "jsmn.h"
 #include "rtc.h"
 #include "alarm.h"
-
+#include "displayHandler.h"
 void parseAlarmJson(char* content){
     int r;
     int i;
@@ -114,4 +114,11 @@ void parsetimezone(char* content)
 {
     int timezone = atoi(content);
     printf("%d", timezone);
+}
+
+void TwitterParser(char* content)
+{
+    char tweet = atoi(content);
+    printf("%d", tweet);
+    displayTwitter(1,tweet);
 }
