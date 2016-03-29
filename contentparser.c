@@ -105,7 +105,7 @@ void parsetimezone(char* content)
 
 void TwitterParser(char* content)
 {
-    char tweet = atoi(content);
-    printf("%d", tweet);
+    char* tweet = content;
+    printf("%s", tweet);
     displayTwitter(1,tweet);
 }

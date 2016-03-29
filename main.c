@@ -223,9 +223,9 @@ THREAD(AlarmSync, arg)
             isAlarmSyncing = true;
             char url[49];
             sprintf(url, "/getAlarmen.php?radiomac=%s&tz=%d", getMacAdress(), getTimeZone());
-            sprintf(url, "%s%s", "/getTwitter.php", getMacAdress());
             httpGet(url, parseAlarmJson);
-            httpGet(url2,TwitterParser);
+            sprintf(url,"/getTwitter.php?radiomac=%s&tz=%d", getMacAdress());
+            httpGet(url,TwitterParser);
             isAlarmSyncing = false;
         }
         NutSleep(3000);
@@ -390,6 +390,7 @@ int main(void)
                         stopStream();
 					}else if(KbGetKey() == KEY_LEFT)
                     {
+
                     }
 				}
 			}
