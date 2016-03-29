@@ -374,8 +374,15 @@ int main(void)
                 displayVolume(VOL/8);
             }
         }
+		else if(KbGetKey() == KEY_LEFT /*the key I can use or you guys want to use, for now KEY_LEFT*/)
+        {
+            NutSleep(150);
+            X12RtcGetClock(&timeCheck);
+            setSleep();
+        }
         else if(timerStruct(timeCheck) >= 5 && checkAlarms() == 1)
         {
+			checkSleep();
 			for (idx = 0; idx < 5; idx++){
 				if (getState(idx) == 1){
 					displayAlarm(0,1,idx);
