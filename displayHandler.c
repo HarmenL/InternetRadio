@@ -121,6 +121,16 @@ void displayVolume(int pos)
         LcdArrayLineTwo(characters,pos);
 }
 
+void displayTwitter(int lineNumber,char text[])
+{
+    ClearLcd();
+    int i;
+
+    if (lineNumber > -1 && lineNumber < 2){
+        (*write_display_ptr[lineNumber])(text,strlen(text));
+    }
+}
+
 
 void displayTwitch(char name[], char title[], char game[])
 {

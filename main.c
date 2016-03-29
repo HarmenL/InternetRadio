@@ -262,8 +262,6 @@ int checkOffPressed(){
     }
 }
 
-
-
 int main(void)
 {
 	initialized = 0;
@@ -394,7 +392,9 @@ int main(void)
 						setSnooze(idx);
 						LcdBackLight(LCD_BACKLIGHT_OFF);
                         stopStream();
-					}
+					}else if(KbGetKey() == KEY_LEFT)
+                    {
+                    }
 				}
 			}
 		}else if(isDisplayingCustomMessage() == true){

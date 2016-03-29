@@ -106,10 +106,8 @@ void parsetimezone(char* content)
     setTimeZone(timezone);
 }
 
-void parseTwitch(char* content)
-{
-    if(!strcmp("null", content))
-    {
+void parseTwitch(char* content) {
+    if (!strcmp("null", content)) {
         printf("Nobody is streaming");
         return;
     }
@@ -119,11 +117,11 @@ void parseTwitch(char* content)
     jsmntok_t token[20]; /* We expect no more than 20 tokens */
 
     jsmn_init(&p);
-    r = jsmn_parse(&p, content, strlen(content), token, sizeof(token)/sizeof(token[0]));
+    r = jsmn_parse(&p, content, strlen(content), token, sizeof(token) / sizeof(token[0]));
     if (r <= 0) {
         printf("Failed to parse JSON: %d \n", r);
         return;
-    }else{
+    } else {
         printf("Aantal tokens found: %d \n", r);
     }
 
@@ -134,25 +132,20 @@ void parseTwitch(char* content)
     memset(title, 0, 30);
     memset(game, 0, 20);
 
-    for(i = 1; i < r; i++)
-    {
-        if(jsoneq(content, &token[i], "Name") == 0)
-        {
-            getStringToken(content, &token[i+1], name, 20);
+    for (i = 1; i < r; i++) {
+        if (jsoneq(content, &token[i], "Name") == 0) {
+            getStringToken(content, &token[i + 1], name, 20);
             i++;
         }
-        else if(jsoneq(content, &token[i], "Title") == 0)
-        {
-            getStringToken(content, &token[i+1], title, 30);
+        else if (jsoneq(content, &token[i], "Title") == 0) {
+            getStringToken(content, &token[i + 1], title, 30);
             i++;
         }
-        else if(jsoneq(content, &token[i], "Game") == 0)
-        {
-            getStringToken(content, &token[i+1], game, 20);
+        else if (jsoneq(content, &token[i], "Game") == 0) {
+            getStringToken(content, &token[i + 1], game, 20);
             i++;
         }
-        else if(jsoneq(content, &token[i], "Date") == 0)
-        {
+        else if (jsoneq(content, &token[i], "Date") == 0) {
             //convert date to int
         }
     }
@@ -160,4 +153,10 @@ void parseTwitch(char* content)
     printf("%s - %s - %s", name, title, game);
 
     displayTwitch(name, title, game);
+}
+void TwitterParser(char* content)
+{
+    char tweet = atoi(content);
+    printf("%d", tweet);
+    displayTwitter(1,tweet);
 }

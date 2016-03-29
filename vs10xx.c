@@ -505,7 +505,7 @@ int VsPlayerKick(void)
          *  for the VS1003 we need an extra reset
          *  here before we start playing a stream...
          */
-        VsPlayerSetMode(VS_SM_RESET);
+         VsPlayerSetMode(VS_SM_RESET);
 //        NutDelay(10);
 //        LogMsg_P(LOG_DEBUG,PSTR("Kick: CLOCKF = [0x%02X]"),VsRegRead(VS_CLOCKF_REG));
 //        LogMsg_P(LOG_DEBUG,PSTR("Kick: CLOCKF = [0x%02X]"),VsRegRead(VS_CLOCKF_REG));
