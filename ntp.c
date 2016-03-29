@@ -104,6 +104,7 @@ void NtpSync(void){
     /* Ophalen van pool.ntp.org */
     isSyncing = true;
     httpGet("/gettimezone.php", parsetimezone);
+    _daylight = 0;
     printf(TIME_ZONE);
     NutDelay(100);
     //puts("Tijd ophalen van pool.ntp.org (213.154.229.24)");
@@ -144,5 +145,10 @@ void NtpWriteTimeToEeprom(tm time_struct){
 }
 
 void setTimeZone(int timezone){
-    _timezone = -timezone * 3600;
+    TIME_ZONE = timezone;
+    _timezone = -1*timezone * 3600;
+}
+
+int getTimeZone(){
+    return TIME_ZONE;
 }
