@@ -7,9 +7,9 @@
 
 #endif //INTERNETRADIO_TWITCH_H
 
-void setID(int id);
-int getID(void);
-int streamid;
+void setID(char* id);
+char* getID(void);
+char streamid[15];
 struct streamdata data;
 
 struct streamdata

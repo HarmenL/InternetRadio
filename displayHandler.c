@@ -149,10 +149,28 @@ void displayTwitter(int lineNumber,char text[])
     }
 }
 
-void displayTwitch(char name[], char title[], char game[])
-    {
-    ClearLcd();
-    LcdArrayLineOne(name, strlen(name));
-    LcdArrayLineTwo("Streaming", 9);
+void displayTwitch(char name[], char title[], char game[]) {
+
+    if (timerStruct(lastDisplayTime) % 10 < 5) {
+        ClearLcd();
+        if(strlen(name) > 16) {
+            LcdArrayLineOne(name, strlen(name));
+        }else {
+            LcdArrayLineTwo(name, 16);
+        }
+        LcdArrayLineTwo("is streaming", 12);
+    }
+    else {
+        ClearLcd();
+        if(strlen(title) > 16) {
+            LcdArrayLineOne(title, 16);
+        }else {
+            LcdArrayLineOne(title, strlen(title));
+        }if(strlen(game) > 16) {
+            LcdArrayLineTwo(game, 16);
+        }else{
+            LcdArrayLineTwo(game, strlen(game));
+        }
+    }
     LcdBackLight(LCD_BACKLIGHT_ON);
 }
