@@ -44,6 +44,7 @@
 #include "system.h"
 #include "typedefs.h"
 #include "uart0driver.h"
+#include "vs10xx.h"
 #include "watchdog.h"
 
 
@@ -82,15 +83,7 @@ static void SysControlMainBeat(u_char);
  */
 static void SysMainBeatInterrupt(void *p)
 {
-
-    /*
-     *  scan for valid keys
-     */
     KbScan();
-
-    if(KbGetKey() != KEY_NO_KEY){
-        LcdBackLight(LCD_BACKLIGHT_ON);
-    }
 }
 
 /*!

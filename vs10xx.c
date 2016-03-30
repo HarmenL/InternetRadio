@@ -91,7 +91,6 @@
 /*-------------------------------------------------------------------------*/
 static volatile u_char vs_status = VS_STATUS_STOPPED;
 static u_short g_vs_type;
-static u_char VsPlayMode;
 
 
 static void VsLoadProgramCode(void);
@@ -787,13 +786,6 @@ u_short VsMemoryTest(void)
 int VsSetVolume(u_char left, u_char right)
 {
     u_char ief;
-    if(left < 0){
-        left = 0;
-    }
-    if(right < 0){
-        right = 0;
-    }
-    printf("%d %d", left, right);
 
     ief = VsPlayerInterrupts(0);
 

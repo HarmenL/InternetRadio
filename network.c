@@ -7,6 +7,7 @@
 #include <sys/confnet.h>
 #include <sys/socket.h>
 #include <netinet/tcp.h>
+#include <sys/types.h>
 
 #include <stdlib.h>
 #include <string.h>
@@ -17,6 +18,8 @@
 
 #include <stdio.h>
 #include <io.h>
+#include <sys/version.h>
+#include <dev/irqreg.h>
 #include <arpa/inet.h>
 #include <pro/dhcp.h>
 #include <pro/sntp.h>
@@ -47,7 +50,7 @@ void NetworkInit() {
 }
 
 char* getMacAdress(){
-    ether_ntoa(confnet.cdn_mac);
+    return ether_ntoa(confnet.cdn_mac);
 }
 
 void httpGet(char address[], void (*parser)(char*)){

@@ -4,11 +4,11 @@
 
 #ifndef _Network_H
 #define _Network_H
-
-//bool hasNetworkConnection(void);
-//bool NetworkIsReceiving(void);
+#include "typedefs.h"
+bool hasNetworkConnection(void);
+bool NetworkIsReceiving(void);
 extern void NetworkInit(void);
 extern void httpGet(char address[], void (*parser)(char*));
-char* getMacAdress();
+char* getMacAdress(void);
 
 #endif /* _Network_H */

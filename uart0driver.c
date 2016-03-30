@@ -106,9 +106,6 @@ THREAD(Uart0KeyEvents, arg)
         result = fgets(result, 16, stream);
         short _reset_received = strcmp(rst, result);
 
-        *rst = "abcde\n";
-        *result = "";
-
         if (_reset_received == 0){
             LogMsg_P(LOG_INFO, PSTR(">>>>>> RESET COMMAND RECEIVED"));
             //RESET SIR!

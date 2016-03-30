@@ -12,7 +12,9 @@
 
 void parseAlarmJson(char* content){
     int r;
-    int i = 2;
+    int i;
+    int usedAlarms[maxAlarms()];
+    int j;
     jsmn_parser p;
     jsmntok_t token[160]; /* We expect no more than 128 tokens */
 
@@ -25,16 +27,15 @@ void parseAlarmJson(char* content){
         printf("Aantal tokens found: %d \n", r);
     }
 
-    int usedAlarms[maxAlarms()];
-    int j;
+
     struct _tm time = GetRTCTime();
     for(j = 0; j < maxAlarms(); j++){
         usedAlarms[j] = 0;
     }
-    for(i; i < r; i++)
+    for(i = 2; i < r; i++)
     {
-        int id;
-        u_short port;
+        int id = 0;
+        u_short port = 0;
         char url[24];
         char ip[24];
         char name[16];
@@ -44,7 +45,7 @@ void parseAlarmJson(char* content){
         memset(ip, 0, 24);
         memset(name, 0, 17);
 
-        for (i; (st == -1 && i < r); i+=2) {                                //Zodra ST is gevonden, betekent dit de laatste token van een alarm.
+        for (i = i; (st == -1 && i < r); i+=2) {                                //Zodra ST is gevonden, betekent dit de laatste token van een alarm.
             if (jsoneq(content, &token[i], "YYYY") == 0) {
                 time.tm_year= getIntegerToken(content, &token[i + 1]) - 1900;
             }else if (jsoneq(content, &token[i], "MM") == 0) {
@@ -68,7 +69,7 @@ void parseAlarmJson(char* content){
             }else if (jsoneq(content, &token[i], "name") == 0) {
                 getStringToken(content, &token[i + 1], name);
             }else if (jsoneq(content, &token[i], "oo") == 0) {
-                getStringToken(content, &token[i + 1], oo);
+                oo = getIntegerToken(content, &token[i + 1]);
             }else if (jsoneq(content, &token[i], "st") == 0) {
                 st = getIntegerToken(content, &token[i + 1]);
                 i+=2;
@@ -151,4 +152,3 @@ void parsetimezone(char* content)
     int timezone = atoi(content);
     setTimeZone(timezone);
 }
-

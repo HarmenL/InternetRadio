@@ -1,4 +1,6 @@
 #include "jsmn.h"
+#include <stdio.h>
+#include <string.h>
 
 /**
  * Allocates a fresh unused token from the token pull.
