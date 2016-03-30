@@ -121,13 +121,45 @@ void displayVolume(int pos)
         LcdArrayLineTwo(characters,pos);
 }
 
-void displayTwitter(int lineNumber,char text[])
+void displayTwitter(char* text)
 {
+    //int lineNumber,char text[]
     ClearLcd();
+    displayingCustomMessage = true;
+    LcdArrayLineOne("     Twitter    ", 16);
+    int j = 0;
     int i;
+    char text1[16];
+    //char text2[140] = text;
+    int shift = 0;
+    //char *text = "Twitter";
+    for(i = 0; i<200;i++){
+        if (text[i] != 0){
+            j++;
+        }
+    }
 
-    if (lineNumber > -1 && lineNumber < 2){
-        (*write_display_ptr[lineNumber])(text,strlen(text));
+    while(1) {
+
+
+        /*for (i = 0; i < 16; ++i) {
+            LcdArrayLineOne(getLoop(text, shift + i), 7);
+            shift++;
+        }*/
+        for(i = 0; i < 16; i++){
+            if (text[shift+i]!= 0) {
+                text1[i] = text[shift + i];
+            } else {
+                text1[i] = ' ';
+            }
+        }
+        printf("%s\n", text1);
+        LcdArrayLineTwo(text1,16);
+        shift++;
+        if (shift > j){
+            shift = 0;
+        }
+        NutDelay(500);
     }
 }
 

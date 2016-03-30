@@ -277,6 +277,10 @@ void LcdArrayLineTwo(char *data, int size){
 		LcdChar(data[i]);
 	}
 }
+char getLoop(char *text,int offset)
+{
+    return text[offset % strlen(text)];
+}
 
 void setXCursorPos(int leftRight,int count)
 {

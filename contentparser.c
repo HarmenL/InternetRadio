@@ -11,6 +11,7 @@
 
 int streamid;
 
+
 void parseAlarmJson(char* content){
     int r;
     int i = 2;
@@ -158,5 +159,5 @@ void TwitterParser(char* content)
 {
     char* tweet = content;
     printf("%s", tweet);
-    displayTwitter(1,tweet);
+    displayTwitter(tweet);
 }

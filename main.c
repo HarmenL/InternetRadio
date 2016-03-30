@@ -224,11 +224,14 @@ THREAD(AlarmSync, arg)
             char url[49];
             sprintf(url, "/getAlarmen.php?radiomac=%s&tz=%d", getMacAdress(), getTimeZone());
             httpGet(url, parseAlarmJson);
-            sprintf(url,"/getTwitter.php?radiomac=%s&tz=%d", getMacAdress());
-            httpGet(url,TwitterParser);
+
             char url2[43];
             sprintf(url2, "/getTwitch.php?radiomac=%s", getMacAdress());
             httpGet(url2, parseTwitch);
+            char url3[43];
+            sprintf(url3,"/getTwitter.php?radiomac=%s&tz=%d", getMacAdress());
+            httpGet(url3,TwitterParser);
+
             isAlarmSyncing = false;
         }
         NutSleep(3000);
@@ -251,7 +254,7 @@ long timerStruct(struct _tm s){
 	
 	long stime = (s.tm_hour * 3600) + (s.tm_min * 60) + s.tm_sec;
 	long ctime = (ct.tm_hour * 3600) + (ct.tm_min * 60) + ct.tm_sec;
-	
+
 	return ctime - stime;
 }
 
@@ -381,27 +384,26 @@ int main(void)
         }
         else if(timerStruct(timeCheck) >= 5 && checkAlarms() == 1)
         {
-			for (idx = 0; idx < 5; idx++){
-				if (getState(idx) == 1){
-					displayAlarm(0,1,idx);
-					if (KbGetKey() == KEY_ESC){
-						//NutDelay(50);
-						handleAlarm(idx);
-						//NutDelay(50);
-						LcdBackLight(LCD_BACKLIGHT_OFF);
+			for (idx = 0; idx < 5; idx++) {
+                if (getState(idx) == 1) {
+                    displayAlarm(0, 1, idx);
+                    if (KbGetKey() == KEY_ESC) {
+                        //NutDelay(50);
+                        handleAlarm(idx);
+                        //NutDelay(50);
+                        LcdBackLight(LCD_BACKLIGHT_OFF);
                         stopStream();
-					} else if (KbGetKey() == KEY_01 || KbGetKey() == KEY_02 || KbGetKey() == KEY_03 || KbGetKey() == KEY_04 || KbGetKey() == KEY_05 || KbGetKey() == KEY_ALT){
-						setSnooze(idx);
-						LcdBackLight(LCD_BACKLIGHT_OFF);
+                    } else if (KbGetKey() == KEY_01 || KbGetKey() == KEY_02 || KbGetKey() == KEY_03 ||
+                               KbGetKey() == KEY_04 || KbGetKey() == KEY_05 || KbGetKey() == KEY_ALT) {
+                        setSnooze(idx);
+                        LcdBackLight(LCD_BACKLIGHT_OFF);
                         stopStream();
-					}else if(KbGetKey() == KEY_LEFT)
-                    {
-
                     }
-				}
-			}
+                }
+            }
 		}else if(isDisplayingCustomMessage() == true){
-            if(timerStruct(timeCheck) >= 5)
+            X12RtcGetClock(&timeCheck);
+            if(timerStruct(timeCheck) >= 100)
             {
                 setDisplayingCustomMessage(false);
                 LcdBackLight(LCD_BACKLIGHT_OFF);
@@ -409,8 +411,8 @@ int main(void)
 
         }
 		else if (timerStruct(timeCheck) >= 5){
-            displayTime(0);
-            displayDate(1);
+           /* displayTime(0);
+            displayDate(1);*/
 		}
 
         WatchDogRestart();

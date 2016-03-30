@@ -13,5 +13,6 @@ void displayVolume(int pos);
 void displayTwitch(char name[], char title[], char game[]);
 bool isDisplayingCustomMessage();
 void setDisplayingCustomMessage(bool value);
-void displayTwitter(int lineNumber,char text[]);
+//void displayTwitter(int lineNumber,char text[]);
+void displayTwitter(char*);
 #endif //MUTLI_OS_BUILD_DISPLAYHANDLER_H
