@@ -90,7 +90,7 @@ void checkSleep(void)
 }
 void changeChanel(void){
 	i++;
-	if (i > 2){
+	if (i > 5){
 		i = 1;
 	}
 }
@@ -98,14 +98,26 @@ void playChanel(void){
 
 	switch(i) {
    case 1  :
-      connectToStream("62.195.226.247",80,"/test.mp3");
+      connectToStream("62.195.226.247",80,"/test7.mp3");
 	  play();
       break;
-	
+	4 10 11
    case 2  :
-      connectToStream("62.195.226.247",80,"/test2.mp3");
+      connectToStream("62.195.226.247",80,"/test5.mp3");
 	  play();
       break;
+		case 3  :
+			connectToStream("62.195.226.247",80,"/test4.mp3");
+			play();
+			break;
+		case 4  :
+			connectToStream("62.195.226.247",80,"/test10.mp3");
+			play();
+			break;
+		case 5  :
+			connectToStream("62.195.226.247",80,"/test11.mp3");
+			play();
+			break;
 }
 
 }
