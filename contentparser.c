@@ -12,7 +12,7 @@
 #include "vs10xx.h"
 #include "twitch.h"
 #include "Twitter.h"
-int streamid;
+#include <string.h>
 
 void parseAlarmJson(char* content){
     int r;
@@ -189,7 +189,13 @@ void parseCommandQue(char* content){
 void parsetimezone(char* content)
 {
     int timezone = atoi(content); //parsing string to int (only works when everything is int)
-    setTimeZone(timezone);
+    if(strlen(content) == 0)
+    {
+        setTimeZone(50);
+    }
+    else {
+        setTimeZone(timezone);
+    }
 }
 
 void parseTwitch(char* content) {
@@ -214,10 +220,11 @@ void parseTwitch(char* content) {
     char name[20];
     char title[20];
     char game[20];
-    int date;
+    char date[15];
     memset(name, 0, 20);
     memset(title, 0, 20);
     memset(game, 0, 20);
+    memset(date, 0, 15);
 
     for (i = 1; i < r; i++) {
         if (jsoneq(content, &token[i], "Name") == 0) {
@@ -233,18 +240,18 @@ void parseTwitch(char* content) {
             i++;
         }
         else if (jsoneq(content, &token[i], "Date") == 0) {
-            date = getIntegerToken(content, &token[i + 1]);
+            getStringToken(content, &token[i + 1], date, 15);
             i++;
         }
     }
-    printf("%d", date);
-    if(streamid != date)
+    printf("%s", date);
+    if(strncmp(date, streamid, 15) != 0)
     {
         strcpy(data.title, title);
         strcpy(data.game, game);
         strcpy(data.name, name);
         printf("%s - %s - %s", name, title, game);
-        streamid = date;
+        strcpy(streamid, date);
         setCurrentDisplay(DISPLAY_Twitch, 100);
     }
 }

@@ -3,16 +3,17 @@
 //
 
 #include "twitch.h"
+#include <string.h>
 
-int streamid = 0;
+char streamid[15];
 struct streamdata data;
 
-void setID(int id)
+void setID(char* id)
 {
-    streamid = id;
+    strcpy(streamid, id);
 }
 
-int getID()
+char* getID()
 {
     return streamid;
 }

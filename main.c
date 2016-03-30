@@ -218,10 +218,14 @@ THREAD(AlarmSync, arg)
     while(initialized == false){
         NutSleep(1000);
     }
-
-    NtpSync();
-    int dayCounter;
-    dayCounter = 0;
+    int dayCounter = 0;
+    int counter = 0;
+    while(!NtpSync() && counter < 10)
+    {
+        NutSleep(1000);
+        counter++;
+    }
+    counter = 0;
     for(;;)
     {
 
@@ -245,10 +249,15 @@ THREAD(AlarmSync, arg)
             sprintf(url, "%s%s", "/getCommands.php?radiomac=", getMacAdress());
             httpGet(url, parseCommandQue);
         }
-        if(dayCounter > 28800 && (hasNetworkConnection() == true))
+        while(dayCounter > 28800 && (hasNetworkConnection() == true))
         {
-            NtpSync();
-            dayCounter = 0;
+            while(!NtpSync() && counter < 10)
+            {
+                NutSleep(1000);
+                counter++;
+            }
+            dayCounter = 28800;
+            counter = 0;
         }
         dayCounter++;
         NutSleep(3000);
