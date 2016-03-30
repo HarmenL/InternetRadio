@@ -23,5 +23,4 @@ void setVolumeManual(char);
 void setVolume(void); // Do not use this one, this is invoked by volumeUp/Down
 u_char getVolume(void);
 
-
 #endif //MUTLI_OS_BUILD_MP3STREAM_H
