@@ -77,9 +77,7 @@ void displayAlarm(int line_number, int line_numberTwo, int idx)
 	j = 0;
     char str2[16];
 	for (i = 0; i < 16;i++){
-		if (am.name[i] != 0){
-			j = j + 1;
-		}
+		str2[i] = am.name[i];
 	}
 	
     if (line_numberTwo > -1 && line_numberTwo < 2){

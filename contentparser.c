@@ -86,11 +86,13 @@ void parseAlarmJson(char* content){
             printf("Alarm stream data is: %s:%d%s\n", ip, port, url);
             printf("Alarm id and name and st is: %d %s %d\n\n", id, name, st);
 			
+			charAmount = 0;
 			for (i = 0; i < 16;i++){
 				if (name[i] != 0){
 					charAmount = charAmount + 1;
 				}
 			}
+			
 			startidx = (8-(charAmount/2));
 			
 			charAmount = 0;
@@ -106,7 +108,6 @@ void parseAlarmJson(char* content){
 					str2[i] = ' ';
 				}
 			}
-			printf("Str2 = %s", str2);
 			
 
             //zoek naar een vrije plaats in de alarm array
