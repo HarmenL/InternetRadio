@@ -4,6 +4,7 @@
 #include <string.h>
 #include <time.h>
 #include <assert.h>
+#include <math.h>
 
 #include "log.h"
 #include "rtc.h"

@@ -9,6 +9,6 @@
 //bool NetworkIsReceiving(void);
 extern void NetworkInit(void);
 extern void httpGet(char address[], void (*parser)(char*));
-char* getMacAdress();
+char* getMacAdress(void);
 
 #endif /* _Network_H */

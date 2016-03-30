@@ -1,10 +1,7 @@
 /* Alarm get/set status values */
-#define ALARM_1 	5
-#define ALARM_2		6
-
-#define AFLGS		0b11111111
 
 #ifndef _ALARM_DEFINED
+#define _ALARM_DEFINED
 struct _alarm
 {
 	struct _tm time;
@@ -16,8 +13,6 @@ struct _alarm
 	int id;
 	int state;
 };
-#define _ALARM_DEFINED
-#endif
 
 void handleAlarm(int idx);
 int checkAlarms(void);
@@ -28,3 +23,6 @@ int compareTime(tm t1, tm t2);
 void setState(int idx);
 int getState(int idx);
 struct _alarm getAlarm(int idx);
+int maxAlarms(void);
+int isLeapYear(int y);
+#endif
