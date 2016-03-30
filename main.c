@@ -322,8 +322,6 @@ int main(void)
 		else if(KbGetKey() == KEY_LEFT)
         {
             NutSleep(150);
-			VOL = 20;
-			VsSetVolume(128-VOL, 128-VOL);
             X12RtcGetClock(&timeCheck);
             setSleep();
         }
