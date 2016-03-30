@@ -126,8 +126,10 @@ void parseCommandQue(char* content){
         if (jsoneq(content, &token[i], "command") == 0) {
             if(jsoneq(content, &token[i + 1], "volume") == 0){
                 char vol = getIntegerToken(content, &token[i + 3]);
-                vol = 128 - ((vol * 128) / 100);
-                VsSetVolume(vol, vol);
+                printf("Updating volume: \n");
+                setVolumeManual(vol);
+                //vol = 128 - ((vol * 128) / 100);
+                //VsSetVolume(vol, vol);
                 i += 3;
             }else if(jsoneq(content, &token[i + 1], "stopstream") == 0){
                 killPlayerThread();

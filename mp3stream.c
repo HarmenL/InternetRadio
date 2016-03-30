@@ -10,6 +10,7 @@
 #include <sys/thread.h>
 #include <sys/timer.h>
 
+#include "displayHandler.h"
 #include "vs10xx.h"
 
 #define OK              1
@@ -142,6 +143,13 @@ void volumeDown(void)
     --VS_volume;
     VS_volume = VS_volume % 17;
     setVolume();
+}
+
+void setVolumeManual(char level){
+    u_char v_level = level * 16 / 100;
+    VS_volume = v_level % 17;
+    setVolume();
+    setCurrentDisplay(DISPLAY_Volume, 5);
 }
 
 void setVolume(void){

@@ -307,6 +307,8 @@ int main(void)
 
     X12RtcGetClock(&timeCheck);
 
+    printf("Welcome to Saltyradio.\nI'm using mac address:  %s\n\n\n", getMacAdress());
+
     for (;;)
     {
         //Key detecten
