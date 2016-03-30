@@ -82,22 +82,6 @@ void displayAlarm(int line_number, int line_numberTwo, int idx)
 		}
 	}
 	
-	if (j != 16){
-		startidx = (8-(j/2));
-	}
-	j = 0;
-	for(i = 0; i < 16; i++){
-		if (i >= startidx){
-			if (am.name[j] != 0){
-				str2[i] = am.name[j];
-			} else {
-				str2[i] = ' ';
-			}
-			j++;
-		} else {
-			str2[i] = ' ';
-		}
-	}
     if (line_numberTwo > -1 && line_numberTwo < 2){
         (*write_display_ptr[line_numberTwo])(str2, 16);
         LcdBackLight(LCD_BACKLIGHT_ON);

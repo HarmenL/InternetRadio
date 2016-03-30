@@ -11,6 +11,10 @@
 void parseAlarmJson(char* content){
     int r;
     int i = 2;
+	
+	int startidx = 0;
+	int charAmount = 0;
+	
     jsmn_parser p;
     jsmntok_t token[150]; /* We expect no more than 128 tokens */
 
@@ -36,7 +40,9 @@ void parseAlarmJson(char* content){
         char url[24];
         char ip[24];
         char name[16];
+		char str2[16];
         char st = -1;
+		char oo = -1;
         memset(url, 0, 24);
         memset(ip, 0, 24);
         memset(name, 0, 17);
@@ -64,7 +70,9 @@ void parseAlarmJson(char* content){
                 getStringToken(content, &token[i + 1], url);
             }else if (jsoneq(content, &token[i], "name") == 0) {
                 getStringToken(content, &token[i + 1], name);
-            }else if (jsoneq(content, &token[i], "st") == 0) {
+            }else if (jsoneq(content, &token[i], "oo") == 0) {
+                oo = getIntegerToken(content, &token[i + 1]);
+            } if (jsoneq(content, &token[i], "st") == 0) {
                 st = getIntegerToken(content, &token[i + 1]);
                 i+=2;
             }
@@ -77,11 +85,38 @@ void parseAlarmJson(char* content){
             printf("Alarm date is: %02d.%02d.%02d\n", time.tm_mday, (time.tm_mon + 1), (time.tm_year + 1900));
             printf("Alarm stream data is: %s:%d%s\n", ip, port, url);
             printf("Alarm id and name and st is: %d %s %d\n\n", id, name, st);
+			
+			for (i = 0; i < 16;i++){
+				if (name[i] != 0){
+					charAmount = charAmount + 1;
+				}
+			}
+			startidx = (8-(charAmount/2));
+			
+			charAmount = 0;
+			for(i = 0; i < 16; i++){
+				if (i >= startidx){
+					if (name[charAmount] != 0){
+						str2[i] = name[charAmount];
+					} else {
+						str2[i] = ' ';
+					}	
+					charAmount++;
+				} else {
+					str2[i] = ' ';
+				}
+			}
+			printf("Str2 = %s", str2);
+			
 
             //zoek naar een vrije plaats in de alarm array
             for(j = 0; j < maxAlarms(); j++){
                 if(usedAlarms[j] == 0){ //Dit is een lege plaats, hier kunnen we ons nieuwe alarm plaatsen
-                    setAlarm(time, name, ip, port, url, st, id, j);
+					if (oo == 1){
+						eenmaligAlarm(time,str2,ip,port,url,st,id,j);
+					} else {
+						setAlarm(time, str2, ip, port, url, st, id, j);
+					}
                     usedAlarms[j] = 1;
                     j = 10;             //Uit de for loop
                 }

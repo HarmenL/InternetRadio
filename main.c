@@ -319,6 +319,11 @@ int main(void)
 	LcdBackLight(LCD_BACKLIGHT_OFF);
 	X12RtcGetClock(&timeCheck);
 	X12RtcGetClock(&start);
+	
+	/*struct _tm time;
+	X12RtcGetClock(&time);
+	time.tm_sec += 10;
+	eenmaligAlarm(time, "eenmalig alarm12", 0, 8000, "", 0, 0, 0);*/
 
     for (;;)
     {
@@ -374,18 +379,14 @@ int main(void)
         else if(timerStruct(timeCheck) >= 5 && checkAlarms() == 1)
         {
 			for (idx = 0; idx < 5; idx++){
-				if (getState(idx) == 1){
+				if (getState(idx) == 1 || getState(idx) == 4){
 					displayAlarm(0,1,idx);
 					if (KbGetKey() == KEY_ESC){
-						//NutDelay(50);
 						handleAlarm(idx);
-						//NutDelay(50);
 						LcdBackLight(LCD_BACKLIGHT_OFF);
                         stopStream();
 					} else if (KbGetKey() == KEY_01 || KbGetKey() == KEY_02 || KbGetKey() == KEY_03 || KbGetKey() == KEY_04 || KbGetKey() == KEY_05 || KbGetKey() == KEY_ALT){
 						setSnooze(idx);
-						LcdBackLight(LCD_BACKLIGHT_OFF);
-                        stopStream();
 					}
 				}
 			}

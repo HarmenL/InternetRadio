@@ -24,6 +24,8 @@ int checkAlarms(void);
 void setAlarm(struct _tm time, char* name, char* ip, u_short port, char* url, int snooze, int id, int idx);
 int alarmExist(int id);
 void deleteAlarm(int idx);
+void eenmaligAlarmCheck(int idx);
+void eenmaligAlarm(struct _tm time, char* name, char* ip, u_short port, char* url, int snooze, int id, int idx);
 int compareTime(tm t1, tm t2);
 void setState(int idx);
 int getState(int idx);
