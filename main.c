@@ -32,6 +32,7 @@
 #include "contentparser.h"
 #include "display.h"
 #include "displayHandler.h"
+#include "gotosleep.h"
 #include "keyboard.h"
 #include "led.h"
 #include "log.h"
@@ -203,6 +204,8 @@ THREAD(AlarmCheck, arg)
         if(checkAlarms() == 1){
           setCurrentDisplay(DISPLAY_Alarm, 1000);
         }
+
+
         NutSleep(1000);
     }
 
@@ -221,8 +224,10 @@ THREAD(AlarmSync, arg)
     dayCounter = 0;
     for(;;)
     {
+
         if((initialized == true) && (hasNetworkConnection() == true))
         {
+            checkSleep();
             isAlarmSyncing = true;
             char url[49];
             sprintf(url, "/getAlarmen.php?radiomac=%s&tz=%d", getMacAdress(), getTimeZone());
@@ -326,6 +331,7 @@ int main(void)
                     setCurrentDisplay(DISPLAY_DateTime, 5);
                 }
             }else{
+
                 if(KbGetKey() == KEY_DOWN){
                     setCurrentDisplay(DISPLAY_Volume, 5);
                     volumeDown();
@@ -336,6 +342,12 @@ int main(void)
                     setCurrentDisplay(DISPLAY_Twitter,20);
                 }else{
                     setCurrentDisplay(DISPLAY_DateTime, 5);
+                }
+                if(KbGetKey() == KEY_01){
+                    setSleep();
+                }
+                if(KbGetKey() == KEY_02){
+                    changeChanel();
                 }
             }
         }
