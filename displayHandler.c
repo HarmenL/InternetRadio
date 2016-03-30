@@ -91,38 +91,19 @@ void displayAlarm(char idx)
         currentViewDisplay = DISPLAY_DateTime;
     }
 	int i;
-	int j;
-	int startidx;
+
     char str[16];
     struct _alarm *am = getAlarm(idx);
 
     sprintf(str, "    %02d:%02d:%02d    ", am->time.tm_hour, am->time.tm_min, am->time.tm_sec);
     (*write_display_ptr[0])(str, 16);
 
-	j = 0;
     char str2[16];
 	for (i = 0; i < 16;i++){
-		if (am->name[i] != 0){
-			j = j + 1;
-		}
+		str2[i] = am->name[i];
 	}
+		
 
-	if (j != 16){
-		startidx = (8-(j/2));
-	}
-	j = 0;
-	for(i = 0; i < 16; i++){
-		if (i >= startidx){
-			if (am->name[j] != 0){
-				str2[i] = am->name[j];
-			} else {
-				str2[i] = ' ';
-			}
-			j++;
-		} else {
-			str2[i] = ' ';
-		}
-	}
     (*write_display_ptr[1])(str2, 16);
 }
 

@@ -307,7 +307,7 @@ int main(void)
 
     X12RtcGetClock(&timeCheck);
 
-    for (;;)
+ 	for (;;)
     {
         //Key detecten
         if(KbGetKey() != KEY_UNDEFINED){
