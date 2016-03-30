@@ -332,6 +332,7 @@ int main(void)
            changeChanel();
         }
         refreshScreen();
+		checkSleep();
         WatchDogRestart();
         NutSleep(100);
     }
