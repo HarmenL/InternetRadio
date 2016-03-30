@@ -17,9 +17,10 @@ bool play(void);
 bool connectToStream(char* ipaddr, u_short port, char *radioUrl);
 void killPlayerThread(void);
 
-u_char volumeUp(void);
-u_char volumeDown(void);
+void volumeUp(void);
+void volumeDown(void);
 void setVolume(void); // Do not use this one, this is invoked by volumeUp/Down
+u_char getVolume(void);
 
 
 #endif //MUTLI_OS_BUILD_MP3STREAM_H
