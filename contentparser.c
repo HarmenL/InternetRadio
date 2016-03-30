@@ -14,7 +14,7 @@ void parseAlarmJson(char* content){
     int r;
     int i = 2;
     jsmn_parser p;
-    jsmntok_t token[150]; /* We expect no more than 128 tokens */
+    jsmntok_t token[160]; /* We expect no more than 128 tokens */
 
     jsmn_init(&p);
     r = jsmn_parse(&p, content, strlen(content), token, sizeof(token)/sizeof(token[0]));
@@ -39,6 +39,7 @@ void parseAlarmJson(char* content){
         char ip[24];
         char name[16];
         char st = -1;
+        char oo = -1;
         memset(url, 0, 24);
         memset(ip, 0, 24);
         memset(name, 0, 17);
@@ -66,6 +67,8 @@ void parseAlarmJson(char* content){
                 getStringToken(content, &token[i + 1], url);
             }else if (jsoneq(content, &token[i], "name") == 0) {
                 getStringToken(content, &token[i + 1], name);
+            }else if (jsoneq(content, &token[i], "oo") == 0) {
+                getStringToken(content, &token[i + 1], oo);
             }else if (jsoneq(content, &token[i], "st") == 0) {
                 st = getIntegerToken(content, &token[i + 1]);
                 i+=2;

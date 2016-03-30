@@ -58,7 +58,7 @@ void httpGet(char address[], void (*parser)(char*)){
     TCPSOCKET* sock = NutTcpCreateSocket();
 
     char buffer[2];
-    char* content = (char*) malloc(800);
+    char* content = (char*) malloc(900);
     char enters = 0;
     int t = 0;
 
