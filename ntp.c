@@ -22,6 +22,7 @@
 #include "ntp.h"
 #include "contentparser.h"
 #include "alarm.h"
+#include "network.h"
 
 int TIME_ZONE = 1;
 #define LOG_MODULE  LOG_NTP_MODULE
@@ -86,7 +87,7 @@ void NtpSync(void){
     isSyncing = true;
     httpGet("/gettimezone.php", parsetimezone);
     _daylight = 0;
-    printf(TIME_ZONE);
+    printf("Timezone is: %d", TIME_ZONE);
     NutDelay(100);
     //puts("Tijd ophalen van pool.ntp.org (213.154.229.24)");
     timeserver = inet_addr("213.154.229.24");

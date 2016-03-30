@@ -25,4 +25,5 @@ int getState(int idx);
 struct _alarm getAlarm(int idx);
 int maxAlarms(void);
 int isLeapYear(int y);
+void setSnooze(int idx);
 #endif
