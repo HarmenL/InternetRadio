@@ -1,6 +1,6 @@
 #ifndef _GoToSleep_H
 #define _GoToSleep_H
-extern void setSleep();
-extern void checkSleep();
-extern void changeChanel();
+extern void setSleep(void);
+extern void checkSleep(void);
+extern void changeChanel(void);
 #endif

@@ -20,36 +20,33 @@
 /*--------------------------------------------------------------------------*/
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 #include <sys/thread.h>
 #include <sys/timer.h>
 #include <sys/version.h>
 #include <dev/irqreg.h>
 
-#include "displayHandler.h"
-#include "system.h"
-#include "portio.h"
+// Note: Please keep the includes in alphabetical order!    - Jordy
+#include "alarm.h"
+#include "contentparser.h"
 #include "display.h"
-#include "remcon.h"
+#include "displayHandler.h"
+#include "gotosleep.h"
 #include "keyboard.h"
 #include "led.h"
 #include "log.h"
-#include "uart0driver.h"
-#include "mmc.h"
-#include "watchdog.h"
-#include "flash.h"
-#include "spidrv.h"
+#include "mp3stream.h"
 #include "network.h"
-#include "typedefs.h"
-
-
-#include <time.h>
-#include "rtc.h"
-#include "alarm.h"
 #include "ntp.h"
-#include "httpstream.h"
-#include "contentparser.h"
-#include "gotosleep.h"
+#include "portio.h"
+#include "rtc.h"
+#include "spidrv.h"
+#include "system.h"
+#include "typedefs.h"
+#include "uart0driver.h"
+#include "watchdog.h"
+
 /*-------------------------------------------------------------------------*/
 /* local routines (prototyping)                                            */
 /*-------------------------------------------------------------------------*/
@@ -86,10 +83,13 @@ static void SysMainBeatInterrupt(void *p)
 {
 
     /*
-     *  scan for valid keys AND check if a MMCard is inserted or removed
+     *  scan for valid keys
      */
     KbScan();
-    CardCheckCard();
+
+    if(KbGetKey() != KEY_NO_KEY){
+        LcdBackLight(LCD_BACKLIGHT_ON);
+    }
 }
 
 /*!
@@ -182,10 +182,9 @@ static void SysControlMainBeat(u_char OnOff)
 /*-------------------------------------------------------------------------*/
 /* global variable definitions                                             */
 /*-------------------------------------------------------------------------*/
-int isAlarmSyncing;
-int initialized;
-int running = 0;
-unsigned char VOL = 64;
+bool isAlarmSyncing = false;
+bool initialized = false;
+bool running = false;
 
 /*-------------------------------------------------------------------------*/
 /* local variable definitions                                              */
@@ -196,41 +195,38 @@ unsigned char VOL = 64;
 /*-------------------------------------------------------------------------*/
 THREAD(StartupInit, arg)
 {
+    NutThreadSetPriority(5);
+
     NetworkInit();
 
-    NtpSync();
+    initialized = true;
 
-    initialized = 1;
     NutThreadExit();
-}
-
-THREAD(NTPSync, arg)
-{
-    for(;;)
-    {
-        if(initialized && (hasNetworkConnection() == true))
-        {
-            while(isAlarmSyncing)
-            {
-                NutSleep(2000);
-            }
-            NtpSync();
-        }
-        NutSleep(86400000);
-    }
 }
 
 THREAD(AlarmSync, arg)
 {
+    NutThreadSetPriority(50);
+
+    while(initialized == false){
+        NutSleep(1000);
+    }
+
+    NtpSync();
+
     for(;;)
     {
-        if(initialized && (hasNetworkConnection() == true))
+        if((initialized == true) && (hasNetworkConnection() == true))
         {
-            isAlarmSyncing = 1;
-            char url[43];
-            sprintf(url, "%s%s", "/getAlarmen.php?radiomac=", getMacAdress());
+            isAlarmSyncing = true;
+            char url[49];
+            sprintf(url, "/getAlarmen.php?radiomac=%s&tz=%d", getMacAdress(), getTimeZone());
             httpGet(url, parseAlarmJson);
-            isAlarmSyncing = 0;
+            isAlarmSyncing = false;
+
+            //Command que (Telegram) sync
+            sprintf(url, "%s%s", "/getCommands.php?radiomac=", getMacAdress());
+            httpGet(url, parseCommandQue);
         }
         NutSleep(3000);
     }
@@ -269,8 +265,6 @@ int checkOffPressed(){
 
 int main(void)
 {
-	initialized = 0;
-    int VOL2 = 127;
     struct _tm timeCheck;
 	struct _tm start;
 	int idx = 0;
@@ -291,21 +285,16 @@ int main(void)
     Uart0DriverStart();
 	LogInit();
 
-    CardInit();
-
     X12Init();
 
     VsPlayerInit();
 
- 
-    NtpInit();
+     NtpInit();
 
     NutThreadCreate("BackgroundThread", StartupInit, NULL, 1024);
     NutThreadCreate("BackgroundThread", AlarmSync, NULL, 2500);
-    NutThreadCreate("BackgroundThread", NTPSync, NULL, 700);
+    //NutThreadCreate("BackgroundThread", NTPSync, NULL, 700);
     /** Quick fix for turning off the display after 10 seconds boot */
-
-    RcInit();
 
 	KbInit();
 
@@ -318,9 +307,6 @@ int main(void)
 
 	/* Enable global interrupts */
 	sei();
-
-
-
 	
 	LcdBackLight(LCD_BACKLIGHT_OFF);
 	X12RtcGetClock(&timeCheck);
@@ -341,38 +327,33 @@ int main(void)
 		//Check if a button is pressed
 		if (checkOffPressed() == 1){
 			X12RtcGetClock(&start);
-			running = 1;
+			running = true;
             LcdBackLight(LCD_BACKLIGHT_ON);
 		}
 
 		//Check if background LED is on, and compare to timer
-		if (running == 1){
-			if (timerStruct(start) >= 10 || running > 1){
-				running = 0;
+		if (running == true){
+			if (timerStruct(start) >= 10){
+				running = false;
 				LcdBackLight(LCD_BACKLIGHT_OFF);
 			}
 		}
 
-        VOL = VOL2;
         if(KbGetKey() == KEY_DOWN)
         {
             NutSleep(150);
-             X12RtcGetClock(&timeCheck);
-            if(VOL > 8){
-                VOL -= 8;
-                VsSetVolume (127-VOL, 127-VOL);
-                displayVolume(VOL/8);
-            }
+            X12RtcGetClock(&timeCheck);
+
+            u_char newVolume = volumeDown();
+            displayVolume((int)newVolume);
         }
         else if(KbGetKey() == KEY_UP)
         {
             NutSleep(150);
-             X12RtcGetClock(&timeCheck);
-            if(VOL < 128) {
-                VOL += 8;
-                VsSetVolume(128-VOL, 128-VOL);
-                displayVolume(VOL/8);
-            }
+            X12RtcGetClock(&timeCheck);
+
+            u_char newVolume = volumeUp();
+            displayVolume((int)newVolume);
         }
 		else if(KbGetKey() == KEY_LEFT)
         {
@@ -397,12 +378,11 @@ int main(void)
 						handleAlarm(idx);
 						//NutDelay(50);
 						LcdBackLight(LCD_BACKLIGHT_OFF);
-                        stopStream();
-					} else if (KbGetKey() == KEY_01 || KbGetKey() == KEY_02 || KbGetKey() == KEY_03 || KbGetKey() == KEY_04 || KbGetKey() == KEY_05 || KbGetKey() == KEY_ALT){
+                    } else if (KbGetKey() == KEY_01 || KbGetKey() == KEY_02 || KbGetKey() == KEY_03 || KbGetKey() == KEY_04 || KbGetKey() == KEY_05 || KbGetKey() == KEY_ALT){
 						setSnooze(idx);
 						LcdBackLight(LCD_BACKLIGHT_OFF);
-                        stopStream();
-					}
+                        killPlayerThread();
+                    }
 				}
 			}
 		}
@@ -410,8 +390,6 @@ int main(void)
             displayTime(0);
             displayDate(1);
 		}
-		checkSleep();
-        VOL2 = VOL;
         WatchDogRestart();
     }
     return(0);
