@@ -24,14 +24,11 @@ void setSleep()
 	playStream("62.195.226.247",80,"/test.mp3");
 	return 1;
 }
-void checkSleep()
+void checkSleep(int vol1)
 {
 	X12RtcGetClock(&count);
-	if(compareTime(count, fallSleep.sleepTime) == 6){
+	if(compareTime(count, fallSleep.sleepTime) == 0){
 		stopStream();
-	}
-	if(compareTime(count, fallSleep.sleepTime) == 4){
-		/*change volume 1 of 2 naar beneden per minuut zodat hij langzaam zachter gaat*/
 	}
 	return 1;
 }
