@@ -166,7 +166,7 @@ void displayTwitch(char name[], char title[], char game[]) {
         if(strlen(name) > 16) {
             LcdArrayLineOne(name, strlen(name));
         }else {
-            LcdArrayLineTwo(name, 16);
+            LcdArrayLineOne(name, 16);
         }
         LcdArrayLineTwo("is streaming", 12);
     }
