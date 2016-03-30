@@ -374,13 +374,17 @@ int main(void)
                 displayVolume(VOL/8);
             }
         }
-		else if(KbGetKey() == KEY_LEFT /*the key I can use or you guys want to use, for now KEY_LEFT*/)
+		else if(KbGetKey() == KEY_LEFT)
         {
             NutSleep(150);
-			VOL = 40;
+			VOL = 20;
 			VsSetVolume(128-VOL, 128-VOL);
             X12RtcGetClock(&timeCheck);
             setSleep();
+        }
+		else if(KbGetKey() == KEY_RIGHT)
+        {
+           changeChanel();
         }
         else if(timerStruct(timeCheck) >= 5 && checkAlarms() == 1)
         {
