@@ -217,7 +217,8 @@ THREAD(AlarmSync, arg)
     }
 
     NtpSync();
-
+    int dayCounter;
+    dayCounter = 0;
     for(;;)
     {
         if((initialized == true) && (hasNetworkConnection() == true))
@@ -226,12 +227,20 @@ THREAD(AlarmSync, arg)
             char url[49];
             sprintf(url, "/getAlarmen.php?radiomac=%s&tz=%d", getMacAdress(), getTimeZone());
             httpGet(url, parseAlarmJson);
+            char url2[43];
+            sprintf(url2, "/getTwitch.php?radiomac=%s", getMacAdress());
+            httpGet(url2, parseTwitch);
             isAlarmSyncing = false;
-
             //Command que (Telegram) sync
             sprintf(url, "%s%s", "/getCommands.php?radiomac=", getMacAdress());
             httpGet(url, parseCommandQue);
         }
+        if(dayCounter > 28800 && (hasNetworkConnection() == true))
+        {
+            NtpSync();
+            dayCounter = 0;
+        }
+        dayCounter++;
         NutSleep(3000);
     }
     NutThreadExit();
@@ -317,6 +326,8 @@ int main(void)
                 }else if(KbGetKey() == KEY_UP){
                     setCurrentDisplay(DISPLAY_Volume, 5);
                     volumeUp();
+                }else{
+                    setCurrentDisplay(DISPLAY_DateTime, 5);
                 }
             }
         }

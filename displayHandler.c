@@ -13,6 +13,7 @@
 #include "rtc.h"
 #include "alarm.h"
 #include "network.h"
+#include "twitch.h"
 
 struct _tm lastDisplayTime;
 viewDisplays currentViewDisplay;
@@ -41,6 +42,8 @@ void refreshScreen(){
         displayVolume();
     }else if(currentViewDisplay == DISPLAY_Alarm){
         displayAlarm(getRunningAlarmID());
+    }else if(currentViewDisplay == DISPLAY_Twitch){
+        displayTwitch(data.name, data.title, data.game);
     }
 }
 
@@ -123,7 +126,6 @@ void displayAlarm(char idx)
 void displayVolume()
 {
     u_char pos = getVolume();
-    ClearLcd();
     int i;
     LcdArrayLineOne("     Volume     ", 16);
 
@@ -131,10 +133,29 @@ void displayVolume()
 
     for(i = 0; i < 17; i++)
     {
-        characters[i] = 0xFF;
+        if(i < pos) {
+            characters[i] = 0xFF;
+        }else {
+            characters[i] = ' ';
+        }
     }
-    LcdArrayLineTwo(characters,pos);
+    LcdArrayLineTwo(characters,16);
 }
 
+void displayTwitter(int lineNumber,char text[])
+{
+    ClearLcd();
+    int i;
 
+    if (lineNumber > -1 && lineNumber < 2){
+        (*write_display_ptr[lineNumber])(text,strlen(text));
+    }
+}
 
+void displayTwitch(char name[], char title[], char game[])
+    {
+    ClearLcd();
+    LcdArrayLineOne(name, strlen(name));
+    LcdArrayLineTwo("Streaming", 9);
+    LcdBackLight(LCD_BACKLIGHT_ON);
+}

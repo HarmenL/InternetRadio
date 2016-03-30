@@ -8,7 +8,9 @@
 #include "mp3stream.h"
 #include "rtc.h"
 #include "alarm.h"
+#include "displayHandler.h"
 #include "vs10xx.h"
+#include "twitch.h"
 
 void parseAlarmJson(char* content){
     int r;
@@ -63,16 +65,15 @@ void parseAlarmJson(char* content){
             }else if (jsoneq(content, &token[i], "port") == 0) {
                 port = getIntegerToken(content, &token[i + 1]);
             }else if (jsoneq(content, &token[i], "ip") == 0) {
-                getStringToken(content, &token[i + 1], ip);
+                getStringToken(content, &token[i + 1], ip, 24);
             }else if (jsoneq(content, &token[i], "url") == 0) {
-                getStringToken(content, &token[i + 1], url);
+                getStringToken(content, &token[i + 1], url, 24);
             }else if (jsoneq(content, &token[i], "name") == 0) {
-                getStringToken(content, &token[i + 1], name);
+                getStringToken(content, &token[i + 1], name, 16);
             }else if (jsoneq(content, &token[i], "oo") == 0) {
                 oo = getIntegerToken(content, &token[i + 1]);
             }else if (jsoneq(content, &token[i], "st") == 0) {
                 st = getIntegerToken(content, &token[i + 1]);
-                i+=2;
             }
         }
 
@@ -133,8 +134,8 @@ void parseCommandQue(char* content){
                 u_short port = getIntegerToken(content, &token[i + 9]);
                 char url[24];
                 char ip[24];
-                getStringToken(content, &token[i + 7], url);
-                getStringToken(content, &token[i + 5], ip);
+                getStringToken(content, &token[i + 7], url, 24);
+                getStringToken(content, &token[i + 5], ip, 24);
                 bool success = connectToStream(ip, port, url);
                 if (success == true){
                     play();
@@ -149,6 +150,69 @@ void parseCommandQue(char* content){
 
 void parsetimezone(char* content)
 {
-    int timezone = atoi(content);
+    int timezone = atoi(content); //parsing string to int (only works when everything is int)
     setTimeZone(timezone);
 }
+
+void parseTwitch(char* content) {
+    if (!strcmp("null", content)) {
+        printf("Nobody is streaming");
+        return;
+    }
+    int r;
+    int i;
+    jsmn_parser p;
+    jsmntok_t token[20]; /* We expect no more than 20 tokens */
+
+    jsmn_init(&p);
+    r = jsmn_parse(&p, content, strlen(content), token, sizeof(token) / sizeof(token[0]));
+    if (r <= 0) {
+        printf("Failed to parse JSON: %d \n", r);
+        return;
+    } else {
+        printf("Aantal tokens found: %d \n", r);
+    }
+
+    char name[20];
+    char title[20];
+    char game[20];
+    int date;
+    memset(name, 0, 20);
+    memset(title, 0, 20);
+    memset(game, 0, 20);
+
+    for (i = 1; i < r; i++) {
+        if (jsoneq(content, &token[i], "Name") == 0) {
+            getStringToken(content, &token[i + 1], name, 20);
+            i++;
+        }
+        else if (jsoneq(content, &token[i], "Title") == 0) {
+            getStringToken(content, &token[i + 1], title, 20);
+            i++;
+        }
+        else if (jsoneq(content, &token[i], "Game") == 0) {
+            getStringToken(content, &token[i + 1], game, 20);
+            i++;
+        }
+        else if (jsoneq(content, &token[i], "Date") == 0) {
+            date = getIntegerToken(content, &token[i + 1]);
+            i++;
+        }
+    }
+    printf("%d", date);
+    if(streamid != date)
+    {
+        strcpy(data.title, title);
+        strcpy(data.game, game);
+        strcpy(data.name, name);
+        printf("%s - %s - %s", name, title, game);
+        streamid = date;
+        setCurrentDisplay(DISPLAY_Twitch, 100);
+    }
+}
+//void TwitterParser(char* content)
+//{
+//    char tweet = atoi(content);
+//    printf("%d", tweet);
+//    displayTwitter(1,tweet);
+//}

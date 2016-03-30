@@ -4,6 +4,8 @@
 
 #ifndef MUTLI_OS_BUILD_DISPLAYHANDLER_H
 #define MUTLI_OS_BUILD_DISPLAYHANDLER_H
+#include "ntp.h"
+
 
 #include <time.h>
 #include "alarm.h"
@@ -20,5 +22,8 @@ void refreshScreen(void);
 void displayDateTime(void);
 void displayAlarm(char idx);
 void displayVolume();
+void displayTwitter(int lineNumber,char text[]);
+void displayTwitch(char name[], char title[], char game[]);
+
 
 #endif //MUTLI_OS_BUILD_DISPLAYHANDLER_H
