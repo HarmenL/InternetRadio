@@ -10,7 +10,7 @@
 #include "alarm.h"
 #include "displayHandler.h"
 #include "vs10xx.h"
-int streamid;
+#include "twitch.h"
 
 void parseAlarmJson(char* content){
     int r;
@@ -199,17 +199,20 @@ void parseTwitch(char* content) {
             i++;
         }
     }
+    printf("%d", date);
     if(streamid != date)
     {
+        strcpy(data.title, title);
+        strcpy(data.game, game);
+        strcpy(data.name, name);
         printf("%s - %s - %s", name, title, game);
         streamid = date;
-        displayTwitch(name, title, game);
+        setCurrentDisplay(DISPLAY_Twitch, 100);
     }
-
 }
-void TwitterParser(char* content)
-{
-    char tweet = atoi(content);
-    printf("%d", tweet);
-    displayTwitter(1,tweet);
-}
+//void TwitterParser(char* content)
+//{
+//    char tweet = atoi(content);
+//    printf("%d", tweet);
+//    displayTwitter(1,tweet);
+//}
