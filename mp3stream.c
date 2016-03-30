@@ -35,6 +35,7 @@ static bool stream_stopped = false;
 
 static u_char VS_volume = DEFAULT_VOLUME; //[0-16]; (Default volume = 7/16
 static u_long metaInt = 0;
+static char VS_StreamInfo[17] = "    No  info    ";
 
 FILE *stream;
 TCPSOCKET *socket;
@@ -160,6 +161,10 @@ void setVolume(void){
 
 u_char getVolume(void){
     return VS_volume;
+}
+
+char* getStreamInfo(void){
+    return VS_StreamInfo;
 }
 
 
@@ -308,6 +313,7 @@ int ProcessStreamMetaData(FILE *stream)
     if(got != 1) {
         return -1;
     }
+
     if (blks) {
         if (blks > 32) {
             printf("Error: Metadata too large, %u blocks\n", blks);
@@ -334,7 +340,22 @@ int ProcessStreamMetaData(FILE *stream)
             mbuf[rc] = 0;
         }
 
+        printf("================================================ Func: ProcessStreamMetaData\n");
         printf("\nMeta='%s'\n", mbuf);
+
+        char* found = strstr(mbuf, "StreamTitle=");
+        if (found != 0){
+            char* first = strstr(mbuf, "'") + 1;
+            char* last = strstr(first, "'");
+            size_t diff = last - first;
+
+            if (diff > 16){ diff = 16; }
+            strncpy(VS_StreamInfo, first, diff);
+            VS_StreamInfo[16] = '\0';
+            printf("Found: %s\n\n", VS_StreamInfo);
+        }
+
+        setCurrentDisplay(DISPLAY_StreamInfo, 6);
         free(mbuf);
     }
     return 0;
