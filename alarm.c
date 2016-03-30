@@ -4,6 +4,7 @@
 #include <string.h>
 #include <time.h>
 #include <assert.h>
+#include <math.h>
 
 #include "log.h"
 #include "rtc.h"
@@ -27,9 +28,10 @@ int checkAlarms(){
 	int i = 0;
 	int check = 0;
 	for (i = 0; i < n; i++){
-		setState(i);
 		if (alarm[i].time.tm_year == 0){
 			alarm[i].state = 0;
+		}else{
+			setState(i);
 		}
 		if (alarm[i].state == 1){
 			check = 1;
@@ -52,8 +54,18 @@ int alarmExist(int id){
 	return -1;
 }
 
-struct _alarm getAlarm(int idx){
-	return alarm[idx];
+struct _alarm* getAlarm(int idx){
+	return &alarm[idx];
+}
+
+char getRunningAlarmID(){
+	char idx;
+	for (idx = 0; idx < 5; idx++) {
+		if (getState(idx) == 1) {
+			return idx;
+		}
+	}
+	return -1;
 }
 
 int getState(int idx){
@@ -164,12 +176,7 @@ void setState(int idx){
 	}
 }
 
-/*void getAlarm(struct _alarm *am){
-	int i = 0;
-	for (i = 0; i < n; i++){
-		am[i] = alarm[i]; 
-	}
-}*/
+
 
 void setAlarm(struct _tm time, char* name, char* ip, u_short port, char* url, int snooze, int id, int idx){
 	alarm[idx].time = time;

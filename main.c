@@ -44,6 +44,7 @@
 #include "system.h"
 #include "typedefs.h"
 #include "uart0driver.h"
+#include "vs10xx.h"
 #include "watchdog.h"
 
 
@@ -69,6 +70,12 @@ static void SysControlMainBeat(u_char);
 /*                         start of code                                   */
 /*-------------------------------------------------------------------------*/
 
+/*-------------------------------------------------------------------------*/
+/* global variable definitions                                             */
+/*-------------------------------------------------------------------------*/
+bool isAlarmSyncing = false;
+bool initialized = false;
+bool running = false;
 
 /*!
  * \brief ISR MainBeat Timer Interrupt (Timer 2 for Mega128, Timer 0 for Mega256).
@@ -82,15 +89,7 @@ static void SysControlMainBeat(u_char);
  */
 static void SysMainBeatInterrupt(void *p)
 {
-
-    /*
-     *  scan for valid keys
-     */
     KbScan();
-
-    if(KbGetKey() != KEY_NO_KEY){
-        LcdBackLight(LCD_BACKLIGHT_ON);
-    }
 }
 
 /*!
@@ -179,14 +178,6 @@ static void SysControlMainBeat(u_char OnOff)
     }
 }
 
-
-/*-------------------------------------------------------------------------*/
-/* global variable definitions                                             */
-/*-------------------------------------------------------------------------*/
-bool isAlarmSyncing = false;
-bool initialized = false;
-bool running = false;
-
 /*-------------------------------------------------------------------------*/
 /* local variable definitions                                              */
 /*-------------------------------------------------------------------------*/
@@ -203,6 +194,18 @@ THREAD(StartupInit, arg)
     initialized = true;
 
     NutThreadExit();
+}
+
+THREAD(AlarmCheck, arg)
+{
+    NutThreadSetPriority(100);
+    for(;;){
+        if(checkAlarms() == 1){
+          setCurrentDisplay(DISPLAY_Alarm, 1000);
+        }
+        NutSleep(1000);
+    }
+
 }
 
 THREAD(AlarmSync, arg)
@@ -252,30 +255,9 @@ int timer(time_t start){
     return diff;
 }
 
-long timerStruct(struct _tm s){
-	struct _tm ct;
-	X12RtcGetClock(&ct);
-	
-	long stime = (s.tm_hour * 3600) + (s.tm_min * 60) + s.tm_sec;
-	long ctime = (ct.tm_hour * 3600) + (ct.tm_min * 60) + ct.tm_sec;
-	
-	return ctime - stime;
-}
-
-int checkOffPressed(){
-    if (KbGetKey() != KEY_UNDEFINED){
-        LcdBackLight(LCD_BACKLIGHT_ON);
-        return 1;
-    } else {
-        return 0;
-    }
-}
-
 int main(void)
 {
     struct _tm timeCheck;
-	struct _tm start;
-	int idx = 0;
 
     WatchDogDisable();
 
@@ -301,7 +283,7 @@ int main(void)
 
     NutThreadCreate("BackgroundThread", StartupInit, NULL, 1024);
     NutThreadCreate("BackgroundThread", AlarmSync, NULL, 2500);
-    //NutThreadCreate("BackgroundThread", NTPSync, NULL, 700);
+    NutThreadCreate("BackgroundThread", AlarmCheck, NULL, 256);
     /** Quick fix for turning off the display after 10 seconds boot */
 
 	KbInit();
@@ -316,88 +298,40 @@ int main(void)
 	/* Enable global interrupts */
 	sei();
 	
-	LcdBackLight(LCD_BACKLIGHT_OFF);
-	X12RtcGetClock(&timeCheck);
-	X12RtcGetClock(&start);
+	LcdBackLight(LCD_BACKLIGHT_ON);
+    setCurrentDisplay(DISPLAY_DateTime, 5);
+
+    X12RtcGetClock(&timeCheck);
 
     for (;;)
     {
-		//printf("running = %d, time = %d\n", running, timerStruct(start));
-		
-		if (timerStruct(start) < 0){
-			X12RtcGetClock(&start);
-		}
-		
-		if (timerStruct(timeCheck) < 0){
-			X12RtcGetClock(&timeCheck);
-		}
-		
-		//Check if a button is pressed
-		if (checkOffPressed() == 1){
-			X12RtcGetClock(&start);
-			running = true;
+        //Key detecten
+        if(KbGetKey() != KEY_UNDEFINED){
+            //Backlight aanzetten.
             LcdBackLight(LCD_BACKLIGHT_ON);
-		}
-
-        //If escape is pressed, stop displaying custom message
-        if(KbGetKey() == KEY_ESC){
-            setDisplayingCustomMessage(false);
-        }
-
-		//Check if background LED is on, and compare to timer
-		if (running == true){
-			if (timerStruct(start) >= 10){
-				running = false;
-				LcdBackLight(LCD_BACKLIGHT_OFF);
-			}
-		}
-
-        if(KbGetKey() == KEY_DOWN)
-        {
-            NutSleep(150);
-            X12RtcGetClock(&timeCheck);
-
-            u_char newVolume = volumeDown();
-            displayVolume((int)newVolume);
-        }
-        else if(KbGetKey() == KEY_UP)
-        {
-            NutSleep(150);
-            X12RtcGetClock(&timeCheck);
-
-            u_char newVolume = volumeUp();
-            displayVolume((int)newVolume);
-        }
-        else if(timerStruct(timeCheck) >= 5 && checkAlarms() == 1)
-        {
-			for (idx = 0; idx < 5; idx++){
-				if (getState(idx) == 1){
-					displayAlarm(0,1,idx);
-					if (KbGetKey() == KEY_ESC){
-						//NutDelay(50);
-						handleAlarm(idx);
-						//NutDelay(50);
-						LcdBackLight(LCD_BACKLIGHT_OFF);
-                    } else if (KbGetKey() == KEY_01 || KbGetKey() == KEY_02 || KbGetKey() == KEY_03 || KbGetKey() == KEY_04 || KbGetKey() == KEY_05 || KbGetKey() == KEY_ALT){
-						setSnooze(idx);
-						LcdBackLight(LCD_BACKLIGHT_OFF);
-                        killPlayerThread();
-                    }
-				}
-			}
-		}else if(isDisplayingCustomMessage() == true){
-            if(timerStruct(timeCheck) >= 5)
-            {
-                setDisplayingCustomMessage(false);
-                LcdBackLight(LCD_BACKLIGHT_OFF);
+            if(getCurrentDisplay() == DISPLAY_Alarm){
+                if(KbGetKey() == KEY_01 || KbGetKey() == KEY_02 || KbGetKey() == KEY_03 || KbGetKey() == KEY_04 || KbGetKey() == KEY_05 || KbGetKey() == KEY_ALT){
+                    setSnooze(getRunningAlarmID());
+                    killPlayerThread();
+                    setCurrentDisplay(DISPLAY_DateTime, 2);
+                }else if(KbGetKey() == KEY_ESC){
+                    handleAlarm(getRunningAlarmID());
+                    killPlayerThread();
+                    setCurrentDisplay(DISPLAY_DateTime, 5);
+                }
+            }else{
+                if(KbGetKey() == KEY_DOWN){
+                    setCurrentDisplay(DISPLAY_Volume, 5);
+                    volumeDown();
+                }else if(KbGetKey() == KEY_UP){
+                    setCurrentDisplay(DISPLAY_Volume, 5);
+                    volumeUp();
+                }
             }
         }
-		else if (timerStruct(timeCheck) >= 5){
-            displayTime(0);
-            displayDate(1);
-		}
-
+        refreshScreen();
         WatchDogRestart();
+        NutSleep(100);
     }
     return(0);
 }
