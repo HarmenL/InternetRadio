@@ -169,7 +169,7 @@ void displayTwitch(char name[], char title[], char game[]) {
 
     if (timerStruct(lastDisplayTime) % 10 < 5) {
         ClearLcd();
-        if(strlen(name) > 16) {
+        if(strlen(name) < 16) {
             LcdArrayLineOne(name, strlen(name));
         }else {
             LcdArrayLineOne(name, 16);
