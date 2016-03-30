@@ -331,6 +331,9 @@ int main(void)
                 }else if(KbGetKey() == KEY_UP){
                     setCurrentDisplay(DISPLAY_Volume, 5);
                     volumeUp();
+                }else if(KbGetKey() == KEY_LEFT)
+                {
+                    setCurrentDisplay(DISPLAY_Twitter,20);
                 }
             }
         }

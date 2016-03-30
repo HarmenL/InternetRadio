@@ -13,7 +13,7 @@
 #include "rtc.h"
 #include "alarm.h"
 #include "network.h"
-
+#include "Twitter.h"
 struct _tm lastDisplayTime;
 viewDisplays currentViewDisplay;
 u_long displayTime;
@@ -41,6 +41,9 @@ void refreshScreen(){
         displayVolume();
     }else if(currentViewDisplay == DISPLAY_Alarm){
         displayAlarm(getRunningAlarmID());
+    }else if(currentViewDisplay == DISPLAY_Twitter)
+    {
+        displayTwitter(TweetFeed.tweet);
     }
 }
 
@@ -140,41 +143,33 @@ void displayTwitter(char* text)
 {
     //int lineNumber,char text[]
     ClearLcd();
+    LcdBackLight(LCD_BACKLIGHT_ON);
     LcdArrayLineOne("     Twitter    ", 16);
     int j = 0;
     int i;
     char text1[16];
     //char text2[140] = text;
-    int shift = 0;
+   // int shift = 0;
     //char *text = "Twitter";
-    for(i = 0; i<200;i++){
+    for(i = 0; i<140;i++){
         if (text[i] != 0){
             j++;
         }
     }
 
-    while(1) {
-
-
-        /*for (i = 0; i < 16; ++i) {
-            LcdArrayLineOne(getLoop(text, shift + i), 7);
-            shift++;
-        }*/
         for(i = 0; i < 16; i++){
-            if (text[shift+i]!= 0) {
-                text1[i] = text[shift + i];
+            if (text[Scroller+i]!= 0) {
+                text1[i] = text[Scroller + i];
             } else {
                 text1[i] = ' ';
             }
         }
-        printf("%s\n", text1);
         LcdArrayLineTwo(text1,16);
-        shift++;
-        if (shift > j){
-            shift = 0;
+        Scroller++;
+        if (Scroller > j){
+            Scroller = 0;
         }
         NutDelay(500);
-    }
 }
 
 

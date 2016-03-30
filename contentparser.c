@@ -10,6 +10,7 @@
 #include "alarm.h"
 #include "displayHandler.h"
 #include "vs10xx.h"
+#include "Twitter.h"
 int streamid;
 
 void parseAlarmJson(char* content){
@@ -209,7 +210,8 @@ void parseTwitch(char* content) {
 }
 void TwitterParser(char* content)
 {
-    char* tweet = content;
-    printf("%s", tweet);
-    displayTwitter(tweet);
+    char tweet[140];
+    memset(tweet, 0, 140);
+    strcpy(TweetFeed.tweet,content);
+    printf("%s", TweetFeed.tweet);
 }
