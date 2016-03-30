@@ -75,7 +75,7 @@ int getIntegerToken(const char *json, jsmntok_t *tok);
 /**
  * Get the value of the token in a string format.
  */
-void getStringToken(const char *json, jsmntok_t *tok, char* res);
+void getStringToken(const char *json, jsmntok_t *tok, char* res, char maxlength);
 
 /**
  * Run JSON parser. It parses a JSON data string into and array of tokens, each describing

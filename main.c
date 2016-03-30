@@ -220,7 +220,8 @@ THREAD(AlarmSync, arg)
     }
 
     NtpSync();
-
+    int dayCounter;
+    dayCounter = 0;
     for(;;)
     {
 
@@ -231,12 +232,25 @@ THREAD(AlarmSync, arg)
             char url[49];
             sprintf(url, "/getAlarmen.php?radiomac=%s&tz=%d", getMacAdress(), getTimeZone());
             httpGet(url, parseAlarmJson);
-            isAlarmSyncing = false;
 
+            char url2[43];
+            sprintf(url2, "/getTwitch.php?radiomac=%s", getMacAdress());
+            httpGet(url2, parseTwitch);
+            char url3[43];
+            sprintf(url3,"/getTwitter.php?radiomac=%s", getMacAdress());
+            httpGet(url3,TwitterParser);
+
+            isAlarmSyncing = false;
             //Command que (Telegram) sync
             sprintf(url, "%s%s", "/getCommands.php?radiomac=", getMacAdress());
             httpGet(url, parseCommandQue);
         }
+        if(dayCounter > 28800 && (hasNetworkConnection() == true))
+        {
+            NtpSync();
+            dayCounter = 0;
+        }
+        dayCounter++;
         NutSleep(3000);
     }
     NutThreadExit();
@@ -275,12 +289,11 @@ int main(void)
 
     VsPlayerInit();
 
-     NtpInit();
+    NtpInit();
 
     NutThreadCreate("BackgroundThread", StartupInit, NULL, 1024);
     NutThreadCreate("BackgroundThread", AlarmSync, NULL, 2500);
     NutThreadCreate("BackgroundThread", AlarmCheck, NULL, 256);
-    /** Quick fix for turning off the display after 10 seconds boot */
 
 	KbInit();
 
@@ -299,7 +312,7 @@ int main(void)
 
     X12RtcGetClock(&timeCheck);
 
-    for (;;)
+ 	for (;;)
     {
         //Key detecten
         if(KbGetKey() != KEY_UNDEFINED){
@@ -323,6 +336,10 @@ int main(void)
                 }else if(KbGetKey() == KEY_UP){
                     setCurrentDisplay(DISPLAY_Volume, 5);
                     volumeUp();
+                }else if(KbGetKey() == KEY_LEFT){
+                    setCurrentDisplay(DISPLAY_Twitter,20);
+                }else{
+                    setCurrentDisplay(DISPLAY_DateTime, 5);
                 }
                 if(KbGetKey() == KEY_01){
                     setSleep();
