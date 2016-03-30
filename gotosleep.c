@@ -26,6 +26,7 @@ void setSleep(void)
 	fallSleep.sleepTime.tm_hour += 1;
 	changeChanel();
 	x = fallSleep.sleepTime.tm_min;
+	
 	return 1;
 }
 void checkSleep(void)
@@ -36,6 +37,9 @@ void checkSleep(void)
 	}
 	if(compareTime(count, fallSleep.sleepTime) == 5 && fallSleep.sleepTime.tm_min == x){
 		volumeDown();
+		if (x >= 60){
+			x = 0;
+		}
 		x += 2;
 	}
 	return 1;
