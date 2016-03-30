@@ -8,14 +8,9 @@
 #include "mp3stream.h"
 #include "rtc.h"
 #include "alarm.h"
-<<<<<<< HEAD
 #include "displayHandler.h"
-
-int streamid;
-
-=======
 #include "vs10xx.h"
->>>>>>> developer
+int streamid;
 
 void parseAlarmJson(char* content){
     int r;
