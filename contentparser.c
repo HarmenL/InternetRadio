@@ -34,8 +34,8 @@ void parseAlarmJson(char* content){
     }
     for(i = 2; i < r; i++)
     {
-        int id;
-        u_short port;
+        int id = 0;
+        u_short port = 0;
         char url[24];
         char ip[24];
         char name[16];
