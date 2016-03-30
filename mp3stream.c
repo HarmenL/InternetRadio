@@ -122,7 +122,7 @@ bool play()
     return true;
 }
 
-u_char volumeUp(void)
+void volumeUp(void)
 {
     if (VS_volume >= 16)
         return VS_volume;
@@ -131,11 +131,9 @@ u_char volumeUp(void)
     ++VS_volume;
     VS_volume = VS_volume % 17;
     setVolume();
-
-    return VS_volume;
 }
 
-u_char volumeDown(void)
+void volumeDown(void)
 {
     if (VS_volume <= 0)
         return VS_volume;
@@ -144,8 +142,6 @@ u_char volumeDown(void)
     --VS_volume;
     VS_volume = VS_volume % 17;
     setVolume();
-
-    return VS_volume;
 }
 
 void setVolume(void){
@@ -153,6 +149,11 @@ void setVolume(void){
     VsSetVolume(volumeToSet, volumeToSet);
     printf("- VS_volume level: %d/16\n", VS_volume);
 }
+
+u_char getVolume(void){
+    return VS_volume;
+}
+
 
 void killPlayerThread(void)
 {

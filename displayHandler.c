@@ -1,8 +1,6 @@
 //
 // Created by Jordy Sipkema on 26/02/16.
 //
-#define LOG_MODULE  LOG_MAIN_MODULE
-
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
@@ -11,73 +9,94 @@
 #include "displayHandler.h"
 #include "ntp.h"
 #include "log.h"
+#include "mp3stream.h"
 #include "rtc.h"
 #include "alarm.h"
 #include "network.h"
 
-#define MONTH_OFFSET 1
-#define YEAR_OFFSET 1900
+struct _tm lastDisplayTime;
+viewDisplays currentViewDisplay;
+u_long displayTime;
 
-bool displayingCustomMessage = false;
+void setCurrentDisplay(viewDisplays d, u_long dt){
+    X12RtcGetClock(&lastDisplayTime);
+    LcdBackLight(LCD_BACKLIGHT_ON);
+    currentViewDisplay = d;
+    displayTime = dt;
+}
+
+viewDisplays getCurrentDisplay(void){
+    return currentViewDisplay;
+}
+
+void refreshScreen(){
+    if(timerStruct(lastDisplayTime) > displayTime){
+        currentViewDisplay = DISPLAY_DateTime;
+        LcdBackLight(LCD_BACKLIGHT_OFF);
+    }
+
+    if(currentViewDisplay == DISPLAY_DateTime){
+        displayDateTime();
+    }else if(currentViewDisplay == DISPLAY_Volume){
+        displayVolume();
+    }else if(currentViewDisplay == DISPLAY_Alarm){
+        displayAlarm(getRunningAlarmID());
+    }
+}
+
+long timerStruct(struct _tm s){
+    struct _tm ct;
+    X12RtcGetClock(&ct);
+
+    long stime = (s.tm_hour * 3600) + (s.tm_min * 60) + s.tm_sec;
+    long ctime = (ct.tm_hour * 3600) + (ct.tm_min * 60) + ct.tm_sec;
+
+    return ctime - stime;
+}
 
 void (*write_display_ptr[2])(char*, int) = {LcdArrayLineOne, LcdArrayLineTwo};
 
-void displayTime(int line_number){
+void displayDateTime(void){
     tm time;
     X12RtcGetClock(&time);
 
-    char str[16];
+    char str1[16];
+    char str2[16];
     if (1){
-        sprintf(str, "    %02d:%02d:%02d    ", time.tm_hour, time.tm_min, time.tm_sec);
+        sprintf(str1, "    %02d:%02d:%02d    ", time.tm_hour, time.tm_min, time.tm_sec);
+        sprintf(str2, "   %02d-%02d-%04d      ", time.tm_mday, time.tm_mon + MONTH_OFFSET, time.tm_year + YEAR_OFFSET);
     }else {
-        sprintf(str, "    ??:??:??    ");
+        sprintf(str1, "    ??:??:??    ");
+        sprintf(str2, "    ??:??:??    ");
     }
-
-    if (line_number > -1 && line_number < 2){
-        (*write_display_ptr[line_number])(str, 16);
-    }
-}
-
-void displayDate(int line_number) {
-    tm *time;
-    X12RtcGetClock(time);
-
-    char str[16];
-
-    if (1) {
-        sprintf(str, "   %02d-%02d-%04d      ", time->tm_mday, time->tm_mon + MONTH_OFFSET, time->tm_year + YEAR_OFFSET);
-    } else {
-        sprintf(str, "   ??-??-????      ");
-    }
-
     if (NtpIsSyncing()) {
-       str[1] = 'S';
+        str2[1] = 'S';
     }else if(NetworkIsReceiving()){
-        str[1] = 'N';
+        str2[1] = 'N';
     }
 
-    if (line_number > -1 && line_number < 2){
-        (*write_display_ptr[line_number])(str, 16);
-    }
+    (*write_display_ptr[0])(str1, 16);
+    (*write_display_ptr[1])(str2, 16);
 }
 
-void displayAlarm(int line_number, int line_numberTwo, int idx)
+void displayAlarm(char idx)
 {
+    if(idx == -1){
+        currentViewDisplay = DISPLAY_DateTime;
+    }
 	int i;
 	int j;
 	int startidx;
     char str[16];
-	struct _alarm am = getAlarm(idx);
+    struct _alarm *am = getAlarm(idx);
 
-    sprintf(str, "    %02d:%02d:%02d    ", am.time.tm_hour, am.time.tm_min, am.time.tm_sec);
-    if (line_number > -1 && line_number < 2){
-        (*write_display_ptr[line_number])(str, 16);
-    }
+    sprintf(str, "    %02d:%02d:%02d    ", am->time.tm_hour, am->time.tm_min, am->time.tm_sec);
+    (*write_display_ptr[0])(str, 16);
 
 	j = 0;
     char str2[16];
 	for (i = 0; i < 16;i++){
-		if (am.name[i] != 0){
+		if (am->name[i] != 0){
 			j = j + 1;
 		}
 	}
@@ -88,8 +107,8 @@ void displayAlarm(int line_number, int line_numberTwo, int idx)
 	j = 0;
 	for(i = 0; i < 16; i++){
 		if (i >= startidx){
-			if (am.name[j] != 0){
-				str2[i] = am.name[j];
+			if (am->name[j] != 0){
+				str2[i] = am->name[j];
 			} else {
 				str2[i] = ' ';
 			}
@@ -98,16 +117,12 @@ void displayAlarm(int line_number, int line_numberTwo, int idx)
 			str2[i] = ' ';
 		}
 	}
-    if (line_numberTwo > -1 && line_numberTwo < 2){
-        (*write_display_ptr[line_numberTwo])(str2, 16);
-        LcdBackLight(LCD_BACKLIGHT_ON);
-    }
-
-
+    (*write_display_ptr[1])(str2, 16);
 }
 
-void displayVolume(int pos)
+void displayVolume()
 {
+    u_char pos = getVolume();
     ClearLcd();
     int i;
     LcdArrayLineOne("     Volume     ", 16);
@@ -118,14 +133,13 @@ void displayVolume(int pos)
     {
         characters[i] = 0xFF;
     }
-        LcdArrayLineTwo(characters,pos);
+    LcdArrayLineTwo(characters,pos);
 }
 
 void displayTwitter(char* text)
 {
     //int lineNumber,char text[]
     ClearLcd();
-    displayingCustomMessage = true;
     LcdArrayLineOne("     Twitter    ", 16);
     int j = 0;
     int i;
@@ -166,17 +180,8 @@ void displayTwitter(char* text)
 
 void displayTwitch(char name[], char title[], char game[])
 {
-    displayingCustomMessage = true;
     ClearLcd();
     LcdArrayLineOne(name, strlen(name));
     LcdArrayLineTwo("Streaming", 9);
     LcdBackLight(LCD_BACKLIGHT_ON);
-}
-
-bool isDisplayingCustomMessage(){
-    return displayingCustomMessage;
-}
-
-void setDisplayingCustomMessage(bool value){
-    displayingCustomMessage = value;
 }
