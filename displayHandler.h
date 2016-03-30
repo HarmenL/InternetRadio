@@ -20,7 +20,7 @@ void refreshScreen(void);
 
 void displayDateTime(void);
 void displayAlarm(char idx);
-void displayVolume();
+void displayVolume(void);
 void displayTwitter(char text[]);
 void displayTwitch(char name[], char title[], char game[]);
 

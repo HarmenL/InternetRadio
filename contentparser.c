@@ -12,7 +12,7 @@
 #include "vs10xx.h"
 #include "twitch.h"
 #include "Twitter.h"
-int streamid;
+#include <string.h>
 
 void parseAlarmJson(char* content){
     int r;
@@ -187,7 +187,13 @@ void parseCommandQue(char* content){
 void parsetimezone(char* content)
 {
     int timezone = atoi(content); //parsing string to int (only works when everything is int)
-    setTimeZone(timezone);
+    if(strlen(content) == 0)
+    {
+        setTimeZone(50);
+    }
+    else {
+        setTimeZone(timezone);
+    }
 }
 
 void parseTwitch(char* content) {

@@ -82,12 +82,17 @@ bool NtpTimeIsValid(void){
     return validTime;
 }
 
-void NtpSync(void){
+int NtpSync(void){
     /* Ophalen van pool.ntp.org */
     isSyncing = true;
+    setTimeZone(50);
     httpGet("/gettimezone.php", parsetimezone);
     _daylight = 0;
     printf("Timezone is: %d", TIME_ZONE);
+    if(TIME_ZONE == 50)
+    {
+        return 0;
+    }
     NutDelay(100);
     //puts("Tijd ophalen van pool.ntp.org (213.154.229.24)");
     timeserver = inet_addr("213.154.229.24");
@@ -112,6 +117,7 @@ void NtpSync(void){
 
     isSyncing = false;
     validTime = true;
+    return 1;
 }
 
 void NtpWriteTimeToEeprom(tm time_struct){

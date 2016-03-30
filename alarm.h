@@ -25,7 +25,7 @@ int compareTime(tm t1, tm t2);
 void setState(int idx);
 int getState(int idx);
 struct _alarm* getAlarm(int idx);
-char getRunningAlarmID();
+char getRunningAlarmID(void);
 int maxAlarms(void);
 int isLeapYear(int y);
 void setSnooze(int idx);
