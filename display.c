@@ -42,33 +42,6 @@ static void LcdWriteByte(u_char, u_char);
 static void LcdWriteNibble(u_char, u_char);
 static void LcdWaitBusy(void);
 
-int timerLCD(u_char Mode){
-    time_t Start;
-    if(Mode == startLCD)
-    {
-            time_t diff = time(0) - Start;
-            return diff;
-    }
-    else if(Mode == stopLCD)
-    {
-        Start = time(0);
-    }
-}
-/*!
- * \addtogroup Display
- */
-
-/*@{*/
-
-/*-------------------------------------------------------------------------*/
-/*                         start of code                                   */
-/*-------------------------------------------------------------------------*/
-
-/* ����������������������������������������������������������������������� */
-/*!
- * \brief control backlight
- */
-/* ����������������������������������������������������������������������� */
 void LcdBackLight(u_char Mode)
 {
     if (Mode==LCD_BACKLIGHT_ON)
@@ -82,39 +55,6 @@ void LcdBackLight(u_char Mode)
     }
 }
 
-
-/* ����������������������������������������������������������������������� */
-
-/*
- * Lcdbacklight knipperen
- */
-
-void LcdBacklightKnipperen(u_char Mode)
-{
-    time_t Start;
-    time_t Stop;
-    if (Mode==startLCD)
-    {
-        sbi(LCD_BL_PORT, LCD_BL_BIT);   // Turn on backlight
-        timer(Start);
-    }
-    if (Mode==stopLCD)
-    {
-        cbi(LCD_BL_PORT, LCD_BL_BIT);   // Turn off backlight
-        timer(Stop);
-    }
-}
-/*
-
-/* ����������������������������������������������������������������������� */
-/*!
- * \brief Write a single character on the LCD
- *
- * Writes a single character on the LCD on the current cursor position
- *
- * \param LcdChar character to write
- */
-/* ����������������������������������������������������������������������� */
 void LcdChar(char MyChar)
 {
     LcdWriteByte(WRITE_DATA, MyChar);

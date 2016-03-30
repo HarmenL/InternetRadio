@@ -91,7 +91,7 @@
 /*-------------------------------------------------------------------------*/
 void    KbInit(void);
 void  KbScan(void);
-int 	CheckKey();
+int 	CheckKey(void);
 int     KbWaitForKeyEvent(u_long);
 u_char  KbGetKey(void);
 void    KbSetKeyRepeating(u_char, u_char);

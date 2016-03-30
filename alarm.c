@@ -4,12 +4,13 @@
 #include <string.h>
 #include <time.h>
 #include <assert.h>
+#include <math.h>
 
 #include "log.h"
 #include "rtc.h"
 #include "alarm.h"
 #include "display.h"
-#include "httpstream.h"
+#include "mp3stream.h"
 
 #define n 5
 
@@ -71,7 +72,6 @@ void setSnooze(int idx){
 	alarm[idx].state = 2;
 	snooze[idx].snoozeTime = ct;
 	snooze[idx].snoozeTime.tm_min += alarm[idx].snooze;
-	stopStream();
 }
 
 int daysInMonth(int m, int y) {
@@ -124,7 +124,16 @@ void setState(int idx){
 	}
 	
 	if (compareTime(ct, alarm[idx].time) >= 1 && alarm[idx].time.tm_year != 0 && alarm[idx].state != 2){
-		alarm[idx].state = 1;
+		if(alarm[idx].state != 1) {
+			alarm[idx].state = 1;
+			printf("\n\nAlarm gaat nu af!\n\n");
+			bool success = connectToStream(alarm[idx].ip, alarm[idx].port, alarm[idx].url);
+			if (success == true){
+				play();
+			}else {
+				printf("ConnectToStream failed. Aborting.\n\n");
+			}
+		}
 	} else if (alarm[idx].state != 2){
 		alarm[idx].state = 0;
 	}
@@ -138,11 +147,20 @@ void setState(int idx){
 		snooze[idx].snoozeTime = ct;
 		AddSnoozeMinutes(idx, alarm[idx].snooze);
 		LcdBackLight(LCD_BACKLIGHT_OFF);
-		stopStream();
+		killPlayerThread();
 	}
 	
 	if (alarm[idx].state == 2 && compareTime(ct, snooze[idx].snoozeTime) >= 1){
-		alarm[idx].state = 1;
+		if(alarm[idx].state != 1){
+			printf("Alarm komt nu uit snooze!!");
+			bool success = connectToStream(alarm[idx].ip, alarm[idx].port, alarm[idx].url);
+			if (success == true){
+				play();
+			}else {
+				printf("ConnectToStream failed. Aborting.\n\n");
+			}
+			alarm[idx].state = 1;
+		}
 		AddSnoozeMinutes(idx, 1);
 	}
 }
@@ -181,6 +199,7 @@ void deleteAlarm(int idx){
 void handleAlarm(int idx){
 	alarm[idx].state = 0;
 	alarm[idx].time.tm_mday += 1;
+	killPlayerThread();
 	printf("state is %d \n",alarm[idx].state);
 }
 

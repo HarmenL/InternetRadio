@@ -194,19 +194,6 @@ static u_char KbRemapKey(u_short LongKey)
 
 /* ����������������������������������������������������������������������� */
 /*!
- * \brief Return the repeating property for this key
- *
- * \return 'TRUE' in case the key was repeating, 'FALSE' if not
- *
- */
-/* ����������������������������������������������������������������������� */
-static u_char KbKeyIsRepeating(u_short Key)
-{
-    return(KeyRepeatArray[KbRemapKey(Key)]==KEY_REPEAT);
-}
-
-/* ����������������������������������������������������������������������� */
-/*!
  * \brief set the property of this key to repeating or not-repeating
  *
  */

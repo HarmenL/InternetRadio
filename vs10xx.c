@@ -91,7 +91,6 @@
 /*-------------------------------------------------------------------------*/
 static volatile u_char vs_status = VS_STATUS_STOPPED;
 static u_short g_vs_type;
-static u_char VsPlayMode;
 
 
 static void VsLoadProgramCode(void);
@@ -505,7 +504,7 @@ int VsPlayerKick(void)
          *  for the VS1003 we need an extra reset
          *  here before we start playing a stream...
          */
-         VsPlayerSetMode(VS_SM_RESET);
+//        VsPlayerSetMode(VS_SM_RESET);
 //        NutDelay(10);
 //        LogMsg_P(LOG_DEBUG,PSTR("Kick: CLOCKF = [0x%02X]"),VsRegRead(VS_CLOCKF_REG));
 //        LogMsg_P(LOG_DEBUG,PSTR("Kick: CLOCKF = [0x%02X]"),VsRegRead(VS_CLOCKF_REG));
@@ -787,13 +786,6 @@ u_short VsMemoryTest(void)
 int VsSetVolume(u_char left, u_char right)
 {
     u_char ief;
-    if(left < 0){
-        left = 0;
-    }
-    if(right < 0){
-        right = 0;
-    }
-    printf("%d %d", left, right);
 
     ief = VsPlayerInterrupts(0);
 
