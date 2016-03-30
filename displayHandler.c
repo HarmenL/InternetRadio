@@ -171,8 +171,29 @@ void displayTwitch(char name[], char title[], char game[])
 
 void displayStreamInfo(){
     LcdBackLight(LCD_BACKLIGHT_ON);
+    char offset = getScrollOffset();
+
+
+    if (offset == 0)
+        (*write_display_ptr[1])("                ", 17);
 
     (*write_display_ptr[0])("  Station Info  ", 17);
-    (*write_display_ptr[1])("                ", 17);
-    (*write_display_ptr[1])(getStreamInfo(), 17);
+
+    //char* streamInfo = getStreamInfo();
+
+    // I have to copy the StreamInfo buffer, I kept overwriting it.
+    char streamInfo[48] = "    No  info    ";
+    char* streamInfoPtr = &streamInfo[0];
+    strncpy(streamInfo, getStreamInfo(), 48); // copy the streamInfo buffer.
+    streamInfo[48] = '\0'; // To be sure...
+
+    if (offset >= 0)
+        streamInfoPtr += offset;
+    streamInfoPtr[16] = '\0';
+
+    (*write_display_ptr[1])(streamInfoPtr, 17);
+
+    incrementScrollOffset();
+
+    NutDelay(500);
 }
