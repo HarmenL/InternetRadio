@@ -47,8 +47,8 @@ void parseAlarmJson(char* content){
         u_short port = 0;
         char url[24];
         char ip[24];
-        char name[16];
-		char str2[16];
+        char name[17];
+        char str2[16];
         char st = -1;
         char oo = -1;
         memset(url, 0, 24);
@@ -77,7 +77,7 @@ void parseAlarmJson(char* content){
             }else if (jsoneq(content, &token[i], "url") == 0) {
                 getStringToken(content, &token[i + 1], url, 24);
             }else if (jsoneq(content, &token[i], "name") == 0) {
-                getStringToken(content, &token[i + 1], name, 16);
+                getStringToken(content, &token[i + 1], name, 18);
             }else if (jsoneq(content, &token[i], "oo") == 0) {
                 oo = getIntegerToken(content, &token[i + 1]);
             }else if (jsoneq(content, &token[i], "st") == 0) {
@@ -160,8 +160,10 @@ void parseCommandQue(char* content){
         if (jsoneq(content, &token[i], "command") == 0) {
             if(jsoneq(content, &token[i + 1], "volume") == 0){
                 char vol = getIntegerToken(content, &token[i + 3]);
-                vol = 128 - ((vol * 128) / 100);
-                VsSetVolume(vol, vol);
+                printf("Updating volume: \n");
+                setVolumeManual(vol);
+                //vol = 128 - ((vol * 128) / 100);
+                //VsSetVolume(vol, vol);
                 i += 3;
             }else if(jsoneq(content, &token[i + 1], "stopstream") == 0){
                 killPlayerThread();

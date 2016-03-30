@@ -160,6 +160,7 @@ void setState(int idx){
 	
 	//Check if alarm has to snooze
 	if (alarm[idx].state == 1 && compareTime(ct, snooze[idx].snoozeTime) >= 1 && alarm[idx].state < 3){
+		printf("Alarm stopt nu!");
 		alarm[idx].state = 2;
 		snooze[idx].snoozeTime = ct;
 		AddSnoozeMinutes(idx, alarm[idx].snooze);
@@ -168,8 +169,9 @@ void setState(int idx){
 	}
 	
 	if (alarm[idx].state == 2 && compareTime(ct, snooze[idx].snoozeTime) >= 1 && alarm[idx].state < 3){
+		AddSnoozeMinutes(idx, 1);
+		printf("Alarm komt nu uit snooze!!");
 		if(alarm[idx].state != 1){
-			printf("Alarm komt nu uit snooze!!");
 			bool success = connectToStream(alarm[idx].ip, alarm[idx].port, alarm[idx].url);
 			if (success == true){
 				play();
@@ -178,7 +180,6 @@ void setState(int idx){
 			}
 			alarm[idx].state = 1;
 		}
-		AddSnoozeMinutes(idx, 1);
 	}
 	
 }

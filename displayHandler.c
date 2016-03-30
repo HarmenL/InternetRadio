@@ -39,14 +39,16 @@ void refreshScreen(){
 
     if(currentViewDisplay == DISPLAY_DateTime){
         displayDateTime();
-    }else if(currentViewDisplay == DISPLAY_Volume){
+    } else if(currentViewDisplay == DISPLAY_Volume){
         displayVolume();
-    }else if(currentViewDisplay == DISPLAY_Alarm){
+    } else if(currentViewDisplay == DISPLAY_Alarm){
         displayAlarm(getRunningAlarmID());
-    }else if(currentViewDisplay == DISPLAY_Twitch){
+    } else if(currentViewDisplay == DISPLAY_Twitch){
         displayTwitch(data.name, data.title, data.game);
-    }else if(currentViewDisplay == DISPLAY_Twitter){
+    } else if(currentViewDisplay == DISPLAY_Twitter){
         displayTwitter(TweetFeed.tweet);
+    } else if(currentViewDisplay == DISPLAY_StreamInfo){
+        displayStreamInfo();
     }
 }
 
@@ -57,6 +59,10 @@ long timerStruct(struct _tm s){
     long stime = (s.tm_hour * 3600) + (s.tm_min * 60) + s.tm_sec;
     long ctime = (ct.tm_hour * 3600) + (ct.tm_min * 60) + ct.tm_sec;
 
+    if(ctime < 0){
+        return 0;
+    }
+    
     return ctime - stime;
 }
 
@@ -71,13 +77,13 @@ void displayDateTime(void){
     if (1){
         sprintf(str1, "    %02d:%02d:%02d    ", time.tm_hour, time.tm_min, time.tm_sec);
         sprintf(str2, "   %02d-%02d-%04d      ", time.tm_mday, time.tm_mon + MONTH_OFFSET, time.tm_year + YEAR_OFFSET);
-    }else {
+    } else {
         sprintf(str1, "    ??:??:??    ");
         sprintf(str2, "    ??:??:??    ");
     }
     if (NtpIsSyncing()) {
         str2[1] = 'S';
-    }else if(NetworkIsReceiving()){
+    } else if(NetworkIsReceiving()){
         str2[1] = 'N';
     }
 
@@ -87,7 +93,7 @@ void displayDateTime(void){
 
 void displayAlarm(char idx)
 {
-    if(idx == -1){
+    if (idx == -1){
         currentViewDisplay = DISPLAY_DateTime;
     }
 	int i;
@@ -183,4 +189,12 @@ void displayTwitch(char name[], char title[], char game[]) {
         }
     }
     LcdBackLight(LCD_BACKLIGHT_ON);
+}
+
+void displayStreamInfo(){
+    LcdBackLight(LCD_BACKLIGHT_ON);
+
+    (*write_display_ptr[0])("  Station Info  ", 17);
+    (*write_display_ptr[1])("                ", 17);
+    (*write_display_ptr[1])(getStreamInfo(), 17);
 }
