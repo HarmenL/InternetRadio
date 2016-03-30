@@ -19,8 +19,9 @@ void killPlayerThread(void);
 
 void volumeUp(void);
 void volumeDown(void);
+void setVolumeManual(char);
 void setVolume(void); // Do not use this one, this is invoked by volumeUp/Down
 u_char getVolume(void);
-
+char* getStreamInfo(void);
 
 #endif //MUTLI_OS_BUILD_MP3STREAM_H
