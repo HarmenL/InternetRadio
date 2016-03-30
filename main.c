@@ -48,6 +48,8 @@
 #include "vs10xx.h"
 #include "watchdog.h"
 
+
+
 /*-------------------------------------------------------------------------*/
 /* local routines (prototyping)                                            */
 /*-------------------------------------------------------------------------*/
@@ -202,6 +204,8 @@ THREAD(AlarmCheck, arg)
         if(checkAlarms() == 1){
           setCurrentDisplay(DISPLAY_Alarm, 1000);
         }
+
+
         NutSleep(1000);
     }
 
@@ -219,8 +223,10 @@ THREAD(AlarmSync, arg)
 
     for(;;)
     {
+
         if((initialized == true) && (hasNetworkConnection() == true))
         {
+            checkSleep();
             isAlarmSyncing = true;
             char url[49];
             sprintf(url, "/getAlarmen.php?radiomac=%s&tz=%d", getMacAdress(), getTimeZone());
@@ -310,6 +316,7 @@ int main(void)
                     setCurrentDisplay(DISPLAY_DateTime, 5);
                 }
             }else{
+
                 if(KbGetKey() == KEY_DOWN){
                     setCurrentDisplay(DISPLAY_Volume, 5);
                     volumeDown();
@@ -317,20 +324,15 @@ int main(void)
                     setCurrentDisplay(DISPLAY_Volume, 5);
                     volumeUp();
                 }
+                if(KbGetKey() == KEY_01){
+                    setSleep();
+                }
+                if(KbGetKey() == KEY_02){
+                    changeChanel();
+                }
             }
         }
-		else if(KbGetKey() == KEY_LEFT)
-        {
-            NutSleep(150);
-            X12RtcGetClock(&timeCheck);
-            setSleep();
-        }
-		else if(KbGetKey() == KEY_RIGHT)
-        {
-           changeChanel();
-        }
         refreshScreen();
-		checkSleep();
         WatchDogRestart();
         NutSleep(100);
     }

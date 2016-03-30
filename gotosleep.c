@@ -16,11 +16,15 @@ struct _tm sleepTime;
 struct _tm count;
 int i = 1;
 int x = 0;
+int mins;
+int hours;
+int days;
 bool sleepOn = false;
 void setSleep(void)
 {
 	if (sleepOn == true)
 	{
+		printf("closed1");
 			killPlayerThread();
 			sleepOn = false;
 	}
@@ -28,9 +32,12 @@ void setSleep(void)
 	X12RtcGetClock(&count);
 	sleepTime = count;
 	AddMinutes(60);
-	
-	changeChanel();
+	printf("%d", sleepTime.tm_hour);
+	playChanel();
 	x = sleepTime.tm_min;
+	mins = 	sleepTime.tm_min;
+		hours = sleepTime.tm_hour;
+		days = sleepTime.tm_mday;
 	sleepOn = true;
 	}
 }
@@ -58,40 +65,46 @@ void AddMinutes(int minutes){
 }
 void checkSleep(void)
 {
-	if(sleepOn == true){
 	X12RtcGetClock(&count);
-	if(compareTime(count, sleepTime) == 0){
-		killPlayerThread();	
+	if(count.tm_min == mins && count.tm_hour == hours && count.tm_mday == days){
+		printf("closed");
+		killPlayerThread();
+		volumeUp();
+		volumeUp();
+		volumeUp();
+		volumeUp();
+		volumeUp();
+		volumeUp();
+
 		sleepOn = false;
 	}
-	if(compareTime(count, sleepTime) == 5 && sleepTime.tm_min == x){
+	if(count.tm_min == x){
 		volumeDown();
 		if (x >= 60){
 			x = 0;
 		}
-		x += 2;
+		x += 10;
 	}
-	}
+
 
 }
 void changeChanel(void){
-	
+	i++;
 	if (i > 2){
-		i =1;
+		i = 1;
 	}
+}
+void playChanel(void){
+
 	switch(i) {
    case 1  :
-	  killPlayerThread(); 
       connectToStream("62.195.226.247",80,"/test.mp3");
 	  play();
-	  i++;
       break;
 	
    case 2  :
-	  killPlayerThread(); 
       connectToStream("62.195.226.247",80,"/test2.mp3");
 	  play();
-	  i++;
       break;
 }
 
