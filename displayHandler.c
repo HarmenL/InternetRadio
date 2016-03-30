@@ -174,7 +174,7 @@ void displayTwitch(char name[], char title[], char game[]) {
         }else {
             LcdArrayLineOne(name, 16);
         }
-        LcdArrayLineTwo("is streaming", 12);
+        LcdArrayLineTwo("is streaming    ", 16);
     }
     else {
         ClearLcd();
