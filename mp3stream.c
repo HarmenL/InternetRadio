@@ -16,6 +16,7 @@
 #define OK              1
 #define NOK             0
 #define DEFAULT_VOLUME  7
+#define STREAMINFO_BUFF 48
 #define MSIZE           1024
 #define NUTSEGBUFFER    4096
 
@@ -35,7 +36,8 @@ static bool stream_stopped = false;
 
 static u_char VS_volume = DEFAULT_VOLUME; //[0-16]; (Default volume = 7/16
 static u_long metaInt = 0;
-static char VS_StreamInfo[17] = "    No  info    ";
+static char VS_StreamInfo[STREAMINFO_BUFF] = "    No  info    ";
+static char ScrollOffset = 0;
 
 FILE *stream;
 TCPSOCKET *socket;
@@ -298,6 +300,28 @@ void stopMp3PlayerThread(void)
     NutThreadExit();
 }
 
+char getScrollOffset(void){
+    return ScrollOffset;
+}
+
+void incrementScrollOffset(void)
+{
+    size_t len = strlen(VS_StreamInfo);
+
+    // Does it fit on the screen?
+    if (len <= 16) {
+        ScrollOffset = -1;
+        return;
+    }
+
+    // Increment the offset
+    char toSet = ScrollOffset;
+    toSet = (++toSet % (len - 16 + 1));
+
+    ScrollOffset = toSet;
+    printf("Scrolloffset %d\n", ScrollOffset);
+}
+
 int ProcessStreamMetaData(FILE *stream)
 {
     u_char blks = 0;
@@ -345,17 +369,28 @@ int ProcessStreamMetaData(FILE *stream)
 
         char* found = strstr(mbuf, "StreamTitle=");
         if (found != 0){
+            int i = 0;
+            for (i; i < STREAMINFO_BUFF; i++){
+                VS_StreamInfo[i] = ' ';
+            }
+
             char* first = strstr(mbuf, "'") + 1;
             char* last = strstr(first, "'");
             size_t diff = last - first;
 
-            if (diff > 16){ diff = 16; }
+            if (diff > STREAMINFO_BUFF){ diff = STREAMINFO_BUFF; }
             strncpy(VS_StreamInfo, first, diff);
-            VS_StreamInfo[16] = '\0';
+            VS_StreamInfo[diff + 1] = '\0';
+            VS_StreamInfo[STREAMINFO_BUFF] = '\0';
             printf("Found: %s\n\n", VS_StreamInfo);
         }
 
-        setCurrentDisplay(DISPLAY_StreamInfo, 6);
+        ScrollOffset = 0;
+
+        int time = 5;
+        if (strlen(VS_StreamInfo) > 16) { time = 10; }
+
+        setCurrentDisplay(DISPLAY_StreamInfo, time);
         free(mbuf);
     }
     return 0;
