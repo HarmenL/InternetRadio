@@ -32,8 +32,9 @@ int checkAlarms(){
 			alarm[i].state = 0;
 		}else{
 			setState(i);
+			eenmaligAlarmCheck(i);
 		}
-		if (alarm[i].state == 1){
+		if (alarm[i].state == 1 || alarm[i].state == 4){
 			check = 1;
 		}
 	}
@@ -61,7 +62,7 @@ struct _alarm* getAlarm(int idx){
 char getRunningAlarmID(){
 	char idx;
 	for (idx = 0; idx < 5; idx++) {
-		if (getState(idx) == 1) {
+		if (getState(idx) == 1 || getState(idx) == 4) {
 			return idx;
 		}
 	}
@@ -80,9 +81,11 @@ void setSnooze(int idx){
 	struct _tm ct;
 	X12RtcGetClock(&ct);
 	
-	alarm[idx].state = 2;
-	snooze[idx].snoozeTime = ct;
-	snooze[idx].snoozeTime.tm_min += alarm[idx].snooze;
+	if (alarm[idx].state < 3){
+		alarm[idx].state = 2;
+		snooze[idx].snoozeTime = ct;
+		snooze[idx].snoozeTime.tm_min += alarm[idx].snooze;
+	}
 }
 
 int daysInMonth(int m, int y) {
@@ -129,12 +132,13 @@ void setState(int idx){
 	struct _tm ct;
 	X12RtcGetClock(&ct);
 	
-	if (alarm[idx].state == 0){
+	//Set snooze time for snooze alarm
+	if (alarm[idx].state == 0  && alarm[idx].state < 3){
 		snooze[idx].snoozeTime = alarm[idx].time;
 		AddSnoozeMinutes(idx,1);
 	}
 	
-	if (compareTime(ct, alarm[idx].time) >= 1 && alarm[idx].time.tm_year != 0 && alarm[idx].state != 2){
+	if (compareTime(ct, alarm[idx].time) >= 1 && alarm[idx].time.tm_year != 0 && alarm[idx].state != 2 && alarm[idx].state < 3){
 		if(alarm[idx].state != 1) {
 			alarm[idx].state = 1;
 			printf("\n\nAlarm gaat nu af!\n\n");
@@ -145,15 +149,17 @@ void setState(int idx){
 				printf("ConnectToStream failed. Aborting.\n\n");
 			}
 		}
-	} else if (alarm[idx].state != 2){
+	} else if (alarm[idx].state != 2 && alarm[idx].state < 3 ){
 		alarm[idx].state = 0;
 	}
 	
-	if (compareTime(alarm[idx].time,snooze[idx].snoozeTime) >= 1){
+	//Check if alarm has to snooze
+	if (compareTime(alarm[idx].time,snooze[idx].snoozeTime) >= 1 && alarm[idx].state < 3){
 		alarm[idx].state = 2;
 	}
 	
-	if (alarm[idx].state == 1 && compareTime(ct, snooze[idx].snoozeTime) >= 1){
+	//Check if alarm has to snooze
+	if (alarm[idx].state == 1 && compareTime(ct, snooze[idx].snoozeTime) >= 1 && alarm[idx].state < 3){
 		alarm[idx].state = 2;
 		snooze[idx].snoozeTime = ct;
 		AddSnoozeMinutes(idx, alarm[idx].snooze);
@@ -161,7 +167,7 @@ void setState(int idx){
 		killPlayerThread();
 	}
 	
-	if (alarm[idx].state == 2 && compareTime(ct, snooze[idx].snoozeTime) >= 1){
+	if (alarm[idx].state == 2 && compareTime(ct, snooze[idx].snoozeTime) >= 1 && alarm[idx].state < 3){
 		if(alarm[idx].state != 1){
 			printf("Alarm komt nu uit snooze!!");
 			bool success = connectToStream(alarm[idx].ip, alarm[idx].port, alarm[idx].url);
@@ -174,6 +180,7 @@ void setState(int idx){
 		}
 		AddSnoozeMinutes(idx, 1);
 	}
+	
 }
 
 
@@ -191,6 +198,39 @@ void setAlarm(struct _tm time, char* name, char* ip, u_short port, char* url, in
 	alarm[idx].state = 0;
 }
 
+void eenmaligAlarm(struct _tm time, char* name, char* ip, u_short port, char* url, int snooze, int id, int idx){
+	alarm[idx].time = time;
+	
+	strncpy(alarm[idx].name, name, sizeof(alarm[idx].name));
+	strncpy(alarm[idx].ip, ip, sizeof(alarm[idx].ip));
+	alarm[idx].port = port;
+	strncpy(alarm[idx].url, url, sizeof(alarm[idx].url));
+
+	alarm[idx].id = id;
+	alarm[idx].state = 3;
+}
+
+
+//Checks if there is an alarm that has to go off
+void eenmaligAlarmCheck(int idx){
+	struct _tm ct;
+	X12RtcGetClock(&ct);
+	
+	//Check if alarm goes off, compares the RTC time to the alarm time
+	if (compareTime(ct, alarm[idx].time) >= 1 && alarm[idx].time.tm_year != 0 && alarm[idx].state == 3){
+		alarm[idx].state = 4;
+		snooze[idx].snoozeTime = ct;
+		AddSnoozeMinutes(idx,2);
+	}
+	
+	//Delete alarm after 30 minutes, compares the RTC time to the snooze
+	if (compareTime(ct, snooze[idx].snoozeTime) >= 1 && alarm[idx].state == 4){
+		deleteAlarm(idx);
+		LcdBackLight(LCD_BACKLIGHT_OFF);
+		killPlayerThread();
+	}
+}
+
 
 void deleteAlarm(int idx){
 	struct _tm tm;
@@ -203,10 +243,13 @@ void deleteAlarm(int idx){
 }
 
 void handleAlarm(int idx){
-	alarm[idx].state = 0;
-	alarm[idx].time.tm_mday += 1;
+	if (alarm[idx].state < 3){
+		alarm[idx].state = 0;
+		alarm[idx].time.tm_mday += 1;
+	} else if (alarm[idx].state == 4){
+		deleteAlarm(idx);
+	}
 	killPlayerThread();
-	printf("state is %d \n",alarm[idx].state);
 }
 
 int compareTime(tm t1,tm t2){

@@ -58,6 +58,7 @@ extern void ClearLcd(void);
 extern void LcdArrayLineOne(char*, int);
 extern void LcdArrayLineTwo(char*, int);
 extern void setXCursorPos(int,int);
+extern char getLoop(char*,int);
 #endif /* _Display_H */
 /*  ����  End Of File  �������� �������������������������������������������� */
 

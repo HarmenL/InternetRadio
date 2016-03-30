@@ -14,6 +14,7 @@
 #include "alarm.h"
 #include "network.h"
 #include "twitch.h"
+#include "Twitter.h"
 
 struct _tm lastDisplayTime;
 viewDisplays currentViewDisplay;
@@ -44,6 +45,8 @@ void refreshScreen(){
         displayAlarm(getRunningAlarmID());
     }else if(currentViewDisplay == DISPLAY_Twitch){
         displayTwitch(data.name, data.title, data.game);
+    }else if(currentViewDisplay == DISPLAY_Twitter){
+        displayTwitter(TweetFeed.tweet);
     }
 }
 
@@ -88,38 +91,19 @@ void displayAlarm(char idx)
         currentViewDisplay = DISPLAY_DateTime;
     }
 	int i;
-	int j;
-	int startidx;
+
     char str[16];
     struct _alarm *am = getAlarm(idx);
 
     sprintf(str, "    %02d:%02d:%02d    ", am->time.tm_hour, am->time.tm_min, am->time.tm_sec);
     (*write_display_ptr[0])(str, 16);
 
-	j = 0;
     char str2[16];
 	for (i = 0; i < 16;i++){
-		if (am->name[i] != 0){
-			j = j + 1;
-		}
+		str2[i] = am->name[i];
 	}
+		
 
-	if (j != 16){
-		startidx = (8-(j/2));
-	}
-	j = 0;
-	for(i = 0; i < 16; i++){
-		if (i >= startidx){
-			if (am->name[j] != 0){
-				str2[i] = am->name[j];
-			} else {
-				str2[i] = ' ';
-			}
-			j++;
-		} else {
-			str2[i] = ' ';
-		}
-	}
     (*write_display_ptr[1])(str2, 16);
 }
 
@@ -142,14 +126,37 @@ void displayVolume()
     LcdArrayLineTwo(characters,16);
 }
 
-void displayTwitter(int lineNumber,char text[])
+void displayTwitter(char* text)
 {
+    //int lineNumber,char text[]
     ClearLcd();
+    LcdBackLight(LCD_BACKLIGHT_ON);
+    LcdArrayLineOne("     Twitter    ", 16);
+    int j = 0;
     int i;
-
-    if (lineNumber > -1 && lineNumber < 2){
-        (*write_display_ptr[lineNumber])(text,strlen(text));
+    char text1[16];
+    //char text2[140] = text;
+   // int shift = 0;
+    //char *text = "Twitter";
+    for(i = 0; i<140;i++){
+        if (text[i] != 0){
+            j++;
+        }
     }
+
+        for(i = 0; i < 16; i++){
+            if (text[Scroller+i]!= 0) {
+                text1[i] = text[Scroller + i];
+            } else {
+                text1[i] = ' ';
+            }
+        }
+        LcdArrayLineTwo(text1,16);
+        Scroller++;
+        if (Scroller > j){
+            Scroller = 0;
+        }
+        NutDelay(500);
 }
 
 void displayTwitch(char name[], char title[], char game[]) {

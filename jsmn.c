@@ -3,7 +3,6 @@
 #include <string.h>
 #include <assert.h>
 
-
 /**
  * Allocates a fresh unused token from the token pull.
  */
@@ -343,4 +342,5 @@ void getStringToken(const char *json, jsmntok_t *tok, char *res, char maxlength)
 		printf("ERROR: String too large! output string length: %d - Input string length: %d - String: %.*s \n", maxlength - 1, (tok->end - tok->start), tok->end - tok->start, json + tok->start);
 		res[0] = '\0';
 	};
+
 }
