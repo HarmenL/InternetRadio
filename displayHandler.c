@@ -126,7 +126,6 @@ void displayAlarm(char idx)
 void displayVolume()
 {
     u_char pos = getVolume();
-    ClearLcd();
     int i;
     LcdArrayLineOne("     Volume     ", 16);
 
@@ -134,9 +133,13 @@ void displayVolume()
 
     for(i = 0; i < 17; i++)
     {
-        characters[i] = 0xFF;
+        if(i < pos) {
+            characters[i] = 0xFF;
+        }else {
+            characters[i] = ' ';
+        }
     }
-    LcdArrayLineTwo(characters,pos);
+    LcdArrayLineTwo(characters,16);
 }
 
 void displayTwitter(int lineNumber,char text[])
