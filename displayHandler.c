@@ -59,6 +59,10 @@ long timerStruct(struct _tm s){
     long stime = (s.tm_hour * 3600) + (s.tm_min * 60) + s.tm_sec;
     long ctime = (ct.tm_hour * 3600) + (ct.tm_min * 60) + ct.tm_sec;
 
+    if(ctime < 0){
+        return 0;
+    }
+    
     return ctime - stime;
 }
 
