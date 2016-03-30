@@ -326,6 +326,8 @@ int main(void)
                 }else if(KbGetKey() == KEY_UP){
                     setCurrentDisplay(DISPLAY_Volume, 5);
                     volumeUp();
+                }else{
+                    setCurrentDisplay(DISPLAY_DateTime, 5);
                 }
             }
         }

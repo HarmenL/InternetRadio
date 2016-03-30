@@ -66,7 +66,7 @@ void httpGet(char address[], void (*parser)(char*)){
     int t = 0;
 
     if(content == 0){
-        printf("Can't calloc memory\n");
+        printf("Can't malloc memory\n");
     }else if (NutTcpConnect(sock, inet_addr("62.195.226.247"), 80)) {
         printf("Can't connect to server\n");
     }else if (NutTcpSetSockOpt(sock, SO_RCVTIMEO, &rx_to, sizeof(rx_to))){
@@ -99,8 +99,8 @@ void httpGet(char address[], void (*parser)(char*)){
         content[t] = '\0';
         printf("\nContent size: %d, Content: %s \n", t, content);
         parser(content);
-        free(content);
     }
+    free(content);
     NutTcpCloseSocket(sock);
     isReceiving = false;
 }
