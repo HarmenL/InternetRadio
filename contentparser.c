@@ -5,8 +5,10 @@
 #include "ntp.h"
 #include "network.h"
 #include "jsmn.h"
+#include "mp3stream.h"
 #include "rtc.h"
 #include "alarm.h"
+#include "vs10xx.h"
 
 void parseAlarmJson(char* content){
     int r;
@@ -14,9 +16,12 @@ void parseAlarmJson(char* content){
 	
 	int startidx = 0;
 	int charAmount = 0;
-	
+
+    int usedAlarms[maxAlarms()];
+    int j;
+    
     jsmn_parser p;
-    jsmntok_t token[150]; /* We expect no more than 128 tokens */
+    jsmntok_t token[160]; /* We expect no more than 128 tokens */
 
     jsmn_init(&p);
     r = jsmn_parse(&p, content, strlen(content), token, sizeof(token)/sizeof(token[0]));
@@ -27,27 +32,26 @@ void parseAlarmJson(char* content){
         printf("Aantal tokens found: %d \n", r);
     }
 
-    int usedAlarms[maxAlarms()];
-    int j;
+
     struct _tm time = GetRTCTime();
     for(j = 0; j < maxAlarms(); j++){
         usedAlarms[j] = 0;
     }
-    for(i; i < r; i++)
+    for(i = 2; i < r; i++)
     {
-        int id;
-        u_short port;
+        int id = 0;
+        u_short port = 0;
         char url[24];
         char ip[24];
         char name[16];
 		char str2[16];
         char st = -1;
-		char oo = -1;
+        char oo = -1;
         memset(url, 0, 24);
         memset(ip, 0, 24);
         memset(name, 0, 17);
 
-        for (i; (st == -1 && i < r); i+=2) {                                //Zodra ST is gevonden, betekent dit de laatste token van een alarm.
+        for (i = i; (st == -1 && i < r); i+=2) {                                //Zodra ST is gevonden, betekent dit de laatste token van een alarm.
             if (jsoneq(content, &token[i], "YYYY") == 0) {
                 time.tm_year= getIntegerToken(content, &token[i + 1]) - 1900;
             }else if (jsoneq(content, &token[i], "MM") == 0) {
@@ -72,7 +76,7 @@ void parseAlarmJson(char* content){
                 getStringToken(content, &token[i + 1], name);
             }else if (jsoneq(content, &token[i], "oo") == 0) {
                 oo = getIntegerToken(content, &token[i + 1]);
-            } if (jsoneq(content, &token[i], "st") == 0) {
+            }else if (jsoneq(content, &token[i], "st") == 0) {
                 st = getIntegerToken(content, &token[i + 1]);
                 i+=2;
             }
@@ -130,6 +134,50 @@ void parseAlarmJson(char* content){
         if(usedAlarms[j] == 0){
             deleteAlarm(j);
         };
+    }
+}
+
+void parseCommandQue(char* content){
+    int r;
+    int i;
+    jsmn_parser p;
+    jsmntok_t token[150]; /* We expect no more than 128 tokens */
+
+    jsmn_init(&p);
+    r = jsmn_parse(&p, content, strlen(content), token, sizeof(token)/sizeof(token[0]));
+    if (r <= 0) {
+        printf("Failed to parse JSON: %d \n", r);
+        return;
+    }else{
+        printf("Aantal tokens found: %d \n", r);
+    }
+
+    for(i = 0; i < r; i++)
+    {
+        if (jsoneq(content, &token[i], "command") == 0) {
+            if(jsoneq(content, &token[i + 1], "volume") == 0){
+                char vol = getIntegerToken(content, &token[i + 3]);
+                vol = 128 - ((vol * 128) / 100);
+                VsSetVolume(vol, vol);
+                i += 3;
+            }else if(jsoneq(content, &token[i + 1], "stopstream") == 0){
+                killPlayerThread();
+                i += 3;
+            }else if(jsoneq(content, &token[i + 1], "startstream") == 0){
+                u_short port = getIntegerToken(content, &token[i + 9]);
+                char url[24];
+                char ip[24];
+                getStringToken(content, &token[i + 7], url);
+                getStringToken(content, &token[i + 5], ip);
+                bool success = connectToStream(ip, port, url);
+                if (success == true){
+                    play();
+                }else {
+                    printf("ConnectToStream failed. Aborting.\n\n");
+                }
+                i += 9;
+            }
+        }
     }
 }
 

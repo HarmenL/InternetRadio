@@ -7,6 +7,7 @@
 #include <sys/confnet.h>
 #include <sys/socket.h>
 #include <netinet/tcp.h>
+#include <sys/types.h>
 
 #include <stdlib.h>
 #include <string.h>
@@ -17,6 +18,8 @@
 
 #include <stdio.h>
 #include <io.h>
+#include <sys/version.h>
+#include <dev/irqreg.h>
 #include <arpa/inet.h>
 #include <pro/dhcp.h>
 #include <pro/sntp.h>
@@ -47,7 +50,7 @@ void NetworkInit() {
 }
 
 char* getMacAdress(){
-    ether_ntoa(confnet.cdn_mac);
+    return ether_ntoa(confnet.cdn_mac);
 }
 
 void httpGet(char address[], void (*parser)(char*)){
@@ -58,7 +61,7 @@ void httpGet(char address[], void (*parser)(char*)){
     TCPSOCKET* sock = NutTcpCreateSocket();
 
     char buffer[2];
-    char* content = (char*) calloc(1 , 800);
+    char* content = (char*) malloc(900);
     char enters = 0;
     int t = 0;
 
@@ -67,7 +70,7 @@ void httpGet(char address[], void (*parser)(char*)){
     }else if (NutTcpConnect(sock, inet_addr("62.195.226.247"), 80)) {
         printf("Can't connect to server\n");
     }else if (NutTcpSetSockOpt(sock, SO_RCVTIMEO, &rx_to, sizeof(rx_to))){
-
+        printf("Can't set sock options\n");
     }else{
         FILE *stream;
         stream = _fdopen((int) sock, "r+b");
@@ -77,7 +80,6 @@ void httpGet(char address[], void (*parser)(char*)){
         fflush(stream);
 
         printf("Headers writed. Now reading.");
-        NutDelay(500);
         //Removing header:
         while(fgets(buffer, sizeof(buffer), stream) != NULL) {
             if(enters == 4) {
@@ -93,16 +95,14 @@ void httpGet(char address[], void (*parser)(char*)){
             }
         }
         fclose(stream);
+
+        content[t] = '\0';
+        printf("\nContent size: %d, Content: %s \n", t, content);
+        parser(content);
+        free(content);
     }
     NutTcpCloseSocket(sock);
-
-    content[t] = '\0';
-    printf("\nContent size: %d, Content: %s \n", t, content);
-    parser(content);
-    free(content);
-
     isReceiving = false;
-    return content;
 }
 
 bool NetworkIsReceiving(void){

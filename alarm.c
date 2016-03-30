@@ -4,12 +4,13 @@
 #include <string.h>
 #include <time.h>
 #include <assert.h>
+#include <math.h>
 
 #include "log.h"
 #include "rtc.h"
 #include "alarm.h"
 #include "display.h"
-#include "httpstream.h"
+#include "mp3stream.h"
 
 #define n 5
 
@@ -27,10 +28,11 @@ int checkAlarms(){
 	int i = 0;
 	int check = 0;
 	for (i = 0; i < n; i++){
-		setState(i);
-		eenmaligAlarmCheck(i);
 		if (alarm[i].time.tm_year == 0){
 			alarm[i].state = 0;
+		}else{
+			setState(i);
+			eenmaligAlarmCheck(i);
 		}
 		if (alarm[i].state == 1 || alarm[i].state == 4){
 			check = 1;
@@ -53,8 +55,18 @@ int alarmExist(int id){
 	return -1;
 }
 
-struct _alarm getAlarm(int idx){
-	return alarm[idx];
+struct _alarm* getAlarm(int idx){
+	return &alarm[idx];
+}
+
+char getRunningAlarmID(){
+	char idx;
+	for (idx = 0; idx < 5; idx++) {
+		if (getState(idx) == 1 || getState(idx) == 4) {
+			return idx;
+		}
+	}
+	return -1;
 }
 
 int getState(int idx){
@@ -73,9 +85,6 @@ void setSnooze(int idx){
 		alarm[idx].state = 2;
 		snooze[idx].snoozeTime = ct;
 		snooze[idx].snoozeTime.tm_min += alarm[idx].snooze;
-		stopStream();
-		LcdBackLight(LCD_BACKLIGHT_OFF);
-		stopStream();
 	}
 }
 
@@ -129,10 +138,18 @@ void setState(int idx){
 		AddSnoozeMinutes(idx,1);
 	}
 	
-	//Check if alarm has to go off for snooze alarm
 	if (compareTime(ct, alarm[idx].time) >= 1 && alarm[idx].time.tm_year != 0 && alarm[idx].state != 2 && alarm[idx].state < 3){
-		alarm[idx].state = 1;
-	} else if (alarm[idx].state != 2 && alarm[idx].state < 3){
+		if(alarm[idx].state != 1) {
+			alarm[idx].state = 1;
+			printf("\n\nAlarm gaat nu af!\n\n");
+			bool success = connectToStream(alarm[idx].ip, alarm[idx].port, alarm[idx].url);
+			if (success == true){
+				play();
+			}else {
+				printf("ConnectToStream failed. Aborting.\n\n");
+			}
+		}
+	} else if (alarm[idx].state != 2 && alarm[idx].state < 3 ){
 		alarm[idx].state = 0;
 	}
 	
@@ -147,23 +164,26 @@ void setState(int idx){
 		snooze[idx].snoozeTime = ct;
 		AddSnoozeMinutes(idx, alarm[idx].snooze);
 		LcdBackLight(LCD_BACKLIGHT_OFF);
-		stopStream();
+		killPlayerThread();
 	}
 	
-	//Check if snooze is done, and alarm goes off again
 	if (alarm[idx].state == 2 && compareTime(ct, snooze[idx].snoozeTime) >= 1 && alarm[idx].state < 3){
-		alarm[idx].state = 1;
+		if(alarm[idx].state != 1){
+			printf("Alarm komt nu uit snooze!!");
+			bool success = connectToStream(alarm[idx].ip, alarm[idx].port, alarm[idx].url);
+			if (success == true){
+				play();
+			}else {
+				printf("ConnectToStream failed. Aborting.\n\n");
+			}
+			alarm[idx].state = 1;
+		}
 		AddSnoozeMinutes(idx, 1);
 	}
 	
 }
 
-/*void getAlarm(struct _alarm *am){
-	int i = 0;
-	for (i = 0; i < n; i++){
-		am[i] = alarm[i]; 
-	}
-}*/
+
 
 void setAlarm(struct _tm time, char* name, char* ip, u_short port, char* url, int snooze, int id, int idx){
 	alarm[idx].time = time;
@@ -207,7 +227,7 @@ void eenmaligAlarmCheck(int idx){
 	if (compareTime(ct, snooze[idx].snoozeTime) >= 1 && alarm[idx].state == 4){
 		deleteAlarm(idx);
 		LcdBackLight(LCD_BACKLIGHT_OFF);
-		stopStream();
+		killPlayerThread();
 	}
 }
 
@@ -229,6 +249,7 @@ void handleAlarm(int idx){
 	} else if (alarm[idx].state == 4){
 		deleteAlarm(idx);
 	}
+	killPlayerThread();
 }
 
 int compareTime(tm t1,tm t2){

@@ -5,9 +5,20 @@
 #ifndef MUTLI_OS_BUILD_DISPLAYHANDLER_H
 #define MUTLI_OS_BUILD_DISPLAYHANDLER_H
 
-void displayTime(int);
-void displayDate(int);
-void displayAlarm(int line_number, int line_numberTwo, int idx);
-void displayVolume(int pos);
+#include <time.h>
+#include "alarm.h"
+#define MONTH_OFFSET 1
+#define YEAR_OFFSET 1900
+
+typedef enum {DISPLAY_DateTime, DISPLAY_Alarm, DISPLAY_Volume, DISPLAY_Twitch, DISPLAY_Twitter} viewDisplays;
+
+long timerStruct(struct _tm s);
+void setCurrentDisplay(viewDisplays d, u_long dt);
+viewDisplays getCurrentDisplay(void);
+void refreshScreen(void);
+
+void displayDateTime(void);
+void displayAlarm(char idx);
+void displayVolume();
 
 #endif //MUTLI_OS_BUILD_DISPLAYHANDLER_H

@@ -21,6 +21,8 @@
 #include "log.h"
 #include "ntp.h"
 #include "contentparser.h"
+#include "alarm.h"
+#include "network.h"
 
 int TIME_ZONE = 1;
 #define LOG_MODULE  LOG_NTP_MODULE
@@ -68,32 +70,12 @@ void NtpCheckValidTime(void){
     tm current_tm;
     X12RtcGetClock(&current_tm);
 
-    validTime = NtpCompareTime(current_tm, stored_tm);
+    validTime = compareTime(current_tm, stored_tm);
     if (validTime){
         puts("NtpCheckValidTime(): Time was valid \n");
     }else {
         puts("NtpCheckValidTime(): Invalid time! \n");
     }
-}
-
-//Tests if t1 is after t2.
-bool NtpCompareTime(tm t1, tm t2){
-
-    if (t1.tm_year > t2.tm_year)
-        return true;
-    if (t1.tm_mon > t2.tm_mon)
-        return true;
-    if (t1.tm_mday > t2.tm_mday)
-        return true;
-    if (t1.tm_hour > t2.tm_hour)
-        return true;
-    if (t1.tm_min > t2.tm_min)
-        return true;
-    if (t1.tm_sec > t2.tm_sec)
-        return true;
-
-    //else
-    return false;
 }
 
 bool NtpTimeIsValid(void){
@@ -105,7 +87,7 @@ void NtpSync(void){
     isSyncing = true;
     httpGet("/gettimezone.php", parsetimezone);
     _daylight = 0;
-    printf(TIME_ZONE);
+    printf("Timezone is: %d", TIME_ZONE);
     NutDelay(100);
     //puts("Tijd ophalen van pool.ntp.org (213.154.229.24)");
     timeserver = inet_addr("213.154.229.24");
