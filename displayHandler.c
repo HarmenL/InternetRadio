@@ -14,6 +14,7 @@
 #include "alarm.h"
 #include "network.h"
 #include "twitch.h"
+#include "Twitter.h"
 
 struct _tm lastDisplayTime;
 viewDisplays currentViewDisplay;
@@ -44,6 +45,8 @@ void refreshScreen(){
         displayAlarm(getRunningAlarmID());
     }else if(currentViewDisplay == DISPLAY_Twitch){
         displayTwitch(data.name, data.title, data.game);
+    }else if(currentViewDisplay == DISPLAY_Twitter){
+        displayTwitter(TweetFeed.tweet);
     }
 }
 
@@ -142,14 +145,37 @@ void displayVolume()
     LcdArrayLineTwo(characters,16);
 }
 
-void displayTwitter(int lineNumber,char text[])
+void displayTwitter(char* text)
 {
+    //int lineNumber,char text[]
     ClearLcd();
+    LcdBackLight(LCD_BACKLIGHT_ON);
+    LcdArrayLineOne("     Twitter    ", 16);
+    int j = 0;
     int i;
-
-    if (lineNumber > -1 && lineNumber < 2){
-        (*write_display_ptr[lineNumber])(text,strlen(text));
+    char text1[16];
+    //char text2[140] = text;
+   // int shift = 0;
+    //char *text = "Twitter";
+    for(i = 0; i<140;i++){
+        if (text[i] != 0){
+            j++;
+        }
     }
+
+        for(i = 0; i < 16; i++){
+            if (text[Scroller+i]!= 0) {
+                text1[i] = text[Scroller + i];
+            } else {
+                text1[i] = ' ';
+            }
+        }
+        LcdArrayLineTwo(text1,16);
+        Scroller++;
+        if (Scroller > j){
+            Scroller = 0;
+        }
+        NutDelay(500);
 }
 
 void displayTwitch(char name[], char title[], char game[])

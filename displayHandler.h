@@ -6,7 +6,6 @@
 #define MUTLI_OS_BUILD_DISPLAYHANDLER_H
 #include "ntp.h"
 
-
 #include <time.h>
 #include "alarm.h"
 #define MONTH_OFFSET 1
@@ -22,8 +21,7 @@ void refreshScreen(void);
 void displayDateTime(void);
 void displayAlarm(char idx);
 void displayVolume();
-void displayTwitter(int lineNumber,char text[]);
+void displayTwitter(char text[]);
 void displayTwitch(char name[], char title[], char game[]);
-
 
 #endif //MUTLI_OS_BUILD_DISPLAYHANDLER_H

@@ -9,5 +9,4 @@ void parseCommandQue(char* content);
 void parsetimezone(char* content);
 void parseTwitch(char* content);
 void TwitterParser(char* content);
-
 #endif //CONTENTPARSER_H
