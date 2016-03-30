@@ -20,35 +20,33 @@
 /*--------------------------------------------------------------------------*/
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 #include <sys/thread.h>
 #include <sys/timer.h>
 #include <sys/version.h>
 #include <dev/irqreg.h>
 
-#include "displayHandler.h"
-#include "system.h"
-#include "portio.h"
+// Note: Please keep the includes in alphabetical order!    - Jordy
+#include "alarm.h"
+#include "contentparser.h"
 #include "display.h"
-#include "remcon.h"
+#include "displayHandler.h"
 #include "keyboard.h"
 #include "led.h"
 #include "log.h"
-#include "uart0driver.h"
-#include "mmc.h"
-#include "watchdog.h"
-#include "flash.h"
-#include "spidrv.h"
+#include "mp3stream.h"
 #include "network.h"
-#include "typedefs.h"
-
-
-#include <time.h>
-#include "rtc.h"
-#include "alarm.h"
 #include "ntp.h"
-#include "httpstream.h"
-#include "contentparser.h"
+#include "portio.h"
+#include "rtc.h"
+#include "spidrv.h"
+#include "system.h"
+#include "typedefs.h"
+#include "uart0driver.h"
+#include "watchdog.h"
+
+
 
 /*-------------------------------------------------------------------------*/
 /* local routines (prototyping)                                            */
@@ -86,10 +84,13 @@ static void SysMainBeatInterrupt(void *p)
 {
 
     /*
-     *  scan for valid keys AND check if a MMCard is inserted or removed
+     *  scan for valid keys
      */
     KbScan();
-    CardCheckCard();
+
+    if(KbGetKey() != KEY_NO_KEY){
+        LcdBackLight(LCD_BACKLIGHT_ON);
+    }
 }
 
 /*!
@@ -186,8 +187,6 @@ bool isAlarmSyncing = false;
 bool initialized = false;
 bool running = false;
 
-u_char VS_volume = 7; //[0-15];
-
 /*-------------------------------------------------------------------------*/
 /* local variable definitions                                              */
 /*-------------------------------------------------------------------------*/
@@ -208,7 +207,7 @@ THREAD(StartupInit, arg)
 
 THREAD(AlarmSync, arg)
 {
-    NutThreadSetPriority(200);
+    NutThreadSetPriority(50);
 
     while(initialized == false){
         NutSleep(1000);
@@ -229,6 +228,9 @@ THREAD(AlarmSync, arg)
             sprintf(url2, "/getTwitch.php?radiomac=%s", getMacAdress());
             httpGet(url2, parseTwitch);
             isAlarmSyncing = false;
+            //Command que (Telegram) sync
+            sprintf(url, "%s%s", "/getCommands.php?radiomac=", getMacAdress());
+            httpGet(url, parseCommandQue);
         }
         if(dayCounter > 28800 && (hasNetworkConnection() == true))
         {
@@ -271,8 +273,6 @@ int checkOffPressed(){
 
 int main(void)
 {
-	initialized = 0;
-    int VOL2 = 127;
     struct _tm timeCheck;
 	struct _tm start;
 	int idx = 0;
@@ -293,21 +293,16 @@ int main(void)
     Uart0DriverStart();
 	LogInit();
 
-    CardInit();
-
     X12Init();
 
     VsPlayerInit();
 
- 
-    NtpInit();
+     NtpInit();
 
     NutThreadCreate("BackgroundThread", StartupInit, NULL, 1024);
     NutThreadCreate("BackgroundThread", AlarmSync, NULL, 2500);
     //NutThreadCreate("BackgroundThread", NTPSync, NULL, 700);
     /** Quick fix for turning off the display after 10 seconds boot */
-
-    RcInit();
 
 	KbInit();
 
@@ -320,9 +315,6 @@ int main(void)
 
 	/* Enable global interrupts */
 	sei();
-
-
-
 	
 	LcdBackLight(LCD_BACKLIGHT_OFF);
 	X12RtcGetClock(&timeCheck);
@@ -354,7 +346,7 @@ int main(void)
 
 		//Check if background LED is on, and compare to timer
 		if (running == true){
-			if (timerStruct(start) >= 10 || running > 1){
+			if (timerStruct(start) >= 10){
 				running = false;
 				LcdBackLight(LCD_BACKLIGHT_OFF);
 			}
@@ -365,24 +357,16 @@ int main(void)
             NutSleep(150);
             X12RtcGetClock(&timeCheck);
 
-            if (VS_volume > 0){
-                --VS_volume;
-                VS_volume = VS_volume % 17;
-                VsSetVolume((127 - (VS_volume * 8)) % 128);
-            }
-            displayVolume(VS_volume);
+            u_char newVolume = volumeDown();
+            displayVolume((int)newVolume);
         }
         else if(KbGetKey() == KEY_UP)
         {
             NutSleep(150);
             X12RtcGetClock(&timeCheck);
 
-            if (VS_volume < 16){
-                ++VS_volume;
-                VS_volume = VS_volume % 17;
-                VsSetVolume((127 - (VS_volume * 8)) % 128);
-            }
-            displayVolume(VS_volume);
+            u_char newVolume = volumeUp();
+            displayVolume((int)newVolume);
         }
         else if(timerStruct(timeCheck) >= 5 && checkAlarms() == 1)
         {
@@ -394,13 +378,10 @@ int main(void)
 						handleAlarm(idx);
 						//NutDelay(50);
 						LcdBackLight(LCD_BACKLIGHT_OFF);
-                        stopStream();
-					} else if (KbGetKey() == KEY_01 || KbGetKey() == KEY_02 || KbGetKey() == KEY_03 || KbGetKey() == KEY_04 || KbGetKey() == KEY_05 || KbGetKey() == KEY_ALT){
+                    } else if (KbGetKey() == KEY_01 || KbGetKey() == KEY_02 || KbGetKey() == KEY_03 || KbGetKey() == KEY_04 || KbGetKey() == KEY_05 || KbGetKey() == KEY_ALT){
 						setSnooze(idx);
 						LcdBackLight(LCD_BACKLIGHT_OFF);
-                        stopStream();
-					}else if(KbGetKey() == KEY_LEFT)
-                    {
+                        killPlayerThread();
                     }
 				}
 			}
