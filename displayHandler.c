@@ -158,7 +158,6 @@ void displayTwitter(char* text)
         if (Scroller > j){
             Scroller = 0;
         }
-        NutDelay(500);
 }
 
 void displayTwitch(char name[], char title[], char game[]) {
