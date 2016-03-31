@@ -236,6 +236,7 @@ THREAD(AlarmSync, arg)
             char url[49];
             sprintf(url, "/getAlarmen.php?radiomac=%s&tz=%d", getMacAdress(), getTimeZone());
             httpGet(url, parseAlarmJson);
+            isAlarmSyncing = false;
 
             char url2[43];
             sprintf(url2, "/getTwitch.php?radiomac=%s", getMacAdress());
@@ -244,7 +245,6 @@ THREAD(AlarmSync, arg)
             sprintf(url3,"/getTwitter.php?radiomac=%s", getMacAdress());
             httpGet(url3,TwitterParser);
 
-            isAlarmSyncing = false;
             //Command que (Telegram) sync
             sprintf(url, "%s%s", "/getCommands.php?radiomac=", getMacAdress());
             httpGet(url, parseCommandQue);
