@@ -101,7 +101,6 @@ void playChanel(void){
       connectToStream("62.195.226.247",80,"/test7.mp3");
 	  play();
       break;
-	4 10 11
    case 2  :
       connectToStream("62.195.226.247",80,"/test5.mp3");
 	  play();

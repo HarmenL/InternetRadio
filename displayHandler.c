@@ -32,7 +32,7 @@ viewDisplays getCurrentDisplay(void){
 }
 
 void refreshScreen(){
-    if(timerStruct(lastDisplayTime) > displayTime){
+    if(timerStruct(lastDisplayTime) > displayTime && currentViewDisplay != DISPLAY_Alarm){
         currentViewDisplay = DISPLAY_DateTime;
         LcdBackLight(LCD_BACKLIGHT_OFF);
     }
@@ -59,9 +59,9 @@ long timerStruct(struct _tm s){
     long stime = (s.tm_hour * 3600) + (s.tm_min * 60) + s.tm_sec;
     long ctime = (ct.tm_hour * 3600) + (ct.tm_min * 60) + ct.tm_sec;
 
-    if(ctime < 0){
+ /*   if(ctime < 0){
         return 0;
-    }
+    }*/
     
     return ctime - stime;
 }
@@ -134,16 +134,12 @@ void displayVolume()
 
 void displayTwitter(char* text)
 {
-    //int lineNumber,char text[]
     ClearLcd();
     LcdBackLight(LCD_BACKLIGHT_ON);
     LcdArrayLineOne("     Twitter    ", 16);
     int j = 0;
     int i;
     char text1[16];
-    //char text2[140] = text;
-   // int shift = 0;
-    //char *text = "Twitter";
     for(i = 0; i<140;i++){
         if (text[i] != 0){
             j++;
